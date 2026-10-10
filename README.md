@@ -4,6 +4,7 @@
 
 **Status:** Phase 0 architecture, plus a first real (unverified) corpus slice and three working demos.
 **Date of this corpus:** September 2026.
+**Repository:** [github.com/thajudeenUrbane/al-marsad](https://github.com/thajudeenUrbane/al-marsad) (private)
 
 ---
 
