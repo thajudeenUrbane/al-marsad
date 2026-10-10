@@ -1,0 +1,720 @@
+<title>One Event, All the Way Down</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400&display=swap">
+<style>
+/* Single visual world: the instrument is dark, in both themes.
+   Painted explicitly so it holds on either host ground. */
+:root{
+  --bg:#0A0E11; --panel:#111820; --edge:#1E2A33; --edge-soft:#172129;
+  --ink:#C9D4D3; --ink-mid:#8D9C9E; --ink-dim:#5E6E72;
+  --teal:#4FB3B6; --gold:#D9B26A; --rubric:#C9674A;
+  --sahabi:#F2E4C6; --tabii:#A9BFC4; --tabii3:#7C919A; --later:#5A6B73;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:14px; line-height:1.55; overflow-x:hidden;
+}
+.ar{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+/* ── header ─────────────────────────────────────────────── */
+header{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:baseline;
+  padding:.9rem 1.25rem;border-bottom:1px solid var(--edge);
+}
+header h1{
+  font-family:"Newsreader",Georgia,serif;font-weight:400;
+  font-size:1.3rem;margin:0;letter-spacing:-.01em;
+}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-left:auto}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.05em;
+  text-transform:uppercase;padding:.22rem .5rem;border:1px solid var(--edge);
+  color:var(--ink-dim);white-space:nowrap;
+}
+.chip.lens{color:var(--gold);border-color:#3A3320}
+.chip.warn{color:var(--rubric);border-color:#3A241D}
+
+/* ── layout ─────────────────────────────────────────────── */
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 23rem;min-height:calc(100vh - 52px)}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
+
+.stage{position:relative;display:flex;flex-direction:column;border-right:1px solid var(--edge)}
+@media (max-width:900px){.stage{border-right:0;border-bottom:1px solid var(--edge)}}
+svg#scene{display:block;width:100%;height:auto;flex:1;min-height:420px;touch-action:manipulation}
+
+/* ── morph control — three named stops, one continuous blend ── */
+.morph{
+  display:flex;flex-direction:column;gap:.4rem;
+  padding:.7rem 1.25rem;border-top:1px solid var(--edge);background:var(--panel);
+}
+.morph-labels{display:flex;justify-content:space-between}
+.morph label{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-dim);white-space:nowrap;
+}
+.morph label.on{color:var(--teal)}
+.morph input[type=range]{width:100%;accent-color:var(--teal)}
+
+/* ── route strip ────────────────────────────────────────── */
+.routes{padding:.8rem 1.25rem 1rem;border-top:1px solid var(--edge)}
+.routes h3,.panel h3{
+  font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-dim);margin:0 0 .55rem;font-weight:500;
+}
+.seg{
+  display:grid;grid-template-columns:1.4rem minmax(0,1fr) auto;gap:.7rem;
+  align-items:center;padding:.45rem 0;border-top:1px solid var(--edge-soft);
+  width:100%;text-align:left;
+}
+.seg:hover,.seg:focus-visible{background:#141C22}
+.seg .n{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--ink-dim)}
+.seg .track{height:3px;position:relative}
+.seg .bar{position:absolute;inset:0;height:3px}
+.seg .lab{font-family:"IBM Plex Mono",monospace;font-size:.64rem;text-transform:uppercase;letter-spacing:.05em}
+.c-attested .bar{background:var(--teal)}
+.c-attested .lab{color:var(--teal)}
+.c-conjectural .bar{background:repeating-linear-gradient(90deg,var(--gold) 0 5px,transparent 5px 11px)}
+.c-conjectural .lab{color:var(--gold)}
+.c-unknown .bar{background:linear-gradient(90deg,var(--rubric) 0 3px,transparent 3px 100%);opacity:.55}
+.c-unknown .lab{color:var(--rubric)}
+
+/* ── panel ──────────────────────────────────────────────── */
+.panel{padding:1.1rem 1.25rem 3rem;overflow-y:auto;max-height:calc(100vh - 52px)}
+@media (max-width:900px){.panel{max-height:none}}
+.panel h2{
+  font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.32rem;
+  margin:0 0 .2rem;line-height:1.2;
+}
+.kicker{
+  font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;
+}
+.panel p{margin:0 0 .8rem;color:var(--ink-mid)}
+.panel p.intro{color:var(--ink)}
+
+dl.facts{margin:.9rem 0;border-top:1px solid var(--edge)}
+dl.facts div{padding:.5rem 0;border-bottom:1px solid var(--edge-soft)}
+dl.facts dt{
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-dim);margin-bottom:.1rem;
+}
+dl.facts dd{margin:0;color:var(--ink);font-size:.88rem}
+dl.facts dd.empty{color:var(--rubric);font-family:"IBM Plex Mono",monospace;font-size:.82rem}
+
+.act{
+  display:block;width:100%;text-align:left;margin-top:.7rem;
+  border:1px solid var(--teal);color:var(--teal);padding:.5rem .7rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.05em;text-transform:uppercase;
+}
+.act:hover{background:#12262A}
+.act.back{border-color:var(--edge);color:var(--ink-dim)}
+.act.back:hover{background:#141C22}
+
+.rungs{display:flex;flex-wrap:wrap;gap:.3rem;margin:.2rem 0 .9rem}
+.rung{
+  font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-dim);
+}
+.rung.now{color:var(--teal)}
+.rung.sep{color:var(--edge)}
+
+.chainlist{margin:.6rem 0 .2rem;border-top:1px solid var(--edge)}
+.chainlist .row{
+  display:grid;grid-template-columns:1rem minmax(0,1fr) auto;gap:.5rem;
+  padding:.5rem 0;border-bottom:1px solid var(--edge-soft);align-items:baseline;
+}
+.chainlist .i{font-family:"IBM Plex Mono",monospace;font-size:.62rem;color:var(--ink-dim)}
+.chainlist .who{font-size:.85rem}
+.chainlist .who small{display:block;color:var(--ink-dim);font-size:.68rem;font-family:"IBM Plex Mono",monospace}
+.chainlist .chk{font-family:"IBM Plex Mono",monospace;font-size:.64rem;color:var(--teal);white-space:nowrap}
+
+.verdict{
+  border:1px solid var(--rubric);padding:.75rem .85rem;margin:.9rem 0;
+  background:#1A1210;
+}
+.verdict .k{
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--rubric);
+}
+.verdict .v{font-family:"IBM Plex Mono",monospace;font-size:.95rem;color:var(--rubric);margin:.2rem 0 .4rem}
+.verdict p{margin:0;font-size:.82rem;color:var(--ink-mid)}
+
+.positions{margin:.7rem 0;padding:0;list-style:none}
+.positions li{
+  padding:.5rem 0 .5rem .9rem;border-top:1px solid var(--edge-soft);
+  position:relative;font-size:.85rem;color:var(--ink-mid);
+}
+.positions li::before{content:"·";position:absolute;left:.1rem;color:var(--gold)}
+
+.note{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;line-height:1.6;
+  color:var(--ink-dim);border-top:1px solid var(--edge);padding-top:.6rem;margin-top:1.1rem;
+}
+.note b{color:var(--gold);font-weight:500}
+
+.legend{display:flex;flex-wrap:wrap;gap:.55rem 1.1rem;margin:.5rem 0 0}
+.legend span{
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;color:var(--ink-dim);
+  display:flex;align-items:center;gap:.32rem;
+}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <h1>Ghār Thawr</h1>
+  <div class="chips">
+    <span class="chip lens">Lens · Sunni ḥadīth</span>
+    <span class="chip">1 event · 15 entities</span>
+    <span class="chip warn">unverified · illustrative</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stage">
+    <svg id="scene" viewBox="0 0 660 480" role="img"
+         aria-label="A network of one event and its participants, which can be moved continuously between a radial network layout, a layered stratification by generation, and a geographic layout."></svg>
+
+    <div class="morph">
+      <div class="morph-labels">
+        <label id="lab-net" class="on">Network</label>
+        <label id="lab-gen">Generations</label>
+        <label id="lab-geo">Geographic</label>
+      </div>
+      <input id="morph" type="range" min="0" max="100" value="0"
+             aria-label="Move between network space, stratification by generation, and geographic space">
+    </div>
+
+    <div class="routes">
+      <h3>Route — each segment at its own confidence</h3>
+      <div id="segs"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel"></div>
+</div>
+
+<script>
+const DATA = {"persons": [{"id": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP", "label": "Abū Bakr al-Ṣiddīq", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/4tVbN6yHjM3kQ9wErZ7uXs", "label": "Ibn Shihāb al-Zuhrī", "tabaqa": "tābi‘ī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "label": "The Prophet Muḥammad (peace and blessings be upon him)", "tabaqa": null, "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE", "label": "Yaḥyā b. Bukayr", "tabaqa": null, "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/6nBvCxZ4aSdF7gHjK9mQwE", "label": "al-Bukhārī", "tabaqa": null, "coverage": "stub", "role": "narrator and author"}, {"id": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA", "label": "al-Layth b. Saʿd", "tabaqa": "tābi‘ al-tābi‘īn", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z", "label": "ʿUqayl b. Khālid", "tabaqa": "tābi‘ al-tābi‘īn", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA", "label": "ʿUrwa b. al-Zubayr", "tabaqa": "tābi‘ī", "coverage": "outline", "role": "narrator"}, {"id": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH", "label": "ʿĀʾisha bint Abī Bakr", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}], "chain": [{"chain": "https://w3id.org/marsad/id/chain/8hJkQ3wErT6yUmN5bVcXzA", "chainLabel": "Chain for the Hijrah report", "collector": "https://w3id.org/marsad/id/person/6nBvCxZ4aSdF7gHjK9mQwE", "terminal": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH"}], "continuity": [{"chain": "https://w3id.org/marsad/id/chain/8hJkQ3wErT6yUmN5bVcXzA", "continuity": null}], "links": [{"order": "1", "from": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH", "fromLabel": "ʿĀʾisha bint Abī Bakr", "to": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA", "toLabel": "ʿUrwa b. al-Zubayr", "mode": "samā‘", "result": "plausible", "basis": "lifespan and place"}, {"order": "2", "from": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA", "fromLabel": "ʿUrwa b. al-Zubayr", "to": "https://w3id.org/marsad/id/person/4tVbN6yHjM3kQ9wErZ7uXs", "toLabel": "Ibn Shihāb al-Zuhrī", "mode": "samā‘", "result": "plausible", "basis": "lifespan and place"}, {"order": "3", "from": "https://w3id.org/marsad/id/person/4tVbN6yHjM3kQ9wErZ7uXs", "fromLabel": "Ibn Shihāb al-Zuhrī", "to": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z", "toLabel": "ʿUqayl b. Khālid", "mode": "samā‘", "result": "plausible", "basis": "lifespan and place"}, {"order": "4", "from": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z", "fromLabel": "ʿUqayl b. Khālid", "to": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA", "toLabel": "al-Layth b. Saʿd", "mode": "samā‘", "result": "plausible", "basis": "lifespan and place"}, {"order": "5", "from": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA", "fromLabel": "al-Layth b. Saʿd", "to": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE", "toLabel": "Yaḥyā b. Bukayr", "mode": "samā‘", "result": "plausible", "basis": "lifespan and place"}], "report": [{"id": "https://w3id.org/marsad/id/report/4mNbV7cXzA2sDfG9hJkQwR", "label": "Report of the Hijrah, via 'A'isha", "genre": "ḥadīth", "ascription": "mawqūf — ascribed to a Companion", "citation": "Ṣaḥīḥ al-Bukhārī, Kitāb Manāqib al-Anṣār, bāb hijrat al-nabī", "sourceNative": "٢٥٦", "sourceStart": "0869-12-09T00:00:00+00:00", "sourceEnd": "0870-11-27T00:00:00+00:00"}], "evaluation": [{"evaluatorLabel": "al-Bukhārī", "grade": "ṣaḥīḥ", "tradition": "Sunni ḥadīth criticism", "justification": "Inclusion in the Ṣaḥīḥ.", "citation": "Ṣaḥīḥ al-Bukhārī, Kitāb Manāqib al-Anṣār, bāb hijrat al-nabī"}], "event": [{"id": "https://w3id.org/marsad/id/event/7hQ2mXvR9nK4pT8wY3zBcd", "label": "Sheltering at Ghār Thawr", "placeLabel": "Ghār Thawr", "native": "ثلاث ليال", "precision": "day", "basis": "attested"}], "participants": [{"personLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "role": "principal"}, {"personLabel": "Abū Bakr al-Ṣiddīq", "role": "companion"}], "anchors": [{"relation": "http://www.w3.org/2006/time#after", "targetLabel": "Departure from Makkah"}, {"relation": "http://www.w3.org/2006/time#before", "targetLabel": "Arrival at Qubāʾ"}], "places": [{"id": "https://w3id.org/marsad/id/place/3zXcV5bNmA8sDfG2hJkLqW", "label": "Ghār Thawr", "type": "cave", "wkt": "POINT(39.8570 21.3580)", "confidence": "probable", "basis": "traditional"}, {"id": "https://w3id.org/marsad/id/place/9qWeR4tYuP7aSdF3gHjKzX", "label": "Makkah", "type": "settlement", "wkt": "POINT(39.8262 21.4225)", "confidence": "certain", "basis": "modern identification"}, {"id": "https://w3id.org/marsad/id/place/7cVbN3mAsD9fGhJ4kQwErT", "label": "Route waypoint (unidentified)", "type": "route node", "wkt": null, "confidence": "unlocated", "basis": "textual"}, {"id": "https://w3id.org/marsad/id/place/2aSdF6gHjK8mNbV5cXzQwE", "label": "Route waypoint (unidentified)", "type": "route node", "wkt": null, "confidence": "unlocated", "basis": "textual"}, {"id": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE", "label": "al-Madīna (formerly Yathrib)", "type": "settlement", "wkt": "POINT(39.6142 24.4686)", "confidence": "certain", "basis": "modern identification"}], "namePhases": [{"place": "https://w3id.org/marsad/id/place/3zXcV5bNmA8sDfG2hJkLqW", "name": "غار ثور"}, {"place": "https://w3id.org/marsad/id/place/9qWeR4tYuP7aSdF3gHjKzX", "name": "مكة"}, {"place": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE", "name": "يثرب"}, {"place": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE", "name": "المدينة"}, {"place": "https://w3id.org/marsad/id/place/7cVbN3mAsD9fGhJ4kQwErT", "name": "waypoint named in the sources"}, {"place": "https://w3id.org/marsad/id/place/2aSdF6gHjK8mNbV5cXzQwE", "name": "waypoint named in the sources"}], "segments": [{"order": "1", "fromLabel": "Makkah", "toLabel": "Ghār Thawr", "confidence": "attested", "mode": "on foot", "wkt": "LINESTRING(39.8262 21.4225, 39.8570 21.3580)"}, {"order": "2", "fromLabel": "Ghār Thawr", "toLabel": "Route waypoint (unidentified)", "confidence": "conjectural", "mode": "by camel", "wkt": null}, {"order": "3", "fromLabel": "Route waypoint (unidentified)", "toLabel": "Route waypoint (unidentified)", "confidence": "unknown", "mode": null, "wkt": null}], "disputes": [{"id": "https://w3id.org/marsad/id/dispute/7mNbV4cXzA9sDfG5hJkQwE", "label": "Absolute dating of the cave interval", "question": "What absolute date corresponds to the departure and the cave interval?", "significance": "chronological", "status": "open"}, {"id": "https://w3id.org/marsad/id/dispute/5rTyU2mNbV8cXzA3sDfGhJ", "label": "Who conveyed provisions to the cave", "question": "Who conveyed provisions and intelligence to the cave, and on whose instruction?", "significance": "factual", "status": "open"}, {"id": "https://w3id.org/marsad/id/dispute/2cXzA8sDfG3hJkQ6wErTyU", "label": "Waypoint sequence on the coastal route", "question": "Which waypoints, in which order, on the stretch south of Makkah?", "significance": "factual", "status": "open"}], "positions": [{"dispute": "https://w3id.org/marsad/id/dispute/7mNbV4cXzA9sDfG5hJkQwE", "claim": "Dating per reckoning A — see dispute record."}, {"dispute": "https://w3id.org/marsad/id/dispute/7mNbV4cXzA9sDfG5hJkQwE", "claim": "Dating per reckoning B — see dispute record."}, {"dispute": "https://w3id.org/marsad/id/dispute/5rTyU2mNbV8cXzA3sDfGhJ", "claim": "ʿAbd Allāh b. Abī Bakr conveyed intelligence from Makkah."}, {"dispute": "https://w3id.org/marsad/id/dispute/5rTyU2mNbV8cXzA3sDfGhJ", "claim": "Asmāʾ bint Abī Bakr conveyed provisions."}, {"dispute": "https://w3id.org/marsad/id/dispute/5rTyU2mNbV8cXzA3sDfGhJ", "claim": "ʿĀmir b. Fuhayra pastured flocks over the tracks and supplied milk."}, {"dispute": "https://w3id.org/marsad/id/dispute/2cXzA8sDfG3hJkQ6wErTyU", "claim": "Sequence per source group A."}, {"dispute": "https://w3id.org/marsad/id/dispute/2cXzA8sDfG3hJkQ6wErTyU", "claim": "Sequence per source group B."}], "assertion": [{"id": "https://w3id.org/marsad/id/assertion/6yUmN9bVcX4zAsD7fGhJkQ", "predicate": "sheltered at", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "objectLabel": "Ghār Thawr", "status": "proposed", "agentLabel": "Report extraction model, v2.0.1", "agentType": "http://www.w3.org/ns/prov#SoftwareAgent", "role": "extractor"}], "adjudicated": []};
+
+/* ───────────────────────────────────────────────────────────
+   Everything drawn below comes from DATA, which build.py
+   derives from the Turtle by SPARQL. Nothing is hand-entered.
+   ─────────────────────────────────────────────────────────── */
+
+const SVG = "http://www.w3.org/2000/svg";
+const scene = document.getElementById("scene");
+const panel = document.getElementById("panel");
+const W = 660, H = 480;
+
+const short = u => (u || "").split("/").pop();
+const byId  = {};
+
+/* ── ṭabaqa → luminance. The encoding IS the aesthetic:
+      brightness is transmission distance, nothing else. ── */
+const RING = {
+  "ṣaḥābī": 1, "tābi‘ī": 2, "tābi‘ al-tābi‘īn": 3
+};
+const RINGCOL = ["#FFF3D8", "var(--sahabi)", "var(--tabii)", "var(--tabii3)", "var(--later)"];
+const RINGCOL_RAW = ["#FFF3D8", "#F2E4C6", "#A9BFC4", "#7C919A", "#5A6B73"];
+
+/* The Prophet ﷺ is NEVER a node. He is the origin from which the
+   scene is lit. Identified here so he can be removed from the
+   node set and rendered as illumination instead. */
+const ORIGIN_ID = (DATA.persons.find(p => /Prophet/.test(p.label)) || {}).id;
+
+/* ── build the node set ─────────────────────────────────── */
+const nodes = [];
+
+DATA.persons.forEach(p => {
+  if (p.id === ORIGIN_ID) return;                 // origin, not a node
+  const ring = RING[p.tabaqa] || 4;
+  nodes.push({
+    id: p.id, kind: "person", label: p.label, ring,
+    coverage: p.coverage, tabaqa: p.tabaqa, role: p.role
+  });
+});
+
+DATA.places.forEach(p => {
+  nodes.push({
+    id: p.id, kind: "place", label: p.label, ring: 3,
+    confidence: p.confidence, basis: p.basis, type: p.type,
+    wkt: p.wkt, names: DATA.namePhases.filter(n => n.place === p.id).map(n => n.name)
+  });
+});
+
+DATA.event.forEach(e => {
+  nodes.push({ id: e.id, kind: "event", label: e.label, ring: 1,
+               native: e.native, precision: e.precision, basis: e.basis,
+               placeLabel: e.placeLabel });
+});
+
+DATA.report.forEach(r => {
+  nodes.push({ id: r.id, kind: "report", label: r.label, ring: 4,
+               genre: r.genre, ascription: r.ascription, citation: r.citation,
+               sourceNative: r.sourceNative, sourceStart: r.sourceStart });
+});
+
+nodes.forEach(n => byId[n.id] = n);
+
+/* Two waypoints carry the same label in the source, because neither has
+   been identified. Number them so the picture stays readable without
+   pretending we know something about either one. */
+const dupes = {};
+nodes.forEach(n => (dupes[n.label] = dupes[n.label] || []).push(n));
+Object.values(dupes).forEach(list => {
+  if (list.length > 1) list.forEach((n, i) => n.short = n.label.replace(/\s*\(.*\)$/, "") + " " + (i + 1));
+});
+nodes.forEach(n => {
+  n.short = n.short || n.label
+    .replace(/\s*\(peace and blessings.*\)$/, "")
+    .replace(/\s*\(formerly .*\)$/, "")
+    .replace(/^Report of the /, "Report: ");
+  if (n.short.length > 19) n.short = n.short.slice(0, 18) + "…";
+});
+
+/* ── edges ──────────────────────────────────────────────── */
+const edges = [];
+DATA.links.forEach(l => {
+  if (l.from === ORIGIN_ID || l.to === ORIGIN_ID) return;
+  edges.push({ a: l.from, b: l.to, kind: "chain", conf: "attested" });
+});
+const eventNode = nodes.find(n => n.kind === "event");
+const placeOfEvent = nodes.find(n => n.kind === "place" && n.label === (DATA.event[0] || {}).placeLabel);
+if (eventNode && placeOfEvent) edges.push({ a: eventNode.id, b: placeOfEvent.id, kind: "at", conf: "attested" });
+
+const abuBakr = nodes.find(n => /Abū Bakr/.test(n.label));
+if (eventNode && abuBakr) edges.push({ a: abuBakr.id, b: eventNode.id, kind: "part", conf: "attested" });
+
+DATA.segments.forEach(s => {
+  const a = nodes.find(n => n.kind === "place" && n.label === s.fromLabel);
+  const b = nodes.find(n => n.kind === "place" && n.label === s.toLabel && n.id !== (a || {}).id);
+  if (a && b) edges.push({ a: a.id, b: b.id, kind: "route", conf: s.confidence, order: +s.order });
+});
+
+/* ── layout 1: network space — radial by transmission depth ── */
+const CX = 300, CY = 232;
+const ringR = [0, 76, 132, 184, 248];
+const byRing = {};
+nodes.forEach(n => (byRing[n.ring] = byRing[n.ring] || []).push(n));
+Object.keys(byRing).forEach(r => {
+  const list = byRing[r], N = list.length;
+  list.forEach((n, i) => {
+    const a = (-Math.PI / 2) + (i + 0.5) * (2 * Math.PI / N) + (r % 2 ? 0.25 : 0);
+    n.nx = CX + ringR[r] * Math.cos(a);
+    n.ny = CY + ringR[r] * Math.sin(a) * 0.82;
+    /* Alternate labels above and below within a ring, so neighbours
+       on a crowded ring do not overwrite one another. */
+    n.labelAbove = (i % 2 === 1);
+  });
+});
+
+/* ── layout 2: generations — the ṭabaqāt strata ──────────
+   The tradition already stratifies its own population into generations
+   (n.ring, the same value used for the radial rings above). Stacking
+   that by depth instead of arranging it by angle gives the same data a
+   second reading.
+
+   CORRECTED, 12 Sept 2026 (see docs/11-self-critique.md #31): an
+   earlier version of this view drew the origin-adjacent layer as
+   SMALL and later layers as widening outward — a narrowing-funnel
+   shape. That is backwards. The Companions are estimated at well over
+   100,000 (Abu Zur'ah al-Razi, via al-Suyuti) and are very likely the
+   LARGEST ring in the whole network, not the smallest — and real
+   transmission was densely cross-linked within a generation (kinship,
+   shared battles, shared teachers), not a clean feed-forward tree.
+   This eight-person sample is far too small to show that shape either
+   way; the layout below is a legible STRATIFICATION by depth, not a
+   claim about relative population size, and the on-screen note below
+   says so explicitly. */
+const GEN_TOP = 46, GEN_GAP = 84, GEN_CX = 250;
+const GEN_LAYER_NAME = { 1: "ṣaḥāba", 2: "tābiʿūn", 3: "tābiʿ al-tābiʿīn", 4: "later" };
+const personNodes = nodes.filter(n => n.kind === "person");
+const notPeople = nodes.filter(n => n.kind !== "person");
+
+const byGenLayer = {};
+personNodes.forEach(n => (byGenLayer[n.ring] = byGenLayer[n.ring] || []).push(n));
+Object.keys(byGenLayer).forEach(r => {
+  const list = byGenLayer[r], N = list.length;
+  const width = 70 + (+r) * 90;              // spread wider per layer, purely so
+                                              // labels at eight-node scale don't
+                                              // collide — not a population claim
+  list.forEach((n, i) => {
+    n.lx = N === 1 ? GEN_CX : GEN_CX - width / 2 + (width * i) / (N - 1);
+    n.ly = GEN_TOP + (+r) * GEN_GAP;
+  });
+});
+
+/* Places, the event and the report are not people. Forcing them into
+   the transmission strata would misstate what the layers show, so
+   they sit apart in a column of their own, clearly labelled as such. */
+notPeople.forEach((n, i) => { n.lx = 594; n.ly = 56 + i * 50; });
+
+const GEN_ORIGIN = { x: GEN_CX, y: GEN_TOP - 32 };
+
+/* ── layout 3: geographic space ──────────────────────────
+   Entities with no recorded location go to an explicit tray.
+   That is the honest state of this data, not a rendering flaw. */
+const pts = nodes.filter(n => n.wkt).map(n => {
+  const m = n.wkt.match(/POINT\(([-\d.]+) ([-\d.]+)\)/);
+  return m ? { n, lon: +m[1], lat: +m[2] } : null;
+}).filter(Boolean);
+
+if (pts.length) {
+  const lons = pts.map(p => p.lon), lats = pts.map(p => p.lat);
+  const lon0 = Math.min(...lons), lon1 = Math.max(...lons);
+  const lat0 = Math.min(...lats), lat1 = Math.max(...lats);
+  const padX = 190, padY = 54, spanX = 280, spanY = 250;
+  pts.forEach(p => {
+    p.n.gx = padX + ((p.lon - lon0) / ((lon1 - lon0) || 1)) * spanX;
+    p.n.gy = padY + (1 - (p.lat - lat0) / ((lat1 - lat0) || 1)) * spanY;
+  });
+}
+const unlocated = nodes.filter(n => n.gx === undefined);
+unlocated.forEach((n, i) => {
+  const perRow = 5;
+  n.gx = 52 + (i % perRow) * 116;
+  n.gy = 372 + Math.floor(i / perRow) * 30;
+  n.unlocated = true;
+});
+if (eventNode && placeOfEvent && placeOfEvent.gx !== undefined) {
+  eventNode.gx = placeOfEvent.gx + 26; eventNode.gy = placeOfEvent.gy - 22;
+  eventNode.unlocated = false;
+}
+
+/* ── render ─────────────────────────────────────────────── */
+/* Three named stops (0, 0.5, 1), one continuous blend between whichever
+   two are adjacent — the morph field described in the architecture:
+   position is always a weighted combination of precomputed frames, so
+   every intermediate point on the slider is itself a meaningful state,
+   never a re-solved layout. */
+let t = 0, selected = null;
+const lerp = (a, b, f) => a + (b - a) * f;
+const px = n => t <= 0.5 ? lerp(n.nx, n.lx, t / 0.5) : lerp(n.lx, n.gx, (t - 0.5) / 0.5);
+const py = n => t <= 0.5 ? lerp(n.ny, n.ly, t / 0.5) : lerp(n.ly, n.gy, (t - 0.5) / 0.5);
+/* How much of the current blend is "geographic" — used to gate anything
+   that only makes sense once real location is in play. */
+const geoWeight = () => t <= 0.5 ? 0 : (t - 0.5) / 0.5;
+/* How much is "network" specifically (vs. generations or geographic) —
+   used to gate the radial ring guides, which have no meaning off t=0. */
+const netWeight = () => Math.max(0, 1 - t * 2);
+/* Peaks exactly at the generations stop; used for the layer guide lines
+   and their labels, which belong to neither neighbouring frame. */
+const genWeight = () => Math.max(0, 1 - Math.abs(t - 0.5) * 2);
+
+const el = (tag, attrs, parent) => {
+  const e = document.createElementNS(SVG, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  (parent || scene).appendChild(e);
+  return e;
+};
+
+function draw() {
+  scene.innerHTML = "";
+  const defs = el("defs", {});
+  const g = el("radialGradient", { id: "nur" }, defs);
+  el("stop", { offset: "0%",   "stop-color": "#FFF6E0", "stop-opacity": ".95" }, g);
+  el("stop", { offset: "20%",  "stop-color": "#F2D9A0", "stop-opacity": ".42" }, g);
+  el("stop", { offset: "55%",  "stop-color": "#D9B26A", "stop-opacity": ".13" }, g);
+  el("stop", { offset: "100%", "stop-color": "#D9B26A", "stop-opacity": "0" }, g);
+
+  /* the luminous origin — stays lit through Network AND Generations,
+     because both are readings of the same quantity (transmission
+     distance). It fades only crossing into Geography, which has no
+     such distance to show. Its position blends the same way the
+     nodes do, from the radial centre to the head of the strata. */
+  const gw = geoWeight();
+  const glow = 1 - gw;
+  const ox = t <= 0.5 ? lerp(CX, GEN_ORIGIN.x, t / 0.5) : GEN_ORIGIN.x;
+  const oy = t <= 0.5 ? lerp(CY, GEN_ORIGIN.y, t / 0.5) : GEN_ORIGIN.y;
+  if (glow > 0.02) {
+    el("circle", { cx: ox, cy: oy, r: 190, fill: "url(#nur)", opacity: glow });
+    el("circle", { cx: ox, cy: oy, r: 4.5, fill: "#FFF8E7", opacity: glow });
+    const nm = el("text", { x: ox, y: oy - 15, "text-anchor": "middle",
+                            "font-family": "IBM Plex Sans Arabic, sans-serif",
+                            "font-size": 15, fill: "#FFF3D8", opacity: glow });
+    nm.textContent = "ﷺ";
+  }
+
+  /* radial ring guides — meaningful only at the network stop */
+  const nw = netWeight();
+  if (nw > 0.02) {
+    [78, 136, 192].forEach(r =>
+      el("ellipse", { cx: CX, cy: CY, rx: r, ry: r * 0.82, fill: "none",
+                      stroke: "#1E2A33", "stroke-dasharray": "2 6", opacity: nw }));
+  }
+
+  /* horizontal layer guides — meaningful only at the generations stop.
+     Same underlying rings, restacked: proof that this is one dataset
+     read two ways, not two different pictures. */
+  const gnw = genWeight();
+  if (gnw > 0.02) {
+    el("line", { x1: 552, y1: 16, x2: 552, y2: 456, stroke: "#1E2A33", opacity: gnw });
+    const np = el("text", { x: 594, y: 40, "text-anchor": "middle",
+                            "font-family": "IBM Plex Mono, monospace", "font-size": 8.5,
+                            fill: "#C9674A", opacity: gnw });
+    np.textContent = "NOT PEOPLE";
+    [1, 2, 3, 4].forEach(r => {
+      const y = GEN_TOP + r * GEN_GAP;
+      /* the longest label, "tābiʿ al-tābiʿīn", needs ~90px — the line
+         starts well clear of the viewBox edge so it never clips */
+      el("line", { x1: 112, y1: y, x2: 520, y2: y, stroke: "#1E2A33",
+                   "stroke-dasharray": "2 6", opacity: gnw });
+      const lb = el("text", { x: 106, y: y - 8, "text-anchor": "end",
+                              "font-family": "IBM Plex Mono, monospace", "font-size": 9,
+                              fill: "#5E6E72", opacity: gnw });
+      lb.textContent = GEN_LAYER_NAME[r];
+    });
+  }
+
+  /* unlocated tray — only meaningful once geography is in the blend */
+  if (gw > 0.15) {
+    el("line", { x1: 30, y1: 352, x2: 630, y2: 352, stroke: "#1E2A33", opacity: gw });
+    const lb = el("text", { x: 30, y: 344, "font-family": "IBM Plex Mono, monospace",
+                            "font-size": 9.5, fill: "#C9674A", opacity: gw });
+    lb.textContent = "NO LOCATION RECORDED — " + unlocated.length + " of " + nodes.length + " entities";
+  }
+
+  /* edges */
+  edges.forEach(e => {
+    const A = byId[e.a], B = byId[e.b];
+    if (!A || !B) return;
+    if (e.conf === "unknown") return;              // a gap is drawn as a gap
+    const dash = e.conf === "conjectural" ? "5 5" : null;
+    const line = el("line", {
+      x1: px(A), y1: py(A), x2: px(B), y2: py(B),
+      stroke: e.kind === "route" ? (e.conf === "conjectural" ? "#D9B26A" : "#4FB3B6") : "#2C3B44",
+      "stroke-width": e.kind === "route" ? 1.6 : 1,
+      opacity: e.conf === "conjectural" ? .5 : (e.kind === "route" ? .75 : .55)
+    });
+    if (dash) line.setAttribute("stroke-dasharray", dash);
+  });
+
+  /* nodes */
+  nodes.forEach(n => {
+    const x = px(n), y = py(n);
+    const isSel = selected === n.id;
+    const col = n.kind === "person" ? RINGCOL_RAW[n.ring]
+              : n.kind === "place"  ? (n.confidence === "unlocated" ? "#5E6E72" : "#4FB3B6")
+              : n.kind === "event"  ? "#D9B26A" : "#8D9C9E";
+
+    const grp = el("g", { class: "node", tabindex: "0", role: "button",
+                          "aria-label": n.label, style: "cursor:pointer" });
+    grp.addEventListener("click", () => select(n.id));
+    grp.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(n.id); } });
+
+    if (isSel) el("circle", { cx: x, cy: y, r: 13, fill: "none", stroke: col, opacity: .5 }, grp);
+
+    if (n.kind === "place") {
+      const s = 5.4;
+      el("rect", { x: x - s, y: y - s, width: s * 2, height: s * 2,
+                   fill: n.confidence === "unlocated" ? "none" : col,
+                   stroke: col, "stroke-width": 1.2,
+                   "stroke-dasharray": n.confidence === "unlocated" ? "2 2" : null,
+                   opacity: n.confidence === "unlocated" ? .8 : 1 }, grp);
+    } else if (n.kind === "event") {
+      el("polygon", { points: `${x},${y-7} ${x+7},${y} ${x},${y+7} ${x-7},${y}`,
+                      fill: col, opacity: .92 }, grp);
+    } else if (n.kind === "report") {
+      el("rect", { x: x - 5, y: y - 6.5, width: 10, height: 13, fill: "none",
+                   stroke: col, "stroke-width": 1.2 }, grp);
+    } else {
+      /* coverageState is visible: a stub is hollow, reviewed is filled */
+      const stub = n.coverage === "stub";
+      el("circle", { cx: x, cy: y, r: 5.6, fill: stub ? "none" : col,
+                     stroke: col, "stroke-width": stub ? 1.3 : 0,
+                     opacity: stub ? .85 : 1 }, grp);
+    }
+
+    const dy = t > 0.5 ? 17 : (n.labelAbove ? -12 : 18);
+    const label = el("text", {
+      x: x, y: y + dy, "text-anchor": "middle",
+      "font-family": "IBM Plex Sans, sans-serif", "font-size": 9.5,
+      fill: isSel ? "#C9D4D3" : "#7C8B90"
+    }, grp);
+    label.textContent = n.short;
+  });
+}
+
+/* ── panel ──────────────────────────────────────────────── */
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function intro() {
+  selected = null;
+  panel.innerHTML = `
+    <div class="kicker">The demonstration</div>
+    <h2>One event, all the way down.</h2>
+    <p class="intro">Fifteen entities. One report. One chain. Three disputes. Everything you see is derived from the ontology file by SPARQL — nothing is written into this page by hand.</p>
+    <p>Select anything. Then ask it how we know.</p>
+    <div class="legend">
+      <span><i style="background:#F2E4C6"></i> ṣaḥābī</span>
+      <span><i style="background:#A9BFC4"></i> tābiʿī</span>
+      <span><i style="background:#7C919A"></i> tābiʿ al-tābiʿīn</span>
+      <span><i style="background:#5A6B73"></i> later</span>
+    </div>
+    <div class="note"><b>Brightness is transmission distance.</b> It is not merit, rank or standing. A hollow circle is a <i>stub</i> — a name met in a chain and nothing more, which is what most of any real corpus looks like.</div>
+    <div class="note"><b>The Prophet ﷺ is not a node.</b> He is the origin from which the scene is lit. No figure is drawn, here or anywhere in this system.</div>
+    <div class="note"><b>Drag to the middle — Generations.</b> The same eight people restack by <i>ṭabaqa</i> into layers by generational distance from the origin. <b>What this small sample cannot honestly show:</b> the Companions are estimated at well over 100,000 — almost certainly the largest layer in the whole network, not a small one — and scholars disagree by more than an order of magnitude on how many of them are documented as narrators (al-Ḥākim said ~4,000; Abū Zurʿah al-Rāzī said over 100,000). Among documented narrators, activity is extremely skewed — seven Companions alone (the <i>mukthirūn</i>) account for a disproportionate share of everything transmitted — and companions were densely tied to each other by kinship, shared battles and shared teachers, not just downward to later generations. A real rendering of this would be a dense, skewed, laterally-connected graph, not a clean narrowing tree.</div>
+    <div class="note"><b>Drag to the end — Geographic.</b> The same entities rearrange again, onto the map. Watch how many fall into “no location recorded” — that is the true state of this data, not a rendering fault.</div>`;
+}
+
+function select(id) {
+  selected = id; draw();
+  const n = byId[id];
+  if (!n) return;
+
+  let facts = "";
+  const F = (k, v, cls) => v ? `<div><dt>${esc(k)}</dt><dd class="${cls || ""}">${esc(v)}</dd></div>` : "";
+
+  if (n.kind === "person") {
+    facts = F("ṭabaqa", n.tabaqa || "not classified") + F("role", n.role) +
+            F("record state", n.coverage) ;
+  } else if (n.kind === "place") {
+    facts = F("type", n.type) + F("location confidence", n.confidence) +
+            F("basis of identification", n.basis) +
+            (n.names && n.names.length > 1
+              ? `<div><dt>name phases</dt><dd>${n.names.map(esc).join(" · ")}<br><span style="color:var(--ink-dim);font-size:.76rem">one place, two names, two periods</span></dd></div>`
+              : F("name", (n.names || [])[0]));
+    if (n.confidence === "unlocated")
+      facts += `<div><dt>coordinates</dt><dd class="empty">none — not securely identified</dd></div>`;
+  } else if (n.kind === "event") {
+    facts = F("place", n.placeLabel) + F("duration, as the source states it", n.native) +
+            F("precision", n.precision) + F("basis", n.basis);
+    if (DATA.anchors.length)
+      facts += `<div><dt>placed in time by relation</dt><dd>` +
+        DATA.anchors.map(a =>
+          `<em>${esc(short(a.relation).replace(/^.*#/, ""))}</em> ${esc(a.targetLabel || "an unlabelled event")}`
+        ).join("<br>") +
+        `<br><span style="color:var(--ink-dim);font-size:.76rem">no absolute date is asserted — the sources give a sequence, so the model stores a sequence</span></dd></div>`;
+  } else if (n.kind === "report") {
+    const gapStart = n.sourceStart ? new Date(n.sourceStart).getFullYear() : null;
+    facts = F("genre", n.genre) + F("ascription", n.ascription) +
+            F("source composed", n.sourceNative + " AH" + (gapStart ? " (c. " + gapStart + " CE)" : "")) +
+            F("found at", n.citation);
+    if (gapStart) facts += `<div><dt>attestation gap</dt><dd>c. ${gapStart - 622} years between the event and this written source</dd></div>`;
+  }
+
+  panel.innerHTML = `
+    <div class="kicker">${esc(n.kind)}</div>
+    <h2>${esc(n.label)}</h2>
+    <dl class="facts">${facts}</dl>
+    <button class="act" onclick="ladder()">How do we know this? →</button>
+    <button class="act back" onclick="intro()">← back to overview</button>`;
+}
+
+function ladder(step) {
+  step = step || 1;
+  const r = DATA.report[0] || {}, ev = DATA.evaluation[0] || {}, as = DATA.assertion[0] || {};
+  const rungs = ["claim", "report", "chain", "grading"];
+  const bar = rungs.map((x, i) =>
+    `<span class="rung ${i === step - 1 ? "now" : ""}">${x}</span>` +
+    (i < rungs.length - 1 ? `<span class="rung sep">→</span>` : "")).join("");
+
+  let body = "";
+  if (step === 1) {
+    body = `
+      <dl class="facts">
+        <div><dt>claim</dt><dd>${esc(as.subjectLabel)} — <em>${esc(as.predicate)}</em> — ${esc(as.objectLabel)}</dd></div>
+        <div><dt>status</dt><dd class="empty">${esc(as.status)}</dd></div>
+        <div><dt>proposed by</dt><dd>${esc(as.agentLabel)}<br><span style="color:var(--ink-dim);font-size:.76rem">a software agent, in the role of ${esc(as.role)}</span></dd></div>
+        <div><dt>accepted by</dt><dd class="empty">${DATA.adjudicated.length ? "—" : "nobody yet"}</dd></div>
+      </dl>
+      <div class="note"><b>This has not become knowledge.</b> A machine proposed it. Under this specification it may be stored, queried and audited — but it must be rendered as visibly unverified, and it cannot count toward any confidence score, until a qualified person accepts it and their name is attached permanently.</div>`;
+  } else if (step === 2) {
+    const gapStart = r.sourceStart ? new Date(r.sourceStart).getFullYear() : null;
+    body = `
+      <dl class="facts">
+        <div><dt>genre</dt><dd>${esc(r.genre)}</dd></div>
+        <div><dt>ascription</dt><dd>${esc(r.ascription)}</dd></div>
+        <div><dt>found at</dt><dd>${esc(r.citation)}</dd></div>
+        <div><dt>source composed</dt><dd>${esc(r.sourceNative)} AH${gapStart ? " · c. " + gapStart + " CE" : ""}</dd></div>
+        ${gapStart ? `<div><dt>attestation gap</dt><dd>c. ${gapStart - 622} years</dd></div>` : ""}
+      </dl>
+      <div class="note"><b>The gap is shown, not buried.</b> A claim about year 1 first written down two centuries later is a different kind of claim from one written down within living memory. A model that stores only the fact cannot tell you which this is.</div>`;
+  } else if (step === 3) {
+    const rows = DATA.links.map(l => `
+      <div class="row">
+        <span class="i">${esc(l.order)}</span>
+        <span class="who">${esc(l.fromLabel)} → ${esc(l.toLabel)}<small>${esc(l.mode)}</small></span>
+        <span class="chk">${esc(l.result || "—")}</span>
+      </div>`).join("");
+    const cont = (DATA.continuity[0] || {}).continuity;
+    body = `
+      <div class="chainlist">${rows}</div>
+      <div class="verdict">
+        <div class="k">is this chain connected?</div>
+        <div class="v">${cont ? esc(cont) : "EMPTY — awaiting a scholar"}</div>
+        <p>Every link checks out: the dates and cities allow each pair to have met. The system computed that. It then stopped, because <em>muttaṣil</em> or <em>munqaṭiʿ</em> is a scholar's determination, and the constraints forbid a contact check from counting toward any confidence score.</p>
+      </div>
+      <div class="note"><b>The system flags. You rule.</b> This is the whole design in one field.</div>`;
+  } else {
+    body = `
+      <dl class="facts">
+        <div><dt>graded</dt><dd>${esc(ev.grade)}</dd></div>
+        <div><dt>by</dt><dd>${esc(ev.evaluatorLabel)}</dd></div>
+        <div><dt>tradition</dt><dd>${esc(ev.tradition)}</dd></div>
+        <div><dt>recorded at</dt><dd>${esc(ev.citation)}</dd></div>
+        <div><dt>reasoning</dt><dd>${esc(ev.justification)}</dd></div>
+      </dl>
+      <div class="note"><b>There is no “grade” field on this report.</b> There is a grading, made by a named person, in a named book, at a named page. Another scholar's different grading would sit beside it, and neither would erase the other.</div>
+      <div class="note"><b>Whether inclusion in a Ṣaḥīḥ collection counts as an explicit grading</b> is itself a scholarly position — so the reasoning is recorded rather than flattened into a badge.</div>`;
+  }
+
+  panel.innerHTML = `
+    <div class="kicker">Evidence</div>
+    <div class="rungs">${bar}</div>
+    ${body}
+    ${step < 4 ? `<button class="act" onclick="ladder(${step + 1})">Go deeper → ${rungs[step]}</button>` : ""}
+    <button class="act back" onclick="${selected ? `select('${selected}')` : "intro()"}">← back</button>`;
+}
+
+function showSegment(i) {
+  const s = DATA.segments[i];
+  const why = {
+    attested: "Named endpoints, reported independently. Drawn as a solid line because that is what the evidence supports.",
+    conjectural: "The sources name where this leg began and ended. The path between is inferred. Drawn as a broken line, never as a confident route.",
+    unknown: "Nothing is recorded about this stretch. It is drawn as a gap, and the constraints forbid attaching any geometry to it. Interpolating a smooth curve here would be the most common and most invisible falsification in historical cartography."
+  }[s.confidence];
+  panel.innerHTML = `
+    <div class="kicker">Route segment ${esc(s.order)}</div>
+    <h2>${esc(s.fromLabel)} → ${esc(s.toLabel)}</h2>
+    <dl class="facts">
+      <div><dt>confidence</dt><dd>${esc(s.confidence)}</dd></div>
+      ${s.mode ? `<div><dt>mode of travel</dt><dd>${esc(s.mode)}</dd></div>` : ""}
+      <div><dt>geometry</dt><dd class="${s.wkt ? "" : "empty"}">${s.wkt ? "recorded" : "none — deliberately"}</dd></div>
+    </dl>
+    <p>${esc(why)}</p>
+    <button class="act back" onclick="intro()">← back to overview</button>`;
+}
+
+/* ── route strip ───────────────────────────────────────── */
+document.getElementById("segs").innerHTML = DATA.segments.map((s, i) => `
+  <button class="seg c-${esc(s.confidence)}" onclick="showSegment(${i})">
+    <span class="n">${esc(s.order)}</span>
+    <span class="track"><span class="bar"></span></span>
+    <span class="lab">${esc(s.confidence)}</span>
+  </button>`).join("");
+
+/* ── morph ─────────────────────────────────────────────── */
+const slider = document.getElementById("morph");
+slider.addEventListener("input", () => {
+  t = slider.value / 100;
+  document.getElementById("lab-net").classList.toggle("on", t < 0.33);
+  document.getElementById("lab-gen").classList.toggle("on", t >= 0.33 && t <= 0.67);
+  document.getElementById("lab-geo").classList.toggle("on", t > 0.67);
+  draw();
+});
+
+window.ladder = ladder; window.intro = intro;
+window.select = select; window.showSegment = showSegment;
+
+draw(); intro();
+</script>

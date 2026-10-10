@@ -1,0 +1,355 @@
+<title>Where Is This Wrong?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400&display=swap">
+<style>
+:root{
+  --paper:#E8E9E4;
+  --sheet:#F1F2EE;
+  --ink:#1A1E1D;
+  --ink-mid:#3C423F;
+  --ink-mute:#5C635F;
+  --ink-faint:#868C87;
+  --rule:#CBCEC5;
+  --rule-soft:#DCDED7;
+  --teal:#0F5F64;
+  --teal-soft:#D6E2E1;
+  --rubric:#93331E;
+  --rubric-soft:#E8D8D1;
+  --plate-bg:#0B0F12;
+  --plate-ink:#C9D4D3;
+  --plate-mute:#6E7C7E;
+  --plate-rule:#25313A;
+  --plate-teal:#4FB3B6;
+  --plate-rubric:#C9674A;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101518; --sheet:#171E22; --ink:#DCE3E1; --ink-mid:#B6C0BD;
+    --ink-mute:#8D9A96; --ink-faint:#6C7975; --rule:#28333A; --rule-soft:#1F282D;
+    --teal:#57B4B8; --teal-soft:#14302F; --rubric:#D9765A; --rubric-soft:#33201A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101518; --sheet:#171E22; --ink:#DCE3E1; --ink-mid:#B6C0BD;
+  --ink-mute:#8D9A96; --ink-faint:#6C7975; --rule:#28333A; --rule-soft:#1F282D;
+  --teal:#57B4B8; --teal-soft:#14302F; --rubric:#D9765A; --rubric-soft:#33201A;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:1.0625rem; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.ar{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif}
+
+main{max-width:40rem;margin:0 auto;padding:0 1.35rem 5rem}
+main > *{margin-inline:auto}
+
+header{border-bottom:1px solid var(--ink);padding:3rem 0 1.4rem;margin-bottom:2.25rem}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:.71rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rubric);
+}
+h1{
+  font-family:"Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.5rem,7.5vw,3.6rem);line-height:1.02;letter-spacing:-.018em;
+  margin:.55rem 0 0;text-wrap:balance;
+}
+.sub{
+  font-family:"Newsreader",Georgia,serif;font-size:1.18rem;font-style:italic;
+  color:var(--ink-mute);margin:.9rem 0 0;
+}
+
+h2{
+  font-family:"Newsreader",Georgia,serif;font-weight:500;
+  font-size:1.62rem;line-height:1.2;letter-spacing:-.01em;
+  margin:2.9rem 0 .7rem;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:.78rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal);
+  margin:2rem 0 .5rem;
+}
+p{margin:0 0 1rem}
+a{color:var(--teal)}
+strong{font-weight:600}
+
+.lede{font-size:1.14rem;line-height:1.58;color:var(--ink-mid)}
+
+blockquote{
+  margin:1.4rem 0;padding:.85rem 0 .85rem 1.25rem;
+  border-left:2px solid var(--rubric);
+  font-family:"Newsreader",Georgia,serif;font-size:1.16rem;line-height:1.45;
+  color:var(--ink);
+}
+blockquote p{margin:0}
+blockquote cite{
+  display:block;font-family:"IBM Plex Mono",monospace;font-style:normal;
+  font-size:.72rem;color:var(--ink-faint);margin-top:.5rem;
+}
+
+ol.losses{list-style:none;margin:1.2rem 0 1.4rem;padding:0;counter-reset:l}
+ol.losses li{
+  counter-increment:l;display:grid;grid-template-columns:1.7rem minmax(0,1fr);
+  gap:.8rem;padding:.72rem 0;border-top:1px solid var(--rule-soft);
+}
+ol.losses li::before{
+  content:counter(l);font-family:"IBM Plex Mono",monospace;font-size:.74rem;
+  color:var(--rubric);padding-top:.3rem;
+}
+ol.losses b{font-weight:600}
+ol.losses span{display:block;color:var(--ink-mute);font-size:.94rem;margin-top:.1rem}
+
+pre.flow{
+  background:var(--sheet);border:1px solid var(--rule);
+  padding:1.05rem 1.15rem;overflow-x:auto;margin:1.3rem 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.795rem;line-height:1.72;
+  color:var(--ink-mid);
+}
+pre.flow b{color:var(--teal);font-weight:500}
+pre.flow i{color:var(--rubric);font-style:normal}
+
+dl.means{margin:1.2rem 0 1.4rem;border-top:1px solid var(--rule)}
+dl.means > div{padding:.85rem 0;border-bottom:1px solid var(--rule-soft)}
+dl.means dt{font-weight:600;margin-bottom:.18rem}
+dl.means dd{margin:0;color:var(--ink-mid);font-size:.955rem}
+
+.tablewrap{overflow-x:auto;margin:1.3rem 0 1.5rem;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.67rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-mute);
+  padding:.6rem .75rem .5rem;border-bottom:1px solid var(--rule);
+}
+td{padding:.6rem .75rem;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-mid)}
+td:first-child{color:var(--ink);font-weight:500;white-space:normal}
+tr:last-child td{border-bottom:0}
+
+figure{
+  margin:1.7rem 0;background:var(--plate-bg);color:var(--plate-ink);
+  border-top:1px solid var(--plate-rule);border-bottom:1px solid var(--plate-rule);
+  padding:1.5rem 1.1rem 1.1rem;
+}
+figure svg{display:block;width:100%;height:auto}
+figure figcaption{
+  font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
+  color:var(--plate-mute);border-top:1px solid var(--plate-rule);
+  padding-top:.65rem;margin-top:1rem;
+}
+
+ul.asks{list-style:none;margin:1.1rem 0 1.4rem;padding:0;border-top:1px solid var(--teal)}
+ul.asks li{
+  padding:.6rem 0 .6rem 1.5rem;border-bottom:1px solid var(--rule-soft);
+  position:relative;color:var(--ink-mid);font-size:.955rem;
+}
+ul.asks li::before{
+  content:"?";position:absolute;left:0;top:.6rem;color:var(--teal);
+  font-family:"IBM Plex Mono",monospace;font-size:.82rem;font-weight:500;
+}
+
+.status{
+  display:grid;gap:0;margin:1.2rem 0 1.4rem;
+  border:1px solid var(--rule);background:var(--sheet);
+}
+.status div{padding:.85rem 1.1rem;border-bottom:1px solid var(--rule-soft)}
+.status div:last-child{border-bottom:0}
+.status .k{
+  font-family:"IBM Plex Mono",monospace;font-size:.69rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--rubric);display:block;margin-bottom:.22rem;
+}
+.status .v{color:var(--ink-mid);font-size:.955rem}
+.status .v b{color:var(--ink)}
+
+.callout{
+  border-left:3px solid var(--teal);background:var(--sheet);
+  border-top:1px solid var(--rule);border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:1rem 1.15rem;margin:1.5rem 0;
+}
+.callout p:last-child{margin:0}
+
+.ask{
+  font-family:"Newsreader",Georgia,serif;font-size:1.75rem;line-height:1.25;
+  margin:2.4rem 0 1rem;color:var(--ink);
+}
+
+footer{
+  border-top:1px solid var(--rule);margin-top:3rem;padding-top:1.1rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.71rem;line-height:1.7;
+  color:var(--ink-faint);
+}
+
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media print{
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.45}
+  main{max-width:none;padding:0}
+  h1{font-size:26pt}
+  h2{font-size:13pt;margin:16pt 0 5pt}
+  figure{background:#fff;color:#000;border-color:#999}
+  figure figcaption{color:#333}
+  .status,.callout,pre.flow{background:#fff}
+  h2,figure,table,.status{break-inside:avoid}
+  a{color:#000;text-decoration:underline}
+}
+</style>
+
+<main>
+
+  <header>
+    <div class="eyebrow">al-Marṣad · a brief for reviewing historians · September 2026</div>
+    <h1>Where is this wrong?</h1>
+    <p class="sub">We are designing a database for Islamic history. It is not built yet. This page explains the one idea behind it, and asks you to find the mistakes while they are still cheap to fix.</p>
+  </header>
+
+  <p class="lede">We are not asking you to approve a finished thing. We are asking you to attack an unfinished one. Ten minutes should be enough to decide whether the idea is sound.</p>
+
+  <h2>The problem we are trying to solve</h2>
+
+  <p>Almost every digital history project stores <strong>facts</strong>, and adds sources as footnotes:</p>
+
+  <blockquote>
+    <p>The Hijrah took place in Rabīʿ al-Awwal, year 1.</p>
+    <cite>Source: Ibn Hishām</cite>
+  </blockquote>
+
+  <p>This looks reasonable. But four things are lost, and none of them can be recovered later:</p>
+
+  <ol class="losses">
+    <li><b>When two reports disagree, somebody has to choose one.</b><span>The database never records that a choice was made, or who made it.</span></li>
+    <li><b>A grading has nowhere to live.</b><span>You do not grade a fact. You grade a report. If the report is not stored as an object, the grading has nothing to attach to.</span></li>
+    <li><b>The time gap disappears.</b><span>A claim about year 1 first written down in year 220 is not the same kind of claim as one written down in year 90. A flat model cannot show the difference.</span></li>
+    <li><b>Correcting it means rewriting the history.</b><span>Rather than re-deriving it.</span></li>
+  </ol>
+
+  <h2>What we propose instead</h2>
+
+  <p>Store the <strong>report</strong> — the <em>khabar</em>, with its chain. Build everything else from it.</p>
+
+<pre class="flow"><b>Report (khabar)</b> ──▶ chain ──▶ narrators, with their dates and places
+      │
+      ├─▶ the claim it makes — about a person, event, place, relationship
+      │
+      ├─▶ <b>graded by</b> — a named authority, in a named book, at a named page
+      │
+      ▼
+   <i>the history a reader sees — a RESULT, not an entry</i></pre>
+
+  <p>The reader still sees "the Hijrah took place in Rabīʿ al-Awwal, year 1." But that sentence is now a <strong>result</strong>. The reports are still underneath it. Change a grading, and the result changes. Nobody rewrites the history, because the history was never typed in.</p>
+
+  <h2>What this means for your work</h2>
+
+  <dl class="means">
+    <div>
+      <dt>Your grading stays yours</dt>
+      <dd>There is no "grade" field on a report anywhere in this system. There is only: <em>this scholar, in this book, at this page, gave this grade, for this reason.</em> Another scholar's different grading sits beside it. Neither erases the other.</dd>
+    </div>
+    <div>
+      <dt>Disagreement is kept, not settled</dt>
+      <dd>Three reports name three different people who brought food to the cave. All three stay, with their evidence. The system does not choose — and does not assume the three answers rule each other out.</dd>
+    </div>
+    <div>
+      <dt>Sīra is not forced into ḥadīth categories</dt>
+      <dd>Much sīra-maghāzī material was never meant to meet ḥadīth criteria. It has its own category. It is neither dismissed nor promoted.</dd>
+    </div>
+    <div>
+      <dt>Different traditions keep different scales</dt>
+      <dd>Sunni, Twelver Shia, Ibadi and academic assessments each use their own vocabulary. The system is <strong>forbidden</strong> from converting between them, or averaging them into one number.</dd>
+    </div>
+  </dl>
+
+  <h2>What the system refuses to do</h2>
+
+  <p>This is the part most worth checking. Refusals are where a system's honesty actually lives.</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>It will not</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Decide whether a chain is connected</td><td><em>Muttaṣil</em> or <em>munqaṭiʿ</em> is your call, not a machine's</td></tr>
+        <tr><td>Grade anything</td><td>It records gradings made by people</td></tr>
+        <tr><td>Guess a date, place or route</td><td>An unknown stretch of the Hijrah route is drawn as a gap, never as a smooth line</td></tr>
+        <tr><td>Merge two similar names into one person</td><td>Automatic matching may only <em>suggest</em>. A person decides, and signs it</td></tr>
+        <tr><td>Rank Companions by any calculation</td><td>Not offered as a feature, in any form</td></tr>
+        <tr><td>Let AI publish</td><td>AI reads texts and proposes. A qualified person must accept it, and their name stays on it permanently</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Here is the clearest case, taken from our worked file. A chain of five links. For each link, the system checks whether those two men could actually have met — their dates, their cities. All five come back <strong>plausible</strong>. And then:</p>
+
+  <figure>
+    <svg viewBox="0 0 760 236" role="img" aria-label="A five-link transmission chain where every contact check returns plausible, and the field recording whether the chain is connected is left empty, marked as awaiting a scholar.">
+      <g font-family="IBM Plex Mono, monospace" font-size="11.5">
+        <text x="16" y="26" fill="#C9D4D3">ʿĀʾisha (d. 58)     → ʿUrwa (d. 94)</text>
+        <text x="470" y="26" fill="#4FB3B6">plausible</text>
+        <text x="16" y="50" fill="#C9D4D3">ʿUrwa (d. 94)       → al-Zuhrī (d. 124)</text>
+        <text x="470" y="50" fill="#4FB3B6">plausible</text>
+        <text x="16" y="74" fill="#C9D4D3">al-Zuhrī (d. 124)   → ʿUqayl (d. 144)</text>
+        <text x="470" y="74" fill="#4FB3B6">plausible</text>
+        <text x="16" y="98" fill="#C9D4D3">ʿUqayl (d. 144)     → al-Layth (d. 175)</text>
+        <text x="470" y="98" fill="#4FB3B6">plausible</text>
+        <text x="16" y="122" fill="#C9D4D3">al-Layth (d. 175)   → Yaḥyā b. Bukayr (d. 231)</text>
+        <text x="470" y="122" fill="#4FB3B6">plausible</text>
+      </g>
+      <line x1="16" y1="146" x2="744" y2="146" stroke="#25313A"/>
+      <text x="16" y="178" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#C9674A">is this chain connected?   —   EMPTY, awaiting a scholar</text>
+      <text x="16" y="210" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="#6E7C7E">The machine gathered everything you would want. Then it stopped.</text>
+    </svg>
+    <figcaption>That is the whole design in one picture. The system may flag a chain whose narrators could not plausibly have met — but it is forbidden from letting that check count toward any confidence score. It flags. You rule.</figcaption>
+  </figure>
+
+  <h2>Where you would come in</h2>
+
+  <p>The specification marks <strong>twenty decisions it refuses to make on its own</strong>. Among them:</p>
+
+  <ul class="asks">
+    <li>Is this chain connected?</li>
+    <li>Is this man's companionship established, or disputed?</li>
+    <li>Are these two names one narrator, or two?</li>
+    <li>Which calendar conversion applies to this region and century?</li>
+    <li>Does including a report in a <em>Ṣaḥīḥ</em> collection count as an explicit grading?</li>
+    <li>In this <em>mawlā</em> tie, who is the patron and who is the client? The sources often do not say — and it must never be guessed from the order of names</li>
+  </ul>
+
+  <div class="callout">
+    <p>What you decide is recorded under your name, permanently. It stays open to revision by whoever comes after you. And it can be cited.</p>
+  </div>
+
+  <h2>What is actually finished</h2>
+
+  <p>Being plain about this matters more than impressing you.</p>
+
+  <div class="status">
+    <div>
+      <span class="k">The data model</span>
+      <span class="v"><b>Written, and machine-checkable.</b> 1,804 statements. It validates.</span>
+    </div>
+    <div>
+      <span class="k">The historical data</span>
+      <span class="v"><b>Almost none.</b> One example event — and it is clearly marked as unverified.</span>
+    </div>
+  </div>
+
+  <p>That order is deliberate. If we gathered data first and designed the model afterwards, the model would be shaped by whatever we happened to collect, and every mistake listed above would already be baked in.</p>
+
+  <h2 class="ask">Tell us where this is wrong.</h2>
+
+  <p>Section 14 of the specification already lists eight places <em>we</em> think it is wrong — including whether we have chosen the right standard class for a report, and whether one report can really be given a single ascription when its text mixes prophetic material with a narrator's own comment.</p>
+
+  <p>If you would rather look at one file than read a specification, read the worked example. It is a single event modelled all the way down: the chain, the grading, an unresolved dispute, and a route segment that admits it is guessing.</p>
+
+  <footer>
+    al-Marṣad · Phase 0 · nothing built yet<br>
+    Full specification in document 02. Ontology, constraints and validator ship alongside it.<br>
+    Nothing here is fixed. All naming, and every scholarly policy, is provisional until a review board exists.
+  </footer>
+
+</main>

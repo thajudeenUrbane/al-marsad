@@ -1,0 +1,448 @@
+<title>The First Generation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400&display=swap">
+<style>
+:root{
+  --bg:#0A0E11; --panel:#111820; --edge:#1E2A33; --edge-soft:#172129;
+  --ink:#C9D4D3; --ink-mid:#8D9C9E; --ink-dim:#5E6E72;
+  --teal:#4FB3B6; --gold:#D9B26A; --rubric:#C9674A; --grey:#5A6B73; --witness:#6E93A8;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:14px; line-height:1.55; overflow-x:hidden;
+}
+.ar{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+header{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:baseline;
+  padding:.9rem 1.25rem;border-bottom:1px solid var(--edge);
+}
+header h1{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.3rem;margin:0;letter-spacing:-.01em}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-left:auto}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.05em;
+  text-transform:uppercase;padding:.22rem .5rem;border:1px solid var(--edge);
+  color:var(--ink-dim);white-space:nowrap;
+}
+.chip.lens{color:var(--gold);border-color:#3A3320}
+.chip.warn{color:var(--rubric);border-color:#3A241D}
+.chip.go{color:var(--teal);border-color:#1E3A3A;text-decoration:none}
+
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 24rem;min-height:calc(100vh - 52px)}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;border-right:1px solid var(--edge)}
+@media (max-width:900px){.stage{border-right:0;border-bottom:1px solid var(--edge)}}
+svg#scene{display:block;width:100%;height:auto;min-height:640px;touch-action:manipulation}
+
+.legend{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.1rem;padding:.7rem 1.25rem;
+  border-top:1px solid var(--edge);background:var(--panel);
+}
+.legend span{
+  font-family:"IBM Plex Mono",monospace;font-size:.64rem;color:var(--ink-dim);
+  display:flex;align-items:center;gap:.35rem;white-space:nowrap;
+}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.legend i.ring{background:none;border:1.4px dashed currentColor;border-radius:50%}
+.legend i.diamond{border-radius:0;transform:rotate(45deg);width:7px;height:7px}
+.legend i.line{width:16px;height:0;border-top:1.4px solid currentColor;border-radius:0}
+.legend i.line.dashed{border-top-style:dashed}
+.legend i.line.dotted{border-top-style:dotted}
+
+.panel{padding:1.1rem 1.25rem 3rem;overflow-y:auto;max-height:calc(100vh - 52px)}
+@media (max-width:900px){.panel{max-height:none}}
+.panel h2{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.32rem;margin:0 0 .2rem;line-height:1.2}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.panel p{margin:0 0 .8rem;color:var(--ink-mid)}
+.panel p.intro{color:var(--ink)}
+
+dl.facts{margin:.9rem 0;border-top:1px solid var(--edge)}
+dl.facts div{padding:.5rem 0;border-bottom:1px solid var(--edge-soft)}
+dl.facts dt{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:.1rem}
+dl.facts dd{margin:0;color:var(--ink);font-size:.88rem}
+dl.facts dd.empty{color:var(--rubric);font-family:"IBM Plex Mono",monospace;font-size:.82rem}
+dl.facts dd small{display:block;color:var(--ink-dim);font-size:.76rem;margin-top:.15rem}
+
+h3.sec{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:1.3rem 0 .3rem}
+h3.sec.mute{color:var(--ink-dim)}
+
+ul.tielist{list-style:none;margin:.6rem 0 .2rem;padding:0;border-top:1px solid var(--edge)}
+ul.tielist li{padding:.5rem 0;border-bottom:1px solid var(--edge-soft);font-size:.86rem}
+ul.tielist b{color:var(--teal);font-weight:500;text-transform:none}
+ul.tielist a{color:var(--ink);text-decoration:none;cursor:pointer}
+ul.tielist a:hover{color:var(--teal)}
+
+.act{
+  display:block;width:100%;text-align:left;margin-top:.7rem;border:1px solid var(--teal);
+  color:var(--teal);padding:.5rem .7rem;font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.05em;text-transform:uppercase;
+}
+.act:hover{background:#12262A}
+.act.back{border-color:var(--edge);color:var(--ink-dim)}
+.act.back:hover{background:#141C22}
+
+.note{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;line-height:1.6;color:var(--ink-dim);
+  border-top:1px solid var(--edge);padding-top:.6rem;margin-top:1.1rem;
+}
+.note b{color:var(--gold);font-weight:500}
+.note.gap{border-color:var(--rubric)}
+.note.gap b{color:var(--rubric)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <h1>The First Generation</h1>
+  <div class="chips">
+    <span class="chip lens" id="chip-events">— events</span>
+    <span class="chip" id="chip-persons">— people</span>
+    <span class="chip warn">unverified · seed batch, pending review</span>
+    <a class="chip go" href="at-scale.html">see it at scale →</a>
+    <a class="chip go" href="wider-network.html">browse all 100 incidents →</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stage">
+    <svg id="scene" viewBox="0 0 800 800" role="img"
+         aria-label="Two concentric rings around a luminous origin: an inner ring of every named person in this generation, an outer ring of every dated event across their era arranged in chronological order, connected by participation, documented absence and kinship."></svg>
+    <div class="legend">
+      <span><i style="background:#F2E4C6"></i> led</span>
+      <span><i style="background:#A9BFC4"></i> present</span>
+      <span><i style="background:#6E93A8"></i> witnessed</span>
+      <span><i class="ring" style="color:#C9674A"></i> absent, with reason</span>
+      <span><i style="background:#5A6B73"></i> no connection modelled</span>
+      <span><i class="diamond" style="background:#D9B26A"></i> event, outer ring</span>
+      <span><i class="line" style="color:#4FB3B6"></i> participation</span>
+      <span><i class="line dashed" style="color:#C9674A"></i> documented absence</span>
+      <span><i class="line dotted" style="color:#D9B26A"></i> kinship</span>
+    </div>
+  </div>
+  <div class="panel" id="panel"></div>
+</div>
+
+<script>
+const DATA = /*__SEED_DATA__*/;
+
+/* Everything drawn below comes from DATA, derived by SPARQL from
+   ontology/corpus/generation-1.ttl + ontology/corpus/seed-incidents.ttl in
+   generation-1/build.py. Nothing is hand-entered here.
+
+   18 Sept 2026: this page moved from the curated 35-person/6-event corpus
+   alone to the full core+seed union — see README "The wider network".
+   generation-1.ttl itself is untouched; this is a bigger, denser render
+   of the same person, reused by IRI, plus everything the seed batch adds. */
+
+const SVG = "http://www.w3.org/2000/svg";
+const EVENT_TYPE = "https://w3id.org/marsad/core#Event";
+const PERSON_TYPE = "https://w3id.org/marsad/core#Person";
+const scene = document.getElementById("scene");
+const panel = document.getElementById("panel");
+
+const ORIGIN_LABEL_RE = /Prophet/;
+const ORIGIN = DATA.persons.find(p => ORIGIN_LABEL_RE.test(p.label));
+const persons = DATA.persons.filter(p => p.id !== ORIGIN.id);
+const byId = {}; DATA.persons.forEach(p => byId[p.id] = p);
+const isCore = id => byId[id] && byId[id].createdBy === DATA.gen1Agent;
+
+const events = DATA.events; // build.py already ORDERs BY ?earliestStart
+const eventById = {}; events.forEach(e => eventById[e.id] = e);
+
+document.getElementById("chip-events").textContent = events.length + " events · 610–656 CE";
+document.getElementById("chip-persons").textContent = persons.length + 1 + " people";
+
+const partByPersonEvent = {};   // personId -> { eventId: role }
+DATA.participation.forEach(p => { (partByPersonEvent[p.person] = partByPersonEvent[p.person] || {})[p.event] = p.role; });
+const absentByPersonEvent = {}; // personId -> { eventId: basis }
+DATA.assertions.filter(a => a.predicate === "absent from" && a.objectType === EVENT_TYPE)
+  .forEach(a => { (absentByPersonEvent[a.subject] = absentByPersonEvent[a.subject] || {})[a.object] = a.basis; });
+const companionSet = new Set(
+  DATA.assertions.filter(a => a.predicate === "companion of" && a.objectType === PERSON_TYPE).map(a => a.object)
+);
+const deathByPerson = {}; DATA.deaths.forEach(d => deathByPerson[d.person] = d.native);
+/* every event-directed Assertion that ISN'T a bare absence — the colourful
+   specific detail a person or event carries beyond "was there" */
+const eventAssertions = DATA.assertions.filter(a => a.objectType === EVENT_TYPE && a.predicate !== "absent from");
+/* connections that point somewhere other than an Event: migrations,
+   shelter, manumission, succession, and the like — real ties the ring
+   doesn't draw an edge for, still worth surfacing in the panel */
+const OTHER_PREDICATES = new Set([
+  "migrated to","migrated from","died at","visited","besieged","sheltered at",
+  "sheltered","succeeded","manumitted","protected","appointed"
+]);
+function otherTies(id) {
+  return DATA.assertions.filter(a =>
+    OTHER_PREDICATES.has(a.predicate) && (a.subject === id || a.object === id));
+}
+
+function roleAt(personId, eventId) {
+  const r = (partByPersonEvent[personId] || {})[eventId];
+  if (r) return r;                                            // leader | participant | witness
+  if ((absentByPersonEvent[personId] || {})[eventId]) return "absent";
+  return null;
+}
+/* A person's dot colour is the HIGHEST role they ever held across every
+   event — the edges (drawn per event) carry the exact, non-aggregated
+   picture. */
+const RANK = { leader: 4, participant: 3, witness: 2, absent: 1 };
+function aggregateStatus(id) {
+  let best = "other", bestRank = 0;
+  events.forEach(e => {
+    const r = roleAt(id, e.id);
+    if (r && RANK[r] > bestRank) { best = r; bestRank = RANK[r]; }
+  });
+  return best;
+}
+const STATUS_COLOR = { leader: "#F2E4C6", participant: "#A9BFC4", witness: "#6E93A8", absent: "#C9674A", other: "#5A6B73" };
+const STATUS_LABEL = { leader: "Led", participant: "Present", witness: "Witnessed", absent: "Absent, with reason", other: "No connection modelled" };
+const EVENT_SHORT_MAP = {
+  "Battle of Badr": "Badr",
+  "Battle of Uḥud": "Uḥud",
+  "Battle of the Trench (Khandaq)": "Khandaq",
+  "Ḥudaybiyya and the Pledge of Riḍwān": "Ḥudaybiyya",
+  "Conquest of Makkah": "the Conquest",
+  "Death of the Prophet ﷺ": "his death"
+};
+function shortLabel(l, max) {
+  let s = (EVENT_SHORT_MAP[l] || l).replace(/^The /, "").replace(/\s*\(peace and blessings.*\)$/, "");
+  return s.length > max ? s.slice(0, max - 1) + "…" : s;
+}
+
+/* ── layout: two concentric rings around the origin ──
+   Inner ring: every named person. Outer ring: every event, in the SAME
+   chronological order build.py already sorted them in — so angle around
+   the outer ring reads as a clock face of the whole era, 610-656 CE,
+   not just a left-to-right strip (which stopped scaling past ~8 events). */
+const CX = 400, CY = 400, R1 = 215, R2 = 330;
+persons.forEach((p, i) => {
+  const a = (-Math.PI / 2) + (i / persons.length) * 2 * Math.PI;
+  p.x = CX + R1 * Math.cos(a);
+  p.y = CY + R1 * Math.sin(a) * 0.94;
+  p.labelOut = Math.cos(a) >= 0 ? 1 : -1;
+  p.labelAbove = Math.sin(a) < -0.3;
+});
+events.forEach((e, i) => {
+  const a = (-Math.PI / 2) + (i / events.length) * 2 * Math.PI;
+  e.x = CX + R2 * Math.cos(a);
+  e.y = CY + R2 * Math.sin(a) * 0.94;
+  e.labelOut = Math.cos(a) >= 0 ? 1 : -1;
+  e.labelAbove = Math.sin(a) < -0.25;
+});
+
+/* ── render ─────────────────────────────────────────────── */
+let selected = null;
+const el = (tag, attrs, parent) => {
+  const e = document.createElementNS(SVG, tag);
+  for (const k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+  (parent || scene).appendChild(e);
+  return e;
+};
+
+function draw() {
+  scene.innerHTML = "";
+  const defs = el("defs", {});
+  const g = el("radialGradient", { id: "nur" }, defs);
+  el("stop", { offset: "0%", "stop-color": "#FFF6E0", "stop-opacity": ".95" }, g);
+  el("stop", { offset: "14%", "stop-color": "#F2D9A0", "stop-opacity": ".34" }, g);
+  el("stop", { offset: "45%", "stop-color": "#D9B26A", "stop-opacity": ".10" }, g);
+  el("stop", { offset: "100%", "stop-color": "#D9B26A", "stop-opacity": "0" }, g);
+
+  el("circle", { cx: CX, cy: CY, r: 340, fill: "url(#nur)" });
+  el("ellipse", { cx: CX, cy: CY, rx: R1, ry: R1 * 0.94, fill: "none",
+                  stroke: "#1E2A33", "stroke-dasharray": "2 6" });
+  el("ellipse", { cx: CX, cy: CY, rx: R2, ry: R2 * 0.94, fill: "none",
+                  stroke: "#161F26", "stroke-dasharray": "1 5" });
+  el("circle", { cx: CX, cy: CY, r: 4.5, fill: "#FFF8E7" });
+  const nm = el("text", { x: CX, y: CY - 15, "text-anchor": "middle",
+                          "font-family": "IBM Plex Sans Arabic, sans-serif",
+                          "font-size": 15, fill: "#FFF3D8" });
+  nm.textContent = "ﷺ";
+
+  /* kinship — dotted chords across the inner ring: the lateral density a
+     pure feed-forward tree cannot represent */
+  DATA.kinship.forEach(k => {
+    const A = byId[k.subject], B = byId[k.object];
+    if (!A || !B || A.id === ORIGIN.id || B.id === ORIGIN.id || A.x == null || B.x == null) return;
+    const isSel = selected && (selected === A.id || selected === B.id);
+    el("line", { x1: A.x, y1: A.y, x2: B.x, y2: B.y, stroke: "#D9B26A",
+                 "stroke-width": isSel ? 1.4 : .7, "stroke-dasharray": "1 4",
+                 opacity: isSel ? .85 : .28 });
+  });
+
+  /* participation / absence — one edge per person-event tie that exists,
+     from the inner ring out to the outer ring */
+  persons.forEach(p => {
+    events.forEach(e => {
+      const role = roleAt(p.id, e.id);
+      if (!role) return;
+      const isSel = selected === p.id || selected === e.id;
+      if (role === "absent") {
+        el("line", { x1: p.x, y1: p.y, x2: e.x, y2: e.y, stroke: "#C9674A",
+                     "stroke-width": isSel ? 1.4 : .6, "stroke-dasharray": "4 4",
+                     opacity: isSel ? .85 : .22 });
+      } else {
+        el("line", { x1: p.x, y1: p.y, x2: e.x, y2: e.y,
+                     stroke: role === "leader" ? "#F2E4C6" : role === "witness" ? "#6E93A8" : "#4FB3B6",
+                     "stroke-width": isSel ? 1.5 : (role === "leader" ? .9 : .55),
+                     opacity: isSel ? .9 : .26 });
+      }
+    });
+  });
+
+  /* the event markers, outer ring */
+  events.forEach(e => {
+    const evSel = selected === e.id;
+    el("polygon", { points: `${e.x},${e.y-7} ${e.x+7},${e.y} ${e.x},${e.y+7} ${e.x-7},${e.y}`,
+                    fill: isCore(e.id) ? "#D9B26A" : "#8A9AA0", opacity: .95,
+                    stroke: evSel ? "#FFF3D8" : "none", "stroke-width": 1.4 });
+    const lx = e.x + (12 * e.labelOut), ly = e.y + (e.labelAbove ? -8 : 12);
+    const evLabel = el("text", { x: lx, y: ly, "text-anchor": e.labelOut > 0 ? "start" : "end",
+                                "font-family": "IBM Plex Mono, monospace", "font-size": 7.6,
+                                fill: evSel ? "#FFF3D8" : "#9CA6A8" });
+    evLabel.textContent = shortLabel(e.label, 16);
+    const evGrp = el("g", { style: "cursor:pointer", tabindex: "0", role: "button", "aria-label": e.label });
+    el("circle", { cx: e.x, cy: e.y, r: 12, fill: "transparent" }, evGrp);
+    evGrp.addEventListener("click", () => selectEvent(e.id));
+    evGrp.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); selectEvent(e.id); } });
+  });
+
+  /* persons, inner ring */
+  persons.forEach(p => {
+    const status = aggregateStatus(p.id);
+    const col = STATUS_COLOR[status];
+    const isSel = selected === p.id;
+    const stub = p.coverage === "stub";
+    const grp = el("g", { tabindex: "0", role: "button", "aria-label": p.label, style: "cursor:pointer" });
+    grp.addEventListener("click", () => selectPerson(p.id));
+    grp.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); selectPerson(p.id); } });
+
+    if (isSel) el("circle", { cx: p.x, cy: p.y, r: 11, fill: "none", stroke: col, opacity: .55 }, grp);
+
+    if (status === "absent") {
+      el("circle", { cx: p.x, cy: p.y, r: 5, fill: "none", stroke: col,
+                     "stroke-width": 1.3, "stroke-dasharray": "2 2" }, grp);
+    } else {
+      el("circle", { cx: p.x, cy: p.y, r: 4.8, fill: stub ? "none" : col,
+                     stroke: col, "stroke-width": stub ? 1.2 : 0, opacity: stub ? .9 : 1 }, grp);
+    }
+    if (!isCore(p.id)) el("circle", { cx: p.x, cy: p.y, r: 8, fill: "none", stroke: col, opacity: .3 }, grp);
+
+    const lx = p.x + (11 * p.labelOut), ly = p.y + (p.labelAbove ? -8 : 12);
+    const label = el("text", { x: lx, y: ly, "text-anchor": p.labelOut > 0 ? "start" : "end",
+                              "font-family": "IBM Plex Sans, sans-serif", "font-size": 8,
+                              fill: isSel ? "#C9D4D3" : "#7C8B90" }, grp);
+    label.textContent = shortLabel(p.label, 16);
+  });
+}
+
+/* ── panel ──────────────────────────────────────────────── */
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function intro() {
+  selected = null; draw();
+  const gaps = DATA.coverageGap || [];
+  const span = events.length ? `${esc(events[0].native)} → ${esc(events[events.length-1].native)}` : "";
+  panel.innerHTML = `
+    <div class="kicker">The demonstration, grown</div>
+    <h2>One generation, its whole documented era.</h2>
+    <p class="intro">The original thirty-five Companions, connected across six real, dated events, plus a seed batch of one hundred more incidents spanning the full Prophetic era through the Rāshidūn succession (${span}) — ${persons.length + 1} people, ${events.length} events, one connected graph. The gold diamonds and the inner ring's plain dots are the original, curated corpus; the grey diamonds and the ringed dots are the seed batch, added ${new Date().getFullYear() >= 2026 ? "18 September 2026" : ""} and equally unverified.</p>
+    <p>Select anyone on the inner ring, or any diamond on the outer ring, to see who connects to what — and follow a thread from person to event to person the way a real network gets discovered.</p>
+    <div class="note"><b>Dotted gold lines are kinship</b> — marriage, parentage, siblinghood — crossing the inner ring directly between people.</div>
+    <div class="note"><b>Solid lines out to a diamond are participation</b> (teal), <b>leadership</b> (cream) or <b>witness</b> (blue). <b>Dashed red lines are documented absence, with a reason.</b> A person can hold different roles at different events; the lines are per-event, never a single verdict on them.</div>
+    <div class="note"><b>A faint outer ring around a dot, or a grey diamond,</b> marks something the seed batch added rather than the original 35/6 corpus. Both are equally real data and equally unverified — the distinction is provenance, not confidence.</div>
+    ${gaps.map(g => `<div class="note gap"><b>What this deliberately does not show:</b> ${esc(g.description)}</div>`).join("")}`;
+}
+
+function selectPerson(id) {
+  selected = id; draw();
+  const p = byId[id]; if (!p) return;
+  const F = (k, v, cls) => v ? `<div><dt>${esc(k)}</dt><dd class="${cls||""}">${esc(v)}</dd></div>` : "";
+
+  let facts = F("ṭabaqa", p.tabaqa) + F("record state", p.coverage);
+  facts += `<div><dt>direct connection to the Prophet ﷺ</dt><dd>${companionSet.has(id) ? "companion (ṣuḥba) — confirmed" : "not asserted in this file"}</dd></div>`;
+  facts += `<div><dt>source</dt><dd>${isCore(id) ? "original 35/6 corpus" : "seed batch (100-incident dataset)"}</dd></div>`;
+  if (deathByPerson[id]) facts += F("death", deathByPerson[id]);
+
+  const evRows = events.map(e => ({ e, role: roleAt(id, e.id) })).filter(r => r.role);
+  const evHtml = evRows.length ? `<ul class="tielist">` + evRows.map(({e, role}) => {
+    const reason = role === "absent" ? `<br><span style="color:var(--ink-dim);font-size:.78rem">${esc(absentByPersonEvent[id][e.id])}</span>` : "";
+    const detail = eventAssertions.find(a => a.subject === id && a.object === e.id);
+    const detailLine = detail ? `<br><span style="color:var(--ink-dim);font-size:.78rem">${esc(detail.basis)}</span>` : "";
+    return `<li><b>${esc(STATUS_LABEL[role])}</b> — <a onclick="selectEvent('${e.id}')">${esc(e.label)}</a> <span style="color:var(--ink-dim);font-size:.78rem">(${esc(e.native)})</span>${reason}${detailLine}</li>`;
+  }).join("") + `</ul>` : `<p style="font-size:.82rem;color:var(--ink-dim)">No connection to any modelled event.</p>`;
+
+  const ties = DATA.kinship.filter(k => k.subject === id || k.object === id);
+  const tieHtml = ties.length ? `<ul class="tielist">` + ties.map(k => {
+    const other = k.subject === id ? { id: k.object, label: k.objectLabel } : { id: k.subject, label: k.subjectLabel };
+    const dir = k.subject === id ? esc(k.predicate.replace(/_/g, " ")) : "related via " + esc(k.predicate.replace(/_/g, " "));
+    return `<li><b>${dir}</b> — <a onclick="selectPerson('${other.id}')">${esc(other.label)}</a></li>`;
+  }).join("") + `</ul>` : "";
+
+  const others = otherTies(id);
+  const otherHtml = others.length ? `<ul class="tielist">` + others.map(a => {
+    const youAreSubject = a.subject === id;
+    const otherId = youAreSubject ? a.object : a.subject;
+    const otherLabel = youAreSubject ? a.objectLabel : a.subjectLabel;
+    const dir = youAreSubject ? esc(a.predicate) : esc(a.predicate) + " (as the object)";
+    const clickable = a.objectType === PERSON_TYPE && (youAreSubject ? a.objectType === PERSON_TYPE : true) && byId[otherId];
+    const target = clickable ? `<a onclick="selectPerson('${otherId}')">${esc(otherLabel)}</a>` : esc(otherLabel);
+    return `<li><b>${dir}</b> — ${target}<br><span style="color:var(--ink-dim);font-size:.78rem">${esc(a.basis)}</span></li>`;
+  }).join("") + `</ul>` : "";
+
+  panel.innerHTML = `
+    <div class="kicker">${isCore(id) ? "Companion" : "Companion — seed batch"}</div>
+    <h2>${esc(p.label)}</h2>
+    <dl class="facts">${facts}</dl>
+    <h3 class="sec">Events (${evRows.length} of ${events.length})</h3>
+    ${evHtml}
+    ${ties.length ? `<h3 class="sec mute">Documented kinship</h3>${tieHtml}` : ""}
+    ${others.length ? `<h3 class="sec mute">Other documented connections</h3>${otherHtml}` : ""}
+    <button class="act back" onclick="intro()">← back to overview</button>`;
+}
+
+function selectEvent(id) {
+  selected = id; draw();
+  const ev = eventById[id]; if (!ev) return;
+  const leaders = persons.filter(p => roleAt(p.id, id) === "leader");
+  const fighters = persons.filter(p => roleAt(p.id, id) === "participant");
+  const witnesses = persons.filter(p => roleAt(p.id, id) === "witness");
+  const absent = persons.filter(p => roleAt(p.id, id) === "absent");
+  const details = eventAssertions.filter(a => a.object === id);
+  const disputes = DATA.disputes.filter(d => d.event === id);
+
+  const list = arr => arr.length ? `<ul class="tielist">` + arr.map(p =>
+    `<li><a onclick="selectPerson('${p.id}')">${esc(p.label)}</a></li>`).join("") + `</ul>` : `<p style="font-size:.82rem;color:var(--ink-dim)">none in this file</p>`;
+
+  const detailHtml = details.length ? `<div class="note"><b>${esc(details.length)} documented detail${details.length>1?"s":""}:</b><br>` +
+    details.map(d => `${esc(d.subjectLabel)} — <em>${esc(d.predicate)}</em>: ${esc(d.basis)}`).join("<br><br>") + `</div>` : "";
+
+  const disputeHtml = disputes.length ? `<div class="note gap"><b>Disputed:</b> ${esc(disputes[0].question)}<ul class="tielist">` +
+    disputes.map(d => `<li>${esc(d.claim)}</li>`).join("") + `</ul></div>` : "";
+
+  panel.innerHTML = `
+    <div class="kicker">${isCore(id) ? "Event" : "Event — seed batch"}</div>
+    <h2>${esc(ev.label)}</h2>
+    <dl class="facts">
+      <div><dt>place</dt><dd>${esc(ev.placeLabel)}</dd></div>
+      <div><dt>date, as attested</dt><dd>${esc(ev.native)}</dd></div>
+    </dl>
+    ${leaders.length ? `<h3 class="sec">Led (${leaders.length})</h3>${list(leaders)}` : ""}
+    ${fighters.length ? `<h3 class="sec" style="color:var(--teal)">Present (${fighters.length})</h3>${list(fighters)}` : ""}
+    ${witnesses.length ? `<h3 class="sec" style="color:var(--witness)">Witnessed (${witnesses.length})</h3>${list(witnesses)}` : ""}
+    ${absent.length ? `<h3 class="sec" style="color:var(--rubric)">Absent, with reason (${absent.length})</h3>${list(absent)}` : ""}
+    ${detailHtml}
+    ${disputeHtml}
+    <div class="note gap"><b>Not a roster.</b> This file documents ${leaders.length + fighters.length + witnesses.length} of this generation by name at this event, plus ${absent.length} notable absentees — a highlight set, never a count.</div>
+    <button class="act back" onclick="intro()">← back to overview</button>`;
+}
+
+window.selectPerson = selectPerson; window.selectEvent = selectEvent; window.intro = intro;
+draw(); intro();
+</script>

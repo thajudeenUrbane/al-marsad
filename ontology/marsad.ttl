@@ -1,0 +1,624 @@
+@prefix mrs:   <https://w3id.org/marsad/core#> .
+@prefix mrsid: <https://w3id.org/marsad/id/> .
+@prefix crm:   <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix lrmoo: <http://iflastandards.info/ns/lrm/lrmoo/> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+
+#################################################################
+#  al-Marṣad core ontology — v0.1.0-draft
+#
+#  Normative prose specification: docs/02-knowledge-architecture.md
+#  Constraints:                   ontology/shapes.ttl
+#  Worked example:                ontology/examples/thawr.ttl
+#
+#  Design stance: OWL-Lite-level axioms only. Real constraints live in
+#  SHACL. OWL reasoning is NOT relied upon at query time — see
+#  docs/03-technical-architecture.md §5.
+#################################################################
+
+<https://w3id.org/marsad/core> a owl:Ontology ;
+    dct:title "al-Marṣad Core Ontology"@en ;
+    owl:versionInfo "0.1.0-draft" ;
+    dct:description """A CIDOC-CRM extension for evidence-anchored Islamic
+        historical knowledge. Its distinctive commitment: the transmitted
+        report (khabar) with its chain of transmission (isnad) is the atomic
+        unit, and the historical world is derived from it rather than
+        authored directly."""@en ;
+    dct:modified "2026-09-11"^^xsd:date ;
+    rdfs:seeAlso <http://www.cidoc-crm.org/cidoc-crm/> .
+
+#################################################################
+#  ROOT
+#################################################################
+
+mrs:Entity a owl:Class ;
+    rdfs:label "Entity"@en ;
+    rdfs:comment "Root class. Every instance carries coverage state and bitemporal audit."@en .
+
+mrs:coverageState a owl:ObjectProperty ;
+    rdfs:domain mrs:Entity ; rdfs:range mrs:CoverageState ;
+    rdfs:comment "stub | outline | sourced | reviewed | verified. A mature corpus is mostly stubs; this MUST remain visible."@en .
+
+mrs:createdBy  a owl:ObjectProperty ; rdfs:domain mrs:Entity ; rdfs:range prov:Agent .
+mrs:revisedBy  a owl:ObjectProperty ; rdfs:domain mrs:Entity ; rdfs:range prov:Agent .
+mrs:validFrom  a owl:DatatypeProperty ; rdfs:domain mrs:Entity ; rdfs:range xsd:dateTime .
+mrs:recordedAt a owl:DatatypeProperty ; rdfs:domain mrs:Entity ; rdfs:range xsd:dateTime .
+mrs:externalIdentifier a owl:DatatypeProperty ; rdfs:domain mrs:Entity ; rdfs:range xsd:anyURI ;
+    rdfs:comment "Alignment to Pleiades, al-Thurayya, WHG, Wikidata, OpenITI, VIAF. Never a primary key."@en .
+mrs:supersededBy a owl:ObjectProperty ; rdfs:domain mrs:Entity ; rdfs:range mrs:Entity .
+
+#################################################################
+#  STRUCTURED VALUES
+#################################################################
+
+mrs:TemporalExtent a owl:Class ;
+    rdfs:label "Temporal extent"@en ;
+    rdfs:comment "Four-corner interval with in-band uncertainty. There is no bare date anywhere in this model."@en .
+
+mrs:calendar       a owl:ObjectProperty   ; rdfs:domain mrs:TemporalExtent ; rdfs:range mrs:Calendar .
+mrs:nativeValue    a owl:DatatypeProperty ; rdfs:domain mrs:TemporalExtent ; rdfs:range xsd:string ;
+    rdfs:comment "Verbatim as the source states it. MUST NOT be normalized."@en .
+mrs:earliestStart  a owl:DatatypeProperty ; rdfs:domain mrs:TemporalExtent ; rdfs:range xsd:dateTime .
+mrs:latestStart    a owl:DatatypeProperty ; rdfs:domain mrs:TemporalExtent ; rdfs:range xsd:dateTime .
+mrs:earliestEnd    a owl:DatatypeProperty ; rdfs:domain mrs:TemporalExtent ; rdfs:range xsd:dateTime .
+mrs:latestEnd      a owl:DatatypeProperty ; rdfs:domain mrs:TemporalExtent ; rdfs:range xsd:dateTime .
+mrs:precision      a owl:ObjectProperty   ; rdfs:domain mrs:TemporalExtent ; rdfs:range mrs:Precision .
+mrs:temporalBasis  a owl:ObjectProperty   ; rdfs:domain mrs:TemporalExtent ; rdfs:range mrs:TemporalBasis .
+mrs:conversionMethod a owl:DatatypeProperty ; rdfs:domain mrs:TemporalExtent ; rdfs:range xsd:string .
+mrs:conversionUncertaintyDays a owl:DatatypeProperty ; rdfs:domain mrs:TemporalExtent ; rdfs:range xsd:integer .
+mrs:relativeAnchor a owl:ObjectProperty   ; rdfs:domain mrs:TemporalExtent ; rdfs:range mrs:RelativeAnchor .
+
+mrs:RelativeAnchor a owl:Class ;
+    rdfs:comment "Relational dating: 'after the death of X'. First-class, because much early chronology has no absolute anchor."@en .
+mrs:allenRelation a owl:ObjectProperty ; rdfs:domain mrs:RelativeAnchor ;
+    rdfs:comment "One of the thirteen Allen interval relations, via OWL-Time."@en .
+mrs:anchorTarget  a owl:ObjectProperty ; rdfs:domain mrs:RelativeAnchor ; rdfs:range mrs:Entity .
+
+mrs:GeometryState a owl:Class ;
+    rdfs:comment "Time-bounded geometry with confidence. Absent geometry (unlocated) is a valid and common state."@en .
+mrs:geometry           a owl:ObjectProperty ; rdfs:domain mrs:GeometryState ; rdfs:range geo:Geometry .
+mrs:locationConfidence a owl:ObjectProperty ; rdfs:domain mrs:GeometryState ; rdfs:range mrs:LocationConfidence .
+mrs:validExtent        a owl:ObjectProperty ; rdfs:domain mrs:GeometryState ; rdfs:range mrs:TemporalExtent .
+mrs:geometryBasis      a owl:ObjectProperty ; rdfs:domain mrs:GeometryState ; rdfs:range mrs:GeometryBasis .
+
+mrs:ArabicNameForm a owl:Class ;
+    rdfs:comment "Decomposed Arabic name. Collapsing this to a display string destroys the evidence disambiguation depends on."@en .
+mrs:ism    a owl:DatatypeProperty ; rdfs:domain mrs:ArabicNameForm ; rdfs:range xsd:string .
+mrs:kunya  a owl:DatatypeProperty ; rdfs:domain mrs:ArabicNameForm ; rdfs:range xsd:string .
+mrs:nasab  a owl:ObjectProperty   ; rdfs:domain mrs:ArabicNameForm ; rdfs:range rdf:List ;
+    rdfs:comment "ORDERED patronymic chain. Order is evidentially significant."@en .
+mrs:laqab  a owl:DatatypeProperty ; rdfs:domain mrs:ArabicNameForm ; rdfs:range xsd:string .
+mrs:nisba  a owl:ObjectProperty   ; rdfs:domain mrs:ArabicNameForm ; rdfs:range mrs:Nisba .
+mrs:fullFormAsAttested a owl:DatatypeProperty ; rdfs:domain mrs:ArabicNameForm ; rdfs:range xsd:string .
+mrs:script a owl:DatatypeProperty ; rdfs:domain mrs:ArabicNameForm ; rdfs:range xsd:string .
+mrs:transliterationScheme a owl:DatatypeProperty ; rdfs:domain mrs:ArabicNameForm ; rdfs:range xsd:string .
+mrs:attestedIn a owl:ObjectProperty ; rdfs:range mrs:Passage .
+
+mrs:Nisba a owl:Class .
+mrs:nisbaValue a owl:DatatypeProperty ; rdfs:domain mrs:Nisba ; rdfs:range xsd:string .
+mrs:nisbaType  a owl:ObjectProperty   ; rdfs:domain mrs:Nisba ; rdfs:range mrs:NisbaType ;
+    rdfs:comment "tribal | geographic | occupational | doctrinal | patronal. al-Qurashi, al-Basri and al-Hanafi are three different kinds of claim."@en .
+
+#################################################################
+#  AGENTS
+#################################################################
+
+mrs:Person a owl:Class ;
+    rdfs:subClassOf crm:E21_Person ;
+    rdfs:label "Person"@en .
+
+mrs:nameForm        a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:ArabicNameForm .
+mrs:tabaqa          a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:Tabaqa .
+mrs:companionStatus a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:CompanionStatus ;
+    rdfs:comment "Contested in many cases. Carries its own attestation set. MUST NOT be inferred from date overlap."@en .
+mrs:birth   a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range crm:E67_Birth .
+mrs:death   a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range crm:E69_Death .
+mrs:floruit a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:TemporalExtent .
+mrs:placeAffiliation a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:PlaceAffiliation .
+mrs:transmitterRole  a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:TransmitterRole .
+mrs:identityAssertion a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:IdentityAssertion .
+
+mrs:PlaceAffiliation a owl:Class ;
+    rdfs:comment "A person's city is not a fact about the person; it is a fact about a period of their life."@en .
+mrs:affiliatedPlace a owl:ObjectProperty ; rdfs:domain mrs:PlaceAffiliation ; rdfs:range mrs:Place .
+mrs:affiliationType a owl:ObjectProperty ; rdfs:domain mrs:PlaceAffiliation ; rdfs:range mrs:AffiliationType .
+mrs:affiliationExtent a owl:ObjectProperty ; rdfs:domain mrs:PlaceAffiliation ; rdfs:range mrs:TemporalExtent .
+
+mrs:Group  a owl:Class ; rdfs:subClassOf crm:E74_Group .
+mrs:Tribe  a owl:Class ; rdfs:subClassOf mrs:Group .
+mrs:Clan   a owl:Class ; rdfs:subClassOf mrs:Group .
+mrs:Family a owl:Class ; rdfs:subClassOf mrs:Group .
+
+#################################################################
+#  THE REPORT LAYER  — the primitive
+#################################################################
+
+mrs:Report a owl:Class ;
+    rdfs:subClassOf crm:E33_Linguistic_Object ;
+    rdfs:label "Report (khabar)"@en ;
+    rdfs:comment """The atomic unit of this model. Events, biographies and
+        relationships are reconstructions over clusters of Reports, never
+        stored as bare facts. NOTE: the CRM anchor is provisional — see
+        docs/02 §14.1."""@en .
+
+mrs:matnText a owl:DatatypeProperty ; rdfs:domain mrs:Report ; rdfs:range rdf:langString .
+mrs:textVariant a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:TextVariant .
+mrs:translation a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:Translation .
+mrs:hasChain a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:TransmissionChain ;
+    rdfs:comment "Minimum cardinality 0, deliberately: much sira-maghazi material carries no hadith-grade isnad and was never intended to."@en .
+mrs:terminalAscription a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:Ascription .
+mrs:locatedIn a owl:ObjectProperty ; rdfs:range mrs:Passage .
+mrs:sourceDate a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:TemporalExtent ;
+    rdfs:comment "When the CONTAINING WORK was composed — the historiographic axis (D6). Distinct from when the reported event occurred."@en .
+mrs:asserts a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:Assertion .
+mrs:memberOfCluster a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:ReportCluster .
+mrs:reportGenre a owl:ObjectProperty ; rdfs:domain mrs:Report ; rdfs:range mrs:ReportGenre ;
+    rdfs:comment "Normative, not descriptive: governs which evidence vocabulary applies."@en .
+
+mrs:Hadith a owl:Class ; rdfs:subClassOf mrs:Report ;
+    rdfs:comment "A Report with terminalAscription = marfu. Convenience subclass; no additional properties."@en .
+
+mrs:ReportCluster a owl:Class ;
+    rdfs:comment "Parallel and variant reports on the same matter. Underspecified in v0.1 — mutaba'at/shawahid not yet distinguished."@en .
+mrs:TextVariant a owl:Class .
+mrs:Translation a owl:Class ;
+    rdfs:comment "Attributed and versioned. MUST have a human translator; machine translation of transmitted material is prohibited."@en .
+mrs:translatedText a owl:DatatypeProperty ; rdfs:domain mrs:Translation ; rdfs:range rdf:langString .
+mrs:translator a owl:ObjectProperty ; rdfs:domain mrs:Translation ; rdfs:range prov:Agent .
+mrs:reviewer   a owl:ObjectProperty ; rdfs:domain mrs:Translation ; rdfs:range prov:Agent .
+mrs:translationVersion a owl:DatatypeProperty ; rdfs:domain mrs:Translation ; rdfs:range xsd:string .
+
+#################################################################
+#  TRANSMISSION
+#################################################################
+
+mrs:TransmissionChain a owl:Class ;
+    rdfs:label "Transmission chain (isnad)"@en ;
+    rdfs:comment """Simultaneously an evidentiary chain, a social network, a
+        geographic diffusion path and a temporal ordering. One encoding,
+        four capabilities."""@en .
+
+mrs:hasLink a owl:ObjectProperty ; rdfs:domain mrs:TransmissionChain ; rdfs:range mrs:TransmissionLink .
+mrs:collector a owl:ObjectProperty ; rdfs:domain mrs:TransmissionChain ; rdfs:range mrs:Person .
+mrs:terminalNarrator a owl:ObjectProperty ; rdfs:domain mrs:TransmissionChain ; rdfs:range mrs:Person .
+mrs:continuity a owl:ObjectProperty ; rdfs:domain mrs:TransmissionChain ; rdfs:range mrs:Continuity ;
+    rdfs:comment "SCHOLAR DETERMINATION. MUST NOT be computed or inferred from contactCheck results. The sharpest boundary in this specification."@en .
+
+mrs:TransmissionLink a owl:Class .
+mrs:linkOrder a owl:DatatypeProperty ; rdfs:domain mrs:TransmissionLink ; rdfs:range xsd:integer .
+mrs:fromNarrator a owl:ObjectProperty ; rdfs:domain mrs:TransmissionLink ; rdfs:range mrs:Person .
+mrs:toNarrator   a owl:ObjectProperty ; rdfs:domain mrs:TransmissionLink ; rdfs:range mrs:Person .
+mrs:transmissionMode a owl:ObjectProperty ; rdfs:domain mrs:TransmissionLink ; rdfs:range mrs:TransmissionMode .
+mrs:contactCheck a owl:ObjectProperty ; rdfs:domain mrs:TransmissionLink ; rdfs:range mrs:ContactCheck .
+
+mrs:ContactCheck a owl:Class ;
+    rdfs:comment """Computed liqa'/mu'asara plausibility. A FLAG FOR SPECIALIST
+        ATTENTION, never a verdict. MUST NOT influence any derived confidence
+        band. The system flags; the scholar rules."""@en .
+mrs:checkResult a owl:ObjectProperty   ; rdfs:domain mrs:ContactCheck ; rdfs:range mrs:CheckResult .
+mrs:checkBasis  a owl:ObjectProperty   ; rdfs:domain mrs:ContactCheck ; rdfs:range mrs:CheckBasis .
+mrs:computedAt  a owl:DatatypeProperty ; rdfs:domain mrs:ContactCheck ; rdfs:range xsd:dateTime .
+mrs:corpusVersion a owl:DatatypeProperty ; rdfs:range xsd:string .
+
+#################################################################
+#  EPISTEMIC LAYER
+#################################################################
+
+mrs:Assertion a owl:Class ;
+    rdfs:comment "An atomic claim extracted from a Report. Machine-usable; the Report is prose."@en .
+mrs:fromReport a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:Report .
+mrs:nonReportBasis a owl:DatatypeProperty ; rdfs:domain mrs:Assertion ; rdfs:range xsd:string .
+mrs:predicate a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:RelationType .
+mrs:assertionSubject a owl:ObjectProperty ; rdfs:domain mrs:Assertion .
+mrs:assertionObject  a owl:ObjectProperty ; rdfs:domain mrs:Assertion .
+mrs:qualifier a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:Qualifier .
+mrs:assertionStatus a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:AssertionStatus .
+mrs:Qualifier a owl:Class .
+
+mrs:Evaluation a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment ;
+    rdfs:label "Evaluation"@en ;
+    rdfs:comment """Grading is an ACT BY AN AGENT, never a property of a thing.
+        There is no report.grade field in this model. Multiple conflicting
+        evaluations coexist without contradiction — this is what makes the
+        corpus usable across traditions simultaneously."""@en .
+
+mrs:evaluator a owl:ObjectProperty ; rdfs:domain mrs:Evaluation ; rdfs:range prov:Agent .
+mrs:evaluationTarget a owl:ObjectProperty ; rdfs:domain mrs:Evaluation .
+mrs:grade a owl:ObjectProperty ; rdfs:domain mrs:Evaluation ; rdfs:range skos:Concept .
+mrs:gradeScheme a owl:ObjectProperty ; rdfs:domain mrs:Evaluation ; rdfs:range skos:ConceptScheme .
+mrs:tradition a owl:ObjectProperty ; rdfs:range mrs:Tradition .
+mrs:justification a owl:DatatypeProperty ; rdfs:domain mrs:Evaluation ; rdfs:range xsd:string .
+mrs:evaluationDate a owl:ObjectProperty ; rdfs:domain mrs:Evaluation ; rdfs:range mrs:TemporalExtent .
+
+mrs:Tradition a owl:Class ;
+    rdfs:comment "The interpretive lens (D7). Grades are meaningless without one. Which traditions the corpus represents is a governance decision."@en .
+
+mrs:IdentityAssertion a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment ;
+    rdfs:comment """'These names denote the same person' / 'these are distinct',
+        with reasoning and a human author. Automated processes MUST NOT merge
+        or split Person instances — narrator disambiguation is an open research
+        problem."""@en .
+mrs:identityRelation a owl:ObjectProperty ; rdfs:domain mrs:IdentityAssertion ; rdfs:range mrs:IdentityRelation .
+mrs:identitySubject a owl:ObjectProperty ; rdfs:domain mrs:IdentityAssertion ; rdfs:range mrs:Person .
+mrs:identityObject  a owl:ObjectProperty ; rdfs:domain mrs:IdentityAssertion ; rdfs:range mrs:Person .
+
+mrs:Dispute a owl:Class ;
+    rdfs:comment "Documented scholarly disagreement. Rendered, not resolved."@en .
+mrs:disputeSubject a owl:ObjectProperty ; rdfs:domain mrs:Dispute ; rdfs:range mrs:Entity .
+mrs:disputeQuestion a owl:DatatypeProperty ; rdfs:domain mrs:Dispute ; rdfs:range xsd:string .
+mrs:hasPosition a owl:ObjectProperty ; rdfs:domain mrs:Dispute ; rdfs:range mrs:Position .
+mrs:disputeSignificance a owl:ObjectProperty ; rdfs:domain mrs:Dispute ; rdfs:range mrs:Significance .
+mrs:disputeStatus a owl:ObjectProperty ; rdfs:domain mrs:Dispute ; rdfs:range mrs:DisputeStatus .
+
+mrs:Position a owl:Class .
+mrs:positionClaim a owl:DatatypeProperty ; rdfs:domain mrs:Position ; rdfs:range xsd:string .
+mrs:proponent a owl:ObjectProperty ; rdfs:domain mrs:Position ; rdfs:range prov:Agent .
+mrs:positionEvidence a owl:ObjectProperty ; rdfs:domain mrs:Position ; rdfs:range mrs:Assertion .
+mrs:positionReasoning a owl:DatatypeProperty ; rdfs:domain mrs:Position ; rdfs:range xsd:string .
+
+mrs:CoverageGap a owl:Class ;
+    rdfs:comment """Modelled ABSENCE. Users read a gap in the database as a gap
+        in history; that inference is almost always wrong and sometimes
+        defamatory."""@en .
+mrs:gapScope a owl:ObjectProperty ; rdfs:domain mrs:CoverageGap ; rdfs:range mrs:GapScope .
+mrs:gapDescription a owl:DatatypeProperty ; rdfs:domain mrs:CoverageGap ; rdfs:range xsd:string .
+
+# GAP FOUND DURING FIRST REAL USE, 12 Sept 2026: the class existed but there
+# was no property linking a CoverageGap to the thing it describes. A
+# CoverageGap with nothing pointing to it cannot be surfaced by the UI at
+# the moment a user hits the gap (docs/05 §3's empty-state rule depends on
+# this). Domain left as mrs:Entity generically -- any entity (an Event, a
+# Person, a corpus slice's root) can declare a gap about its own coverage.
+mrs:coverageGap a owl:ObjectProperty ; rdfs:domain mrs:Entity ; rdfs:range mrs:CoverageGap ;
+    rdfs:comment "Attaches a CoverageGap to the entity or scope it describes. Added post-launch; see docs/11 self-critique."@en .
+mrs:gapCause a owl:ObjectProperty ; rdfs:domain mrs:CoverageGap ; rdfs:range mrs:GapCause .
+mrs:knownSource a owl:DatatypeProperty ; rdfs:domain mrs:CoverageGap ; rdfs:range xsd:string .
+
+mrs:confidenceBand a owl:ObjectProperty ; rdfs:range mrs:ConfidenceBand ;
+    rdfs:comment "DERIVED, never authored. Bands not scores: a float implies precision that does not exist."@en .
+mrs:confidenceDecomposition a owl:DatatypeProperty ; rdfs:range xsd:string ;
+    rdfs:comment "REQUIRED alongside any confidenceBand: the inputs that produced it."@en .
+
+#################################################################
+#  RELATIONSHIPS  — reified, n-ary
+#################################################################
+
+mrs:Relationship a owl:Class ;
+    rdfs:comment """A connection is an OBJECT, not an edge: it has identity,
+        temporal and spatial extent, evidence, facets and disputes, and can
+        itself be focused on and cited."""@en .
+
+mrs:relationType a owl:ObjectProperty ; rdfs:domain mrs:Relationship ; rdfs:range mrs:RelationType .
+mrs:hasParticipation a owl:ObjectProperty ; rdfs:domain mrs:Relationship ; rdfs:range mrs:Participation .
+mrs:relTemporalExtent a owl:ObjectProperty ; rdfs:domain mrs:Relationship ; rdfs:range mrs:TemporalExtent .
+mrs:relSpatialExtent a owl:ObjectProperty ; rdfs:domain mrs:Relationship .
+mrs:contextEvent a owl:ObjectProperty ; rdfs:domain mrs:Relationship ; rdfs:range mrs:Event .
+mrs:attestedBy a owl:ObjectProperty ; rdfs:range mrs:Assertion ;
+    rdfs:comment "Minimum cardinality 1 on Relationship. A relationship with no attestation MUST NOT exist."@en .
+mrs:hasFacet a owl:ObjectProperty ; rdfs:domain mrs:Relationship ; rdfs:range mrs:Relationship ;
+    rdfs:comment "Sub-relations. 'Friend' is a category error; a relationship aggregates individually-evidenced interactions."@en .
+mrs:dispute a owl:ObjectProperty ; rdfs:range mrs:Dispute .
+
+mrs:Participation a owl:Class ;
+    rdfs:comment "N-ary role binding. Binary edges cannot express a treaty concluded in the presence of C and mediated by D."@en .
+mrs:participant a owl:ObjectProperty ; rdfs:domain mrs:Participation ; rdfs:range mrs:Entity .
+mrs:participantRole a owl:ObjectProperty ; rdfs:domain mrs:Participation ; rdfs:range mrs:Role .
+
+mrs:Role a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:role_principal a mrs:Role ; skos:prefLabel "principal"@en .
+mrs:role_companion a mrs:Role ; skos:prefLabel "companion"@en .
+mrs:role_participant a mrs:Role ; skos:prefLabel "participant"@en .
+mrs:role_witness a mrs:Role ; skos:prefLabel "witness"@en .
+mrs:role_leader a mrs:Role ; skos:prefLabel "leader"@en .
+mrs:role_guide a mrs:Role ; skos:prefLabel "guide"@en .
+mrs:role_opponent a mrs:Role ; skos:prefLabel "opponent"@en .
+mrs:role_mediator a mrs:Role ; skos:prefLabel "mediator"@en .
+
+# Workflow roles, used in prov:hadRole on extraction and review activities.
+mrs:role_extractor a mrs:Role ; skos:prefLabel "extractor"@en ;
+    skos:note "Held by a software agent. An extractor's output is always status=proposed."@en .
+mrs:role_adjudicator a mrs:Role ; skos:prefLabel "adjudicator"@en ;
+    skos:note "MUST be held by a human. The moment a proposal becomes knowledge."@en .
+mrs:role_reviewer a mrs:Role ; skos:prefLabel "reviewer"@en .
+mrs:role_translator a mrs:Role ; skos:prefLabel "translator"@en .
+
+mrs:RelationType a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:inverseRelation a owl:ObjectProperty ; rdfs:domain mrs:RelationType ; rdfs:range mrs:RelationType .
+mrs:relationClass a owl:ObjectProperty ; rdfs:domain mrs:RelationType .
+mrs:symmetric a owl:DatatypeProperty ; rdfs:domain mrs:RelationType ; rdfs:range xsd:boolean .
+mrs:restricted a owl:DatatypeProperty ; rdfs:domain mrs:RelationType ; rdfs:range xsd:boolean ;
+    rdfs:comment "Restricted relations (abrogates, revealed_concerning) are juristic determinations: never machine-asserted, always attributed."@en .
+
+#################################################################
+#  OCCURRENTS
+#################################################################
+
+mrs:Event a owl:Class ; rdfs:subClassOf crm:E5_Event .
+mrs:Journey a owl:Class ; rdfs:subClassOf mrs:Event ;
+    rdfs:comment "Has a Route, not merely endpoints."@en .
+mrs:eventTemporalExtent a owl:ObjectProperty ; rdfs:domain mrs:Event ; rdfs:range mrs:TemporalExtent .
+mrs:eventPlace a owl:ObjectProperty ; rdfs:domain mrs:Event ; rdfs:range mrs:Place .
+mrs:hasRoute a owl:ObjectProperty ; rdfs:domain mrs:Journey ; rdfs:range mrs:Route .
+
+#################################################################
+#  PLACES
+#################################################################
+
+mrs:Place a owl:Class ; rdfs:subClassOf crm:E53_Place ;
+    rdfs:comment "A named geographic CONCEPT with a history — not a coordinate."@en .
+mrs:namePhase a owl:ObjectProperty ; rdfs:domain mrs:Place ; rdfs:range mrs:NamePhase ;
+    rdfs:comment "1..n — Yathrib and al-Madina are one place under different names in different periods."@en .
+mrs:geometryState a owl:ObjectProperty ; rdfs:domain mrs:Place ; rdfs:range mrs:GeometryState .
+mrs:placeType a owl:ObjectProperty ; rdfs:domain mrs:Place ; rdfs:range mrs:PlaceType .
+mrs:within a owl:ObjectProperty ; rdfs:domain mrs:Place ; rdfs:range mrs:Place .
+
+mrs:NamePhase a owl:Class .
+mrs:phaseName a owl:DatatypeProperty ; rdfs:domain mrs:NamePhase ; rdfs:range rdf:langString .
+mrs:phaseExtent a owl:ObjectProperty ; rdfs:domain mrs:NamePhase ; rdfs:range mrs:TemporalExtent .
+
+mrs:Route a owl:Class .
+mrs:hasSegment a owl:ObjectProperty ; rdfs:domain mrs:Route ; rdfs:range mrs:RouteSegment .
+
+mrs:RouteSegment a owl:Class ;
+    rdfs:comment """Segment-level confidence is mandatory. Modelling the Hijrah
+        as a line from Makkah to Madina would erase the historical content of
+        the event and assert a path nobody attests."""@en .
+mrs:segmentOrder a owl:DatatypeProperty ; rdfs:domain mrs:RouteSegment ; rdfs:range xsd:integer .
+mrs:segmentFrom a owl:ObjectProperty ; rdfs:domain mrs:RouteSegment .
+mrs:segmentTo   a owl:ObjectProperty ; rdfs:domain mrs:RouteSegment .
+mrs:segmentGeometry a owl:ObjectProperty ; rdfs:domain mrs:RouteSegment ; rdfs:range geo:Geometry .
+mrs:segmentConfidence a owl:ObjectProperty ; rdfs:domain mrs:RouteSegment ; rdfs:range mrs:SegmentConfidence .
+mrs:traversal a owl:ObjectProperty ; rdfs:domain mrs:RouteSegment ; rdfs:range mrs:TemporalExtent .
+mrs:travelMode a owl:ObjectProperty ; rdfs:domain mrs:RouteSegment ; rdfs:range mrs:TravelMode .
+
+#################################################################
+#  SOURCES  (WEMI via LRMoo)
+#################################################################
+
+mrs:Work       a owl:Class ; rdfs:subClassOf lrmoo:F1_Work .
+mrs:Recension  a owl:Class ; rdfs:subClassOf lrmoo:F2_Expression .
+mrs:Edition    a owl:Class ; rdfs:subClassOf lrmoo:F3_Manifestation .
+mrs:Witness    a owl:Class ; rdfs:subClassOf lrmoo:F5_Item .
+mrs:Passage    a owl:Class ; rdfs:subClassOf crm:E33_Linguistic_Object .
+
+mrs:canonicalCitation a owl:DatatypeProperty ; rdfs:domain mrs:Passage ; rdfs:range xsd:string .
+mrs:iiifReference a owl:DatatypeProperty ; rdfs:domain mrs:Passage ; rdfs:range xsd:anyURI .
+mrs:inWitness a owl:ObjectProperty ; rdfs:domain mrs:Passage ; rdfs:range mrs:Witness .
+
+#################################################################
+#  CONTROLLED VOCABULARIES
+#################################################################
+
+mrs:CoverageState a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:cs_stub a mrs:CoverageState ; skos:prefLabel "stub"@en .
+mrs:cs_outline a mrs:CoverageState ; skos:prefLabel "outline"@en .
+mrs:cs_sourced a mrs:CoverageState ; skos:prefLabel "sourced"@en .
+mrs:cs_reviewed a mrs:CoverageState ; skos:prefLabel "reviewed"@en .
+mrs:cs_verified a mrs:CoverageState ; skos:prefLabel "verified"@en .
+
+mrs:Ascription a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:asc_marfu a mrs:Ascription ; skos:prefLabel "marfū‘ — ascribed to the Prophet ﷺ"@en .
+mrs:asc_mawquf a mrs:Ascription ; skos:prefLabel "mawqūf — ascribed to a Companion"@en .
+mrs:asc_maqtu a mrs:Ascription ; skos:prefLabel "maqṭū‘ — ascribed to a Successor"@en .
+mrs:asc_other a mrs:Ascription ; skos:prefLabel "other"@en .
+mrs:asc_none a mrs:Ascription ; skos:prefLabel "none"@en .
+
+mrs:Continuity a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:con_muttasil a mrs:Continuity ; skos:prefLabel "muttaṣil"@en .
+mrs:con_munqati a mrs:Continuity ; skos:prefLabel "munqaṭi‘"@en .
+mrs:con_mudal a mrs:Continuity ; skos:prefLabel "mu‘ḍal"@en .
+mrs:con_muallaq a mrs:Continuity ; skos:prefLabel "mu‘allaq"@en .
+mrs:con_mursal a mrs:Continuity ; skos:prefLabel "mursal"@en .
+
+mrs:TransmissionMode a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:tm_sama a mrs:TransmissionMode ; skos:prefLabel "samā‘"@en .
+mrs:tm_qiraa a mrs:TransmissionMode ; skos:prefLabel "qirā’a"@en .
+mrs:tm_ijaza a mrs:TransmissionMode ; skos:prefLabel "ijāza"@en .
+mrs:tm_munawala a mrs:TransmissionMode ; skos:prefLabel "munāwala"@en .
+mrs:tm_wijada a mrs:TransmissionMode ; skos:prefLabel "wijāda"@en .
+mrs:tm_anana a mrs:TransmissionMode ; skos:prefLabel "‘an‘ana"@en .
+mrs:tm_unspecified a mrs:TransmissionMode ; skos:prefLabel "unspecified"@en .
+
+mrs:Tabaqa a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:comment "Flat in v0.1; the classical tabaqat works subdivide considerably. See docs/02 §14.5."@en .
+mrs:tb_sahabi a mrs:Tabaqa ; skos:prefLabel "ṣaḥābī"@en .
+mrs:tb_tabii a mrs:Tabaqa ; skos:prefLabel "tābi‘ī"@en .
+mrs:tb_tabi_al_tabiin a mrs:Tabaqa ; skos:prefLabel "tābi‘ al-tābi‘īn"@en .
+mrs:tb_unclassified a mrs:Tabaqa ; skos:prefLabel "unclassified"@en .
+
+mrs:ReportGenre a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:rg_hadith a mrs:ReportGenre ; skos:prefLabel "ḥadīth"@en .
+mrs:rg_sira_maghazi a mrs:ReportGenre ; skos:prefLabel "sīra / maghāzī"@en ;
+    skos:note "Hadith grading vocabulary does not apply by default to this genre."@en .
+mrs:rg_tabaqat a mrs:ReportGenre ; skos:prefLabel "ṭabaqāt"@en .
+mrs:rg_tarikh a mrs:ReportGenre ; skos:prefLabel "tārīkh"@en .
+mrs:rg_adab a mrs:ReportGenre ; skos:prefLabel "adab"@en .
+mrs:rg_other a mrs:ReportGenre ; skos:prefLabel "other"@en .
+
+mrs:ConfidenceBand a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:cb_attested a mrs:ConfidenceBand ; skos:prefLabel "attested"@en .
+mrs:cb_well_attested a mrs:ConfidenceBand ; skos:prefLabel "well attested"@en .
+mrs:cb_classical_report a mrs:ConfidenceBand ; skos:prefLabel "classical report"@en ;
+    skos:note "Transmitted in the historical tradition without hadith-grade evaluation. Neither dismissed nor elevated."@en .
+mrs:cb_contested a mrs:ConfidenceBand ; skos:prefLabel "contested"@en .
+mrs:cb_weakly_attested a mrs:ConfidenceBand ; skos:prefLabel "weakly attested"@en .
+mrs:cb_unattested a mrs:ConfidenceBand ; skos:prefLabel "unattested"@en .
+
+mrs:Significance a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:sig_factual a mrs:Significance ; skos:prefLabel "factual"@en .
+mrs:sig_chronological a mrs:Significance ; skos:prefLabel "chronological"@en .
+mrs:sig_interpretive a mrs:Significance ; skos:prefLabel "interpretive"@en .
+mrs:sig_juristic a mrs:Significance ; skos:prefLabel "juristic"@en ;
+    skos:note "No computed weighting. No default position."@en .
+mrs:sig_theological a mrs:Significance ; skos:prefLabel "theological"@en ;
+    skos:note "No computation, no default, no ranking. The system declines to adjudicate."@en .
+
+mrs:GapCause a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:gc_not_yet_ingested a mrs:GapCause ; skos:prefLabel "not yet ingested"@en .
+mrs:gc_sources_lost a mrs:GapCause ; skos:prefLabel "sources lost"@en .
+mrs:gc_sources_unavailable a mrs:GapCause ; skos:prefLabel "sources unavailable"@en .
+mrs:gc_sources_unlicensed a mrs:GapCause ; skos:prefLabel "sources exist but unlicensed"@en .
+mrs:gc_genuinely_unattested a mrs:GapCause ; skos:prefLabel "genuinely unattested"@en .
+
+mrs:SegmentConfidence a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:sc_attested a mrs:SegmentConfidence ; skos:prefLabel "attested"@en .
+mrs:sc_probable a mrs:SegmentConfidence ; skos:prefLabel "probable"@en .
+mrs:sc_conjectural a mrs:SegmentConfidence ; skos:prefLabel "conjectural"@en .
+mrs:sc_unknown a mrs:SegmentConfidence ; skos:prefLabel "unknown"@en ;
+    skos:note "Renders as a break. Implementations MUST NOT interpolate across it."@en .
+
+mrs:LocationConfidence a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:lc_certain a mrs:LocationConfidence ; skos:prefLabel "certain"@en .
+mrs:lc_probable a mrs:LocationConfidence ; skos:prefLabel "probable"@en .
+mrs:lc_approximate a mrs:LocationConfidence ; skos:prefLabel "approximate"@en .
+mrs:lc_disputed a mrs:LocationConfidence ; skos:prefLabel "disputed"@en .
+mrs:lc_unlocated a mrs:LocationConfidence ; skos:prefLabel "unlocated"@en ;
+    skos:note "Valid and common. Many classical toponyms are named but not securely identified."@en .
+
+mrs:AssertionStatus a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:as_proposed a mrs:AssertionStatus ; skos:prefLabel "proposed"@en .
+mrs:as_under_review a mrs:AssertionStatus ; skos:prefLabel "under review"@en .
+mrs:as_accepted a mrs:AssertionStatus ; skos:prefLabel "accepted"@en .
+mrs:as_rejected a mrs:AssertionStatus ; skos:prefLabel "rejected"@en .
+mrs:as_superseded a mrs:AssertionStatus ; skos:prefLabel "superseded"@en .
+
+mrs:CheckResult a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:chk_plausible a mrs:CheckResult ; skos:prefLabel "plausible"@en .
+mrs:chk_implausible a mrs:CheckResult ; skos:prefLabel "implausible"@en .
+mrs:chk_indeterminate a mrs:CheckResult ; skos:prefLabel "indeterminate"@en .
+
+mrs:Calendar a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:cal_hijri a mrs:Calendar ; skos:prefLabel "hijrī"@en .
+mrs:cal_julian a mrs:Calendar ; skos:prefLabel "Julian"@en .
+mrs:cal_gregorian a mrs:Calendar ; skos:prefLabel "Gregorian"@en .
+
+mrs:Precision a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:pr_day a mrs:Precision ; skos:prefLabel "day"@en .
+mrs:pr_month a mrs:Precision ; skos:prefLabel "month"@en .
+mrs:pr_year a mrs:Precision ; skos:prefLabel "year"@en .
+mrs:pr_decade a mrs:Precision ; skos:prefLabel "decade"@en .
+mrs:pr_generation a mrs:Precision ; skos:prefLabel "generation"@en .
+mrs:pr_period a mrs:Precision ; skos:prefLabel "period"@en .
+mrs:pr_unknown a mrs:Precision ; skos:prefLabel "unknown"@en .
+
+mrs:TemporalBasis a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:tbas_attested a mrs:TemporalBasis ; skos:prefLabel "attested"@en .
+mrs:tbas_inferred a mrs:TemporalBasis ; skos:prefLabel "inferred"@en .
+mrs:tbas_computed a mrs:TemporalBasis ; skos:prefLabel "computed"@en .
+mrs:tbas_conventional a mrs:TemporalBasis ; skos:prefLabel "conventional"@en .
+mrs:tbas_disputed a mrs:TemporalBasis ; skos:prefLabel "disputed"@en .
+
+mrs:NisbaType a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:nt_tribal a mrs:NisbaType ; skos:prefLabel "tribal"@en .
+mrs:nt_geographic a mrs:NisbaType ; skos:prefLabel "geographic"@en .
+mrs:nt_occupational a mrs:NisbaType ; skos:prefLabel "occupational"@en .
+mrs:nt_doctrinal a mrs:NisbaType ; skos:prefLabel "doctrinal"@en .
+mrs:nt_patronal a mrs:NisbaType ; skos:prefLabel "patronal"@en .
+
+mrs:GeometryBasis a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:comment "How a location came to be identified. A map must be able to render 'traditional' differently from 'archaeological'."@en .
+mrs:gb_archaeological a mrs:GeometryBasis ; skos:prefLabel "archaeological"@en .
+mrs:gb_textual a mrs:GeometryBasis ; skos:prefLabel "textual"@en .
+mrs:gb_traditional a mrs:GeometryBasis ; skos:prefLabel "traditional"@en ;
+    skos:note "Rests on continuous local tradition rather than archaeological determination."@en .
+mrs:gb_inferred a mrs:GeometryBasis ; skos:prefLabel "inferred"@en .
+mrs:gb_modern_identification a mrs:GeometryBasis ; skos:prefLabel "modern identification"@en .
+
+mrs:CompanionStatus a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:comment "Contested in many cases. MUST NOT be inferred from date overlap alone."@en .
+mrs:comp_attested a mrs:CompanionStatus ; skos:prefLabel "attested"@en .
+mrs:comp_disputed a mrs:CompanionStatus ; skos:prefLabel "disputed"@en .
+mrs:comp_denied a mrs:CompanionStatus ; skos:prefLabel "denied"@en .
+mrs:comp_undetermined a mrs:CompanionStatus ; skos:prefLabel "undetermined"@en .
+
+mrs:TransmitterRole a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:tr_narrator a mrs:TransmitterRole ; skos:prefLabel "narrator"@en .
+mrs:tr_author a mrs:TransmitterRole ; skos:prefLabel "author"@en .
+mrs:tr_both a mrs:TransmitterRole ; skos:prefLabel "narrator and author"@en .
+mrs:tr_neither a mrs:TransmitterRole ; skos:prefLabel "neither"@en .
+
+mrs:AffiliationType a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:aff_born a mrs:AffiliationType ; skos:prefLabel "born at"@en .
+mrs:aff_resided a mrs:AffiliationType ; skos:prefLabel "resided in"@en .
+mrs:aff_died a mrs:AffiliationType ; skos:prefLabel "died at"@en .
+mrs:aff_buried a mrs:AffiliationType ; skos:prefLabel "buried at"@en .
+mrs:aff_taught a mrs:AffiliationType ; skos:prefLabel "taught at"@en .
+mrs:aff_studied a mrs:AffiliationType ; skos:prefLabel "studied at"@en .
+mrs:aff_governed a mrs:AffiliationType ; skos:prefLabel "governed"@en .
+
+mrs:CheckBasis a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:ckb_lifespan_overlap a mrs:CheckBasis ; skos:prefLabel "lifespan overlap"@en .
+mrs:ckb_place_overlap a mrs:CheckBasis ; skos:prefLabel "place overlap"@en .
+mrs:ckb_both a mrs:CheckBasis ; skos:prefLabel "lifespan and place"@en .
+mrs:ckb_insufficient_data a mrs:CheckBasis ; skos:prefLabel "insufficient data"@en .
+
+mrs:DisputeStatus a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:ds_open a mrs:DisputeStatus ; skos:prefLabel "open"@en .
+mrs:ds_majority_view a mrs:DisputeStatus ; skos:prefLabel "majority view exists"@en .
+mrs:ds_resolved a mrs:DisputeStatus ; skos:prefLabel "resolved by consensus"@en .
+mrs:ds_unresolvable a mrs:DisputeStatus ; skos:prefLabel "unresolvable"@en .
+
+mrs:GapScope a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:gs_region a mrs:GapScope ; skos:prefLabel "region"@en .
+mrs:gs_period a mrs:GapScope ; skos:prefLabel "period"@en .
+mrs:gs_topic a mrs:GapScope ; skos:prefLabel "topic"@en .
+mrs:gs_person_class a mrs:GapScope ; skos:prefLabel "class of persons"@en .
+mrs:gs_source_class a mrs:GapScope ; skos:prefLabel "class of sources"@en .
+
+mrs:TravelMode a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:tvm_foot a mrs:TravelMode ; skos:prefLabel "on foot"@en .
+mrs:tvm_camel a mrs:TravelMode ; skos:prefLabel "by camel"@en .
+mrs:tvm_horse a mrs:TravelMode ; skos:prefLabel "by horse"@en .
+mrs:tvm_ship a mrs:TravelMode ; skos:prefLabel "by ship"@en .
+mrs:tvm_mixed a mrs:TravelMode ; skos:prefLabel "mixed"@en .
+
+mrs:PlaceType a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:pt_settlement a mrs:PlaceType ; skos:prefLabel "settlement"@en .
+mrs:pt_quarter a mrs:PlaceType ; skos:prefLabel "quarter"@en .
+mrs:pt_well a mrs:PlaceType ; skos:prefLabel "well"@en .
+mrs:pt_mountain a mrs:PlaceType ; skos:prefLabel "mountain"@en .
+mrs:pt_cave a mrs:PlaceType ; skos:prefLabel "cave"@en .
+mrs:pt_valley a mrs:PlaceType ; skos:prefLabel "valley"@en .
+mrs:pt_oasis a mrs:PlaceType ; skos:prefLabel "oasis"@en .
+mrs:pt_route_node a mrs:PlaceType ; skos:prefLabel "route node"@en .
+mrs:pt_region a mrs:PlaceType ; skos:prefLabel "region"@en .
+mrs:pt_structure a mrs:PlaceType ; skos:prefLabel "structure"@en .
+mrs:pt_battlefield a mrs:PlaceType ; skos:prefLabel "battlefield"@en .
+mrs:pt_cemetery a mrs:PlaceType ; skos:prefLabel "cemetery"@en .
+
+mrs:IdentityRelation a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:ir_same_as a mrs:IdentityRelation ; skos:prefLabel "same as"@en .
+mrs:ir_distinct_from a mrs:IdentityRelation ; skos:prefLabel "distinct from"@en .
+mrs:ir_possibly_same a mrs:IdentityRelation ; skos:prefLabel "possibly the same"@en ;
+    skos:note "A valid terminal state. Not every identity question has an answer."@en .
+
+mrs:Qualifier a owl:Class .
+
+#################################################################
+#  RESERVED — URIs minted, definitions deferred to a later version.
+#  Reserving prevents future collision; specifying now would mean
+#  specifying things nobody will implement for two years.
+#################################################################
+
+mrs:Institution a owl:Class ; owl:deprecated false ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Dynasty a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Polity a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Territory a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Concept a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:IntellectualMovement a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Structure a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:QuranicPassage a owl:Class ; rdfs:comment "RESERVED — reference object only; this system does not editorialize the text."@en .
+mrs:TeachingEvent a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Battle a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Treaty a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .
+mrs:Period a owl:Class ; rdfs:comment "RESERVED — not specified in v0.1."@en .

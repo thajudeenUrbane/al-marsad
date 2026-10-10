@@ -1,0 +1,371 @@
+<title>The Road Ahead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#E8E9E4; --sheet:#F1F2EE;
+  --ink:#1A1E1D; --ink-mid:#3C423F; --ink-mute:#5C635F; --ink-faint:#868C87;
+  --rule:#CBCEC5; --rule-soft:#DCDED7;
+  --teal:#0F5F64; --teal-soft:#D6E2E1;
+  --rubric:#93331E; --rubric-soft:#E7D7D0;
+  --gold:#8A6A2F; --gold-soft:#EDE3CC;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101518; --sheet:#171E22;
+    --ink:#DCE3E1; --ink-mid:#B6C0BD; --ink-mute:#8D9A96; --ink-faint:#6C7975;
+    --rule:#28333A; --rule-soft:#1F282D;
+    --teal:#57B4B8; --teal-soft:#14302F;
+    --rubric:#D9765A; --rubric-soft:#33201A;
+    --gold:#D9B26A; --gold-soft:#2E2712;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101518; --sheet:#171E22;
+  --ink:#DCE3E1; --ink-mid:#B6C0BD; --ink-mute:#8D9A96; --ink-faint:#6C7975;
+  --rule:#28333A; --rule-soft:#1F282D;
+  --teal:#57B4B8; --teal-soft:#14302F;
+  --rubric:#D9765A; --rubric-soft:#33201A;
+  --gold:#D9B26A; --gold-soft:#2E2712;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:1.08rem; line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal)}
+strong{font-weight:600}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+main{max-width:38rem;margin:0 auto;padding:3.6rem 1.4rem 5rem}
+main > *{margin-inline:auto}
+
+header.top{margin-bottom:2.6rem}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:1rem;
+}
+h1{
+  font-family:"Newsreader",Georgia,serif;font-weight:500;
+  font-size:clamp(2.3rem,7.5vw,3.3rem);line-height:1.1;letter-spacing:-.015em;
+  margin:0 0 1.2rem;text-wrap:balance;
+}
+.lede{font-size:1.22rem;line-height:1.6;color:var(--ink-mid);margin:0}
+.lede strong{color:var(--ink)}
+.readtime{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-faint);
+  margin-top:1.1rem;
+}
+
+nav.toc{
+  background:var(--sheet);border:1px solid var(--rule);
+  padding:1.1rem 1.3rem;margin:2.2rem 0 3rem;
+}
+nav.toc .lbl{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:.7rem;
+}
+nav.toc ol{margin:0;padding:0 0 0 1.2rem;font-size:.92rem}
+nav.toc li{margin-bottom:.4rem;color:var(--ink-mute)}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--teal)}
+
+h2{
+  font-family:"Newsreader",Georgia,serif;font-weight:500;
+  font-size:1.9rem;line-height:1.2;letter-spacing:-.01em;
+  margin:3.4rem 0 .3rem;text-wrap:balance;
+}
+h2 .num{
+  display:block;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);
+  margin-bottom:.6rem;
+}
+h2 + .dek{
+  font-family:"Newsreader",Georgia,serif;font-style:italic;font-size:1.12rem;
+  color:var(--ink-mute);margin:0 0 1.5rem;max-width:34rem;
+}
+p{margin:0 0 1.15rem;color:var(--ink-mid)}
+p.lead-in{color:var(--ink);font-size:1.1rem}
+strong.term{color:var(--ink);font-weight:600}
+
+blockquote{
+  margin:1.8rem 0;padding-left:1.2rem;border-left:2px solid var(--gold);
+  font-family:"Newsreader",Georgia,serif;font-size:1.18rem;line-height:1.5;
+  color:var(--ink);font-style:italic;
+}
+
+.analogy{
+  background:var(--sheet);border:1px solid var(--rule);border-left:3px solid var(--teal);
+  padding:1.1rem 1.3rem;margin:1.8rem 0;
+}
+.analogy p{margin:0;color:var(--ink-mid);font-size:.98rem}
+.analogy p:first-child{color:var(--ink);font-weight:500;margin-bottom:.4rem}
+
+/* the step track for section 3 */
+ol.steps{list-style:none;margin:2rem 0;padding:0;counter-reset:step;
+  border-left:2px solid var(--rule);margin-left:.9rem;}
+ol.steps li{
+  counter-increment:step;position:relative;padding:0 0 2.3rem 2.1rem;
+}
+ol.steps li:last-child{padding-bottom:0}
+ol.steps li::before{
+  content:counter(step);position:absolute;left:-1.55rem;top:0;
+  width:2.1rem;height:2.1rem;border-radius:50%;
+  background:var(--paper);border:2px solid var(--teal);color:var(--teal);
+  display:flex;align-items:center;justify-content:center;
+  font-family:"IBM Plex Mono",monospace;font-size:.85rem;font-weight:500;
+}
+ol.steps li.now::before{background:var(--teal);color:var(--paper)}
+ol.steps h3{
+  font-family:"Newsreader",Georgia,serif;font-weight:500;font-size:1.28rem;
+  margin:.1rem 0 .5rem;color:var(--ink);
+}
+ol.steps .when{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:.5rem;display:block;
+}
+ol.steps p{margin:0 0 .7rem;font-size:.98rem}
+ol.steps li.now .when{color:var(--teal)}
+.now-tag{
+  display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.65rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--teal);
+  border:1px solid var(--teal);padding:.1rem .5rem;margin-left:.5rem;
+  vertical-align:middle;
+}
+
+/* education cards */
+.edu{
+  border-top:1px solid var(--rule-soft);padding:1.3rem 0;
+}
+.edu:first-of-type{border-top:1px solid var(--rule);margin-top:1.8rem}
+.edu h3{
+  font-family:"Newsreader",Georgia,serif;font-weight:500;font-size:1.24rem;
+  margin:0 0 .5rem;color:var(--ink);
+}
+.edu p{margin:0;font-size:.98rem}
+
+.callout{
+  background:var(--gold-soft);border:1px solid var(--rule);border-left:3px solid var(--gold);
+  padding:1.1rem 1.3rem;margin:1.8rem 0;
+}
+.callout p{margin:0;color:var(--ink-mid);font-size:.98rem}
+.callout p strong{color:var(--ink)}
+
+.callout.warn{background:var(--rubric-soft);border-left-color:var(--rubric)}
+
+footer{
+  border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.4rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-faint);line-height:1.8;
+}
+footer a{color:var(--ink-faint)}
+</style>
+
+<main>
+
+  <header class="top">
+    <div class="eyebrow">al-Marṣad — a plan, written out loud, for anyone to read</div>
+    <h1>The road ahead, step by step.</h1>
+    <p class="lede">We are not close to a finished program. We are not even close to being <em>ready</em> for one. This page says, plainly, where we actually are, why we should not rush to bring historians in yet, and exactly what has to happen — in order — before we do.</p>
+    <p class="readtime">About 15 minutes to read. No technical background needed.</p>
+  </header>
+
+  <nav class="toc">
+    <div class="lbl">On this page</div>
+    <ol>
+      <li><a href="#where-we-are">Where we actually are right now</a></li>
+      <li><a href="#why-wait">Why we should not rush to bring in historians yet</a></li>
+      <li><a href="#the-steps">The plan, step by step</a></li>
+      <li><a href="#education">What this could mean for Islamic education</a></li>
+      <li><a href="#now">What you can do right now, at this stage</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="where-we-are"><span class="num">Section 1</span>Where we actually are right now</h2>
+  <div class="dek">Small, real, and honest — not a working program yet.</div>
+
+  <p class="lead-in">Here is the plain truth, without any sales pitch attached to it.</p>
+
+  <p>We have written a very detailed <strong class="term">rulebook</strong> — a set of rules for how any piece of Islamic history should be written down, so that it always carries its own evidence with it. Under these rules, you can never just say "this happened." You have to say "this is what was reported, by whom, passed down through which people, and how sure the scholars who studied it actually were." If nobody has checked something yet, the rulebook forces us to say so, out loud, instead of quietly assuming it is fine.</p>
+
+  <p>We tested that rulebook by actually using it — not by writing more rules, but by filling in one small, real example. We took the Prophet Muhammad ﷺ and thirty-five of his well-known Companions, and connected them across six real, dated events in their lives: the Battle of Badr, the Battle of Uḥud, the Battle of the Trench, the Treaty of Ḥudaybiyya, the Conquest of Makkah, and the Prophet's ﷺ death. We recorded who was there, who led, who was honourably absent and why, and how the people were related to one another by marriage and family — all sourced, and every single fact tagged, in the system itself, as <strong>not yet checked by a real scholar</strong>.</p>
+
+  <p>We also built a few screens people can actually click through, to get a feel for what it would be like to explore this — including one that is deliberately honest about scale: it shows the thirty-five real people we know about, sitting inside a much larger, unlabelled cloud representing the true size of that first generation, which historians estimate at well over 100,000 people. We did not invent a single name to fill that cloud in. We left it empty on purpose, because guessing would have been worse than admitting we don't know.</p>
+
+  <div class="callout">
+    <p><strong>What this proves:</strong> the method works. A person can look at any single fact in this small example and ask "how do we know that?" — and get a real, honest answer, all the way down to the source. <strong>What this does not prove:</strong> that the project is finished, well underway, or ready for the public. Thirty-five people is a rounding error against the size of Islamic history. This is a working model of a house, not a house.</p>
+  </div>
+
+  <h2 id="why-wait"><span class="num">Section 2</span>Why we should not rush to bring in historians yet</h2>
+  <div class="dek">Adding people before the structure is ready wastes the very people we most need.</div>
+
+  <p class="lead-in">It would be easy, right now, to email a few respected historians and ask them to help. It would probably even work, a little — some kind, generous people would look at what we've built. But we think this would be a mistake, and we want to explain exactly why, because the reasoning matters more than the conclusion.</p>
+
+  <div class="analogy">
+    <p>Think of it like building a school.</p>
+    <p>You would not invite teachers to start teaching in a building that has no classrooms marked out, no timetable, no way to record which students showed up, and no agreed way to settle it when two teachers disagree about how to grade something. You would waste their time, and worse, you would waste their goodwill — the first impression a good teacher gets of a new school matters enormously, and a confusing, half-built one teaches them the wrong lesson about the whole project.</p>
+  </div>
+
+  <p>A historian's attention is the single most valuable, and most limited, resource this entire project depends on. Here, specifically, is what is still missing before that attention would be well spent:</p>
+
+  <p><strong class="term">1. There is no actual button to press yet.</strong> Right now, "checking a fact" only exists as a technical file format that a computer can read. There is no ordinary screen where a real person can look at a claim, look at the evidence behind it, and click "yes, this is correct," "no, this is wrong, here is why," or "scholars disagree about this, here are the different views." Asking a historian to help without that screen is like asking someone to edit a document that doesn't have a way to save changes.</p>
+
+  <p><strong class="term">2. The human rules are not written down yet.</strong> We have technical rules for the computer. We do not yet have a short, plain document that tells a real person: who is allowed to approve what, how someone earns more trust over time, what happens when two respected scholars genuinely disagree, and how a mistake gets fixed even after it has already been marked "approved." Without that, the first real disagreement between two contributors would have nowhere to go.</p>
+
+  <p><strong class="term">3. There is no way yet to give real credit.</strong> A historian's time is part of their career. If they spend hours reviewing material here, they should be able to point to that work later — cite it, put it on their record, show their students. We have not yet built the part of the system that tracks and displays that credit properly. Inviting people to contribute without that is asking for unpaid, unrecognised labour, which is not a fair or sustainable way to build anything that is meant to last.</p>
+
+  <p><strong class="term">4. We have not tested any of this on a real person yet.</strong> Everything above has been designed carefully, but design on paper and design that survives contact with an actual human being are two very different things. We do not yet know what will confuse someone the first time they try to use this. Finding that out cheaply, quietly, with one or two patient people, is far better than finding it out publicly, with someone whose reputation and time we cannot afford to waste.</p>
+
+  <p>None of this means the eventual goal has changed. It means the order matters. Structure first. People second. Not because people are less important — because they are more important, and more scarce, than anything we can build ourselves.</p>
+
+  <h2 id="the-steps"><span class="num">Section 3</span>The plan, step by step</h2>
+  <div class="dek">Ten steps, in order. Each one exists to protect the value of the step after it.</div>
+
+  <ol class="steps">
+    <li class="now">
+      <span class="when">Roughly now <span class="now-tag">we are here</span></span>
+      <h3>1. Finish writing the rulebook's last few gaps</h3>
+      <p>A handful of small but important rules are still missing even on paper — for example, a clear, simple way to publicly track "who changed what, and when," so nothing can quietly be altered without a visible record. We finish these in writing before building anything on top of them, because fixing a rule after tools are built on it is far more expensive than fixing it before.</p>
+    </li>
+
+    <li>
+      <span class="when">Next</span>
+      <h3>2. Build the "workbench" — an actual screen, not just a file format</h3>
+      <p>A simple, real tool: open a claim, see the evidence behind it laid out clearly, and press a button — accept, reject, or flag a disagreement. Whatever is pressed gets recorded permanently, publicly, and under that person's name. This is a normal, well-understood piece of software to build. It does not require historians yet. It requires developers.</p>
+    </li>
+
+    <li>
+      <span class="when">Next</span>
+      <h3>3. Write the plain-English rulebook — for people, not computers</h3>
+      <p>A short, clear document, more like a handbook for new volunteers than a legal contract: who can do what, how trust is earned over time, what happens when two people disagree, and how something already "approved" can still be corrected later if it turns out to be wrong. Short enough that a new contributor could read the whole thing in ten minutes.</p>
+    </li>
+
+    <li>
+      <span class="when">Next — a small, quiet step</span>
+      <h3>4. Run a small, private trial — with one or two people, not a public launch</h3>
+      <p>Before reaching out widely, we ask one or two thoughtful, patient people to actually try the workbench on the small example we already have — the thirty-five Companions. They do not need to be famous. A knowledgeable teacher, a graduate student in Islamic studies, someone who has memorised the Seerah closely — anyone patient enough to tell us honestly what confused them. We watch closely. We do not defend the design. We just take notes.</p>
+    </li>
+
+    <li>
+      <span class="when">Right after</span>
+      <h3>5. Fix whatever the trial reveals</h3>
+      <p>It is almost certain that something we cannot see from the inside will confuse the very first person who tries this. That is normal, expected, and exactly why we ran a small trial instead of a public one. We fix it quietly, and probably run the trial again before moving on.</p>
+    </li>
+
+    <li>
+      <span class="when">Only after step 5 works</span>
+      <h3>6. Now, and only now, invite real historians</h3>
+      <p>With a working, tested process, a clear description of what we are asking for, and a real way to give credit, we begin reaching out — starting with the communities and researchers already identified as a good fit, rather than a broad, generic announcement. The goal at this stage is a small number of serious, engaged people, not a large number of curious ones.</p>
+    </li>
+
+    <li>
+      <span class="when">Ongoing, for a long time</span>
+      <h3>7. Let the record grow slowly, always under real review</h3>
+      <p>More Companions. More events. Eventually, the generation after the Companions, and the generation after that. Every single addition passes through the same review that the first thirty-five did. Slow, careful growth, checked by real people, is the entire point — speed was never the goal.</p>
+    </li>
+
+    <li>
+      <span class="when">Once there is enough checked material</span>
+      <h3>8. Build the full, beautiful, explorable experience</h3>
+      <p>Only once there is a meaningfully large amount of scholar-checked material do we invest seriously in the big, polished, explorable version of this — the kind of experience where you can move through history and watch it unfold. Building that beautiful version too early, on top of a shaky, mostly-unchecked foundation, would mean eventually tearing it down and starting over. We would rather be patient once than rebuild twice.</p>
+    </li>
+
+    <li>
+      <span class="when">Alongside step 8</span>
+      <h3>9. Bring it into classrooms, homes, and Islamic learning platforms</h3>
+      <p>This is where the project actually reaches ordinary people — students, teachers, families, and the platforms many Muslims already use to learn. The next section of this page is entirely about what that could look like, because it deserves its own full explanation, not a single line here.</p>
+    </li>
+
+    <li>
+      <span class="when">The long-term goal</span>
+      <h3>10. Open it to the world</h3>
+      <p>Eventually, publish the underlying information openly, and make it easy for researchers, developers, teachers, and other organisations to build their own tools on top of it — rather than everyone quietly rebuilding the same thing from scratch. At that point, this stops being "a project" and starts being genuine shared infrastructure, the way a good map or a good dictionary is something many other things get built on top of.</p>
+    </li>
+  </ol>
+
+  <div class="callout warn">
+    <p><strong>If you are wondering why this looks slow:</strong> it is slow on purpose. Every one of the biggest failures we studied from similar projects elsewhere in the world came from the same root cause — a beautiful, exciting surface built over content nobody had properly checked. We would rather be criticised for moving carefully than trusted wrongly because we moved fast.</p>
+  </div>
+
+  <h2 id="education"><span class="num">Section 4</span>What this could mean for Islamic education</h2>
+  <div class="dek">The reason to be patient now is exactly this — so that this part can be built on something real.</div>
+
+  <p class="lead-in">This is the part worth dreaming about a little, as long as we're honest that it depends entirely on getting the steps above right first. Here is what becomes possible, once there is a real, growing, scholar-checked foundation underneath it.</p>
+
+  <div class="edu">
+    <h3>For children learning the Seerah</h3>
+    <p>Instead of only reading the story of the Prophet's ﷺ life in a book, a child could gently explore it — who was connected to whom, what happened where — in a way that feels alive rather than memorised, and that never shows a picture of anyone it shouldn't, using light and names and connection instead of images, exactly as the Islamic tradition asks.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For teachers in Islamic schools and madrasas</h3>
+    <p>A teacher could open an event in front of the class and ask, "who was there? how do we actually know that?" — turning a lesson that is normally about receiving facts into one about learning how facts are established at all. This is, in a real sense, teaching the same skills classical Islamic scholars trained in for centuries — checking a chain of transmission, noticing a gap, weighing conflicting reports — just with a modern tool in hand instead of a shelf of manuscripts.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For university Islamic Studies departments</h3>
+    <p>A genuine research tool: instead of a student spending hours manually cross-referencing several books to trace how one report relates to another, that connection is already there, sourced, and one click away from the original text. This does not replace the scholarship. It removes the tedious part so more time goes to the thinking part.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For pushing back on misinformation</h3>
+    <p>A great deal of what circulates online about Islamic history — including fabricated sayings falsely attributed as hadith, and confidently wrong historical claims — spreads because there is no quick, honest, credible place to check it. This could become exactly that place: not another argument in a comments section, but a calm, sourced answer someone can actually look at themselves.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For existing Islamic learning apps and websites</h3>
+    <p>Rather than every Islamic education platform trying to build its own version of "here is the evidence behind this," this could eventually be offered as a shared tool other platforms plug into — the way many apps use the same underlying map data instead of each drawing their own map of the world.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For daʿwa work and honest conversations about faith</h3>
+    <p>When someone genuinely asks, "how do you know any of this actually happened?" — a daʿwa worker could show them, directly, instead of asking for trust. In our experience, honesty about how something is known is far more convincing than confidence alone, especially to someone who is sincerely asking rather than looking for an argument.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For converts and new Muslims</h3>
+    <p>Many people come to Islam without Arabic, without a family who already knows this history, and without the years of context that make classical books easy to follow. A patient, visual, explorable way to learn — in their own language, at their own pace, with nothing assumed — could make a real difference here.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For students memorising the Qur'an</h3>
+    <p>Where the historical context around a verse is genuinely known and well-sourced — and clearly marked as uncertain where scholars disagree — a student could connect what they are memorising to the real events around it, rather than holding the text and the history as two separate, disconnected things.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For training the next generation of scholars</h3>
+    <p>Junior students of the Islamic sciences could practise the real skills of hadith criticism — spotting a weak link in a chain, noticing that two narrators could not plausibly have met — on a modern tool built for exactly that kind of practice, the way trainee doctors now practise on simulations before ever treating a real patient.</p>
+  </div>
+
+  <div class="edu">
+    <h3>For families, simply</h3>
+    <p>Something a parent and child could sit with together on a quiet evening — pausing, asking questions, following a connection neither of them had noticed before. Not a lesson. Just time spent with the history together.</p>
+  </div>
+
+  <div class="edu">
+    <h3>The long-term possibility</h3>
+    <p>If this is built carefully enough, it could eventually sit quietly underneath many different things — schools, apps, books, research projects — the way a good dictionary or a reliable map sits underneath countless other works without every one of them needing to build their own. Not one product. A shared foundation other people and organisations build on, for a very long time.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>Every one of these depends on the order in Section 3.</strong> None of it is available today, and pretending otherwise would be exactly the kind of dishonesty this whole project exists to avoid. This section is the reason to be patient now, not a reason to skip ahead.</p>
+  </div>
+
+  <h2 id="now"><span class="num">Section 5</span>What you can do right now, at this stage</h2>
+
+  <p>We are at step one. That means the most useful things anyone can do right now are quiet, unglamorous, and exactly the right size for where we actually are: help finish the plain-English rulebook, help think through what the "workbench" screen should actually look like, or simply read the small existing example closely and tell us honestly what confused you.</p>
+
+  <p>If you are a historian reading this and you are excited — thank you, genuinely, and please stay in touch. But the most helpful thing you can do right now is exactly what this page has been trying to model the whole way through: tell us, plainly, if any part of this plan looks wrong to you.</p>
+
+  <footer>
+    al-Marṣad · this page is itself an example of the same honesty the project is built on: told plainly, nothing overstated, kept as one document rather than three brief ones.
+  </footer>
+
+</main>

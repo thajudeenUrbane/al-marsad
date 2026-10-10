@@ -1,0 +1,143 @@
+# al-Marṣad — A Knowledge Observatory for the Seerah and Islamic History
+
+> **Working name.** *al-Marṣad* (المرصد) is the Arabic word for an astronomical observatory — the institution that produced Maragha, Samarkand and Istanbul. It is proposed here as both a name and a category. Naming is subject to scholarly review (see [docs/00-vision.md](docs/00-vision.md#naming)).
+
+**Status:** Phase 0 architecture, plus a first real (unverified) corpus slice and three working demos.
+**Date of this corpus:** September 2026.
+
+---
+
+## The master vision, in one paragraph
+
+Build an evidence-anchored, continuously evolving knowledge observatory in which the whole interconnected structure of Islamic history — people, relationships, events, places, journeys, families, tribes, books, transmission chains, institutions, movements and civilizations — becomes directly *observable*: a single navigable universe whose foundational layer is the Seerah of the Prophet Muhammad ﷺ, whose atomic unit is not the asserted fact but the transmitted report with its chain and its grading, whose every rendered pixel resolves back to a source, through which a user can move in time and watch the network form, split, migrate and expand across fourteen centuries, can move in space and watch knowledge travel from Madinah to Kufa to Nishapur to Cordoba to Malabar, can ask a question in plain language and have the universe itself reconfigure to answer it — and in which a child, a student, a teacher, a researcher and a scholar all look at the *same* graph, differing only in how far the evidence is unfolded beneath them.
+
+## The question this corpus answers
+
+> *If we wanted to build the world's most advanced, user-friendly, interactive and experienceable system for understanding Seerah and Islamic history, what would the ideal system look like, and what architecture and technologies would actually be required to build it?*
+
+The answer, in one line: **not a knowledge graph with a 3D viewer on top, but a report-grounded evidentiary substrate with a projection engine — where the classical apparatus of Islamic scholarship (isnād, rijāl, jarḥ wa taʿdīl, ṭabaqāt, ijāza) is not decoration on a modern data model but *is* the data model.**
+
+---
+
+## The demo
+
+One event from the Hijrah, modelled all the way down and rendered in the browser.
+
+```bash
+python demo/build.py    # derive the demo's data from the ontology, by SPARQL
+python demo/serve.py    # http://localhost:8748
+```
+
+`demo/index.html` is **generated**, never edited by hand. `build.py` queries the Turtle and injects the result into `index.template.html`. Change the ontology, re-run the build, and the demo changes — so the renderer can only ever show what the evidence layer publishes.
+
+The demo's morph control has three stops, not two: **network → generations → geographic**. The middle one restacks the same eight people by *ṭabaqa* into layers by generational distance from the origin.
+
+> **Correction, 12 September 2026** (caught by external review — see [11 #31](docs/11-self-critique.md)): an earlier version of this section, and the demo's own on-screen text, described the generations view as "a small layer of Companions, more Successors beneath" — a narrowing funnel. That is backwards. The Companions are estimated at well over 100,000 (Abū Zurʿah al-Rāzī, via al-Suyūṭī) and are very likely the **largest** ring in the network, not the smallest — and scholars disagree by more than an order of magnitude on how many are documented as narrators (al-Ḥākim: ~4,000; Abū Zurʿah: over 100,000, an actual scholarly `Dispute`, not a settled number). Among documented narrators, transmission volume is extremely skewed — seven Companions (the *mukthirūn*) account for a disproportionate share of everything transmitted — and Companions were densely tied to each other laterally (kinship, shared battles, shared teachers), not just downward to later generations. The eight-person demo is too small to show any of this either way; both the doc and the demo's own note now say so explicitly rather than asserting a shape the data can't support. See [01 §5](docs/01-conceptual-model.md) for the full correction.
+
+## The first generation — real data, not synthetic
+
+Everything above (the demo, the capacity test) is either one illustrative event or fully synthetic. This is the first slice of **real, if unverified, corpus**: the Prophet ﷺ plus 35 well-documented Companions, connected by direct companionship, documented kinship, and shared participation in the Battle of Badr (17 Ramaḍān 2 AH). Second generation (Tābiʿūn) is deliberately deferred.
+
+```bash
+python generation-1/build.py    # derive from ontology/corpus/generation-1.ttl, by SPARQL
+python generation-1/serve.py    # http://localhost:8750
+```
+
+**[`ontology/corpus/generation-1.ttl`](ontology/corpus/generation-1.ttl)** — 1,627 triples, validated: **conforms, zero violations**. Every fact was checked against current sources rather than asserted from recall (see docs/11 #31 for why that discipline now applies here as policy, not a one-off).
+
+The same 35 people, deliberately never grown, are now connected across **six real, dated events spanning 2–11 AH** — Badr, Uḥud, the Trench, Ḥudaybiyya, the Conquest of Makkah, and the Prophet's ﷺ death — not one battle. This was a direct choice among several offered ("same people, more of their era" over "grow the cast" or "add time-scrubbing"), because it deepens the network without inflating the validation burden. It records: who led and fought where, and where **not** — ʿUthmān nursing his dying wife at Badr *and* on his Ḥudaybiyya envoy mission; Jaʿfar in Abyssinia for both Badr and Ḥudaybiyya, back by the Conquest; Ḥamza and Muṣʿab martyred at Uḥud, correctly absent from everything after; Saʿd b. Muʿādh's existing death record now anchored to a real Trench event rather than left as free text. One claim — Bilāl's adhan atop the Kaʿba — is deliberately rendered at reduced confidence: widely repeated, but not established in Bukhārī or Muslim. The exact day of the Prophet's ﷺ death is modelled as a genuine, open scholarly `Dispute`, not a single settled date.
+
+Every entity is `coverageState: stub`, every claim `assertionStatus: proposed` — AI-compiled, nothing scholar-reviewed, exactly per the project's own rule that nothing here is "knowledge" until a credentialed person adjudicates it. The corpus's own `CoverageGap` says so: this is ~35 of an estimated 100,000+ Companions across five curated milestones, not a chronicle — Khaybar, Tabūk and the Farewell Pilgrimage, among others, are not yet modelled.
+
+**Fixing this file surfaced a real ontology gap**: `mrs:CoverageGap` had no property linking it to what it describes. Added (`mrs:coverageGap`, domain `mrs:Entity`) and logged in [`marsad.ttl`](ontology/marsad.ttl) — the kind of thing first real use is supposed to catch.
+
+**[`generation-1/at-scale.html`](generation-1/at-scale.html)** answers "what would this look like with the real population present?" without doing the one thing that would actually be dangerous here — inventing plausible-sounding names to fill it out. The 35 real people render exactly as above, bright and named; a schematic field of ~5,000 anonymous points sits around them representing the estimated remainder (well over 100,000 per Abū Zurʿah al-Rāzī), rendered as pure density, no identity claimed for any of it. A ~1% "hub" subset is drawn brighter, standing in for the real, attested fact that transmission activity is extremely skewed — without naming which unrecorded person that was.
+
+## The wider network — a seed-incident layer
+
+**[`ontology/corpus/seed-incidents.ttl`](ontology/corpus/seed-incidents.ttl)** adds ~100 incidents spanning the full Prophetic era through the Rāshidūn succession, structured as `Incident → People → Place → Time → Connections → Source` — compiled directly by the project maintainer, September 2026, explicitly as seed material for graph construction rather than educational prose, and mechanically encoded here rather than independently researched by AI (see the file header for that provenance distinction; it matters). It reuses generation-1.ttl's 35 people and 6 events wherever an incident names them, and mints roughly 22 new Person entities and 38 new Events for the rest — validated: **conforms, zero new violations**, alongside generation-1.ttl.
+
+**[`generation-1/wider-network.html`](generation-1/wider-network.html)** is what that data is *for*: pick any of the 57 people and watch their thread through history assemble itself — every event, migration, kinship tie and succession they touch, in order, with everyone who shares that moment offered as the next click. That is the actual mechanism the seed data was compiled to demonstrate: Abū Bakr → Asmāʾ → the Hijra (via Ghār Thawr) → ʿAbdullāh b. Abī Bakr → ʿĀmir b. Fuhayra discovers itself by walking the graph, not by anyone authoring that path. A second tab lists all 100 incidents flat, exactly in the People/Place/Time/Source shape they were written in. Every claim on this page is unverified and says so.
+
+## The capacity test
+
+A separate, deliberately unmistakable artifact answering one engineering question: does the rendering approach hold at real isnād scale?
+
+```bash
+python3 -m http.server 8749 --directory bench   # or: preview "bench" in launch.json
+```
+
+**[`bench/capacity-test.html`](bench/capacity-test.html)** generates a synthetic graph — 1,000 to 100,000+ nodes — with a live FPS readout, an adjustable onward-documentation rate, and pan/zoom. Its shape now reflects the same correction above: a deliberately huge first tier, a small skewed fraction of any tier producing documented onward links (with a few hub nodes dominating, mirroring the *mukthirūn*), and edges that also run laterally within a tier, not only across tiers. Verified: **100,000 nodes / ~150,000 edges holds ~20fps**, sustained — down from ~49fps before the correction, honestly, because the corrected shape has a real cost (up to 40,000 edges converging directly on the origin, plus 12% more lateral edges) that the original, wrong shape didn't.
+
+**This file contains no historical content whatsoever** — node IDs are array indices, not names; there are no dates, chains, sources or gradings. It is styled to be visually unmistakable from the historical demo on purpose: a cold cyan/black lab palette instead of the warm dark-observatory one, ASCII-only copy, hazard-striped banners fixed top and bottom, and a tiled watermark baked into every rendered frame so a cropped screenshot still carries the label. Nobody should ever be able to mistake one for the other.
+
+## Start here if you are a historian
+
+**[Where is this wrong? — a one-page brief](docs/REVIEWERS-BRIEF.md)**
+
+Ten minutes. It explains the single idea behind the project, shows what the system refuses to do, names the twenty decisions that need a specialist, and asks you to find the mistakes. Everything below is the long version.
+
+## The two-minute version
+
+**[Build This With Us](https://claude.ai/artifact/L6aNm9EaNxRmepxjciXPqL)** — one idea, one picture, an invitation. Send this one first.
+
+Every published page, its link and its source file are listed in [pages/README.md](pages/README.md).
+
+The [long version](docs/BENEFITS-FOR-STUDIES-AND-DAWA.md) exists for anyone who wants the worked scenarios — a teacher or daʿwa worker deciding whether to commit time, not someone deciding whether to care.
+
+## How to read this corpus
+
+Read in order for the argument; jump directly for reference.
+
+| # | Document | What it settles |
+|---|---|---|
+| 00 | [Vision](docs/00-vision.md) | What this is, why it is not a digital library, the naming and the category |
+| 01 | [Conceptual Model](docs/01-conceptual-model.md) | The dimensions, the observatory metaphor made rigorous, the Nūr/Nujūm visual philosophy |
+| 02 | [Knowledge Architecture](docs/02-knowledge-architecture.md) | Ontology, entities, reified relationships, the report layer, transmission model |
+| 03 | [Technical Architecture](docs/03-technical-architecture.md) | Temporal engine, geographic engine, storage, scale, performance, API, security |
+| 04 | [Visualization Architecture](docs/04-visualization-architecture.md) | L0→L3 tiers, the morph field, engine comparison, Blender's role, visual semantics |
+| 05 | [UX Architecture](docs/05-ux-architecture.md) | The four lenses, interaction verbs, per-audience interfaces, mobile, XR |
+| 06 | [Scholarly Methodology](docs/06-scholarly-methodology.md) | Evidence grading, disagreement, verification workflow, governance, red lines |
+| 07 | [AI Architecture](docs/07-ai-architecture.md) | AI as navigation not narration, the query pipeline, hard boundaries |
+| 08 | [Prototype: The Hijrah](docs/08-prototype-hijrah.md) | The full proof-of-concept specification |
+| 09 | [Roadmap](docs/09-roadmap.md) | 12 months, 3 years, 10 years, with kill criteria |
+| 10 | [Prior Art & Novelty](docs/10-prior-art-and-novelty.md) | What exists worldwide, what is missing, what is genuinely new |
+| 11 | [Self-Critique](docs/11-self-critique.md) | 30 weaknesses found in the first design, and what each changed |
+| 12 | [Final Architecture](docs/12-final-architecture.md) | The consolidated recommendation and the buildability ledger |
+
+## The ontology
+
+Document 02 is a normative specification with machine-readable companions. It is the first part of this project that is not prose.
+
+```
+ontology/
+  marsad.ttl            OWL/Turtle ontology — CIDOC-CRM 7.1.3 extension
+  relations.ttl         the relation registry, with inverses and restrictions
+  shapes.ttl            SHACL — the integrity invariants, enforced not advised
+  examples/thawr.ttl    one event modelled end to end
+  validate.py           python ontology/validate.py
+```
+
+Verified 11 September 2026: 1,804 triples, worked example **conforms — no violations**.
+
+## The three claims this corpus defends
+
+1. **The atomic unit of Islamic history is the report (khabar), not the fact.** Every system built so far — including the good ones — inverts this, and inherits an epistemology it cannot repair later. This is settled in [02](docs/02-knowledge-architecture.md).
+
+2. **The isnād is not citation metadata. It is simultaneously an evidentiary chain, a social network, a geographic diffusion path and a temporal ordering.** One graph, four readings. No existing system exploits this. This is settled in [02](docs/02-knowledge-architecture.md) and [10](docs/10-prior-art-and-novelty.md).
+
+3. **The hard problem is not database scale. It is layout stability, cognitive load, and the discipline of never rendering a claim the evidence does not support.** Settled in [03](docs/03-technical-architecture.md), [04](docs/04-visualization-architecture.md) and [11](docs/11-self-critique.md).
+
+## Standing rules
+
+These constrain every later decision and are not renegotiable at implementation time.
+
+- **No pixel without provenance.** The visualization layer may only render what the evidence layer publishes. It cannot invent a node, a date, a route segment or a relationship.
+- **No depiction.** No figurative representation of the Prophet ﷺ, his family, or the Companions — ever, in any tier, including XR. The visual language is light, geometry, position and calligraphic name-forms.
+- **AI never asserts.** The AI layer operates the camera and the query engine. It does not narrate fact, grade a hadith, issue a ruling, or interpret scripture.
+- **Computed ≠ significant.** No network metric is ever presented as religious, moral or scholarly rank.
+- **The data must outlive the app.** Open schema, open export, static archival fallback. If the organization dies, the corpus survives and remains usable.
+
+---
+
+*Prepared as the Phase 0 research and architecture corpus. Nothing here has been built; everything here is intended to be buildable.*

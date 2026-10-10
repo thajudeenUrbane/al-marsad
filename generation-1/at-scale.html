@@ -1,0 +1,397 @@
+<title>At Scale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400&display=swap">
+<style>
+/*
+  WHAT THIS PAGE IS AND IS NOT.
+
+  The 35 people from generation-1.ttl are real, sourced, and rendered
+  exactly as in index.html -- bright, named, clickable.
+
+  Everything else on screen -- the dense field around them -- is
+  SCHEMATIC POPULATION DENSITY, not fabricated individuals. No name
+  was invented to fill it. It exists to answer one honest question --
+  "what would this look like with the real population present?" --
+  without doing the one thing this project exists to prevent:
+  producing plausible-looking but invented Islamic historical content.
+*/
+:root{
+  --bg:#0A0E11; --panel:#111820; --edge:#1E2A33; --edge-soft:#172129;
+  --ink:#C9D4D3; --ink-mid:#8D9C9E; --ink-dim:#5E6E72;
+  --teal:#4FB3B6; --gold:#D9B26A; --rubric:#C9674A;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:14px; line-height:1.55; overflow:hidden;
+}
+.ar{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+header{
+  position:fixed; top:0; left:0; right:0; z-index:20;
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:baseline;
+  padding:.9rem 1.25rem;border-bottom:1px solid var(--edge);
+  background:rgba(10,14,17,.92); backdrop-filter:blur(4px);
+}
+header h1{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.3rem;margin:0;letter-spacing:-.01em}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-left:auto}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.05em;
+  text-transform:uppercase;padding:.22rem .5rem;border:1px solid var(--edge);
+  color:var(--ink-dim);white-space:nowrap;
+}
+.chip.gold{color:var(--gold);border-color:#3A3320}
+.chip.warn{color:var(--rubric);border-color:#3A241D}
+
+canvas{display:block;position:fixed;inset:0;width:100vw;height:100vh;cursor:grab}
+canvas:active{cursor:grabbing}
+
+.hud{
+  position:fixed; top:56px; right:14px; z-index:20; width:16.5rem;
+  background:rgba(17,24,32,.92); border:1px solid var(--edge);
+  padding:.9rem 1rem; backdrop-filter:blur(4px);
+}
+.hud h2{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.15rem;margin:0 0 .5rem}
+.hud p{margin:0 0 .7rem;font-size:.85rem;color:var(--ink-mid)}
+.stat{display:flex;justify-content:space-between;padding:.28rem 0;border-top:1px solid var(--edge-soft);font-size:.72rem}
+.stat b{color:var(--teal);font-variant-numeric:tabular-nums;font-weight:500}
+.legend{margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--edge)}
+.legend div{display:flex;align-items:center;gap:.5rem;font-size:.7rem;color:var(--ink-dim);margin-bottom:.4rem}
+.legend i{width:9px;height:9px;border-radius:50%;flex:none}
+.note{font-family:"IBM Plex Mono",monospace;font-size:.65rem;line-height:1.6;color:var(--ink-dim);margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--edge)}
+.note b{color:var(--gold)}
+
+.info{
+  position:fixed; bottom:14px; left:14px; z-index:20; max-width:22rem;
+  background:rgba(17,24,32,.92); border:1px solid var(--edge);
+  padding:.85rem 1rem; backdrop-filter:blur(4px);
+}
+.info .kicker{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.info h3{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.1rem;margin:0 0 .4rem}
+.info p{margin:0 0 .5rem;font-size:.82rem;color:var(--ink-mid)}
+.info a{color:var(--teal);text-decoration:none}
+.info .close{position:absolute;top:.5rem;right:.6rem;color:var(--ink-dim);font-family:"IBM Plex Mono",monospace;font-size:.9rem}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <h1>At Scale</h1>
+  <div class="chips">
+    <span class="chip gold">35 real, named</span>
+    <span class="chip">+ schematic population field</span>
+    <span class="chip warn">the field is not people — see note</span>
+  </div>
+</header>
+
+<canvas id="cv"></canvas>
+
+<div class="hud">
+  <h2>What you're looking at</h2>
+  <p>The 35 bright, labelled points are the real Companions from <code>generation-1.ttl</code>. Everything dim around them is <b style="color:var(--ink)">schematic density</b> — not individuals, not names, not claims.</p>
+  <div class="stat"><span>real, sourced people</span><b id="s-real">35</b></div>
+  <div class="stat"><span>schematic field points</span><b id="s-field">–</b></div>
+  <div class="stat"><span>fps</span><b id="s-fps">–</b></div>
+  <div class="legend">
+    <div><i style="background:#F2E4C6"></i> real — led at Badr</div>
+    <div><i style="background:#A9BFC4"></i> real — fought / companion</div>
+    <div><i style="background:#C9674A;border:1px dashed #C9674A;background:transparent"></i> real — absent, with reason</div>
+    <div><i style="background:#3C4A50"></i> schematic — unrecorded companion</div>
+    <div><i style="background:#2A3238"></i> schematic — illustrative next generation</div>
+  </div>
+  <div class="note"><b>No name was invented.</b> The dim field represents the estimated remainder of a population — well over 100,000 Companions per Abū Zurʿah al-Rāzī — as density, not as fabricated individuals. Drag to pan, scroll to zoom, click a bright point.</div>
+</div>
+
+<div class="info" id="info">
+  <button class="close" onclick="document.getElementById('info').style.display='none'">✕</button>
+  <div class="kicker">Reading this view</div>
+  <h3>The shape, at scale</h3>
+  <p>Real ties (gold/teal solid, red dashed, gold dotted) connect only the 35 named people — that structure is sourced. A few schematic points are drawn brighter and more connected than the rest, standing in for the real, well-attested fact that transmission activity is <i>extremely</i> skewed (a handful of narrators account for a disproportionate share) — without claiming to know <i>which</i> unrecorded person that was.</p>
+  <p><a href="index.html">← back to the named view</a></p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  const canvas = document.getElementById("cv");
+  const ctx = canvas.getContext("2d", { alpha: false });
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    canvas.width = Math.round(window.innerWidth * dpr);
+    canvas.height = Math.round(window.innerHeight * dpr);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      let x = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+      return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const rand = mulberry32(7);
+
+  /* ── the REAL data — same source as index.html, same discipline:
+     baked in at build time by build.py, never fetched at runtime.
+     A runtime fetch() works on a local dev server (the file sits right
+     next to this one on disk) and silently 404s the moment this page
+     is published standalone without its data.json alongside it — which
+     is exactly what happened the first time this shipped. Embedding it
+     removes the failure mode entirely, the same way index.html already
+     does. */
+  const DATA = {"persons": [{"id": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "label": "Abū Bakr al-Ṣiddīq", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/5fW9jNbT4mQ7xZcV2hR8dK1", "label": "Abū Hurayra", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": "narrator"}, {"id": "https://w3id.org/marsad/id/person/7cVbN3mAsD9fGhJ4kQwErT1", "label": "Abū ʿUbayda b. al-Jarrāḥ", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/6gY3kPcU5nR8yAdW3jS9eE1", "label": "Anas b. Mālik", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": "narrator"}, {"id": "https://w3id.org/marsad/id/person/6xZc2mQ7vR9nK4pT8sY3wA1", "label": "Asmāʾ bint Abī Bakr", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/2aSdF6gHjK8mNbV5cXzQwE1", "label": "Bilāl b. Rabāḥ", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/9bVcX5zAsD2fGhJ6kQwErT1", "label": "Fāṭima bint Muḥammad", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/4qWeR7tYuP2aSdF9gHjKzX1", "label": "Fāṭima bint al-Khaṭṭāb", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1", "label": "Jaʿfar b. Abī Ṭālib", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/7hQ2mXvR9nK4pT8wY3zBcd1", "label": "Khadīja bint Khuwaylid", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA1", "label": "Muṣʿab b. ʿUmayr", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/3fGhJ5kQwE8rTyU2mNbVcX1", "label": "Ruqayya bint Muḥammad", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/2sDfG6hJkQ9wErT4yUmNbV1", "label": "Sawda bint Zamʿa", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/9qWeR4tYuP7aSdF3gHjKzX1", "label": "Saʿd b. Abī Waqqāṣ", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z1", "label": "Saʿd b. Muʿādh", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/5zAsD3fGhJ7kQwE4rTyUmN1", "label": "Saʿīd b. Zayd", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "label": "The Prophet Muḥammad (peace and blessings be upon him)", "tabaqa": null, "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/4mNbV7cXzA2sDfG9hJkQwR1", "label": "Umm Kulthūm bint Muḥammad", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/7kQwE4rTyU2mNbV9cXzAsD1", "label": "Umm Salama bint Abī Umayya", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/8jKmN2bVcX6zAqWsE9fGhJ1", "label": "Usayd b. Ḥuḍayr", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/4kNqR7mZpW2vXcT8bH3jLd1", "label": "Zayd b. Ḥāritha", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/6nBvCxZ4aSdF7gHjK9mQwE1", "label": "al-Miqdād b. ʿAmr", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE1", "label": "al-Zubayr b. al-ʿAwwām", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/8pLkJ9hGfDsA3wErT5yUqP1", "label": "ʿAbd al-Raḥmān b. Abī Bakr", "tabaqa": null, "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/3zXcV5bNmA8sDfG2hJkLqW1", "label": "ʿAbd al-Raḥmān b. ʿAwf", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/2cXzA8sDfG3hJkQ6wErTyU1", "label": "ʿAbdullāh b. Rawāḥa", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "label": "ʿAlī b. Abī Ṭālib", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/6wErT9yUmN5bVcX2zAsDfG1", "label": "ʿAmmār b. Yāsir", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/4sDfG6hJkQ2wErT9yUmNbV1", "label": "ʿUbayda b. al-Ḥārith", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "label": "ʿUmar b. al-Khaṭṭāb", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/8gY3kPcU5nR8yAdW3jS9eE1", "label": "ʿUthmān b. ʿAffān", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1", "label": "ʿĀʾisha bint Abī Bakr", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/5rTyU2mNbV8cXzA3sDfGhJ1", "label": "Ḥafṣa bint ʿUmar", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/4tVbN6yHjM3kQ9wErZ7uXs1", "label": "Ḥamza b. ʿAbd al-Muṭṭalib", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}, {"id": "https://w3id.org/marsad/id/person/9kQwE7rTyU4mNbV6cXzAsD1", "label": "Ṭalḥa b. ʿUbaydullāh", "tabaqa": "ṣaḥābī", "coverage": "stub", "role": null}], "deaths": [{"person": "https://w3id.org/marsad/id/person/4tVbN6yHjM3kQ9wErZ7uXs1", "native": "7 Shawwāl 3 AH"}, {"person": "https://w3id.org/marsad/id/person/4sDfG6hJkQ2wErT9yUmNbV1", "native": "shortly after Badr, 2 AH"}, {"person": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA1", "native": "7 Shawwāl 3 AH"}, {"person": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z1", "native": "of wounds sustained at the Battle of the Trench, 5 AH"}, {"person": "https://w3id.org/marsad/id/person/7hQ2mXvR9nK4pT8wY3zBcd1", "native": "c. 3 years before the Hijra"}, {"person": "https://w3id.org/marsad/id/person/3fGhJ5kQwE8rTyU2mNbVcX1", "native": "17 Ramaḍān 2 AH"}], "event": [{"id": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "label": "Battle of Badr", "placeLabel": "Badr", "native": "17 Ramaḍān 2 AH", "earliestStart": "0624-03-13T00:00:00+00:00"}, {"id": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "label": "Battle of Uḥud", "placeLabel": "Uḥud", "native": "7 Shawwāl 3 AH", "earliestStart": "0625-03-23T00:00:00+00:00"}, {"id": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "label": "Battle of the Trench (Khandaq)", "placeLabel": "al-Madīna", "native": "Shawwāl–Dhū al-Qaʿda 5 AH", "earliestStart": "0627-03-31T00:00:00+00:00"}, {"id": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "label": "Ḥudaybiyya and the Pledge of Riḍwān", "placeLabel": "al-Ḥudaybiyya", "native": "Dhū al-Qaʿda 6 AH", "earliestStart": "0628-03-01T00:00:00+00:00"}, {"id": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "label": "Conquest of Makkah", "placeLabel": "Makkah", "native": "20 Ramaḍān 8 AH", "earliestStart": "0630-01-11T00:00:00+00:00"}, {"id": "https://w3id.org/marsad/id/event/6xZc2mQ7vR9nK4pT8sY3wA3", "label": "Death of the Prophet ﷺ", "placeLabel": "al-Madīna", "native": "12 Rabīʿ al-Awwal 11 AH (contested — see dispute)", "earliestStart": "0632-06-06T00:00:00+00:00"}], "participation": [{"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/4tVbN6yHjM3kQ9wErZ7uXs1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/6nBvCxZ4aSdF7gHjK9mQwE1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/3zXcV5bNmA8sDfG2hJkLqW1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/9qWeR4tYuP7aSdF3gHjKzX1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/7cVbN3mAsD9fGhJ4kQwErT1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/2aSdF6gHjK8mNbV5cXzQwE1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/4sDfG6hJkQ2wErT9yUmNbV1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/6wErT9yUmN5bVcX2zAsDfG1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "person": "https://w3id.org/marsad/id/person/2cXzA8sDfG3hJkQ6wErTyU1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/4tVbN6yHjM3kQ9wErZ7uXs1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/9kQwE7rTyU4mNbV6cXzAsD1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/9qWeR4tYuP7aSdF3gHjKzX1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "person": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "person": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z1", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "person": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "person": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "person": "https://w3id.org/marsad/id/person/9kQwE7rTyU4mNbV6cXzAsD1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/9kQwE7rTyU4mNbV6cXzAsD1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/3zXcV5bNmA8sDfG2hJkLqW1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/9qWeR4tYuP7aSdF3gHjKzX1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/7cVbN3mAsD9fGhJ4kQwErT1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/2aSdF6gHjK8mNbV5cXzQwE1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/6wErT9yUmN5bVcX2zAsDfG1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/2cXzA8sDfG3hJkQ6wErTyU1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/6nBvCxZ4aSdF7gHjK9mQwE1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "person": "https://w3id.org/marsad/id/person/8jKmN2bVcX6zAqWsE9fGhJ1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "role": "leader"}, {"event": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "person": "https://w3id.org/marsad/id/person/2aSdF6gHjK8mNbV5cXzQwE1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "person": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "person": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1", "role": "participant"}, {"event": "https://w3id.org/marsad/id/event/6xZc2mQ7vR9nK4pT8sY3wA3", "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1", "role": "witness"}, {"event": "https://w3id.org/marsad/id/event/6xZc2mQ7vR9nK4pT8sY3wA3", "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "role": "leader"}], "eventAssertions": [{"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "predicate": "led", "subjectLabel": "ʿAlī b. Abī Ṭālib", "basis": "Standard sira/maghazi tradition: Ali carried the Muhajirun banner and, per widely repeated accounts, personally accounted for several of the enemy's standard-bearers. Not yet matched to a specific passage."}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "predicate": "led", "subjectLabel": "Ḥamza b. ʿAbd al-Muṭṭalib", "basis": "Hamza b. Abd al-Muttalib led the counter-charge alongside Ali per the standard tradition. Not yet matched to a specific passage."}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "predicate": "led", "subjectLabel": "Saʿd b. Muʿādh", "basis": "Sa'd b. Mu'adh, chief of Aws, led the Ansar battalion at Badr per the standard tradition."}, {"event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "predicate": "participated in", "subjectLabel": "ʿUbayda b. al-Ḥārith", "basis": "Ubaydah b. al-Harith fought in the pre-battle triple duel (with Hamza and Ali) against three Qurashi champions; he was mortally wounded (his leg severed) and died of the wound shortly afterward, on the return march. Widely repeated in the standard sira tradition, not yet matched to a specific passage."}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "predicate": "participated in", "subjectLabel": "Ṭalḥa b. ʿUbaydullāh", "basis": "Talha b. Ubaydullah shielded the Prophet at Uhud, sustaining multiple wounds and reportedly losing the use of a hand — remembered as 'Talha of the day of Uhud'. Standard tradition; not yet matched to a specific passage."}, {"event": "https://w3id.org/marsad/id/event/8jKmN2bVcX6zAqWsE9fGhJ2", "predicate": "participated in", "subjectLabel": "Saʿd b. Abī Waqqāṣ", "basis": "Sa'd b. Abi Waqqas fought as an archer at Uhud; widely-repeated tradition has the Prophet urging him on with 'shoot, may my father and mother be sacrificed for you'. Not yet matched to a specific passage."}, {"event": "https://w3id.org/marsad/id/event/5rTyU2mNbV8cXzA3sDfGhJ2", "predicate": "led", "subjectLabel": "ʿAlī b. Abī Ṭālib", "basis": "Ali fought and killed the Qurashi champion Amr b. Abd Wudd in single combat when he crossed the trench; no other warrior crossed again afterward. Standard tradition; not yet matched to a specific passage."}, {"event": "https://w3id.org/marsad/id/event/5zAsD3fGhJ7kQwE4rTyUmN2", "predicate": "participated in", "subjectLabel": "Bilāl b. Rabāḥ", "basis": "Bilal is reported to have given the call to prayer from the roof of the Kaaba at the conquest — found in early sources including Musannaf Ibn Abi Shayba and the works of Ibn Hisham and al-Bayhaqi, but ⟨scholar⟩ this specific detail is NOT established via an authenticated connected narration in Sahih al-Bukhari or Sahih Muslim, despite being widely repeated. Rendered here at reduced confidence deliberately — a real example of the gap between 'widely repeated' and 'authenticated'."}, {"event": "https://w3id.org/marsad/id/event/6xZc2mQ7vR9nK4pT8sY3wA3", "predicate": "led", "subjectLabel": "Abū Bakr al-Ṣiddīq", "basis": "Abu Bakr led the congregational prayers during the Prophet's final illness, at his instruction — a well-attested tradition, historically cited by some as bearing on the succession, a question this file does not adjudicate."}], "absences": [{"subjectLabel": "ʿUthmān b. ʿAffān", "subject": "https://w3id.org/marsad/id/person/8gY3kPcU5nR8yAdW3jS9eE1", "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "basis": "Uthman b. Affan stayed in Madinah to nurse his ill wife Ruqayyah bint Muhammad, who died during the Badr campaign; the Prophet allotted him a share of the spoils as though he had been present. Standard sira tradition."}, {"subjectLabel": "Ṭalḥa b. ʿUbaydullāh", "subject": "https://w3id.org/marsad/id/person/9kQwE7rTyU4mNbV6cXzAsD1", "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "basis": "Talha b. Ubaydullah was sent with Sa'id b. Zayd to Syria to gather intelligence on the Meccan caravan and returned after the battle; both were given shares of the spoils as though present. Standard sira tradition."}, {"subjectLabel": "Saʿīd b. Zayd", "subject": "https://w3id.org/marsad/id/person/5zAsD3fGhJ7kQwE4rTyUmN1", "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "basis": "Sa'id b. Zayd was on the same Syria intelligence mission as Talha b. Ubaydullah (see above)."}, {"subjectLabel": "Jaʿfar b. Abī Ṭālib", "subject": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1", "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1", "basis": "Ja'far b. Abi Talib was in Abyssinia with the second group of migrants at the time of Badr; he returned to Madinah only around the time of Khaybar (7 AH). Standard sira tradition."}, {"subjectLabel": "ʿUthmān b. ʿAffān", "subject": "https://w3id.org/marsad/id/person/8gY3kPcU5nR8yAdW3jS9eE1", "event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "basis": "Uthman was sent by the Prophet as an envoy to the Quraysh in Makkah during this expedition; his delay caused rumour of his death, prompting the Pledge itself. The Prophet reportedly struck his own hand as a pledge made on Uthman's behalf. He was present at the wider expedition but absent from the pledge under the tree. Standard tradition; not yet matched to a specific passage."}, {"subjectLabel": "Jaʿfar b. Abī Ṭālib", "subject": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1", "event": "https://w3id.org/marsad/id/event/9qWeR4tYuP7aSdF3gHjKzX3", "basis": "Ja'far b. Abi Talib was still in Abyssinia at this date, returning only around the time of Khaybar (7 AH) — after Hudaybiyya. See his Badr-absence assertion for the same underlying fact."}], "companionOf": [{"person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1"}, {"person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1"}, {"person": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1"}, {"person": "https://w3id.org/marsad/id/person/8gY3kPcU5nR8yAdW3jS9eE1"}, {"person": "https://w3id.org/marsad/id/person/9kQwE7rTyU4mNbV6cXzAsD1"}, {"person": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE1"}, {"person": "https://w3id.org/marsad/id/person/3zXcV5bNmA8sDfG2hJkLqW1"}, {"person": "https://w3id.org/marsad/id/person/9qWeR4tYuP7aSdF3gHjKzX1"}, {"person": "https://w3id.org/marsad/id/person/5zAsD3fGhJ7kQwE4rTyUmN1"}, {"person": "https://w3id.org/marsad/id/person/7cVbN3mAsD9fGhJ4kQwErT1"}, {"person": "https://w3id.org/marsad/id/person/2aSdF6gHjK8mNbV5cXzQwE1"}, {"person": "https://w3id.org/marsad/id/person/4sDfG6hJkQ2wErT9yUmNbV1"}, {"person": "https://w3id.org/marsad/id/person/6wErT9yUmN5bVcX2zAsDfG1"}, {"person": "https://w3id.org/marsad/id/person/2cXzA8sDfG3hJkQ6wErTyU1"}, {"person": "https://w3id.org/marsad/id/person/2wErT5yUqP8pLkJ9hGfDsA1"}, {"person": "https://w3id.org/marsad/id/person/6nBvCxZ4aSdF7gHjK9mQwE1"}, {"person": "https://w3id.org/marsad/id/person/7yUmK3jHgF9dSaQ2wErT5z1"}, {"person": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1"}, {"person": "https://w3id.org/marsad/id/person/4kNqR7mZpW2vXcT8bH3jLd1"}, {"person": "https://w3id.org/marsad/id/person/8jKmN2bVcX6zAqWsE9fGhJ1"}, {"person": "https://w3id.org/marsad/id/person/5fW9jNbT4mQ7xZcV2hR8dK1"}, {"person": "https://w3id.org/marsad/id/person/6gY3kPcU5nR8yAdW3jS9eE1"}, {"person": "https://w3id.org/marsad/id/person/4qWeR7tYuP2aSdF9gHjKzX1"}, {"person": "https://w3id.org/marsad/id/person/2sDfG6hJkQ9wErT4yUmNbV1"}, {"person": "https://w3id.org/marsad/id/person/7kQwE4rTyU2mNbV9cXzAsD1"}, {"person": "https://w3id.org/marsad/id/person/6xZc2mQ7vR9nK4pT8sY3wA1"}, {"person": "https://w3id.org/marsad/id/person/9bVcX5zAsD2fGhJ6kQwErT1"}, {"person": "https://w3id.org/marsad/id/person/3fGhJ5kQwE8rTyU2mNbVcX1"}, {"person": "https://w3id.org/marsad/id/person/4mNbV7cXzA2sDfG9hJkQwR1"}], "kinship": [{"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "subjectLabel": "Abū Bakr al-Ṣiddīq", "object": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1", "objectLabel": "ʿĀʾisha bint Abī Bakr", "basis": "Abu Bakr was Aisha's father. Standard tradition."}, {"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "subjectLabel": "Abū Bakr al-Ṣiddīq", "object": "https://w3id.org/marsad/id/person/6xZc2mQ7vR9nK4pT8sY3wA1", "objectLabel": "Asmāʾ bint Abī Bakr", "basis": "Abu Bakr was Asma's father — a full sibling of Aisha. Standard tradition."}, {"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1", "subjectLabel": "Abū Bakr al-Ṣiddīq", "object": "https://w3id.org/marsad/id/person/8pLkJ9hGfDsA3wErT5yUqP1", "objectLabel": "ʿAbd al-Raḥmān b. Abī Bakr", "basis": "Abu Bakr was Abd al-Rahman's father. Standard tradition."}, {"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/7hQ2mXvR9nK4pT8wY3zBcd1", "subjectLabel": "Khadīja bint Khuwaylid", "object": "https://w3id.org/marsad/id/person/9bVcX5zAsD2fGhJ6kQwErT1", "objectLabel": "Fāṭima bint Muḥammad", "basis": "Khadija was Fatima's mother — modelled here with rel_father_of's inverse in mind; ⟨scholar⟩ a mrs:rel_mother_of instance would be the precise relation and is not yet in the registry as of v0.1 (see docs/02 §14 for known gaps). Recorded via rel_father_of as the nearest existing term pending that fix."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/5zAsD3fGhJ7kQwE4rTyUmN1", "subjectLabel": "Saʿīd b. Zayd", "object": "https://w3id.org/marsad/id/person/4qWeR7tYuP2aSdF9gHjKzX1", "objectLabel": "Fāṭima bint al-Khaṭṭāb", "basis": "Sa'id b. Zayd married Fatima bint al-Khattab, Umar's sister — famous as the household where Umar heard the Qur'an recited before his own conversion. Standard tradition."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/7hQ2mXvR9nK4pT8wY3zBcd1", "objectLabel": "Khadīja bint Khuwaylid", "basis": "First wife of the Prophet; deceased before Badr. Standard tradition."}, {"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/9bVcX5zAsD2fGhJ6kQwErT1", "objectLabel": "Fāṭima bint Muḥammad", "basis": "Standard tradition."}, {"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/3fGhJ5kQwE8rTyU2mNbVcX1", "objectLabel": "Ruqayya bint Muḥammad", "basis": "Standard tradition."}, {"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/4mNbV7cXzA2sDfG9hJkQwR1", "objectLabel": "Umm Kulthūm bint Muḥammad", "basis": "Standard tradition."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1", "objectLabel": "ʿĀʾisha bint Abī Bakr", "basis": "Aisha bint Abi Bakr, wife. Standard tradition."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/5rTyU2mNbV8cXzA3sDfGhJ1", "objectLabel": "Ḥafṣa bint ʿUmar", "basis": "Hafsa bint Umar, wife — generally dated after Badr. Standard tradition; no Badr-time claim made."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/2sDfG6hJkQ9wErT4yUmNbV1", "objectLabel": "Sawda bint Zamʿa", "basis": "Sawda bint Zam'a, wife — married after Khadija's death, before Aisha's marriage was consummated. Standard tradition."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe", "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)", "object": "https://w3id.org/marsad/id/person/7kQwE4rTyU2mNbV9cXzAsD1", "objectLabel": "Umm Salama bint Abī Umayya", "basis": "Umm Salama, wife — married after Badr. Standard tradition; no Badr-time claim made."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/5dFgH8jKmN2bVcX6zAqWsE1", "subjectLabel": "al-Zubayr b. al-ʿAwwām", "object": "https://w3id.org/marsad/id/person/6xZc2mQ7vR9nK4pT8sY3wA1", "objectLabel": "Asmāʾ bint Abī Bakr", "basis": "Zubayr ibn al-Awwam married Asma bint Abi Bakr — linking the Zubayr and Abu Bakr households. Standard tradition."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "subjectLabel": "ʿAlī b. Abī Ṭālib", "object": "https://w3id.org/marsad/id/person/9bVcX5zAsD2fGhJ6kQwErT1", "objectLabel": "Fāṭima bint Muḥammad", "basis": "Ali married Fatima. Standard tradition, precise date not modelled here."}, {"predicate": "sibling of", "subject": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8b1", "subjectLabel": "ʿAlī b. Abī Ṭālib", "object": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1", "objectLabel": "Jaʿfar b. Abī Ṭālib", "basis": "Ali and Ja'far, full brothers, both sons of Abu Talib. Standard tradition."}, {"predicate": "father of", "subject": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "subjectLabel": "ʿUmar b. al-Khaṭṭāb", "object": "https://w3id.org/marsad/id/person/5rTyU2mNbV8cXzA3sDfGhJ1", "objectLabel": "Ḥafṣa bint ʿUmar", "basis": "Umar was Hafsa's father. Standard tradition."}, {"predicate": "sibling of", "subject": "https://w3id.org/marsad/id/person/9pLmK4nR8sT2wQ6vY3xZbA1", "subjectLabel": "ʿUmar b. al-Khaṭṭāb", "object": "https://w3id.org/marsad/id/person/4qWeR7tYuP2aSdF9gHjKzX1", "objectLabel": "Fāṭima bint al-Khaṭṭāb", "basis": "Umar and Fatima bint al-Khattab, siblings. Standard tradition."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/8gY3kPcU5nR8yAdW3jS9eE1", "subjectLabel": "ʿUthmān b. ʿAffān", "object": "https://w3id.org/marsad/id/person/3fGhJ5kQwE8rTyU2mNbVcX1", "objectLabel": "Ruqayya bint Muḥammad", "basis": "Uthman married Ruqayya, who died during the Badr campaign — the reason for his absence (§4)."}, {"predicate": "spouse of", "subject": "https://w3id.org/marsad/id/person/8gY3kPcU5nR8yAdW3jS9eE1", "subjectLabel": "ʿUthmān b. ʿAffān", "object": "https://w3id.org/marsad/id/person/4mNbV7cXzA2sDfG9hJkQwR1", "objectLabel": "Umm Kulthūm bint Muḥammad", "basis": "After Ruqayya's death, Uthman married her sister Umm Kulthum (date after Badr, not modelled here)."}, {"predicate": "sibling of", "subject": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1", "subjectLabel": "ʿĀʾisha bint Abī Bakr", "object": "https://w3id.org/marsad/id/person/6xZc2mQ7vR9nK4pT8sY3wA1", "objectLabel": "Asmāʾ bint Abī Bakr", "basis": "Aisha and Asma, full sisters, both daughters of Abu Bakr. Standard tradition."}], "disputes": [{"event": "https://w3id.org/marsad/id/event/6xZc2mQ7vR9nK4pT8sY3wA3", "question": "On which day of Rabi al-Awwal, 11 AH, did the Prophet ﷺ die?", "significance": "chronological", "claim": "12 Rabi al-Awwal — the most popularly cited date."}, {"event": "https://w3id.org/marsad/id/event/6xZc2mQ7vR9nK4pT8sY3wA3", "question": "On which day of Rabi al-Awwal, 11 AH, did the Prophet ﷺ die?", "significance": "chronological", "claim": "1st or 2nd Rabi al-Awwal — favoured in some calendrical reckonings."}], "coverageGap": [{"description": "The Companions are estimated at well over 100,000 (Abu Zur'ah al-Razi, via al-Suyuti). This file represents ~35 of them: a curated, historically prominent, documentable set, chosen to demonstrate the network's true shape rather than to claim any completeness. The Badr and Uhud participant lists are similarly highlight sets, not rosters — real Badr had ~313 Muslims present, and Uhud a comparable order of magnitude. Second-generation (Tabi'un) individuals are entirely out of scope for this file by design, per project direction — see docs/09 roadmap. The events between Uhud (3 AH) and the Prophet's death (11 AH) are represented by five milestones (Uhud, Khandaq, Hudaybiyya, the Conquest of Makkah, the Prophet's death) chosen for documentability, not as a complete chronicle — many attested events in this span (Khaybar, the expedition to Tabuk, the Farewell Pilgrimage, among others) are not yet modelled.", "cause": "not yet ingested"}], "allAssertions": [{"n": "66"}], "proposedCount": [{"n": "66"}]};
+  let real = [], realById = {}, ORIGIN = null;
+  const view = { x: 0, y: 0, scale: 1 };
+
+  function loadReal() {
+    ORIGIN = DATA.persons.find(p => /Prophet/.test(p.label));
+    real = DATA.persons.filter(p => p.id !== ORIGIN.id);
+    real.forEach(p => realById[p.id] = p);
+
+    // This view shows one flagship connecting event (Badr, the earliest —
+    // DATA.event is ordered by date) for scale/density purposes, not all
+    // six now modelled in the corpus. Scoped explicitly so a person's
+    // later, different role elsewhere can't silently overwrite this.
+    const badrId = DATA.event[0].id;
+    const partByPerson = {}; DATA.participation.filter(p => p.event === badrId).forEach(p => partByPerson[p.person] = p.role);
+    const absentByPerson = {}; DATA.absences.filter(a => a.event === badrId).forEach(a => absentByPerson[a.subject] = a.basis);
+    function status(id) {
+      if (partByPerson[id] === "leader") return "leader";
+      if (partByPerson[id] === "participant") return "participant";
+      if (absentByPerson[id]) return "absent";
+      return "other";
+    }
+
+    const CX = 0, CY = 0, R = 260;
+    real.forEach((p, i) => {
+      const a = (-Math.PI / 2) + (i / real.length) * 2 * Math.PI;
+      p.x = CX + R * Math.cos(a);
+      p.y = CY + R * Math.sin(a) * 0.92;
+      p.status = status(p.id);
+    });
+    window.__real = real; window.__origin = { x: CX, y: CY };
+    window.__badrLine = (() => {
+      // where the Badr diamond sits, same offset convention as index.html
+      return { x: CX + 40, y: CY - 8 };
+    })();
+  }
+  // Population setup only. The actual kickoff (buildField/fitView/draw)
+  // happens at the bottom of this script, AFTER those are declared —
+  // this used to be safe implicitly, inside a .then() microtask that
+  // necessarily ran after the whole script had executed. Now that
+  // loadReal() runs synchronously and in-order, calling them here would
+  // hit them before their own `const`/`function` declarations further
+  // down (temporal dead zone) — exactly the bug this replaced.
+
+  /* ── the schematic field — density, not people ───────────── */
+  let field = [], nextGen = [];
+  const FIELD_N = 4200, NEXTGEN_N = 900;
+
+  function buildField() {
+    // Ring 1: "the rest of the Companions" — same radius band as the real
+    // 35, jittered wider, so the real ring reads as embedded IN the real
+    // population's scale rather than standing apart from it.
+    for (let i = 0; i < FIELD_N; i++) {
+      const a = rand() * Math.PI * 2;
+      const r = 260 + (rand() - 0.5) * 170;
+      const hub = rand() < 0.012; // ~1% drawn as unnamed "hub" points —
+                                  // standing in for the real, attested fact
+                                  // that a few narrators carried most of the
+                                  // transmission load, without naming one
+      field.push({ x: r * Math.cos(a), y: r * Math.sin(a) * 0.92, hub });
+    }
+    // Ring 2: illustrative next generation — sparser, further out, dimmer.
+    // Explicitly NOT the Tabi'un corpus (which is out of scope by design);
+    // this exists only to answer "what does another layer look like."
+    for (let i = 0; i < NEXTGEN_N; i++) {
+      const a = rand() * Math.PI * 2;
+      const r = 470 + (rand() - 0.5) * 140;
+      nextGen.push({ x: r * Math.cos(a), y: r * Math.sin(a) * 0.92 });
+    }
+    document.getElementById("s-field").textContent = (FIELD_N + NEXTGEN_N).toLocaleString();
+  }
+
+  function fitView() {
+    view.x = 0; view.y = 0;
+    // Fit the full extent (next-gen ring reaches ~r=540) inside the shorter
+    // viewport dimension, in CSS-px terms (dpr cancels: canvas.* are device
+    // px, window.inner* are CSS px, and toScreen() multiplies by dpr again).
+    view.scale = (Math.min(window.innerWidth, window.innerHeight) * 0.82) / 1200;
+  }
+
+  function toScreen(x, y) {
+    return {
+      sx: canvas.width / 2 + (x + view.x) * view.scale * dpr,
+      sy: canvas.height / 2 + (y + view.y) * view.scale * dpr
+    };
+  }
+
+  let waveT = 0, last = performance.now();
+  const fpsBuf = [];
+
+  function draw(now) {
+    const dt = Math.min(64, now - last); last = now; waveT += dt;
+    fpsBuf.push(1000 / Math.max(dt, 1)); if (fpsBuf.length > 30) fpsBuf.shift();
+    document.getElementById("s-fps").textContent = Math.round(fpsBuf.reduce((a, b) => a + b, 0) / fpsBuf.length);
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = "#0A0E11";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (!DATA) { requestAnimationFrame(draw); return; }
+
+    // origin glow
+    const o = toScreen(0, 0);
+    const glow = ctx.createRadialGradient(o.sx, o.sy, 0, o.sx, o.sy, 300 * view.scale * dpr);
+    glow.addColorStop(0, "rgba(255,246,224,.5)");
+    glow.addColorStop(0.25, "rgba(242,217,160,.14)");
+    glow.addColorStop(1, "rgba(217,178,106,0)");
+    ctx.fillStyle = glow;
+    ctx.beginPath(); ctx.arc(o.sx, o.sy, 300 * view.scale * dpr, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#FFF8E7";
+    ctx.beginPath(); ctx.arc(o.sx, o.sy, 4.5 * dpr, 0, Math.PI * 2); ctx.fill();
+
+    // schematic ambient edges — nearest-neighbour texture only, never a claim
+    ctx.strokeStyle = "rgba(94,110,114,0.16)";
+    ctx.lineWidth = Math.max(0.4, 0.5 * dpr * view.scale);
+    ctx.beginPath();
+    for (let i = 0; i < field.length; i += 3) {
+      const a = field[i], b = field[(i + 37) % field.length];
+      const A = toScreen(a.x, a.y), B = toScreen(b.x, b.y);
+      ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy);
+    }
+    ctx.stroke();
+
+    // schematic field points — dim relative to the real 35, but genuinely
+    // visible: the whole point of this view is to make density legible
+    field.forEach(p => {
+      const s = toScreen(p.x, p.y);
+      ctx.fillStyle = p.hub ? "rgba(154,178,175,0.85)" : "rgba(94,110,114,0.8)";
+      const r = (p.hub ? 3 : 1.9) * dpr * Math.min(1.3, Math.max(0.6, view.scale));
+      ctx.fillRect(s.sx - r / 2, s.sy - r / 2, r, r);
+    });
+    nextGen.forEach(p => {
+      const s = toScreen(p.x, p.y);
+      ctx.fillStyle = "rgba(74,88,92,0.72)";
+      const r = 1.6 * dpr * Math.min(1.3, Math.max(0.6, view.scale));
+      ctx.fillRect(s.sx - r / 2, s.sy - r / 2, r, r);
+    });
+
+    // real kinship + Badr edges among the 35
+    const badr = window.__badrLine;
+    DATA.kinship.forEach(k => {
+      const A = realById[k.subject], B = realById[k.object];
+      if (!A || !B) return;
+      const a = toScreen(A.x, A.y), b = toScreen(B.x, B.y);
+      ctx.strokeStyle = "rgba(217,178,106,.45)";
+      ctx.setLineDash([2, 5]);
+      ctx.lineWidth = 1 * dpr * view.scale;
+      ctx.beginPath(); ctx.moveTo(a.sx, a.sy); ctx.lineTo(b.sx, b.sy); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    real.forEach(p => {
+      if (p.status === "other") return;
+      const s = toScreen(p.x, p.y), e = toScreen(badr.x, badr.y);
+      ctx.strokeStyle = p.status === "absent" ? "rgba(201,103,74,.55)"
+                        : p.status === "leader" ? "rgba(242,228,198,.7)" : "rgba(79,179,182,.6)";
+      ctx.lineWidth = (p.status === "leader" ? 1.6 : 1) * dpr * view.scale;
+      if (p.status === "absent") ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(s.sx, s.sy); ctx.lineTo(e.sx, e.sy); ctx.stroke();
+      ctx.setLineDash([]);
+    });
+
+    // Badr marker
+    const bd = toScreen(badr.x, badr.y);
+    ctx.fillStyle = "#D9B26A";
+    const bs = 9 * dpr * view.scale;
+    ctx.beginPath();
+    ctx.moveTo(bd.sx, bd.sy - bs); ctx.lineTo(bd.sx + bs, bd.sy);
+    ctx.lineTo(bd.sx, bd.sy + bs); ctx.lineTo(bd.sx - bs, bd.sy);
+    ctx.closePath(); ctx.fill();
+
+    // the 35 real people — bright, labelled
+    const STATUS_COLOR = { leader: "#F2E4C6", participant: "#A9BFC4", absent: "#C9674A", other: "#5A6B73" };
+    ctx.font = `${10 * dpr}px "IBM Plex Sans", sans-serif`;
+    real.forEach(p => {
+      const s = toScreen(p.x, p.y);
+      const col = STATUS_COLOR[p.status];
+      const r = 5.2 * dpr * view.scale;
+      if (p.status === "absent") {
+        ctx.strokeStyle = col; ctx.lineWidth = 1.3 * dpr; ctx.setLineDash([2, 2]);
+        ctx.beginPath(); ctx.arc(s.sx, s.sy, r, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+      } else {
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.arc(s.sx, s.sy, r, 0, Math.PI * 2); ctx.fill();
+      }
+      if (view.scale > 0.55) {
+        ctx.fillStyle = "rgba(201,212,211,0.85)";
+        const short = p.label.length > 18 ? p.label.slice(0, 17) + "…" : p.label;
+        ctx.fillText(short, s.sx + 8 * dpr, s.sy + 3 * dpr);
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  /* pan + zoom, plus click-to-select among the 35 real people only —
+     the schematic field has nothing to select, by design */
+  let dragging = false, lastX = 0, lastY = 0, downX = 0, downY = 0;
+  canvas.addEventListener("pointerdown", e => {
+    dragging = true; lastX = e.clientX; lastY = e.clientY; downX = e.clientX; downY = e.clientY;
+    canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    view.x += (e.clientX - lastX) / view.scale / dpr; view.y += (e.clientY - lastY) / view.scale / dpr;
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  canvas.addEventListener("pointerup", e => {
+    dragging = false;
+    const moved = Math.hypot(e.clientX - downX, e.clientY - downY);
+    if (moved > 6 || !real.length) return;                 // a drag, not a click
+    let best = null, bestD = Infinity;
+    real.forEach(p => {
+      const s = toScreen(p.x, p.y);
+      const d = Math.hypot(s.sx - e.clientX * dpr, s.sy - e.clientY * dpr);
+      if (d < bestD) { bestD = d; best = p; }
+    });
+    if (best && bestD < 18 * dpr) showPersonInfo(best);
+  });
+
+  function showPersonInfo(p) {
+    const STATUS_LABEL = { leader: "Led at Badr", participant: "Fought at Badr",
+                            absent: "Absent from Badr, with a documented reason", other: "No Badr connection modelled" };
+    const box = document.getElementById("info");
+    box.style.display = "block";
+    box.innerHTML = `
+      <button class="close" onclick="document.getElementById('info').style.display='none'">✕</button>
+      <div class="kicker">Companion — real, sourced</div>
+      <h3>${p.label.replace(/[<>&]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))}</h3>
+      <p><b style="color:var(--ink)">${STATUS_LABEL[p.status]}</b></p>
+      <p>Full kinship, evidence and citation detail is on the named view.</p>
+      <p><a href="index.html">Open on the named view →</a></p>`;
+  }
+  canvas.addEventListener("wheel", e => {
+    e.preventDefault();
+    view.scale = Math.min(6, Math.max(0.15, view.scale * Math.exp(-e.deltaY * 0.001)));
+  }, { passive: false });
+
+  window.addEventListener("resize", fitView);
+
+  // The real kickoff — now that everything above is declared.
+  loadReal();
+  buildField();
+  fitView();
+  requestAnimationFrame(draw);
+})();
+</script>

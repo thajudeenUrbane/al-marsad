@@ -1,0 +1,297 @@
+@prefix mrs:  <https://w3id.org/marsad/core#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+#################################################################
+#  al-Marsad relation registry — v0.1.0-draft
+#
+#  Normative prose: docs/02-knowledge-architecture.md §9
+#
+#  These are the types a Relationship or an Assertion may carry.
+#  The registry is GOVERNED: new types are added through ontology
+#  review (docs/02 §12), never ad hoc at ingestion time.
+#################################################################
+
+mrs:RelationScheme a skos:ConceptScheme ;
+    dct:title "al-Marsad relation registry"@en ;
+    owl:versionInfo "0.1.0-draft" .
+
+mrs:relclass_kinship          a skos:Concept ; skos:prefLabel "kinship"@en .
+mrs:relclass_social_political a skos:Concept ; skos:prefLabel "social and political"@en .
+mrs:relclass_transmission     a skos:Concept ; skos:prefLabel "knowledge transmission"@en .
+mrs:relclass_spatial          a skos:Concept ; skos:prefLabel "spatial and mobility"@en .
+mrs:relclass_participation    a skos:Concept ; skos:prefLabel "participation and occurrence"@en .
+mrs:relclass_evidentiary      a skos:Concept ; skos:prefLabel "textual and evidentiary"@en .
+
+
+#################################################################
+#  KINSHIP
+#################################################################
+
+mrs:rel_father_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "father of"@en ; mrs:relationClass mrs:relclass_kinship ;
+    mrs:inverseRelation mrs:rel_child_of ; mrs:symmetric false .
+mrs:rel_mother_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "mother of"@en ; mrs:relationClass mrs:relclass_kinship ;
+    mrs:inverseRelation mrs:rel_child_of ; mrs:symmetric false .
+mrs:rel_child_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "child of"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric false .
+mrs:rel_sibling_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "sibling of"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric true .
+mrs:rel_spouse_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "spouse of"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric true ;
+    skos:note "Temporally bounded. A marriage has its own extent, independent of either participant's lifespan."@en .
+mrs:rel_divorced_from a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "divorced from"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric true .
+mrs:rel_paternal_uncle_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "paternal uncle of"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric false .
+mrs:rel_maternal_uncle_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "maternal uncle of"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric false .
+mrs:rel_cousin_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "cousin of"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric true .
+mrs:rel_ancestor_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "ancestor of"@en ; mrs:relationClass mrs:relclass_kinship ;
+    mrs:inverseRelation mrs:rel_descendant_of ; mrs:symmetric false .
+mrs:rel_descendant_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "descendant of"@en ; mrs:relationClass mrs:relclass_kinship ;
+    mrs:inverseRelation mrs:rel_ancestor_of ; mrs:symmetric false .
+mrs:rel_adopted_by a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "adopted by"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric false ;
+    skos:note "Carries legal nuance that changed during the Prophetic period. The relation records the tie; it does not assert its legal consequence."@en .
+
+mrs:rel_mawla_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "mawlā of"@en ; mrs:relationClass mrs:relclass_kinship ; mrs:symmetric false ;
+    skos:note """Client/patron. Structurally essential to early Islamic social
+        history and frequently mis-modelled as kinship. The sources are often
+        ambiguous as to WHICH PARTY is the patron and which the client; that
+        direction is a scholar determination per instance and MUST NOT be
+        guessed from name order."""@en .
+
+
+#################################################################
+#  SOCIAL AND POLITICAL
+#################################################################
+
+mrs:rel_companion_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "companion of"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
+mrs:rel_ally_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "ally of"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
+mrs:rel_pledged_allegiance_to a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "pledged allegiance to (bayʿa)"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_party_to_treaty_with a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "party to treaty with"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
+mrs:rel_opposed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "opposed"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_fought_alongside a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "fought alongside"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
+mrs:rel_fought_against a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "fought against"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
+mrs:rel_captured a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "captured"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_manumitted a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "manumitted"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_protected a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "protected (jiwār)"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_sheltered a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "sheltered"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_corresponded_with a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "corresponded with"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
+mrs:rel_sent_delegation_to a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "sent delegation to"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_appointed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "appointed"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_succeeded a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "succeeded"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_deposed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "deposed"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
+mrs:rel_member_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "member of"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false ;
+    skos:note "Tribal, clan and group membership. Temporally bounded and sometimes contested."@en .
+
+
+#################################################################
+#  KNOWLEDGE TRANSMISSION
+#  These are the edges that also constitute the evidence layer.
+#################################################################
+
+mrs:rel_narrated_from a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "narrated from"@en ; mrs:relationClass mrs:relclass_transmission ;
+    mrs:inverseRelation mrs:rel_narrated_to ; mrs:symmetric false .
+mrs:rel_narrated_to a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "narrated to"@en ; mrs:relationClass mrs:relclass_transmission ;
+    mrs:inverseRelation mrs:rel_narrated_from ; mrs:symmetric false .
+mrs:rel_heard_from a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "heard from (samāʿ)"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_read_to a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "read to (qirāʾa)"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_licensed_by a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "licensed by (ijāza)"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_transmitted_book_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "transmitted the book of"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_transmitted_recension_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "transmitted recension of"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_taught_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "taught at"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_studied_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "studied at"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_studied_under a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "studied under"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_authored a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "authored"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_abridged a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "abridged"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_commented_on a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "commented on"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_refuted a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "refuted"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_influenced a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "influenced"@en ; mrs:relationClass mrs:relclass_transmission ;
+    mrs:inverseRelation mrs:rel_influenced_by ; mrs:symmetric false ;
+    skos:note "Among the weakest relations in the registry: 'influence' is an interpretive claim and SHOULD carry an Evaluation naming who asserts it."@en .
+mrs:rel_influenced_by a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "influenced by"@en ; mrs:relationClass mrs:relclass_transmission ;
+    mrs:inverseRelation mrs:rel_influenced ; mrs:symmetric false .
+mrs:rel_cited a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "cited"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric false .
+mrs:rel_contemporary_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "contemporary of"@en ; mrs:relationClass mrs:relclass_transmission ; mrs:symmetric true ;
+    skos:note "Contemporaneity (muʿāṣara) is not contact (liqāʾ). The distinction is the substance of a long-standing methodological debate and the model keeps them separate."@en .
+
+
+#################################################################
+#  SPATIAL AND MOBILITY
+#################################################################
+
+mrs:rel_born_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "born at"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_died_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "died at"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_buried_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "buried at"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_resided_in a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "resided in"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false ;
+    skos:note "MUST be temporally bounded. A person's city is a fact about a period of their life, not about the person."@en .
+mrs:rel_migrated_from a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "migrated from"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_migrated_to a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "migrated to"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_travelled_via a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "travelled via"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_visited a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "visited"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_governed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "governed"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_besieged a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "besieged"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_founded a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "founded"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_rebuilt a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "rebuilt"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_endowed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "endowed (waqf)"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+mrs:rel_sheltered_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "sheltered at"@en ; mrs:relationClass mrs:relclass_spatial ; mrs:symmetric false .
+
+
+#################################################################
+#  PARTICIPATION AND OCCURRENCE
+#################################################################
+
+mrs:rel_participated_in a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "participated in"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+mrs:rel_led a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "led"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+mrs:rel_witnessed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "witnessed"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+mrs:rel_present_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "present at"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+
+mrs:rel_absent_from a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "absent from"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false ;
+    skos:note """Modelled explicitly because absence is frequently the historically
+        CONTESTED claim — who was not present at an event is often the substance
+        of the dispute. A model that can only record presence cannot represent
+        the disagreement."""@en .
+
+mrs:rel_occurred_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "occurred at"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+mrs:rel_occurred_during a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "occurred during"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+mrs:rel_preceded a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "preceded"@en ; mrs:relationClass mrs:relclass_participation ;
+    mrs:inverseRelation mrs:rel_followed ; mrs:symmetric false .
+mrs:rel_followed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "followed"@en ; mrs:relationClass mrs:relclass_participation ;
+    mrs:inverseRelation mrs:rel_preceded ; mrs:symmetric false .
+mrs:rel_concurrent_with a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "concurrent with"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric true .
+mrs:rel_caused a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "caused"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false ;
+    skos:note "An interpretive claim. SHOULD carry an Evaluation naming who asserts the causal link."@en .
+mrs:rel_responded_to a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "responded to"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+
+
+#################################################################
+#  TEXTUAL AND EVIDENTIARY
+#################################################################
+
+mrs:rel_mentioned_in a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "mentioned in"@en ; mrs:relationClass mrs:relclass_evidentiary ; mrs:symmetric false .
+mrs:rel_subject_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "subject of"@en ; mrs:relationClass mrs:relclass_evidentiary ; mrs:symmetric false .
+mrs:rel_attested_by a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "attested by"@en ; mrs:relationClass mrs:relclass_evidentiary ; mrs:symmetric false .
+mrs:rel_contradicted_by a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "contradicted by"@en ; mrs:relationClass mrs:relclass_evidentiary ; mrs:symmetric true .
+mrs:rel_corroborated_by a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "corroborated by"@en ; mrs:relationClass mrs:relclass_evidentiary ; mrs:symmetric true .
+mrs:rel_variant_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "variant of"@en ; mrs:relationClass mrs:relclass_evidentiary ; mrs:symmetric true .
+
+
+#################################################################
+#  RESTRICTED RELATIONS
+#
+#  Juristic determinations. Enforced by mrs:RestrictedRelationShape:
+#  an assertion using one of these MUST carry an Evaluation by a named
+#  authority, and MUST NOT have been generated by a software agent
+#  without a human adjudicator.
+#################################################################
+
+mrs:rel_abrogates a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "abrogates (naskh)"@en ; mrs:relationClass mrs:relclass_evidentiary ;
+    mrs:symmetric false ; mrs:restricted true ;
+    mrs:inverseRelation mrs:rel_abrogated_by ;
+    skos:note """RESTRICTED. Abrogation is a juristic determination on which
+        schools differ, not a fact extractable from text. MUST be attributed,
+        never stated."""@en .
+
+mrs:rel_abrogated_by a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "abrogated by"@en ; mrs:relationClass mrs:relclass_evidentiary ;
+    mrs:symmetric false ; mrs:restricted true ;
+    mrs:inverseRelation mrs:rel_abrogates .
+
+mrs:rel_revealed_concerning a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "revealed concerning (asbāb al-nuzūl)"@en ; mrs:relationClass mrs:relclass_evidentiary ;
+    mrs:symmetric false ; mrs:restricted true ;
+    skos:note """RESTRICTED. Occasions of revelation are heavily contested, are
+        reported through chains of varying strength, and are structurally
+        tempting to over-apply. MUST be attributed to the authority asserting
+        the connection."""@en .
+
+
+#################################################################
+#  THE ESCAPE HATCH
+#################################################################
+
+mrs:rel_unclassified a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "unclassified relation"@en ; mrs:symmetric false ;
+    skos:note """Records an intended meaning in free text and enqueues it for
+        ontology review. A schema with no escape hatch produces silent data loss
+        at ingestion; an escape hatch that is never reviewed produces a garbage
+        tier. BOTH failure modes MUST be instrumented, and the size of this
+        queue MUST appear on the corpus health dashboard."""@en .

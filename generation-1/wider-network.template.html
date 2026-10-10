@@ -1,0 +1,404 @@
+<title>The Wider Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400&display=swap">
+<style>
+:root{
+  --bg:#0A0E11; --panel:#111820; --edge:#1E2A33; --edge-soft:#172129;
+  --ink:#C9D4D3; --ink-mid:#8D9C9E; --ink-dim:#5E6E72;
+  --teal:#4FB3B6; --gold:#D9B26A; --rubric:#C9674A; --grey:#5A6B73;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:14px; line-height:1.55;
+}
+button,input{font:inherit;color:inherit}
+button{background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+header{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:baseline;
+  padding:.9rem 1.25rem;border-bottom:1px solid var(--edge);
+}
+header h1{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.3rem;margin:0;letter-spacing:-.01em}
+header a.back{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--ink-dim);text-decoration:none}
+header a.back:hover{color:var(--teal)}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-left:auto}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.05em;
+  text-transform:uppercase;padding:.22rem .5rem;border:1px solid var(--edge);
+  color:var(--ink-dim);white-space:nowrap;
+}
+.chip.warn{color:var(--rubric);border-color:#3A241D}
+
+p.dek{margin:0;padding:.7rem 1.25rem;color:var(--ink-mid);font-size:.86rem;max-width:56rem;border-bottom:1px solid var(--edge)}
+p.dek b{color:var(--ink);font-weight:500}
+
+nav.tabs{display:flex;gap:0;border-bottom:1px solid var(--edge);padding:0 1.25rem;background:var(--panel)}
+nav.tabs button{
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:.7rem .9rem;color:var(--ink-dim);border-bottom:2px solid transparent;
+}
+nav.tabs button.active{color:var(--teal);border-bottom-color:var(--teal)}
+nav.tabs button:hover{color:var(--ink)}
+
+.view{display:none}
+.view.active{display:block}
+
+/* --- by-person view --- */
+.wrap{display:grid;grid-template-columns:20rem minmax(0,1fr);min-height:calc(100vh - 148px)}
+@media (max-width:820px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.side{border-right:1px solid var(--edge);display:flex;flex-direction:column;max-height:calc(100vh - 148px)}
+@media (max-width:820px){.side{border-right:0;border-bottom:1px solid var(--edge);max-height:16rem}}
+.side .search{padding:.7rem;border-bottom:1px solid var(--edge)}
+.side .search input{
+  width:100%;background:var(--panel);border:1px solid var(--edge);color:var(--ink);
+  padding:.45rem .6rem;font-size:.82rem;
+}
+.side .search input::placeholder{color:var(--ink-dim)}
+.plist{list-style:none;margin:0;padding:0;overflow-y:auto;flex:1}
+.plist li button{
+  display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;padding:.5rem .8rem;
+  border-bottom:1px solid var(--edge-soft);font-size:.83rem;color:var(--ink-mid);
+}
+.plist li button:hover{background:var(--panel);color:var(--ink)}
+.plist li button.sel{background:#122127;color:var(--teal)}
+.plist .tag{
+  font-family:"IBM Plex Mono",monospace;font-size:.6rem;padding:.05rem .35rem;border:1px solid var(--edge);
+  color:var(--ink-dim);flex:none;
+}
+.plist .tag.core{color:var(--gold);border-color:#3A3320}
+.plist .n{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--ink-dim);flex:none}
+
+.thread{padding:1.2rem 1.5rem 3rem;overflow-y:auto;max-height:calc(100vh - 148px)}
+.thread .empty{color:var(--ink-dim);font-family:"IBM Plex Mono",monospace;font-size:.82rem;padding:2rem 0}
+.thread h2{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:1.6rem;margin:0 0 .2rem}
+.thread .sub{font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--ink-dim);letter-spacing:.04em;margin-bottom:1.2rem}
+.thread .sub b{color:var(--gold)}
+
+ol.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--edge);margin-left:.4rem}
+ol.timeline li{position:relative;padding:0 0 1.3rem 1.5rem}
+ol.timeline li::before{
+  content:"";position:absolute;left:-6px;top:.3rem;width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:1.6px solid var(--teal);
+}
+ol.timeline li.undated::before{border-color:var(--ink-dim)}
+.era{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);margin-bottom:.15rem}
+.moment h3{font-family:"Newsreader",Georgia,serif;font-weight:500;font-size:1.05rem;margin:0 0 .3rem;color:var(--ink)}
+.moment .role{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--teal);text-transform:uppercase;letter-spacing:.04em}
+.moment p{margin:.35rem 0 .5rem;color:var(--ink-mid);font-size:.87rem}
+.co{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem}
+.co span.lbl{font-family:"IBM Plex Mono",monospace;font-size:.64rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;align-self:center;margin-right:.2rem}
+.co button{
+  font-size:.78rem;color:var(--ink);border:1px solid var(--edge);padding:.2rem .55rem;
+  background:var(--panel);
+}
+.co button:hover{border-color:var(--teal);color:var(--teal)}
+
+.gapnote{
+  margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--edge);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;line-height:1.6;color:var(--ink-dim);
+}
+.gapnote b{color:var(--rubric)}
+
+/* --- incident table view --- */
+.itable-wrap{padding:1rem 1.25rem 3rem}
+.ifilter{margin-bottom:.9rem}
+.ifilter input{
+  width:100%;max-width:26rem;background:var(--panel);border:1px solid var(--edge);color:var(--ink);
+  padding:.5rem .7rem;font-size:.85rem;
+}
+table.itable{width:100%;border-collapse:collapse;font-size:.82rem}
+table.itable th{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-dim);padding:.4rem .6rem;border-bottom:1px solid var(--edge);
+  position:sticky;top:0;background:var(--bg);
+}
+table.itable td{padding:.55rem .6rem;border-bottom:1px solid var(--edge-soft);vertical-align:top;color:var(--ink-mid)}
+table.itable td.num{font-family:"IBM Plex Mono",monospace;color:var(--ink-dim);white-space:nowrap}
+table.itable td.title{color:var(--ink);font-weight:500}
+table.itable td.status{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--rubric);white-space:nowrap}
+table.itable tr:hover td{background:var(--panel)}
+</style>
+
+<header>
+  <h1>The Wider Network</h1>
+  <a class="back" href="index.html">&larr; the first generation</a>
+  <div class="chips">
+    <span class="chip" id="chip-persons">— persons</span>
+    <span class="chip" id="chip-events">— events</span>
+    <span class="chip warn">100% unverified — pending scholarly review</span>
+  </div>
+</header>
+
+<p class="dek">
+  This layer <b>adds ~100 incidents</b> spanning the full Prophetic era and the Rashidun succession,
+  compiled by the project's maintainer as seed material and mechanically structured here — not the
+  result of independent research. It sits alongside, and reuses, the 35-person, 6-event corpus in
+  <a href="index.html" style="color:var(--teal)">The First Generation</a> without changing it. Every
+  claim below carries no attached source yet: this page exists to show <b>how a network gets found</b>
+  once incidents are structured as data — pick a person and follow the thread, or browse the incidents
+  as the flat list they were written as.
+</p>
+
+<nav class="tabs">
+  <button class="active" data-view="person">Explore by person</button>
+  <button data-view="table">All 100 incidents</button>
+</nav>
+
+<section class="view active" id="view-person">
+  <div class="wrap">
+    <div class="side">
+      <div class="search"><input id="search" type="text" placeholder="Search a name…" autocomplete="off"></div>
+      <ul class="plist" id="plist"></ul>
+    </div>
+    <div class="thread" id="thread">
+      <p class="empty">Select a name on the left. Every event, migration, kinship tie and succession
+      they appear in — across both files — becomes a rung on their thread. Click anyone who shares a
+      rung with them to follow the chain onward, the way Abu Bakr → Asma → Ghar Thawr → Abdullah b.
+      Abi Bakr discovers itself just by walking the data.</p>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-table">
+  <div class="itable-wrap">
+    <div class="ifilter"><input id="ifilter" type="text" placeholder="Filter by name, place, person…" autocomplete="off"></div>
+    <div style="overflow-x:auto">
+      <table class="itable">
+        <thead><tr><th>#</th><th>Incident</th><th>People</th><th>Place</th><th>Time</th><th>Source</th></tr></thead>
+        <tbody id="ibody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script>
+const DATA = /*__SEED_DATA__*/;
+(function(){
+
+const personsById = {}, eventsById = {};
+DATA.persons.forEach(p => personsById[p.id] = p);
+DATA.events.forEach(e => eventsById[e.id] = e);
+
+const isCore = id => (personsById[id] && personsById[id].createdBy === DATA.gen1Agent);
+
+// participation indices
+const partByEvent = {}, partByPerson = {};
+DATA.participation.forEach(r => {
+  (partByEvent[r.event] ||= []).push(r);
+  (partByPerson[r.person] ||= []).push(r);
+});
+
+// assertion indices (subject / object side)
+const astBySubject = {}, astByObject = {};
+DATA.assertions.forEach(a => {
+  (astBySubject[a.subject] ||= []).push(a);
+  if (a.objectType === "https://w3id.org/marsad/core#Person") (astByObject[a.object] ||= []).push(a);
+});
+
+document.getElementById("chip-persons").textContent = DATA.persons.length + " persons";
+document.getElementById("chip-events").textContent = DATA.events.length + " events";
+
+// ---------- tabs ----------
+document.querySelectorAll("nav.tabs button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("nav.tabs button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("view-" + btn.dataset.view).classList.add("active");
+  });
+});
+
+// ---------- person list ----------
+const plist = document.getElementById("plist");
+function personIncidentCount(id) {
+  return (partByPerson[id]||[]).length + (astBySubject[id]||[]).length + (astByObject[id]||[]).length;
+}
+function renderList(filter) {
+  const f = (filter||"").trim().toLowerCase();
+  plist.innerHTML = "";
+  DATA.persons
+    .filter(p => !f || p.label.toLowerCase().includes(f))
+    .sort((a,b) => personIncidentCount(b.id) - personIncidentCount(a.id))
+    .forEach(p => {
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.dataset.id = p.id;
+      const tag = document.createElement("span");
+      tag.className = "tag" + (isCore(p.id) ? " core" : "");
+      tag.textContent = isCore(p.id) ? "core 35/6" : "seed";
+      const label = document.createElement("span");
+      label.textContent = p.label;
+      const n = document.createElement("span");
+      n.className = "n";
+      n.textContent = personIncidentCount(p.id);
+      btn.append(tag, label, n);
+      btn.addEventListener("click", () => selectPerson(p.id));
+      li.appendChild(btn);
+      plist.appendChild(li);
+    });
+}
+document.getElementById("search").addEventListener("input", e => renderList(e.target.value));
+
+function yearOf(native, earliestStart) {
+  if (earliestStart) return earliestStart.slice(0,4).replace(/^0+/,"") + " CE";
+  return native || "undated";
+}
+
+function personChip(id) {
+  const p = personsById[id];
+  if (!p) return null;
+  const b = document.createElement("button");
+  b.textContent = p.label;
+  b.addEventListener("click", () => selectPerson(id));
+  return b;
+}
+
+function selectPerson(id) {
+  document.querySelectorAll(".plist button").forEach(b => b.classList.toggle("sel", b.dataset.id === id));
+  const p = personsById[id];
+  const thread = document.getElementById("thread");
+  thread.innerHTML = "";
+
+  const h2 = document.createElement("h2"); h2.textContent = p.label;
+  const sub = document.createElement("div"); sub.className = "sub";
+  sub.innerHTML = (isCore(id) ? "part of the original <b>35/6</b> corpus" : "added by the <b>seed batch</b>") +
+    " &middot; " + personIncidentCount(id) + " connections found";
+  thread.append(h2, sub);
+
+  // build moments: one per event-participation, plus one per subject/object assertion.
+  // Where an Assertion ALSO exists for this person at the same event, skip the bare
+  // participation moment -- the assertion carries the same fact with a real citation
+  // line, and showing both reads as a duplicate rather than as two independent claims.
+  const assertedEventIds = new Set(
+    (astBySubject[id]||[])
+      .filter(a => a.objectType === "https://w3id.org/marsad/core#Event")
+      .map(a => a.object)
+  );
+  const moments = [];
+  (partByPerson[id]||[]).forEach(r => {
+    const ev = eventsById[r.event];
+    if (!ev) return;
+    if (assertedEventIds.has(r.event)) return;
+    moments.push({
+      sortKey: ev.earliestStart || "9999",
+      era: yearOf(ev.native, ev.earliestStart),
+      title: ev.label,
+      place: ev.placeLabel,
+      role: r.role,
+      note: null,
+      co: (partByEvent[r.event]||[]).filter(x => x.person !== id).map(x => x.person),
+    });
+  });
+  (astBySubject[id]||[]).forEach(a => {
+    const ev = a.objectType === "https://w3id.org/marsad/core#Event" ? eventsById[a.object] : null;
+    moments.push({
+      sortKey: ev ? (ev.earliestStart||"9999") : "9999-undated",
+      era: ev ? yearOf(ev.native, ev.earliestStart) : "undated",
+      title: a.objectLabel,
+      place: ev ? ev.placeLabel : null,
+      role: a.predicate,
+      note: a.basis,
+      co: a.objectType === "https://w3id.org/marsad/core#Person" ? [a.object] :
+          (ev ? (partByEvent[a.object]||[]).filter(x=>x.person!==id).map(x=>x.person) : []),
+    });
+  });
+  (astByObject[id]||[]).forEach(a => {
+    moments.push({
+      sortKey: "9999-undated",
+      era: "undated",
+      title: a.subjectLabel + " → " + p.label,
+      place: null,
+      role: a.predicate,
+      note: a.basis,
+      co: [a.subject],
+    });
+  });
+
+  // dedupe near-identical moments (same title+role) and sort
+  const seen = new Set();
+  const uniq = moments.filter(m => {
+    const k = m.title + "|" + m.role + "|" + (m.note||"");
+    if (seen.has(k)) return false;
+    seen.add(k); return true;
+  }).sort((a,b) => a.sortKey.localeCompare(b.sortKey));
+
+  if (!uniq.length) {
+    const e = document.createElement("p"); e.className = "empty";
+    e.textContent = "No connections recorded for this person yet.";
+    thread.appendChild(e);
+    return;
+  }
+
+  const ol = document.createElement("ol"); ol.className = "timeline";
+  uniq.forEach(m => {
+    const li = document.createElement("li");
+    if (m.sortKey.endsWith("undated")) li.className = "undated";
+    const eraEl = document.createElement("div"); eraEl.className = "era"; eraEl.textContent = m.era + (m.place ? " · " + m.place : "");
+    const box = document.createElement("div"); box.className = "moment";
+    const h3 = document.createElement("h3"); h3.textContent = m.title;
+    const role = document.createElement("div"); role.className = "role"; role.textContent = m.role;
+    box.append(h3, role);
+    if (m.note) { const pn = document.createElement("p"); pn.textContent = m.note; box.appendChild(pn); }
+    if (m.co.length) {
+      const co = document.createElement("div"); co.className = "co";
+      const lbl = document.createElement("span"); lbl.className = "lbl"; lbl.textContent = "also here:";
+      co.appendChild(lbl);
+      [...new Set(m.co)].forEach(pid => { const c = personChip(pid); if (c) co.appendChild(c); });
+      box.appendChild(co);
+    }
+    li.append(eraEl, box);
+    ol.appendChild(li);
+  });
+  thread.appendChild(ol);
+
+  const gap = document.createElement("div"); gap.className = "gapnote";
+  gap.innerHTML = "<b>Nothing here is scholar-reviewed.</b> Every note above is a close paraphrase of a user-compiled seed line, with no source edition attached — that citation work, and the judgement of what's actually correct, is exactly what real review is for.";
+  thread.appendChild(gap);
+}
+
+renderList("");
+
+// ---------- incident table ----------
+const RE = /^Seed dataset item (\d{3}) \(([^)]+)\):\s*(.*?)\s*No source edition attached yet.*$/s;
+const incidents = [];
+DATA.assertions.forEach(a => {
+  const m = RE.exec(a.basis);
+  if (!m) return;
+  const ev = a.objectType === "https://w3id.org/marsad/core#Event" ? eventsById[a.object] : null;
+  const place = ev ? ev.placeLabel : (a.objectType === "https://w3id.org/marsad/core#Place" ? a.objectLabel : "—");
+  const time = ev ? yearOf(ev.native, ev.earliestStart) : "—";
+  const people = [a.subjectLabel];
+  if (a.objectType === "https://w3id.org/marsad/core#Person") people.push(a.objectLabel);
+  if (ev) (partByEvent[ev.id]||[]).forEach(r => { const l = personsById[r.person]?.label; if (l && !people.includes(l)) people.push(l); });
+  incidents.push({ num: +m[1], title: m[2], detail: m[3], place, time, people });
+});
+incidents.sort((a,b) => a.num - b.num);
+
+const ibody = document.getElementById("ibody");
+function renderTable(filter) {
+  const f = (filter||"").trim().toLowerCase();
+  ibody.innerHTML = "";
+  incidents
+    .filter(it => !f || (it.title+it.detail+it.place+it.people.join(" ")).toLowerCase().includes(f))
+    .forEach(it => {
+      const tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td class="num">' + String(it.num).padStart(3,"0") + '</td>' +
+        '<td class="title">' + it.title + '<div style="color:var(--ink-dim);font-weight:400;margin-top:.2rem">' + it.detail + '</div></td>' +
+        '<td>' + it.people.join(", ") + '</td>' +
+        '<td>' + it.place + '</td>' +
+        '<td>' + it.time + '</td>' +
+        '<td class="status">unverified</td>';
+      ibody.appendChild(tr);
+    });
+}
+document.getElementById("ifilter").addEventListener("input", e => renderTable(e.target.value));
+renderTable("");
+
+})();
+</script>

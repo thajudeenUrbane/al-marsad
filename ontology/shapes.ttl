@@ -1,0 +1,496 @@
+@prefix mrs:  <https://w3id.org/marsad/core#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#  al-Marsad SHACL constraints — v0.1.0-draft
+#
+#  These encode the integrity invariants in docs/02 §10.
+#  A dataset CONFORMS to the specification if it validates here
+#  without violation, and satisfies I4 and I12, which are enforced
+#  at ingestion because they cannot be fully expressed in SHACL.
+#
+#  Severity convention:
+#    sh:Violation — the model's non-negotiable discipline
+#    sh:Warning   — likely error; requires a human decision
+#################################################################
+
+
+#################################################################
+#  I1 — No Relationship without attestation.
+#  The single most important constraint in the model.
+#################################################################
+
+mrs:RelationshipShape a sh:NodeShape ;
+    sh:targetClass mrs:Relationship ;
+
+    sh:property [
+        sh:path mrs:attestedBy ;
+        sh:minCount 1 ;
+        sh:class mrs:Assertion ;
+        sh:severity sh:Violation ;
+        sh:message "I1: A Relationship MUST have at least one Assertion. A connection with no evidence must not exist in this corpus." ] ;
+
+    sh:property [
+        sh:path mrs:hasParticipation ;
+        sh:minCount 2 ;
+        sh:class mrs:Participation ;
+        sh:severity sh:Violation ;
+        sh:message "A Relationship MUST bind at least two participants. Participation is n-ary, not binary." ] ;
+
+    sh:property [
+        sh:path mrs:relationType ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "A Relationship MUST have exactly one relationType. Use mrs:unclassified_relation rather than omitting it." ] .
+
+mrs:ParticipationShape a sh:NodeShape ;
+    sh:targetClass mrs:Participation ;
+    sh:property [ sh:path mrs:participant ;     sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:participantRole ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ;
+                  sh:message "Every participation MUST state a role. An unroled participant is an unlabelled edge by another name." ] .
+
+
+#################################################################
+#  I2 — No Assertion without a basis (report XOR recorded non-report basis).
+#################################################################
+
+mrs:AssertionShape a sh:NodeShape ;
+    sh:targetClass mrs:Assertion ;
+
+    sh:xone (
+        [ sh:property [ sh:path mrs:fromReport ;      sh:minCount 1 ; sh:maxCount 1 ] ]
+        [ sh:property [ sh:path mrs:nonReportBasis ;  sh:minCount 1 ; sh:maxCount 1 ] ]
+    ) ;
+    sh:severity sh:Violation ;
+    sh:message "I2: An Assertion MUST have exactly one of fromReport or nonReportBasis. Orphan claims are inadmissible." ;
+
+    sh:property [
+        sh:path mrs:assertionStatus ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( mrs:as_proposed mrs:as_under_review mrs:as_accepted mrs:as_rejected mrs:as_superseded ) ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path prov:wasGeneratedBy ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Every Assertion MUST record how it was generated. Without model provenance, a later-discovered extraction bug is unrecoverable — you cannot find what it touched." ] ;
+
+    sh:property [ sh:path mrs:predicate ;         sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:assertionSubject ;  sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:assertionObject ;   sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+
+#################################################################
+#  I3 — No Evaluation without an identified evaluator and a citable locus.
+#  I9 — Grades never cross traditions.
+#################################################################
+
+mrs:EvaluationShape a sh:NodeShape ;
+    sh:targetClass mrs:Evaluation ;
+
+    sh:property [
+        sh:path mrs:evaluator ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "I3: An Evaluation MUST identify its evaluator. Grading is an act by an agent, never a property of a thing." ] ;
+
+    sh:property [
+        sh:path mrs:locatedIn ;
+        sh:minCount 1 ;
+        sh:class mrs:Passage ;
+        sh:severity sh:Violation ;
+        sh:message "I3: An Evaluation MUST cite the locus where it is recorded. An uncited grade is not admissible." ] ;
+
+    sh:property [
+        sh:path mrs:tradition ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class mrs:Tradition ;
+        sh:severity sh:Violation ;
+        sh:message "An Evaluation MUST declare its tradition. A grade is meaningless without the epistemic system that produced it." ] ;
+
+    sh:property [ sh:path mrs:grade ;       sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:gradeScheme ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+# I9 — grade concepts from different traditions MUST NOT be declared exactMatch.
+mrs:GradeSchemeShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "I9: Grade concepts from different traditions MUST NOT be skos:exactMatch. Sunni hadith grading, Shia rijal and academic historical-critical assessment are different epistemic systems; asserting equivalence fabricates a commensurability that does not exist. Use skos:relatedMatch with scholarly justification." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ,
+                                 [ sh:prefix "skos" ; sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this skos:exactMatch ?value .
+                $this mrs:tradition ?t1 .
+                ?value mrs:tradition ?t2 .
+                FILTER (?t1 != ?t2)
+            }
+        """ ] .
+
+
+#################################################################
+#  TEMPORAL — C4: uncertainty is carried in-band, never rounded away.
+#################################################################
+
+mrs:TemporalExtentShape a sh:NodeShape ;
+    sh:targetClass mrs:TemporalExtent ;
+
+    sh:property [
+        sh:path mrs:nativeValue ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:severity sh:Violation ;
+        sh:message "The source's own temporal expression MUST be preserved verbatim. Storing only a converted value destroys the original irrecoverably." ] ;
+
+    sh:property [ sh:path mrs:calendar ;      sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:precision ;     sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:temporalBasis ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+
+    # must be placeable: either a corner, or a relative anchor
+    sh:or (
+        [ sh:property [ sh:path mrs:earliestStart  ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path mrs:latestStart    ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path mrs:earliestEnd    ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path mrs:latestEnd      ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path mrs:relativeAnchor ; sh:minCount 1 ] ]
+    ) ;
+    sh:message "A TemporalExtent MUST be placeable: at least one corner, or at least one relative anchor. Much early chronology is relational only — that is expected and supported." ;
+
+    # conversion uncertainty is mandatory whenever a conversion occurred
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "Where conversionMethod is present, conversionUncertaintyDays MUST also be present. Hijri-Gregorian conversion is not a pure function; sighting-based and tabular calendars diverge, and silent conversion manufactures precision." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:conversionMethod ?m .
+                FILTER NOT EXISTS { $this mrs:conversionUncertaintyDays ?u }
+            }
+        """ ] ;
+
+    # corner ordering
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "Four-corner ordering violated: require earliestStart <= latestStart, earliestEnd <= latestEnd, and earliestStart <= latestEnd." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                { $this mrs:earliestStart ?a . $this mrs:latestStart ?b . FILTER (?a > ?b) }
+                UNION
+                { $this mrs:earliestEnd ?c . $this mrs:latestEnd ?d . FILTER (?c > ?d) }
+                UNION
+                { $this mrs:earliestStart ?e . $this mrs:latestEnd ?f . FILTER (?e > ?f) }
+            }
+        """ ] .
+
+mrs:RelativeAnchorShape a sh:NodeShape ;
+    sh:targetClass mrs:RelativeAnchor ;
+    sh:property [ sh:path mrs:allenRelation ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:anchorTarget  ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:attestedBy    ; sh:minCount 1 ; sh:severity sh:Violation ;
+                  sh:message "A relative dating is itself a claim and MUST be attested." ] .
+
+
+#################################################################
+#  REPORTS AND CHAINS
+#################################################################
+
+mrs:ReportShape a sh:NodeShape ;
+    sh:targetClass mrs:Report ;
+
+    sh:property [ sh:path mrs:matnText ; sh:minCount 1 ; sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path mrs:locatedIn ;
+        sh:minCount 1 ;
+        sh:class mrs:Passage ;
+        sh:severity sh:Violation ;
+        sh:message "A Report MUST be located in at least one Passage. A report with no findable source is not a report." ] ;
+
+    sh:property [
+        sh:path mrs:sourceDate ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class mrs:TemporalExtent ;
+        sh:severity sh:Violation ;
+        sh:message "A Report MUST carry the composition date of its containing work. This is the historiographic axis (D6) and cannot be reconstructed later." ] ;
+
+    sh:property [ sh:path mrs:terminalAscription ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:reportGenre ;        sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+# NOTE: mrs:hasChain has NO minCount, deliberately. Much sira-maghazi
+# material carries no hadith-grade isnad and was never intended to.
+# Requiring one would either exclude most of the Seerah corpus or
+# invite fabricated chains.
+
+mrs:TransmissionChainShape a sh:NodeShape ;
+    sh:targetClass mrs:TransmissionChain ;
+    sh:property [ sh:path mrs:hasLink ; sh:minCount 1 ; sh:class mrs:TransmissionLink ; sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path mrs:continuity ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Continuity is a scholar determination. It may be absent (awaiting adjudication) but never multiple, and it MUST NOT be computed." ] .
+
+mrs:TransmissionLinkShape a sh:NodeShape ;
+    sh:targetClass mrs:TransmissionLink ;
+    sh:property [ sh:path mrs:linkOrder ;        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:fromNarrator ;     sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Person ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:toNarrator ;       sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Person ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:transmissionMode ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+# I10 — a computed contact check MUST NOT become a verdict.
+mrs:ContactCheckShape a sh:NodeShape ;
+    sh:targetClass mrs:ContactCheck ;
+    sh:property [ sh:path mrs:checkResult ;   sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:checkBasis ;    sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:computedAt ;    sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:corpusVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ;
+                  sh:message "A contact check is only meaningful against the corpus version that produced it — narrator dates change as the corpus is revised." ] ;
+    sh:property [
+        sh:path mrs:confidenceBand ;
+        sh:maxCount 0 ;
+        sh:severity sh:Violation ;
+        sh:message "I10: A ContactCheck MUST NOT carry a confidence band. It is a flag raised for specialist attention, not a judgement on a chain. The system flags; the scholar rules." ] .
+
+
+#################################################################
+#  I8 — Juristic and theological disputes carry no computed weight.
+#  Enforced in the schema rather than left to editorial restraint,
+#  because editorial restraint erodes.
+#################################################################
+
+mrs:DisputeShape a sh:NodeShape ;
+    sh:targetClass mrs:Dispute ;
+
+    sh:property [
+        sh:path mrs:hasPosition ;
+        sh:minCount 2 ;
+        sh:class mrs:Position ;
+        sh:severity sh:Violation ;
+        sh:message "A Dispute with fewer than two positions is not a dispute." ] ;
+
+    sh:property [ sh:path mrs:disputeQuestion ;      sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:disputeSignificance ;  sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:disputeStatus ;        sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "I8: A juristic or theological Dispute MUST NOT carry a confidence band on any position. The system presents positions with attribution and explicitly declines to adjudicate. A confidence score on a theological position is a category error with serious consequences." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this ?position WHERE {
+                $this mrs:disputeSignificance ?sig .
+                FILTER (?sig IN (mrs:sig_juristic, mrs:sig_theological))
+                $this mrs:hasPosition ?position .
+                ?position mrs:confidenceBand ?band .
+            }
+        """ ] .
+
+mrs:PositionShape a sh:NodeShape ;
+    sh:targetClass mrs:Position ;
+    sh:property [ sh:path mrs:positionClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:proponent ; sh:minCount 1 ; sh:severity sh:Warning ;
+                  sh:message "A position with no named proponent is an unattributed opinion. Record who holds it." ] .
+
+
+#################################################################
+#  I6 — Transmitted material requires a human translator.
+#  Policy from docs/06 §5, enforced structurally rather than by rule.
+#################################################################
+
+mrs:TranslationShape a sh:NodeShape ;
+    sh:targetClass mrs:Translation ;
+
+    sh:property [
+        sh:path mrs:translator ;
+        sh:minCount 1 ;
+        sh:class prov:Person ;
+        sh:severity sh:Violation ;
+        sh:message "I6: A Translation MUST have a human translator (prov:Person, never prov:SoftwareAgent). Machine translation of transmitted material is prohibited in user-facing surfaces." ] ;
+
+    sh:property [ sh:path mrs:translatedText ;      sh:minCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:translationVersion ;  sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+
+#################################################################
+#  I7 — Restricted relations are never machine-asserted.
+#  abrogates (naskh) and revealed_concerning (asbab al-nuzul) are
+#  juristic determinations, heavily contested, and structurally
+#  tempting to over-apply.
+#################################################################
+
+mrs:RestrictedRelationShape a sh:NodeShape ;
+    sh:targetClass mrs:Assertion ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "I7: An assertion using a restricted relation (abrogates, revealed_concerning) MUST carry an Evaluation by a named authority and MUST NOT have been generated by a software agent. These are juristic determinations, not extractable facts." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs"  ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ,
+                                 [ sh:prefix "prov" ; sh:namespace "http://www.w3.org/ns/prov#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:predicate ?p .
+                ?p mrs:restricted true .
+                {
+                    FILTER NOT EXISTS { ?eval mrs:evaluationTarget $this }
+                } UNION {
+                    $this prov:wasGeneratedBy ?act .
+                    ?act prov:qualifiedAssociation ?assoc .
+                    ?assoc prov:agent ?agent .
+                    ?agent a prov:SoftwareAgent .
+                    FILTER NOT EXISTS {
+                        ?act prov:qualifiedAssociation ?a2 .
+                        ?a2 prov:agent ?human . ?human a prov:Person .
+                    }
+                }
+            }
+        """ ] .
+
+
+#################################################################
+#  I11 — Identity decisions are always human and always reversible.
+#################################################################
+
+mrs:IdentityAssertionShape a sh:NodeShape ;
+    sh:targetClass mrs:IdentityAssertion ;
+
+    sh:property [
+        sh:path mrs:createdBy ;
+        sh:minCount 1 ;
+        sh:class prov:Person ;
+        sh:severity sh:Violation ;
+        sh:message "I11: A merge or split MUST be authored by a human. Homonymy is pervasive in the Arabic biographical corpus and narrator disambiguation is an open research problem; automated matching may propose only." ] ;
+
+    sh:property [ sh:path mrs:identityRelation ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:identitySubject ;  sh:minCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:identityObject ;   sh:minCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:justification ;    sh:minCount 1 ; sh:severity sh:Violation ;
+                  sh:message "An identity decision MUST record its reasoning. A merge accepted in 2027 may be rejected in 2031, and the reasoning is what makes that revision possible." ] .
+
+
+#################################################################
+#  ENTITIES, PERSONS, PLACES, ROUTES
+#################################################################
+
+mrs:EntityShape a sh:NodeShape ;
+    sh:targetClass mrs:Entity ;
+    sh:nodeKind sh:IRI ;
+    sh:property [ sh:path mrs:coverageState ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:createdBy ;     sh:minCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:recordedAt ;    sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    # I12 (partial) — opaque identifiers. Full enforcement at ingestion.
+    sh:pattern "^https://w3id\\.org/marsad/id/[a-z-]+/[1-9A-HJ-NP-Za-km-z]{22}$" ;
+    sh:message "I12: Instance URIs MUST be opaque. A URI containing a name, date or transliteration is an assertion about identity, and identity is a scholar decision that may later be revised." .
+
+mrs:PersonShape a sh:NodeShape ;
+    sh:targetClass mrs:Person ;
+    sh:property [
+        sh:path mrs:nameForm ;
+        sh:minCount 1 ;
+        sh:class mrs:ArabicNameForm ;
+        sh:severity sh:Violation ;
+        sh:message "A Person MUST have at least one attested name form. Many persons will have several, conflicting; the system MUST NOT auto-select a canonical display name where they conflict." ] ;
+    sh:property [ sh:path mrs:companionStatus ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+mrs:ArabicNameFormShape a sh:NodeShape ;
+    sh:targetClass mrs:ArabicNameForm ;
+    sh:property [ sh:path mrs:script ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "arab" "latn" ) ; sh:severity sh:Violation ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "A Latin-script name form MUST declare its transliteration scheme. Without it, variant forms cannot be reconciled and disambiguation degrades." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:script "latn" .
+                FILTER NOT EXISTS { $this mrs:transliterationScheme ?s }
+            }
+        """ ] .
+
+mrs:PlaceShape a sh:NodeShape ;
+    sh:targetClass mrs:Place ;
+    sh:property [
+        sh:path mrs:namePhase ;
+        sh:minCount 1 ;
+        sh:class mrs:NamePhase ;
+        sh:severity sh:Violation ;
+        sh:message "A Place MUST have at least one name phase. Yathrib and al-Madina are one place under different names; conflating them loses the fact that the name changed." ] ;
+    sh:property [ sh:path mrs:placeType ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+mrs:GeometryStateShape a sh:NodeShape ;
+    sh:targetClass mrs:GeometryState ;
+    sh:property [ sh:path mrs:locationConfidence ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:geometryBasis ;      sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:validExtent ;        sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "A geometry state with a geometry MUST NOT be marked 'unlocated', and one marked anything other than 'unlocated' MUST carry a geometry. Absent geometry is valid and common — say so honestly rather than guessing a pin." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                { $this mrs:locationConfidence mrs:lc_unlocated . $this mrs:geometry ?g }
+                UNION
+                { $this mrs:locationConfidence ?c .
+                  FILTER (?c != mrs:lc_unlocated)
+                  FILTER NOT EXISTS { $this mrs:geometry ?g2 } }
+            }
+        """ ] .
+
+mrs:RouteSegmentShape a sh:NodeShape ;
+    sh:targetClass mrs:RouteSegment ;
+    sh:property [ sh:path mrs:segmentOrder ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:segmentFrom ;  sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:segmentTo ;    sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path mrs:segmentConfidence ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Every route segment MUST carry its own confidence. Interpolating a conjectural path into a confident-looking line is the most common and most invisible falsification in historical cartography." ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "A segment of unknown confidence MUST NOT carry a geometry. Unknown intervals render as breaks, never as smooth interpolation." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:segmentConfidence mrs:sc_unknown .
+                $this mrs:segmentGeometry ?g .
+            }
+        """ ] .
+
+
+#################################################################
+#  CONFIDENCE — derived, decomposed, never a number.
+#################################################################
+
+mrs:ConfidenceShape a sh:NodeShape ;
+    sh:targetSubjectsOf mrs:confidenceBand ;
+    sh:property [
+        sh:path mrs:confidenceBand ;
+        sh:maxCount 1 ;
+        sh:class mrs:ConfidenceBand ;
+        sh:severity sh:Violation ;
+        sh:message "Confidence is a band, never a number. A float implies a measurement precision that does not exist and invites arithmetic across incommensurable evidence." ] ;
+    sh:property [
+        sh:path mrs:confidenceDecomposition ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Any confidence band MUST be accompanied by its decomposition: attestation count, chain continuity, evaluation set within the active lens, independent corroboration, attestation gap, dispute status." ] .
+
+
+#################################################################
+#  COVERAGE GAPS — modelling what is not known.
+#################################################################
+
+mrs:CoverageGapShape a sh:NodeShape ;
+    sh:targetClass mrs:CoverageGap ;
+    sh:property [ sh:path mrs:gapScope ;       sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:gapDescription ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path mrs:gapCause ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "A coverage gap MUST state its cause. 'Not yet ingested' and 'no source survives' are radically different statements, and users read a gap in the database as a gap in history." ] .

@@ -1,0 +1,1063 @@
+<title>al-Marṣad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap">
+<style>
+/* ── tokens: complete light palette on bare :root ───────────────────── */
+:root{
+  --paper:#E8E9E4;
+  --sheet:#F1F2EE;
+  --ink:#1A1E1D;
+  --ink-mid:#3C423F;
+  --ink-mute:#5C635F;
+  --ink-faint:#858B86;
+  --rule:#CBCEC5;
+  --rule-soft:#DDDFD8;
+  --teal:#0F5F64;
+  --teal-soft:#D3E1E0;
+  --rubric:#93331E;
+  --rubric-soft:#E7D7D0;
+
+  /* plates are deliberately single-world: night, in both themes */
+  --plate-bg:#0B0F12;
+  --plate-ink:#C9D4D3;
+  --plate-mute:#6E7C7E;
+  --plate-rule:#25313A;
+  --plate-teal:#4FB3B6;
+  --plate-gold:#D9B26A;
+  --plate-rubric:#C9674A;
+
+  --measure:66ch;
+  --fs-body:1.0625rem;
+  color-scheme:light;
+}
+:root{--ink-mid:#3C423F;}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101518;
+    --sheet:#161D21;
+    --ink:#DCE3E1;
+    --ink-mid:#B6C0BD;
+    --ink-mute:#8D9A96;
+    --ink-faint:#6C7975;
+    --rule:#28333A;
+    --rule-soft:#1E272C;
+    --teal:#57B4B8;
+    --teal-soft:#143133;
+    --rubric:#D9765A;
+    --rubric-soft:#33201A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101518;
+  --sheet:#161D21;
+  --ink:#DCE3E1;
+  --ink-mid:#B6C0BD;
+  --ink-mute:#8D9A96;
+  --ink-faint:#6C7975;
+  --rule:#28333A;
+  --rule-soft:#1E272C;
+  --teal:#57B4B8;
+  --teal-soft:#143133;
+  --rubric:#D9765A;
+  --rubric-soft:#33201A;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:var(--fs-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.ar{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif;font-weight:400}
+
+/* ── critical-edition sheet grid ─────────────────────────────────────── */
+.sheet{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  column-gap:2.25rem;
+  row-gap:0;
+  padding:0 1.25rem 6rem;
+  justify-content:center;
+}
+.sheet > *{grid-column:1;max-width:var(--measure);width:100%;margin-inline:auto}
+@media (min-width:1180px){
+  .sheet{grid-template-columns:3.5rem minmax(0,var(--measure)) 14rem;}
+  .sheet > *{grid-column:2;margin-inline:0}
+  .sheet > .siglum{grid-column:1;justify-self:end;max-width:none}
+  .sheet > .note{grid-column:3;max-width:none}
+  .sheet > .bleed{grid-column:1 / -1;max-width:none}
+}
+.bleed{max-width:none}
+
+/* ── masthead ────────────────────────────────────────────────────────── */
+header.masthead{
+  border-bottom:1px solid var(--rule);
+  padding:3.25rem 0 1.75rem;
+  margin-bottom:2.5rem;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rubric);
+}
+h1{
+  font-family:"Newsreader",Georgia,serif;
+  font-weight:500;
+  font-size:clamp(3rem,9vw,5.25rem);
+  line-height:.95;
+  letter-spacing:-.02em;
+  margin:.5rem 0 .1rem;
+  text-wrap:balance;
+}
+h1 .ar{display:block;font-size:.42em;font-weight:400;color:var(--teal);letter-spacing:0;margin-top:.35em}
+.standfirst{
+  font-family:"Newsreader",Georgia,serif;
+  font-size:1.3rem;line-height:1.5;color:var(--ink-mid);
+  margin:1.4rem 0 0;max-width:52ch;text-wrap:pretty;
+}
+.meta{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin-top:1.75rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;color:var(--ink-faint);
+}
+.meta b{color:var(--ink-mid);font-weight:500}
+
+/* ── nav ─────────────────────────────────────────────────────────────── */
+nav.toc{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule-soft);
+  padding:.6rem 1.25rem;
+  margin-bottom:0;
+}
+nav.toc ul{
+  list-style:none;margin:0 auto;padding:0;max-width:88rem;
+  display:flex;gap:1.25rem;overflow-x:auto;
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.06em;text-transform:uppercase;
+  scrollbar-width:none;
+}
+nav.toc ul::-webkit-scrollbar{display:none}
+nav.toc a{color:var(--ink-mute);text-decoration:none;white-space:nowrap;padding:.2rem 0;border-bottom:1px solid transparent}
+nav.toc a:hover{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* ── typography ──────────────────────────────────────────────────────── */
+h2{
+  font-family:"Newsreader",Georgia,serif;
+  font-weight:500;font-size:2.15rem;line-height:1.12;letter-spacing:-.015em;
+  margin:4.5rem 0 .35rem;text-wrap:balance;
+}
+h2 + .dek{
+  font-family:"Newsreader",Georgia,serif;font-style:italic;
+  font-size:1.12rem;color:var(--ink-mute);margin:0 0 1.5rem;max-width:50ch;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;
+  font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);margin:2.5rem 0 .6rem;
+}
+p{margin:0 0 1.1rem}
+a{color:var(--teal)}
+strong{font-weight:600}
+em{font-style:italic}
+.lede{font-size:1.16rem;line-height:1.6}
+hr{border:0;border-top:1px solid var(--rule);margin:3.5rem 0}
+
+/* siglum — the manuscript folio mark, carrying the real doc number */
+.siglum{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  color:var(--rubric);letter-spacing:.08em;
+  padding-top:5.1rem;line-height:1;
+}
+@media (max-width:1179px){.siglum{display:none}}
+
+/* margin apparatus */
+.note{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;line-height:1.55;color:var(--ink-mute);
+  border-top:1px solid var(--rubric-soft);
+  padding-top:.5rem;margin-top:.4rem;
+}
+.note b{color:var(--rubric);font-weight:500;display:block;letter-spacing:.05em;text-transform:uppercase;font-size:.66rem;margin-bottom:.25rem}
+@media (max-width:1179px){.note{margin:0 auto 1.6rem;max-width:var(--measure)}}
+
+/* ── pull quote ──────────────────────────────────────────────────────── */
+blockquote{
+  margin:2rem 0;padding-left:1.4rem;
+  border-left:2px solid var(--rubric);
+  font-family:"Newsreader",Georgia,serif;
+  font-size:1.35rem;line-height:1.45;color:var(--ink);
+}
+blockquote p{margin:0 0 .6rem}
+blockquote p:last-child{margin:0}
+
+/* ── lists ───────────────────────────────────────────────────────────── */
+ul.plain,ol.plain{margin:0 0 1.3rem;padding-left:1.15rem}
+ul.plain li,ol.plain li{margin-bottom:.5rem}
+
+/* numbered apparatus entries */
+ol.apparatus{list-style:none;margin:1.5rem 0;padding:0;counter-reset:app}
+ol.apparatus li{
+  counter-increment:app;
+  display:grid;grid-template-columns:2.1rem minmax(0,1fr);gap:.9rem;
+  padding:.8rem 0;border-top:1px solid var(--rule-soft);
+}
+ol.apparatus li::before{
+  content:counter(app,decimal-leading-zero);
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;
+  color:var(--rubric);padding-top:.28rem;
+}
+ol.apparatus b{display:block;font-weight:600;margin-bottom:.15rem}
+ol.apparatus span{color:var(--ink-mute);font-size:.94rem;display:block}
+ol.apparatus .fix{color:var(--teal);font-size:.88rem;display:block;margin-top:.3rem}
+ol.apparatus .fix::before{content:"→ ";opacity:.7}
+
+/* ── tables ──────────────────────────────────────────────────────────── */
+.tablewrap{overflow-x:auto;margin:1.6rem 0 1.9rem;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-mute);padding:.65rem .8rem .55rem;border-bottom:1px solid var(--rule);
+  vertical-align:bottom;
+}
+td{padding:.62rem .8rem;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-mid)}
+td:first-child{color:var(--ink);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.dot{font-family:"IBM Plex Mono",monospace;font-size:.95rem;line-height:1}
+.dot.full{color:var(--teal)}
+.dot.part{color:var(--ink-faint)}
+.dot.none{color:var(--rule)}
+tr.mine td{background:var(--teal-soft);color:var(--ink)}
+tr.mine td:first-child{font-weight:600}
+
+/* ── key/value strips ────────────────────────────────────────────────── */
+.strip{display:grid;gap:0;margin:1.6rem 0 2rem;border-top:1px solid var(--ink)}
+.strip div{
+  display:grid;grid-template-columns:minmax(7rem,11rem) minmax(0,1fr);
+  gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--rule-soft);
+}
+.strip dt,.strip .k{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--rubric);padding-top:.18rem;
+}
+.strip dd,.strip .v{margin:0;font-size:.93rem;color:var(--ink-mid)}
+.strip .v b{color:var(--ink)}
+
+/* ── plates: always night ────────────────────────────────────────────── */
+figure.plate{
+  margin:3rem 0;background:var(--plate-bg);color:var(--plate-ink);
+  padding:2.25rem 1.5rem 1.4rem;
+  border-top:1px solid var(--plate-rule);border-bottom:1px solid var(--plate-rule);
+}
+figure.plate svg{display:block;width:100%;max-width:62rem;height:auto;margin:0 auto}
+figure.plate figcaption{
+  max-width:56rem;margin:1.5rem auto 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;line-height:1.6;
+  color:var(--plate-mute);border-top:1px solid var(--plate-rule);padding-top:.75rem;
+}
+figure.plate figcaption b{color:var(--plate-gold);font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.66rem}
+
+/* light figures on paper */
+figure.fig{margin:2.4rem 0;}
+figure.fig svg{display:block;width:100%;height:auto;color:var(--ink)}
+figure.fig figcaption{
+  font-family:"IBM Plex Mono",monospace;font-size:.71rem;line-height:1.55;
+  color:var(--ink-mute);border-top:1px solid var(--rule);padding-top:.55rem;margin-top:.9rem;
+}
+figure.fig figcaption b{color:var(--rubric);font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.66rem}
+
+/* ── callout ─────────────────────────────────────────────────────────── */
+.callout{
+  border:1px solid var(--rule);border-left:3px solid var(--teal);
+  background:var(--sheet);padding:1.15rem 1.3rem;margin:1.9rem 0;
+}
+.callout p:last-child{margin:0}
+.callout.red{border-left-color:var(--rubric)}
+
+/* ── ledger tiers ────────────────────────────────────────────────────── */
+.ledger{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0 2.2rem}
+.ledger section{background:var(--sheet);padding:1.05rem 1.2rem}
+.ledger h4{
+  margin:0 0 .5rem;font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  letter-spacing:.09em;text-transform:uppercase;font-weight:500;
+  display:flex;align-items:baseline;gap:.6rem;
+}
+.ledger h4 .bar{flex:0 0 3.5rem;height:3px;display:block}
+.t1 .bar{background:var(--teal)}   .t1 h4{color:var(--teal)}
+.t2 .bar{background:var(--ink-mid)} .t2 h4{color:var(--ink-mid)}
+.t3 .bar{background:var(--rubric)} .t3 h4{color:var(--rubric)}
+.t4 .bar{background:var(--rule)}   .t4 h4{color:var(--ink-faint)}
+.ledger ul{margin:0;padding-left:1.05rem;font-size:.88rem;color:var(--ink-mid)}
+.ledger li{margin-bottom:.28rem}
+
+/* ── corpus index ────────────────────────────────────────────────────── */
+.corpus{display:grid;gap:0;margin:1.8rem 0 1rem;border-top:1px solid var(--ink)}
+.corpus a{
+  display:grid;grid-template-columns:2.6rem minmax(0,1fr);gap:1rem;
+  padding:.72rem 0;border-bottom:1px solid var(--rule-soft);
+  text-decoration:none;color:var(--ink);
+}
+.corpus a:hover{background:var(--sheet)}
+.corpus .n{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--rubric);padding-top:.2rem}
+.corpus .t{font-weight:500}
+.corpus .d{display:block;font-weight:400;font-size:.85rem;color:var(--ink-mute);margin-top:.1rem}
+
+/* ── redlines ────────────────────────────────────────────────────────── */
+.redlines{list-style:none;margin:1.6rem 0;padding:0;display:grid;gap:0;border-top:1px solid var(--rubric)}
+.redlines li{
+  padding:.62rem 0 .62rem 1.6rem;border-bottom:1px solid var(--rule-soft);
+  position:relative;font-size:.93rem;color:var(--ink-mid);
+}
+.redlines li::before{content:"✕";position:absolute;left:0;top:.62rem;color:var(--rubric);font-size:.8rem;font-family:"IBM Plex Mono",monospace}
+
+footer{
+  border-top:1px solid var(--rule);margin-top:5rem;padding-top:1.5rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-faint);line-height:1.7;
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+</style>
+
+<nav class="toc" aria-label="Sections">
+  <ul>
+    <li><a href="#thesis">Thesis</a></li>
+    <li><a href="#stack">Architecture</a></li>
+    <li><a href="#inversion">The inversion</a></li>
+    <li><a href="#dimensions">Dimensions</a></li>
+    <li><a href="#isnad">Isnād</a></li>
+    <li><a href="#spec">The specification</a></li>
+    <li><a href="#grammar">Visual grammar</a></li>
+    <li><a href="#morph">Morph field</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#priorart">Prior art</a></li>
+    <li><a href="#novel">Novelty</a></li>
+    <li><a href="#ledger">Buildability</a></li>
+    <li><a href="#critique">Self-critique</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#corpus">The corpus</a></li>
+  </ul>
+</nav>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="eyebrow">Phase 0 · Research &amp; architecture · September 2026</div>
+    <h1>al-Marṣad<span class="ar" lang="ar" dir="rtl">المرصد</span></h1>
+    <p class="standfirst">A knowledge observatory for the Seerah and Islamic history — in which the atomic unit is not the historical fact, but the transmitted report with its chain.</p>
+    <div class="meta">
+      <span><b>Status</b> architecture · ontology v0.1.0-draft</span>
+      <span><b>Corpus</b> 13 documents · 1,804 triples</span>
+      <span><b>Prototype</b> the Hijrah</span>
+    </div>
+  </header>
+
+  <div class="siglum">00</div>
+  <p class="lede" id="thesis">The obvious way to build this is a knowledge graph of Islamic history with a 3D viewer on top and a chatbot beside it. That system is achievable, would demo well, and would be wrong in a way that could not be repaired later — because it would store settled facts and attach sources as a courtesy, and no amount of subsequent work can reconstruct an evidentiary structure that was never modelled.</p>
+
+  <p>This corpus argues for a different foundation, and the argument is not primarily technological.</p>
+
+  <blockquote>
+    <p>The Islamic scholarly tradition already invented the data architecture this system requires — roughly a thousand years before computing.</p>
+  </blockquote>
+
+  <p>Consider what the ḥadīth sciences are, described in the vocabulary of information architecture. The <span class="ar" lang="ar" dir="rtl">إسناد</span> <em>isnād</em> is a provenance chain: an ordered, verifiable custody record for every claim. <span class="ar" lang="ar" dir="rtl">علم الرجال</span> <em>ʿilm al-rijāl</em> is a prosopographical authority file resolving the identity of tens of thousands of transmitters. <span class="ar" lang="ar" dir="rtl">جرح وتعديل</span> <em>jarḥ wa taʿdīl</em> is a reliability framework — per-source, per-evaluator, with reasoned justification. <span class="ar" lang="ar" dir="rtl">طبقات</span> <em>ṭabaqāt</em> is generational stratification. <span class="ar" lang="ar" dir="rtl">إجازة</span> <em>ijāza</em> is a credentialing model governing who may transmit what.</p>
+
+  <p>Systems that treat Islamic history as content to be digitized discard this apparatus and replace it with a footnote. That is a catastrophic loss of resolution — the equivalent of scanning a manuscript at 72 dpi.</p>
+
+  <div class="callout">
+    <p><strong>The proposal inverts it.</strong> The apparatus is not decoration on a modern data model. The apparatus <em>is</em> the data model. What follows is an implementation of an Islamic epistemological system in a computational medium — one that modern digital humanities is still, slowly and independently, reinventing.</p>
+  </div>
+
+  <div class="note">
+    <b>On the name</b>
+    al-Marṣad is the Arabic word for an astronomical observatory — Maragha, Samarkand, Istanbul. Proposed as both a name and a category. Subject to scholarly review; naming is the first decision that should leave engineering hands.
+  </div>
+
+  <h2 id="stack">The architecture</h2>
+  <p class="dek">Seven layers. Data flows up, queries flow down, and nothing skips a layer.</p>
+
+  <div class="siglum">01</div>
+  <p>Two properties of this stack matter more than its contents. <strong>L3 is derived, not authored</strong> — the historical world is a projection of the evidence, rebuildable at any time, so changing a grading updates the world rather than requiring the history to be rewritten. And <strong>L6 cannot reach past L3</strong> — the renderer holds no private data, no hardcoded routes, no decorative entities.</p>
+
+  <figure class="plate bleed">
+    <svg viewBox="0 0 900 560" role="img" aria-label="Seven-layer architecture: an immutable record layer at the base, then evidence, knowledge, projection, AI navigation, observation and experience — with ingestion feeding the base through scholarly review, and a constraint preventing the renderer from reading below the knowledge layer.">
+      <defs>
+        <marker id="ar-up" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
+          <polygon points="0,10 5,0 10,10" fill="#4FB3B6"/>
+        </marker>
+        <marker id="ar-dn" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
+          <polygon points="0,10 5,0 10,10" fill="#D9B26A"/>
+        </marker>
+        <marker id="ar-stop" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <polygon points="0,0 10,0 10,10 0,10" fill="#C9674A"/>
+        </marker>
+      </defs>
+
+      <!-- layers -->
+      <g fill="#111A20" stroke="#25313A" stroke-width="1">
+        <rect x="150" y="24"  width="560" height="56" rx="2"/>
+        <rect x="150" y="90"  width="560" height="56" rx="2"/>
+        <rect x="150" y="156" width="560" height="56" rx="2"/>
+        <rect x="150" y="222" width="560" height="56" rx="2"/>
+        <rect x="150" y="288" width="560" height="56" rx="2"/>
+        <rect x="150" y="354" width="560" height="56" rx="2"/>
+      </g>
+      <rect x="150" y="420" width="560" height="62" rx="2" fill="#16232B" stroke="#4FB3B6" stroke-width="1.5"/>
+
+      <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#6E7C7E" text-anchor="end">
+        <text x="140" y="57">L7</text><text x="140" y="123">L6</text><text x="140" y="189">L5</text>
+        <text x="140" y="255">L4</text><text x="140" y="321">L3</text><text x="140" y="387">L2</text>
+        <text x="140" y="456">L1</text>
+      </g>
+
+      <g font-family="IBM Plex Sans, sans-serif" font-size="13.5" font-weight="600" fill="#C9D4D3">
+        <text x="172" y="49">EXPERIENCE</text>
+        <text x="172" y="115">OBSERVATION · Marṣad</text>
+        <text x="172" y="181">NAVIGATION · AI</text>
+        <text x="172" y="247">PROJECTION</text>
+        <text x="172" y="313">KNOWLEDGE</text>
+        <text x="172" y="379">EVIDENCE · Dalīl</text>
+        <text x="172" y="447">RECORD · Sijill</text>
+      </g>
+      <g font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="#6E7C7E">
+        <text x="172" y="67">four lenses · five verbs · L0 reader → L3 observatory</text>
+        <text x="172" y="133">morph field · WebGPU · “no pixel without provenance”</text>
+        <text x="172" y="199">intent → typed query → ViewState · never asserts fact</text>
+        <text x="172" y="265">stable precomputed coordinate frames · tiles</text>
+        <text x="172" y="331">entities · n-ary reified relationships · events</text>
+        <text x="172" y="397">assertions · attributed evaluations · disputes · gaps</text>
+        <text x="172" y="465">reports · isnāds · sources · witnesses</text>
+      </g>
+      <text x="694" y="465" font-family="IBM Plex Mono, monospace" font-size="10" fill="#D9B26A" text-anchor="end">append-only · signed · immutable</text>
+      <text x="694" y="331" font-family="IBM Plex Mono, monospace" font-size="10" fill="#D9B26A" text-anchor="end">derived, not authored</text>
+
+      <!-- ingestion arrow -->
+      <line x1="96" y1="540" x2="96" y2="470" stroke="#4FB3B6" stroke-width="1.5" marker-end="url(#ar-up)"/>
+      <text x="86" y="524" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4FB3B6" text-anchor="end">ingestion</text>
+      <text x="86" y="538" font-family="IBM Plex Mono, monospace" font-size="9" fill="#6E7C7E" text-anchor="end">AI proposes · scholar signs</text>
+
+      <!-- query arrow -->
+      <line x1="764" y1="40" x2="764" y2="400" stroke="#D9B26A" stroke-width="1.5" stroke-dasharray="3 4" marker-end="url(#ar-dn)"/>
+      <text x="774" y="215" font-family="IBM Plex Mono, monospace" font-size="10" fill="#D9B26A">queries</text>
+
+      <!-- forbidden reach -->
+      <path d="M 120 118 L 96 118 L 96 386 L 132 386" fill="none" stroke="#C9674A" stroke-width="1.2" stroke-dasharray="2 4" marker-end="url(#ar-stop)"/>
+      <text x="16" y="250" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#C9674A">renderer cannot</text>
+      <text x="16" y="263" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#C9674A">read below L3</text>
+    </svg>
+    <figcaption><b>Plate I</b> — The layer stack. Contributions enter only at the base, through scholarly sign-off; queries descend from the experience layer. The barred path at left is the architecture's central discipline: the visualization can render only what the evidence layer publishes, so it is structurally incapable of drawing a claim the corpus does not hold.</figcaption>
+  </figure>
+
+  <h2 id="inversion">The inversion</h2>
+  <p class="dek">The single decision from which everything else follows.</p>
+
+  <div class="siglum">02</div>
+  <p>In the conventional model, a fact is stored and a citation is attached. The evidence cannot be queried, weighed or disagreed with, because it was never modelled as an object. Conflicting reports must either be reconciled by an editor or discarded, and confidence has nowhere to live but a badge.</p>
+  <p>Here the <span class="ar" lang="ar" dir="rtl">خبر</span> <em>khabar</em> — the transmitted report with its chain — is primitive. Events, biographies and relationships are reconstructions derived from clusters of reports. The user still sees “the Hijrah occurred in Rabīʿ al-Awwal, 1 AH,” but that statement is now a projection over an evidentiary base that remains intact beneath it.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 860 300" role="img" aria-label="Comparison of two data models: the conventional model stores a fact with a citation attached as a dead end, while the proposed model derives the historical world from reports, chains, assertions and attributed evaluations.">
+      <defs>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <polygon points="0,0 10,5 0,10" fill="currentColor"/>
+        </marker>
+        <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <polygon points="0,0 10,5 0,10" fill="#0F5F64"/>
+        </marker>
+      </defs>
+
+      <text x="0" y="14" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".55">CONVENTIONAL</text>
+      <line x1="0" y1="24" x2="360" y2="24" stroke="currentColor" opacity=".2"/>
+
+      <rect x="0" y="46" width="150" height="40" fill="none" stroke="currentColor" opacity=".55"/>
+      <text x="75" y="71" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor">Fact (asserted)</text>
+      <line x1="150" y1="66" x2="212" y2="66" stroke="currentColor" opacity=".5" marker-end="url(#a2)" color="currentColor"/>
+      <rect x="220" y="46" width="140" height="40" fill="none" stroke="currentColor" opacity=".3" stroke-dasharray="3 3"/>
+      <text x="290" y="71" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor" opacity=".6">citation</text>
+      <text x="290" y="104" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".45">dead end</text>
+
+      <text x="0" y="150" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".5">· conflicting reports must be collapsed</text>
+      <text x="0" y="167" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".5">· grading has nowhere to live</text>
+      <text x="0" y="184" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".5">· unrepairable after the fact</text>
+
+      <line x1="405" y1="0" x2="405" y2="300" stroke="currentColor" opacity=".15"/>
+
+      <text x="440" y="14" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#0F5F64">REPORT-FIRST</text>
+      <line x1="440" y1="24" x2="860" y2="24" stroke="#0F5F64" opacity=".35"/>
+
+      <rect x="440" y="46" width="122" height="40" fill="none" stroke="#0F5F64" stroke-width="1.5"/>
+      <text x="501" y="65" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor">Report</text>
+      <text x="501" y="79" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity=".6">khabar</text>
+
+      <line x1="562" y1="66" x2="602" y2="66" stroke="#0F5F64" marker-end="url(#a3)"/>
+      <rect x="610" y="46" width="110" height="40" fill="none" stroke="#0F5F64" opacity=".8"/>
+      <text x="665" y="71" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor">Chain</text>
+
+      <line x1="720" y1="66" x2="752" y2="66" stroke="#0F5F64" marker-end="url(#a3)"/>
+      <rect x="760" y="46" width="100" height="40" fill="none" stroke="#0F5F64" opacity=".6"/>
+      <text x="810" y="71" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor">Narrators</text>
+
+      <line x1="501" y1="86" x2="501" y2="122" stroke="#0F5F64" marker-end="url(#a3)"/>
+      <rect x="440" y="130" width="122" height="38" fill="none" stroke="#0F5F64" opacity=".8"/>
+      <text x="501" y="154" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor">Assertion</text>
+
+      <line x1="562" y1="149" x2="602" y2="149" stroke="#0F5F64" opacity=".7" marker-end="url(#a3)"/>
+      <rect x="610" y="130" width="250" height="38" fill="none" stroke="#0F5F64" opacity=".5"/>
+      <text x="735" y="148" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="currentColor">Evaluation — by a named authority</text>
+      <text x="735" y="161" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity=".55">many may coexist and conflict</text>
+
+      <line x1="501" y1="168" x2="501" y2="204" stroke="#0F5F64" marker-end="url(#a3)"/>
+      <rect x="440" y="212" width="420" height="46" fill="none" stroke="#0F5F64" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <text x="650" y="232" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12.5" font-weight="600" fill="currentColor">Reconstructed historical world</text>
+      <text x="650" y="248" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#0F5F64">derived · rebuildable · what the user sees</text>
+
+      <text x="440" y="284" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".5">change a grading → the world updates. The history was never hard-coded.</text>
+    </svg>
+    <figcaption><b>Figure 1</b> — What changes is the direction of derivation. On the left, evidence hangs off a fact and terminates. On the right, the fact is the output, and every step between the source and the screen remains queryable, contestable and revisable across scholarly generations.</figcaption>
+  </figure>
+
+  <h2 id="dimensions">Four dimensions, rendered through three</h2>
+  <p class="dek">The 4D promise is honest to the user. The model beneath it needs seven.</p>
+
+  <div class="siglum">03</div>
+  <div class="strip">
+    <div><span class="k">D1 Entity</span><span class="v"><b>What existed</b> — people, events, places, books, tribes, institutions, reports, concepts</span></div>
+    <div><span class="k">D2 Relation</span><span class="v"><b>How it connected</b> — and a connection is an object with its own time, place, evidence and disputes</span></div>
+    <div><span class="k">D3 Space</span><span class="v"><b>Where</b> — historical geography, routes, territories, and the uncertainty of location</span></div>
+    <div><span class="k">D4 Time</span><span class="v"><b>When it changed</b> — the network as a system with dynamics you can watch</span></div>
+  </div>
+
+  <h3>The epistemic three</h3>
+  <div class="strip">
+    <div><span class="k">D5 Evidence</span><span class="v"><b>How do we know</b> — provenance as substrate, not annotation. Cannot be retrofitted.</span></div>
+    <div><span class="k">D6 Record-time</span><span class="v"><b>When was it written</b> — the historiographic axis. The most novel element in the architecture.</span></div>
+    <div><span class="k">D7 Interpretation</span><span class="v"><b>According to which reading</b> — Sunni, Shia, Ibadi, academic. A system with one normative narrative cannot later become plural.</span></div>
+  </div>
+
+  <div class="callout">
+    <p><strong>D6 deserves emphasis.</strong> Every historical system has event-time. Almost none treats <em>source</em>-time as navigable. But the Islamic sources are dense, dated and stratified — Ibn Isḥāq (d. 150/767), al-Wāqidī (d. 207/822), Ibn Saʿd (d. 230/845), al-Ṭabarī (d. 310/923).</p>
+    <p>Hold event-time fixed at the Hijrah and move <em>record</em>-time from 120 AH to 310 AH. Watch which details enter the tradition when, which chains proliferate, where later sources add specificity earlier ones lacked. That is not a visualization of history — it is a visualization of historiography, and it is a research instrument rather than a teaching toy.</p>
+  </div>
+
+  <div class="note">
+    <b>Cost</b>
+    Storing record-time costs almost nothing at ingestion. Adding it later is impossible: it must be captured at the moment a report is bound to its source.
+  </div>
+
+  <h2 id="isnad">The isnād is four objects at once</h2>
+  <p class="dek">One encoding, four capabilities. This is what makes the project's scope affordable.</p>
+
+  <div class="siglum">04</div>
+  <p>A chain — <em>A ← B ← C ← Companion ← the Prophet ﷺ</em> — is simultaneously four things, and they are the same data.</p>
+
+  <div class="strip">
+    <div><span class="k">As evidence</span><span class="v">The warrant for a claim; the object of ḥadīth criticism</span></div>
+    <div><span class="k">As network</span><span class="v">Who taught whom, who met whom, across generations</span></div>
+    <div><span class="k">As geography</span><span class="v">Each narrator has a city — the chain traces knowledge moving Madinah → Kufa → Nishapur → Cordoba</span></div>
+    <div><span class="k">As chronology</span><span class="v">Each narrator has dates — contact plausibility is checkable against them</span></div>
+  </div>
+
+  <p>Therefore the knowledge-transmission layer and the evidence layer are not two subsystems. They are one graph read two ways. <em>“Is this report well-attested?”</em> and <em>“how did this teaching reach Malabar?”</em> traverse the same edges. Every unit of scholarly effort spent encoding a chain pays into four capabilities at once — and the most expensive data to produce is also the most reusable.</p>
+
+  <p>Because every narrator carries dates and places, the system can continuously scan for chains whose adjacent narrators could not plausibly have met — the classical <span class="ar" lang="ar" dir="rtl">لقاء</span> <em>liqāʾ</em> analysis, executed across the whole corpus. <strong>The system flags; it does not rule.</strong> A flagged chain is a question for a specialist, never an automated verdict.</p>
+
+  <h2 id="spec">The specification</h2>
+  <p class="dek">Not a proposal for an ontology. An ontology.</p>
+
+  <div class="siglum">02</div>
+  <p>Document 02 is a normative specification with machine-readable companions: an OWL ontology extending <strong>CIDOC-CRM 7.1.3</strong> (ISO 21127), a governed relation registry, SHACL constraints carrying the integrity rules, and one event modelled end to end. It parses to 1,804 triples and the worked example validates without violation.</p>
+
+  <div class="strip">
+    <div><span class="k">marsad.ttl</span><span class="v">Classes, properties, controlled vocabularies. CIDOC-CRM for events, people and places; <b>LRMoo</b> for the work → recension → edition → witness chain; <b>PROV-O</b> for extraction provenance; <b>OWL-Time</b> for interval relations.</span></div>
+    <div><span class="k">relations.ttl</span><span class="v">The relation registry, with inverses, symmetry, and two <b>restricted</b> types — naskh and asbāb al-nuzūl — that no extraction pipeline may ever assert.</span></div>
+    <div><span class="k">shapes.ttl</span><span class="v">Twelve integrity invariants as enforced constraints rather than editorial guidance, <b>because editorial guidance erodes</b>.</span></div>
+    <div><span class="k">thawr.ttl</span><span class="v">The shelter at Ghār Thawr: one event, one chain, one grading, one unresolved dispute, and one route segment that admits it is guessing.</span></div>
+  </div>
+
+  <h3>Three gaps CIDOC-CRM does not cover</h3>
+  <p>The standard has no concept of <em>a transmitted report whose chain of custody is itself the object of scholarly assessment</em>. That is not an oversight — it is a genuine structural feature of Islamic historiography with no close equivalent in the European museum tradition CRM was built around. Three new classes fill it: <code>mrs:Report</code>, <code>mrs:TransmissionChain</code>, <code>mrs:Relationship</code>. They are the ontology's substantive contribution and the place reviewer attention should concentrate.</p>
+
+  <h3>What the model refuses to do</h3>
+  <p>This is the fragment worth reading, from the worked example. Five narrator links; for each, the system computes whether a meeting was chronologically and geographically plausible — the classical <span class="ar" lang="ar" dir="rtl">لقاء</span> <em>liqāʾ</em> check, run across the whole corpus continuously.</p>
+
+  <figure class="plate bleed">
+    <svg viewBox="0 0 900 300" role="img" aria-label="A five-link transmission chain in which every contact check returns plausible, while the chain's continuity classification remains unset and marked as awaiting a scholar's determination.">
+      <g font-family="IBM Plex Mono, monospace" font-size="12">
+        <text x="24" y="30" fill="#D9B26A">chn:8hJkQ3wErT6yUmN5bVcXzA</text>
+
+        <text x="24" y="66"  fill="#C9D4D3">link 1  ʿĀʾisha (d. 58)      → ʿUrwa b. al-Zubayr (d. 94)</text>
+        <text x="560" y="66" fill="#4FB3B6">contactCheck: plausible</text>
+        <text x="24" y="92"  fill="#C9D4D3">link 2  ʿUrwa (d. 94)        → al-Zuhrī (d. 124)</text>
+        <text x="560" y="92" fill="#4FB3B6">contactCheck: plausible</text>
+        <text x="24" y="118" fill="#C9D4D3">link 3  al-Zuhrī (d. 124)    → ʿUqayl b. Khālid (d. 144)</text>
+        <text x="560" y="118" fill="#4FB3B6">contactCheck: plausible</text>
+        <text x="24" y="144" fill="#C9D4D3">link 4  ʿUqayl (d. 144)      → al-Layth b. Saʿd (d. 175)</text>
+        <text x="560" y="144" fill="#4FB3B6">contactCheck: plausible</text>
+        <text x="24" y="170" fill="#C9D4D3">link 5  al-Layth (d. 175)    → Yaḥyā b. Bukayr (d. 231)</text>
+        <text x="560" y="170" fill="#4FB3B6">contactCheck: plausible</text>
+      </g>
+
+      <line x1="24" y1="196" x2="876" y2="196" stroke="#25313A"/>
+
+      <g font-family="IBM Plex Mono, monospace" font-size="13">
+        <text x="24" y="228" fill="#C9674A">mrs:continuity  —  NOT SET</text>
+      </g>
+      <g font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="#6E7C7E">
+        <text x="24" y="256">muttaṣil / munqaṭiʿ is a scholar's determination. The machine has assembled every input</text>
+        <text x="24" y="276">a specialist would want, computed everything computable, and declined to draw the conclusion.</text>
+      </g>
+    </svg>
+    <figcaption><b>From the worked example</b> — Five plausible contact checks, and the chain's continuity classification deliberately left empty. The SHACL shapes forbid a contact check from contributing to any derived confidence band: <em>the system flags; the scholar rules.</em> If that refusal is ever relaxed, the corpus loses its authority.</figcaption>
+  </figure>
+
+  <h3>Twenty places where a specialist is required</h3>
+  <p>The specification marks every decision it deliberately declines to make — <strong>⟨scholar⟩</strong> — and forbids an implementation from resolving one automatically. Among them: whether a chain is continuous; whether a person's companion status is established; whether two names denote one transmitter or two; which calendar-conversion convention holds for a region and period; whether inclusion in a collection constitutes an explicit grading; and the direction of a <em>mawlā</em> tie, which the sources frequently leave ambiguous and which must never be guessed from name order.</p>
+
+  <div class="callout">
+    <p><strong>Those twenty marks are the shape of the invitation.</strong> They are not gaps to be closed by better software — several of them cannot be closed by software at all. They are the specification stating, in advance and in writing, exactly where it needs historians, and committing that what a historian decides there is recorded under their name, permanently, and remains revisable by whoever comes after them.</p>
+  </div>
+
+  <h2 id="grammar">Nūr and Nujūm</h2>
+  <p class="dek">A visual grammar that is also a data encoding — and resolves the depiction problem structurally.</p>
+
+  <div class="siglum">05</div>
+  <p>The guiding image for this project is that the Prophet ﷺ is <em>nūr</em> and his Companions are <em>nujūm</em>. Treated not as decoration but as the formal basis of the visual language, it happens to resolve three competing requirements at once: it honours the prohibition on depiction absolutely, it satisfies “do not reduce him to one node among millions” structurally rather than by enlarging a dot, and it encodes real, sourced data — generational distance in transmission.</p>
+
+  <figure class="plate bleed">
+    <svg viewBox="0 0 900 440" role="img" aria-label="The visual grammar: a luminous origin with no node, surrounded by distinct bright points for the Companions, then cooler and more numerous points for the Successors, resolving at the outer edge into clustered structures representing schools and regional networks.">
+      <defs>
+        <radialGradient id="nur" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFF6E0" stop-opacity="0.95"/>
+          <stop offset="22%" stop-color="#F2D9A0" stop-opacity="0.5"/>
+          <stop offset="55%" stop-color="#D9B26A" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#D9B26A" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <circle cx="250" cy="220" r="200" fill="url(#nur)"/>
+
+      <!-- ring guides -->
+      <g fill="none" stroke="#25313A" stroke-width="0.75" stroke-dasharray="2 5">
+        <circle cx="250" cy="220" r="78"/><circle cx="250" cy="220" r="132"/><circle cx="250" cy="220" r="186"/>
+      </g>
+
+      <!-- origin: no node, only light + name -->
+      <circle cx="250" cy="220" r="5" fill="#FFF8E7"/>
+      <text x="250" y="196" text-anchor="middle" font-family="IBM Plex Sans Arabic, IBM Plex Sans, sans-serif" font-size="15" fill="#FFF3D8">ﷺ</text>
+
+      <!-- nujum: companions — large, distinct -->
+      <g fill="#EFE6D2">
+        <circle cx="250" cy="142" r="3.6"/><circle cx="305" cy="165" r="3.2"/><circle cx="328" cy="220" r="3.6"/>
+        <circle cx="305" cy="275" r="3.1"/><circle cx="250" cy="298" r="3.5"/><circle cx="195" cy="275" r="3.2"/>
+        <circle cx="172" cy="220" r="3.4"/><circle cx="195" cy="165" r="3.3"/><circle cx="285" cy="130" r="2.9"/>
+        <circle cx="215" cy="130" r="2.9"/><circle cx="340" cy="182" r="2.8"/><circle cx="160" cy="182" r="2.8"/>
+      </g>
+      <!-- tabi'un — cooler, smaller, denser -->
+      <g fill="#9FB4B8" opacity="0.85">
+        <circle cx="250" cy="88" r="2.3"/><circle cx="300" cy="96" r="2.1"/><circle cx="345" cy="125" r="2.2"/>
+        <circle cx="372" cy="172" r="2"/><circle cx="382" cy="220" r="2.3"/><circle cx="372" cy="268" r="2"/>
+        <circle cx="345" cy="315" r="2.2"/><circle cx="300" cy="344" r="2.1"/><circle cx="250" cy="352" r="2.3"/>
+        <circle cx="200" cy="344" r="2"/><circle cx="155" cy="315" r="2.2"/><circle cx="128" cy="268" r="2"/>
+        <circle cx="118" cy="220" r="2.3"/><circle cx="128" cy="172" r="2"/><circle cx="155" cy="125" r="2.2"/>
+        <circle cx="200" cy="96" r="2.1"/><circle cx="275" cy="110" r="1.8"/><circle cx="225" cy="110" r="1.8"/>
+        <circle cx="322" cy="248" r="1.8"/><circle cx="178" cy="248" r="1.8"/>
+      </g>
+      <!-- later generations: structure emerges -->
+      <g fill="#5E7076" opacity="0.8">
+        <circle cx="250" cy="42" r="1.5"/><circle cx="268" cy="45" r="1.3"/><circle cx="232" cy="45" r="1.3"/>
+        <circle cx="330" cy="62" r="1.5"/><circle cx="346" cy="72" r="1.3"/><circle cx="316" cy="72" r="1.3"/>
+        <circle cx="404" cy="130" r="1.5"/><circle cx="416" cy="144" r="1.3"/><circle cx="392" cy="144" r="1.3"/>
+        <circle cx="436" cy="220" r="1.5"/><circle cx="436" cy="238" r="1.3"/><circle cx="436" cy="202" r="1.3"/>
+        <circle cx="404" cy="310" r="1.5"/><circle cx="416" cy="296" r="1.3"/><circle cx="392" cy="296" r="1.3"/>
+        <circle cx="330" cy="378" r="1.5"/><circle cx="346" cy="368" r="1.3"/><circle cx="316" cy="368" r="1.3"/>
+        <circle cx="170" cy="378" r="1.5"/><circle cx="154" cy="368" r="1.3"/><circle cx="184" cy="368" r="1.3"/>
+        <circle cx="96" cy="310" r="1.5"/><circle cx="84" cy="296" r="1.3"/><circle cx="108" cy="296" r="1.3"/>
+        <circle cx="64" cy="220" r="1.5"/><circle cx="64" cy="238" r="1.3"/><circle cx="64" cy="202" r="1.3"/>
+        <circle cx="96" cy="130" r="1.5"/><circle cx="84" cy="144" r="1.3"/><circle cx="108" cy="144" r="1.3"/>
+        <circle cx="170" cy="62" r="1.5"/><circle cx="154" cy="72" r="1.3"/><circle cx="184" cy="72" r="1.3"/>
+      </g>
+      <!-- constellation links at the outer edge -->
+      <g stroke="#4FB3B6" stroke-width="0.7" opacity="0.5" fill="none">
+        <path d="M250 42 L268 45 M250 42 L232 45"/>
+        <path d="M330 62 L346 72 M330 62 L316 72"/>
+        <path d="M436 220 L436 238 M436 220 L436 202"/>
+        <path d="M64 220 L64 238 M64 220 L64 202"/>
+        <path d="M170 378 L154 368 M170 378 L184 368"/>
+      </g>
+
+      <!-- annotation column -->
+      <line x1="530" y1="40" x2="530" y2="400" stroke="#25313A"/>
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5">
+        <text x="552" y="76" fill="#D9B26A">THE ORIGIN</text>
+        <text x="552" y="94" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">Not a node. Not depicted.</text>
+        <text x="552" y="110" fill="#6E7C7E" font-family="IBM Plex Sans, sans-serif" font-size="12">The source from which the scene is lit.</text>
+
+        <text x="552" y="158" fill="#D9B26A">NUJŪM · the Companions</text>
+        <text x="552" y="176" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">Distinct, luminous, individually</text>
+        <text x="552" y="192" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">resolvable points.</text>
+
+        <text x="552" y="240" fill="#D9B26A">OUTWARD</text>
+        <text x="552" y="258" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">Individuality decreases; structure</text>
+        <text x="552" y="274" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">increases — constellations for schools,</text>
+        <text x="552" y="290" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">clusters for cities of learning.</text>
+
+        <text x="552" y="338" fill="#C9674A">THE MANDATORY GUARD</text>
+        <text x="552" y="356" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">Brightness is transmission distance.</text>
+        <text x="552" y="372" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">It is <tspan font-style="italic">not</tspan> merit, rank or standing —</text>
+        <text x="552" y="388" fill="#C9D4D3" font-family="IBM Plex Sans, sans-serif" font-size="12">stated in the interface, and switchable.</text>
+      </g>
+    </svg>
+    <figcaption><b>Plate II</b> — The encoding <em>is</em> the aesthetic. Luminance is a declared function of generational distance from the Prophetic origin — the ṭabaqāt classification the tradition itself assigns — so nothing is lit because it looks well. The same property that makes the image calm makes it a measurement.</figcaption>
+  </figure>
+
+  <h2 id="morph">The morph field</h2>
+  <p class="dek">How four dimensions interact instead of occupying four tabs.</p>
+
+  <div class="siglum">06</div>
+  <p>Every entity carries several stable coordinate assignments at once, computed offline. The rendered position is a weighted blend of them, and the weights are a continuous control. Pull toward geography and the network drifts onto the map, people sliding to the cities they lived in. Pull toward time and the same population reorganizes into generations.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 860 250" role="img" aria-label="The same six entities shown in three coordinate frames — network space, geographic space and generational time — with blend arrows between them indicating continuous interpolation rather than switching views.">
+      <defs>
+        <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <polygon points="0,0 10,5 0,10" fill="#0F5F64"/>
+        </marker>
+      </defs>
+      <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#0F5F64">
+        <text x="0" y="12">NETWORK-SPACE</text><text x="310" y="12">GEO-SPACE</text><text x="620" y="12">TIME-SPACE</text>
+      </g>
+      <g stroke="currentColor" opacity=".18" fill="none">
+        <rect x="0" y="24" width="240" height="160"/><rect x="310" y="24" width="240" height="160"/><rect x="620" y="24" width="240" height="160"/>
+      </g>
+
+      <!-- frame 1: relational clusters -->
+      <g stroke="currentColor" opacity=".35" fill="none">
+        <path d="M60 70 L110 60 M110 60 L150 95 M60 70 L85 120 M85 120 L150 95 M150 95 L190 140 M85 120 L120 155"/>
+      </g>
+      <g fill="#0F5F64">
+        <circle cx="60" cy="70" r="4.5"/><circle cx="110" cy="60" r="4.5"/><circle cx="150" cy="95" r="4.5"/>
+        <circle cx="85" cy="120" r="4.5"/><circle cx="190" cy="140" r="4.5"/><circle cx="120" cy="155" r="4.5"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor" opacity=".6">
+        <text x="48" y="62">a</text><text x="114" y="52">b</text><text x="156" y="90">c</text>
+        <text x="72" y="116">d</text><text x="196" y="136">e</text><text x="124" y="152">f</text>
+      </g>
+
+      <!-- frame 2: geographic -->
+      <path d="M330 150 Q370 110 405 120 Q445 132 470 100 Q500 70 530 88" fill="none" stroke="currentColor" opacity=".2" stroke-width="1"/>
+      <g fill="#0F5F64">
+        <circle cx="352" cy="140" r="4.5"/><circle cx="352" cy="140" r="4.5"/><circle cx="412" cy="118" r="4.5"/>
+        <circle cx="470" cy="100" r="4.5"/><circle cx="500" cy="150" r="4.5"/><circle cx="380" cy="70" r="4.5"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor" opacity=".6">
+        <text x="340" y="136">a,d</text><text x="416" y="114">b</text><text x="476" y="96">c</text>
+        <text x="506" y="146">e</text><text x="386" y="66">f</text>
+      </g>
+
+      <!-- frame 3: generational -->
+      <g stroke="currentColor" opacity=".18">
+        <line x1="640" y1="60" x2="840" y2="60"/><line x1="640" y1="104" x2="840" y2="104"/><line x1="640" y1="148" x2="840" y2="148"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor" opacity=".5">
+        <text x="622" y="57">g1</text><text x="622" y="101">g2</text><text x="622" y="145">g3</text>
+      </g>
+      <g fill="#0F5F64">
+        <circle cx="680" cy="60" r="4.5"/><circle cx="740" cy="60" r="4.5"/><circle cx="700" cy="104" r="4.5"/>
+        <circle cx="780" cy="104" r="4.5"/><circle cx="730" cy="148" r="4.5"/><circle cx="810" cy="148" r="4.5"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor" opacity=".6">
+        <text x="674" y="52">a</text><text x="734" y="52">b</text><text x="694" y="96">c</text>
+        <text x="774" y="96">d</text><text x="724" y="140">e</text><text x="804" y="140">f</text>
+      </g>
+
+      <line x1="252" y1="104" x2="298" y2="104" stroke="#0F5F64" marker-end="url(#a4)"/>
+      <line x1="562" y1="104" x2="608" y2="104" stroke="#0F5F64" marker-end="url(#a4)"/>
+      <text x="275" y="96" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#0F5F64">blend</text>
+      <text x="585" y="96" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#0F5F64">blend</text>
+
+      <text x="0" y="212" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".55">position(e) = Σ wᵢ · coordᵢ(e)   — every frame precomputed and stable; interaction interpolates, never re-solves</text>
+      <text x="0" y="232" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".55">the same six objects throughout: identity is never lost across a transition</text>
+    </svg>
+    <figcaption><b>Figure 2</b> — Existing tools coordinate a network, a map and a timeline as separate panels; the reader performs the join mentally. Interpolating between precomputed frames keeps one persistent scene, so a blend of two frames — a network laid out by relational proximity but coloured by geography — becomes a reading of its own.</figcaption>
+  </figure>
+
+  <div class="callout">
+    <p><strong>The enabling decision is unglamorous.</strong> Positions are computed once, globally, offline, and never move during interaction. That converts the hardest engineering problem in the project — layout stability across time-scrubbing, filtering and sharing — into a batch job, and it makes position <em>mean</em> something, every time.</p>
+  </div>
+
+  <h2 id="tech">Technology, chosen last</h2>
+  <p class="dek">Requirements first. The least fashionable decision is the load-bearing one.</p>
+
+  <div class="siglum">07</div>
+  <p>Ten storage requirements were derived before any product was named — immutable audit, bitemporality, transactional integrity, deep traversal, geospatial indexing, Arabic full-text, vector search, binary storage, bulk export, zero lock-in. No single technology satisfies them. Any architecture claiming otherwise is selling something.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 860 230" role="img" aria-label="One canonical append-only log feeding five derived and rebuildable projections: relational and spatial store, graph traversal index, search index, vector index, and rendering tiles.">
+      <defs>
+        <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <polygon points="0,0 10,5 0,10" fill="currentColor"/>
+        </marker>
+      </defs>
+      <rect x="250" y="14" width="360" height="52" fill="none" stroke="#0F5F64" stroke-width="1.75"/>
+      <text x="430" y="38" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13.5" font-weight="600" fill="currentColor">CANONICAL EVENT LOG · Sijill</text>
+      <text x="430" y="55" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#0F5F64">append-only · signed · content-addressed · the only writable surface</text>
+
+      <g stroke="currentColor" opacity=".45" fill="none" color="currentColor">
+        <path d="M430 66 L430 92 L86 92 L86 128" marker-end="url(#a5)"/>
+        <path d="M430 66 L430 92 L258 92 L258 128" marker-end="url(#a5)"/>
+        <path d="M430 92 L430 128" marker-end="url(#a5)"/>
+        <path d="M430 66 L430 92 L602 92 L602 128" marker-end="url(#a5)"/>
+        <path d="M430 66 L430 92 L774 92 L774 128" marker-end="url(#a5)"/>
+      </g>
+
+      <g fill="none" stroke="currentColor" opacity=".5">
+        <rect x="16" y="134" width="140" height="54"/><rect x="188" y="134" width="140" height="54"/>
+        <rect x="360" y="134" width="140" height="54"/><rect x="532" y="134" width="140" height="54"/>
+        <rect x="704" y="134" width="140" height="54"/>
+      </g>
+      <g font-family="IBM Plex Sans, sans-serif" font-size="12" fill="currentColor" text-anchor="middle">
+        <text x="86" y="156">Relational</text><text x="86" y="171">+ spatial</text>
+        <text x="258" y="156">Graph</text><text x="258" y="171">traversal</text>
+        <text x="430" y="156">Search</text><text x="430" y="171">Arabic text</text>
+        <text x="602" y="156">Vector</text><text x="602" y="171">linking</text>
+        <text x="774" y="156">Tiles</text><text x="774" y="171">+ layouts</text>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#0F5F64" text-anchor="middle">
+        <text x="86" y="205">rebuildable</text><text x="258" y="205">rebuildable</text><text x="430" y="205">rebuildable</text>
+        <text x="602" y="205">rebuildable</text><text x="774" y="205">rebuildable</text>
+      </g>
+      <text x="16" y="226" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".55">Replacing any engine is a rebuild, not a migration. Any query re-executes against a past version byte-identically.</text>
+    </svg>
+    <figcaption><b>Figure 3</b> — One canonical log, many derived projections. This single decision resolves vendor lock-in, reproducible citation, per-workload engine choice, and survivability: the log is a file format, not a service, and remains readable long after any running system is gone.</figcaption>
+  </figure>
+
+  <h3>Why PostgreSQL is the centre, and not a graph database</h3>
+  <p>A graph database is better at traversal and worse at everything else this project needs. Traversal is one requirement out of ten; making the traversal engine the system of record subordinates nine requirements to one. Postgres provides ACID guarantees, native range types for temporal modelling, the best open geospatial implementation in existence via PostGIS, vectors via pgvector, and an operational record measured in decades. <strong>Graph traversal is added as a projection when latency evidence demands it</strong> — at which point the choice of engine is reversible, because it owns nothing. Neo4j's demonstrated ceiling is far above this project's needs, so there is no scale-driven urgency to adopt early.</p>
+
+  <h3>Rendering engines, against this project's actual requirements</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Engine</th><th>Verdict</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr><td>WebGPU (custom)</td><td>Core renderer</td><td>Only option meeting scale + custom visual semantics without leaving the web</td></tr>
+        <tr><td>WebGL2</td><td>Mandatory fallback</td><td>Universal support; lower ceiling</td></tr>
+        <tr><td>Three.js</td><td>Assets only</td><td>A scene-graph object per person collapses around 10⁴ nodes</td></tr>
+        <tr><td>deck.gl + MapLibre</td><td>Adopt — geographic layers</td><td>Purpose-built for large GPU geospatial data; mobile-viable</td></tr>
+        <tr><td>CesiumJS</td><td>Adopt selectively</td><td>Genuine globe and first-class time-dynamics; heavy, and globe framing is often the wrong frame</td></tr>
+        <tr><td>Unreal</td><td>Reject for the product</td><td>Fails web, mobile and accessibility outright; pulls toward spectacle. Reserve for film and installations</td></tr>
+        <tr><td>Unity</td><td>Reject for the product</td><td>Same failures, less fidelity upside</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Blender is a build-time asset factory, never a source of truth and never in the runtime path.</strong> The test for any Blender output: if the corpus changes, does this asset regenerate automatically? If not, it is hand-authored content masquerading as data, and it will drift out of agreement with the evidence in the most visible part of the product.</p>
+
+  <div class="note">
+    <b>Gate on 3D</b>
+    L2 may begin only when a specific analytical question has been identified that two dimensions genuinely cannot answer. Without that gate, 3D arrives because it is exciting, and the project acquires a demo it must maintain forever.
+  </div>
+
+  <h2 id="priorart">What already exists</h2>
+  <p class="dek">Every capability exists somewhere. No system combines more than three or four.</p>
+
+  <div class="siglum">10</div>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>System</th>
+          <th class="c">Temporal<br>KG</th><th class="c">Historical<br>GIS</th><th class="c">Relationship<br>network</th>
+          <th class="c">3D / 4D</th><th class="c">Source<br>apparatus</th><th class="c">AI<br>exploration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenITI / KITAB</td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot part">◐</span></td></tr>
+        <tr><td>al-Ṯurayyā</td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>Hadith-Viz</td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>Seerah Map / Interactive Seerah</td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>SeerahGPT</td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot full">●</span></td></tr>
+        <tr><td>Six Degrees of Francis Bacon</td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>Republic of Letters</td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>Palladio</td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>Venice Time Machine</td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot part">◐</span></td></tr>
+        <tr><td>Seshat Databank</td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>Pelagios / Pleiades / WHG</td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr><td>Chronas</td><td class="c"><span class="dot part">◐</span></td><td class="c"><span class="dot full">●</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td><td class="c"><span class="dot none">○</span></td></tr>
+        <tr class="mine"><td>al-Marṣad (proposed)</td><td class="c"><span class="dot">●</span></td><td class="c"><span class="dot">●</span></td><td class="c"><span class="dot">●</span></td><td class="c"><span class="dot">●</span></td><td class="c"><span class="dot">●</span></td><td class="c"><span class="dot">●</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--ink-mute)">● present &nbsp;·&nbsp; ◐ partial &nbsp;·&nbsp; ○ absent</p>
+
+  <div class="callout red">
+    <p><strong>The honest reading of this table.</strong> The last row is not novel because every cell is filled. It is novel because of what fills the fifth column. Several systems have a source apparatus — Seshat has uncertainty with citations; Six Degrees of Francis Bacon distinguishes documented from inferred relationships. <em>None has one in which the report with its chain is the primitive and everything else is derived from it.</em></p>
+  </div>
+
+  <h2 id="novel">What is genuinely novel — and what is not</h2>
+
+  <div class="siglum">10</div>
+  <ol class="apparatus">
+    <li><b>The report-first data model</b><span>No surveyed system derives events, biographies and relationships from reports-with-chains. Every one stores facts and attaches sources.</span><span class="fix">The strongest claim, and the one thing that cannot be retrofitted into any existing system</span></li>
+    <li><b>The isnād as a four-fold object</b><span>Evidentiary chain, social network, geographic diffusion path and temporal ordering, in one encoding.</span><span class="fix">Others have each half; nobody has fused them</span></li>
+    <li><b>Historiographic time as a navigable axis</b><span>Holding the event fixed and moving the record — watching the tradition itself form across the 1st–3rd centuries AH.</span><span class="fix">A research capability, not a presentational feature</span></li>
+    <li><b>The morph field</b><span>Continuous interpolation between network, geographic, temporal and transmission space in one persistent scene.</span><span class="fix">Palladio coordinates these views; this integrates them</span></li>
+    <li><b>Tradition-scoped attributed grading</b><span>Grades as acts by named evaluators, never normalized across incommensurable epistemic systems.</span><span class="fix">The question that matters in this domain is <em>whose judgement</em></span></li>
+    <li><b>The citable ViewState</b><span>A configuration of evidence as a version-pinned, resolvable scholarly citation.</span><span class="fix">Makes visualization citable, AI answers auditable, lessons authorable and accessibility structural — from one object</span></li>
+  </ol>
+
+  <p><strong>Not novel, and not to be claimed:</strong> knowledge graphs for history; isnād network visualization (Hadith-Viz and the SNA literature were there first); historical gazetteers (Pelagios, Pleiades, al-Ṯurayyā); uncertainty in historical networks (Six Degrees of Francis Bacon); time-sliders over historical maps; LLMs over Islamic texts; 4D historical reconstruction as an ambition (Venice Time Machine). <em>The novelty is the composition and the inversion, not the components</em> — and saying so plainly is more persuasive to the scholarly audience whose participation the project requires, because that audience knows the prior art better than the builders do.</p>
+
+  <h2 id="ledger">Buildability</h2>
+  <p class="dek">Assessed against September 2026 technology.</p>
+
+  <div class="siglum">12</div>
+  <div class="ledger">
+    <section class="t1">
+      <h4><span class="bar"></span>Possible today</h4>
+      <ul>
+        <li>The complete data model — reports, chains, reified relationships, tri-temporal extents, uncertainty geometry, attributed evaluations, disputes, coverage gaps</li>
+        <li>Append-only signed log with derived projections</li>
+        <li>Temporal constraint solving with uncertainty propagation</li>
+        <li>Historical GIS with per-segment route confidence</li>
+        <li>L0 and L1 in full, including the morph field</li>
+        <li>WebGPU rendering of 10⁵–10⁶ elements</li>
+        <li>The AI navigation layer exactly as specified</li>
+        <li>Isnād/matn segmentation and chain parsing at corpus scale</li>
+      </ul>
+    </section>
+    <section class="t2">
+      <h4><span class="bar"></span>Possible with significant engineering</h4>
+      <ul>
+        <li>Layout stability anchored across corpus versions as the corpus grows by orders of magnitude</li>
+        <li>Arabic retrieval that feels intelligent rather than adequate</li>
+        <li>Full L2/L3 at 60fps on mid-range mobile</li>
+        <li>Federation across independently governed institutional nodes</li>
+        <li>Review tooling efficient enough that scholarship is not the sole constraint</li>
+      </ul>
+    </section>
+    <section class="t3">
+      <h4><span class="bar"></span>Experimental / emerging</h4>
+      <ul>
+        <li><b>Narrator disambiguation at corpus scale</b> — an open research problem, and the project's hardest</li>
+        <li>Reliable relationship extraction from classical Arabic prose</li>
+        <li>Bitemporal graph databases (mature relationally, not in graph)</li>
+        <li>Uncertainty encodings <em>validated</em> to be read correctly by non-specialists — an empirical question, not a technical one</li>
+      </ul>
+    </section>
+    <section class="t4">
+      <h4><span class="bar"></span>Future, or never appropriate</h4>
+      <ul>
+        <li>Fully automated extraction trustworthy enough to bypass review — <b>and this is not a goal.</b> Human adjudication is not a temporary limitation to engineer away; it is the source of the corpus's authority</li>
+        <li>Machine translation of transmitted material — prohibited on policy grounds regardless of capability</li>
+        <li>Automated adjudication of scholarly disagreement — permanently outside the remit</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="callout">
+    <p><strong>Nothing in the core system requires a technology that does not exist.</strong> The project is not blocked on research. Its difficulty is the discipline to model evidence first, the institutional capacity to sustain scholarly review for decades, and the restraint to keep the visualization subordinate to the corpus.</p>
+  </div>
+
+  <h2 id="critique">Self-critique</h2>
+  <p class="dek">A conventional first design was drafted, then attacked. Thirty weaknesses; six were structural.</p>
+
+  <div class="siglum">11</div>
+  <p>The items below could not have been fixed later — they would have required rebuilding the corpus. They are why this exercise belongs before the code rather than after it. The full thirty, and three that remain unresolved, are in the corpus.</p>
+
+  <ol class="apparatus">
+    <li><b>Facts were primary; sources were attached</b><span>The standard model, and unrepairable: a corpus authored as settled statements cannot have its evidence reconstructed.</span><span class="fix">Inverted the model — the report became the primitive</span></li>
+    <li><b>Grading was a property of a report</b><span><code>report.grade = "sahih"</code> is a category error. Grading is contested, evaluator-dependent and historically situated.</span><span class="fix">Grades became acts by named authorities; conflicting gradings now coexist natively</span></li>
+    <li><b>Confidence was a single float</b><span>A normalized score spanning Sunni ḥadīth criticism, Shia rijāl and academic source criticism is a fabrication with a decimal point.</span><span class="fix">Derived bands within a declared tradition lens, never normalized across incommensurable systems</span></li>
+    <li><b>One normative account of contested history</b><span>Workable for the Seerah; for the period after 11 AH it silently encodes one tradition's account as truth.</span><span class="fix">Added the interpretation dimension and tradition lenses; divergence modelled as attributed disputes</span></li>
+    <li><b>Only one time axis</b><span>Event-time alone discards when a claim was recorded — among the most informative variables available.</span><span class="fix">Added record-time, which produced an unanticipated capability now among the strongest novelty claims</span></li>
+    <li><b>Dates stored as timestamps; routes as lines; places as coordinates</b><span>Each manufactures precision the sources do not support, invisibly and irreversibly. A line from Makkah to Madinah erases the entire historical content of the Hijrah.</span><span class="fix">Four-corner intervals, segmented routes with per-segment confidence, places as named concepts with time-bounded geometry states</span></li>
+  </ol>
+
+  <h3>Three that remain unresolved</h3>
+  <p>Stated here rather than left for critics to find. <strong>How to present contested material at the Explore lens</strong> — plain-language hedging is reasonable but untested with real children and teachers. <strong>Whether non-specialists read uncertainty encoding correctly</strong> — the entire honesty architecture rests on an empirical claim about perception that the project asserts and has not tested; if it is false, the architecture is sound and the product still misleads. <strong>Cross-tradition representation without false equivalence</strong> — the mechanisms exist, but the editorial judgement is irreducibly human and will be contested however carefully it is exercised.</p>
+
+  <h2 id="roadmap">Sequence</h2>
+  <p class="dek">The corpus must be embarrassing to look at before it is impressive.</p>
+
+  <div class="siglum">09</div>
+  <div class="strip">
+    <div><span class="k">Q1</span><span class="v"><b>Ontology and foundations.</b> Board convened before schema is written. CIDOC-CRM-aligned ontology, append-only log, temporal and spatial types, licence register.</span></div>
+    <div><span class="k">Q2</span><span class="v"><b>The Hijrah corpus.</b> 60–120 persons, 300–800 reports, chains parsed, routes graded, disputes documented — all scholar-reviewed. L0 reader tier live before any visualization exists.</span></div>
+    <div><span class="k">Q3</span><span class="v"><b>The observatory.</b> Network, timeline and map; stable precomputed layout; the morph field; the evidence ladder; time-scrubbing with uncertainty.</span></div>
+    <div><span class="k">Q4</span><span class="v"><b>Navigation and public beta.</b> Typed-query AI, binding validator, refusal paths, citable ViewState, published adversarial-test results.</span></div>
+    <div><span class="k">Year 2</span><span class="v">The full Seerah at the Hijrah's evidentiary standard. Scholar tooling. Multi-tradition lenses. First DOI-assigned open data release.</span></div>
+    <div><span class="k">Year 3</span><span class="v">The Companions and first two generations. Transmission layer at scale. 3D only if the gate is met. First peer-reviewed publication citing a pinned view.</span></div>
+    <div><span class="k">Years 4–6</span><span class="v"><b>Federation</b> — other institutions run their own nodes under their own scholarly authority. The point at which the project stops depending on its founders.</span></div>
+    <div><span class="k">Years 7–10</span><span class="v">The citation substrate. Continued existence independent of any individual, organization or funder — the definition of infrastructure, and the only outcome that justifies the ambition.</span></div>
+  </div>
+
+  <div class="note">
+    <b>Budget shape</b>
+    ~40% engineering, 30% scholarly labour, 15% rights and acquisition, 15% infrastructure. If scholarly labour drops below a quarter, the project has quietly become a visualization company.
+  </div>
+
+  <h3>Kill criteria, stated in advance</h3>
+  <p>Projects of this ambition rarely fail loudly — they drift, absorb funding, and are quietly maintained into irrelevance. Stop or restructure if: scholarly participation does not materialize within eighteen months; the corpus repeatedly fails adversarial review; <strong>a funding cycle passes in which the corpus grows less than the interface</strong>; governance cannot achieve cross-tradition representation; or adversarial testing continues to elicit fabricated transmitted material — in which case ship without the AI layer, which the architecture permits by design.</p>
+
+  <h2>Red lines</h2>
+  <p class="dek">Any of these, if crossed, would justify halting rather than shipping.</p>
+
+  <ul class="redlines">
+    <li>No AI-generated ḥadīth, or AI text presented as transmitted material</li>
+    <li>No AI grading of authenticity</li>
+    <li>No figurative depiction of the Prophet ﷺ, his family, or the Companions — in any tier, medium or context, including XR</li>
+    <li>No fatwa, ruling or doctrinal determination issued by the system</li>
+    <li>No computed ranking of persons by religious significance</li>
+    <li>No presentation of a contested matter as settled</li>
+    <li>No fabricated precision in a date, a location, a route or a chain</li>
+    <li>No silent modification of the record</li>
+    <li>No paywall on evidence — provenance is never a premium feature</li>
+    <li>No visualization whose warrant cannot be inspected</li>
+  </ul>
+
+  <h2 id="corpus">The corpus</h2>
+  <p class="dek">Thirteen documents. Read in order for the argument; jump directly for reference.</p>
+
+  <div class="corpus">
+    <a href="#thesis"><span class="n">00</span><span class="t">Vision<span class="d">What this is, why it is not a digital library, the naming and the category</span></span></a>
+    <a href="#dimensions"><span class="n">01</span><span class="t">Conceptual Model<span class="d">The seven dimensions, the observatory metaphor made rigorous, the Nūr/Nujūm grammar</span></span></a>
+    <a href="#spec"><span class="n">02</span><span class="t">Knowledge Architecture &amp; Ontology Specification<span class="d">Normative. Classes, properties, constraints, worked example — with machine-readable OWL, SHACL and a validator</span></span></a>
+    <a href="#tech"><span class="n">03</span><span class="t">Technical Architecture<span class="d">Temporal engine, geographic engine, storage, scale, performance, API, security</span></span></a>
+    <a href="#morph"><span class="n">04</span><span class="t">Visualization Architecture<span class="d">L0–L3 tiers, the morph field, engine comparison, Blender's role, visual semantics</span></span></a>
+    <a href="#corpus"><span class="n">05</span><span class="t">UX Architecture<span class="d">Four lenses, five verbs, per-audience interfaces, mobile, XR, accessibility</span></span></a>
+    <a href="#corpus"><span class="n">06</span><span class="t">Scholarly Methodology<span class="d">Evidence grading, disagreement, verification workflow, governance, red lines</span></span></a>
+    <a href="#corpus"><span class="n">07</span><span class="t">AI Architecture<span class="d">Navigation not narration, the query pipeline, hard boundaries</span></span></a>
+    <a href="#corpus"><span class="n">08</span><span class="t">Prototype: The Hijrah<span class="d">The full proof-of-concept specification and its acceptance criteria</span></span></a>
+    <a href="#roadmap"><span class="n">09</span><span class="t">Roadmap, Challenges and Risks<span class="d">12 months, 3 years, 10 years, with kill criteria</span></span></a>
+    <a href="#priorart"><span class="n">10</span><span class="t">Prior Art and Novelty<span class="d">What exists worldwide, what is missing, what is genuinely new</span></span></a>
+    <a href="#critique"><span class="n">11</span><span class="t">Self-Critique<span class="d">Thirty weaknesses found in the first design, and what each changed</span></span></a>
+    <a href="#ledger"><span class="n">12</span><span class="t">Final Architecture<span class="d">The consolidated recommendation and the buildability ledger</span></span></a>
+  </div>
+
+  <hr>
+
+  <blockquote>
+    <p>The Islamic scholarly tradition spent centuries building an apparatus for answering one question with more rigour than any comparable tradition achieved: <em>how do we know this, and from whom?</em></p>
+    <p>The opportunity is not to visualize Islamic history. Others have done that, some well. It is to build the first system whose data model is the tradition's own epistemology — so that the structure always present in the sources, but observable only to those who had read tens of thousands of pages, becomes observable to anyone, without becoming any less true.</p>
+  </blockquote>
+
+  <p>An observatory does not create the sky. It makes an existing, vast, structurally invisible reality observable — and its worth depends entirely on the honesty of its instruments.</p>
+
+  <footer>
+    Phase 0 research and architecture corpus · September 2026<br>
+    Nothing here has been built. Everything here is intended to be buildable.<br>
+    Naming, governance and all scholarly policy provisional pending review by the board described in document 06.
+  </footer>
+
+</div>

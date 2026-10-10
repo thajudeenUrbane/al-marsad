@@ -1,0 +1,426 @@
+<title>Synthetic Capacity Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600&display=swap">
+<style>
+/*
+  This page is deliberately styled to look like NOTHING ELSE in this
+  project. The historical demo (demo/index.html) uses a calm, warm,
+  reverent palette because it shows real evidence about real people.
+  This page shows a fabricated graph with no content at all, so it
+  is built to read as a lab instrument, not a vision of anything --
+  cold, monospace, hazard-striped. Nobody should ever be able to
+  mistake a screenshot of one for the other.
+*/
+:root{
+  --bg:#050706; --panel:#0B0F0D; --edge:#1B2620; --edge-soft:#141C18;
+  --ink:#CFE8DE; --ink-mid:#8FAE9E; --ink-dim:#516358;
+  --accent:#39E6C4; --accent-dim:#1E7A69;
+  --hazard-dark:#0B0F0D; --hazard-light:#F2C230;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  font-size:13px; overflow:hidden;
+}
+
+.hazard{
+  position:fixed; left:0; right:0; z-index:50; height:28px;
+  display:flex; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(135deg,var(--hazard-dark) 0 14px,var(--hazard-light) 14px 28px);
+}
+.hazard span{
+  background:var(--hazard-dark); color:var(--hazard-light);
+  border:1px solid var(--hazard-light); padding:.15rem .9rem;
+  font-weight:700; letter-spacing:.08em; font-size:.72rem;
+}
+.hazard.top{top:0} .hazard.bottom{bottom:0}
+
+main{position:absolute; inset:28px 0;}
+canvas{display:block; width:100%; height:100%; cursor:grab}
+canvas:active{cursor:grabbing}
+
+.hud{
+  position:fixed; top:40px; right:12px; z-index:30; width:15.5rem;
+  background:rgba(11,15,13,.90); border:1px solid var(--edge);
+  padding:.85rem .95rem;
+}
+.hud h1{
+  font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:.82rem;
+  margin:0 0 .15rem; color:var(--ink);
+}
+.hud .tag{font-size:.64rem; color:var(--hazard-light); letter-spacing:.04em; margin-bottom:.7rem}
+
+.stat{display:flex; justify-content:space-between; padding:.26rem 0; border-top:1px solid var(--edge-soft); font-size:.73rem}
+.stat b{color:var(--accent); font-variant-numeric:tabular-nums; font-weight:500}
+
+.ctl{margin-top:.75rem; padding-top:.65rem; border-top:1px solid var(--edge)}
+.ctl label{display:flex; justify-content:space-between; font-size:.68rem; color:var(--ink-mid); margin-bottom:.2rem}
+.ctl label b{color:var(--ink); font-variant-numeric:tabular-nums; font-weight:500}
+.ctl input[type=range]{width:100%; accent-color:var(--accent); margin-bottom:.6rem; display:block}
+
+.btnrow{display:flex; gap:.5rem; margin-top:.25rem}
+button{
+  font:inherit; flex:1; background:none; color:var(--ink-mid); border:1px solid var(--edge);
+  padding:.4rem; cursor:pointer; letter-spacing:.04em; text-transform:uppercase; font-size:.64rem;
+}
+button:hover{color:var(--accent); border-color:var(--accent-dim)}
+
+.note{
+  margin-top:.75rem; padding-top:.65rem; border-top:1px solid var(--edge);
+  font-size:.65rem; line-height:1.55; color:var(--ink-dim);
+}
+.note b{color:var(--ink-mid)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+</style>
+
+<div class="hazard top"><span>SYNTHETIC DATA -- NO HISTORICAL CONTENT -- RENDERING TEST ONLY</span></div>
+<div class="hazard bottom"><span>SYNTHETIC DATA -- NO HISTORICAL CONTENT -- RENDERING TEST ONLY</span></div>
+
+<main><canvas id="cv"></canvas></main>
+
+<div class="hud">
+  <h1>Capacity test</h1>
+  <div class="tag">fabricated graph -- no names, no dates, no sources</div>
+
+  <div class="stat"><span>nodes</span><b id="s-nodes">-</b></div>
+  <div class="stat"><span>edges</span><b id="s-edges">-</b></div>
+  <div class="stat"><span>layers</span><b id="s-layers">-</b></div>
+  <div class="stat"><span>frame time</span><b id="s-ms">-</b></div>
+  <div class="stat"><span>fps</span><b id="s-fps">-</b></div>
+
+  <div class="ctl">
+    <label>node count <b id="l-count"></b></label>
+    <input id="c-count" type="range" min="0" max="1000" value="480">
+    <label>onward-documentation rate <b id="l-branch"></b></label>
+    <input id="c-branch" type="range" min="2" max="9" value="5">
+    <div class="btnrow">
+      <button id="b-regen" type="button">Reseed</button>
+      <button id="b-reset" type="button">Reset view</button>
+    </div>
+  </div>
+
+  <div class="note">
+    Drag to pan, scroll to zoom. The traveling pulse gives the renderer
+    continuous work each frame, so the FPS reading reflects sustained
+    load rather than one still frame. Node IDs are arbitrary array
+    indices -- none of this corresponds to any real person, chain,
+    report or place.
+    <br><br>
+    The shape is deliberately not a clean tree: tier 1 is huge, only a
+    small skewed fraction of any tier documents onward, and edges also
+    run sideways within a tier. That is a correction, not a flourish --
+    an earlier version drew a small root widening outward, which is
+    backwards for what it was evoking. See README.md.
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  const canvas = document.getElementById("cv");
+  const ctx = canvas.getContext("2d", { alpha: false });
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    canvas.width = Math.max(1, Math.round(r.width * dpr));
+    canvas.height = Math.max(1, Math.round(r.height * dpr));
+  }
+  window.addEventListener("resize", resize);
+
+  /* Small deterministic PRNG so "reseed" produces a fresh, reproducible
+     layout without pulling in a dependency for one function. */
+  let seed = 1;
+  function mulberry32(s) {
+    return function () {
+      s |= 0; s = (s + 0x6D2B79F5) | 0;
+      let x = Math.imul(s ^ (s >>> 15), 1 | s);
+      x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+      return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  /* ── the synthetic graph ────────────────────────────────
+     A single root fans out into a deliberately huge first tier, then a
+     small, skewed, laterally-connected subset of each tier produces the
+     next -- see the correction note on generate() below. No narrator,
+     chain, date or grading of any kind is attached to any of it. This
+     function's only job is to produce enough points and edges to find
+     out where the renderer's frame budget actually breaks. */
+  function generate(n, branch) {
+    /* CORRECTED, 12 Sept 2026 (docs/11-self-critique.md #31). The first
+       version of this generator grew a SMALL first layer geometrically
+       wider with depth -- a clean narrowing-to-widening tree. A reviewer
+       pointed out, correctly, that this is backwards for the thing it
+       was implicitly evoking: the Prophet's direct Companions are
+       estimated at well over 100,000 (Abu Zur'ah al-Razi, via
+       al-Suyuti), almost certainly the LARGEST tier in any such network,
+       not the smallest -- and real transmission activity within any
+       generation is extremely skewed (a handful of documented narrators
+       -- the "mukthirun" -- account for a disproportionate share of
+       everything transmitted) and densely cross-linked laterally
+       (kinship, shared battles, shared teachers), not a clean
+       feed-forward tree at all.
+       This generator is still 100% synthetic and still proves nothing
+       about real history -- but its SHAPE now follows that correction:
+       tier 1 is deliberately huge, only a small fraction of any tier
+       produces documented onward links, the number of children a given
+       node produces is drawn from a skewed distribution so a few hubs
+       dominate, and a fraction of edges connect nodes WITHIN a tier
+       rather than only across tiers. */
+    const rand = mulberry32(seed);
+
+    const TIER1_FRACTION = 0.4;                         // the huge first tier
+    const documentationRate = 0.03 + (branch - 2) * 0.018; // "branch" now controls
+                                                             // how much of each tier
+                                                             // is documented onward
+    const sizes = [1];
+    const offsets = [0];
+    const ef = [], et = [];
+
+    const tier1Size = Math.max(1, Math.min(Math.round(n * TIER1_FRACTION), n - 1));
+    sizes.push(tier1Size);
+    offsets.push(1);
+    for (let i = 0; i < tier1Size; i++) { ef.push(0); et.push(1 + i); } // the origin's real fan-out
+
+    let total = 1 + tier1Size;
+    let prevStart = 1, prevSize = tier1Size, cursor = 1 + tier1Size;
+
+    while (total < n && sizes.length < 24) {
+      const layerStart = cursor;
+      let produced = 0;
+      for (let idx = prevStart; idx < prevStart + prevSize && total < n; idx++) {
+        if (rand() >= documentationRate) continue;       // most of any generation
+                                                           // narrates nothing that survives
+        const r = rand();
+        const children = r < 0.85 ? 1 + Math.floor(rand() * 2)        // typical: 1-2
+                        : r < 0.97 ? 3 + Math.floor(rand() * 5)        // active: 3-7
+                        : 15 + Math.floor(rand() * 40);                // a mukthir-scale hub
+        for (let c = 0; c < children && total < n; c++) {
+          ef.push(idx); et.push(cursor);
+          cursor++; produced++; total++;
+        }
+      }
+      if (produced === 0) break;                          // no more documented descent
+      sizes.push(produced);
+      offsets.push(layerStart);
+      prevStart = layerStart; prevSize = produced;
+    }
+
+    /* At a low documentation rate the chain above can die out well
+       short of the requested node count -- correct, but it would make
+       the "node count" slider unusable for its actual job (measuring
+       performance AT a chosen scale). Top up the shortfall as one final
+       band: each extra node attached to a random already-existing node.
+       This is a coarse catch-all for the remaining long tail of minor
+       narrators, schematically collapsed into one layer rather than
+       modelling exact further attrition -- it does not affect the
+       corrected shape above, which is where the point was made. */
+    if (total < n) {
+      const tailStart = cursor, tailSize = n - total;
+      for (let k = 0; k < tailSize; k++) {
+        const parent = 1 + Math.floor(rand() * (total - 1));
+        ef.push(parent); et.push(cursor);
+        cursor++;
+      }
+      sizes.push(tailSize);
+      offsets.push(tailStart);
+      total = n;
+    }
+
+    const layerCount = sizes.length;
+    const totalNodes = total;
+    const xs = new Float32Array(totalNodes);
+    const layerOf = new Uint8Array(totalNodes);
+    const WIDTH_K = 3.3;                                  // width tracks sqrt(size),
+                                                            // not layer depth -- a wide
+                                                            // tier is wide because it IS
+                                                            // large, not because of where
+                                                            // it sits
+    for (let L = 0; L < layerCount; L++) {
+      const size = sizes[L];
+      const w = Math.max(18, WIDTH_K * Math.sqrt(size));
+      for (let i = 0; i < size; i++) {
+        const idx = offsets[L] + i;
+        const frac = size === 1 ? 0.5 : i / (size - 1);
+        const jitter = (rand() - 0.5) * (w / Math.max(size, 1)) * 0.9;
+        xs[idx] = (frac - 0.5) * w + jitter;
+        layerOf[idx] = L;
+      }
+    }
+
+    /* Lateral edges: contemporaries -- kinship, co-presence at the same
+       battle or event, shared teachers -- not modelled at all by a pure
+       feed-forward tree. A pure tree cannot represent two Companions
+       who never taught each other but fought at Badr together. */
+    const LATERAL_FRACTION = 0.12;
+    for (let L = 1; L < layerCount; L++) {
+      const size = sizes[L];
+      const count = Math.round(size * LATERAL_FRACTION);
+      for (let k = 0; k < count; k++) {
+        const i = offsets[L] + Math.floor(rand() * size);
+        const j = offsets[L] + Math.floor(rand() * size);
+        if (i !== j) { ef.push(i); et.push(j); }
+      }
+    }
+
+    return {
+      xs, layerOf, sizes, offsets, layerCount, total: totalNodes,
+      edgeFrom: Int32Array.from(ef), edgeTo: Int32Array.from(et)
+    };
+  }
+
+  let graph = null;
+  const view = { x: 0, y: 0, scale: 1 };
+  const LAYER_GAP = 46;
+
+  function worldToScreen(x, layer) {
+    const cx = canvas.width / 2 + view.x * dpr;
+    const cy = 60 * dpr + view.y * dpr;
+    return {
+      sx: cx + x * view.scale * dpr,
+      sy: cy + layer * LAYER_GAP * view.scale * dpr
+    };
+  }
+
+  function colorForLayer(L, maxL) {
+    const f = maxL <= 0 ? 0 : L / maxL;
+    /* A neutral cyan-to-slate technical ramp -- chosen specifically
+       to NOT resemble the warm gold/cream palette used to encode
+       transmission distance in the historical demo. */
+    const r = Math.round(200 - f * 150), g = Math.round(235 - f * 140), b = Math.round(225 - f * 90);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+
+  let waveT = 0, last = performance.now();
+  const fpsBuf = [];
+
+  function draw(now) {
+    const dt = Math.min(64, now - last);
+    last = now;
+    waveT += dt;
+    fpsBuf.push(1000 / Math.max(dt, 1));
+    if (fpsBuf.length > 40) fpsBuf.shift();
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = "#050706";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    /* Tiled watermark, baked into every frame -- so even a screenshot
+       cropped tightly to the canvas still carries the label. */
+    ctx.save();
+    ctx.globalAlpha = 0.055;
+    ctx.fillStyle = "#39E6C4";
+    ctx.font = (18 * dpr) + 'px "IBM Plex Mono", monospace';
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate(-0.35);
+    ctx.translate(-canvas.width / 2, -canvas.height / 2);
+    for (let y = -canvas.height; y < canvas.height * 2; y += 90 * dpr) {
+      for (let x = -canvas.width; x < canvas.width * 2; x += 360 * dpr) {
+        ctx.fillText("SYNTHETIC DATA - NOT HISTORICAL", x, y);
+      }
+    }
+    ctx.restore();
+
+    const g = graph;
+    if (g) {
+      const maxL = g.layerCount - 1;
+      const delay = 260, pulseWidth = 500, cycle = maxL * delay + pulseWidth * 2 + 900;
+      const phase = waveT % cycle;
+
+      /* One batched path, one stroke() call, regardless of edge count --
+         the single biggest lever for keeping this interactive at scale. */
+      ctx.lineWidth = Math.max(0.5, 0.7 * dpr * Math.min(1, view.scale));
+      ctx.strokeStyle = "rgba(80,120,110,0.22)";
+      ctx.beginPath();
+      for (let i = 0; i < g.edgeFrom.length; i++) {
+        const a = g.edgeFrom[i], b = g.edgeTo[i];
+        const A = worldToScreen(g.xs[a], g.layerOf[a]);
+        const B = worldToScreen(g.xs[b], g.layerOf[b]);
+        ctx.moveTo(A.sx, A.sy);
+        ctx.lineTo(B.sx, B.sy);
+      }
+      ctx.stroke();
+
+      /* fillRect per node -- far cheaper than arc() at six figures */
+      const size = Math.max(1, 1.6 * dpr * Math.min(1.4, Math.max(0.35, view.scale)));
+      for (let L = 0; L < g.layerCount; L++) {
+        const intensity = Math.max(0, 1 - Math.abs((phase - L * delay) / pulseWidth - 1));
+        const base = colorForLayer(L, maxL);
+        ctx.fillStyle = intensity > 0.08
+          ? "rgba(120,255,230," + (0.55 + intensity * 0.45) + ")"
+          : base;
+        const start = g.offsets[L], end = start + g.sizes[L];
+        for (let idx = start; idx < end; idx++) {
+          const p = worldToScreen(g.xs[idx], L);
+          ctx.fillRect(p.sx - size / 2, p.sy - size / 2, size, size);
+        }
+      }
+
+      const root = worldToScreen(0, 0);
+      ctx.fillStyle = "#EFFFFC";
+      ctx.beginPath();
+      ctx.arc(root.sx, root.sy, 3 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+
+      document.getElementById("s-nodes").textContent = g.total.toLocaleString();
+      document.getElementById("s-edges").textContent = g.edgeFrom.length.toLocaleString();
+      document.getElementById("s-layers").textContent = String(g.layerCount);
+    }
+
+    document.getElementById("s-ms").textContent = dt.toFixed(1) + " ms";
+    const avgFps = fpsBuf.reduce((a, b) => a + b, 0) / fpsBuf.length;
+    document.getElementById("s-fps").textContent = String(Math.round(avgFps));
+
+    requestAnimationFrame(draw);
+  }
+
+  /* ── controls ───────────────────────────────────────────── */
+  const cCount = document.getElementById("c-count");
+  const cBranch = document.getElementById("c-branch");
+  const lCount = document.getElementById("l-count");
+  const lBranch = document.getElementById("l-branch");
+
+  function countFromSlider(v) { return Math.round(1000 * Math.pow(100, v / 1000)); }
+  function docRateFromSlider(v) { return (0.03 + (v - 2) * 0.018) * 100; }
+
+  function regen() {
+    const n = countFromSlider(+cCount.value);
+    const branch = +cBranch.value;
+    lCount.textContent = n.toLocaleString();
+    lBranch.textContent = docRateFromSlider(branch).toFixed(1) + "%";
+    graph = generate(n, branch);
+  }
+
+  cCount.addEventListener("input", () => { lCount.textContent = countFromSlider(+cCount.value).toLocaleString(); });
+  cBranch.addEventListener("input", () => { lBranch.textContent = docRateFromSlider(+cBranch.value).toFixed(1) + "%"; });
+  cCount.addEventListener("change", regen);
+  cBranch.addEventListener("change", regen);
+  document.getElementById("b-regen").addEventListener("click", () => { seed = (seed * 9301 + 49297) % 233280 || 1; regen(); });
+  document.getElementById("b-reset").addEventListener("click", () => { view.x = 0; view.y = 0; view.scale = 1; });
+
+  /* pan + zoom */
+  let dragging = false, lastX = 0, lastY = 0;
+  canvas.addEventListener("pointerdown", e => { dragging = true; lastX = e.clientX; lastY = e.clientY; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    view.x += e.clientX - lastX; view.y += e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  canvas.addEventListener("pointerup", () => { dragging = false; });
+  canvas.addEventListener("wheel", e => {
+    e.preventDefault();
+    const f = Math.exp(-e.deltaY * 0.001);
+    view.scale = Math.min(6, Math.max(0.05, view.scale * f));
+  }, { passive: false });
+
+  resize();
+  regen();
+  requestAnimationFrame(draw);
+})();
+</script>
