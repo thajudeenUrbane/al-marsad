@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-lens="study">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>{{t:page.title}}</title>
+<meta name="description" content="{{t:page.description}}">
+<style>{{CSS}}</style>
+</head>
+<body>
+<a class="skip" href="#obs-panel">{{t:page.skip}}</a>
+<header class="masthead">
+  <div class="brand">
+    <p class="site"><a href="{{READER_HOME}}">{{t:page.site}}</a></p>
+    <h1>{{t:page.h1}}</h1>
+  </div>
+  <fieldset class="lens">
+    <legend>{{t:lens.legend}}</legend>
+    <span class="seg">
+      <input type="radio" name="lens" id="lens-discover" value="discover"><label for="lens-discover" data-i18n="lens.discover">{{t:lens.discover}}</label>
+      <input type="radio" name="lens" id="lens-study" value="study" checked><label for="lens-study" data-i18n="lens.study">{{t:lens.study}}</label>
+      <input type="radio" name="lens" id="lens-research" value="research"><label for="lens-research" data-i18n="lens.research">{{t:lens.research}}</label>
+    </span>
+  </fieldset>
+  <form id="obs-search-form" class="search" role="search">
+    <label for="obs-search" class="sr-only">{{t:search.label}}</label>
+    <input id="obs-search" type="search" list="obs-names" placeholder="{{t:search.placeholder}}" autocomplete="off">
+    <button type="submit" class="btn">{{t:search.go}}</button>
+  </form>
+  <nav class="tools" aria-label="{{t:nav.tools}}">
+    <button type="button" id="obs-back" class="btn" disabled>{{t:nav.back}}</button>
+    <button type="button" id="obs-home" class="btn">{{t:nav.home}}</button>
+    <button type="button" id="obs-trace" class="btn">{{t:nav.trace}}</button>
+    {{ASK}}
+  </nav>
+</header>
+<p class="banner" role="note"><span data-i18n="banner.text">{{t:banner.text}}</span></p>
+<p class="here"><span class="sr-only">{{t:here.label}} </span><span id="obs-here"></span> · <span id="obs-scale"></span></p>
+<main id="main" class="layout">
+  <div class="stage-wrap">
+    <div class="stage">
+      <canvas id="obs-canvas" tabindex="0" role="img" aria-describedby="obs-textalt-title" aria-label="{{t:page.h1}}"></canvas>
+      <noscript><p class="nojs">{{t:page.nojs}} <a href="{{READER_HOME}}">{{t:nav.reader}}</a></p></noscript>
+    </div>
+    <div class="controls">
+      <div class="frames" role="group" aria-label="{{t:frames.label}}">
+        <button type="button" id="frame-network" aria-pressed="true">{{t:frame.network}}</button>
+        <button type="button" id="frame-time" aria-pressed="false">{{t:frame.time}}</button>
+        <button type="button" id="frame-geo" aria-pressed="false">{{t:frame.geo}}</button>
+        <button type="button" id="frame-stories" aria-pressed="false">{{t:frame.stories}}</button>
+        <button type="button" id="frame-isnad" aria-pressed="false">{{t:frame.isnad}}</button>
+      </div>
+      <div class="morph">
+        <label for="obs-morph">{{t:morph.label}}</label>
+        <input id="obs-morph" type="range" min="0" max="4" step="0.01" value="0">
+        <p class="muted">{{t:morph.note}}</p>
+      </div>
+      <fieldset class="scrub">
+        <legend>{{t:scrub.legend}}</legend>
+        <label class="check"><input type="checkbox" id="scrub-on"> {{t:scrub.on}}</label>
+        <div class="scrub-row"><label for="scrub-from">{{t:scrub.from}}</label><input type="range" id="scrub-from"><output id="scrub-from-out" for="scrub-from"></output></div>
+        <div class="scrub-row"><label for="scrub-to">{{t:scrub.to}}</label><input type="range" id="scrub-to"><output id="scrub-to-out" for="scrub-to"></output></div>
+        <p class="muted">{{t:scrub.note}}</p>
+      </fieldset>
+      <div class="vantage">
+        <label for="obs-preset">{{t:presets.label}}</label>
+        <select id="obs-preset"><option value="">{{t:presets.none}}</option></select>
+      </div>
+      <p class="keys muted">{{t:keys.help}}</p>
+    </div>
+    <details class="legend" open>
+      <summary>{{t:legend.title}}</summary>
+      <div class="legend-grid">
+        <section>
+          <h3>{{t:legend.types}}</h3>
+          <p class="muted">{{t:legend.types_note}}</p>
+          <ul id="legend-types" class="plain"></ul>
+        </section>
+        <section>
+          <h3>{{t:legend.lines}}</h3>
+          <ul id="legend-lines" class="plain"></ul>
+        </section>
+        <section>
+          <h3>{{t:legend.texture}}</h3>
+          <p><span class="sw sw-person" aria-hidden="true"></span> <span class="sw sw-event" aria-hidden="true"></span> <span class="grain-sample" aria-hidden="true"></span> {{t:legend.texture_text}}</p>
+          <ul class="plain small">
+            <li>{{t:legend.size}}</li>
+            <li>{{t:legend.glow}}</li>
+            <li>{{t:legend.motion}}</li>
+            <li>{{t:legend.position}}</li>
+            <li>{{t:legend.prophet}}</li>
+            <li>{{t:legend.basemap}}</li>
+          </ul>
+        </section>
+      </div>
+    </details>
+    <section id="obs-textalt" class="textalt" aria-labelledby="obs-textalt-title">
+      <h2 id="obs-textalt-title">{{t:textalt.title}}</h2>
+      <div id="obs-textalt-body"><p>{{t:textalt.loading}}</p></div>
+    </section>
+  </div>
+  <aside id="obs-panel" class="panel" data-open="false" aria-label="{{t:panel.label}}">
+    <div class="sheet-bar"><span class="grip" aria-hidden="true"></span><button type="button" id="obs-close" class="btn">{{t:panel.close}}</button></div>
+    <div id="obs-panel-body"></div>
+  </aside>
+</main>
+<p id="obs-announce" class="sr-only" aria-live="polite"></p>
+<datalist id="obs-names"></datalist>
+<footer class="foot">
+  <p>{{t:footer.built}}</p>
+  <p class="licence"><a href="{{URL_LICENSING}}">{{t:footer.text_data}}</a> <a href="{{URL_CC_BY_SA}}">{{t:footer.cc_by_sa}}</a>{{t:footer.sep}}<a href="{{URL_LICENSING}}">{{t:footer.code}}</a> <a href="{{URL_AGPL}}">{{t:footer.agpl}}</a>{{t:footer.sep}}<a href="{{URL_LICENSING}}">{{t:footer.ids}}</a>{{t:footer.dash}}<a href="{{URL_LICENSING}}">{{t:footer.contributors}}</a></p>
+</footer>
+<script type="application/json" id="obs-data">{{DATA}}</script>
+<script type="application/json" id="obs-i18n">{{I18N}}</script>
+<script>{{JS}}</script>
+</body>
+</html>
