@@ -29,8 +29,9 @@ al- now assimilates before a sun letter in every label, not only scholarly ones:
 2. The sound key merges letters on purpose (عمر finds Umar and Ammar first, then 31 similar names). Say if scholars want it stricter.
 3. Plurals are English one/other, chosen in JS; the Arabic UI (slice 9) needs `Intl.PluralRules`.
 4. Only names are searched, not story text.
+5. CI: `scripts/check_all.sh` already runs the parity tests (unit tests, with node) and `check_nojs.cjs`, which now also loads the search fallback. The JS-on browser check is not wired in; the CI owner can add one line: `step "site: search works with JavaScript on and off" node site/check_search.cjs site/dist` (with the same NODE_PATH as the JS-off step).
 
 ## Verify
 `.venv/bin/python ontology/build_graph.py` (CONFORMS) `&& .venv/bin/python site/build.py && .venv/bin/python site/check_budget.py && .venv/bin/python site/check_html.py` (all exit 0).
 `.venv/bin/python -m unittest discover -s site/tests` (91 OK, includes the node parity tests).
-`NODE_PATH="$(npm root -g)" PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node site/check_search.cjs site/dist`: OK (five queries with JS on, header box, live typing, empty state; JS off: box submits, 314-name A-Z list, no external request). `site/check_nojs.cjs`: OK. `grep -nE "left|right" site/static/*.css`: nothing.
+`NODE_PATH="$(npm root -g)" PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node site/check_search.cjs site/dist`: OK (five queries with JS on, header box, live typing, empty state; JS off: box submits, 314-name A-Z list, no external request). `site/check_nojs.cjs`: OK. `grep -nE "left|right" site/static/*.css`: nothing. `scripts/check_all.sh`: all 17 steps pass.
