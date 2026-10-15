@@ -31,7 +31,10 @@ def quiet(fn, *args):
         return fn(*args)
 
 EN = json.loads((SITE / "i18n" / "en.json").read_text(encoding="utf-8"))
-PY_FILES = [SITE / n for n in ("build.py", "display.py", "glossary.py", "model.py", "names.py", "render.py")]
+PY_FILES = [SITE / n for n in ("build.py", "display.py", "glossary.py", "model.py", "names.py", "render.py",
+                               "hub.py", "thread.py", "external.py", "experiments.py")]
+JS_FILES = [SITE / "static" / n for n in ("search.js", "enhance.js", "thread.js")]
+CSS_FILES = [SITE / "static" / n for n in ("site.css", "archive.css")]
 KEY = re.compile(r"^[a-z_]+(\.[a-z0-9_]+)+$")
 KINDS = ("person", "event", "place", "group", "story")
 # his name not followed by the sign (the sign sits in a lang="ar" span in the HTML)
@@ -65,6 +68,26 @@ def family_keys() -> set:
     keys |= {"details.claims_by.one", "details.claims_by.other", "details.basis_summary.one",
              "details.basis_summary.other", "honorific.companion_male", "honorific.companion_female",
              "date.converted_one"}
+    # slice 2c-site: doors, the hub's views, the prototypes, external systems
+    import experiments
+    import hub
+    from render import Renderer
+    for d in hub.DOORS:
+        keys |= {f"door.{d}.title", f"door.{d}.lead"}
+    keys |= {"door.discover.go.one", "door.discover.go.other", "door.study.page_lead", "door.research.page_lead"}
+    for folder, _ in hub.VIEWS:
+        keys |= {f"hub.view.{folder}.name", f"hub.view.{folder}.desc"}
+    for folder in ("study", "research"):
+        keys |= {f"hub.{folder}.name", f"hub.{folder}.desc"}
+    for _, _, pages, stem in experiments.PROTOTYPES:
+        for page in pages:
+            k = Renderer.proto_key(stem, page)
+            keys |= {k + ".name", k + ".desc"}
+    for system in ("wikidata", "althurayya", "openiti"):
+        keys.add(f"external.system.{system}")
+    for key, _, _ in site_build.DOWNLOADS:
+        keys |= {f"research.download.{key}", f"research.download.{key}.note"}
+    keys |= {"research.claims.one", "research.claims.other", "thread.lead.one", "thread.lead.other"}
     return keys
 
 
@@ -135,9 +158,22 @@ class StaticChecks(unittest.TestCase):
         self.assertEqual(sorted({b[0] for b in bad}), [], bad[:5])
 
     def test_css_uses_logical_properties_only(self):
-        css = (SITE / "static" / "site.css").read_text(encoding="utf-8")
-        css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
-        self.assertEqual(re.findall(r"[^\n]*\b(?:left|right)\b[^\n]*", css, flags=re.I), [])
+        for path in CSS_FILES:
+            css = re.sub(r"/\*.*?\*/", "", path.read_text(encoding="utf-8"), flags=re.S)
+            self.assertEqual(re.findall(r"[^\n]*\b(?:left|right)\b[^\n]*", css, flags=re.I), [], path.name)
+
+    def test_plain_wordings_are_taken_from_the_repo(self):
+        """A plain wording (plain-words switch) appears, with its term, in the file it cites."""
+        data = json.loads((SITE / "data" / "glossary.json").read_text(encoding="utf-8"))
+        with_plain = [e for lst in ("defined", "needed") for e in data[lst] if e.get("plain") or e.get("plain_source")]
+        self.assertTrue(with_plain)
+        for e in with_plain:
+            with self.subTest(e["term"]):
+                self.assertTrue(e.get("plain") and e.get("plain_source"))
+                src_file = re.match(r"[\w./-]+", e["plain_source"]).group(0)
+                text = display.fold((ROOT / src_file).read_text(encoding="utf-8")).lower()
+                self.assertIn(e["plain"].lower(), text)
+                self.assertTrue(any(display.fold(t).lower().strip() in text for t in e["term"].split(" / ")))
 
     def test_glossary_definitions_are_quoted_from_the_repo(self):
         data = json.loads((SITE / "data" / "glossary.json").read_text(encoding="utf-8"))
@@ -157,9 +193,8 @@ class StaticChecks(unittest.TestCase):
         from model import Site
         site = Site(GRAPH)
         sources = ""
-        for path in PY_FILES + list((SITE / "templates").glob("*")) + [SITE / "i18n" / "en.json",
-                                                                        SITE / "static" / "site.css", SITE / "static" / "search.js",
-                                                                        SITE / "data" / "glossary.json"]:
+        for path in (PY_FILES + list((SITE / "templates").glob("*")) + JS_FILES + CSS_FILES
+                     + [SITE / "i18n" / "en.json", SITE / "data" / "glossary.json"]):
             sources += path.read_text(encoding="utf-8")
         leaked = [e.pid for e in site.entities.values() if e.pid in sources]
         self.assertEqual(leaked, [])
@@ -310,15 +345,26 @@ class BuiltSite(unittest.TestCase):
         self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
         self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
 
-    def test_no_scripts_and_no_external_loads(self):
-        """The search page alone loads a script (same site); every other page has none."""
+    def test_scripts_only_enhance_and_no_external_loads(self):
+        """Every page loads the shared enhancement (plain words); the search page adds
+        search.js and person and group pages thread.js; nothing else, and nothing inline,
+        except in the copied prototypes, which keep their own scripts."""
+        import experiments
         for p in self.out.rglob("*.html"):
+            rel = p.relative_to(self.out).as_posix()
             src = p.read_text(encoding="utf-8")
-            if p.relative_to(self.out).as_posix() == "search/index.html":
-                self.assertEqual(re.findall(r"<script[^>]*\bsrc=\"([^\"]+)\"", src), ["../assets/search.js"])
-            else:
-                self.assertNotIn("<script", src, p)
             self.assertIsNone(re.search(r'(?:src|data-fetch|rel="stylesheet" href)="(?:https?:)?//', src), p)
+            if experiments.is_copy(rel):
+                continue
+            base = "../" * rel.count("/")
+            want = [f"{base}assets/enhance.js"]
+            if rel == "search/index.html":
+                want.append("../assets/search.js")
+            elif re.match(r"(person|group)/[^/]+/index\.html$", rel):
+                want.append("../../assets/thread.js")
+            self.assertEqual(re.findall(r"<script[^>]*\bsrc=\"([^\"]+)\"", src), want, rel)
+            inline = [s for s in re.findall(r"<script(?![^>]*\bsrc=)([^>]*)>", src) if 'type="application/json"' not in s]
+            self.assertEqual(inline, [], rel)
 
     def test_licence_footer_on_every_page(self):
         for p in self.out.rglob("*.html"):
@@ -399,12 +445,17 @@ class BuiltSite(unittest.TestCase):
         self.assertGreater(len(self.site.by_kind["group"]), 0)
         self.assertIn("Groups and tribes", (self.out / "group" / "index.html").read_text(encoding="utf-8"))
 
-    def test_home_is_graph_first_with_a_second_door_to_the_stories(self):
+    def test_home_has_three_doors_in_order(self):
         src = (self.out / "index.html").read_text(encoding="utf-8")
         n = {k: len(self.site.by_kind[k]) for k in KINDS}
         self.assertIn(f'{n["person"]} people', src)
-        self.assertLess(src.index('class="explore-lead"'), src.index('class="story-door"'))
-        self.assertIn('href="story/"', src)
+        pos = [src.index(f'id="door-{d}"') for d in ("discover", "study", "research")]
+        self.assertEqual(pos, sorted(pos))
+        doors = src[pos[0]:src.index('class="hub"')]
+        self.assertIn('href="story/"', doors[:doors.index('id="door-study"')])
+        self.assertIn('href="study/"', doors)
+        self.assertIn('href="research/"', doors)
+        self.assertLess(src.index('class="door-list"'), src.index('class="hub"'))
 
     def test_glossary_defines_only_quoted_terms_and_lists_the_rest(self):
         src = (self.out / "glossary" / "index.html").read_text(encoding="utf-8")

@@ -783,7 +783,8 @@ class Renderer:
             days = sorted(x["earliest"][:10] for x in e.data.get("dates", []) if x.get("earliest"))
             ends = sorted(x["latest"][:10] for x in e.data.get("dates", []) if x.get("latest"))
             when = self.short_date(e.data.get("dates", []))
-            place = self.place_links(ctx, e.data["places"]) if e.data.get("places") else ""
+            place = ", ".join(f'<a href="{self.evidence_href(ctx, p)}">{self.esc(p.name)}</a>'
+                              for p in (self.site.entity(i) for i in e.data.get("places") or []) if p)
             cov = display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage or self.t("common.not_recorded"))
             row = (f'<a href="{self.evidence_href(ctx, e)}">{self.esc(e.name)}</a>'
                    + (f' <span class="meta">{place}</span>' if place else "")
