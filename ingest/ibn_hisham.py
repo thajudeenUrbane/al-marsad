@@ -713,9 +713,11 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
             pages = "page not marked"
         miles = f"ms{ms1:03d}" if ms1 == ms2 else f"ms{ms1:03d}\u2013ms{ms2:03d}"
         lines = f"line {first_line}" if first_line == last_line else f"lines {first_line}\u2013{last_line}"
-        citation = (f"Ibn Hish\u0101m, al-S\u012bra al-Nabawiyya, ed. al-Saqq\u0101, al-Aby\u0101r\u012b and "
-                    f"Shalab\u012b (2nd ed., Cairo 1375/1955; provisional edition), {pages}; OpenITI "
-                    f"{w['version_uri']}, milestone {miles}, {lines}, characters {p['start']}\u2013{p['end']}")
+        # Short on purpose: the citation is shown beside every claim, and a page that carries hundreds
+        # of them must stay inside its size budget. The full edition, the OpenITI version, the
+        # checksum and the character offsets are on the Edition, Witness and selector of the passage.
+        citation = (f"Ibn Hish\u0101m, al-S\u012bra al-Nabawiyya (al-Saqq\u0101 et al. ed., Cairo 1375/1955; "
+                    f"provisional), {pages}; OpenITI {miles}, {lines}")
         out.append(block(p["id"], ["mrs:Passage", "oa:SpecificResource"], [
             ("rdfs:label", lit(p["label"], "en")),
             ("mrs:canonicalCitation", lit(citation)),

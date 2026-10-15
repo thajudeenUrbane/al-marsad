@@ -2760,7 +2760,7 @@ per:vln6et5FvUrm7neh48NSJa
 psg:WUiEn6n0cqReTGqUV7E7Cm
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The death of the Prophet's father before his birth (Ibn Hisham, Sira, birth of the Prophet)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 158; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms087, lines 2607–2608, characters 145772–145892" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 158; OpenITI ms087, lines 2607–2608" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -2848,7 +2848,7 @@ ast:WaN7yNt4dZqs3Zc7KDlDww
 psg:IylQjgBVEEZYTzdHOvHFA4
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Ibn Ishaq on the day, month and year of the Prophet's birth"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 158; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms087, lines 2611–2612, characters 145996–146108" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 158; OpenITI ms087, lines 2611–2612" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -2899,7 +2899,7 @@ ast:apDEGkuK0cINs15oxU1TfZ
 psg:kynHRTDV4y5ppD9SMEmSje
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Qays b. Makhrama: born in the Year of the Elephant, the same year as the Prophet"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 159; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms087–ms088, lines 2614–2616, characters 146181–146340" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 159; OpenITI ms087–ms088, lines 2614–2616" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -2969,7 +2969,7 @@ ast:lzEkWbQT6s49aXFnC7vvaE
 psg:aQSb3QHXfuMFD3W9MDL0XY
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Hassan b. Thabit's age on the night the Prophet was born"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 159; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms088, lines 2618–2623, characters 146404–146788" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 159; OpenITI ms088, lines 2618–2623" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3023,7 +3023,7 @@ ast:znpQTVYi3YcJjDyFlJFK9E
 psg:hNBG3W197HI0v90xUrem9D
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Ibn Ishaq's question to Hassan's grandson: Hassan's age and the Prophet's when he came to al-Madina"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 159; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms088, lines 2624–2627, characters 146792–147050" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 159; OpenITI ms088, lines 2624–2627" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3117,7 +3117,7 @@ ast:2JPBJyeju4R1bRbkagVpCV
 psg:y9fS2tyr6dHc7gFjIc6Zki
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The death of the Prophet's mother Amina when he was six"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 168; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms093, lines 2751–2754, characters 154682–154918" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 168; OpenITI ms093, lines 2751–2754" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3207,7 +3207,7 @@ ast:Jl1soGbs7iCYLD6Xfyykl5
 psg:a2JPYV8Zqz4ZB7GVcbve3B
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Amina's death at al-Abwa' when the Prophet was six"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 168; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms093, lines 2755–2758, characters 154921–155196" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 168; OpenITI ms093, lines 2755–2758" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3295,7 +3295,7 @@ ast:gOiPSUElxm9iUPNAdqlcZh
 psg:c2R4G6AM2ahqwRmRMs5G2K
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The death of 'Abd al-Muttalib when the Prophet was eight"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 169; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms094, lines 2772–2773, characters 156019–156120" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 169; OpenITI ms094, lines 2772–2773" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3366,7 +3366,7 @@ ast:XG6NpvfYegMulsfjSKHlIv
 psg:JAOApoZ0lkHMXTftgIDN1a
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "A second report: 'Abd al-Muttalib died when the Prophet was eight"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 169; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms094, lines 2774–2776, characters 156124–156263" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 169; OpenITI ms094, lines 2774–2776" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3419,7 +3419,7 @@ ast:WkqXNAYVGbRg9Ax4LWDows
 psg:jhDBG3GKpiqg0mulShKTM3
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The War of al-Fijar broke out when the Prophet was twenty"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 186; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms102–ms103, lines 3040–3042, characters 171215–171385" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 186; OpenITI ms102–ms103, lines 3040–3042" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3471,7 +3471,7 @@ ast:AlESMlHv0plK831fw3g9p1
 psg:h1URLvqOG14x8R522WQvc7
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Ibn Hisham: the Prophet married Khadija at twenty-five"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 187; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms103, lines 3052–3055, characters 171820–172038" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 187; OpenITI ms103, lines 3052–3055" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3543,7 +3543,7 @@ ast:I63y3Wo0LQUklDYvlrObpm
 psg:MO689GB75LlSJt0T05AIZr
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Quraysh rebuilt the Ka'ba when the Prophet was thirty-five"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 192; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms106, lines 3132–3133, characters 176471–176612" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 192; OpenITI ms106, lines 3132–3133" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3595,7 +3595,7 @@ ast:31Vp1ficIfxyu8qFVCh43C
 psg:7DDA0HS3JW2bmVPCkPNvw9
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The Prophet was sent at forty"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 233; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms132, lines 3846–3847, characters 219742–219862" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 233; OpenITI ms132, lines 3846–3847" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3647,7 +3647,7 @@ ast:JzWDStXsQN7dovDxLUZk3k
 psg:Q9NcvBCL1GiHfi59cjdFLc
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The revelation began in Ramadan"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 239; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms136, lines 3963–3964, characters 226967–227042" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 239; OpenITI ms136, lines 3963–3964" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3697,7 +3697,7 @@ ast:hL7rkUbCxWpVMXnj2mB4Cu
 psg:jD2TPr7HXx3hG9c0iCjHjI
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The day of Badr: Friday morning, 17 Ramadan"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 240; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms137, lines 3974–3976, characters 227642–227790" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 240; OpenITI ms137, lines 3974–3976" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3764,7 +3764,7 @@ ast:rzNVDGdNnO5m3jDhnFcbOC
 psg:qwFYBaxMGv9CDsPvyDddMJ
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Khadija, the first to believe"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 240; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms137, lines 3984–3988, characters 228248–228574" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 240; OpenITI ms137, lines 3984–3988" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3814,7 +3814,7 @@ ast:DAX3PxWP16nBXwg6mfEnxH
 psg:auqs1d1KTb74PITfguRdSK
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'Ali, the first male to believe, then ten years old"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 245; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms140, lines 4066–4068, characters 233214–233417" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 245; OpenITI ms140, lines 4066–4068" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3885,7 +3885,7 @@ ast:SkLH6CQ0mvhfdYLIFEwU1t
 psg:jdTmaWJGI0a5NQIFkeLoLP
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Zayd b. Haritha, the second male to accept Islam"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 247; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms142, lines 4103–4105, characters 235638–235810" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 247; OpenITI ms142, lines 4103–4105" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -3954,7 +3954,7 @@ ast:cT04spvQteFUKFqWLtniet
 psg:7oNafJaZQXY23kh26O2QpF
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Ibn Hisham: how Zayd came to the Prophet, who freed and adopted him"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 247–248; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms142, lines 4107–4115, characters 235871–236446" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 247–248; OpenITI ms142, lines 4107–4115" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -4023,7 +4023,7 @@ ast:lhRHdJTrlYYxKBrfimomUh
 psg:7JpvQRQvTlsQbmjpLaYPui
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Abu Bakr accepts Islam"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 249; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms143, lines 4133–4135, characters 237435–237590" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 249; OpenITI ms143, lines 4133–4135" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -4092,7 +4092,7 @@ ast:arnnPMSBdmcplUDRDYO1wZ
 psg:L9rGfHSes1LMR5yep57p1Q
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Five who accepted Islam at Abu Bakr's invitation"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 250–252; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms143–ms144, lines 4148–4160, characters 238234–239039" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 250–252; OpenITI ms143–ms144, lines 4148–4160" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -4262,7 +4262,7 @@ ast:8nAeAR7uIJkEGFEgiLo8Cn
 psg:Di9C8xTauvbc3pkjTnWqVc
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts after the first eight (I)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 252–254; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms144–ms145, lines 4163–4180, characters 239168–240342" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 252–254; OpenITI ms144–ms145, lines 4163–4180" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -4618,7 +4618,7 @@ ast:pzFhFXtlQTYtbzeKPxWcvT
 psg:xOt3NY8qbX9Yvvk0paOhJg
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (II): 'Umayr b. Abi Waqqas, Ibn Mas'ud, Mas'ud b. al-Qari"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 254–255; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms145, lines 4183–4188, characters 240453–240769" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 254–255; OpenITI ms145, lines 4183–4188" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -4725,7 +4725,7 @@ ast:1Y4VOfS8BWvsQGJkRQKibI
 psg:t7fPKnTwAGLRGH4XmHYkKF
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (III): Salit, 'Ayyash and his wife, Khunays, 'Amir b. Rabi'a"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 256–257; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms145, lines 4194–4200, characters 240961–241382" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 256–257; OpenITI ms145, lines 4194–4200" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -4871,7 +4871,7 @@ ast:9W7OOclSYmuWQOWsAAe0OQ
 psg:XwYzPYb6woygXaVWGxgjS3
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (IV): the sons of Jahsh, Ja'far, the sons of al-Harith, al-Muttalib b. Azhar, al-Nahham"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 257–258; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms145–ms146, lines 4203–4217, characters 241538–242438" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 257–258; OpenITI ms145–ms146, lines 4203–4217" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5263,7 +5263,7 @@ ast:RCDAocnXqMfq8LfKStTfWr
 psg:HMzkES7V6RDtOwvELXjAPZ
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (V): 'Amir b. Fuhayra"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 259; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms146, line 4225, characters 242743–242807" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 259; OpenITI ms146, line 4225" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5332,7 +5332,7 @@ ast:FC7r1670Z2KnPXtb2PXKNE
 psg:cQYSYV7LwTJE4smOfDm2b6
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (VI): Khalid b. Sa'id and his wife"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 259; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms146, lines 4229–4232, characters 242946–243155" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 259; OpenITI ms146, lines 4229–4232" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5420,7 +5420,7 @@ ast:wnTUQCYPf755NfVevqpXr0
 psg:Dt9YXZzOZrqxxBgNnt75Rr
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (VII): Hatib b. 'Amr, Abu Hudhayfa, Waqid"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 259–260; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms147, lines 4235–4241, characters 243257–243626" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 259–260; OpenITI ms147, lines 4235–4241" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5508,7 +5508,7 @@ ast:sFCK9zYDg0ecsbBTJg8cId
 psg:yPwGmCnTjmCgMv6DbjT1Ev
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (VIII): the four sons of al-Bukayr, 'Ammar b. Yasir"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 260–261; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms147, lines 4246–4250, characters 243837–244040" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 260–261; OpenITI ms147, lines 4246–4250" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5634,7 +5634,7 @@ ast:KTBzkBGUEX2WQN2URPBYXc
 psg:RBK2WdlYXPEhg1dphvn1fQ
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The early converts (IX): Suhayb b. Sinan"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 261; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms147, lines 4253–4254, characters 244115–244187" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 261; OpenITI ms147, lines 4253–4254" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5685,7 +5685,7 @@ ast:DVZ2zHXWbI181PsHlzYUqL
 psg:U3siTAEmNn2b94oA77PhXm
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Khadija and Abu Talib died in one year, three years before the emigration"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 416; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms253, lines 7098–7101, characters 417309–417594" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 416; OpenITI ms253, lines 7098–7101" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5773,7 +5773,7 @@ ast:BGfe1rjjoxNfGhRDhohMKl
 psg:FCAXi51ngyoUeMyk2ERP6u
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Abu Salama, the first of the emigrants to al-Madina"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 468; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms290, lines 8064–8069, characters 475907–476272" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 468; OpenITI ms290, lines 8064–8069" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5842,7 +5842,7 @@ ast:8NhBMVN9lELA9OxKUvgFpw
 psg:fBTp4XA5Dw61wg3v0OTL3I
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Umm Salama's emigration: separated from her husband and son, then escorted to Quba'"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 469–470; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms290–ms291, lines 8070–8101, characters 476287–478447" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 469–470; OpenITI ms290–ms291, lines 8070–8101" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -5978,7 +5978,7 @@ ast:KJEyBjSXqY1W8AH52EYrkz
 psg:r8RWChyYUFCeNh4j5VCorZ
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The next emigrants: 'Amir b. Rabi'a and his wife, the house of Jahsh, where they lodged"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 470–472; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms291–ms292, lines 8103–8128, characters 478493–480186" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 470–472; OpenITI ms291–ms292, lines 8103–8128" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -6314,7 +6314,7 @@ ast:KEWrv3YwXK319zLkdAxhH6
 psg:Cl4VRd3262QZ8SwYz8q6yY
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The women of Banu Ghanm b. Dudan who emigrated"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 472; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms292–ms293, lines 8136–8138, characters 480524–480680" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 472; OpenITI ms292–ms293, lines 8136–8138" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -6497,7 +6497,7 @@ ast:aknQtarsnXyfQTy0KRJEDX
 psg:6PyL11TVEvMmiaFJF9YBMh
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'Umar and 'Ayyash emigrate; Abu Jahl and al-Harith b. Hisham bring 'Ayyash back"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 474–475; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms294, lines 8169–8193, characters 482346–483847" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 474–475; OpenITI ms294, lines 8169–8193" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -6691,7 +6691,7 @@ ast:e6aoyI1paZeuAMgj1uwXDf
 psg:CngqyIqOFWEJzTeuEM8xbC
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Those who came with 'Umar: his brother, the sons of Suraqa, Khunays, Sa'id b. Zayd and their allies"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 476–477; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms296, lines 8227–8233, characters 485846–486225" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 476–477; OpenITI ms296, lines 8227–8233" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -6818,7 +6818,7 @@ ast:EdURsqaXCzJ9oaeKTnAqup
 psg:jNQa7l8Zocl9NsesbmNVuL
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The sons of al-Bukayr and 'Ayyash lodge with Rifa'a b. 'Abd al-Mundhir"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 477; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms296, lines 8236–8239, characters 486306–486560" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 477; OpenITI ms296, lines 8236–8239" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -6944,7 +6944,7 @@ ast:VscBq4xu2zja86V75mFPm7
 psg:MvL22rc0cSAMNKvJT8YJbG
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Talha and Suhayb lodge with Khubayb b. Isaf"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 477; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms296, lines 8241–8243, characters 486590–486777" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 477; OpenITI ms296, lines 8241–8243" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7071,7 +7071,7 @@ ast:TKbucjVzAkWAnko82Nv8vP
 psg:3nrUQzkoafPzfvfMMdFTep
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Hamza, Zayd and others lodge with Kulthum b. Hidm"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 478; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297, lines 8251–8257, characters 487232–487618" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 478; OpenITI ms297, lines 8251–8257" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7332,7 +7332,7 @@ ast:UtrhaR3D6A7aHoPgHPZ4O2
 psg:fLXj7IW60uLZrFUAdqHlHk
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'Ubayda b. al-Harith and others lodge with 'Abdullah b. Salama"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 478; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297, lines 8259–8262, characters 487664–487927" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 478; OpenITI ms297, lines 8259–8262" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7534,7 +7534,7 @@ ast:d8dvWseiX4dq1EZ4zPJVM1
 psg:mB3sfSoH9HE4VzR3rD4SVe
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'Abd al-Rahman b. 'Awf lodges with Sa'd b. al-Rabi'"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 479; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297, lines 8264–8265, characters 487976–488086" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 479; OpenITI ms297, lines 8264–8265" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7584,7 +7584,7 @@ ast:Du3KYsSNLOaqaNGff4XyBX
 psg:HDGfhZmTiSznABCSzHI2Yn
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Al-Zubayr and Abu Sabra lodge with al-Mundhir b. Muhammad"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 479; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297, lines 8267–8268, characters 488122–488250" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 479; OpenITI ms297, lines 8267–8268" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7653,7 +7653,7 @@ ast:PlynizHfBlqQOmaGAcweFg
 psg:CqCrpeyVPtWto8HQEKoGAt
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Mus'ab b. 'Umayr lodges with Sa'd b. Mu'adh"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 479; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297, lines 8270–8271, characters 488274–488391" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 479; OpenITI ms297, lines 8270–8271" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7703,7 +7703,7 @@ ast:W13Waa446QMssXjKhmnmyU
 psg:p3YOJRU5VQlyD8zeU686Lu
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Abu Hudhayfa and Salim, mawla of Abu Hudhayfa"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 479; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297, line 8273, characters 488426–488479" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 479; OpenITI ms297, line 8273" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7753,7 +7753,7 @@ ast:M2LwKsDY8AKSRpYsESkGGj
 psg:fOBird5WkS4HmwegcFFDMM
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Ibn Hisham on how Salim came to be called the mawla of Abu Hudhayfa"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 479; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297, lines 8273–8278, characters 488481–488792" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 479; OpenITI ms297, lines 8273–8278" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7842,7 +7842,7 @@ ast:W4eHnZjujaDIrJap84rlmc
 psg:fiUA0Gjr4Ftwlo7xA68Ewu
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'Utba b. Ghazwan lodges with 'Abbad b. Bishr"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 479; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms297–ms298, lines 8278–8279, characters 488794–488905" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 479; OpenITI ms297–ms298, lines 8278–8279" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7892,7 +7892,7 @@ ast:lguyPY08LPZTOidMgybYpO
 psg:RYwJlnaZmacoBjgFo2ytXe
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'Uthman lodges with Aws b. Thabit, Hassan's brother"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 479; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms298, lines 8281–8282, characters 488930–489054" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 479; OpenITI ms298, lines 8281–8282" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -7980,7 +7980,7 @@ ast:j7jNZMmW86uMMvCvc7N6Eh
 psg:Zc8lOK62kFIS0Vpcxj8YMf
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Quraysh meet in Dar al-Nadwa about the Prophet"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 480; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms298, lines 8294–8299, characters 489709–490139" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 480; OpenITI ms298, lines 8294–8299" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8030,7 +8030,7 @@ ast:095pbXSOXAZjrpnsTogZJ8
 psg:NJ6xVAQtvvcNfpvK7C0iVR
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The council at Dar al-Nadwa, and 'Ali in the Prophet's bed"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 480–483; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms298–ms300, lines 8300–8349, characters 490142–493333" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 480–483; OpenITI ms298–ms300, lines 8300–8349" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8366,7 +8366,7 @@ ast:0yh6WpIsa9cGQKNF1TXeAb
 psg:wxRieHF9R7Lv9eAKhWP2OD
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The night of the departure: Abu Jahl at the door"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 483; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms300–ms301, lines 8350–8368, characters 493336–494630" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 483; OpenITI ms300–ms301, lines 8350–8368" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8439,7 +8439,7 @@ ast:NcgK8pBxchyo9aW52y5nqI
 psg:b4YvwD3z8VIP7AhDszvszs
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'A'isha: the Prophet comes to Abu Bakr's house; the guide is hired"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 484–485; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms302, lines 8388–8406, characters 495689–496849" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 484–485; OpenITI ms302, lines 8388–8406" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8528,7 +8528,7 @@ ast:1XMHPnCbyMTSAcyCsu0nVM
 psg:tApsunWh0OMMZPvwEzvE7s
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The cave in Thawr: who served the two of them there"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 485; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms303, lines 8415–8421, characters 497414–497879" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 485; OpenITI ms303, lines 8415–8421" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8673,7 +8673,7 @@ ast:WmOFXHPNeFIR86jZx0Erjh
 psg:Mxh3YnJXzusqfexsED9lab
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The departure from the cave: 'Amir b. Fuhayra rides behind Abu Bakr"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 486–487; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms304, lines 8444–8452, characters 499336–499795" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 486–487; OpenITI ms304, lines 8444–8452" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8723,7 +8723,7 @@ ast:KGrXgCbzgqO72o9MkspQU5
 psg:jRqHuQQdVZZtWkFzay2Ql7
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Asma': the travellers were four"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 488; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms305, lines 8471–8474, characters 500810–501082" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 488; OpenITI ms305, lines 8471–8474" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8793,7 +8793,7 @@ ast:7XgIZavwzmrxxzjgdpJqPY
 psg:sEz9Xgg7DyMh7ICBwModPW
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Asma' and her blind grandfather Abu Quhafa after Abu Bakr left"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 488; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms305–ms306, lines 8477–8486, characters 501172–501858" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 488; OpenITI ms305–ms306, lines 8477–8486" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8872,7 +8872,7 @@ ast:CswxwLKckuwBQD79ag5DOG
 psg:ynzT0LSoNyDAAOINx4x6LP
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Suraqa b. Malik pursues the Prophet"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 489–490; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms306–ms307, lines 8488–8525, characters 501930–504462" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 489–490; OpenITI ms306–ms307, lines 8488–8525" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -8923,7 +8923,7 @@ ast:KysbL9AewBQFBU2lc3HdhH
 psg:sMeHTfFjiswE0yLPFsfBIy
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The route of the Hijra (I): from lower Makkah along the coast"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 491; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms307–ms308, lines 8530–8534, characters 504618–504930" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 491; OpenITI ms307–ms308, lines 8530–8534" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -9087,7 +9087,7 @@ ast:crNSaUciwGjdpBgQVs1qc9
 psg:br99lKLp08XFSo9Hjwb5mx
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The route of the Hijra (II): from Madlajat Liqf to al-'Ababid"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 491; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms308, lines 8537–8541, characters 505038–505348" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 491; OpenITI ms308, lines 8537–8541" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -9290,7 +9290,7 @@ ast:hja7kYi6lMyVUAMKBCrf4U
 psg:tuHZEFGlJJ2i6SVgb16IUt
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The route of the Hijra (III): al-Faja"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 491; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms308, line 8543, characters 505418–505487" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 491; OpenITI ms308, line 8543" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -9340,7 +9340,7 @@ ast:0LrISMM57GMIrO4x2F4rUQ
 psg:0zONofF2JN3JZUSuzzP0X9
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "From al-'Arj to Quba': the last stages of the Hijra and the day of arrival"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 491–492; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms308, lines 8544–8551, characters 505490–505989" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 491–492; OpenITI ms308, lines 8544–8551" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -9543,7 +9543,7 @@ ast:ENAhXcxHYz7YZpe52WXnQn
 psg:CceRzAGnrzopIaBgAfY8Nv
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The arrival among Banu 'Amr b. 'Awf: Abu Bakr of about the Prophet's age"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 492; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms308–ms309, lines 8553–8567, characters 506033–507064" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 492; OpenITI ms308–ms309, lines 8553–8567" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -9595,7 +9595,7 @@ ast:JHiLe9kqlwnNCsLoDzXvmU
 psg:tokQSWBnRB1iJQKcyJhJfh
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Where the Prophet, Abu Bakr and 'Ali lodged at Quba'"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 493; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms309–ms310, lines 8570–8585, characters 507126–508097" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 493; OpenITI ms309–ms310, lines 8570–8585" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -9724,7 +9724,7 @@ ast:oqnDzSrfCVL2bxLKrALLyG
 psg:GocDXXiKtVSkxnj1QGh1fS
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "From Quba' into al-Madina: the clans ask him to stay; the camel kneels; Abu Ayyub"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 494–496; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms310–ms311, lines 8600–8638, characters 508844–511347" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 494–496; OpenITI ms310–ms311, lines 8600–8638" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10021,7 +10021,7 @@ ast:UB4vcbKx9PH5M0HIFNq3Gx
 psg:vpwY1zeesJF5aEYETsIQjC
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The date of the Hijra: the Prophet came to al-Madina on Monday, 12 Rabi' al-Awwal"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 590; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms386, lines 10709–10712, characters 636421–636696" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 590; OpenITI ms386, lines 10709–10712" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10095,7 +10095,7 @@ ast:NloIduaPcD4enV5m85MEoU
 psg:CdADUWvrR4KSRySKf4eccK
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The Prophet was fifty-three on that day, thirteen years after his mission"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 590; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms386, lines 10713–10714, characters 636699–636816" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 590; OpenITI ms386, lines 10713–10714" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10166,7 +10166,7 @@ ast:Tc9GwFc4x3PGwiebfAURwd
 psg:B8zjqxlhER2PNoOUwpmKFu
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Hashim and Banu al-Muttalib (I)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 677–678; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms451, lines 12498–12506, characters 744139–744684" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 677–678; OpenITI ms451, lines 12498–12506" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10293,7 +10293,7 @@ ast:7PSSU7juZFmAWyl8KHF3jA
 psg:5KBTBL0r3JYxS2MZrePwrN
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Hashim and Banu al-Muttalib (II)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 678; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms451, lines 12510–12511, characters 744885–744988" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 678; OpenITI ms451, lines 12510–12511" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10363,7 +10363,7 @@ ast:hhQ8rtVRw07rZTN2iOwVZj
 psg:9t9hI9QdRvnuUD9t9LkkwB
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Hashim and Banu al-Muttalib (III)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 678; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms451–ms452, lines 12513–12514, characters 745037–745184" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 678; OpenITI ms451–ms452, lines 12513–12514" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10414,7 +10414,7 @@ ast:Iod2KlQJUdVp2eburabYWh
 psg:N3AOyQqdRbhyLQajUehgXo
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Hashim and Banu al-Muttalib (IV), twelve men"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 678; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms452, lines 12516–12518, characters 745217–745418" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 678; OpenITI ms452, lines 12516–12518" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10560,7 +10560,7 @@ ast:hyc1Hau24j5WYy6IcS5N58
 psg:mcNftLMZUneWrFkyMf7799
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu 'Abd Shams; 'Uthman counted though absent"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 678–679; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms452, lines 12520–12524, characters 745447–745741" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 678–679; OpenITI ms452, lines 12520–12524" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10687,7 +10687,7 @@ ast:pcns8J5XhLmygHh7jjb6av
 psg:CtOGsB3flwXcr64XdRlh4t
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Subayh, who fell ill and gave his camel to Abu Salama"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 679; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms452, lines 12531–12534, characters 746056–746319" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 679; OpenITI ms452, lines 12531–12534" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10738,7 +10738,7 @@ ast:y6v97ma8a9shsYOxiIHJEA
 psg:8xLfaiy4eIjnkZFm1QDAok
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: the allies of Banu 'Abd Shams from Banu Asad b. Khuzayma"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 679–680; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms452–ms453, lines 12536–12545, characters 746354–746991" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 679–680; OpenITI ms452–ms453, lines 12536–12545" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -10978,7 +10978,7 @@ ast:MphZXbW5CEWOxUG6C2KK6E
 psg:9egbEjSZvvLaHYOtVFZC5H
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: the allies of Banu Kabir"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 680; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms453, lines 12547–12548, characters 747023–747117" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 680; OpenITI ms453, lines 12547–12548" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11104,7 +11104,7 @@ ast:m60RqkBtBxLWmfYWyd10MB
 psg:BvLkBO8RNcr8NFqGRwv5Mt
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Abu Makhshi, their ally; sixteen men"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 680; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms453, lines 12550–12551, characters 747151–747231" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 680; OpenITI ms453, lines 12550–12551" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11155,7 +11155,7 @@ ast:EkfudfuCTmZIV2YXtWC05s
 psg:SQ5ea4x7j33HTs6ls5wzp6
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Nawfal"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 680; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms453, lines 12554–12556, characters 747309–747494" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 680; OpenITI ms453, lines 12554–12556" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11225,7 +11225,7 @@ ast:pchki9CYaxSj5wruY6MXNS
 psg:Hpa8gCOXXTjkT47x93MdPO
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Asad b. 'Abd al-'Uzza"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 680; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms453, lines 12558–12559, characters 747519–747634" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 680; OpenITI ms453, lines 12558–12559" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11332,7 +11332,7 @@ ast:Bs62PGvxMnzKdimvVrwzCR
 psg:f4J4YcMzN2fvMBqI0NYsF2
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu 'Abd al-Dar"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 680; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms453, lines 12563–12565, characters 747752–747931" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 680; OpenITI ms453, lines 12563–12565" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11402,7 +11402,7 @@ ast:tYSpvCztyNJ30UBonjYgEx
 psg:iaFylCiJPw70VpTCcw3Qo5
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Zuhra"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 680–681; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms453–ms454, lines 12567–12569, characters 747957–748143" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 680–681; OpenITI ms453–ms454, lines 12567–12569" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11490,7 +11490,7 @@ ast:6oGl92THeLl0CWhDRPWfW7
 psg:xJYxWTuntjV27TT5zAqJFK
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: the allies of Banu Zuhra (I)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 681; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms454, lines 12570–12572, characters 748146–748356" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 681; OpenITI ms454, lines 12570–12572" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11540,7 +11540,7 @@ ast:Doc9X9aZyJh2TxaZY1iPfZ
 psg:Fi77QXmxREVc0Bx8Hy5vDr
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: the allies of Banu Zuhra (II)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 681; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms454, lines 12574–12577, characters 748414–748646" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 681; OpenITI ms454, lines 12574–12577" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11610,7 +11610,7 @@ ast:gkO5Zl7Ax8nrNeRjQ0wXsF
 psg:WPhFLUhyQlERtJazfTW1RY
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: the allies of Banu Zuhra (III)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 681; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms454, lines 12581–12582, characters 748731–748851" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 681; OpenITI ms454, lines 12581–12582" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11661,7 +11661,7 @@ ast:Y3yoow3nnbKhMxk1xBjVkJ
 psg:7Un5N0kGWQVyOkOnbLjfsE
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: the allies of Banu Zuhra (IV), eight men"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 681; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms454, line 12584, characters 748924–748966" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 681; OpenITI ms454, line 12584" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11712,7 +11712,7 @@ ast:A5cfDgNSKPjpaUe5D8Ubvt
 psg:I8oVImjqCLRaMiSPyJWptN
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Taym (I), Abu Bakr"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 682; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms454, lines 12588–12589, characters 749094–749206" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 682; OpenITI ms454, lines 12588–12589" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11764,7 +11764,7 @@ ast:9cN1dgo1TqgyZkuMuU40NY
 psg:AzsYeL2HoZS2EwzjeYng09
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Taym (II), Bilal and 'Amir b. Fuhayra"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 682; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms454, lines 12591–12593, characters 749277–749422" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 682; OpenITI ms454, lines 12591–12593" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11853,7 +11853,7 @@ ast:rpnrJfFDXagfzzyobfan3R
 psg:nkZfun6CInU91KLDX8p90W
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Taym (III), Suhayb"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 682; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms454, line 12596, characters 749506–749553" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 682; OpenITI ms454, line 12596" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11904,7 +11904,7 @@ ast:DxYmgW9txx6fX1n5Lv58V6
 psg:7h36p0T2b0X2D5vAhRDBL1
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Banu Taym (IV): Talha, counted though absent; five men"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 682; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms455, lines 12603–12605, characters 749946–750157" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 682; OpenITI ms455, lines 12603–12605" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -11956,7 +11956,7 @@ ast:9PHmEnEAlFdx25FYuHVvgn
 psg:OSoCuXDff6NgMRCdfkKw9R
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Makhzum (I)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 682–683; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms455, lines 12607–12610, characters 750184–750400" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 682–683; OpenITI ms455, lines 12607–12610" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12026,7 +12026,7 @@ ast:0XHG9ecZCkwa9vt3gyjJoB
 psg:2NIhlvqr2WylsRMopiRfSQ
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Makhzum (II)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 683; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms455, lines 12616–12618, characters 750702–750846" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 683; OpenITI ms455, lines 12616–12618" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12096,7 +12096,7 @@ ast:xxQQc7oAwckjwSgKgA2Kye
 psg:GCBuNgw9LYeEH1kBqZod3Z
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Makhzum (III), five men"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 683; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms455, lines 12620–12622, characters 750894–751044" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 683; OpenITI ms455, lines 12620–12622" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12147,7 +12147,7 @@ ast:LbjolbuwxxK96BsHm2SuLy
 psg:5N8Ku7U4vKdf0KtFxQdjAp
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu 'Adi (I); Mihja', the first Muslim killed"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 683; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms455–ms456, lines 12624–12627, characters 751078–751306" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 683; OpenITI ms455–ms456, lines 12624–12627" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12235,7 +12235,7 @@ ast:FNREoHNBlASCt2uSuzV36J
 psg:KWprFpnoezDKABD4JNvpLi
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu 'Adi (II)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 683–684; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms456, lines 12629–12634, characters 751347–751655" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 683–684; OpenITI ms456, lines 12629–12634" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12362,7 +12362,7 @@ ast:e2L7CDNOCt8NWdsR8dkP3w
 psg:Zpel84TZ7JZPxtdWYvCxBb
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu 'Adi (III)"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 684; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms456, line 12637, characters 751735–751797" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 684; OpenITI ms456, line 12637" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12413,7 +12413,7 @@ ast:9vjxMEIsaWORY8HfoNwD2R
 psg:ymODctCNwwZwn7iR8YD4f8
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Banu 'Adi (IV): the sons of al-Bukayr; Sa'id b. Zayd counted though absent; fourteen men"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 684; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms456, lines 12640–12645, characters 751921–752341" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 684; OpenITI ms456, lines 12640–12645" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12541,7 +12541,7 @@ ast:QeMREivYPrZ9ef4fbVV7pB
 psg:vVlPJarPuh3fcux29zNadg
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Jumah"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 684; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms456–ms457, lines 12647–12650, characters 752375–752603" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 684; OpenITI ms456–ms457, lines 12647–12650" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12686,7 +12686,7 @@ ast:OSsjmteTU768eYAsaSrYsk
 psg:i95AaRyVK6GwYuZZmpNDPE
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu Sahm"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 684; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms457, lines 12651–12652, characters 752606–752694" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 684; OpenITI ms457, lines 12651–12652" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12736,7 +12736,7 @@ ast:0qy6gDEMkVfE7IdxpKBotk
 psg:Y1Y5GNYb3PBWcsjbhzohgH
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu 'Amir b. Lu'ayy"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 685; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms457, lines 12654–12660, characters 752732–753195" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 685; OpenITI ms457, lines 12654–12660" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -12901,7 +12901,7 @@ ast:LJ4fOIE8g4znEDRKdAZOR0
 psg:Cvq1m9kGFdxvXdNIYQY9zH
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Present at Badr: Banu al-Harith b. Fihr"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, p. 685; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms457, lines 12663–12668, characters 753262–753640" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, p. 685; OpenITI ms457, lines 12663–12668" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13047,7 +13047,7 @@ ast:Dc8ykMXeVAdYgyUPhVrZMV
 psg:9DP7nNq3YN9ztnGv7feoWK
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The Muslims martyred on the day of Badr"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 1, pp. 706–708; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms473–ms474, lines 13112–13141, characters 777065–778383" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 706–708; OpenITI ms473–ms474, lines 13112–13141" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13439,7 +13439,7 @@ ast:jhUBYiFKgApZSWUsjmXMhI
 psg:bBwAH6wBNlQ2sjWpQczrz1
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "An eyewitness of Mu'ta on Ja'far's last fight"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 2, p. 378; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms722, lines 20401–20404, characters 1193808–1194035" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 2, p. 378; OpenITI ms722, lines 20401–20404" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13490,7 +13490,7 @@ ast:V66PK4IoiUjdiz1vBmiibu
 psg:Te1YF7YJ0MBCmfqGrn73IM
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Ibn Hisham: Ja'far was killed at thirty-three"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 2, p. 378; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms723, lines 20408–20411, characters 1194177–1194461" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 2, p. 378; OpenITI ms723, lines 20408–20411" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13542,7 +13542,7 @@ ast:3d02pMLndwdudYkdA70mjR
 psg:bbPy6t2dk8K7jNO8WLehqM
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "Ibn Hisham: the Prophet's nine wives"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 2, p. 643; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms906, lines 25574–25578, characters 1498458–1498761" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 2, p. 643; OpenITI ms906, lines 25574–25578" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13745,7 +13745,7 @@ ast:ZnIk0F1cR75zo22uSMu7M3
 psg:7DzSjsVjStGRb6dJg5JctL
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The Prophet's marriage to 'A'isha: her age at the marriage in Makkah and in al-Madina"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 2, p. 644; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms907, lines 25589–25592, characters 1499384–1499647" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 2, p. 644; OpenITI ms907, lines 25589–25592" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13838,7 +13838,7 @@ ast:us57YBiqgrY2vJZo8ALHdg
 psg:e3HCGAI4zQTmdFyrlf1XZ1
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The Prophet died on a Monday"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 2, pp. 652–653; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms915, lines 25799–25801, characters 1512178–1512308" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 2, pp. 652–653; OpenITI ms915, lines 25799–25801" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13912,7 +13912,7 @@ ast:H2y4pUJEuN1dcDOlKwrBJ7
 psg:SJk5yF9X5gy9OcWr31pt86
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "The hour of the Prophet's death: when the forenoon heat grew strong"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 2, p. 654; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms916–ms917, lines 25834–25843, characters 1514253–1514971" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 2, p. 654; OpenITI ms916–ms917, lines 25834–25843" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
@@ -13992,7 +13992,7 @@ ast:l2uHvW3Abf8lmEZR6QQQk2
 psg:u2IKBojMeH4GwmPBeEwU1s
     a mrs:Passage , oa:SpecificResource ;
     rdfs:label "'A'isha: the Prophet died in her lap, in her youth"@en ;
-    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī (2nd ed., Cairo 1375/1955; provisional edition), vol. 2, p. 655; OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1, milestone ms917, lines 25856–25860, characters 1515693–1515998" ;
+    mrs:canonicalCitation "Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 2, p. 655; OpenITI ms917, lines 25856–25860" ;
     mrs:inWitness wit:cK15aTQy0aIt4HggLXQnS9 ;
     dct:isPartOf wrk:1LoxHa4Pplj2ORVpBZBoSB ;
     oa:hasSource wit:cK15aTQy0aIt4HggLXQnS9 ;
