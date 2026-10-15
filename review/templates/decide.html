@@ -1,0 +1,26 @@
+<fieldset class="choices">
+<legend>[[decision.legend]]</legend>
+<div class="choice-row">
+<input type="radio" class="sr-only" name="d__N__" id="c__N__-accept" value="accept"><label class="choice choice-accept" for="c__N__-accept">[[decision.accept]] <kbd>[[key.accept]]</kbd></label>
+<input type="radio" class="sr-only" name="d__N__" id="c__N__-reject" value="reject"><label class="choice choice-reject" for="c__N__-reject">[[decision.reject]] <kbd>[[key.reject]]</kbd></label>
+<input type="radio" class="sr-only" name="d__N__" id="c__N__-needs_discussion" value="needs_discussion"><label class="choice choice-discuss" for="c__N__-needs_discussion">[[decision.needs_discussion]] <kbd>[[key.needs_discussion]]</kbd></label>
+</div>
+</fieldset>
+<fieldset class="checks">
+<legend>[[checks.legend]]</legend>
+$checks
+</fieldset>
+<div class="field">
+<label for="c__N__-cite">[[field.citation]]</label>
+<p class="hint" id="c__N__-cite-hint" data-hint></p>
+<input type="text" id="c__N__-cite" name="citation" maxlength="500" autocomplete="off" aria-describedby="c__N__-cite-hint c__N__-msg">
+</div>
+<div class="field">
+<label for="c__N__-note">[[field.note]]</label>
+<p class="hint" id="c__N__-note-hint">[[field.note.hint]]</p>
+<textarea id="c__N__-note" name="note" rows="2" maxlength="4000" aria-describedby="c__N__-note-hint c__N__-msg"></textarea>
+</div>
+<div class="card-foot">
+<p class="msg" id="c__N__-msg" aria-live="polite"></p>
+<button type="button" class="btn small clear" data-act="clear">[[card.clear]]</button>
+</div>

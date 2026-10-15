@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>$title</title>
+<style>$css</style>
+</head>
+<body class="rv-$page" data-page="$page" data-batch="$batch" data-file="$file" data-fingerprint="$fingerprint" data-fetch="sw.js">
+<a class="skip-link" href="#main">[[nav.skip]]</a>
+<header class="rv-header">
+<a class="home-link" href="index.html">[[app.name]]</a>
+<nav class="rv-nav" aria-label="[[nav.label]]">
+<ul>
+<li><a href="index.html"$index_current>[[nav.index]]</a></li>
+<li><a href="#send">[[nav.send]]</a></li>
+<li><a href="#keys">[[nav.keys]]</a></li>
+</ul>
+</nav>
+<p class="who"><span id="who-text"></span> <a id="who-change" href="#reviewer" hidden>[[reviewer.change]]</a></p>
+</header>
+<main id="main" tabindex="-1">
+<noscript><p class="warn">[[nojs]]</p></noscript>
+<p id="storage-warning" class="warn" hidden></p>
+$body
+</main>
+<footer class="rv-footer">
+<p>[[footer.private]] $queue_line</p>
+<p class="licence"><a href="$url_licensing">[[footer.text_data]]</a> <a href="$url_cc_by_sa">[[footer.cc_by_sa]]</a>[[footer.sep]]<a href="$url_licensing">[[footer.code]]</a> <a href="$url_agpl">[[footer.agpl]]</a>[[footer.sep]]<a href="$url_licensing">[[footer.ids]]</a>[[footer.dash]]<a href="$url_licensing">[[footer.contributors]]</a></p>
+</footer>
+<script type="application/json" id="rv-strings">$strings</script>
+<script>$js</script>
+</body>
+</html>
