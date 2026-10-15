@@ -45,6 +45,7 @@ import json
 import os
 import re
 import sys
+import unicodedata
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -107,6 +108,8 @@ def text_field(d: dict, key: str) -> str | None:
     v = v.strip()
     if len(v) > c.FREE_TEXT_LIMITS[key]:
         raise Refused(f'"{key}" is longer than {c.FREE_TEXT_LIMITS[key]} characters')
+    if any(unicodedata.category(ch) == "Cc" and ch not in "\n\t" for ch in v):
+        raise Refused(f'"{key}" contains control characters')
     return v or None
 
 
@@ -335,7 +338,7 @@ def plan_edits(tree: c.Tree, changes: list) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# --check and --reapply
+# command line: import, --check, --reapply
 # ---------------------------------------------------------------------------
 
 def main(argv=None) -> int:
