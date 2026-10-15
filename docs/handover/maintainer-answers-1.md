@@ -42,7 +42,8 @@ Product decisions from the maintainer's answers to the founding questions (95 qu
 - Arabic interface later (slice 9); scholars can review Arabic. Next languages: Malayalam, Urdu.
 - New trust or foundation; name open to change; donors told about ṣadaqa jāriya gently; large donors case by case.
 - Small trusted team first; volunteers may propose claims into the review queue.
-- Licences and hosting: maintainer asked for advice (see chat; pending).
+- **Licences** (Claude's advice, accepted): code AGPL-3.0-or-later; data, ontology and docs CC BY-SA 4.0; identifier tables CC0 1.0. See LICENSING.md.
+- **Hosting** (Claude's advice, accepted): Cloudflare Pages, deployed by GitHub Actions after checks pass. The maintainer decides when the site goes public.
 
 ## Technical leftovers
 - O1 part-of link becomes a reviewable claim. O2 rename colliding/derived IDs now. O3 fix docs to base62. O6 "participated in" fine for now. O7 keep role label for the doc's author.

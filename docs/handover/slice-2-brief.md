@@ -51,11 +51,12 @@ Done when: `build_graph.py && site/build.py && site/check_budget.py` runs clean;
 ## 2c — thread view, CI, retiring the islands
 1. Port the "follow the thread" interaction from `generation-1/wider-network.template.html` as a progressive enhancement on entity pages (works only on top of the plain links; with JS off the page is complete).
 2. GitHub Actions workflow: set up Python, install rdflib + pyshacl, run `ontology/build_graph.py`, `site/build.py`, `site/check_budget.py`, and the 2b normaliser test. Any failure fails the job.
-3. An "Experiments" page linking the old demo, generation-1 and stories-50 pages, labelled as earlier prototypes. Do not delete them.
-4. `docs/handover/slice-2-summary.md` (≤30 lines, for the maintainer): what a visitor can now do, page counts, page weights, what is still unverified.
+3. **Deploy to Cloudflare Pages** (decided 15 October 2026). After the checks pass on a push to `main`, the workflow deploys `site/dist/` with Cloudflare's `wrangler pages deploy` (pin its version). It runs only when the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets exist; otherwise it prints that the deploy was skipped and still passes. Never deploy from a pull request. Going public is the maintainer's decision: they create the Cloudflare account, the Pages project and the secrets. Write those steps in the handover, plus how to keep the site private to scholars and the team first (Cloudflare Access in front of the Pages project).
+4. An "Experiments" page linking the old demo, generation-1 and stories-50 pages, labelled as earlier prototypes. Do not delete them.
+5. `docs/handover/slice-2-summary.md` (≤30 lines, for the maintainer): what a visitor can now do, page counts, page weights, what is still unverified.
 
 ## Out of scope for slice 2
-Arabic UI strings and RTL switch (slice 9 — but nothing in 2 may block it), PWA/offline, hosting and deploy, network/timeline/map views, review tooling.
+Arabic UI strings and RTL switch (slice 9 — but nothing in 2 may block it), PWA/offline, a custom domain (the name may change), network/timeline/map views, review tooling.
 
 ## Stop rule
 Keep tool output short. Stop and write the handover if context nears 200k.

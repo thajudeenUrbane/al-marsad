@@ -72,7 +72,7 @@ Rules:
 
 - **Running cost target: under $50/month** for the public site (static hosting + CDN). Expensive compute (AI extraction) runs offline, in batches, with a hard budget per run.
 - **Live AI for every visitor is deferred** until there is funding for it; when it comes, answers are cached and shared, because most questions repeat.
-- **Open by default:** open data licence, open source code, versioned public data releases. Donors are funding a public good; they should be able to see and download it. (Licence choice is open — §5.)
+- **Open by default:** open data licence, open source code, versioned public data releases. Donors are funding a public good; they should be able to see and download it. Licences decided 15 October 2026: code AGPL-3.0-or-later, data and docs CC BY-SA 4.0, identifier tables CC0 ([LICENSING.md](../LICENSING.md)).
 - **A transparency page:** who reviews, how claims are graded, what has been verified, what donations pay for.
 - **No dark patterns in fundraising.** A quiet, dignified donate link; never interrupt learning to ask for money.
 
@@ -118,13 +118,15 @@ Slices 1–3 are the foundation and should go in that order. After that, 4–9 c
 
 ## 5. Open questions for brainstorming
 
-1. **Licences.** Data: CC BY-SA 4.0 or CC BY 4.0? Code: MIT or AGPL-3.0? (AGPL keeps forks open; MIT invites wider reuse.)
+The maintainer's first answers to these, and to many more, are in [handover/maintainer-answers-1.md](handover/maintainer-answers-1.md).
+
+1. **Licences.** *Decided 15 October 2026:* code AGPL-3.0-or-later (forks that run as websites must stay open); data, ontology and docs CC BY-SA 4.0; identifier tables CC0 1.0, so Wikidata and other databases can link to our IDs. See [LICENSING.md](../LICENSING.md).
 2. **Name and home.** Is *al-Marṣad* the public name? Who is the legal non-profit entity that receives donations?
 3. **Review scope of the current scholars.** Which tradition(s), which periods, how many hours a week — this sizes slice 3 and the queue priority.
 4. **Multiple traditions.** Doc 06 supports evaluations from several traditions side by side. Is that in scope from the start, or does the first release follow one review board's grading with others added later?
 5. **Who writes the 50 stories' successors?** The stories are the friendliest door into the graph. Should every future story be authored *from* the graph (reports first, story second), so it is reviewable claim by claim?
 6. **Children.** "The whole world" includes children. Is a dedicated young-learner mode a near-term goal or a later one?
-7. **Hosting.** Static host choice (GitHub Pages, Cloudflare Pages, Netlify) — all free at this scale; Cloudflare has the widest global edge.
+7. **Hosting.** *Decided 15 October 2026:* Cloudflare Pages (free at this scale, no bandwidth fees, the widest global edge). Deployed from GitHub Actions only after the build and budget checks pass (slice 2c); the maintainer decides when the site goes public.
 
 ## 6. What stays non-negotiable
 
