@@ -1,0 +1,30 @@
+# Brief: the L1 Observatory (interactive graph view over the unified graph)
+
+Saved as given to the agent on 15 October 2026. The handover is docs/handover/observatory-l1.md.
+
+READ FIRST: README.md "Standing rules"; docs/04-visualization-architecture.md (§1 tiers, §2 morph field, §3 visual encoding contract — follow it exactly, §6 view-state); docs/05-ux-architecture.md (§1 four lenses, §2 five verbs, §9 accessibility, §10 orientation); docs/00-vision.md §3.5 (one event read from several vantages); docs/13-platform-direction.md; docs/handover/maintainer-answers-1.md and maintainer-answers-2.md (three doors Discover/Study/Research; story first for Discover, evidence first for Study/Research; H55: "a beautiful thread through the graph" is what people would share); docs/handover/slice-2a.md (site/display.py has the name/date display rules: import it).
+
+A single self-contained page `site/dist/observatory/index.html` (inline CSS, JS and data; no external requests; ≤2 MB; system fonts) built by `site/observatory/build_observatory.py` (standalone; do NOT edit site/build.py or other site files). It must also work when published on its own as one HTML file.
+
+Data reality today (be honest about it on the page): ~184 people, ~100 events, 22 places, 50 stories, 12 groups, ~550 claims, ALL `proposed` (none reviewed); only ~48 events have recorded dates, 57 people a generation (ṭabaqa), 9 places coordinates (geosparql WKT), and one transmission chain (the Ghār Thawr example). Never invent dates, coordinates, chains or names; nothing is interpolated across unknowns.
+
+1. MORPH FIELD (doc 04 §2): precompute stable positions offline in Python for several frames and let the visitor blend between them with a slider (animated vertex interpolation; instant when prefers-reduced-motion):
+   - Relationship (network-space): deterministic force layout of the whole graph (fixed seed; stable across builds).
+   - Time (time-space): dated items by recorded date ranges (ranges, not points) × lanes; people by their dated events or ṭabaqa band; undated items parked on a labelled "no date recorded" shelf, never placed on the axis.
+   - Geography (geo-space): the located places by projection; events/people at their recorded places; everything else on a labelled "no place recorded" shelf. Simple vendored public-domain basemap outline optional (record source and licence) or none.
+   - Stories (affinity-space): grouped by the 50 Stories parts and stories.
+   - Transmission (isnad-space): show only what the graph has (one example chain), clearly labelled as the start of a feature that grows with the Ibn Hishām reports.
+2. FIVE VERBS (doc 05 §2): Focus (tap/click any node: the view reorganises around it; one side panel — bottom sheet on phones — shows ALL facets at once: relationships by class, events, places, stories, generation, and an evidence summary by status and source; not tabs); Trace (pick two nodes: shortest paths, each hop listing its claim and status — this is the "thread"); Scrub (time slider: dims what has no overlap with the chosen period; undated items say so); Interrogate ("How do we know?" on any node or link: the evidence ladder — claim → assertion status → which source recorded it (e.g. "50 Stories, AI-generated, unreviewed") → basis text or passage → link to the reader page at /person/<id>/ etc.); Ask (a link to /ask/ if that page exists, otherwise hidden).
+3. LENSES as the three doors (R4): Discover (stories forward, fewer labels, plain words), Study (all relations and statuses), Research (raw IDs, sources, counts, and the current view-state as copyable JSON per doc 04 §6). A switch, not a wall.
+4. VANTAGE PRESETS (doc 00 §3.5), found by label lookup, never hard-coded IDs: e.g. "The Hijrah from Abū Bakr's side", "The people of Badr", "The first believers", "Family around the Prophet ﷺ". Skip any preset whose data is missing.
+5. ENCODING CONTRACT (doc 04 §3): hue = entity type only (colour-blind-safe palette); line style = relationship class; texture or dashing = AI-proposed / not yet reviewed (today everything — say so in the legend and in a calm banner); no node sized by centrality (size off by default); no decorative glow or idle motion; no information by colour alone (legend + labels + patterns). No figurative depiction of anyone: abstract marks only; the Prophet ﷺ is named with ﷺ and never ranked or emphasised by a computed metric.
+6. ACCESSIBILITY (doc 05 §9): a text alternative generated from the current view state (what is shown, what is hidden by filters, the focused item's facets as a list); keyboard reachable; touch: pan, pinch-zoom, tap. Orientation (doc 05 §10): persistent "you are here", undo/back for focus changes, home button, a scale note ("showing N of M").
+7. Rendering: Canvas 2D (or WebGL if you prefer) for performance on a mid-range phone; ~600 nodes / ~1,500 links must stay smooth.
+8. All UI strings in site/observatory/i18n/en.json (inlined at build); CSS logical properties only; a single deliberate dark "observatory" look is fine (set every colour explicitly, color-scheme: dark).
+9. Tests: site/observatory/tests (unittest: frames deterministic; no undated item on the time axis; no unlocated item on the map; every link carries its claim status and source; no hard-coded IDs) and a Playwright check (JS on): page renders, zero external requests, size ≤2 MB, focusing a node shows the panel, the text alternative is non-empty, works at 390×844.
+
+MILESTONES: (M1) relationship network + focus panel + interrogate + lens switch + legend/banner; (M2) time and geography frames + morph slider + scrub; (M3) trace + vantage presets + stories frame + view-state JSON.
+
+SCOPE: site/observatory/** (new) and docs/handover/observatory-l1.md (≤60 lines; this brief saved as docs/handover/observatory-l1-brief.md). Do not edit other files. Slice 1e (re-minted 16 hand-typed IDs incl. the Prophet ﷺ, Abū Bakr, Badr) is landing on main: never hard-code IDs.
+
+PROJECT RULES: AI never asserts; never upgrade a status; never invent data; no model names or IDs in any repo file.

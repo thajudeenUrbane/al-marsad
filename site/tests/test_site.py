@@ -190,6 +190,19 @@ class ChecksCatchProblems(unittest.TestCase):
             self.make(Path(d), self.GOOD, css="/*" + "x" * 300_100 + "*/")
             self.assertEqual(quiet(check_budget.main, [d]), 1)
 
+    def test_interactive_tier_gets_two_megabytes(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            for rel in ("observatory/index.html", "people/index.html"):
+                f = root / rel
+                f.parent.mkdir(parents=True)
+                f.write_text("<!doctype html><title>t</title>" + "x" * 400_000, encoding="utf-8")
+            _, problems = check_budget.check(root)
+            self.assertEqual([p.split(":")[0] for p in problems], ["people/index.html"])
+            (root / "observatory/index.html").write_text("x" * 2_000_100, encoding="utf-8")
+            _, problems = check_budget.check(root)
+            self.assertIn("observatory/index.html", " ".join(problems))
+
     def test_budget_fails_on_external_stylesheet_and_script(self):
         for head in ('<link rel="stylesheet" href="https://cdn.example/x.css">',
                      '<script src="//cdn.example/x.js"></script>',
