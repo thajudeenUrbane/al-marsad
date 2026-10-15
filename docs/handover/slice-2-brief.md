@@ -45,6 +45,7 @@ Done when: `build_graph.py && site/build.py && site/check_budget.py` runs clean;
 1. Build-time search index (`site/dist/search.json`, keep it small: id, type, display names, normalised keys).
 2. One normaliser used at build and in the browser: case-fold, strip diacritics and ʿ ʾ ' marks, unify `b.`/`bin`/`ibn`, optional `al-`/`el-`, Arabic normalisation (alif forms → ا, ة → ه, ى → ي, strip tashkīl and tatweel). Port the same rules to JS; a Python test feeds both implementations the same cases and compares output (run the JS with `node` if available, else document how it was checked).
 3. Must find Abū Bakr from: "Abu Bakr", "Abū Bakr", "abubakr", "ابو بكر", "أبو بكر".
+   Also make the popular display form consistent (a 2a leftover): apply sun-letter assimilation to every `al-`, including labels written without scholarly marks (today "Anas ibn al-Nadr" keeps `al-` while "Abū Bakr al-Ṣiddīq" becomes "as-Siddiq"). Keep `b.` as recorded unless the maintainer asks otherwise (`display.EXPAND_B_TO_IBN`). Display and search must share these rules.
 4. No-JS fallback: the search box submits to the A–Z index pages. Empty result follows doc 05 §3 empty-state rule: say what was searched and that the corpus is small and unverified — never a blank.
 5. Search JS + index count toward the budget for the page that loads them.
 
