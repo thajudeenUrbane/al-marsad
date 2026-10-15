@@ -10,7 +10,7 @@ al-Marṣad is a public good: anyone may use, study, share and build on it. Diff
 
 Generated pages, such as `demo/index.html`, combine code and data. Each part keeps its own licence.
 
-Third-party data: `site/interactive/data/basemap.json` is simplified from Natural Earth land outlines, which are in the public domain (naturalearthdata.com); the file records its source and checksum.
+Third-party data: rows of `ontology/corpus/external-ids.csv` and `external-coordinates.csv` whose source is al-Thurayya keep al-Thurayya's own licence, CC BY 4.0 (credit: the al-Thurayya Project, althurayya.github.io); the rest of those files is CC0. `site/interactive/data/basemap.json` is simplified from Natural Earth land outlines, which are in the public domain (naturalearthdata.com); the file records its source and checksum.
 
 ## What this means in practice
 

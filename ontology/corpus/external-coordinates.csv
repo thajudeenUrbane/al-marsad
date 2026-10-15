@@ -1,0 +1,70 @@
+canonical_id,system,external_id,latitude,longitude,coordinate_source,distance_km_to_corpus_point,link_confidence,status
+plc:5n7tL67gMpBQGUbADR5wBb,wikidata,Q139377,14.128396944444,38.717256944444,Wikidata Q139377 P625,,needs-review,proposed
+plc:5n7tL67gMpBQGUbADR5wBb,wikidata,Q20304573,13.203333333333,43.976666666667,Wikidata Q20304573 P625,,needs-review,proposed
+plc:5n7tL67gMpBQGUbADR5wBb,wikidata,Q5832,14.116666666667,38.733333333333,Wikidata Q5832 P625,,needs-review,proposed
+plc:5n7tL67gMpBQGUbADR5wBb,wikidata,Q5832,14.125005,38.721522,Wikidata Q5832 P625,,needs-review,proposed
+plc:5n7tL67gMpBQGUbADR5wBb,althurayya,BILADHABASHA_341E149N_R,14.94825,34.14753,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), BILADHABASHA_341E149N_R",,needs-review,proposed
+plc:6J8V7krgHSbMntUrQBbhEw,wikidata,Q182640,21.266666666667,40.416666666667,Wikidata Q182640 P625,,probable,proposed
+plc:6J8V7krgHSbMntUrQBbhEw,wikidata,Q20304868,14.509722222222,45.224166666667,Wikidata Q20304868 P625,,needs-review,proposed
+plc:6J8V7krgHSbMntUrQBbhEw,althurayya,TAIF_404E212N_S,21.21629,40.40566,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), TAIF_404E212N_S",,probable,proposed
+plc:8qF1DQ99XtNNCTaQW2eGA1,wikidata,Q4502362,21.4333,40.35,Wikidata Q4502362 P625,,needs-review,proposed
+plc:98UT27bZxe9XmZVkDRUXiy,wikidata,Q2551267,24.148333,47.305,Wikidata Q2551267 P625,,probable,proposed
+plc:98UT27bZxe9XmZVkDRUXiy,wikidata,Q31175053,24.596111111111,46.715833333333,Wikidata Q31175053 P625,,needs-review,proposed
+plc:98UT27bZxe9XmZVkDRUXiy,wikidata,Q8047851,31.5725,-7.9830555555556,Wikidata Q8047851 P625,,needs-review,proposed
+plc:98UT27bZxe9XmZVkDRUXiy,althurayya,YAMAMA_467E240N_R,24.08674,46.73506,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), YAMAMA_467E240N_R",,probable,proposed
+plc:9Egg3T1nRqQUQEIgMLEsGO,wikidata,Q1436040,24.510277777778,39.613888888889,Wikidata Q1436040 P625,1.0,exact,proposed
+plc:9Egg3T1nRqQUQEIgMLEsGO,wikidata,Q1436040,24.52097,39.62685,Wikidata Q1436040 P625,2.4,exact,proposed
+plc:9Egg3T1nRqQUQEIgMLEsGO,althurayya,JABALUHUD_395E246N_O,24.64886,39.59145,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), JABALUHUD_395E246N_O",16.6,needs-review,proposed
+plc:GbMXYpUQqZcgkcj0nQueFW,wikidata,Q207277,35.885833333333,14.403055555556,Wikidata Q207277 P625,2724.2,needs-review,proposed
+plc:GbMXYpUQqZcgkcj0nQueFW,wikidata,Q236027,25.0,39.5,Wikidata Q236027 P625,60.2,needs-review,proposed
+plc:GbMXYpUQqZcgkcj0nQueFW,wikidata,Q2392033,40.08027778,45.25111111,Wikidata Q2392033 P625,1814.0,needs-review,proposed
+plc:GbMXYpUQqZcgkcj0nQueFW,wikidata,Q35484,24.47,39.61,Wikidata Q35484 P625,0.5,exact,proposed
+plc:GbMXYpUQqZcgkcj0nQueFW,wikidata,Q48810315,5.6777777777778,-0.16694444444444,Wikidata Q48810315 P625,4728.2,needs-review,proposed
+plc:GbMXYpUQqZcgkcj0nQueFW,wikidata,Q5837,0.78378,99.25495,Wikidata Q5837 P625,6921.6,needs-review,proposed
+plc:GbMXYpUQqZcgkcj0nQueFW,althurayya,MADINA_396E244N_S,24.47782,39.60908,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MADINA_396E244N_S",1.1,exact,proposed
+plc:Tvj82GYrHHvbBIehvFBQcA,wikidata,Q6025084,21.37682,39.85004,Wikidata Q6025084 P625,2.2,exact,proposed
+plc:Uqd5Jfx2BFryuSFwBVVbrF,wikidata,Q1315953,28.0,37.0,Wikidata Q1315953 P625,,needs-review,proposed
+plc:Uqd5Jfx2BFryuSFwBVVbrF,wikidata,Q244232,28.397222222222,36.578888888889,Wikidata Q244232 P625,,probable,proposed
+plc:Uqd5Jfx2BFryuSFwBVVbrF,wikidata,Q34900702,1.55,34.433333333333,Wikidata Q34900702 P625,,needs-review,proposed
+plc:Uqd5Jfx2BFryuSFwBVVbrF,wikidata,Q35925,17.406944444444,121.4425,Wikidata Q35925 P625,,needs-review,proposed
+plc:Uqd5Jfx2BFryuSFwBVVbrF,althurayya,TABUK_365E283N_S,28.37114,36.50620,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), TABUK_365E283N_S",,probable,proposed
+plc:dNEwhw9hx8yPCaNQCwSRT8,wikidata,Q10734713,37.688557,40.191063,Wikidata Q10734713 P625,,needs-review,proposed
+plc:dNEwhw9hx8yPCaNQCwSRT8,wikidata,Q15185764,39.03444444,44.62,Wikidata Q15185764 P625,,needs-review,proposed
+plc:dNEwhw9hx8yPCaNQCwSRT8,wikidata,Q16912386,21.354830555556,39.983886111111,Wikidata Q16912386 P625,,needs-review,proposed
+plc:dNEwhw9hx8yPCaNQCwSRT8,wikidata,Q216894,21.354831,39.983886,Wikidata Q216894 P625,,needs-review,proposed
+plc:dNEwhw9hx8yPCaNQCwSRT8,wikidata,Q23941836,15.471666666667,37.990277777778,Wikidata Q23941836 P625,,needs-review,proposed
+plc:dNEwhw9hx8yPCaNQCwSRT8,wikidata,Q892676,18.046027777778,-15.972305555556,Wikidata Q892676 P625,,needs-review,proposed
+plc:dNEwhw9hx8yPCaNQCwSRT8,althurayya,ARAFAT_402E213N_S,21.32282,40.20316,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), ARAFAT_402E213N_S",,probable,proposed
+plc:f1Vh5RvPPhpCYVh32mJ8K2,wikidata,Q27125,25.698611111111,39.2925,Wikidata Q27125 P625,,probable,proposed
+plc:f1Vh5RvPPhpCYVh32mJ8K2,althurayya,KHAYBAR_392E257N_S,25.78667,39.26821,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), KHAYBAR_392E257N_S",,probable,proposed
+plc:fm5Uufhxzu3NjcReBM3jhi,althurayya,BAYTMAQDIS_352E317N_S,31.77768,35.20345,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), BAYTMAQDIS_352E317N_S",,needs-review,proposed
+plc:frravRs7lhWiAQ4j9WnaAE,wikidata,Q234167,21.5,41.0,Wikidata Q234167 P625,121.8,needs-review,proposed
+plc:frravRs7lhWiAQ4j9WnaAE,wikidata,Q5806,21.4225,39.826111111111,Wikidata Q5806 P625,0.0,exact,proposed
+plc:frravRs7lhWiAQ4j9WnaAE,althurayya,MAKKA_398E213N_S,21.39132,39.83612,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MAKKA_398E213N_S",3.6,exact,proposed
+plc:ioWCg5AEr4UYA1dkWNwtbv,wikidata,Q13415123,34.0,36.0,Wikidata Q13415123 P625,,needs-review,proposed
+plc:ioWCg5AEr4UYA1dkWNwtbv,wikidata,Q5813411,25.2156,61.1647,Wikidata Q5813411 P625,,needs-review,proposed
+plc:nVJ91NufhjHXlwcWdPhRn1,wikidata,Q27256,23.78,38.790555555556,Wikidata Q27256 P625,0.8,needs-review,proposed
+plc:nVJ91NufhjHXlwcWdPhRn1,wikidata,Q97291232,23.9169551,38.9331313,Wikidata Q97291232 P625,21.3,probable,proposed
+plc:nVJ91NufhjHXlwcWdPhRn1,althurayya,BADR_388E237N_S,23.72676,38.80098,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), BADR_388E237N_S",6.5,exact,proposed
+plc:nVJ91NufhjHXlwcWdPhRn1,althurayya,BADR_447E138N_R,13.87387,44.72906,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), BADR_447E138N_R",1266.6,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,wikidata,Q1366672,31.855556,22.791111,Wikidata Q1366672 P625,,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,wikidata,Q21980482,40.1972,48.42319,Wikidata Q21980482 P625,,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,wikidata,Q21980482,40.197222222222,48.423055555556,Wikidata Q21980482 P625,,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,wikidata,Q21983130,40.882777777778,48.946111111111,Wikidata Q21983130 P625,,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,wikidata,Q457499,41.37,48.5,Wikidata Q457499 P625,,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,wikidata,Q647982,41.365277777778,48.526388888889,Wikidata Q647982 P625,,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,althurayya,QUBA_395E244N_S,24.44572,39.58264,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), QUBA_395E244N_S",,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,althurayya,QUBA_416E227N_S,22.78726,41.65725,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), QUBA_416E227N_S",,needs-review,proposed
+plc:nyxjqpT7HwgzZZHTCW6tuW,althurayya,QUBA_721E405N_S,40.55660,72.18143,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), QUBA_721E405N_S",,needs-review,proposed
+plc:sTerKmn2YXLhYbtceEGMyR,wikidata,Q23955124,24.433333333333,32.916666666667,Wikidata Q23955124 P625,,needs-review,proposed
+plc:sUFGV6BTYhoRrt5rG5pnLJ,wikidata,Q850602,21.457555555556,39.859416666667,Wikidata Q850602 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,wikidata,Q12225642,13.89621,43.70736,Wikidata Q12225642 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,wikidata,Q180522,29.532222222222,35.006111111111,Wikidata Q180522 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,wikidata,Q23955878,23.4199,25.6919,Wikidata Q23955878 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,wikidata,Q260796,29.523611,35.007222,Wikidata Q260796 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,wikidata,Q260796,29.75,35.33333,Wikidata Q260796 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,wikidata,Q27126240,29.98236,35.22858,Wikidata Q27126240 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,wikidata,Q4782459,32.33775,35.416777777778,Wikidata Q4782459 P625,,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,althurayya,AQABA_251E314N_S,31.42889,25.18308,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), AQABA_251E314N_S",,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,althurayya,AQABA_436E300N_S,30.09074,43.61471,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), AQABA_436E300N_S",,needs-review,proposed
+plc:vzckhHVgDDTfVCbVwU7tLd,althurayya,MAZDURAN_605E361N_S,36.17215,60.54672,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MAZDURAN_605E361N_S",,needs-review,proposed
