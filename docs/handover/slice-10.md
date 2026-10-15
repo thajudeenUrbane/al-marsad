@@ -1,0 +1,37 @@
+# Slice 10 handover: time and space (timeline and map)
+
+Brief: docs/handover/slice-10-brief.md. Nothing shown is verified history: every claim is `proposed` or has no status, every record is a stub or outline, and both pages say so at the top. No status was upgraded; no name, date, coordinate or route was invented.
+
+## What exists (all under site/interactive/)
+- `build_interactive.py`, run after site/build.py (it runs site/build.py itself if site/dist has no reader pages), writes `site/dist/timeline/` and `site/dist/map/`: index.html, data.json, the page script, `common.js`, `interactive.css`. It reuses site/model.py (graph, names, URLs), site/display.py (names, dates, the ﷺ sign) and site/render.py (the page frame, so header and footer stay the reader's). `extract.py` is the only module here that reads the graph; no entity ID is hard-coded.
+- Strings: this slice's in `i18n/en.json` (prefix `ix.`); date, status and coverage words come from site/i18n/en.json. Scripts hold no UI text: the builder sends their strings in data.json.
+- `static/interactive.css`: logical properties only. Colour carries type only (event, person, place; three hues validated for colour-vision deficiency and contrast, light and dark); how sure a date or location is shows as fill and edge, and always in words.
+- `data/basemap.json` (9.9 KB): Natural Earth 1:50m land polygons, v5.1.2, public domain; clipped to 30–60° E, 10–36° N and simplified by `tools/make_basemap.py`; source URL, sha256, licence and processing are recorded in the file and credited under the map. Land only: no borders, names or rivers.
+- Without JavaScript each page is a complete text version generated from the same values as the drawing: a described scene, one entry per drawn item (bounds or coordinates as recorded, basis, status, coverage, disputes, links), and every record not drawn, with the reason.
+- Timeline: one row per placed item; the bar spans the recorded earliest–latest bounds (never narrowed; a one-day record is a one-day range), a thin line shows a converted date's ± days, a dashed outline a disputed date. A year cursor (slider, or tap/drag on a track) and "Focus on" (person, group or place) dim the rest; positions never move; a years window rescales. Axis: CE row, plus an AH row (see 1 below).
+- Map: places at their WKT points (shape = how located, fill = how sure), route segments only along a recorded line. Zoom buttons, focus, year cursor. A first tap or click shows the record with its status; a second opens its page; Tab focus shows it, Enter opens it. The view (window, year, focus, selection, zoom, centre) lives in the URL fragment and travels between the two pages.
+- Checks: `tests/test_interactive.py` (40 unittest tests), `check_interactive.cjs` (Playwright, JS on; also JS off and slow 3G).
+
+## Numbers (graph of 15 Oct 2026, rebased on main 556a010)
+Timeline: 50 bars — 44 events, and 6 people by a recorded date of death (no person has a birth date). Not placed, listed: 242 — 1 event with no date, 2 dated only relative to another event (shown with their anchors and statuses), 50 stories (none has a date), 177 people, 12 groups. 4 placed records have bounds wider than their stated precision; the text says so.
+Map: 6 of 22 places plotted; 2 recorded as unlocated and 14 with no location are listed. 1 route of 3 segments: 1 drawn along its recorded 2-point line; 1 conjectural with no geometry and 1 of unknown confidence are listed as gaps. Of 96 events and stories, 29 are recorded at a plotted place.
+Weight before any user action, measured in the browser (uncompressed): timeline 180,015 bytes, map 92,058 (budget 2,000,000; both also pass the reader's 300 KB check). Emulated slow 3G with a 4× slower CPU: text version at 2.9 s / 2.0 s, drawing at about 5 s / 3.4 s. One scrub step: 23–32 ms.
+
+## Doc 08 §7 with today's data
+- Met: interactive tier under 2 MB; scrubbing under 100 ms with positions that never move; complete without JavaScript (text version, checked); segments drawn only at their own recorded confidence (for the 3 that exist); coverage gaps visible (every undated or unlocated record listed with the reason).
+- Partly: "selecting a person updates map and timeline" — Focus works on each page and carries between them by link, but they are two pages and there is no network here (the observatory slice). "Interrogate from every element" — every mark shows its record and links to its page, but routes have no reader page. View URLs reproduce a view, against the current build only (no pinned corpus versions). Low-end Android over 3G: emulated, not tried on a device.
+- Cannot yet, because of the data: "every element resolves to a citable source" — dates and coordinates are fields with no source in the graph (one date and four relative anchors are attested by proposed claims); "at least eight disputes" — the graph has 4, 3 of them reach these pages; doc 08's 15–30 graded segments — the graph has 3, and a conjectural corridor cannot be drawn until a corridor geometry is recorded (the style exists, unused).
+- Not this slice: the specialist's day and the scholar's hour (need a reviewer); the five AI questions and refusal tests (slice 8); the network-to-map morph (observatory).
+
+## For a human to decide
+1. The AH axis row is worked out with the tabular Islamic calendar (the method the graph records for its conversions) and labelled a reading aid; no item is dated by it. Off switch: `HIJRI_AXIS` in build_interactive.py.
+2. The graph's CE bounds are Julian-calendar dates (17 Ramaḍān 2 AH is stored as 624-03-13); positions read them so. Confirm, and record the convention in the ontology.
+3. Map coordinates come from generation-1.ttl and the Thawr example; thawr.ttl says in a comment that its coordinates "are approximate and are given here only to exercise the model", and the Hijrah route is that example's. The map shows the graph's values (probable/traditional, certain/modern identification). Decide whether example data belongs on a public map.
+4. The one drawn segment is the graph's straight Makkah–Ghar Thawr line; it is labelled "drawn along its recorded geometry", but a reader may take it for a path.
+5. These pages add the ﷺ sign inside recorded date text ("shortly before the Prophet's ﷺ death") through display.honour; the reader pages do not yet.
+6. At integration: list data/basemap.json (Natural Earth, public domain) in LICENSING.md; link /timeline/ and /map/ from the home page; give routes a reader page; in scripts/check_all.sh, after "site: build", add `step "site/interactive: build" "$PY" site/interactive/build_interactive.py`, `step "site/interactive: tests" "$PY" -m unittest discover -s site/interactive/tests` and a Node step running `site/interactive/check_interactive.cjs site/dist` (the deploy then publishes both pages).
+
+## Verify
+`.venv/bin/python ontology/build_graph.py && .venv/bin/python site/build.py && .venv/bin/python site/interactive/build_interactive.py` (CONFORMS; exit 0; prints counts and weights), then `site/check_budget.py` and `site/check_html.py` (OK, 323 pages).
+`.venv/bin/python -m unittest discover -s site/interactive/tests` (40 OK; builds into a temp folder; includes a two-process, two-hash-seed determinism check).
+`NODE_PATH="$(npm root -g)" PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers node site/interactive/check_interactive.cjs site/dist` (OK; phone and desktop, JS on and off, slow 3G).
