@@ -271,6 +271,7 @@
     "alternatives_same_kind_min_score": 5,
     "ambiguity_margin": 1,
     "sound_exact_min_len": 3,
+    "sound_max_edits": 2,
     "max_alternatives": 4,
     "max_candidates": 8,
     "fuzzy_one_min_len": 4,

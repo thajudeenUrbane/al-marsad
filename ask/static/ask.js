@@ -163,7 +163,9 @@
     function close(a, b, loose) {
       if (a === b) return true;
       var sa = sound(a);
-      if (sa && sa === sound(b) && (loose || sa.length >= LK.sound_exact_min_len)) return true;
+      if (sa && sa === sound(b) && (loose || sa.length >= LK.sound_exact_min_len)) {
+        if (sa.length < LK.sound_exact_min_len || levenshtein(a, b) <= LK.sound_max_edits) return true;
+      }
       var shortest = Math.min(a.length, b.length), limit;
       if (shortest >= LK.fuzzy_two_min_len) limit = 2;
       else if (shortest >= LK.fuzzy_one_min_len) limit = 1;
@@ -180,6 +182,11 @@
       var k = m.length;
       for (var i = 1; i < n.length - k + 1; i++) if (arrEq(n.slice(i, i + k), m)) return true;
       return false;
+    }
+    function spellingDistance(m, n) {
+      var d = 0, k = Math.min(m.length, n.length);
+      for (var i = 0; i < k; i++) d += levenshtein(m[i], n[i]);
+      return d;
     }
     function allClose(m, n, loose) {
       for (var i = 0; i < m.length; i++) if (!close(m[i], n[i], loose)) return false;
@@ -848,6 +855,16 @@
       for (var q = 0; q < kinds.length; q++) {
         var tk = top.filter(function (i) { return E[i].k === kinds[q]; });
         if (tk.length) { top = tk; break; }
+      }
+      if (top.length > 1 && (best === 3 || best === 5)) {
+        var mt = nameTokens(mention), dist = {}, nearest = Infinity;
+        top.forEach(function (i) {
+          var d = Infinity;
+          E[i].keys.forEach(function (k) { if (score(mt, k) === best) d = Math.min(d, spellingDistance(mt, k)); });
+          dist[i] = d;
+          if (d < nearest) nearest = d;
+        });
+        top = top.filter(function (i) { return dist[i] === nearest; });
       }
       if (top.length > 1) {
         var kd = E[top[0]].k;

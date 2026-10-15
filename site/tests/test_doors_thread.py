@@ -3,6 +3,7 @@ Experiments page and the external-ID hook.
 Run:  .venv/bin/python -m unittest discover -s site/tests -v
 """
 import contextlib
+import html
 import io
 import json
 import re
@@ -286,6 +287,28 @@ class BuiltDoorsAndThread(unittest.TestCase):
                 self.assertFalse(len(r) > 3 and r[3], "a story was given a date")
         self.assertTrue(set(T["s"]) >= {"close", "also", "lead.one", "lead.other", "note"})
         self.assertFalse(any("{" in v and "}" in v and not re.search(r"\{(n|name)\}", v) for v in T["s"].values()))
+
+    def test_long_comments_stay_on_the_pages_not_in_the_thread(self):
+        """thread.json is loaded by every person page, so a claim's long comment (a machine-written
+        gloss of 100-250 characters) is left out of it; the page of the claim still shows it in full."""
+        from thread import MAX_ROLE_CHARS
+        T = self.thread
+        self.assertTrue(all(len(o) <= MAX_ROLE_CHARS for o in T["o"]))
+        long_roles = {c.role.text for cl in self.site.claims.values() for c in cl
+                      if c.role and c.kind == "assertion" and len(c.role.text) > MAX_ROLE_CHARS}
+        self.assertTrue(long_roles, "the graph has no long comment to test with")
+        shown = set(T["o"])
+        self.assertFalse(any(display.honour(r) in shown for r in long_roles))
+        # a short comment is still carried
+        self.assertTrue(any(c.role and c.kind == "assertion" and len(c.role.text) <= MAX_ROLE_CHARS
+                            and display.honour(c.role.text) in shown
+                            for cl in self.site.claims.values() for c in cl))
+        # and the page of a person with such a claim shows the long comment
+        c = next(c for cl in self.site.claims.values() for c in cl
+                 if c.role and c.kind == "assertion" and len(c.role.text) > MAX_ROLE_CHARS)
+        src = self.page(f"{self.site.entities[c.subject].kind}/{self.site.entities[c.subject].pid}/index.html")
+        self.assertIn('class="claim-role"', src)
+        self.assertIn(html.escape(c.role.text.split(":")[0]), src)
 
     def test_abu_bakr_thread_reaches_his_stories_and_people(self):
         T = self.thread

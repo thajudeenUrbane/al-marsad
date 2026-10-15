@@ -28,7 +28,7 @@ import sys
 from typing import Protocol
 
 from ask.dsl import LIMITS, DslError, Engine, load_i18n, parse
-from ask.normalise import RULES, name_tokens, score, text_key
+from ask.normalise import RULES, name_tokens, score, spelling_distance, text_key
 
 _RX: dict[str, re.Pattern] = {}
 
@@ -127,6 +127,13 @@ class Linker:
             if tk:
                 top = tk
                 break
+        if len(top) > 1 and best in (3, 5):
+            # the same score by spelling only (Ayesha: A'isha, Ayyash): the nearest spelling
+            # wins; entries equally near are still put back to the visitor
+            m = name_tokens(mention)
+            dist = {i: min(spelling_distance(m, k) for k in self.E[i]["keys"] if score(m, k) == best) for i in top}
+            nearest = min(dist.values())
+            top = [i for i in top if dist[i] == nearest]
         if len(top) > 1:
             # put back to the visitor: every entry of that kind matching as well, or
             # nearly as well (Fatima, Fatima, Fatimah)
