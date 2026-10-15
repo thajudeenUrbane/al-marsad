@@ -89,7 +89,7 @@ jobs:
     # No checkout and no Python here: the only code that sees the token is wrangler.
     steps:
       - name: Check that the Cloudflare secrets are set
-        id: secrets
+        id: cloudflare
         env:
           HAS_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
           HAS_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
@@ -105,24 +105,24 @@ jobs:
           echo "$msg" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Download the checked site
-        if: steps.secrets.outputs.ready == 'true'
+        if: steps.cloudflare.outputs.ready == 'true'
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: site-dist
           path: site/dist
 
-      - if: steps.secrets.outputs.ready == 'true'
+      - if: steps.cloudflare.outputs.ready == 'true'
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           package-manager-cache: false
 
       - name: Install wrangler
-        if: steps.secrets.outputs.ready == 'true'
+        if: steps.cloudflare.outputs.ready == 'true'
         run: npm install --global --no-audit --no-fund "wrangler@${WRANGLER_VERSION}"
 
       - name: Deploy site/dist with wrangler pages deploy
-        if: steps.secrets.outputs.ready == 'true'
+        if: steps.cloudflare.outputs.ready == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
