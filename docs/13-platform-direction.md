@@ -28,7 +28,7 @@ All of it is `stub` / `proposed`. The same person (e.g. Abū Bakr) exists up to 
 
 ### D1 → design rules for "the whole world"
 
-- **Reading needs no account.** No login, no paywall, no tracking, no ads.
+- **Reading needs no account.** No login, no paywall, no tracking, no ads. Accounts exist only for people who learn or research on the site (saved progress, notes, a research workspace), never for opening or reading anything (maintainer, 15 October 2026).
 - **Static-first.** The public site is precomputed files on a CDN. A graph database is a *build-time* tool, not a runtime dependency. This is also what makes D4 affordable and keeps the "data must outlive the app" rule.
 - **Low-end Android on 3G is the reference device.** Budgets from doc 05 §7 (≤300 KB reader tier, ≤2 MB interactive tier) are enforced in CI from the first slice.
 - **The text tier (L0) ships first** — every person, event, place and report has a plain, linkable, screen-reader-friendly page. The network view is an enhancement on top of it, never the only way in.
