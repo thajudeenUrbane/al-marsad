@@ -228,7 +228,7 @@ pre.json { background: var(--bg); border: 1px solid var(--border); border-radius
   .search { flex-basis: 100%; max-inline-size: none; }
   .stage { block-size: 60vh; min-block-size: 300px; }
   .panel {
-    position: fixed; inset-inline: 0; inset-block-end: 0; inset-block-start: auto; max-block-size: 72vh;
+    position: fixed; inset-inline: 0; inset-block-end: 0; inset-block-start: auto; max-block-size: 58vh;
     border-start-start-radius: 14px; border-start-end-radius: 14px; border-end-start-radius: 0; border-end-end-radius: 0; border-block-end: 0; z-index: 20; box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
   }
   .panel[data-open="false"] { display: none; }

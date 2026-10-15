@@ -137,7 +137,7 @@
   function resize() {
     const r = canvas.getBoundingClientRect();
     W = Math.max(200, r.width); H = Math.max(200, r.height);
-    DPR = Math.min(2.5, window.devicePixelRatio || 1);
+    DPR = Math.min(2, window.devicePixelRatio || 1);
     canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
     makePatterns();
     S.baseK = fitAll().k;
@@ -263,8 +263,10 @@
     anim = { t0: performance.now(), dur: 700, wFrom, wTo, camFrom };
     requestDraw();
   }
+  let settleTimer = 0;
   function frame(now) {
     drawQueued = false;
+    const moving = !!anim || !!(gesture && gesture.moved) || now - lastWheel < 120;
     if (anim) {
       const p = Math.min(1, (now - anim.t0) / anim.dur), e = ease(p);
       S.weights = anim.wFrom.map((w, f) => w + (anim.wTo[f] - w) * e);
@@ -273,8 +275,9 @@
       if (target) S.cam = lerpCam(anim.camFrom, target, e);
       if (p >= 1) { anim = null; S.weights = S.weights.map((w) => Math.round(w * 1000) / 1000); S.baseK = fitAll().k; syncFrameControls(); updateHere(); }
     }
-    draw();
+    draw(moving);
     if (anim) requestDraw();
+    else if (moving) { clearTimeout(settleTimer); settleTimer = setTimeout(requestDraw, 140); }
   }
 
   // ------------------------------------------------------------------ drawing
@@ -368,7 +371,7 @@
           if (linkLvl[li] !== lv || L[li].c !== cls) continue;
           const l = L[li];
           const x1 = sx(P[2 * l.a]), y1 = sy(P[2 * l.a + 1]), x2 = sx(P[2 * l.b]), y2 = sy(P[2 * l.b + 1]);
-          if (cls === "kinship") {
+          if (cls === "kinship" && !FAST) {
             const dx = x2 - x1, dy = y2 - y1, d = Math.hypot(dx, dy) || 1, ox = (-dy / d) * 1.6, oy = (dx / d) * 1.6;
             ctx.moveTo(x1 + ox, y1 + oy); ctx.lineTo(x2 + ox, y2 + oy);
             ctx.moveTo(x1 - ox, y1 - oy); ctx.lineTo(x2 - ox, y2 - oy);
@@ -380,9 +383,9 @@
         if (!any) continue;
         ctx.globalAlpha = alphaFor[lv];
         ctx.lineWidth = cls === "kinship" ? Math.max(1, widthFor[lv] * 0.7) : cls === "transmission" ? widthFor[lv] + 0.8 : widthFor[lv];
-        ctx.setLineDash(DASH[cls]);
+        ctx.setLineDash(FAST ? [] : DASH[cls]);
         // every link is unreviewed today: drawn with the grain texture (docs/04 §3)
-        ctx.strokeStyle = lv >= 3 ? grainPatternHi : grainPattern;
+        ctx.strokeStyle = FAST ? (lv >= 3 ? COL.lineHi : COL.line) : (lv >= 3 ? grainPatternHi : grainPattern);
         ctx.stroke();
       }
     }
@@ -422,6 +425,7 @@
         continue;
       }
       ctx.fillStyle = COL[b.kind]; ctx.fill(b.path);
+      if (FAST) continue;
       // texture: unreviewed (every record today)
       ctx.fillStyle = hatchPattern; ctx.fill(b.path);
       ctx.lineWidth = 1; ctx.strokeStyle = COL.bg; ctx.stroke(b.path);
@@ -478,7 +482,7 @@
     const seen = new Set();
     const cands = labelCandidates();
     let count = 0;
-    const max = S.lens === "discover" ? 40 : 160;
+    const max = FAST ? 12 : S.lens === "discover" ? 40 : 160;
     ctx.textBaseline = "middle"; ctx.textAlign = "left";
     for (const [pri, i, alpha] of cands) {
       if (seen.has(i)) continue;
@@ -487,15 +491,17 @@
       const font = FONT(pri >= 8 ? 13 : 12, pri >= 7 ? 600 : 400);
       const text = N[i].n;
       const w = textW(text, font);
-      const x = sx(P[2 * i]) + r + 5, y = sy(P[2 * i + 1]);
+      const nx = sx(P[2 * i]), y = sy(P[2 * i + 1]);
+      // a label that would run off the right edge is set to the left of its mark
+      const flip = nx + r + 5 + w > W - 4 && nx - r - 5 - w > 4;
+      const x = flip ? nx - r - 5 - w : nx + r + 5;
       if (x > W || y < 0 || y > H || x + w < 0) continue;
       const box = [x - 2, y - 8, x + w + 2, y + 8];
       if (pri < 7 && placed.some((b) => b[0] < box[2] && b[2] > box[0] && b[1] < box[3] && b[3] > box[1])) continue;
       placed.push(box);
       ctx.font = font;
       ctx.globalAlpha = alpha;
-      ctx.lineWidth = 3.5; ctx.strokeStyle = COL.bg; ctx.lineJoin = "round";
-      ctx.strokeText(text, x, y);
+      if (!FAST) { ctx.lineWidth = 3.5; ctx.strokeStyle = COL.bg; ctx.lineJoin = "round"; ctx.strokeText(text, x, y); }
       ctx.fillStyle = pri >= 4 ? COL.ink : COL.muted;
       ctx.fillText(text, x, y);
       count++;
@@ -503,7 +509,12 @@
     ctx.globalAlpha = 1;
   }
 
-  function draw() {
+  // While the view moves (morph, pan, pinch, wheel) a cheaper frame is drawn: plain
+  // strokes, no texture overlays, no text outlines, only the most important labels.
+  // The full frame, with every texture, follows as soon as the motion stops.
+  let FAST = false;
+  function draw(fast) {
+    FAST = !!fast;
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.globalAlpha = 1;
     ctx.fillStyle = COL.bg;
@@ -1407,8 +1418,10 @@
   canvas.addEventListener("pointerup", endPointer);
   canvas.addEventListener("pointercancel", endPointer);
   canvas.addEventListener("pointerleave", () => { if (S.hover >= 0) { S.hover = -1; requestDraw(); } });
+  let lastWheel = -1e9;
   canvas.addEventListener("wheel", (e) => {
     e.preventDefault();
+    lastWheel = performance.now();
     zoomAt(e.offsetX, e.offsetY, Math.exp(-e.deltaY * (e.deltaMode === 1 ? 0.05 : 0.0016)));
   }, { passive: false });
   function zoomAt(x, y, f) {
@@ -1491,6 +1504,8 @@
       S.lens = l; syncLens(); fontCache.clear();
       S.evidence = l === "discover" ? "folded" : "expanded";
       relabelStatic();
+      // Discover brings the stories forward when nothing else has been chosen yet
+      if (l === "discover" && S.focus < 0 && !S.hl && !selectedPath() && S.weights[0] > 0.985) animateTo([0, 0, 0, 1, 0]);
       update(false);
       announce(t("announce.lens", { lens: t("lens." + l) }));
     });
