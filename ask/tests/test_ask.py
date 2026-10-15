@@ -405,14 +405,17 @@ class Build(unittest.TestCase):
 
     def test_files_and_budget(self):
         ask = self.out / "ask"
-        for name in ("index.html", "ask.js", "ask.css", "ask-index.json"):
+        for name in ("index.html", "ask.js", "ask.css", "ask-index.json.gz"):
             self.assertTrue((ask / name).is_file(), name)
         total = sum(p.stat().st_size for p in ask.rglob("*") if p.is_file())
         self.assertLessEqual(total, 2_000_000)
         cached = [g for g in golden() if g.get("cache")]
         self.assertEqual(len(list((ask / "q").glob("*/index.html"))), len(cached))
-        data = json.loads((ask / "ask-index.json").read_text(encoding="utf-8"))
+        import gzip
+        data = json.loads(gzip.decompress((ask / "ask-index.json.gz").read_bytes()).decode("utf-8"))
         self.assertTrue({"entities", "claims", "rules", "i18n", "version"} <= set(data))
+        html = (ask / "index.html").read_text(encoding="utf-8")
+        self.assertIn('data-fetch="ask-index.json.gz"', html)  # so site/check_budget.py counts it
 
     def test_site_checks_pass_with_the_ask_pages(self):
         sys.path.insert(0, str(ROOT / "site"))
@@ -429,7 +432,7 @@ class Build(unittest.TestCase):
         self.assertRegex(html, r'<form id="ask-form"[^>]* hidden')
         self.assertIn('id="ask-nojs"', html)
         self.assertIn('<script src="ask.js" defer></script>', html)
-        self.assertNotIn("ask-index.json\"", html.split("<form", 1)[0])  # never preloaded
+        self.assertNotIn("ask-index.json", html.split("<form", 1)[0])  # never preloaded
         self.assertIsNone(re.search(r'(?:src|href)="(?:https?:)?//[^"]*\.(?:js|css|json)"', html))
 
     def test_build_is_deterministic(self):

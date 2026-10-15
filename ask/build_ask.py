@@ -15,8 +15,10 @@ Writes:
   ask/q/<slug>/         one page per answered question, built here in Python, so every
                         answer can be read with JavaScript off and has its own address
   ask/ask.js, ask.css   the browser port of the translator, executor and renderer
-  ask/ask-index.json    the compact index plus the rules and strings the port uses;
-                        loaded only when a visitor starts typing
+  ask/ask-index.json.gz the compact index plus the rules and strings the port uses,
+                        gzip-compressed (the browser unpacks it); named in the page's
+                        data-fetch, so site/check_budget.py counts it; loaded only when a
+                        visitor starts typing
 
 The answered questions are the golden questions marked "cache" (ask/golden/
 questions.jsonl). Fails (exit 1) if site/dist is missing or ask/ is over 2 MB.
@@ -24,6 +26,7 @@ questions.jsonl). Fails (exit 1) if site/dist is missing or ask/ is over 2 MB.
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import re
 import shutil
@@ -49,6 +52,7 @@ BUDGET = 2_000_000
 SITE_MARKER = ".al-marsad-site"
 GOLDEN = HERE / "golden" / "questions.jsonl"
 GROUPS = ("presence", "family", "events", "links", "stories", "other", "refusal")
+INDEX = "ask-index.json.gz"
 TRY = 4
 
 
@@ -84,10 +88,19 @@ def examples_of(cache: list[dict]) -> list[list[str]]:
 
 
 def browser_data(ix: dict, T: dict, examples: list) -> dict:
-    """What ask-index.json holds: the index, the shared rules, the strings, the examples."""
+    """What the browser index holds: the index (less the fields only the build and the
+    tests read: claim IDs, sort keys), the shared rules, the strings, the examples."""
     data = dict(ix)
+    data["entities"] = [{k: v for k, v in e.items() if k != "sk"} for e in ix["entities"]]
+    data["claims"] = [{k: v for k, v in c.items() if k != "id"} for c in ix["claims"]]
     data.update({"rules": RULES, "i18n": T, "examples": examples})
     return data
+
+
+def packed(data: dict) -> bytes:
+    """The browser index as gzip; mtime 0 so the same graph gives the same bytes."""
+    raw = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    return gzip.compress(raw, compresslevel=9, mtime=0)
 
 
 def fill_i18n(text: str, T: dict) -> str:
@@ -156,7 +169,7 @@ def build(graph: Path, site: Path, quiet: bool = False) -> dict:
         gaps = (f'<details class="gaps"><summary>{esc(T["page.coverage_gaps"])}</summary><ul>'
                 + "".join(f"<li>{pres.h(x)}</li>" for x in ix["gaps"]) + "</ul></details>")
     body = Template((HERE / "templates" / "ask.html").read_text(encoding="utf-8")).substitute(
-        max=RULES["limits"]["question_max"], cached="\n".join(groups), limits=limits, coverage=coverage,
+        max=RULES["limits"]["question_max"], index=INDEX, cached="\n".join(groups), limits=limits, coverage=coverage,
         coverage_status=coverage_status, gaps=gaps, **{"try": " ".join(tries)})
     write("index.html", page(T, title_of(T, T["page.title"]), fill_i18n(body, T), "../",
                              script='<script src="ask.js" defer></script>', current=True))
@@ -164,15 +177,15 @@ def build(graph: Path, site: Path, quiet: bool = False) -> dict:
     # the browser engine and its data
     shutil.copyfile(HERE / "static" / "ask.js", out / "ask.js")
     shutil.copyfile(HERE / "static" / "ask.css", out / "ask.css")
-    write("ask-index.json", json.dumps(browser_data(ix, T, examples), ensure_ascii=False, separators=(",", ":")))
+    (out / INDEX).write_bytes(packed(browser_data(ix, T, examples)))
 
     sizes = {p.relative_to(out).as_posix(): p.stat().st_size for p in out.rglob("*") if p.is_file()}
     total = sum(sizes.values())
-    summary = {"pages": len(cache) + 1, "bytes": total, "index_bytes": sizes["ask-index.json"],
+    summary = {"pages": len(cache) + 1, "bytes": total, "index_bytes": sizes[INDEX],
                "js_bytes": sizes["ask.js"], "version": ix["version"]}
     if not quiet:
         print(f"built ask/: {len(cache)} answered questions + the ask page, {total:,} bytes in all "
-              f"(index {sizes['ask-index.json']:,}, ask.js {sizes['ask.js']:,}); graph version {ix['version']}")
+              f"(index {sizes[INDEX]:,} gzip, ask.js {sizes['ask.js']:,}); graph version {ix['version']}")
     if total > BUDGET:
         print(f"FAILED: ask/ is {total:,} bytes, over the {BUDGET:,} byte budget", file=sys.stderr)
         sys.exit(1)

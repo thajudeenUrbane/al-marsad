@@ -1286,14 +1286,24 @@
     var api = null, loading = null;
     form.hidden = false;
     if (nojs) nojs.hidden = true;
+    // the index is gzip; unpack it here unless the server already did
+    function unpack(buf) {
+      var b = new Uint8Array(buf);
+      if (b.length > 1 && b[0] === 0x1f && b[1] === 0x8b) {
+        if (typeof win.DecompressionStream === "undefined") throw new Error("no gzip support");
+        var stream = new win.Blob([buf]).stream().pipeThrough(new win.DecompressionStream("gzip"));
+        return new win.Response(stream).text().then(JSON.parse);
+      }
+      return JSON.parse(new win.TextDecoder().decode(b));
+    }
     function load() {
       if (api) return Promise.resolve(api);
       if (!loading) {
         status.textContent = form.getAttribute("data-loading");
-        loading = win.fetch(form.getAttribute("data-index")).then(function (r) {
+        loading = win.fetch(form.getAttribute("data-fetch")).then(function (r) {
           if (!r.ok) throw new Error("HTTP " + r.status);
-          return r.json();
-        }).then(function (d) {
+          return r.arrayBuffer();
+        }).then(unpack).then(function (d) {
           api = create(d);
           status.textContent = "";
           return api;

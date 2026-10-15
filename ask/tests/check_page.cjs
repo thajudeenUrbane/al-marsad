@@ -82,7 +82,7 @@ const server = http.createServer((req, res) => {
     await page.goto(new URL(back, page.url()).href, { waitUntil: "load" });
     if (!page.url().endsWith("/ask/")) fail("the back link does not return to the ask page");
     const loaded = requests.filter((u) => !u.endsWith(".css") && !u.endsWith("/") && !u.endsWith(".html"));
-    if (loaded.some((u) => u.endsWith(".js") || u.endsWith(".json"))) fail("script or index loaded with JavaScript off: " + loaded.join(", "));
+    if (loaded.some((u) => u.endsWith(".js") || u.includes(".json"))) fail("script or index loaded with JavaScript off: " + loaded.join(", "));
     const external = requests.filter((u) => !u.startsWith(origin));
     if (external.length) fail("requests left the server: " + external.join(", "));
     await ctx.close();
@@ -102,7 +102,7 @@ const server = http.createServer((req, res) => {
     if (!(await page.locator("#ask-form").isVisible())) fail("the question box is hidden with JavaScript on");
     else ok("question box shown");
     if (await page.locator("#ask-nojs").isVisible()) fail("the no-JavaScript note shows with JavaScript on");
-    if (requests.some((u) => u.endsWith("ask-index.json"))) fail("the index loaded before the visitor started");
+    if (requests.some((u) => u.includes("ask-index.json"))) fail("the index loaded before the visitor started");
     else ok("index not loaded before use");
 
     async function ask(q) {
@@ -150,7 +150,7 @@ const server = http.createServer((req, res) => {
     if ((await page2.locator("#ask-answer ol.rows > li.row").count()) !== 1) fail("question from the address: expected one row");
     else ok("question from the address runs");
 
-    const indexLoads = requests.filter((u) => u.endsWith("ask-index.json")).length;
+    const indexLoads = requests.filter((u) => u.includes("ask-index.json")).length;
     if (indexLoads < 1) fail("the index was never loaded");
     const external = requests.filter((u) => !u.startsWith(origin));
     if (external.length) fail("requests left the server: " + external.join(", "));
