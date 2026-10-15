@@ -252,6 +252,16 @@ class Fixture(unittest.TestCase):
         data = json.loads(page.split('id="ll-data">')[1].split("</script>")[0])
         self.assertEqual(len(data["people"]), len(self.data["people"]))
 
+    def test_page_passes_the_sites_html_check(self):
+        import check_html
+        data = B.build_data(self.site, self.t, (FX_CSV.read_text(encoding="utf-8"), FX_CSV.name), None, {})[0]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "lifelines").mkdir()
+            page = root / "lifelines" / "index.html"
+            page.write_text(B.render(data, self.t, home=None), encoding="utf-8")
+            self.assertEqual(check_html.check_page(root, page, check_html.collect_ids(root)), [])
+
     def test_output_next_to_the_site_build(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "dist" / "lifelines"

@@ -4,7 +4,9 @@
   "page.h1": "Lifelines",
   "page.sub": "Each person's life as a line, from birth to death, on one time axis. An event is a perpendicular line joining the people recorded as taking part, at their age at that moment.",
   "nav.home": "al-Marṣad",
-  "nav.skip_table": "Skip to the table of lifelines",
+  "nav.skip_table": "Table of lifelines",
+  "nav.skip_main": "Skip to the chart",
+  "nav.label": "al-Marṣad",
   "banner.strong": "Proposed, not reviewed.",
   "banner.text": "Every date, line and age on this page comes from proposed records that no scholar has reviewed yet: dates recorded in the al-Marṣad graph and dates matched automatically from Wikidata. Ages are computed from those dates. Dashed lines and hatched connectors mark this.",
 

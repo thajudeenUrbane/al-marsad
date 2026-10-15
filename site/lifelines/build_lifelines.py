@@ -255,13 +255,13 @@ def undated_html(data: dict, t: T) -> str:
 
 def legend_html(t: T) -> str:
     sw = {
-        "line": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"/></svg>',
-        "range": '<svg width="56" height="14" aria-hidden="true"><rect x="8" y="3" width="40" height="8" rx="2" class="lg-range"/></svg>',
-        "open": '<svg width="56" height="14" aria-hidden="true"><rect x="2" y="6" width="40" height="2" fill="url(#lg-fade)"/><line x1="42" y1="7" x2="54" y2="7" class="lg-line"/><defs><linearGradient id="lg-fade"><stop offset="0" class="fade-0"/><stop offset="1" class="fade-1"/></linearGradient></defs></svg>',
-        "conn": '<svg width="56" height="28" aria-hidden="true"><line x1="20" y1="2" x2="20" y2="26" class="lg-conn"/><rect x="31" y="2" width="8" height="24" class="lg-band"/></svg>',
-        "node": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"/><circle cx="28" cy="7" r="4.5" class="lg-node"/></svg>',
-        "gap": '<svg width="56" height="28" aria-hidden="true"><line x1="28" y1="2" x2="28" y2="26" class="lg-conn"/><line x1="2" y1="14" x2="54" y2="14" class="lg-halo"/><line x1="2" y1="14" x2="54" y2="14" class="lg-line"/></svg>',
-        "review": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line rv"/></svg>',
+        "line": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line></svg>',
+        "range": '<svg width="56" height="14" aria-hidden="true"><rect x="8" y="3" width="40" height="8" rx="2" class="lg-range"></rect></svg>',
+        "open": '<svg width="56" height="14" aria-hidden="true"><rect x="2" y="6" width="40" height="2" fill="url(#lg-fade)"></rect><line x1="42" y1="7" x2="54" y2="7" class="lg-line"></line><defs><linearGradient id="lg-fade"><stop offset="0" class="fade-0"></stop><stop offset="1" class="fade-1"></stop></linearGradient></defs></svg>',
+        "conn": '<svg width="56" height="28" aria-hidden="true"><line x1="20" y1="2" x2="20" y2="26" class="lg-conn"></line><rect x="31" y="2" width="8" height="24" class="lg-band"></rect></svg>',
+        "node": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line><circle cx="28" cy="7" r="4.5" class="lg-node"></circle></svg>',
+        "gap": '<svg width="56" height="28" aria-hidden="true"><line x1="28" y1="2" x2="28" y2="26" class="lg-conn"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-halo"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-line"></line></svg>',
+        "review": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line rv"></line></svg>',
     }
     rows = "".join(f'<li>{sw[k]}<span>{esc(t("legend." + k))}</span></li>' for k in
                    ("line", "range", "open", "conn", "node", "gap", "review"))
@@ -320,9 +320,10 @@ def render(data: dict, t: T, home: str | None) -> str:
 <style>{css}</style>
 </head>
 <body class="nojs">
-<a class="skip" href="#table">{esc(t("nav.skip_table"))}</a>
+<a class="skip" href="#main">{esc(t("nav.skip_main"))}</a>
 <header class="top">
-<div class="brand">{home_link}<h1>{esc(t("page.h1"))}</h1></div>
+<nav class="brand" aria-label="{attr(t("nav.label"))}">{home_link}<a class="home-link" href="#table">{esc(t("nav.skip_table"))}</a></nav>
+<h1>{esc(t("page.h1"))}</h1>
 <p class="sub">{esc(t("page.sub"))}</p>
 </header>
 <p class="banner" role="note"><strong>{esc(t("banner.strong"))}</strong> <span class="long">{esc(t("banner.text"))}</span><span class="short">{esc(t("banner.short"))}</span></p>
