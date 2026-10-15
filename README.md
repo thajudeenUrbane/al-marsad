@@ -60,6 +60,17 @@ Every entity is `coverageState: stub`, every claim `assertionStatus: proposed` �
 
 **[`generation-1/wider-network.html`](generation-1/wider-network.html)** is what that data is *for*: pick any of the 57 people and watch their thread through history assemble itself — every event, migration, kinship tie and succession they touch, in order, with everyone who shares that moment offered as the next click. That is the actual mechanism the seed data was compiled to demonstrate: Abū Bakr → Asmāʾ → the Hijra (via Ghār Thawr) → ʿAbdullāh b. Abī Bakr → ʿĀmir b. Fuhayra discovers itself by walking the graph, not by anyone authoring that path. A second tab lists all 100 incidents flat, exactly in the People/Place/Time/Source shape they were written in. Every claim on this page is unverified and says so.
 
+## The 50 Stories network
+
+```bash
+python3 stories-50/build.py    # parse source/50-stories.md into the page
+python3 stories-50/serve.py    # http://localhost:8751
+```
+
+**[`stories-50/index.html`](stories-50/index.html)** draws the maintainer's Claude Doc *50 Stories of the Prophet Muhammad ﷺ and His Companions* (revision 7, saved as [`stories-50/source/50-stories.md`](stories-50/source/50-stories.md)) as one picture. The 50 stories sit on a dial, read clockwise from the Cave of Hira and grouped into the doc's four parts. All 171 people the stories name sit inside the dial, with 366 lines joining each person to the stories they appear in. Click a person to see their stories in order and who they share them with. Click a story to read it with its list of Companions. A dashed line means the person had not yet accepted Islam at the time of that story.
+
+The page is generated, never edited by hand. The only judgement `build.py` applies is in three short tables at its top: which shorter names are the same person as a fuller form (22 merges, such as "Abu Bakr" into "Abu Bakr al-Siddiq"), which bold names are groups rather than one person (12, such as Ahl al-Suffah, listed with their story but not drawn), and one entry that names two people. Review those tables before trusting a merge. Everything is unverified: the doc says it was written from general knowledge without access to the sources, and none of it is in the ontology yet.
+
 ## The capacity test
 
 A separate, deliberately unmistakable artifact answering one engineering question: does the rendering approach hold at real isnād scale?

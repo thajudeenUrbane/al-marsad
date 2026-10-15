@@ -4,20 +4,38 @@
     {
       "name": "demo",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["demo/serve.py"],
+      "runtimeArgs": [
+        "demo/serve.py"
+      ],
       "port": 8748
     },
     {
       "name": "bench",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8749", "--directory", "bench"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8749",
+        "--directory",
+        "bench"
+      ],
       "port": 8749
     },
     {
       "name": "generation-1",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["generation-1/serve.py"],
+      "runtimeArgs": [
+        "generation-1/serve.py"
+      ],
       "port": 8750
+    },
+    {
+      "name": "stories-50",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "stories-50/serve.py"
+      ],
+      "port": 8751
     }
   ]
 }

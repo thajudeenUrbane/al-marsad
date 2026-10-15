@@ -1,0 +1,266 @@
+kind,canonical_id,preferred_name_en,name_ar,variant_ids,stories50_names,source_files,confidence,note
+person,per:GBH3zcgbBq2942xBqZo42T,Abdullah b. Abi Bakr,,,Abdullah ibn Abi Bakr,seed-incidents;stories-50,exact,
+person,per:CdhjM9YjkJPMW2fPbnnHmZ,Abdullah b. Mas'ud,,,Abdullah ibn Mas'ud,seed-incidents;stories-50,exact,
+person,per:ejSIkcWMqJWM4iwFOKroh9,Abdullah ibn Abbas,,,Abdullah ibn Abbas,stories-50,exact,new ID; no match in the three Turtle files
+person,per:DCL6JTt5yEd4oc7cMtmUNz,Abdullah ibn Abi Rabi'ah,,,Abdullah ibn Abi Rabi'ah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:fFsoETjWGoAqEhOvtQPkqd,Abdullah ibn Abi Talhah,,,Abdullah ibn Abi Talhah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:qwFqD58uCw3IlivRr39QpA,Abdullah ibn Amr ibn Haram,,,Abdullah ibn Amr ibn Haram,stories-50,exact,new ID; no match in the three Turtle files
+person,per:05IgpJ2AY8aE9dLwBvA3ol,Abdullah ibn Ja'far,,,Abdullah ibn Ja'far,stories-50,exact,new ID; no match in the three Turtle files
+person,per:LqGEu5FoYne7ZI9DcGcUoL,Abdullah ibn Jubayr,,,Abdullah ibn Jubayr,stories-50,exact,new ID; no match in the three Turtle files
+person,per:V2XJUpCuDiXKUaaL2VPMVI,Abdullah ibn Ka'b,,,Abdullah ibn Ka'b,stories-50,exact,new ID; no match in the three Turtle files
+person,per:r0vVPTAXZfSlfwbD2yN8oD,Abdullah ibn Salam,,,Abdullah ibn Salam,stories-50,exact,new ID; no match in the three Turtle files
+person,per:nHKeqoOeVjsTBIQFPkYea1,Abdullah ibn Umar,,,Abdullah ibn Umar,stories-50,exact,new ID; no match in the three Turtle files
+person,per:Bj2TdX9dTIx5Biws7eRH85,Abdullah ibn Umm Maktum,,,Abdullah ibn Umm Maktum,stories-50,exact,new ID; no match in the three Turtle files
+person,per:IiGs6ckA1dfVevMK67zbf1,Abdullah ibn Zayd ibn Abd Rabbih,,,Abdullah ibn Zayd ibn Abd Rabbih,stories-50,exact,new ID; no match in the three Turtle files
+person,per:JdnBQSxZjAKZNXyJSVBTrp,Abu al-As ibn al-Rabi',,,Abu al-As ibn al-Rabi',stories-50,exact,new ID; no match in the three Turtle files
+person,per:oSNv1eP7HoaBns3I22EoCn,Abu al-Darda',,,Abu al-Darda',stories-50,exact,new ID; no match in the three Turtle files
+person,per:ASEidp88711go7EPrYIIOZ,Abu al-Haytham ibn al-Tayyihan,,,Abu al-Haytham ibn al-Tayyihan,stories-50,exact,new ID; no match in the three Turtle files
+person,per:cg76eiEEOy6mxKYaEDzVBO,Abu Aqil al-Ansari,,,Abu Aqil al-Ansari,stories-50,exact,new ID; no match in the three Turtle files
+person,per:xqSsh3EQEz1TQohmQQaZgi,Abu Ayyub al-Ansari,,,Abu Ayyub al-Ansari;Abu Ayyub al-Ansari (Khalid ibn Zayd);Khalid ibn Zayd,seed-incidents;stories-50,exact,
+person,per:JQvkzlqP3KuMUudcCD5lN0,Abu Barzah al-Aslami,,,Abu Barzah al-Aslami,stories-50,exact,new ID; no match in the three Turtle files
+person,per:AsFv7wTPy2FcL6Oi3lFYKt,Abu Basir,,,Abu Basir,stories-50,exact,new ID; no match in the three Turtle files
+person,per:0J6C2coMSKUUoXwByVaHYK,Abu Dharr al-Ghifari,,,Abu Dharr al-Ghifari;Abu Dharr al-Ghifari (Jundub ibn Junadah);Jundub ibn Junadah,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Abu Dharr al-Ghifari / Abu Dharr al-Ghifari (Jundub ibn Junadah) / Jundub ibn Junadah
+person,per:Q7NUJaD76FV7jH7gBJjyhG,Abu Dujana (Simak b. Kharasha),,,Abu Dujanah;Abu Dujanah (Simak ibn Kharashah);Simak ibn Kharashah,seed-incidents;stories-50,probable,stories-50 name matched through a name variant: Abu Dujanah / Abu Dujanah (Simak ibn Kharashah) / Simak ibn Kharashah
+person,per:cEsbcAG54VJMMKaHWaeKMf,Abu Jandal b. Suhayl,,,Abu Jandal ibn Suhayl,seed-incidents;stories-50,exact,
+person,per:GC6Ltqv9wkEnkZPRbD0txu,Abu Khaythamah,,,Abu Khaythamah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:rzr8vMKpCkY65nbAigBEBg,Abu Lubabah ibn Abd al-Mundhir,,,Abu Lubabah ibn Abd al-Mundhir,stories-50,exact,new ID; no match in the three Turtle files
+person,per:eoSin4leW5M3P7OVxmZDnt,Abu Musa al-Ash'ari,,,Abu Musa al-Ash'ari,stories-50,exact,new ID; no match in the three Turtle files
+person,per:skWHjYCh1QRnAJ4vH4Vb21,Abu Qatadah al-Ansari,,,Abu Qatadah al-Ansari,stories-50,exact,new ID; no match in the three Turtle files
+person,per:LOEqxsc7kl4LWpDUink0MJ,Abu Quhafah,,,Abu Quhafah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:F3k0D4GSOrkbpgAyWq23qD,Abu Sa'id al-Khudri,,,Abu Sa'id al-Khudri,stories-50,exact,new ID; no match in the three Turtle files
+person,per:Y751QWwVaMDWUDzqRdFfzL,Abu Salama b. Abd al-Asad,,,Abu Salamah ibn Abd al-Asad,seed-incidents;stories-50,exact,
+person,per:Qt8CBsPPzg8GbkhWwWC5mu,Abu Sufyan b. al-Harith,,,Abu Sufyan ibn al-Harith,seed-incidents;stories-50,exact,
+person,per:DZ2rT2zcYAfiuNSxpzU8Dv,Abu Sufyan b. Harb,,,Abu Sufyan ibn Harb,seed-incidents;stories-50,exact,
+person,per:dQ0HUQ39FHxKPGWEwzya8N,Abu Talhah al-Ansari,,,Abu Talhah al-Ansari;Abu Talhah al-Ansari (Zayd ibn Sahl);Zayd ibn Sahl,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Abu Talhah al-Ansari / Abu Talhah al-Ansari (Zayd ibn Sahl) / Zayd ibn Sahl
+person,per:jbYZ5cBD9GifB8RHTH4JZc,Abu Talib b. Abd al-Muttalib,,,,seed-incidents,exact,
+person,per:uQsqeAIIPXMe2MUxosJi5n,Abu Umayr,,,Abu Umayr,stories-50,exact,new ID; no match in the three Turtle files
+person,per:8sT3wY6xZc2mQ7vR9nK4pP1,Abū Bakr al-Ṣiddīq,,per:8sT3wY6xZc2mQ7vR9nK4pP,Abu Bakr al-Siddiq;Abu Bakr,thawr;generation-1;seed-incidents;stories-50,probable,merged on shared normalised label: per:8sT3wY6xZc2mQ7vR9nK4pP = Abū Bakr al-Ṣiddīq; per:8sT3wY6xZc2mQ7vR9nK4pP1 = Abū Bakr al-Ṣiddīq
+person,per:5fW9jNbT4mQ7xZcV2hR8dK1,Abū Hurayra,,,Abu Hurayrah,generation-1;seed-incidents;stories-50,exact,
+person,per:7cVbN3mAsD9fGhJ4kQwErT1,Abū ʿUbayda b. al-Jarrāḥ,,,Abu Ubaydah ibn al-Jarrah;Abu Ubaydah,generation-1;seed-incidents;stories-50,exact,
+person,per:ybAFUdU9YBr6E6S1LORj0B,Addas,,,Addas,stories-50,exact,new ID; no match in the three Turtle files
+person,per:ojZbGxn3A1JdvjaygFwXAa,al-Abbas b. Abd al-Muttalib,,,Al-Abbas ibn Abd al-Muttalib;al-Abbas,seed-incidents;stories-50,exact,
+person,per:3xstaBjr3tL6VSPE1zkC3x,Al-Arqam ibn Abi al-Arqam,,,Al-Arqam ibn Abi al-Arqam,stories-50,exact,new ID; no match in the three Turtle files
+person,per:X5AnqgvpxMCOqb8yJl3CsF,Al-Bara ibn Ma'rur,,,Al-Bara ibn Ma'rur,stories-50,exact,new ID; no match in the three Turtle files
+person,per:ISGDhbsh2J4hu79V7NPk7a,Al-Bara' ibn Azib,,,Al-Bara' ibn Azib,stories-50,exact,new ID; no match in the three Turtle files
+person,per:6nBvCxZ4aSdF7gHjK9mQwE,al-Bukhārī,,,,thawr,needs-review,"IRI nearly identical to per:6nBvCxZ4aSdF7gHjK9mQwE1, which is a different entity by label; do not merge or trim IDs"
+person,per:qyB7zxDcacQUHt3Melp28t,Al-Fadl ibn Abbas,,,Al-Fadl ibn Abbas;al-Fadl,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Al-Fadl ibn Abbas / al-Fadl
+person,per:4NsCUmosWJJw1za5l9UdqT,Al-Hasan,,,Al-Hasan,stories-50,exact,new ID; no match in the three Turtle files
+person,per:F44NPH7tL6hbUcc7yTVVH3,Al-Hubab ibn al-Mundhir,,,Al-Hubab ibn al-Mundhir,stories-50,exact,new ID; no match in the three Turtle files
+person,per:yFFI0fwvxCFCgAcYny4lLi,Al-Husayn,,,Al-Husayn,stories-50,exact,new ID; no match in the three Turtle files
+person,per:2wErT5yUqP8pLkJ9hGfDsA,al-Layth b. Saʿd,,,,thawr,needs-review,"IRI nearly identical to per:2wErT5yUqP8pLkJ9hGfDsA1, which is a different entity by label; do not merge or trim IDs"
+person,per:aXsp7ttJkuvb5HdtfAmH9S,Al-Miqdad ibn al-Aswad,,,Al-Miqdad ibn al-Aswad;al-Miqdad,stories-50,needs-review,"new ID; no match in the three Turtle files | shares the first name 'miqdad' with per:6nBvCxZ4aSdF7gHjK9mQwE1 al-Miqdād b. ʿAmr; a rare first name; may or may not be the same person, not merged | name forms merged by stories-50 build.py ALIASES/aka: Al-Miqdad ibn al-Aswad / al-Miqdad"
+person,per:6nBvCxZ4aSdF7gHjK9mQwE1,al-Miqdād b. ʿAmr,,,,generation-1,needs-review,"IRI nearly identical to per:6nBvCxZ4aSdF7gHjK9mQwE, which is a different entity by label; do not merge or trim IDs"
+person,per:mkHiSnoeiDf5lOjczyNoSi,Al-Mughirah ibn Shu'bah,,,Al-Mughirah ibn Shu'bah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:87EDx3NvCjwfKGfhqYkJcF,"al-Najashi (Aṣḥama), Negus of Abyssinia",,,Al-Najashi;Al-Najashi (Ashamah ibn Abjar);Ashamah ibn Abjar,seed-incidents;stories-50,probable,stories-50 name matched through a name variant: Al-Najashi / Al-Najashi (Ashamah ibn Abjar) / Ashamah ibn Abjar
+person,per:VVKTz9kCQJHnOdftkaJ5HF,Al-Rubayyi' bint al-Nadr,,,Al-Rubayyi' bint al-Nadr,stories-50,exact,new ID; no match in the three Turtle files
+person,per:cxk5HXRCn8G8UAwZJ7NGxQ,Al-Shayma' bint al-Harith,,,Al-Shayma' bint al-Harith,stories-50,exact,new ID; no match in the three Turtle files
+person,per:w6WL45bm3Ho6Cjt2EuGl8e,Al-Tufayl ibn Amr al-Dawsi,,,Al-Tufayl ibn Amr al-Dawsi,stories-50,exact,new ID; no match in the three Turtle files
+person,per:5dFgH8jKmN2bVcX6zAqWsE1,al-Zubayr b. al-ʿAwwām,,,Al-Zubayr ibn al-Awwam;al-Zubayr,generation-1;stories-50,needs-review,"IRI nearly identical to per:5dFgH8jKmN2bVcX6zAqWsE, which is a different entity by label; do not merge or trim IDs"
+person,per:8gztwMhLzVG8nUtMnV3GUW,Amir b. Fuhayra,,,Amir ibn Fuhayrah,seed-incidents;stories-50,exact,
+person,per:nxyQr7KyjjTaG8w405OJSM,Amir ibn al-Akwa',,,Amir ibn al-Akwa',stories-50,exact,new ID; no match in the three Turtle files
+person,per:czZoooZavM2Exg0I0CTynt,Amr ibn al-As,,,Amr ibn al-As,stories-50,exact,new ID; no match in the three Turtle files
+person,per:8epwFKEzFhJFo4Uzqywkke,Amr ibn al-Jamuh,,,Amr ibn al-Jamuh,stories-50,exact,new ID; no match in the three Turtle files
+person,per:6gY3kPcU5nR8yAdW3jS9eE1,Anas b. Mālik,,,Anas ibn Malik,generation-1;stories-50,needs-review,"IRI nearly identical to per:8gY3kPcU5nR8yAdW3jS9eE1, which is a different entity by label; do not merge or trim IDs"
+person,per:UNd2Qj5rIcerp5SgUW0Chm,Anas ibn al-Nadr,,,Anas ibn al-Nadr,stories-50,exact,new ID; no match in the three Turtle files
+person,per:QDSxKbyfSKsoEoaHcvPk3V,As'ad ibn Zurarah,,,As'ad ibn Zurarah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:zijJDHqY0oqQujX6dESI7L,Asma bint Amr,,,Asma bint Amr;Asma bint Amr (Umm Mani');Umm Mani',stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Asma bint Amr / Asma bint Amr (Umm Mani') / Umm Mani'
+person,per:FEBUf6zHRakCm07vIQJnOy,Asma bint Umays,,,Asma bint Umays,stories-50,exact,new ID; no match in the three Turtle files
+person,per:6xZc2mQ7vR9nK4pT8sY3wA1,Asmāʾ bint Abī Bakr,,,Asma bint Abi Bakr,generation-1;seed-incidents;stories-50,exact,
+person,per:1RbjQK4Cf0o3S7xev1qGg4,Ayman ibn Umm Ayman,,,Ayman ibn Umm Ayman,stories-50,exact,new ID; no match in the three Turtle files
+person,per:q0uiYverqXaGA6JbWBc1dk,Barirah,,,Barirah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:2aSdF6gHjK8mNbV5cXzQwE1,Bilāl b. Rabāḥ,,,Bilal ibn Rabah,generation-1;seed-incidents;stories-50,exact,
+person,per:Bnz8EEWpZDleT4DmKLfH5b,Bishr ibn al-Bara' ibn Ma'rur,,,Bishr ibn al-Bara' ibn Ma'rur,stories-50,exact,new ID; no match in the three Turtle files
+person,per:rg0STif8MP4JDBW4SCRoVq,Budayl ibn Warqa' al-Khuza'i,,,Budayl ibn Warqa' al-Khuza'i,stories-50,exact,new ID; no match in the three Turtle files
+person,per:iqZ9L8U89G1vreQnUinFGX,Buraydah ibn al-Husayb,,,Buraydah ibn al-Husayb,stories-50,exact,new ID; no match in the three Turtle files
+person,per:CO4rh3UDERc4MK4k6eIvTV,Fatimah bint al-Aswad al-Makhzumiyyah,,,Fatimah bint al-Aswad al-Makhzumiyyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:4qWeR7tYuP2aSdF9gHjKzX1,Fāṭima bint al-Khaṭṭāb,,,Fatimah bint al-Khattab,generation-1;stories-50,exact,
+person,per:9bVcX5zAsD2fGhJ6kQwErT1,Fāṭima bint Muḥammad,,,Fatimah bint Muhammad,generation-1;stories-50,exact,
+person,per:Bw9c6gAqaeeHn4IO9h2KFT,Hakim ibn Hizam,,,Hakim ibn Hizam,stories-50,exact,new ID; no match in the three Turtle files
+person,per:hjl8sB9t9fEBz0Cr1aGcOj,Hamnah bint Jahsh,,,Hamnah bint Jahsh,stories-50,exact,new ID; no match in the three Turtle files
+person,per:BMUAVJetN7sW21PfUDhwnU,Hanzalah ibn Abi Amir,,,Hanzalah ibn Abi Amir,stories-50,exact,new ID; no match in the three Turtle files
+person,per:ZN1VFGPVpruv4nqFcSErmz,Harithah ibn Suraqah,,,Harithah ibn Suraqah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:PLb3NApFhwknTPqdDArQyT,Hassan ibn Thabit,,,Hassan ibn Thabit,stories-50,exact,new ID; no match in the three Turtle files
+person,per:ixm1ARe8EG5D72LeLCsaXz,Hatib ibn Abi Balta'ah,,,Hatib ibn Abi Balta'ah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:6rPj4NxWqXaiz9hu4pEX0o,Hilal ibn Umayyah,,,Hilal ibn Umayyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:FDktfckRE26FEEpUqh7qHq,Hind bint Utba,,,Hind bint Utbah,seed-incidents;stories-50,exact,
+person,per:SRl6AlFJlveGmTTk3amhIp,Hudhayfah ibn al-Yaman,,,Hudhayfah ibn al-Yaman,stories-50,exact,new ID; no match in the three Turtle files
+person,per:4tVbN6yHjM3kQ9wErZ7uXs,Ibn Shihāb al-Zuhrī,,,,thawr,needs-review,"IRI nearly identical to per:4tVbN6yHjM3kQ9wErZ7uXs1, which is a different entity by label; do not merge or trim IDs"
+person,per:LXnhf4hMsgeRgyuNX7W2sr,Ikrimah ibn Abi Jahl,,,Ikrimah ibn Abi Jahl,stories-50,exact,new ID; no match in the three Turtle files
+person,per:VTYCHJ7pR51F6YxgptJ8Rd,Itban ibn Malik,,,Itban ibn Malik,stories-50,exact,new ID; no match in the three Turtle files
+person,per:n0WCF1BTP7WFXUbKtWKUs3,Jabir ibn Abdullah,,,Jabir ibn Abdullah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:3wY6xZc2mQ7vR9nK4pT8sA1,Jaʿfar b. Abī Ṭālib,,,Ja'far ibn Abi Talib,generation-1;seed-incidents;stories-50,exact,
+person,per:JsHTLv5DqIjZKaunxBkRB0,Jubayr ibn Mut'im,,,Jubayr ibn Mut'im,stories-50,exact,new ID; no match in the three Turtle files
+person,per:c5uO0DPSKvFQJhbqZMnCVa,Julaybib,,,Julaybib,stories-50,exact,new ID; no match in the three Turtle files
+person,per:hBxUQqPDrZGtgXPWBRgrHQ,Ka'b b. Malik,,,Ka'b ibn Malik,seed-incidents;stories-50,exact,
+person,per:ALyhvNwZX7ahC8oWp6umon,Khabbab ibn al-Aratt,,,Khabbab ibn al-Aratt,stories-50,exact,new ID; no match in the three Turtle files
+person,per:7hQ2mXvR9nK4pT8wY3zBcd1,Khadīja bint Khuwaylid,,,Khadijah bint Khuwaylid,generation-1;seed-incidents;stories-50,exact,
+person,per:dKAPKxa69WzXASHWmGPk81,Khalid b. al-Walid,,,Khalid ibn al-Walid,seed-incidents;stories-50,exact,
+person,per:pKP3W3amKgZ0RvqqE3ypj0,Khalidah bint al-Harith,,,Khalidah bint al-Harith,stories-50,exact,new ID; no match in the three Turtle files
+person,per:9sOkWtjbc4PQ9vHJHHhQRV,Kharijah ibn Zayd,,,Kharijah ibn Zayd,stories-50,exact,new ID; no match in the three Turtle files
+person,per:CyH15GWx8soI6grbZhAd1H,Kulthum ibn al-Hidm,,,Kulthum ibn al-Hidm,stories-50,exact,new ID; no match in the three Turtle files
+person,per:0GexuMzgQknRKi7mhwzlVC,Lubaynah,,,Lubaynah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:bifB34MShHUClCaioJsXm6,Malik ibn Awf al-Nasri,,,Malik ibn Awf al-Nasri,stories-50,exact,new ID; no match in the three Turtle files
+person,per:h0RM35iGRTa35pXCx9MPTR,Malik ibn Sa'sa'ah,,,Malik ibn Sa'sa'ah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:LVUCZtIrEFv81OaX1jbIgu,Mistah ibn Uthathah,,,Mistah ibn Uthathah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:s9vf1YzbmonCd6ziVXEPND,Mu'adh ibn Amr ibn al-Jamuh,,,Mu'adh ibn Amr ibn al-Jamuh,stories-50,exact,new ID; no match in the three Turtle files
+person,per:uKYhotVGdouzPNYdL2sLsB,Mu'adh ibn Jabal,,,Mu'adh ibn Jabal,stories-50,exact,new ID; no match in the three Turtle files
+person,per:b5LczOCWeXGDX1loTEwLlq,Mu'awwidh ibn Afra',,,Mu'awwidh ibn Afra',stories-50,exact,new ID; no match in the three Turtle files
+person,per:t6jc7JEF70q32O3QvyHdQI,Muhammad ibn Maslamah,,,Muhammad ibn Maslamah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:xd7yenJaZ66yFXaYsGn6qN,Murarah ibn al-Rabi',,,Murarah ibn al-Rabi',stories-50,exact,new ID; no match in the three Turtle files
+person,per:2wErT5yUqP8pLkJ9hGfDsA1,Muṣʿab b. ʿUmayr,,,Mus'ab ibn Umayr,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:2wErT5yUqP8pLkJ9hGfDsA, which is a different entity by label; do not merge or trim IDs"
+person,per:w3tHuc3oZWF4Fz3rPrEpdj,Nu'aym b. Mas'ud,,,Nu'aym ibn Mas'ud,seed-incidents;stories-50,exact,
+person,per:sObTUxfqofLyGtnaRnR2LF,Nu'aym ibn Abdullah al-Nahham,,,Nu'aym ibn Abdullah al-Nahham,stories-50,exact,new ID; no match in the three Turtle files
+person,per:iTBGyrTFv2ax4hGJH4J2ig,Nusayba bint Ka'b (Umm 'Ammara),,,Nusaybah bint Ka'b;Nusaybah bint Ka'b (Umm Umarah);Umm Umarah,seed-incidents;stories-50,probable,stories-50 name matched through a name variant: Nusaybah bint Ka'b / Nusaybah bint Ka'b (Umm Umarah) / Umm Umarah
+person,per:aFUkChTdGQPte2vsjdQ7JQ,Qatadah ibn al-Nu'man,,,Qatadah ibn al-Nu'man,stories-50,exact,new ID; no match in the three Turtle files
+person,per:zrSf03xrAotwJdqSVQ7uMw,Qutham ibn Abbas,,,Qutham ibn Abbas,stories-50,exact,new ID; no match in the three Turtle files
+person,per:o6ayqVjKkDchChZJJuiqvR,Rabi'ah ibn Umayyah ibn Khalaf,,,Rabi'ah ibn Umayyah ibn Khalaf,stories-50,exact,new ID; no match in the three Turtle files
+person,per:APf6xB5SrQAgLgFUtKjXXY,Rufaydah al-Aslamiyyah,,,Rufaydah al-Aslamiyyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:3fGhJ5kQwE8rTyU2mNbVcX1,Ruqayya bint Muḥammad,,,Ruqayyah bint Muhammad,generation-1;stories-50,exact,
+person,per:w7cCQooSiRQrMumeCxJgpr,Sa'd ibn al-Rabi',,,Sa'd ibn al-Rabi',stories-50,exact,new ID; no match in the three Turtle files
+person,per:GRQZIZDW4v7dgsAwTWPHWH,Sa'd ibn Ubadah,,,Sa'd ibn Ubadah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:Qm3clpWrh373qxmbghB7tB,Safiyyah bint Abd al-Muttalib,,,Safiyyah bint Abd al-Muttalib,stories-50,exact,new ID; no match in the three Turtle files
+person,per:xFUrVz0AmebRm90tqgLLvN,Safiyyah bint Huyayy,,,Safiyyah bint Huyayy,stories-50,exact,new ID; no match in the three Turtle files
+person,per:ovz0wxPOkX9d6KGpv9gzHi,Safwan ibn al-Mu'attal,,,Safwan ibn al-Mu'attal,stories-50,exact,new ID; no match in the three Turtle files
+person,per:wfqZg92zqtxvc94zqDRTEH,Safwan ibn Umayyah,,,Safwan ibn Umayyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:wsmhUQPh4GOyB7iNGiQGl7,Sahl ibn Rafi',,,Sahl ibn Rafi',stories-50,probable,"new ID; no match in the three Turtle files | split out of the stories-50 string ""Sahl and Suhayl ibn Rafi'"" by build.py SPLITS"
+person,per:89TwCuq9dWNxTltYcJ4vip,Sahl ibn Sa'd,,,Sahl ibn Sa'd,stories-50,exact,new ID; no match in the three Turtle files
+person,per:SJIz8TctVxHK9kTvlmtaAc,Salamah ibn al-Akwa',,,Salamah ibn al-Akwa',stories-50,exact,new ID; no match in the three Turtle files
+person,per:FBLYrnnJPF85SvdV5wSf52,Salman al-Farisi,,,Salman al-Farisi,seed-incidents;stories-50,exact,
+person,per:PyhX6PKHFiPxkXdE25wKed,Sawad ibn Ghaziyyah,,,Sawad ibn Ghaziyyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:2sDfG6hJkQ9wErT4yUmNbV1,Sawda bint Zamʿa,,,,generation-1,exact,
+person,per:9qWeR4tYuP7aSdF3gHjKzX1,Saʿd b. Abī Waqqāṣ,,,Sa'd ibn Abi Waqqas,generation-1;seed-incidents;stories-50,exact,
+person,per:7yUmK3jHgF9dSaQ2wErT5z1,Saʿd b. Muʿādh,,,Sa'd ibn Mu'adh,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:7yUmK3jHgF9dSaQ2wErT5z, which is a different entity by label; do not merge or trim IDs"
+person,per:5zAsD3fGhJ7kQwE4rTyUmN1,Saʿīd b. Zayd,,,Sa'id ibn Zayd,generation-1;stories-50,exact,
+person,per:wnKxqyt6AaJnbNNX3cCn5F,Shuqran,,,Shuqran,stories-50,exact,new ID; no match in the three Turtle files
+person,per:etJ9DWzsPdnmCiosNMzPQw,Suhayb al-Rumi,,,,seed-incidents,exact,
+person,per:cotGbRxMPX5KUn2siIomAX,Suhayl ibn Amr,,,Suhayl ibn Amr,stories-50,exact,new ID; no match in the three Turtle files
+person,per:o31n8YZ5c0Ml9YoVuKwwt5,Suhayl ibn Rafi',,,Suhayl ibn Rafi',stories-50,probable,"new ID; no match in the three Turtle files | split out of the stories-50 string ""Sahl and Suhayl ibn Rafi'"" by build.py SPLITS"
+person,per:0ZRRp72EozMZ2DrH2DQoU2,Suhaylah bint Mas'ud,,,Suhaylah bint Mas'ud,stories-50,exact,new ID; no match in the three Turtle files
+person,per:3Q1KPiSAAHas4v13YpFpRH,Sumayyah bint Khayyat,,,Sumayyah bint Khayyat,stories-50,exact,new ID; no match in the three Turtle files
+person,per:zbPULXoI4EH90JX8GGo8vA,Suraqah ibn Malik,,,Suraqah ibn Malik,stories-50,exact,new ID; no match in the three Turtle files
+person,per:NYTtcA0D1hjaQuBhEXAVF2,Thabit ibn Aqram,,,Thabit ibn Aqram,stories-50,exact,new ID; no match in the three Turtle files
+person,per:2mQ7vR9nK4pT8sY3wZ6xCe,The Prophet Muḥammad (peace and blessings be upon him),,,,thawr;generation-1;seed-incidents,exact,
+person,per:3uNZfE8y9zjryeSo4VJuFY,Thumamah ibn Uthal,,,Thumamah ibn Uthal,stories-50,exact,new ID; no match in the three Turtle files
+person,per:LLMJ2L5PrlS97J9d6OJJa3,Ubadah ibn al-Samit,,,Ubadah ibn al-Samit,stories-50,exact,new ID; no match in the three Turtle files
+person,per:lWxv0tVsu5iQrw76mBhnD4,Umaymah bint Subayh,,,Umaymah bint Subayh,stories-50,exact,new ID; no match in the three Turtle files
+person,per:z7uHHlVtVqj9T4nsBmp460,Umayr ibn al-Humam,,,Umayr ibn al-Humam,stories-50,exact,new ID; no match in the three Turtle files
+person,per:gAEtohDD2TbJUk5bnPh4Zq,Umm Ayman,,,Umm Ayman;Umm Ayman (Barakah);Barakah,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Umm Ayman / Umm Ayman (Barakah) / Barakah
+person,per:pHkNNiT1jbanrErERDyOxU,Umm Hakim bint al-Harith,,,Umm Hakim bint al-Harith,stories-50,exact,new ID; no match in the three Turtle files
+person,per:ybnljfyhLWHhfkVTChGtiS,Umm Hani bint Abi Talib,,,Umm Hani bint Abi Talib,stories-50,exact,new ID; no match in the three Turtle files
+person,per:4mNbV7cXzA2sDfG9hJkQwR1,Umm Kulthūm bint Muḥammad,,,,generation-1,exact,
+person,per:0Pe9P0ZQLhr6px2teu34Kb,Umm Ma'bad al-Khuza'iyyah,,,Umm Ma'bad al-Khuza'iyyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:BsVJdyYs6OQlZl3Hwva9ui,Umm Mistah,,,Umm Mistah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:RzQnyBIOrAloONuY0ASBzw,Umm Ruman,,,Umm Ruman,stories-50,exact,new ID; no match in the three Turtle files
+person,per:WMamdaneJX5kayzt050oLF,Umm Sa'd,,,Umm Sa'd;Umm Sa'd (Kabshah bint Rafi');Kabshah bint Rafi',stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Umm Sa'd / Umm Sa'd (Kabshah bint Rafi') / Kabshah bint Rafi'
+person,per:7kQwE4rTyU2mNbV9cXzAsD1,Umm Salama bint Abī Umayya,,,Umm Salamah;Umm Salamah (Hind bint Abi Umayyah);Hind bint Abi Umayyah,generation-1;seed-incidents;stories-50,probable,stories-50 name matched through a contained name: Umm Salamah / Umm Salamah (Hind bint Abi Umayyah) / Hind bint Abi Umayyah
+person,per:Bw6au0op2rnhDQ9EpDiKUg,Umm Sulaym bint Milhan,,,Umm Sulaym bint Milhan;Umm Sulaym,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Umm Sulaym bint Milhan / Umm Sulaym
+person,per:WjEXt8VOW3aPnEnyEIw2UI,Umm Ubays,,,Umm Ubays,stories-50,exact,new ID; no match in the three Turtle files
+person,per:kni99MFgssZV9wCIPEuJyY,Unays,,,Unays,stories-50,exact,new ID; no match in the three Turtle files
+person,per:XWTzg09SfWoC8wLi7c1gJt,Urwah ibn Mas'ud al-Thaqafi,,,Urwah ibn Mas'ud al-Thaqafi,stories-50,needs-review,"new ID; no match in the three Turtle files | shares the first name 'urwa' with per:9pLmK4nR8sT2wQ6vY3xZbA ʿUrwa b. al-Zubayr; a rare first name; may or may not be the same person, not merged"
+person,per:KrJiSdZXjpxWuduqA8kZUv,Usama b. Zayd,,,Usamah ibn Zayd,seed-incidents;stories-50,exact,
+person,per:8jKmN2bVcX6zAqWsE9fGhJ1,Usayd b. Ḥuḍayr,,,Usayd ibn Hudayr,generation-1;stories-50,exact,
+person,per:JaB0FuFe8l9g7euqcmKvoG,Uthman ibn Maz'un,,,Uthman ibn Maz'un,stories-50,exact,new ID; no match in the three Turtle files
+person,per:MmUWfMOTwLQv3dxaGKbhbv,Uthman ibn Talhah,,,Uthman ibn Talhah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:nIXwKTKAZ20Vhh80paZBVw,Wahshi ibn Harb,,,Wahshi ibn Harb,stories-50,exact,new ID; no match in the three Turtle files
+person,per:yLxAg4fUPuthMjBPup8ceQ,Waraqa b. Nawfal,,,Waraqah ibn Nawfal,seed-incidents;stories-50,exact,
+person,per:6KZ4sLCoNKWt8gWs9HsEuD,Yasir ibn Amir,,,Yasir ibn Amir,stories-50,exact,new ID; no match in the three Turtle files
+person,per:5dFgH8jKmN2bVcX6zAqWsE,Yaḥyā b. Bukayr,,,,thawr,needs-review,"IRI nearly identical to per:5dFgH8jKmN2bVcX6zAqWsE1, which is a different entity by label; do not merge or trim IDs"
+person,per:nwfJDZQeYsrnk8ydaFWRr5,Zayd b. Thabit,,,,seed-incidents,exact,
+person,per:4kNqR7mZpW2vXcT8bH3jLd1,Zayd b. Ḥāritha,,,Zayd ibn Harithah,generation-1;seed-incidents;stories-50,exact,
+person,per:l3lfDwfyvbMEUECMgCQyCD,Zaynab bint Jahsh,,,Zaynab bint Jahsh,stories-50,exact,new ID; no match in the three Turtle files
+person,per:Tm1aLZ8h5g64Mhhk4TpvmG,Zinnirah al-Rumiyyah,,,Zinnirah al-Rumiyyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:aYkcOQduiW3cppCrkrJULR,Zuhayr ibn Abi Umayyah,,,Zuhayr ibn Abi Umayyah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:8pLkJ9hGfDsA3wErT5yUqP1,ʿAbd al-Raḥmān b. Abī Bakr,,,Abd al-Rahman ibn Abi Bakr,generation-1;stories-50,exact,
+person,per:3zXcV5bNmA8sDfG2hJkLqW1,ʿAbd al-Raḥmān b. ʿAwf,,,Abd al-Rahman ibn Awf,generation-1;stories-50,exact,
+person,per:2cXzA8sDfG3hJkQ6wErTyU1,ʿAbdullāh b. Rawāḥa,,,Abdullah ibn Rawahah,generation-1;stories-50,exact,
+person,per:3jLd4kNqR7mZpW2vXcT8b1,ʿAlī b. Abī Ṭālib,,,Ali ibn Abi Talib;Ali,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8bH, per:3jLd4kNqR7mZpW2vXcT8bH1, which is a different entity by label; do not merge or trim IDs"
+person,per:6wErT9yUmN5bVcX2zAsDfG1,ʿAmmār b. Yāsir,,,Ammar ibn Yasir,generation-1;stories-50,exact,
+person,per:4sDfG6hJkQ2wErT9yUmNbV1,ʿUbayda b. al-Ḥārith,,,Ubaydah ibn al-Harith,generation-1;stories-50,exact,
+person,per:9pLmK4nR8sT2wQ6vY3xZbA1,ʿUmar b. al-Khaṭṭāb,,,Umar ibn al-Khattab;Umar,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:9pLmK4nR8sT2wQ6vY3xZbA, which is a different entity by label; do not merge or trim IDs"
+person,per:7yUmK3jHgF9dSaQ2wErT5z,ʿUqayl b. Khālid,,,,thawr,needs-review,"IRI nearly identical to per:7yUmK3jHgF9dSaQ2wErT5z1, which is a different entity by label; do not merge or trim IDs"
+person,per:9pLmK4nR8sT2wQ6vY3xZbA,ʿUrwa b. al-Zubayr,,,,thawr,needs-review,"IRI nearly identical to per:9pLmK4nR8sT2wQ6vY3xZbA1, which is a different entity by label; do not merge or trim IDs"
+person,per:8gY3kPcU5nR8yAdW3jS9eE1,ʿUthmān b. ʿAffān,,,Uthman ibn Affan;Uthman,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:6gY3kPcU5nR8yAdW3jS9eE1, which is a different entity by label; do not merge or trim IDs"
+person,per:3jLd4kNqR7mZpW2vXcT8bH,ʿĀʾisha bint Abī Bakr,,per:3jLd4kNqR7mZpW2vXcT8bH1,Aishah bint Abi Bakr;Aishah,thawr;generation-1;stories-50,needs-review,"merged on shared normalised label: per:3jLd4kNqR7mZpW2vXcT8bH = ʿĀʾisha bint Abī Bakr; per:3jLd4kNqR7mZpW2vXcT8bH1 = ʿĀʾisha bint Abī Bakr | IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8b1, which is a different entity by label; do not merge or trim IDs | IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8b1, which is a different entity by label; do not merge or trim IDs"
+person,per:5rTyU2mNbV8cXzA3sDfGhJ1,Ḥafṣa bint ʿUmar,,,,generation-1,exact,
+person,per:4tVbN6yHjM3kQ9wErZ7uXs1,Ḥamza b. ʿAbd al-Muṭṭalib,,,Hamzah ibn Abd al-Muttalib;Hamzah,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:4tVbN6yHjM3kQ9wErZ7uXs, which is a different entity by label; do not merge or trim IDs"
+person,per:9kQwE7rTyU4mNbV6cXzAsD1,Ṭalḥa b. ʿUbaydullāh,,,Talhah ibn Ubaydillah,generation-1;seed-incidents;stories-50,exact,
+place,plc:vzckhHVgDDTfVCbVwU7tLd,al-Aqaba,,,,seed-incidents,exact,
+place,plc:5n7tL67gMpBQGUbADR5wBb,al-Habasha (Aksum),,,,seed-incidents,exact,
+place,plc:5dFgH8jKmN2bVcX6zAqWsE2,al-Madīna,المدينة;يثرب,plc:5dFgH8jKmN2bVcX6zAqWsE,,thawr;generation-1;seed-incidents,probable,merged on shared normalised label: plc:5dFgH8jKmN2bVcX6zAqWsE = al-Madīna (formerly Yathrib); plc:5dFgH8jKmN2bVcX6zAqWsE2 = al-Madīna
+place,plc:ioWCg5AEr4UYA1dkWNwtbv,al-Sham,,,,seed-incidents,exact,
+place,plc:6J8V7krgHSbMntUrQBbhEw,al-Ta'if,,,,seed-incidents,exact,
+place,plc:98UT27bZxe9XmZVkDRUXiy,al-Yamama,,,,seed-incidents,exact,
+place,plc:7cVbN3mAsD9fGhJ4kQwErT2,al-Ḥudaybiyya,الحديبية,,,generation-1,needs-review,"IRI nearly identical to plc:7cVbN3mAsD9fGhJ4kQwErT, which is a different entity by label; do not merge or trim IDs"
+place,plc:dNEwhw9hx8yPCaNQCwSRT8,Arafat,,,,seed-incidents,exact,
+place,plc:6hJkQ3wErT9yUmN5bVcXzA1,Badr,بدر,,,generation-1,exact,
+place,plc:fm5Uufhxzu3NjcReBM3jhi,Bayt al-Maqdis,,,,seed-incidents,exact,
+place,plc:sUFGV6BTYhoRrt5rG5pnLJ,Ghar Hira',,,,seed-incidents,exact,
+place,plc:3zXcV5bNmA8sDfG2hJkLqW,Ghār Thawr,غار ثور,plc:uQSWiqCgjHmrPQaKnBERUn,,thawr;seed-incidents,probable,merged on shared normalised label: plc:3zXcV5bNmA8sDfG2hJkLqW = Ghār Thawr; plc:uQSWiqCgjHmrPQaKnBERUn = Ghar Thawr
+place,plc:8qF1DQ99XtNNCTaQW2eGA1,Hunayn,,,,seed-incidents,exact,
+place,plc:sTerKmn2YXLhYbtceEGMyR,Jazirat al-Arab (various fronts),,,,seed-incidents,exact,
+place,plc:f1Vh5RvPPhpCYVh32mJ8K2,Khaybar,,,,seed-incidents,exact,
+place,plc:2aSdF6gHjK8mNbV5cXzQwE2,Makkah,مكة,plc:9qWeR4tYuP7aSdF3gHjKzX,,thawr;generation-1;seed-incidents,needs-review,"merged on shared normalised label: plc:2aSdF6gHjK8mNbV5cXzQwE2 = Makkah; plc:9qWeR4tYuP7aSdF3gHjKzX = Makkah | IRI nearly identical to plc:2aSdF6gHjK8mNbV5cXzQwE, which is a different entity by label; do not merge or trim IDs | IRI nearly identical to plc:9qWeR4tYuP7aSdF3gHjKzX2, which is a different entity by label; do not merge or trim IDs"
+place,plc:nyxjqpT7HwgzZZHTCW6tuW,Quba',,,,seed-incidents,exact,
+place,plc:2aSdF6gHjK8mNbV5cXzQwE,Route waypoint (unidentified),,,,thawr,needs-review,"placeholder label, never merged on name: Route waypoint (unidentified) | IRI nearly identical to plc:2aSdF6gHjK8mNbV5cXzQwE2, which is a different entity by label; do not merge or trim IDs"
+place,plc:7cVbN3mAsD9fGhJ4kQwErT,Route waypoint (unidentified),,,,thawr,needs-review,"placeholder label, never merged on name: Route waypoint (unidentified) | IRI nearly identical to plc:7cVbN3mAsD9fGhJ4kQwErT2, which is a different entity by label; do not merge or trim IDs"
+place,plc:q9sqwuMQArvxjYyLc47vBA,Shi'b Abi Talib,,,,seed-incidents,exact,
+place,plc:Uqd5Jfx2BFryuSFwBVVbrF,Tabuk,,,,seed-incidents,exact,
+place,plc:9qWeR4tYuP7aSdF3gHjKzX2,Uḥud,أُحُد,,,generation-1,needs-review,"IRI nearly identical to plc:9qWeR4tYuP7aSdF3gHjKzX, which is a different entity by label; do not merge or trim IDs"
+event,ev:8MRi7tRDnu2TKS9PFFketJ,Abu Bakr's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:s2Nto37t8CXznvKmoNRWbS,Abu Bakr's address after the Prophet's death,,,,seed-incidents,exact,
+event,ev:iuGZ3GGcGDqhhbwXJ8D1Cz,Abu Bakr's pledge of allegiance as caliph,,,,seed-incidents,exact,
+event,ev:mvtR3SmYdyTGKBmrrLZyR6,al-Isra' wa'l-Mi'raj (the Night Journey and Ascension),,,,seed-incidents,exact,
+event,ev:Macm2CnEpUuL46qFy4oN2J,Ali's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:Px4ZY7w13uKaU4GQWCLiF9,Ali's succession as caliph,,,,seed-incidents,exact,
+event,ev:6gY3kPcU5nR8yAdW3jS9eE,Arrival at Qubāʾ,,ev:DPiT3Qift9Qbxga9AiaDog,,thawr;seed-incidents,probable,merged on shared normalised label: ev:6gY3kPcU5nR8yAdW3jS9eE = Arrival at Qubāʾ; ev:DPiT3Qift9Qbxga9AiaDog = Arrival at Quba'
+event,ev:3Xjzj4QHY6FbgKENkGGXy7,Arrival in Madinah and early community-building,,,,seed-incidents,exact,
+event,ev:5rTyU9mNbV2cXzA8sDfGhJk1,Battle of Badr,,,,generation-1;seed-incidents,exact,
+event,ev:5rTyU2mNbV8cXzA3sDfGhJ2,Battle of the Trench (Khandaq),,,,generation-1;seed-incidents,exact,
+event,ev:8jKmN2bVcX6zAqWsE9fGhJ2,Battle of Uḥud,,,,generation-1;seed-incidents,exact,
+event,ev:5zAsD3fGhJ7kQwE4rTyUmN2,Conquest of Makkah,,,,generation-1;seed-incidents,exact,
+event,ev:6xZc2mQ7vR9nK4pT8sY3wA3,Death of the Prophet ﷺ,,,,generation-1;seed-incidents,exact,
+event,ev:5fW9jNbT4mQ7xZcV2hR8dK,Departure from Makkah,,,,thawr,exact,
+event,ev:YQVwa1VsHgr7LpNqMuWw7v,Hamza's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:4CEk1GHqBJiZGLetNxSkhe,Mus'ab b. Umayr's teaching mission to Yathrib,,,,seed-incidents,exact,
+event,ev:WDQxcQFoRKTY9NkRqbVXAJ,"Persecution of early Muslims, incl. Bilal",,,,seed-incidents,exact,
+event,ev:QrEi11wnvMS4hycQZuoQuy,Public proclamation from al-Safa,,,,seed-incidents,exact,
+event,ev:rMq6nNneuHpr8sxkUrbnbr,Sa'd b. Mu'adh's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:7hQ2mXvR9nK4pT8wY3zBcd,Sheltering at Ghār Thawr,,,,thawr,exact,
+event,ev:56dB5Fy31CP6LGPsKuVSR6,Standardisation of the Qur'anic text under Uthman,,,,seed-incidents,exact,
+event,ev:jf1nBReADK35WxNBnwTS9V,The Battle of Hunayn,,,,seed-incidents,exact,
+event,ev:5msk7RgEjHctbFNcBkJ21Q,The Battle of Yamama,,,,seed-incidents,exact,
+event,ev:oTnhYREjPWB6mUJZR4cnYA,The beginning of the Hijra migrations to Madinah,,,,seed-incidents,exact,
+event,ev:qBKbbt25KsHFAxemoK8xDP,The expansion into Syria,,,,seed-incidents,exact,
+event,ev:vqFhA78ZXwijNch74AJ2RJ,The expedition to Tabuk,,,,seed-incidents,exact,
+event,ev:GyqdNYKVR2dABPKmtf9mk1,The Farewell Pilgrimage,,,,seed-incidents,exact,
+event,ev:rwLrDMaMm3no4vEWjVcBrw,The First Pledge of al-Aqaba,,,,seed-incidents,exact,
+event,ev:nVEg76HzRApTAxhfpbrGUV,"The first revelation, at Ghar Hira'",,,,seed-incidents,exact,
+event,ev:JitvLyniWwRacZVtmuCUTY,The gathering at Saqifat Bani Sa'ida,,,,seed-incidents,exact,
+event,ev:nkdSMuVDo7LS9vhSuq1Lxs,"The Hijra: departure from Makkah, via Ghar Thawr",,,,seed-incidents,exact,
+event,ev:Ds5Bx1HGwsHR49guxdzXad,The journey to Ta'if,,,,seed-incidents,exact,
+event,ev:r932VFzvbsyGx5z3ifRuKT,The Khaybar campaign,,,,seed-incidents,exact,
+event,ev:2nzLCgj9N2CYR357aFVriU,The migration to Abyssinia and the Negus's protection,,,,seed-incidents,exact,
+event,ev:iBL1sekQd99r79XnRiGoNB,The Ridda ('apostasy') wars,,,,seed-incidents,exact,
+event,ev:iftF52jqMkNExwC44oPZqd,The Second Pledge of al-Aqaba,,,,seed-incidents,exact,
+event,ev:DhoGCnGPCrZqgmrYHBwoB8,"The siege of Ta'if, following Hunayn",,,,seed-incidents,exact,
+event,ev:cWTQ97b89yrz1QhCeWeKym,The social boycott of Banu Hashim at Shi'b Abi Talib,,,,seed-incidents,exact,
+event,ev:mkxvKngiwe32gRJv34A7ig,Umar's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:98h6cZYjdoJKCDJ5YkEC5S,Umar's proposal to collect the Qur'an,,,,seed-incidents,exact,
+event,ev:VHoN6Ei4VWGbFLx9xCDQbg,Umar's succession as caliph,,,,seed-incidents,exact,
+event,ev:iceFuGcddKwFTAEtJRWQVh,Usama b. Zayd's appointment to lead an expedition,,,,seed-incidents,exact,
+event,ev:dpFVBKdkRn2jzGYeunb13m,Uthman's succession as caliph,,,,seed-incidents,exact,
+event,ev:PH1oyScydKybkhdyn4MoCT,Zayd b. Haritha's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:L8zGM78WmCoA61KnaDSvi1,Zayd b. Thabit's collection of the Qur'anic material,,,,seed-incidents,exact,
+event,ev:9qWeR4tYuP7aSdF3gHjKzX3,Ḥudaybiyya and the Pledge of Riḍwān,,,,generation-1;seed-incidents,exact,
+group,grp:kqz8BIr3Lqa6My5zAvGHCA,Ahl al-Suffah,,,Ahl al-Suffah,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:fJfUZfO6eHbjMvbk0Y3Ut6,Al-Bakka'un (the weepers),,,Al-Bakka'un (the weepers),stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:MPrW4LD51Ky8Dv87KDkPrg,Al-Nahdiyyah and her daughter,,,Al-Nahdiyyah and her daughter,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:RVS84E6TSVIzQWaAipmf8K,Al-Tufayl's father and wife,,,Al-Tufayl's father and wife,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:E3eUM5dPrVI0ONglo7qOko,All who pledged under the tree (Bay'at al-Ridwan),,,All who pledged under the tree (Bay'at al-Ridwan),stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:4A8Cez2Lj5fSnhTeSpngor,Early Companions gathered with him,,,Early Companions gathered with him,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:MUMGEywnizr4q1NBtxR68c,Hilal's wife,,,Hilal's wife,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:BXFrYo3yGqF0wOmZBgRgj2,His Ansari wife and her parents,,,His Ansari wife and her parents,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:qN33FiiGwZHfs7d8JlMFoL,The army of Badr,,,The army of Badr,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:bV9k6KIJRizQJhtCozbG7K,The Companions who planted,,,The Companions who planted,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:wcPxOoyJlHilsCu6HbkCnd,The Muslims of Madinah,,,The Muslims of Madinah,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
+group,grp:OPGM3h4VfCsaK6AY3ccpXl,Tribes of Ghifar and Aslam,,,Tribes of Ghifar and Aslam,stories-50,needs-review,"stories-50 group, not a person; no grp: prefix exists in the Turtle files, so this ID is provisional"
