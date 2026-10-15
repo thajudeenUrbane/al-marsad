@@ -4,6 +4,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix dct:  <http://purl.org/dc/terms/> .
+@prefix crm:  <http://www.cidoc-crm.org/cidoc-crm/> .
 
 #################################################################
 #  al-Marsad relation registry — v0.1.0-draft
@@ -220,6 +221,13 @@ mrs:rel_occurred_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
     skos:prefLabel "occurred at"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
 mrs:rel_occurred_during a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
     skos:prefLabel "occurred during"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false .
+mrs:rel_part_of a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "part of"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false ;
+    skos:exactMatch crm:P9i_forms_part_of ;
+    skos:note """Subject is part of object (an event within a larger event). Mapped to CIDOC-CRM
+        P9i_forms_part_of, whose domain and range (E4 Period) include mrs:Event. Added in slice 1d
+        for the Hijra part-of links, which are claims to be reviewed, not plain triples. For places
+        use mrs:within; occurred_during is a different relation (when, not composition)."""@en .
 mrs:rel_preceded a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
     skos:prefLabel "preceded"@en ; mrs:relationClass mrs:relclass_participation ;
     mrs:inverseRelation mrs:rel_followed ; mrs:symmetric false .

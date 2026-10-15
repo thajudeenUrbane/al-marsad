@@ -50,8 +50,12 @@ BASE = "https://w3id.org/marsad/id/"
 # are never edited (each must still validate on its own). Each entry is
 # (subject, predicate, left-out object, kept object, reason). A stale entry (the
 # triple is no longer there) is an error so this list cannot rot silently.
+#
+# Ghar Thawr (O4): the maintainer was unsure, so the default stands. The maintainer
+# accepted the default (keep `cave`) on 15 October 2026. Leave this entry as it is.
+# (The IRI is the slice 1d re-minted one; the retired ID is a variant in identity.csv.)
 MERGE_DECISIONS = [
-    (PLC["3zXcV5bNmA8sDfG2hJkLqW"], MRS.placeType, MRS.pt_route_node, MRS.pt_cave,
+    (PLC["Tvj82GYrHHvbBIehvFBQcA"], MRS.placeType, MRS.pt_route_node, MRS.pt_cave,
      "Ghar Thawr: examples/thawr.ttl says cave, corpus/seed-incidents.ttl says route node; PlaceShape allows exactly one "
      "placeType. Provisional: the physical type (cave) is kept and route node is left out of the unified graph. "
      "A maintainer/scholar decision; both stay in their source files."),

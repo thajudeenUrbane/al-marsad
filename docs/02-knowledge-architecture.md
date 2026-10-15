@@ -131,7 +131,7 @@ python ontology/validate.py path/to/data.ttl     # your own data
 
 ### 5.2 Identifier rules
 
-Every instance **MUST** carry a URI of the form `https://w3id.org/marsad/id/{class-token}/{opaque}` where `{opaque}` is a 22-character base58 string derived from a random 128-bit value.
+Every instance **MUST** carry a URI of the form `https://w3id.org/marsad/id/{class-token}/{opaque}` where `{opaque}` is a 22-character base62 string derived from a random 128-bit value.
 
 1. Identifiers **MUST** be opaque. They **MUST NOT** encode names, dates, transliterations or source references. A URI containing `abu-bakr` is an assertion about identity, and identity is a ⟨scholar⟩ decision that may later be revised.
 2. Identifiers **MUST NOT** be reused, reassigned or deleted. Retraction is an event; the URI persists and resolves to a tombstone recording what happened.
@@ -140,7 +140,7 @@ Every instance **MUST** carry a URI of the form `https://w3id.org/marsad/id/{cla
 
 ### 5.2.1 Minting rule (maintainer decision, 15 October 2026)
 
-Every new identifier is 22 characters of base62 drawn from the operating system's random source (Python `secrets`), and is checked for uniqueness against the payload of **every** existing instance IRI of **any** kind, not only of its own class token. It is never derived from a name, a date, another identifier or a hash of one. `ontology/tools/mint_id.py` does this: `python ontology/tools/mint_id.py per` prints one new `per:` identifier. Instance prefixes in use: `per:` (person), `plc:` (place), `ev:` (event), and `grp:` (group, `https://w3id.org/marsad/id/group/`, class `mrs:Group` ⊑ `crm:E74_Group`; the 12 groups of the 50 Stories are declared in `ontology/corpus/stories-50.ttl`). Slice 1c also uses `wrk:` (work, `https://w3id.org/marsad/id/work/`) for the 50 Stories doc. Some identifiers minted before this rule share a payload with an identifier of another kind, or differ from one by a single character; they are valid, distinct IRIs and are **not** renamed (renaming a stable IRI is a separate decision). Note: §5.2 says base58; the corpus in fact uses base62 and the minting tool follows the corpus.
+Every new identifier is 22 characters of base62 drawn from the operating system's random source (Python `secrets`), and is checked for uniqueness against the payload of **every** existing instance IRI of **any** kind, not only of its own class token. It is never derived from a name, a date, another identifier or a hash of one. `ontology/tools/mint_id.py` does this: `python ontology/tools/mint_id.py per` prints one new `per:` identifier. Instance prefixes in use: `per:` (person), `plc:` (place), `ev:` (event), and `grp:` (group, `https://w3id.org/marsad/id/group/`, class `mrs:Group` ⊑ `crm:E74_Group`; the 12 groups of the 50 Stories are declared in `ontology/corpus/stories-50.ttl`). Slice 1c also uses `wrk:` (work, `https://w3id.org/marsad/id/work/`) for the 50 Stories doc. On 15 October 2026 (decision O2, before any IRI was public) every identifier that broke the rule was re-minted: the 133 still in use that slice 1a had derived from a hash of the stories-50 slug, and 135 more that shared a payload with, or differed by one character from, the payload of another entity. All 268 are listed with their retired forms in `ontology/corpus/id-renames.csv`, and each retired person, place, event or group ID is kept in that row's `variant_ids`; `ontology/tools/identity_audit.py --check` now fails if a shared or one-character-apart payload reappears.
 
 ### 5.3 Versioning of the ontology itself
 `major.minor.patch`. A **major** increment may remove or redefine a class or property; a **minor** increment adds; a **patch** corrects documentation only. Every published corpus release **MUST** declare the ontology version it validates against. Removed terms **MUST** be retained as `owl:deprecated` with `mrs:supersededBy`, permanently.
@@ -545,7 +545,7 @@ Relation types are `skos:Concept` instances in the scheme `mrs:RelationScheme`, 
 
 **Spatial & mobility** — `born_at`, `died_at`, `buried_at`, `resided_in`, `migrated_from`, `migrated_to`, `travelled_via`, `visited`, `governed`, `besieged`, `founded`, `rebuilt`, `endowed`
 
-**Participation** — `participated_in`, `led`, `witnessed`, `present_at`, **`absent_from`**, `occurred_at`, `occurred_during`, `preceded`, `followed`, `concurrent_with`, `caused`, `responded_to`
+**Participation** — `participated_in`, `led`, `witnessed`, `present_at`, **`absent_from`**, `occurred_at`, `occurred_during`, `part_of`, `preceded`, `followed`, `concurrent_with`, `caused`, `responded_to`
 
 > `absent_from` is modelled explicitly because absence is frequently the historically contested claim, and a model that can only record presence cannot represent the dispute.
 
