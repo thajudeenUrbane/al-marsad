@@ -1,0 +1,141 @@
+{
+ "_note": "Definitions are quoted word for word from the repository (source field); tests check each quote against its source. Terms in 'needed' have no definition in the repo docs yet.",
+ "defined": [
+  {
+   "term": "Isnād",
+   "definition": "A provenance chain: a signed, ordered, verifiable list of custody for every claim",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)",
+   "arabic": "إسناد"
+  },
+  {
+   "term": "ʿIlm al-rijāl",
+   "definition": "A prosopographical authority file: canonical identity resolution for tens of thousands of transmitters",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)",
+   "arabic": "علم الرجال"
+  },
+  {
+   "term": "Jarḥ wa taʿdīl",
+   "definition": "A reliability scoring framework — per-source, per-evaluator, with reasoned justification",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)",
+   "arabic": "جرح وتعديل"
+  },
+  {
+   "term": "Ṭabaqāt / ṭabaqa",
+   "definition": "Generational stratification: a temporal layering scheme for a population",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)",
+   "arabic": "طبقات"
+  },
+  {
+   "term": "Liqāʾ / muʿāṣara",
+   "definition": "Contemporaneity and contact verification: date-and-place constraint checking on chain plausibility",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)"
+  },
+  {
+   "term": "Ijāza",
+   "definition": "A credentialing and authorization model for who may transmit what",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)",
+   "arabic": "إجازة"
+  },
+  {
+   "term": "ʿIlal",
+   "definition": "Defect analysis: systematic anomaly detection across parallel transmissions",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)",
+   "arabic": "علل"
+  },
+  {
+   "term": "Taṣḥīḥ / taḍʿīf",
+   "definition": "Graded confidence assertions attached by named authorities, not anonymous consensus",
+   "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)"
+  },
+  {
+   "term": "Marfūʿ",
+   "definition": "Ascribed to the Prophet ﷺ",
+   "source": "ontology/marsad.ttl line 410 (the label of the ascription value)",
+   "forms": []
+  },
+  {
+   "term": "Mawqūf",
+   "definition": "Ascribed to a Companion",
+   "source": "ontology/marsad.ttl line 411 (the label of the ascription value)",
+   "forms": []
+  },
+  {
+   "term": "Maqṭūʿ",
+   "definition": "Ascribed to a Successor",
+   "source": "ontology/marsad.ttl line 412 (the label of the ascription value)",
+   "forms": []
+  },
+  {
+   "term": "Nasab",
+   "definition": "Ordered patronymic chain",
+   "source": "docs/02-knowledge-architecture.md §7.4 (table of name properties, mrs:nasab)",
+   "forms": []
+  }
+ ],
+ "needed": [
+  {
+   "term": "Hijra",
+   "forms": [
+    "hijrah"
+   ]
+  },
+  {
+   "term": "Adhan",
+   "forms": []
+  },
+  {
+   "term": "Ridda",
+   "forms": []
+  },
+  {
+   "term": "Muhajirun",
+   "forms": []
+  },
+  {
+   "term": "Ansar",
+   "forms": []
+  },
+  {
+   "term": "Mubahalah",
+   "forms": []
+  },
+  {
+   "term": "Surah",
+   "forms": []
+  },
+  {
+   "term": "Isra' / Mi'raj",
+   "forms": []
+  },
+  {
+   "term": "Tasbih",
+   "forms": []
+  },
+  {
+   "term": "Khandaq",
+   "forms": []
+  },
+  {
+   "term": "Qur'an",
+   "forms": [
+    "qur'anic"
+   ]
+  },
+  {
+   "term": "Ism",
+   "forms": []
+  },
+  {
+   "term": "Kunya",
+   "forms": []
+  },
+  {
+   "term": "Laqab",
+   "forms": []
+  },
+  {
+   "term": "Nisba",
+   "forms": []
+  }
+ ]
+}
