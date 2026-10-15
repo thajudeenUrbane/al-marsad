@@ -19,6 +19,19 @@ Slice 2 is split into three parts, one session each, in order. Each writes `docs
 - Output goes to `site/dist/` (gitignored). Standard library + rdflib only, in the existing `.venv`.
 - Commit on the current branch; message ends with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Do not push.
 
+## Display decisions from the maintainer (docs/handover/maintainer-answers-1.md)
+These override anything above that conflicts. Put each rule in one place in code (`site/display.py` or similar) so it can be changed later.
+- **Names:** best-known form first, in **popular transliteration** (Abu Bakr as-Siddiq). Use identity.csv `preferred_name_en` when it is already in popular form. Otherwise derive the popular form mechanically from the scholarly form: strip diacritics, write ʿ and ʾ as an apostrophe or drop them, and assimilate al- before sun letters. Document the rules and test them. Show the scholarly form and any full name in the details layer, and keep it in the search index.
+- **Dates:** Gregorian first, then Hijri, "622 CE (1 AH)", only as recorded, with uncertainty in plain words ("around").
+- **Places:** classical name, modern name in brackets when the graph has one.
+- **Possibly-same people** (identity rows marked needs-review): show them as separate people with no hint. Show nothing until a scholar rules.
+- **Groups and tribes:** full pages of their own (add `/group/<id>/` and a group index).
+- **The Prophet ﷺ:** a distinct, respectful page layout (no "profile card" treatment). ﷺ after every mention of him. Other honorifics (رضي الله عنه / عنها) on every mention **only where the graph records the person as a Companion and their gender**. Never guess either; list the gaps in the handover.
+- **Pages read story first, chain one tap below.** The home page is graph-first ("Explore N people, N events…") with a clear second door to the stories.
+- **50 Stories are AI-generated** (maintainer answer E35). Every story page shows its status at the top in plain words ("Draft, not yet reviewed by scholars"). The details layer says it was generated with AI and its authenticity is unknown.
+- **Plain-words option:** keep every Arabic term linked to the glossary in 2a. The on/off "plain words" toggle comes in 2c.
+- No human figures; abstract icons are fine. The current look is a placeholder, so keep styling minimal and token-based.
+
 ## 2a — static generator and pages
 1. `site/build.py`: runs or reads `build/graph.ttl`, writes one page per person, event, place, story, plus an index page per type (A–Z, with counts and coverage) and a home page that orients a first-time visitor (what this is, what is verified and what is not, links to the four indexes). Templates in `site/templates/` using `string.Template` or a tiny helper — no Jinja unless it is already installed.
 2. Each entity page: the depth layout above; every linked entity is a link to its page; breadcrumbs and a persistent "home" link (doc 05 §10).
