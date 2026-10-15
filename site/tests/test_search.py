@@ -275,12 +275,12 @@ class BuiltSearch(unittest.TestCase):
         for path in self.out.rglob("index.html"):
             rel = path.relative_to(self.out).as_posix()
             src = path.read_text(encoding="utf-8")
-            if rel == "search/index.html":
+            if rel in ("search/index.html", "ar/search/index.html"):
                 self.assertNotIn('class="site-search"', src)
                 continue
             if rel.startswith("experiments/") and rel != "experiments/index.html":
                 continue   # the copied prototypes keep their own pages (site/experiments.py)
-            depth = rel.count("/")
+            depth = rel.count("/") - (1 if rel.startswith("ar/") else 0)   # the Arabic pages search their own search page
             self.assertIn(f'<form class="site-search" role="search" action="{"../" * depth}search/" method="get">', src, rel)
 
     def test_budget_counts_the_script_and_the_index_on_the_search_page(self):

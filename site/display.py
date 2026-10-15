@@ -198,14 +198,17 @@ def bounds_text(earliest: str | None, latest: str | None, precision: str | None,
 def format_extent(ext: dict, t) -> dict:
     """ext keys: native, calendar, earliest, latest, precision, basis, conv_method,
     conv_days, relative, disputed (all optional, strings or bools).
-    Returns {'text': str|None, 'notes': [str]}. `text` may contain Arabic script;
-    the renderer marks that up."""
+    Returns {'text': str|None, 'notes': [str], 'recorded': bool}. `text` may contain Arabic
+    script; the renderer marks that up. `recorded` is True when the text is the date as
+    recorded (English words such as "CE" and "AH" stay as they were written), False when it
+    is worked out from the recorded bounds with the translator's month and era words."""
     native = (ext.get("native") or "").strip()
     cal = ext.get("calendar")
     g_text = h_text = other = None
     ah, ce = t("date.ah"), t("date.ce")
 
     remark = None
+    recorded = False
     if native:
         n = native.translate(_DIGITS)
         # a trailing "(...)" in the recorded text is the recorder's remark, not part of the date
@@ -214,14 +217,18 @@ def format_extent(ext: dict, t) -> dict:
             n, remark = m.group(1), m.group(2).strip()
         if " / " in n and n.split(" / ", 1)[0].rstrip().endswith("AH") and "CE" in n.split(" / ", 1)[1]:
             h_text, g_text = [p.strip() for p in n.split(" / ", 1)]
+            recorded = True
         elif re.search(r"\bCE\b", n) and not re.search(r"\bAH\b", n):
             g_text = n
+            recorded = True
         elif re.search(r"\bAH\b", n):
             h_text = n
+            recorded = True
         elif cal == "hijri" and re.fullmatch(r"\d{1,4}", n):
             h_text = f"{n} {ah}"
         else:
             other = native  # recorded text we do not parse; shown as it stands
+            recorded = True
 
     notes: list[str] = []
     converted = False
@@ -263,7 +270,7 @@ def format_extent(ext: dict, t) -> dict:
         notes.append(t("date.relative"))
     if ext.get("disputed"):
         notes.append(t("date.disputed"))
-    return {"text": text, "notes": notes}
+    return {"text": text, "notes": notes, "recorded": recorded}
 
 
 def t_opt(t, key: str, fallback: str) -> str:

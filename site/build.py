@@ -70,13 +70,16 @@ def search_index(site: Site) -> dict:
     return {"v": 1, "rules": names.RULES, "items": items}
 
 
-def renderer(graph: Path) -> tuple[Site, Glossary, Renderer]:
-    if not graph.exists():
-        print(f"{graph} not found; running ontology/build_graph.py", file=sys.stderr)
-        subprocess.run([sys.executable, str(ROOT / "ontology" / "build_graph.py")], check=True, cwd=ROOT)
-    site = Site(graph)
+def renderer(graph: Path, lang: str = "en", site: Site | None = None) -> tuple[Site, Glossary, Renderer]:
+    """The model, the glossary and the page renderer for one language ("en" or "ar"; the Arabic
+    pages are written under ar/, see build_arabic). Pass `site` to reuse a model already read."""
+    if site is None:
+        if not graph.exists():
+            print(f"{graph} not found; running ontology/build_graph.py", file=sys.stderr)
+            subprocess.run([sys.executable, str(ROOT / "ontology" / "build_graph.py")], check=True, cwd=ROOT)
+        site = Site(graph)
     glossary = Glossary(HERE / "data" / "glossary.json", site.all_graph_labels(), site.vocabulary_labels())
-    i18n = I18n(HERE / "i18n" / "en.json")
+    i18n = I18n(HERE / "i18n" / f"{lang}.json", lang)
     matches = external.load(known=set(site.entities))
     return site, glossary, Renderer(site, glossary, i18n, HERE / "templates", external=matches)
 
@@ -100,15 +103,44 @@ def downloads_in(out: Path) -> list[tuple[str, str, int]]:
     return [(key, rel, (out / rel).stat().st_size) for key, _, rel in DOWNLOADS if (out / rel).is_file()]
 
 
-def write_hub_pages(r: Renderer, out: Path) -> list[str]:
-    """The pages that list the views: home, Study and Research. Returns the views found."""
+def write_hub_pages(r: Renderer, out: Path, prefix: str = "") -> list[str]:
+    """The pages that list the views: home, Study and Research, under `prefix` ("" or "ar/").
+    Returns the views found."""
     views = hub.built(out)
-    (out / "index.html").write_text(r.home_page(views), encoding="utf-8")
-    for rel, page in (("study/index.html", r.study_page(views)),
+    for rel, page in (("index.html", r.home_page(views)), ("study/index.html", r.study_page(views)),
                       ("research/index.html", r.research_page(views, downloads_in(out)))):
-        (out / rel).parent.mkdir(parents=True, exist_ok=True)
-        (out / rel).write_text(page, encoding="utf-8")
+        (out / prefix / rel).parent.mkdir(parents=True, exist_ok=True)
+        (out / prefix / rel).write_text(page, encoding="utf-8")
     return views
+
+
+def build_arabic(site: Site, graph: Path, out: Path) -> dict:
+    """The Arabic copy of the reader tier under out/ar/, at the same paths: the home, Study,
+    Research, search, glossary, an index per type and a page for every record. The data
+    (names, claims, story texts) is the same as recorded; only the interface text is Arabic,
+    drafted and awaiting review by the scholars. Assets, search.json, the Turtle files and
+    the views are not copied: the Arabic pages link the ones in the site root (the views are
+    English only for now)."""
+    _, _, r = renderer(graph, "ar", site)
+
+    def write(rel: str, content: str):
+        path = out / "ar" / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+
+    pages = 0
+    for kind in KINDS:
+        write(f"{kind}/index.html", r.index_page(kind))
+        pages += 1
+        for e in site.by_kind[kind]:
+            write(f"{kind}/{e.pid}/index.html", r.entity_page(e))
+            pages += 1
+    thread = build_thread(site, r.t, "ar")
+    write("thread.json", json.dumps(thread, ensure_ascii=False, separators=(",", ":")))
+    write("search/index.html", r.search_page())
+    write_hub_pages(r, out, "ar")
+    write("glossary/index.html", r.glossary_page())   # last: it lists the terms the pages linked
+    return {"pages": pages + 5, "thread_bytes": (out / "ar" / "thread.json").stat().st_size}
 
 
 def build(graph: Path, out: Path, quiet: bool = False) -> dict:
@@ -145,11 +177,13 @@ def build(graph: Path, out: Path, quiet: bool = False) -> dict:
     copies = experiments.copy_all(out, r.archive_note, lambda base: r.footer_html("site-footer archive-footer"))
     views = write_hub_pages(r, out)
     write("glossary/index.html", r.glossary_page())  # last: it lists the terms the pages linked
+    arabic = build_arabic(site, graph, out)
 
     other = ["home", "search", "glossary", "study", "research", "experiments"]
     summary = {"pages": counts, "indexes": len(KINDS), "other": len(other),
                "total_html": sum(counts.values()) + len(KINDS) + len(other), "prototype_copies": len(copies),
-               "views": views, "search_items": len(index["items"]), "search_bytes": (out / "search.json").stat().st_size,
+               "views": views, "arabic_pages": arabic["pages"], "arabic_thread_bytes": arabic["thread_bytes"],
+               "search_items": len(index["items"]), "search_bytes": (out / "search.json").stat().st_size,
                "thread_bytes": (out / "thread.json").stat().st_size, "thread_claims": len(thread["c"]),
                "external_matches": sum(len(v) for v in r.external.values()),
                "glossary_defined": len(glossary.listed()[0]), "glossary_needed": len(glossary.listed()[1])}
@@ -159,6 +193,7 @@ def build(graph: Path, out: Path, quiet: bool = False) -> dict:
               f"| index pages: {summary['indexes']} | {', '.join(other)}: {len(other)}")
         print(f"  search.json: {summary['search_items']} names, {summary['search_bytes']:,} bytes;"
               f" thread.json: {summary['thread_claims']} claims and links, {summary['thread_bytes']:,} bytes")
+        print(f"  Arabic interface (draft) under ar/: {arabic['pages']} pages; thread.json: {arabic['thread_bytes']:,} bytes")
         print(f"  glossary: {summary['glossary_defined']} defined, {summary['glossary_needed']} definition needed;"
               f" possible matches elsewhere: {summary['external_matches']}")
         print(f"  views linked from the home page: {', '.join(views) or 'none built yet'}")
@@ -169,8 +204,10 @@ def build_hub(graph: Path, out: Path, quiet: bool = False) -> list[str]:
     """Rewrites only the home, Study and Research pages from what site/dist holds now."""
     if not (out / MARKER).exists() or not (out / "index.html").exists():
         sys.exit(f"{out} has no reader site yet: run site/build.py first")
-    _, _, r = renderer(graph)
+    site, _, r = renderer(graph)
     views = write_hub_pages(r, out)
+    if (out / "ar" / "index.html").exists():
+        write_hub_pages(renderer(graph, "ar", site)[2], out, "ar")
     if not quiet:
         print(f"hub pages rewritten in {out}; views linked: {', '.join(views) or 'none built yet'}")
     return views
