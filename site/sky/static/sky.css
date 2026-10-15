@@ -1,0 +1,94 @@
+/* al-Marṣad Sky: loaded after site/observatory/static/observatory.css, so the panel,
+   ladder, trace and text view keep their shapes and only the look changes. One dark
+   look by choice: the sky is the vacuum. Every colour the renderer draws is set here. */
+:root {
+  --bg: #03050f;
+  --panel: #0a0e1d;
+  --panel-2: #121831;
+  --border: #232c4c;
+  --ink: #eef1ff;
+  --muted: #a3acc9;
+  --deco: #8d98bd;
+  --line: #a9bcff;
+  --line-hi: #eef1ff;
+  --ring: #9fc3ff;
+  --link: #c9dcff;
+  --focus: #9fc3ff;
+
+  /* marks: hue and shape mean type only */
+  --c-person: #e6ecff;
+  --c-event: #e3a64a;
+  --c-story: #b8a8ff;
+  --c-place: #74dccb;
+  --c-group: #ff9db4;
+  --event-lit: #ffe6ac;
+  --event-dark: #4a2f10;
+
+  /* lines: one colour per kind of relationship */
+  --l-participation: #a9bcff;
+  --l-kinship: #f4c770;
+  --l-social_political: #9fc3ff;
+  --l-spatial: #74dccb;
+  --l-transmission: #c7b8ff;
+
+  /* the light, and the generations by their distance from it */
+  --light: #fff1cf;
+  --light-limb: #ffd58f;
+  --gen-sahabi: #dfe8ff;
+  --gen-tabii: #ffd2a0;
+  --gen-tabi-al-tabiin: #ffad7a;
+  --gen-none: #a9b0c4;
+
+  /* the vacuum and the far scenery */
+  --sky-1: #0a1026;
+  --sky-2: #050817;
+  --sky-3: #010208;
+  --far-1: #c9d8ff;
+  --far-2: #f3f6ff;
+  --far-3: #fff4e4;
+
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  --font-arabic: "Noto Naskh Arabic", "Amiri", "Geeza Pro", "Arabic Typesetting", "Traditional Arabic", serif;
+}
+
+.sky .stage { block-size: min(80vh, 900px); min-block-size: 380px; background: var(--sky-3); border-color: var(--panel-2); }
+.sky #obs-canvas { cursor: grab; }
+.sky #obs-canvas.dragging { cursor: grabbing; }
+.sky .banner { background-image: none; }
+
+.skybar { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-block-end: 8px; }
+.skybar .views { display: flex; flex-wrap: wrap; gap: 6px; }
+.skybar .btn { font-size: 0.86em; }
+
+/* swatches: the shapes the Sky draws, without texture (every edge is sharp) */
+.sky .sw { background-image: none; }
+.sky .sw-person { background: radial-gradient(circle, #fff 0 35%, var(--c-person) 36% 60%, transparent 61%); border-radius: 50%; }
+.sky .sw-event { background: radial-gradient(circle at 35% 35%, var(--event-lit), var(--c-event) 55%, var(--event-dark)); border-radius: 50%; clip-path: none; }
+.sky .sw-story { background-color: var(--c-story); clip-path: polygon(50% 0, 85% 50%, 50% 100%, 15% 50%); }
+.sky .sw-place { background-color: var(--c-place); border-radius: 0; clip-path: polygon(42% 0, 58% 0, 58% 42%, 100% 42%, 100% 58%, 58% 58%, 58% 100%, 42% 100%, 42% 58%, 0 58%, 0 42%, 42% 42%); }
+.sky .sw-group {
+  background: radial-gradient(circle at 50% 22%, var(--c-group) 0 20%, transparent 21%),
+    radial-gradient(circle at 22% 72%, var(--c-group) 0 20%, transparent 21%),
+    radial-gradient(circle at 78% 72%, var(--c-group) 0 20%, transparent 21%);
+  clip-path: none;
+}
+.sky .ls line { stroke: var(--line-hi); }
+.sky .ls .ls-participation { stroke: var(--l-participation); }
+.sky .ls .ls-kinship { stroke: var(--l-kinship); }
+.sky .ls .ls-social_political { stroke: var(--l-social_political); }
+.sky .ls .ls-spatial { stroke: var(--l-spatial); }
+.sky .ls .ls-transmission { stroke: var(--l-transmission); }
+.sky .ls .ls-arrow { fill: var(--l-transmission); }
+
+/* the light and the generations, as the legend shows them */
+ul.gen li { display: flex; align-items: center; gap: 8px; margin-block: 5px; }
+.gl { inline-size: 12px; block-size: 12px; border-radius: 50%; flex: none; }
+.gl-light { inline-size: 14px; block-size: 14px; background: radial-gradient(circle, #fff 0 45%, var(--light) 46% 70%, var(--light-limb) 71%); outline: 1px solid var(--light-limb); outline-offset: 3px; }
+.gl-sahabi { background: radial-gradient(circle, #fff 0 40%, var(--gen-sahabi) 41%); }
+.gl-tabii { background: radial-gradient(circle, #fff 0 30%, var(--gen-tabii) 31%); opacity: 0.86; }
+.gl-tabi_al_tabiin { background: radial-gradient(circle, #fff 0 25%, var(--gen-tabi-al-tabiin) 26%); opacity: 0.72; }
+.gl-none { background: var(--gen-none); opacity: 0.8; }
+
+@media (max-width: 860px) {
+  .sky .stage { block-size: 66vh; min-block-size: 320px; }
+}

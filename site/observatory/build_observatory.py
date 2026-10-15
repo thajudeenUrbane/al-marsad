@@ -166,10 +166,21 @@ def payload(data: ObsData, frames: dict, presets: list[dict], reader_base: str, 
     }
 
 
-def render(strings: dict, data_json: str, ask: str | None, reader_base: str) -> str:
-    tpl = (HERE / "static" / "template.html").read_text(encoding="utf-8")
-    css = (HERE / "static" / "observatory.css").read_text(encoding="utf-8")
-    js = (HERE / "static" / "observatory.js").read_text(encoding="utf-8")
+STATIC = HERE / "static"
+TEMPLATE = STATIC / "template.html"
+CSS_FILES = (STATIC / "observatory.css",)
+# the renderer first: observatory.js calls the window.MarsadRenderer it defines
+JS_FILES = (STATIC / "render2d.js", STATIC / "observatory.js")
+
+
+def render(strings: dict, data_json: str, ask: str | None, reader_base: str,
+           template: Path = TEMPLATE, css_files=CSS_FILES, js_files=JS_FILES) -> str:
+    """The page: one template with its CSS, script, strings and data inlined. The Sky
+    (site/sky/build_sky.py) calls this with its own template, a second stylesheet and
+    its own renderer in place of render2d.js."""
+    tpl = template.read_text(encoding="utf-8")
+    css = "\n".join(f.read_text(encoding="utf-8") for f in css_files)
+    js = "\n".join(f.read_text(encoding="utf-8") for f in js_files)
     if "</script" in js.lower() or "</style" in css.lower():
         raise ValueError("inline script or style would close its own tag")
     t = Translator(strings)

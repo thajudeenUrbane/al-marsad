@@ -230,7 +230,7 @@ class ObservatoryTests(unittest.TestCase):
 
     def test_every_ui_string_is_a_key_in_en_json(self):
         strings = json.loads((OBS / "i18n" / "en.json").read_text(encoding="utf-8"))
-        js = (OBS / "static" / "observatory.js").read_text(encoding="utf-8")
+        js = "\n".join((OBS / "static" / f).read_text(encoding="utf-8") for f in ("observatory.js", "render2d.js"))
         for key in set(re.findall(r'\bt\("([a-z0-9_.]+)"', js)):
             if key.endswith("."):
                 continue  # a prefix completed at run time; the families are checked below
@@ -262,7 +262,7 @@ class ObservatoryTests(unittest.TestCase):
         self.assertNotRegex(self.html, r"<script[^>]+src=", "external script")
         self.assertNotRegex(self.html, r"<link[^>]+rel=.?stylesheet", "external stylesheet")
         self.assertNotRegex(self.html, r"<img|@import|url\(\s*['\"]?https?:", "external resource")
-        js = (OBS / "static" / "observatory.js").read_text(encoding="utf-8")
+        js = "\n".join((OBS / "static" / f).read_text(encoding="utf-8") for f in ("observatory.js", "render2d.js"))
         self.assertNotRegex(js, r"\bfetch\(|XMLHttpRequest|import\(|WebSocket|EventSource", "network call in the script")
         self.assertIn("<title>", self.html)
 
@@ -275,7 +275,8 @@ class ObservatoryTests(unittest.TestCase):
         self.assertIn("color-scheme: dark", css)
 
     def test_no_size_or_glow_by_a_computed_measure(self):
-        js = (OBS / "static" / "observatory.js").read_text(encoding="utf-8")
+        js = "\n".join((OBS / "static" / f).read_text(encoding="utf-8") for f in ("observatory.js", "render2d.js"))
+        self.assertIn("function nodeRadius()", js)
         self.assertNotRegex(js, r"(?i)centrality|pagerank|betweenness|shadowBlur")
         self.assertNotRegex(js, r"nodeRadius\([^)]")  # one radius for every node: no per-node argument
         for nd in self.nodes:

@@ -71,6 +71,15 @@ python3 stories-50/serve.py    # http://localhost:8751
 
 The page is generated, never edited by hand. The only judgement `build.py` applies is in three short tables at its top: which shorter names are the same person as a fuller form (22 merges, such as "Abu Bakr" into "Abu Bakr al-Siddiq"), which bold names are groups rather than one person (12, such as Ahl al-Suffah, listed with their story but not drawn), and one entry that names two people. Review those tables before trusting a merge. Everything is unverified: the doc says it was written from general knowledge without access to the sources, and none of it is in the ontology yet.
 
+## The Sky — the whole graph as a sky you can turn
+
+```bash
+python ontology/build_graph.py      # the unified graph, build/graph.ttl
+python site/sky/build_sky.py        # writes site/dist/sky/index.html (one self-contained page)
+```
+
+The Prophet ﷺ is the light at the centre (docs/01 §5, *nūr*); the people are stars (*nujūm*), lit by their recorded generation and by nothing else; every recorded link is a line through empty space. Drag to turn it through 360°, pinch or scroll to zoom, tap any star to see its relationships, events, places, stories and the evidence ladder behind each claim. **Play history** lights each mark at its first dated record. It has every feature of the Observatory (`site/observatory/`): it is the same page logic over the same data with a 3D renderer, and the Observatory's Time, Geography, Stories and Transmission views lie flat inside the sky. The page is generated: new records in the graph become new stars on the next build. Handover and the open questions for a ruling: [docs/handover/sky.md](docs/handover/sky.md).
+
 ## The capacity test
 
 A separate, deliberately unmistakable artifact answering one engineering question: does the rendering approach hold at real isnād scale?

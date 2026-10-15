@@ -12,7 +12,7 @@ URL in the src/href of a stylesheet, script, image or other loaded resource fail
 check too (plain <a href> links to other sites are navigation, not loads, and pass).
 KB here means 1,000 bytes, the stricter reading of "300 KB".
 Pages of the interactive tier (the top-level folders in INTERACTIVE_DIRS: the graph
-observatory, lifelines, timeline, map and ask pages) get the 2 MB interactive budget
+observatory, the sky, lifelines, timeline, map and ask pages) get the 2 MB interactive budget
 of docs/05 section 7 instead; every other page keeps the reader-tier limit.
 Prints the five heaviest pages. Exit status 1 on any failure.
 """
@@ -27,7 +27,7 @@ from urllib.parse import unquote, urlsplit
 
 LIMIT = 300_000
 INTERACTIVE_LIMIT = 2_000_000
-INTERACTIVE_DIRS = ("observatory", "lifelines", "timeline", "map", "ask")
+INTERACTIVE_DIRS = ("observatory", "sky", "lifelines", "timeline", "map", "ask")
 
 
 def limit_for(rel: str, limit: int = LIMIT) -> int:

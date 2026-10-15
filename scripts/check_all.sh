@@ -164,6 +164,7 @@ if step "site: build"                              "$PY" site/build.py; then
   step "learn: build"                              "$PY" learn/build_learn.py
   step "site/interactive: build"                   "$PY" site/interactive/build_interactive.py
   step "site/observatory: build"                   "$PY" site/observatory/build_observatory.py
+  step "site/sky: build"                           "$PY" site/sky/build_sky.py
   step "site: page budget"                         "$PY" site/check_budget.py
   step "site: HTML checks"                         "$PY" site/check_html.py
   step "site: pages work with JavaScript off"      browser_check site/check_nojs.cjs
@@ -173,6 +174,8 @@ if step "site: build"                              "$PY" site/build.py; then
   step "site/interactive: tests"                   "$PY" -m unittest discover -s site/interactive/tests
   step "site/observatory: page"                    browser_check site/observatory/check_observatory.cjs
   step "site/observatory: tests"                   "$PY" -m unittest discover -s site/observatory/tests
+  step "site/sky: page"                            browser_check site/sky/check_sky.cjs
+  step "site/sky: tests"                           "$PY" -m unittest discover -s site/sky/tests
   # Checks that read site/dist go here.
 else
   skip "site: budget, HTML and JS-off checks" "the site did not build"
