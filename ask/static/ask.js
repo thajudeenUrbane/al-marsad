@@ -772,6 +772,7 @@
     }
     function range(kw) {
       var f = has(kw, "from") ? kw.from : null, t = has(kw, "to") ? kw.to : null;
+      if (f && t && f.n === t.n && f.era === t.era) return fmt(T["plain.range_in"], { start: plain(f) });
       if (f && t) return fmt(T["plain.range_between"], { start: plain(f), end: plain(t) });
       if (f) return fmt(T["plain.range_from"], { start: plain(f) });
       return fmt(T["plain.range_to"], { end: plain(t) });
@@ -832,17 +833,18 @@
       return e;
     }
     function timeWindow(q) {
-      var m = rx(TIME.range).exec(q), rest, y1, e1, y2, e2;
-      if (m) { rest = m[1]; y1 = parseInt(m[2], 10); e1 = m[3]; y2 = parseInt(m[4], 10); e2 = m[5]; }
+      var m = rx(TIME.range).exec(q), rest, y1, e1, y2, e2, tail;
+      if (m) { rest = m[1]; y1 = parseInt(m[2], 10); e1 = m[3]; y2 = parseInt(m[4], 10); e2 = m[5]; tail = m[6]; }
       else {
         m = rx(TIME.single).exec(q);
-        if (m) { rest = m[1]; y1 = parseInt(m[2], 10); e1 = m[3]; y2 = y1; e2 = e1; }
+        if (m) { rest = m[1]; y1 = parseInt(m[2], 10); e1 = m[3]; y2 = y1; e2 = e1; tail = m[4]; }
         else {
           m = rx(TIME.single_bare).exec(q);
           if (!m) return { q: q, w: null, notes: [] };
-          rest = m[1]; y1 = parseInt(m[2], 10); e1 = null; y2 = y1; e2 = null;
+          rest = m[1]; y1 = parseInt(m[2], 10); e1 = null; y2 = y1; e2 = null; tail = m[3];
         }
       }
+      if (tail) rest = rest + " " + tail;
       e1 = era(e1); e2 = era(e2);
       if (e1 === "bh" || e2 === "bh") throw new Unsupported("time_bh");
       var notes = [], a = e1 || e2, b = e2 || e1;

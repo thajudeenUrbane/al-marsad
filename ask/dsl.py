@@ -868,6 +868,8 @@ class Engine:
 
     def _range(self, kw: dict, T: dict) -> str:
         f, t = kw.get("from"), kw.get("to")
+        if f and t and f["n"] == t["n"] and f["era"] == t["era"]:
+            return fmt(T["plain.range_in"], start=self.plain(f, T))
         if f and t:
             return fmt(T["plain.range_between"], start=self.plain(f, T), end=self.plain(t, T))
         if f:

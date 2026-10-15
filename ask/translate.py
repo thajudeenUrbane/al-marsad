@@ -162,18 +162,20 @@ class RuleTranslator:
         T = RULES["time"]
         m = rx(T["range"]).search(q)
         if m:
-            rest, y1, e1, y2, e2 = m.group(1), int(m.group(2)), m.group(3), int(m.group(4)), m.group(5)
+            rest, y1, e1, y2, e2, tail = m.group(1), int(m.group(2)), m.group(3), int(m.group(4)), m.group(5), m.group(6)
         else:
             m = rx(T["single"]).search(q)
             if m:
-                rest, y1, e1 = m.group(1), int(m.group(2)), m.group(3)
+                rest, y1, e1, tail = m.group(1), int(m.group(2)), m.group(3), m.group(4)
                 y2, e2 = y1, e1
             else:
                 m = rx(T["single_bare"]).search(q)
                 if not m:
                     return q, None, []
-                rest, y1, e1 = m.group(1), int(m.group(2)), None
+                rest, y1, e1, tail = m.group(1), int(m.group(2)), None, m.group(3)
                 y2, e2 = y1, None
+        if tail:
+            rest = rest + " " + tail
         e1, e2 = self._era(e1), self._era(e2)
         if e1 == "bh" or e2 == "bh":
             raise Unsupported("time_bh")

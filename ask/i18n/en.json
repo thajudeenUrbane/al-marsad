@@ -80,6 +80,7 @@
   "plain.f_involving": "involving {agent}",
   "plain.and": ", ",
   "plain.range_between": "dated between {start} and {end}",
+  "plain.range_in": "dated in {start}",
   "plain.range_from": "dated from {start} on",
   "plain.range_to": "dated up to {end}",
   "plain.stories": "stories that name {agent}",

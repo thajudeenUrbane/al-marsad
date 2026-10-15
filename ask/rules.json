@@ -20,7 +20,7 @@
 
   "cleanup": {
     "trailing": "[ ?.!]+$",
-    "fillers": "^(?:please |pls |can you |could you |would you |will you |kindly |i want to know |i would like to know |i'd like to know |do you know |tell me |show me |list |give me |find |search for |search |look up )+"
+    "fillers": "^(?:please |pls |can you |could you |would you |will you |kindly |i want to know |i would like to know |i'd like to know |do you know |tell me |show me |show |list |give me |find |search for |search |look up )+"
   },
 
   "status_suffix": [
@@ -30,9 +30,9 @@
   ],
 
   "time": {
-    "range": "^(.+?),? (?:between|from) (?:the years? )?(\\d{1,4}) ?(ah|ce|ad|bh|bce)?(?: (?:and|to|until|till) | ?- ?)(\\d{1,4}) ?(ah|ce|ad|bh|bce)?$",
-    "single": "^(.+?),? (?:in|during) (?:the year )?(\\d{1,4}) ?(ah|ce|ad|bh|bce)$",
-    "single_bare": "^(.+?),? (?:in|during) (?:the year )?(\\d{3,4})$",
+    "range": "^(.+?),? (?:between|from) (?:the years? )?(\\d{1,4}) ?(ah|ce|ad|bh|bce)?(?: (?:and|to|until|till) | ?- ?)(\\d{1,4}) ?(ah|ce|ad|bh|bce)?(?:,? (.+))?$",
+    "single": "^(.+?),? (?:in|during) (?:the year )?(\\d{1,4}) ?(ah|ce|ad|bh|bce)(?:,? (.+))?$",
+    "single_bare": "^(.+?),? (?:in|during) (?:the year )?(\\d{3,4})(?:,? (.+))?$",
     "max_ah": 1500,
     "min_ce": 500,
     "max_ce": 2100,
@@ -197,12 +197,20 @@
       "^(?:what is |what's |what was )?(?:the )?(?:path|connection|link|chain|relation|relationship) (?:between|from) (.+?) (?:and|to) (.+)$",
       "^what (?:connects|connected|links|linked) (.+?) (?:and|to|with) (.+)$"
     ]},
+    {"id": "connected_during", "dsl": "both(connected({1}), {2})", "slots": {"1": "agent", "2": "presence"}, "patterns": [
+      "^(?:everyone|everybody|people|those|companions) (?:connected|linked) (?:to|with) (.+?) (?:during|in|at) (.+)$",
+      "^(?:who|which people|which companions) (?:was|were) (?:connected|linked) (?:to|with) (.+?) (?:during|in|at) (.+)$"
+    ]},
     {"id": "connected", "dsl": "connected({1})", "slots": {"1": "agent"}, "patterns": [
       "^(?:who|which people|which companions) (?:was|were|is|are) (?:connected|linked|close) to (.+)$",
       "^(?:who|which people|which companions) (?:met|knew) (.+)$",
       "^(?:people|everyone|companions|those) (?:connected|linked) (?:to|with) (.+)$",
       "^(?:connections|ties|links|network) (?:of|for) (.+)$",
       "^(.+?)'s (?:connections|ties|links|network)$"
+    ]},
+    {"id": "events_place_agent", "dsl": "events(at: {1}, involving: {2}{time})", "slots": {"1": "place", "2": "agent"}, "patterns": [
+      "^(?:what|which) (?:events|battles|incidents|expeditions|things|campaigns) (?:happened|took place|occurred|are recorded|were recorded|were there|are there)? ?(?:at|in) (.+?) (?:involving|that involved|featuring) (.+)$",
+      "^(?:events|battles|incidents|expeditions) (?:at|in) (.+?) (?:involving|that involved|featuring) (.+)$"
     ]},
     {"id": "events_place", "dsl": "events(at: {1}{time})", "slots": {"1": "place"}, "patterns": [
       "^(?:what|which) (?:events|battles|incidents|expeditions|things|campaigns) (?:happened|took place|occurred|are recorded|were recorded|were there|are there)? ?(?:at|in) (.+)$",
