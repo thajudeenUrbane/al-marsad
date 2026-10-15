@@ -282,7 +282,7 @@ class Fixture(unittest.TestCase):
         self.assertIsNone(re.search(r"<(script|link|img|iframe)[^>]+(src|href)=[\"']?https?:", page))
         self.assertIsNone(re.search(r"@import|url\(\s*[\"']?https?:", page))
         self.assertIn(self.t("banner.strong"), page)
-        self.assertIn('class="ll-table"', page)
+        self.assertIn('class="ll-table ll-people"', page)
         data = json.loads(page.split('id="ll-data">')[1].split("</script>")[0])
         self.assertEqual(len(data["people"]), len(self.data["people"]))
 
