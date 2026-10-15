@@ -408,7 +408,7 @@ def table_html(data: dict, t: T) -> str:
     if not body:
         return f'<p class="none">{esc(t("table.empty"))}</p>'
     return (f'<div class="tablewrap" tabindex="0" role="region" aria-labelledby="table-h">'
-            f'<table class="ll-table"><caption>{esc(t("table.caption"))}</caption>'
+            f'<table class="ll-table ll-people"><caption>{esc(t("table.caption"))}</caption>'
             f'<thead><tr>{head}</tr></thead><tbody>{"".join(body)}</tbody></table></div>')
 
 

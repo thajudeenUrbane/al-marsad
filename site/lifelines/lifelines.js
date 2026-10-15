@@ -1121,7 +1121,7 @@
   function syncTable() {
     var shownEv = {};
     L.evs.forEach(function (ev) { shownEv[ev.i] = true; });
-    document.querySelectorAll(".ll-table tbody tr").forEach(function (tr) {
+    document.querySelectorAll(".ll-people tbody tr").forEach(function (tr) {
       var i = +tr.dataset.p, v = tr.dataset.v, p = P[i];
       var want = state.review && p.v.a ? "a" : "b";
       tr.hidden = !(L.rowOf[i] !== undefined && v === want);

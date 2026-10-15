@@ -67,7 +67,7 @@ async function open(browser, url, vp, touch) {
   const nBase = data.people.filter((p) => p.v.b).length;
   check(nLines === nBase, `one line per person with a sourced date: ${nLines} drawn, ${nBase} in the data`);
   check(await page.locator(".names button").count() === nBase, "one name per line in the name column");
-  const rows = await page.locator(".ll-table tbody tr:not([hidden])").count();
+  const rows = await page.locator(".ll-people tbody tr:not([hidden])").count();
   check(nBase === 0 || rows > 0, `table alternative not empty (${rows} rows)`);
   check(await page.locator("#undated-sec li").count() === data.undated.length, "undated list matches the data");
   const orient = await page.locator("#ll-count").textContent();
@@ -198,7 +198,7 @@ async function open(browser, url, vp, touch) {
   const ctx = await browser.newContext({ javaScriptEnabled: false });
   const nojs = await ctx.newPage();
   await nojs.goto(`${origin}/lifelines/`);
-  check(await nojs.locator(".ll-table tbody tr:not([hidden])").count() === rows, "JavaScript off: the table is there");
+  check(await nojs.locator(".ll-people tbody tr:not([hidden])").count() === rows, "JavaScript off: the table is there");
   check(await nojs.locator(".controls").isHidden(), "JavaScript off: controls that need it stay hidden");
   await ctx.close();
 
