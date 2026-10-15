@@ -162,13 +162,15 @@ if step "site: build"                              "$PY" site/build.py; then
   # Module builders write into site/dist after site/build.py (which empties it), so the
   # budget and HTML checks below cover their pages too.
   step "learn: build"                              "$PY" learn/build_learn.py
+  step "site/interactive: build"                   "$PY" site/interactive/build_interactive.py
   step "site: page budget"                         "$PY" site/check_budget.py
   step "site: HTML checks"                         "$PY" site/check_html.py
   step "site: pages work with JavaScript off"      browser_check site/check_nojs.cjs
   step "site: search works (JS on and off)"        browser_check site/check_search.cjs
   step "learn: pages work with JavaScript off"     browser_check learn/check_nojs.cjs
+  step "site/interactive: timeline and map pages"  browser_check site/interactive/check_interactive.cjs
+  step "site/interactive: tests"                   "$PY" -m unittest discover -s site/interactive/tests
   # Checks that read site/dist go here, e.g.
-  # step "site/interactive: tests"                 "$PY" -m unittest discover -s site/interactive/tests
   # step "site/observatory: tests"                 "$PY" -m unittest discover -s site/observatory/tests
 else
   skip "site: budget, HTML and JS-off checks" "the site did not build"

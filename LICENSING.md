@@ -10,6 +10,8 @@ al-Marṣad is a public good: anyone may use, study, share and build on it. Diff
 
 Generated pages, such as `demo/index.html`, combine code and data. Each part keeps its own licence.
 
+Third-party data: `site/interactive/data/basemap.json` is simplified from Natural Earth land outlines, which are in the public domain (naturalearthdata.com); the file records its source and checksum.
+
 ## What this means in practice
 
 - **Code (AGPL):** you may run, copy and change it. If you share a changed version, or run one as a website other people use, you must publish your source code under the same licence.
