@@ -229,7 +229,8 @@
     const pn = byId("obs-panel");
     if (!pn || pn.dataset.open !== "true" || getComputedStyle(pn).position !== "fixed") return 0;
     const visible = window.innerHeight - pn.getBoundingClientRect().height;
-    return Math.max(0, Math.min(H * 0.6, H - visible));
+    const offset = canvas.getBoundingClientRect().top - byId("obs-stage-wrap").getBoundingClientRect().top;
+    return Math.max(0, Math.min(H * 0.6, offset + H - visible));
   }
   function fitTo(b, pad) {
     const bw = Math.max(b.x1 - b.x0, 60), bh = Math.max(b.y1 - b.y0, 60);
@@ -1078,16 +1079,17 @@
   }
   function openSheet() {
     panel.dataset.open = "true";
-    // on a phone the panel is a bottom sheet: bring the picture up so the focus stays in view above it
-    if (getComputedStyle(panel).position === "fixed") {
-      const top = byId("obs-canvas").getBoundingClientRect().top;
-      if (Math.abs(top) > 4) window.scrollBy({ top, behavior: reduceMotion ? "auto" : "smooth" });
-    }
+    // on a phone the panel is a bottom sheet: bring the view bar and picture up so the focus stays in view above it
+    if (getComputedStyle(panel).position === "fixed") bringStageUp();
     refit();
     const title = byId("panel-title");
     if (title && document.activeElement !== byId("obs-search") && document.activeElement !== canvas) title.focus({ preventScroll: true });
   }
   function closeSheet() { panel.dataset.open = "false"; refit(); }
+  function bringStageUp() {
+    const top = byId("obs-stage-wrap").getBoundingClientRect().top;
+    if (Math.abs(top) > 4) window.scrollBy({ top, behavior: reduceMotion ? "auto" : "smooth" });
+  }
   // the visible part of the canvas changed (bottom sheet opened or closed): fit again unless moving
   function refit() {
     if (anim || S.camMode === "free") return;
@@ -1536,6 +1538,9 @@
   FRAMES.forEach((f, k) => {
     byId("frame-" + f).addEventListener("click", () => {
       const w = [0, 0, 0, 0, 0]; w[k] = 1;
+      // on a phone, make sure the picture is on screen to watch the morph
+      const r = canvas.getBoundingClientRect();
+      if (r.top < -r.height / 2 || r.top > window.innerHeight / 2) bringStageUp();
       if (S.camMode === "free") S.camMode = S.focus >= 0 || S.hl || selectedPath() ? "focus" : "fit";
       animateTo(w);
       announce(t("announce.frame", { frame: t("frame." + f) }));

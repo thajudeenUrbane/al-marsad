@@ -38,12 +38,8 @@
 <p class="banner" role="note"><span data-i18n="banner.text">{{t:banner.text}}</span></p>
 <p class="here"><span class="sr-only">{{t:here.label}} </span><span id="obs-here"></span> · <span id="obs-scale"></span></p>
 <main id="main" class="layout">
-  <div class="stage-wrap">
-    <div class="stage">
-      <canvas id="obs-canvas" tabindex="0" role="img" aria-describedby="obs-textalt-title" aria-label="{{t:page.h1}}"></canvas>
-      <noscript><p class="nojs">{{t:page.nojs}} <a href="{{READER_HOME}}">{{t:nav.reader}}</a></p></noscript>
-    </div>
-    <div class="controls">
+  <div class="stage-wrap" id="obs-stage-wrap">
+    <div class="viewbar">
       <div class="frames" role="group" aria-label="{{t:frames.label}}">
         <button type="button" id="frame-network" aria-pressed="true">{{t:frame.network}}</button>
         <button type="button" id="frame-time" aria-pressed="false">{{t:frame.time}}</button>
@@ -54,8 +50,14 @@
       <div class="morph">
         <label for="obs-morph">{{t:morph.label}}</label>
         <input id="obs-morph" type="range" min="0" max="4" step="0.01" value="0">
-        <p class="muted">{{t:morph.note}}</p>
       </div>
+    </div>
+    <div class="stage">
+      <canvas id="obs-canvas" tabindex="0" role="img" aria-describedby="obs-textalt-title" aria-label="{{t:page.h1}}"></canvas>
+      <noscript><p class="nojs">{{t:page.nojs}} <a href="{{READER_HOME}}">{{t:nav.reader}}</a></p></noscript>
+    </div>
+    <div class="controls">
+      <p class="muted morph-note">{{t:morph.note}}</p>
       <fieldset class="scrub">
         <legend>{{t:scrub.legend}}</legend>
         <label class="check"><input type="checkbox" id="scrub-on"> {{t:scrub.on}}</label>
