@@ -1,0 +1,17 @@
+canonical_id,external_id,property,value,precision,calendar_model,match_confidence,status,source,rank,qualifiers,note
+per:TestAlpha00000000000a,Q900000001,P569,0570-01-01T00:00:00Z,year,Julian,exact,proposed,Wikidata Q900000001,normal,,
+per:TestAlpha00000000000a,Q900000001,P570,+0632-06-08T00:00:00Z,day,Julian,exact,proposed,Wikidata Q900000001,normal,P3629 age at event: 63 year,value as stored on Wikidata (Julian); test fixture
+per:TestAlpha00000000000a,Q900000099,P569,0400-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000099,normal,,
+per:TestBeta000000000000b,Q900000002,P569,0573-01-01T00:00:00Z,year,Julian,probable,proposed,Wikidata Q900000002,preferred,,
+per:TestBeta000000000000b,Q900000002,P569,0574-01-01T00:00:00Z,year,Julian,probable,proposed,Wikidata Q900000002,normal,,
+per:TestBeta000000000000b,Q900000002,P570,0634-01-01T00:00:00Z,year,Julian,probable,proposed,Wikidata Q900000002,normal,"P1319 earliest date: 0633-01-01T00:00:00Z (year, Julian)",
+per:TestDelta00000000000d,Q900000004,P569,0590-01-01T00:00:00Z,decade,Julian,exact,proposed,Wikidata Q900000004,normal,,
+per:TestDelta00000000000d,Q900000004,P570,0650-01-01T00:00:00Z,year,Julian,exact,proposed,Wikidata Q900000004,normal,,
+per:TestDelta00000000000d,Q900000004,P570,0652-01-01T00:00:00Z,year,Julian,exact,proposed,Wikidata Q900000004,normal,,
+per:TestEpsilon000000000e,Q900000005,P569,0600-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000005,normal,,
+per:TestEpsilon000000000e,Q900000005,P570,0660-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000005,normal,,
+per:TestZeta000000000000f,Q900000006,P569,0590-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000006,normal,,
+per:TestZeta000000000000f,Q900000007,P569,0700-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000007,normal,,
+per:TestTheta00000000000h,Q900000008,P569,0600-07-04T00:00:00Z,day,Gregorian,exact,proposed,Wikidata Q900000008,normal,,
+per:TestTheta00000000000h,Q900000008,P570,0001-01-01T00:00:00Z,millennium,Julian,exact,proposed,Wikidata Q900000008,normal,,
+per:TestNu000000000000000n,Q900000010,P569,0640-01-01T00:00:00Z,year,Julian,exact,proposed,Wikidata Q900000010,normal,,

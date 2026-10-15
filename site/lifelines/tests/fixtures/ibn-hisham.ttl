@@ -1,0 +1,53 @@
+# Fictional test data shaped like slice 4's Ibn Hisham file (mrs:rel_age_at, rel_born_during,
+# rel_died_during, rel_dated, crm:E67_Birth). Nothing here describes anyone real. One IRI uses an
+# "old" ID that the tests map to a current one, as ontology/corpus/id-renames.csv does.
+@prefix mrs: <https://w3id.org/marsad/core#> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix per: <https://w3id.org/marsad/id/person/> .
+@prefix ev: <https://w3id.org/marsad/id/event/> .
+@prefix as: <https://w3id.org/marsad/id/assertion/> .
+@prefix psg: <https://w3id.org/marsad/id/passage/> .
+@prefix wrk: <https://w3id.org/marsad/id/work/> .
+
+wrk:TestWork000000000000w a mrs:Work ; rdfs:label "Test sira" .
+psg:TestPassage00000000p a mrs:Passage ; mrs:canonicalCitation "Test sira, vol. 1, p. 1" ;
+    <http://purl.org/dc/terms/isPartOf> wrk:TestWork000000000000w .
+
+per:TestKappa00000000000k a mrs:Person ; rdfs:label "Test person Kappa" .
+per:TestLambda0000000000l a mrs:Person ; rdfs:label "Test person Lambda" .
+per:TestMu000000000000000m a mrs:Person ; rdfs:label "Test person Mu" .
+
+ev:TestBirthBeta0000000f a mrs:Event , crm:E67_Birth ; rdfs:label "Birth of Test person Beta" ;
+    crm:P98_brought_into_life per:TestBeta000000000000b .
+ev:TestYear0000000000000g a mrs:Event ; rdfs:label "Test named year" .
+ev:TestGathering0000000h a mrs:Event ; rdfs:label "Test undated gathering" .
+
+as:TestIH00000000000000001 a mrs:Assertion ; mrs:predicate mrs:rel_age_at ;
+    mrs:assertionSubject per:TestOldAlphaId00000000x ; mrs:assertionObject ev:TestBirthBeta0000000f ;
+    mrs:ageAsWritten "سبع أو ثمان"@ar ; mrs:ageYearsAsGiven "7"^^xsd:decimal , "8"^^xsd:decimal ;
+    mrs:assertionStatus mrs:as_proposed ; prov:wasDerivedFrom psg:TestPassage00000000p .
+as:TestIH00000000000000002 a mrs:Assertion ; mrs:predicate mrs:rel_age_at ;
+    mrs:assertionSubject per:TestGamma00000000000c ; mrs:assertionObject ev:TestBattle0000000000a ;
+    mrs:ageAsWritten "أربعين"@ar ; mrs:ageYearsAsGiven "40"^^xsd:decimal ;
+    mrs:assertionStatus mrs:as_proposed ; prov:wasDerivedFrom psg:TestPassage00000000p .
+as:TestIH00000000000000003 a mrs:Assertion ; mrs:predicate mrs:rel_died_during ;
+    mrs:assertionSubject per:TestKappa00000000000k ; mrs:assertionObject ev:TestBattle0000000000a ;
+    mrs:assertionStatus mrs:as_proposed ; prov:wasDerivedFrom psg:TestPassage00000000p .
+as:TestIH00000000000000004 a mrs:Assertion ; mrs:predicate mrs:rel_born_during ;
+    mrs:assertionSubject per:TestLambda0000000000l ; mrs:assertionObject ev:TestYear0000000000000g ;
+    mrs:dateAsWritten "عام الاختبار"@ar ;
+    mrs:assertionStatus mrs:as_proposed ; prov:wasDerivedFrom psg:TestPassage00000000p .
+as:TestIH00000000000000005 a mrs:Assertion ; mrs:predicate mrs:rel_age_at ;
+    mrs:assertionSubject per:TestMu000000000000000m ; mrs:assertionObject ev:TestMigration0000000b ;
+    mrs:ageYearsAsGiven "30"^^xsd:decimal ;
+    mrs:assertionStatus mrs:as_proposed ; prov:wasDerivedFrom psg:TestPassage00000000p .
+as:TestIH00000000000000006 a mrs:Assertion ; mrs:predicate mrs:rel_age_at ;
+    mrs:assertionSubject per:TestMu000000000000000m ; mrs:assertionObject ev:TestGathering0000000h ;
+    mrs:ageYearsAsGiven "12"^^xsd:decimal ;
+    mrs:assertionStatus mrs:as_proposed ; prov:wasDerivedFrom psg:TestPassage00000000p .
+as:TestIH00000000000000007 a mrs:Assertion ; mrs:predicate mrs:rel_dated ;
+    mrs:assertionSubject ev:TestBattle0000000000a ; mrs:assertionObject "يوم الاختبار"@ar ;
+    mrs:assertionStatus mrs:as_proposed ; prov:wasDerivedFrom psg:TestPassage00000000p .

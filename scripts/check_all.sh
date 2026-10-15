@@ -165,6 +165,7 @@ if step "site: build"                              "$PY" site/build.py; then
   step "site/interactive: build"                   "$PY" site/interactive/build_interactive.py
   step "site/observatory: build"                   "$PY" site/observatory/build_observatory.py
   step "ask: build"                                "$PY" ask/build_ask.py
+  step "site/lifelines: build"                     "$PY" site/lifelines/build_lifelines.py
   # Keep after every builder that writes a view into site/dist (site/hub.py lists them):
   step "site: hub pages link the views just built" "$PY" site/build.py --hub
   step "site: page budget"                         "$PY" site/check_budget.py
@@ -177,6 +178,8 @@ if step "site: build"                              "$PY" site/build.py; then
   step "site/observatory: page"                    browser_check site/observatory/check_observatory.cjs
   step "site/observatory: tests"                   "$PY" -m unittest discover -s site/observatory/tests
   step "ask: page works (JS on and off)"           browser_check ask/tests/check_page.cjs
+  step "site/lifelines: page"                      browser_check site/lifelines/tests/check_lifelines.cjs
+  step "site/lifelines: tests"                     "$PY" -m unittest discover -s site/lifelines/tests
   step "site: home page links every built view"    "$PY" site/check_hub.py
   step "site: doors, thread, plain words (JS on/off)" browser_check site/check_doors.cjs
   # Checks that read site/dist go here.
