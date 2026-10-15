@@ -488,7 +488,7 @@ per:4mNbV7cXzA2sDfG9hJkQwR1 a mrs:Person ; rdfs:label "Umm Kulthūm bint Muḥam
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Umm Kulthūm" ; mrs:nasab ( "Muḥammad" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:3jLd4kNqR7mZpW2vXcT8bH1 a mrs:Person ; rdfs:label "ʿĀʾisha bint Abī Bakr"@en ;
+per:3jLd4kNqR7mZpW2vXcT8bH a mrs:Person ; rdfs:label "ʿĀʾisha bint Abī Bakr"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿĀʾisha" ; mrs:nasab ( "Abī Bakr" ) ;
@@ -765,14 +765,14 @@ ast:3fGhJ5kQwE08 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
 ast:3fGhJ5kQwE09 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:3jLd4kNqR7mZpW2vXcT8bH1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject per:3jLd4kNqR7mZpW2vXcT8bH ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Aisha bint Abi Bakr, wife. Standard tradition."@en ;
     prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
 
 ast:3fGhJ5kQwE10 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
-    mrs:assertionObject per:3jLd4kNqR7mZpW2vXcT8bH1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject per:3jLd4kNqR7mZpW2vXcT8bH ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Abu Bakr was Aisha's father. Standard tradition."@en ;
     prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
 
@@ -792,7 +792,7 @@ ast:3fGhJ5kQwE12 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
 
 ast:3fGhJ5kQwE13 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_sibling_of ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8bH1 ;
+    mrs:predicate mrs:rel_sibling_of ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8bH ;
     mrs:assertionObject per:6xZc2mQ7vR9nK4pT8sY3wA1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Aisha and Asma, full sisters, both daughters of Abu Bakr. Standard tradition."@en ;
     prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
@@ -1120,7 +1120,7 @@ ev:6xZc2mQ7vR9nK4pT8sY3wA3 a mrs:Event ; rdfs:label "Death of the Prophet ﷺ"@e
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:6nBvCxZ4aSdF7gHjK9mQwE2 ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:3jLd4kNqR7mZpW2vXcT8bH1 ; mrs:participantRole mrs:role_witness ] , # Aisha
+        [ a mrs:Participation ; mrs:participant per:3jLd4kNqR7mZpW2vXcT8bH ; mrs:participantRole mrs:role_witness ] , # Aisha
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] . # Abu Bakr
 
 ast:7yUmK3jHgF9dSaQ2wErT507 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;

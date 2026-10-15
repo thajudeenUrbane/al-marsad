@@ -71,6 +71,9 @@ ev:7hQ2mXvR9nK4pT8wY3zBcd
     a mrs:Event ;
     rdfs:label "Sheltering at Ghār Thawr"@en ;
     mrs:coverageState mrs:cs_outline ;
+    # Slice 1b, maintainer decision 3 (15 Oct 2026): this event is a PART of the seed's Hijra event
+    # (corpus/seed-incidents.ttl), not a duplicate of it. CIDOC-CRM P9i; no new property.
+    crm:P9i_forms_part_of ev:nkdSMuVDo7LS9vhSuq1Lxs ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
 
@@ -79,7 +82,7 @@ ev:7hQ2mXvR9nK4pT8wY3zBcd
           mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ;      # the Prophet (peace be upon him)
           mrs:participantRole mrs:role_principal ] ,
         [ a mrs:Participation ;
-          mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP ;      # Abu Bakr al-Siddiq
+          mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ;      # Abu Bakr al-Siddiq
           mrs:participantRole mrs:role_companion ] ;
 
     mrs:eventPlace plc:3zXcV5bNmA8sDfG2hJkLqW ;
@@ -141,6 +144,9 @@ ev:5fW9jNbT4mQ7xZcV2hR8dK
     a mrs:Event ;
     rdfs:label "Departure from Makkah"@en ;
     mrs:coverageState mrs:cs_stub ;
+    # Slice 1b, maintainer decision 3 (15 Oct 2026): this event is a PART of the seed's Hijra event
+    # (corpus/seed-incidents.ttl), not a duplicate of it. CIDOC-CRM P9i; no new property.
+    crm:P9i_forms_part_of ev:nkdSMuVDo7LS9vhSuq1Lxs ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime .
 
@@ -183,7 +189,7 @@ plc:3zXcV5bNmA8sDfG2hJkLqW
 # rather than on archaeological determination. Coordinates are approximate
 # and are given here only to exercise the model.
 
-plc:9qWeR4tYuP7aSdF3gHjKzX
+plc:2aSdF6gHjK8mNbV5cXzQwE2
     a mrs:Place ;
     rdfs:label "Makkah"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -198,7 +204,7 @@ plc:9qWeR4tYuP7aSdF3gHjKzX
         mrs:geometryBasis mrs:gb_modern_identification ;
         mrs:validExtent tmp:9bVcX5zAsD2fGhJ6kQwErT ] .
 
-plc:5dFgH8jKmN2bVcX6zAqWsE
+plc:5dFgH8jKmN2bVcX6zAqWsE2
     a mrs:Place ;
     rdfs:label "al-Madīna (formerly Yathrib)"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -421,7 +427,7 @@ per:2mQ7vR9nK4pT8sY3wZ6xCe a mrs:Person ;
         mrs:ism "Muḥammad" ; mrs:nasab ( "ʿAbd Allāh" "ʿAbd al-Muṭṭalib" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:8sT3wY6xZc2mQ7vR9nK4pP a mrs:Person ;
+per:8sT3wY6xZc2mQ7vR9nK4pP1 a mrs:Person ;
     rdfs:label "Abū Bakr al-Ṣiddīq"@en ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
@@ -471,7 +477,7 @@ per:9pLmK4nR8sT2wQ6vY3xZbA
     # Temporally bounded and individually evidenced. Not "he was from Madinah".
     mrs:placeAffiliation [
         a mrs:PlaceAffiliation ;
-        mrs:affiliatedPlace plc:5dFgH8jKmN2bVcX6zAqWsE ;
+        mrs:affiliatedPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ;
         mrs:affiliationType mrs:aff_resided ;
         mrs:affiliationExtent tmp:5zAsD3fGhJ7kQwE4rTyUmN ] .
 
@@ -619,7 +625,7 @@ rte:4sDfG6hJkQ2wErT9yUmNbV
         # Attested: named endpoints, multiple independent reports.
         [ a mrs:RouteSegment ;
           mrs:segmentOrder 1 ;
-          mrs:segmentFrom plc:9qWeR4tYuP7aSdF3gHjKzX ;      # Makkah
+          mrs:segmentFrom plc:2aSdF6gHjK8mNbV5cXzQwE2 ;      # Makkah
           mrs:segmentTo   plc:3zXcV5bNmA8sDfG2hJkLqW ;      # Ghar Thawr
           mrs:segmentConfidence mrs:sc_attested ;
           mrs:travelMode mrs:tvm_foot ;

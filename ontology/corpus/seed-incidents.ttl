@@ -252,7 +252,7 @@ plc:vzckhHVgDDTfVCbVwU7tLd a mrs:Place ; rdfs:label "al-Aqaba"@en ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_route_node ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "al-Aqaba"@en ] .
 
-plc:uQSWiqCgjHmrPQaKnBERUn a mrs:Place ; rdfs:label "Ghar Thawr"@en ;
+plc:3zXcV5bNmA8sDfG2hJkLqW a mrs:Place ; rdfs:label "Ghar Thawr"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_route_node ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "Ghar Thawr"@en ] .
@@ -529,7 +529,7 @@ tmp:rmPVM7A1fCgDkx4JiM8hXa a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:nkdSMuVDo7LS9vhSuq1Lxs a mrs:Event ; rdfs:label "The Hijra: departure from Makkah, via Ghar Thawr"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:uQSWiqCgjHmrPQaKnBERUn ; mrs:eventTemporalExtent tmp:rmPVM7A1fCgDkx4JiM8hXa ;
+    mrs:eventPlace plc:3zXcV5bNmA8sDfG2hJkLqW ; mrs:eventTemporalExtent tmp:rmPVM7A1fCgDkx4JiM8hXa ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
@@ -543,7 +543,7 @@ tmp:nxcBNEHdzFpTcK2jZ6TGeT a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
     mrs:earliestStart "0622-01-01T00:00:00Z"^^xsd:dateTime ;
     mrs:latestEnd     "0622-12-31T23:59:59Z"^^xsd:dateTime .
 
-ev:DPiT3Qift9Qbxga9AiaDog a mrs:Event ; rdfs:label "Arrival at Quba'"@en ;
+ev:6gY3kPcU5nR8yAdW3jS9eE a mrs:Event ; rdfs:label "Arrival at Quba'"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:nyxjqpT7HwgzZZHTCW6tuW ; mrs:eventTemporalExtent tmp:nxcBNEHdzFpTcK2jZ6TGeT ;
@@ -1056,7 +1056,7 @@ ast:ustCmyciSJMCGXVLtMXov1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:7BW19FM6xCYUmAHiyADmZH a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_sheltered_at ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject plc:uQSWiqCgjHmrPQaKnBERUn ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject plc:3zXcV5bNmA8sDfG2hJkLqW ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 031 (Cave of Thawr): The Prophet (peace be upon him) and Abu Bakr remained concealed in Ghar Thawr during the Hijra (cf. the fuller worked example in ontology/examples/thawr.ttl, a separate, independently-identified encoding of the same tradition -- reconciling the two identities is scholar review work, not pre-empted here). No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1088,7 +1088,7 @@ ast:eFsHqNxxrtwKP8kjT7sZDD a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:Mnpje159nH78R157BxqTa9 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:DPiT3Qift9Qbxga9AiaDog ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:6gY3kPcU5nR8yAdW3jS9eE ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 035 (Arrival at Quba): The Prophet (peace be upon him) reached Quba' during the migration. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 

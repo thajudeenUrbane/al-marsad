@@ -1,7 +1,7 @@
 {
   "persons": [
     {
-      "id": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP",
+      "id": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
       "label": "Abū Bakr al-Ṣiddīq",
       "tabaqa": "ṣaḥābī",
       "coverage": "stub",
@@ -191,7 +191,7 @@
       "basis": "traditional"
     },
     {
-      "id": "https://w3id.org/marsad/id/place/9qWeR4tYuP7aSdF3gHjKzX",
+      "id": "https://w3id.org/marsad/id/place/2aSdF6gHjK8mNbV5cXzQwE2",
       "label": "Makkah",
       "type": "settlement",
       "wkt": "POINT(39.8262 21.4225)",
@@ -215,7 +215,7 @@
       "basis": "textual"
     },
     {
-      "id": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE",
+      "id": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE2",
       "label": "al-Madīna (formerly Yathrib)",
       "type": "settlement",
       "wkt": "POINT(39.6142 24.4686)",
@@ -229,15 +229,15 @@
       "name": "غار ثور"
     },
     {
-      "place": "https://w3id.org/marsad/id/place/9qWeR4tYuP7aSdF3gHjKzX",
+      "place": "https://w3id.org/marsad/id/place/2aSdF6gHjK8mNbV5cXzQwE2",
       "name": "مكة"
     },
     {
-      "place": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE",
+      "place": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE2",
       "name": "يثرب"
     },
     {
-      "place": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE",
+      "place": "https://w3id.org/marsad/id/place/5dFgH8jKmN2bVcX6zAqWsE2",
       "name": "المدينة"
     },
     {

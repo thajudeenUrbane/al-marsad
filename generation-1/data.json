@@ -218,7 +218,7 @@
       "role": null
     },
     {
-      "id": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1",
+      "id": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH",
       "label": "ʿĀʾisha bint Abī Bakr",
       "tabaqa": "ṣaḥābī",
       "coverage": "stub",
@@ -579,7 +579,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/6xZc2mQ7vR9nK4pT8sY3wA3",
-      "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1",
+      "person": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH",
       "role": "witness"
     },
     {
@@ -776,7 +776,7 @@
       "predicate": "father of",
       "subject": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
       "subjectLabel": "Abū Bakr al-Ṣiddīq",
-      "object": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1",
+      "object": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH",
       "objectLabel": "ʿĀʾisha bint Abī Bakr",
       "basis": "Abu Bakr was Aisha's father. Standard tradition."
     },
@@ -848,7 +848,7 @@
       "predicate": "spouse of",
       "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
-      "object": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1",
+      "object": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH",
       "objectLabel": "ʿĀʾisha bint Abī Bakr",
       "basis": "Aisha bint Abi Bakr, wife. Standard tradition."
     },
@@ -934,7 +934,7 @@
     },
     {
       "predicate": "sibling of",
-      "subject": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH1",
+      "subject": "https://w3id.org/marsad/id/person/3jLd4kNqR7mZpW2vXcT8bH",
       "subjectLabel": "ʿĀʾisha bint Abī Bakr",
       "object": "https://w3id.org/marsad/id/person/6xZc2mQ7vR9nK4pT8sY3wA1",
       "objectLabel": "Asmāʾ bint Abī Bakr",
