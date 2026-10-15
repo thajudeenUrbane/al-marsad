@@ -11,7 +11,7 @@ Follow-ups to round 1 (docs/handover/maintainer-answers-1.md), answered on the s
 - **R4 Home page:** one home with three doors: **Discover** (stories), **Study** (people, timelines), **Research** (sources and data). Replaces the graph-first home of round 1 B10.
 - **R9 Order by depth:** Discover shows the story first, with the chain one tap below. Study and Research show the chain (the evidence) first.
 - **R8 Status in screenshots:** a clear text label on every claim, and the same label printed into any image someone shares (a requirement for any future share-image feature).
-- **R5 Accounts (needs clarification):** "No, deeper levels need an account." This conflicts with two standing rules: doc 13 D1 ("Reading needs no account") and red line 9 in docs/06 ("No paywall on evidence. The provenance of a claim is never a premium feature."). Asked again: should accounts gate deeper *evidence*, or only deeper *tools* (saved views, notes, research workspace)? Until answered, nothing behind a login is built. Slices 2 and 3 have no accounts.
+- **R5 Accounts (clarified in chat, same day):** "Depth means research and learning people need account. Just checking/opening not required the account." So **opening and reading anything, at every depth (sources and chains included), never needs an account**, as doc 13 D1 and red line 9 require. Accounts are only for people who learn or research on the site: saved progress, notes, a research workspace. They need a small backend, so they come with the first feature that needs them (learning paths, slice 6, or research tools). Until then, progress is kept on the device.
 
 ## Scope and content
 - **R6 The fitna period** (Jamal and Ṣiffīn, 36–37 AH): cover later, once the board exists.
