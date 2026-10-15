@@ -223,6 +223,18 @@ mrs:qualifier a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:
 mrs:assertionStatus a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:AssertionStatus .
 mrs:Qualifier a owl:Class .
 
+# ADDED IN SLICE 4, 15 Oct 2026, for the lifelines view: ages and dates
+# kept exactly as the source gives them, on the Assertion that rests on
+# them (relations mrs:rel_age_at, rel_born_during, rel_died_during and
+# rel_dated in relations.ttl). The Assertion-level counterpart of
+# mrs:nativeValue: verbatim, never normalised, never converted.
+mrs:ageAsWritten a owl:DatatypeProperty ; rdfs:domain mrs:Assertion ; rdfs:range rdf:langString ;
+    rdfs:comment "The age exactly as the source gives it (e.g. 'ابن عشر سنين'), verbatim. Required on an mrs:rel_age_at Assertion. Classical ages are usually lunar-year counts; the basis is not assumed."@en .
+mrs:ageYearsAsGiven a owl:DatatypeProperty ; rdfs:domain mrs:Assertion ; rdfs:range xsd:decimal ;
+    rdfs:comment "The number of years the source gives, read off the text and nothing else: no lunar-solar conversion, no arithmetic. One value per alternative the source gives ('seven or eight' is 7 and 8). Absent when the source gives no number ('in his youth', 'of his age')."@en .
+mrs:dateAsWritten a owl:DatatypeProperty ; rdfs:domain mrs:Assertion ; rdfs:range rdf:langString ;
+    rdfs:comment "A date or time expression exactly as the source gives it, verbatim, on an Assertion about when something happened (e.g. a birth dated by day, month and the Year of the Elephant)."@en .
+
 mrs:Evaluation a owl:Class ;
     rdfs:subClassOf crm:E13_Attribute_Assignment ;
     rdfs:label "Evaluation"@en ;
