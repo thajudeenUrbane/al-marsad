@@ -39,6 +39,12 @@ def rx(pattern: str) -> re.Pattern:
     return _RX[pattern]
 
 
+def trim(s: str) -> str:
+    """Strip leading and trailing white space, by the shared class in rules.json."""
+    sp = RULES["normalise"]["spaces"]
+    return rx("^(?:" + sp + ")|(?:" + sp + ")$").sub("", s)
+
+
 def strip_trailing(q: str) -> str:
     return rx(RULES["cleanup"]["trailing"]).sub("", q)
 
@@ -329,7 +335,7 @@ def run_query(text: str, engine: Engine, T: dict, out: dict, notes=(), alts=()) 
 def answer(question: str, engine: Engine, T: dict, translators: list | None = None) -> dict:
     """The whole pipeline for one question. Returns a plain dict (see ask/DSL.md, "The
     answer object"); ask/present.py turns it into HTML."""
-    raw = (question or "").strip()
+    raw = trim(question or "")
     out: dict = {"q": raw, "version": engine.ix["version"]}
     if not raw:
         out["outcome"] = "empty"

@@ -71,9 +71,9 @@ DEFAULTS = {("participants", "as"): "any", ("relatives", "tie"): "any", ("connec
 class DslError(Exception):
     """A query that cannot run. key is an i18n key under "error."; params fill it."""
 
-    def __init__(self, key: str, **params):
-        super().__init__(key)
-        self.key = key
+    def __init__(self, error_key: str, /, **params):
+        super().__init__(error_key)
+        self.key = error_key
         self.params = params
 
     def as_dict(self) -> dict:
@@ -81,7 +81,7 @@ class DslError(Exception):
 
 
 # ---------------------------------------------------------------------------- text
-def fmt(template: str, **kw) -> str:
+def fmt(template: str, /, **kw) -> str:
     """Fill {name} slots. The same simple rule as the JS port (no format spec)."""
     return re.sub(r"\{([a-z_]+)\}", lambda m: str(kw[m.group(1)]), template)
 

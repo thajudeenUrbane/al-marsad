@@ -69,6 +69,27 @@ def slugify(q: str, used: set) -> str:
     return slug
 
 
+def cache_entries() -> list[dict]:
+    """The golden questions marked "cache", each with its page slug."""
+    cache = [g for g in golden() if g.get("cache")]
+    used: set = set()
+    for g in cache:
+        g["slug"] = slugify(g["question"], used)
+    return cache
+
+
+def examples_of(cache: list[dict]) -> list[list[str]]:
+    """Questions offered when a question is not understood: [question, slug]."""
+    return [[g["question"], g["slug"]] for g in cache if g.get("group") != "refusal"][:6]
+
+
+def browser_data(ix: dict, T: dict, examples: list) -> dict:
+    """What ask-index.json holds: the index, the shared rules, the strings, the examples."""
+    data = dict(ix)
+    data.update({"rules": RULES, "i18n": T, "examples": examples})
+    return data
+
+
 def fill_i18n(text: str, T: dict) -> str:
     return re.sub(r"\[\[([a-z0-9_.]+)\]\]", lambda m: esc(T[m.group(1)]), text)
 
@@ -96,11 +117,8 @@ def build(graph: Path, site: Path, quiet: bool = False) -> dict:
     ix = ask_index.build(graph)
     eng = Engine(ix)
     T = load_i18n()
-    cache = [g for g in golden() if g.get("cache")]
-    used: set = set()
-    for g in cache:
-        g["slug"] = slugify(g["question"], used)
-    examples = [[g["question"], g["slug"]] for g in cache if g.get("group") != "refusal"][:6]
+    cache = cache_entries()
+    examples = examples_of(cache)
     pres = Presenter(eng, T, "../../../", examples)
 
     def write(rel: str, text: str):
@@ -146,9 +164,7 @@ def build(graph: Path, site: Path, quiet: bool = False) -> dict:
     # the browser engine and its data
     shutil.copyfile(HERE / "static" / "ask.js", out / "ask.js")
     shutil.copyfile(HERE / "static" / "ask.css", out / "ask.css")
-    data = dict(ix)
-    data.update({"rules": RULES, "i18n": T, "examples": examples})
-    write("ask-index.json", json.dumps(data, ensure_ascii=False, separators=(",", ":")))
+    write("ask-index.json", json.dumps(browser_data(ix, T, examples), ensure_ascii=False, separators=(",", ":")))
 
     sizes = {p.relative_to(out).as_posix(): p.stat().st_size for p in out.rglob("*") if p.is_file()}
     total = sum(sizes.values())

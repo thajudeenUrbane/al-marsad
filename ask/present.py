@@ -36,10 +36,10 @@ class Presenter:
         """Plain text (data or an i18n string) -> HTML."""
         return display.mark_arabic(esc(s))
 
-    def t(self, key: str, **kw) -> str:
+    def t(self, key: str, /, **kw) -> str:
         return fmt(self.T[key], **kw)
 
-    def hk(self, key: str, **html_kw) -> str:
+    def hk(self, key: str, /, **html_kw) -> str:
         """An i18n template whose values are already HTML."""
         return fmt(self.h(self.T[key]), **html_kw)
 
