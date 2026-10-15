@@ -45,7 +45,8 @@ function firstDir(kind) {
   const fail = (msg) => { failures.push(msg); console.log("  FAIL " + msg); };
 
   // find a person page with stories, and a story page, from the generated site
-  const pages = ["/", "/person/", "/story/", "/glossary/"];
+  // the search page as the search box submits it: without JS it lists every name A to Z
+  const pages = ["/", "/person/", "/story/", "/glossary/", "/search/?q=Abu+Bakr"];
   const withStories = fs.readdirSync(path.join(root, "person")).filter((n) => fs.existsSync(path.join(root, "person", n, "index.html")))
     .find((n) => /id="s-stories"/.test(fs.readFileSync(path.join(root, "person", n, "index.html"), "utf8")));
   if (withStories) pages.push(`/person/${withStories}/`);
@@ -64,6 +65,11 @@ function firstDir(kind) {
     const body = await page.locator("body").evaluate((el) => getComputedStyle(el).backgroundColor + "|" + getComputedStyle(el).fontFamily).catch(() => null);
     if (!body || !/system-ui/.test(body)) fail(`${p}: stylesheet not applied (${body})`);
     const jsOn = await page.evaluate(() => typeof navigator !== "undefined").catch(() => "blocked");
+    if (p.startsWith("/search/")) {
+      if (!(await page.locator("#search-nojs").isVisible())) fail(`${p}: no note on searching without JavaScript`);
+      if ((await page.locator("#search-all .index-list li").count()) < 1) fail(`${p}: the A-Z list of names is empty`);
+      if (await page.locator("#search-results").isVisible()) fail(`${p}: results shown without JavaScript`);
+    }
     if (/\/(person|story|event|place|group)\/[^/]+\/$/.test(p)) {
       const text = await page.locator("main").innerText();
       if (!/Coverage:/.test(text)) fail(`${p}: coverage label missing`);
