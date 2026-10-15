@@ -509,9 +509,13 @@
   window.addEventListener("storage", function () { renderWho(); loadCards(); refresh(); });
   window.addEventListener("pageshow", function (e) { if (e.persisted) { renderWho(); loadCards(); refresh(); } });
 
+  function offerLinkedId() {
+    var fromLink = linkedId();
+    if (fromLink && fromLink !== reviewer()) openReviewer(fromLink, t("reviewer.from_link", { id: fromLink }));
+  }
+  window.addEventListener("hashchange", offerLinkedId);
   renderWho();
-  var fromLink = linkedId();
-  if (fromLink && fromLink !== reviewer()) openReviewer(fromLink, t("reviewer.from_link", { id: fromLink }));
+  offerLinkedId();
   loadCards();
   refresh();
 
