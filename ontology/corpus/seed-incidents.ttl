@@ -252,7 +252,7 @@ plc:vzckhHVgDDTfVCbVwU7tLd a mrs:Place ; rdfs:label "al-Aqaba"@en ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_route_node ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "al-Aqaba"@en ] .
 
-plc:3zXcV5bNmA8sDfG2hJkLqW a mrs:Place ; rdfs:label "Ghar Thawr"@en ;
+plc:Tvj82GYrHHvbBIehvFBQcA a mrs:Place ; rdfs:label "Ghar Thawr"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_route_node ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "Ghar Thawr"@en ] .
@@ -313,7 +313,7 @@ ev:nVEg76HzRApTAxhfpbrGUV a mrs:Event ; rdfs:label "The first revelation, at Gha
     mrs:eventPlace plc:sUFGV6BTYhoRrt5rG5pnLJ ; mrs:eventTemporalExtent tmp:gSzoyQGm8JuzivC8jbNq6u ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:7hQ2mXvR9nK4pT8wY3zBcd1 ; mrs:participantRole mrs:role_witness ] ,
+        [ a mrs:Participation ; mrs:participant per:laOMIYgqaQ5Iw6DmtiCNkY ; mrs:participantRole mrs:role_witness ] ,
         [ a mrs:Participation ; mrs:participant per:yLxAg4fUPuthMjBPup8ceQ ; mrs:participantRole mrs:role_witness ] .
 
 tmp:gf2Cu1hbYYNU7wVZmhuhu4 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -324,7 +324,7 @@ tmp:gf2Cu1hbYYNU7wVZmhuhu4 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:8MRi7tRDnu2TKS9PFFketJ a mrs:Event ; rdfs:label "Abu Bakr's acceptance of Islam"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:gf2Cu1hbYYNU7wVZmhuhu4 ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:gf2Cu1hbYYNU7wVZmhuhu4 ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_participant ] .
@@ -337,10 +337,10 @@ tmp:eYqnYpN9zE1MFWaj4FgRax a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:Macm2CnEpUuL46qFy4oN2J a mrs:Event ; rdfs:label "Ali's acceptance of Islam"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:eYqnYpN9zE1MFWaj4FgRax ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:eYqnYpN9zE1MFWaj4FgRax ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:3jLd4kNqR7mZpW2vXcT8b1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_participant ] .
 
 tmp:hrYx7UbcBRm1NcXgDC8Cj7 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "c. 610 CE" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -350,10 +350,10 @@ tmp:hrYx7UbcBRm1NcXgDC8Cj7 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:PH1oyScydKybkhdyn4MoCT a mrs:Event ; rdfs:label "Zayd b. Haritha's acceptance of Islam"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:hrYx7UbcBRm1NcXgDC8Cj7 ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:hrYx7UbcBRm1NcXgDC8Cj7 ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:4kNqR7mZpW2vXcT8bH3jLd1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:P4VAp86LIzXhq2pUAuEylx ; mrs:participantRole mrs:role_participant ] .
 
 tmp:tTvR1YUu2ZAUap8hwzzUJX a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "early Makkan persecution period, c. 613-619 CE" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -363,9 +363,9 @@ tmp:tTvR1YUu2ZAUap8hwzzUJX a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:WDQxcQFoRKTY9NkRqbVXAJ a mrs:Event ; rdfs:label "Persecution of early Muslims, incl. Bilal"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:tTvR1YUu2ZAUap8hwzzUJX ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:tTvR1YUu2ZAUap8hwzzUJX ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:2aSdF6gHjK8mNbV5cXzQwE1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:LokzGBbtKKXFdzLwoDZSi6 ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_participant ] .
 
 tmp:8cH4fkATjNUJQgCNosoTbQ a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -376,7 +376,7 @@ tmp:8cH4fkATjNUJQgCNosoTbQ a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:QrEi11wnvMS4hycQZuoQuy a mrs:Event ; rdfs:label "Public proclamation from al-Safa"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:8cH4fkATjNUJQgCNosoTbQ ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:8cH4fkATjNUJQgCNosoTbQ ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] .
 
@@ -388,10 +388,10 @@ tmp:92X5YHYDFqbmqHeQgXv82s a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:mkxvKngiwe32gRJv34A7ig a mrs:Event ; rdfs:label "Umar's acceptance of Islam"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:92X5YHYDFqbmqHeQgXv82s ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:92X5YHYDFqbmqHeQgXv82s ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] .
 
 tmp:fTj4cULw7ETsYYy7oY6feP a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "c. 615-616 CE" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -414,10 +414,10 @@ tmp:9XWWN4CtPFrbQRCVp5MeBG a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:YQVwa1VsHgr7LpNqMuWw7v a mrs:Event ; rdfs:label "Hamza's acceptance of Islam"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:9XWWN4CtPFrbQRCVp5MeBG ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:9XWWN4CtPFrbQRCVp5MeBG ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:4tVbN6yHjM3kQ9wErZ7uXs1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:4cFhNASabmB63JuKazjKPh ; mrs:participantRole mrs:role_participant ] .
 
 tmp:a2bgz6SppAeBXJCx2qjdK9 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "c. 616-619 CE (three-year boycott, conventionally cited)" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -430,7 +430,7 @@ ev:cWTQ97b89yrz1QhCeWeKym a mrs:Event ; rdfs:label "The social boycott of Banu H
     mrs:eventPlace plc:q9sqwuMQArvxjYyLc47vBA ; mrs:eventTemporalExtent tmp:a2bgz6SppAeBXJCx2qjdK9 ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:7hQ2mXvR9nK4pT8wY3zBcd1 ; mrs:participantRole mrs:role_witness ] ,
+        [ a mrs:Participation ; mrs:participant per:laOMIYgqaQ5Iw6DmtiCNkY ; mrs:participantRole mrs:role_witness ] ,
         [ a mrs:Participation ; mrs:participant per:jbYZ5cBD9GifB8RHTH4JZc ; mrs:participantRole mrs:role_witness ] .
 
 tmp:3Dn7Zen7u7Pnj95miDYnef a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -444,7 +444,7 @@ ev:Ds5Bx1HGwsHR49guxdzXad a mrs:Event ; rdfs:label "The journey to Ta'if"@en ;
     mrs:eventPlace plc:6J8V7krgHSbMntUrQBbhEw ; mrs:eventTemporalExtent tmp:3Dn7Zen7u7Pnj95miDYnef ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:4kNqR7mZpW2vXcT8bH3jLd1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:P4VAp86LIzXhq2pUAuEylx ; mrs:participantRole mrs:role_participant ] .
 
 tmp:uk2ycVDaTU8CU14YMgtGJ4 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "c. 620-621 CE (commonly dated c. 1 year before the Hijra)" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -479,10 +479,10 @@ tmp:5zZ8PR4gTbcanssKian5g6 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:4CEk1GHqBJiZGLetNxSkhe a mrs:Event ; rdfs:label "Mus'ab b. Umayr's teaching mission to Yathrib"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:5zZ8PR4gTbcanssKian5g6 ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:5zZ8PR4gTbcanssKian5g6 ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:2wErT5yUqP8pLkJ9hGfDsA1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:xXOoS1i5K8dtQ7nTy6GZCT ; mrs:participantRole mrs:role_participant ] .
 
 tmp:uyrh62XBosWuXtLhyqZmNL a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "621-622 CE" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -492,10 +492,10 @@ tmp:uyrh62XBosWuXtLhyqZmNL a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:rMq6nNneuHpr8sxkUrbnbr a mrs:Event ; rdfs:label "Sa'd b. Mu'adh's acceptance of Islam"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:uyrh62XBosWuXtLhyqZmNL ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:uyrh62XBosWuXtLhyqZmNL ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:7yUmK3jHgF9dSaQ2wErT5z1 ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:2wErT5yUqP8pLkJ9hGfDsA1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:9GhccCRfUoDfmF9S98F2Rl ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:xXOoS1i5K8dtQ7nTy6GZCT ; mrs:participantRole mrs:role_participant ] .
 
 tmp:mXFhTsUqAZriVj1MxKc3gV a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "622 CE, shortly before the Hijra" ; mrs:precision mrs:pr_year ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -517,7 +517,7 @@ tmp:A9JTio3Hd3PKRWzPzCuxVZ a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:oTnhYREjPWB6mUJZR4cnYA a mrs:Event ; rdfs:label "The beginning of the Hijra migrations to Madinah"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:eventTemporalExtent tmp:A9JTio3Hd3PKRWzPzCuxVZ ;
+    mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:A9JTio3Hd3PKRWzPzCuxVZ ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] .
 
@@ -529,12 +529,12 @@ tmp:rmPVM7A1fCgDkx4JiM8hXa a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:nkdSMuVDo7LS9vhSuq1Lxs a mrs:Event ; rdfs:label "The Hijra: departure from Makkah, via Ghar Thawr"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:3zXcV5bNmA8sDfG2hJkLqW ; mrs:eventTemporalExtent tmp:rmPVM7A1fCgDkx4JiM8hXa ;
+    mrs:eventPlace plc:Tvj82GYrHHvbBIehvFBQcA ; mrs:eventTemporalExtent tmp:rmPVM7A1fCgDkx4JiM8hXa ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:3jLd4kNqR7mZpW2vXcT8b1 ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:6xZc2mQ7vR9nK4pT8sY3wA1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:7XMkA64afEC5PCz0zGGPTs ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:GBH3zcgbBq2942xBqZo42T ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:8gztwMhLzVG8nUtMnV3GUW ; mrs:participantRole mrs:role_participant ] .
 
@@ -543,7 +543,7 @@ tmp:nxcBNEHdzFpTcK2jZ6TGeT a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
     mrs:earliestStart "0622-01-01T00:00:00Z"^^xsd:dateTime ;
     mrs:latestEnd     "0622-12-31T23:59:59Z"^^xsd:dateTime .
 
-ev:6gY3kPcU5nR8yAdW3jS9eE a mrs:Event ; rdfs:label "Arrival at Quba'"@en ;
+ev:3lK8gd8ERkMXArSB2WMWFK a mrs:Event ; rdfs:label "Arrival at Quba'"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:nyxjqpT7HwgzZZHTCW6tuW ; mrs:eventTemporalExtent tmp:nxcBNEHdzFpTcK2jZ6TGeT ;
@@ -559,11 +559,11 @@ tmp:HKg4oz2xisNjyK3gErqX3G a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:3Xjzj4QHY6FbgKENkGGXy7 a mrs:Event ; rdfs:label "Arrival in Madinah and early community-building"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:HKg4oz2xisNjyK3gErqX3G ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:HKg4oz2xisNjyK3gErqX3G ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:xqSsh3EQEz1TQohmQQaZgi ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:2aSdF6gHjK8mNbV5cXzQwE1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:LokzGBbtKKXFdzLwoDZSi6 ; mrs:participantRole mrs:role_participant ] .
 
 tmp:8GaJhw44Y3JVA8wTMgE5s6 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "Muharram 7 AH / c. May-June 628 CE" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -576,8 +576,8 @@ ev:r932VFzvbsyGx5z3ifRuKT a mrs:Event ; rdfs:label "The Khaybar campaign"@en ;
     mrs:eventPlace plc:f1Vh5RvPPhpCYVh32mJ8K2 ; mrs:eventTemporalExtent tmp:8GaJhw44Y3JVA8wTMgE5s6 ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:3jLd4kNqR7mZpW2vXcT8b1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:5fW9jNbT4mQ7xZcV2hR8dK1 ; mrs:participantRole mrs:role_witness ] .
+        [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:MSrNg6crYox3LC1UHol8st ; mrs:participantRole mrs:role_witness ] .
 
 tmp:u2LGXmz9sfHaRTwAwAMm7L a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "Shawwal 8 AH / 630 CE" ; mrs:precision mrs:pr_year ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -617,8 +617,8 @@ ev:vqFhA78ZXwijNch74AJ2RJ a mrs:Event ; rdfs:label "The expedition to Tabuk"@en 
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:8gY3kPcU5nR8yAdW3jS9eE1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:TxhFk19HwO2OpgvY4kBVGi ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:hBxUQqPDrZGtgXPWBRgrHQ ; mrs:participantRole mrs:role_participant ] .
 
 tmp:nth3rPJAhLTuVgPgjh1Aw5 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -642,7 +642,7 @@ tmp:rSVirwCWVo8bHpQakn8U82 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:iceFuGcddKwFTAEtJRWQVh a mrs:Event ; rdfs:label "Usama b. Zayd's appointment to lead an expedition"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:rSVirwCWVo8bHpQakn8U82 ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:rSVirwCWVo8bHpQakn8U82 ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:KrJiSdZXjpxWuduqA8kZUv ; mrs:participantRole mrs:role_leader ] .
@@ -655,10 +655,10 @@ tmp:MiYFqfshM1v2cX6sz3gHsG a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:s2Nto37t8CXznvKmoNRWbS a mrs:Event ; rdfs:label "Abu Bakr's address after the Prophet's death"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:MiYFqfshM1v2cX6sz3gHsG ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:MiYFqfshM1v2cX6sz3gHsG ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_witness ] .
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_witness ] .
 
 tmp:TByd2Vu88ZUvANVP8uwwzV a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "11 AH / 632 CE" ; mrs:precision mrs:pr_year ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -668,11 +668,11 @@ tmp:TByd2Vu88ZUvANVP8uwwzV a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:JitvLyniWwRacZVtmuCUTY a mrs:Event ; rdfs:label "The gathering at Saqifat Bani Sa'ida"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:TByd2Vu88ZUvANVP8uwwzV ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:TByd2Vu88ZUvANVP8uwwzV ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:7cVbN3mAsD9fGhJ4kQwErT1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:UtI7tfqLuYs902qoNowis1 ; mrs:participantRole mrs:role_participant ] .
 
 tmp:8LtdobdnFGm36xJjLvytrj a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "11 AH / 632 CE" ; mrs:precision mrs:pr_year ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -682,10 +682,10 @@ tmp:8LtdobdnFGm36xJjLvytrj a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:iuGZ3GGcGDqhhbwXJ8D1Cz a mrs:Event ; rdfs:label "Abu Bakr's pledge of allegiance as caliph"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:8LtdobdnFGm36xJjLvytrj ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:8LtdobdnFGm36xJjLvytrj ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] .
 
 tmp:SAdtatbLZNpWUQJ676XStn a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "11-12 AH / 632-633 CE" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -698,7 +698,7 @@ ev:iBL1sekQd99r79XnRiGoNB a mrs:Event ; rdfs:label "The Ridda ('apostasy') wars"
     mrs:eventPlace plc:sTerKmn2YXLhYbtceEGMyR ; mrs:eventTemporalExtent tmp:SAdtatbLZNpWUQJ676XStn ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:dKAPKxa69WzXASHWmGPk81 ; mrs:participantRole mrs:role_leader ] .
 
 tmp:Y2ik9ip3vJATH34bwdVa16 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -721,9 +721,9 @@ tmp:3wxsjqBFLEzqUZQ51TqDae a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:98h6cZYjdoJKCDJ5YkEC5S a mrs:Event ; rdfs:label "Umar's proposal to collect the Qur'an"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:3wxsjqBFLEzqUZQ51TqDae ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:3wxsjqBFLEzqUZQ51TqDae ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:nwfJDZQeYsrnk8ydaFWRr5 ; mrs:participantRole mrs:role_participant ] .
 
@@ -735,11 +735,11 @@ tmp:51wLvLee17wFFvi7nXEef6 a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:L8zGM78WmCoA61KnaDSvi1 a mrs:Event ; rdfs:label "Zayd b. Thabit's collection of the Qur'anic material"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:51wLvLee17wFFvi7nXEef6 ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:51wLvLee17wFFvi7nXEef6 ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:nwfJDZQeYsrnk8ydaFWRr5 ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_participant ] .
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] .
 
 tmp:dXJXRqxJm6NeTcmbFzH6Tk a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "13 AH / 634 CE" ; mrs:precision mrs:pr_year ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -749,9 +749,9 @@ tmp:dXJXRqxJm6NeTcmbFzH6Tk a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:VHoN6Ei4VWGbFLx9xCDQbg a mrs:Event ; rdfs:label "Umar's succession as caliph"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:dXJXRqxJm6NeTcmbFzH6Tk ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:dXJXRqxJm6NeTcmbFzH6Tk ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_witness ] .
 
 tmp:23PMiuQUBxWYuwZ8SQrYgn a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -764,8 +764,8 @@ ev:qBKbbt25KsHFAxemoK8xDP a mrs:Event ; rdfs:label "The expansion into Syria"@en
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:ioWCg5AEr4UYA1dkWNwtbv ; mrs:eventTemporalExtent tmp:23PMiuQUBxWYuwZ8SQrYgn ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:7cVbN3mAsD9fGhJ4kQwErT1 ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:UtI7tfqLuYs902qoNowis1 ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:dKAPKxa69WzXASHWmGPk81 ; mrs:participantRole mrs:role_leader ] .
 
 tmp:KeDtEYWKWrAxREUPZ4wRci a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -776,10 +776,10 @@ tmp:KeDtEYWKWrAxREUPZ4wRci a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:dpFVBKdkRn2jzGYeunb13m a mrs:Event ; rdfs:label "Uthman's succession as caliph"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:KeDtEYWKWrAxREUPZ4wRci ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:KeDtEYWKWrAxREUPZ4wRci ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:8gY3kPcU5nR8yAdW3jS9eE1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:participantRole mrs:role_witness ] .
+        [ a mrs:Participation ; mrs:participant per:TxhFk19HwO2OpgvY4kBVGi ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_witness ] .
 
 tmp:q9GS9hTwTqAEyESkYgwdKa a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
     mrs:nativeValue "c. 25-30 AH / 646-651 CE" ; mrs:precision mrs:pr_period ; mrs:temporalBasis mrs:tbas_conventional ;
@@ -789,9 +789,9 @@ tmp:q9GS9hTwTqAEyESkYgwdKa a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:56dB5Fy31CP6LGPsKuVSR6 a mrs:Event ; rdfs:label "Standardisation of the Qur'anic text under Uthman"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:q9GS9hTwTqAEyESkYgwdKa ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:q9GS9hTwTqAEyESkYgwdKa ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:8gY3kPcU5nR8yAdW3jS9eE1 ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:TxhFk19HwO2OpgvY4kBVGi ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:nwfJDZQeYsrnk8ydaFWRr5 ; mrs:participantRole mrs:role_participant ] .
 
 tmp:qem1voTUPU2Lp4mjmM1JAA a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian ;
@@ -802,10 +802,10 @@ tmp:qem1voTUPU2Lp4mjmM1JAA a mrs:TemporalExtent ; mrs:calendar mrs:cal_gregorian
 ev:Px4ZY7w13uKaU4GQWCLiF9 a mrs:Event ; rdfs:label "Ali's succession as caliph"@en ;
     mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:eventTemporalExtent tmp:qem1voTUPU2Lp4mjmM1JAA ;
+    mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:qem1voTUPU2Lp4mjmM1JAA ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:3jLd4kNqR7mZpW2vXcT8b1 ; mrs:participantRole mrs:role_leader ] ,
-        [ a mrs:Participation ; mrs:participant per:8gY3kPcU5nR8yAdW3jS9eE1 ; mrs:participantRole mrs:role_witness ] .
+        [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:TxhFk19HwO2OpgvY4kBVGi ; mrs:participantRole mrs:role_witness ] .
 
 
 #################################################################
@@ -823,7 +823,7 @@ ast:aCE8z48gHrNVK5T5dD1DGf a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 002: Khadijah Comforts the Prophet ---
 ast:BCEiX7f4JUz8eXFnX6Jmnc a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:7hQ2mXvR9nK4pT8wY3zBcd1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:laOMIYgqaQ5Iw6DmtiCNkY ;
     mrs:assertionObject ev:nVEg76HzRApTAxhfpbrGUV ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 002 (Khadijah Comforts the Prophet): After the first revelation, Khadijah reassured and supported the Prophet (peace be upon him). No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -847,7 +847,7 @@ ast:ANHAL211Unf4iG5icsT5kU a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 005: Ali Accepts Islam ---
 ast:FPWbtDbA55zBQZHrSjtVJa a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
     mrs:assertionObject ev:Macm2CnEpUuL46qFy4oN2J ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 005 (Ali Accepts Islam): Ali accepted Islam while still young. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -855,7 +855,7 @@ ast:FPWbtDbA55zBQZHrSjtVJa a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 006: Zayd ibn Harithah Accepts Islam ---
 ast:gcfmWcgzhac5cPXAxsJNKD a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:4kNqR7mZpW2vXcT8bH3jLd1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:P4VAp86LIzXhq2pUAuEylx ;
     mrs:assertionObject ev:PH1oyScydKybkhdyn4MoCT ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 006 (Zayd ibn Harithah Accepts Islam): Zayd was among the earliest people to accept Islam. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -863,7 +863,7 @@ ast:gcfmWcgzhac5cPXAxsJNKD a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 007: Bilal Faces Persecution ---
 ast:J5zpYohc6kpdiBrqPETj8w a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:2aSdF6gHjK8mNbV5cXzQwE1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:LokzGBbtKKXFdzLwoDZSi6 ;
     mrs:assertionObject ev:WDQxcQFoRKTY9NkRqbVXAJ ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 007 (Bilal Faces Persecution): Bilal was persecuted for maintaining his faith. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -872,7 +872,7 @@ ast:J5zpYohc6kpdiBrqPETj8w a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:RJZq1S7SQpQsF6J3Hw9HHT a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_manumitted ; mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
-    mrs:assertionObject per:2aSdF6gHjK8mNbV5cXzQwE1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject per:LokzGBbtKKXFdzLwoDZSi6 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 008 (Abu Bakr Helps Bilal): Abu Bakr intervened in the situation of Bilal and other persecuted Muslims, purchasing and freeing him. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -887,7 +887,7 @@ ast:QiyZyp1NqCrAUzjZRYSWV9 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 010: Umar Accepts Islam ---
 ast:totzhMgZxmft1zUsZH1dU6 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject ev:mkxvKngiwe32gRJv34A7ig ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 010 (Umar Accepts Islam): Umar accepted Islam, strengthening the early Muslim community. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -919,7 +919,7 @@ ast:GigTdenKTpmWuoaumSt9jH a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 014: Hamzah Accepts Islam ---
 ast:ykMbbHSbMhiSAcfUy3UHtU a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:4tVbN6yHjM3kQ9wErZ7uXs1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:4cFhNASabmB63JuKazjKPh ;
     mrs:assertionObject ev:YQVwa1VsHgr7LpNqMuWw7v ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 014 (Hamzah Accepts Islam): Hamzah accepted Islam and openly supported the Prophet (peace be upon him). No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -935,8 +935,8 @@ ast:QDgEtshTiKoEcKMJ92k3M2 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 016: Death of Khadijah ---
 ast:fzdwimZRXJjBUvNRTanax1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_died_at ; mrs:assertionSubject per:7hQ2mXvR9nK4pT8wY3zBcd1 ;
-    mrs:assertionObject plc:2aSdF6gHjK8mNbV5cXzQwE2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_died_at ; mrs:assertionSubject per:laOMIYgqaQ5Iw6DmtiCNkY ;
+    mrs:assertionObject plc:frravRs7lhWiAQ4j9WnaAE ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 016 (Death of Khadijah): Khadijah died during the difficult Makkan period, c. 3 years before the Hijra (already dated in generation-1.ttl). No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -951,7 +951,7 @@ ast:6LAMQNQdrrHdHznZXtLPQQ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 018: Zayd Protects the Prophet ---
 ast:uozYPg3ruNtZyi6av7cFjj a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:4kNqR7mZpW2vXcT8bH3jLd1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:P4VAp86LIzXhq2pUAuEylx ;
     mrs:assertionObject ev:Ds5Bx1HGwsHR49guxdzXad ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 018 (Zayd Protects the Prophet): Zayd remained with the Prophet (peace be upon him) during the Ta'if journey and its aftermath. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -983,7 +983,7 @@ ast:r5nGd3Nj5CDj9LgGWfgjdC a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 022: Mus'ab Sent to Madinah ---
 ast:EqLBBBpz6WZ9JzK5qR42oo a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:2wErT5yUqP8pLkJ9hGfDsA1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:xXOoS1i5K8dtQ7nTy6GZCT ;
     mrs:assertionObject ev:4CEk1GHqBJiZGLetNxSkhe ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 022 (Mus'ab Sent to Madinah): Mus'ab b. Umayr was sent to Yathrib to teach Islam. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -991,7 +991,7 @@ ast:EqLBBBpz6WZ9JzK5qR42oo a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 023: Sa'd ibn Mu'adh Accepts Islam ---
 ast:5kCLpzwb2kaWkeXmkz9WqW a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:7yUmK3jHgF9dSaQ2wErT5z1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9GhccCRfUoDfmF9S98F2Rl ;
     mrs:assertionObject ev:rMq6nNneuHpr8sxkUrbnbr ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 023 (Sa'd ibn Mu'adh Accepts Islam): Sa'd b. Mu'adh accepted Islam after hearing Mus'ab's message. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1016,7 +1016,7 @@ ast:cJB7HptyY2Rk2saL9wPS4H a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:GinjQiadSowMVi4rxTz11Y a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_migrated_to ; mrs:assertionSubject per:Y751QWwVaMDWUDzqRdFfzL ;
-    mrs:assertionObject plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 026 (Abu Salamah's Migration): Abu Salamah migrated to Madinah after facing separation from his family. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1024,22 +1024,22 @@ ast:GinjQiadSowMVi4rxTz11Y a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:waFhXAQ57pUgbYNUmeZBb4 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_migrated_to ; mrs:assertionSubject per:etJ9DWzsPdnmCiosNMzPQw ;
-    mrs:assertionObject plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 027 (Suhayb's Migration): Suhayb left his wealth behind in Makkah to complete his migration. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 028: Umar's Migration ---
 ast:Wth6QrhUUEivkA88iMSqsK a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_migrated_to ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
-    mrs:assertionObject plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_migrated_to ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
+    mrs:assertionObject plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 028 (Umar's Migration): Umar migrated to Madinah. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 029: Ali Sleeps in the Prophet's Bed ---
 ast:yCEZNSrPFg2MvvxmYsHcV2 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
     mrs:assertionObject ev:nkdSMuVDo7LS9vhSuq1Lxs ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 029 (Ali Sleeps in the Prophet's Bed): Ali stayed in the Prophet's bed during the Hijra departure, at the Prophet's own request. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1056,14 +1056,14 @@ ast:ustCmyciSJMCGXVLtMXov1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:7BW19FM6xCYUmAHiyADmZH a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_sheltered_at ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject plc:3zXcV5bNmA8sDfG2hJkLqW ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject plc:Tvj82GYrHHvbBIehvFBQcA ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 031 (Cave of Thawr): The Prophet (peace be upon him) and Abu Bakr remained concealed in Ghar Thawr during the Hijra (cf. the fuller worked example in ontology/examples/thawr.ttl, a separate, independently-identified encoding of the same tradition -- reconciling the two identities is scholar review work, not pre-empted here). No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 032: Asma Brings Provisions ---
 ast:62bpvzfUPWbKYhWmsgsfnW a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:6xZc2mQ7vR9nK4pT8sY3wA1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:7XMkA64afEC5PCz0zGGPTs ;
     mrs:assertionObject ev:nkdSMuVDo7LS9vhSuq1Lxs ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 032 (Asma Brings Provisions): Asma helped provide provisions during the Hijra preparations. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1088,7 +1088,7 @@ ast:eFsHqNxxrtwKP8kjT7sZDD a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:Mnpje159nH78R157BxqTa9 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:6gY3kPcU5nR8yAdW3jS9eE ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:3lK8gd8ERkMXArSB2WMWFK ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 035 (Arrival at Quba): The Prophet (peace be upon him) reached Quba' during the migration. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1119,7 +1119,7 @@ ast:fg5J66Kp2A1wSkGm1BRXGG a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 039: Bilal Becomes Mu'adhdhin ---
 ast:my3rsSfqEvpjevCmVSDCSs a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:2aSdF6gHjK8mNbV5cXzQwE1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:LokzGBbtKKXFdzLwoDZSi6 ;
     mrs:assertionObject ev:3Xjzj4QHY6FbgKENkGGXy7 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 039 (Bilal Becomes Mu'adhdhin): Bilal became associated with calling the adhan in Madinah. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1128,7 +1128,7 @@ ast:my3rsSfqEvpjevCmVSDCSs a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:Hr7Z19J6C5bG1civsP1XE2 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_founded ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 040 (Building the Madinah Community): The Prophet (peace be upon him) established the mosque and organised the emerging Muslim community in Madinah. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1151,7 +1151,7 @@ ast:f7C46Mudi1qWZn7fP8n1U1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 043: Ali at Badr ---
 ast:qFjEY8eCUDfZVrWGFKKiuQ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
     mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 043 (Ali at Badr): Ali participated in the Battle of Badr. (Already a Participation in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1159,7 +1159,7 @@ ast:qFjEY8eCUDfZVrWGFKKiuQ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 044: Umar at Badr ---
 ast:35kksr27nJbAzfGh3yQ3wq a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 044 (Umar at Badr): Umar participated in Badr. (Already a Participation in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1167,7 +1167,7 @@ ast:35kksr27nJbAzfGh3yQ3wq a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 045: Mus'ab at Badr ---
 ast:i7gPtmk24pLQkZ3J72Y3pV a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:2wErT5yUqP8pLkJ9hGfDsA1 ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:xXOoS1i5K8dtQ7nTy6GZCT ;
     mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 045 (Mus'ab at Badr): Mus'ab b. Umayr participated in the Battle of Badr. (Already a Participation in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1192,31 +1192,31 @@ ast:ZozC5vdJbw1VG2M8xuSnTW a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:5Enq3Y7yxxG6ZASt7dAzgu a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 048 (Battle of Uhud): Muslims confronted Quraysh at Uhud. (Event already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 049: Hamzah at Uhud ---
 ast:mwQj3hBhL79492DCcEkKrn a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:4tVbN6yHjM3kQ9wErZ7uXs1 ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:4cFhNASabmB63JuKazjKPh ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 049 (Hamzah at Uhud): Hamzah fought at Uhud and was killed during the battle. (Already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 050: Mus'ab at Uhud ---
 ast:W8jFfjT2jvQrmaU52wxRJk a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:2wErT5yUqP8pLkJ9hGfDsA1 ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:xXOoS1i5K8dtQ7nTy6GZCT ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 050 (Mus'ab at Uhud): Mus'ab b. Umayr carried the Muslim banner at Uhud and was killed. (Already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 051: Ali at Uhud ---
 ast:EKNm2ZrBujS2KZVZV7hZ4T a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 051 (Ali at Uhud): Ali participated in the Battle of Uhud. (Already a Participation in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1224,23 +1224,23 @@ ast:EKNm2ZrBujS2KZVZV7hZ4T a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:9uVHTqzjpEVc4GmQ92Zpcx a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:Q7NUJaD76FV7jH7gBJjyhG ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 052 (Abu Dujanah at Uhud): Abu Dujana fought at Uhud, famously wearing the Prophet's own headband into battle. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 053: Talhah Protects the Prophet ---
 ast:DaQ6Ad48pZCFqQmd1cyLeJ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9kQwE7rTyU4mNbV6cXzAsD1 ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:PNkrkk1S9wmc5Y5Lza6PmV ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 053 (Talhah Protects the Prophet): Talha defended the Prophet (peace be upon him) during Uhud and was severely wounded. (Already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 054: Sa'd ibn Abi Waqqas at Uhud ---
 ast:tMfsfbCVsQdSqyiuKj2Ebg a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9qWeR4tYuP7aSdF3gHjKzX1 ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:e8UKnTRZCYHGR7wuT2r5HN ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 054 (Sa'd ibn Abi Waqqas at Uhud): Sa'd participated in Uhud and fought alongside the Prophet (peace be upon him) as an archer. (Already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1248,7 +1248,7 @@ ast:tMfsfbCVsQdSqyiuKj2Ebg a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:D6YZWhKUCVtdjVMyL5tTkH a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:iTBGyrTFv2ax4hGJH4J2ig ;
-    mrs:assertionObject ev:8jKmN2bVcX6zAqWsE9fGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 055 (Umm 'Ammarah at Uhud): Nusayba bint Ka'b (Umm 'Ammara) defended the Prophet (peace be upon him) during Uhud. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1256,7 +1256,7 @@ ast:D6YZWhKUCVtdjVMyL5tTkH a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:HKpdvX477T5PWAwoaEgMKV a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:5rTyU2mNbV8cXzA3sDfGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:64rHL4f8ZTX5CHnsnStL6R ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 056 (Battle of the Trench): Madinah was defended against a large confederate force. (Event already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1264,15 +1264,15 @@ ast:HKpdvX477T5PWAwoaEgMKV a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:2LAKwfAnCAdgt2D1RTyc4r a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:FBLYrnnJPF85SvdV5wSf52 ;
-    mrs:assertionObject ev:5rTyU2mNbV8cXzA3sDfGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:64rHL4f8ZTX5CHnsnStL6R ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 057 (Salman Suggests the Trench): Salman al-Farisi suggested digging a trench around exposed parts of Madinah. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 058: Ali and Amr ibn Abd Wudd ---
 ast:LaVUdAwSMpakxrZMCVt26a a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
-    mrs:assertionObject ev:5rTyU2mNbV8cXzA3sDfGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
+    mrs:assertionObject ev:64rHL4f8ZTX5CHnsnStL6R ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 058 (Ali and Amr ibn Abd Wudd): Ali confronted the prominent warrior Amr b. Abd Wudd during the Trench battle. (Already an Assertion in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1280,7 +1280,7 @@ ast:LaVUdAwSMpakxrZMCVt26a a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:XxmdDDAA2WAxTeKwGQYMBZ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:w3tHuc3oZWF4Fz3rPrEpdj ;
-    mrs:assertionObject ev:5rTyU2mNbV8cXzA3sDfGhJ2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:64rHL4f8ZTX5CHnsnStL6R ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 059 (Nu'aym ibn Mas'ud's Strategy): Nu'aym b. Mas'ud used a strategy that contributed to divisions among the confederates. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1288,23 +1288,23 @@ ast:XxmdDDAA2WAxTeKwGQYMBZ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:4ZT7q2VMLdvbcSozrESXyA a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_party_to_treaty_with ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:9qWeR4tYuP7aSdF3gHjKzX3 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 060 (Hudaybiyyah Treaty): The Prophet (peace be upon him) and his companions agreed to the Treaty of Hudaybiyyah with Quraysh. (Event already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 061: Ali Writes the Treaty ---
 ast:zhneptFwSr8gwZMvjkGHZ1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
-    mrs:assertionObject ev:9qWeR4tYuP7aSdF3gHjKzX3 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
+    mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 061 (Ali Writes the Treaty): Ali wrote the treaty document at Hudaybiyyah. (Already a Participation in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 062: Umar Questions the Treaty ---
 ast:yGaPUnvU9kP38u2wDTGnAd a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
-    mrs:assertionObject ev:9qWeR4tYuP7aSdF3gHjKzX3 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
+    mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 062 (Umar Questions the Treaty): Umar questioned aspects of the Hudaybiyyah agreement and later accepted the Prophet's decision. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1312,7 +1312,7 @@ ast:yGaPUnvU9kP38u2wDTGnAd a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:hwhuUpu3Nr3ANv4eygayxY a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:cEsbcAG54VJMMKaHWaeKMf ;
-    mrs:assertionObject ev:9qWeR4tYuP7aSdF3gHjKzX3 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 063 (Abu Jandal Arrives): Abu Jandal reached the Muslims while bound, during the Hudaybiyyah negotiations. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1320,7 +1320,7 @@ ast:hwhuUpu3Nr3ANv4eygayxY a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:BV67c78acDyB53dD1QfGSV a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_pledged_allegiance_to ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:9qWeR4tYuP7aSdF3gHjKzX3 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 064 (Bay'at al-Ridwan): The companions pledged allegiance under the tree at Hudaybiyyah. (Already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1328,7 +1328,7 @@ ast:BV67c78acDyB53dD1QfGSV a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:GW1iaEZpsh83ypXnpp6ti1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
-    mrs:assertionObject ev:9qWeR4tYuP7aSdF3gHjKzX3 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 065 (Umm Salamah Advises the Prophet): Umm Salamah offered advice to the Prophet (peace be upon him) during the Hudaybiyyah aftermath. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1343,7 +1343,7 @@ ast:KbxZgBgkjuxA7C4PketsQV a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 067: Ali Carries the Banner at Khaybar ---
 ast:be4rHVN6Mgdara2vLxqTxz a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
     mrs:assertionObject ev:r932VFzvbsyGx5z3ifRuKT ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 067 (Ali Carries the Banner at Khaybar): Ali was given the banner during the Khaybar campaign. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1351,7 +1351,7 @@ ast:be4rHVN6Mgdara2vLxqTxz a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 068: Abu Hurayrah Joins the Community ---
 ast:mgMy9utmaiEPAWZUf3vZny a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:5fW9jNbT4mQ7xZcV2hR8dK1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:MSrNg6crYox3LC1UHol8st ;
     mrs:assertionObject ev:r932VFzvbsyGx5z3ifRuKT ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 068 (Abu Hurayrah Joins the Community): Abu Hurayrah joined the Prophet's community in the later Madinan period and became a major transmitter of hadith. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1360,23 +1360,23 @@ ast:mgMy9utmaiEPAWZUf3vZny a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:RthYv1tj4QxkMsPSr6VDvq a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:5zAsD3fGhJ7kQwE4rTyUmN2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:EcDiFcMTUhmLq8tK91L0H8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 069 (Conquest of Makkah): The Prophet (peace be upon him) entered Makkah with the Muslim army and the city came under Muslim control. (Event already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 070: Bilal Gives the Adhan at the Ka'bah ---
 ast:fmFgg26zB3p1qRTBGowuik a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:2aSdF6gHjK8mNbV5cXzQwE1 ;
-    mrs:assertionObject ev:5zAsD3fGhJ7kQwE4rTyUmN2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:LokzGBbtKKXFdzLwoDZSi6 ;
+    mrs:assertionObject ev:EcDiFcMTUhmLq8tK91L0H8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 070 (Bilal Gives the Adhan at the Ka'bah): Bilal gave the adhan at the Ka'bah following the conquest. (Already modelled, at reduced confidence, in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 071: Destruction of Idols ---
 ast:PyhNLeewxMd9yytcykDkYE a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
-    mrs:assertionObject ev:5zAsD3fGhJ7kQwE4rTyUmN2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
+    mrs:assertionObject ev:EcDiFcMTUhmLq8tK91L0H8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 071 (Destruction of Idols): Idols around the Ka'bah were removed after the conquest of Makkah. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1384,7 +1384,7 @@ ast:PyhNLeewxMd9yytcykDkYE a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:HnrNWLpQwMvVZ4MDfELddF a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:DZ2rT2zcYAfiuNSxpzU8Dv ;
-    mrs:assertionObject ev:5zAsD3fGhJ7kQwE4rTyUmN2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:EcDiFcMTUhmLq8tK91L0H8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 072 (Abu Sufyan Accepts Islam): Abu Sufyan b. Harb accepted Islam around the conquest of Makkah. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1392,7 +1392,7 @@ ast:HnrNWLpQwMvVZ4MDfELddF a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:3nUXbZTPxCrsmXFBMjXrzZ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:FDktfckRE26FEEpUqh7qHq ;
-    mrs:assertionObject ev:5zAsD3fGhJ7kQwE4rTyUmN2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:EcDiFcMTUhmLq8tK91L0H8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 073 (Hind Accepts Islam): Hind bint Utba accepted Islam after the conquest. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1439,7 +1439,7 @@ ast:4TTS2CShCcTGxMaZT8Jzoy a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 079: Uthman Supports Tabuk ---
 ast:aJ3njSQZg9MzWXefiMuXBk a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:8gY3kPcU5nR8yAdW3jS9eE1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
     mrs:assertionObject ev:vqFhA78ZXwijNch74AJ2RJ ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 079 (Uthman Supports Tabuk): Uthman made a major contribution toward equipping the expedition to Tabuk. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1488,15 +1488,15 @@ ast:b26Ju9MArNee6Hu6Kmp7xG a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 ast:zwnAZ34hZeCdFsDLK4gYP5 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
-    mrs:assertionObject ev:6xZc2mQ7vR9nK4pT8sY3wA3 ; mrs:assertionStatus mrs:as_proposed ;
-    mrs:nonReportBasis "Seed dataset item 085 (Abu Bakr Leads Prayer): Abu Bakr was instructed to lead the Muslims in prayer during the Prophet's final illness. (Corroborates ast:7yUmK3jHgF9dSaQ2wErT508, already in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
+    mrs:assertionObject ev:n05mvN7iM2uRhPvs7q25ps ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:nonReportBasis "Seed dataset item 085 (Abu Bakr Leads Prayer): Abu Bakr was instructed to lead the Muslims in prayer during the Prophet's final illness. (Corroborates ast:UALkaG7FqjP6g7IeGqy9Nz, already in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 086: Prophet's Death ---
 ast:hMwQmfdm5iTBA83Q5PgsBn a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_died_at ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject plc:5dFgH8jKmN2bVcX6zAqWsE2 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 086 (Prophet's Death): Prophet Muhammad (peace be upon him) passed away in Madinah. (Event already modelled in generation-1.ttl.) No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
@@ -1511,7 +1511,7 @@ ast:3ZvvYEfBmdFEAAK4jYhbSM a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 088: Umar's Reaction ---
 ast:fEk1jV2FLmJbUWwXZAYpkw a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject ev:s2Nto37t8CXznvKmoNRWbS ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 088 (Umar's Reaction): Umar initially reacted strongly to news of the Prophet's death before Abu Bakr's address clarified the matter. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1551,7 +1551,7 @@ ast:QpoSkXLx39yJZVyGQtAdpt a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 093: Qur'an Compilation Proposal ---
 ast:PGC5vfZMSX1AfaxRxDM9eS a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject ev:98h6cZYjdoJKCDJ5YkEC5S ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 093 (Qur'an Compilation Proposal): Umar urged Abu Bakr to consider collecting the Qur'an after losses among reciters at Yamama. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1567,7 +1567,7 @@ ast:ePkQFMzfvMpLZJytWq4TK6 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 095: Umar Becomes Caliph ---
 ast:8i8R7wZtdVXiKmKj7wHVyq a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_succeeded ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
+    mrs:predicate mrs:rel_succeeded ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 095 (Umar Becomes Caliph): Umar b. al-Khattab became caliph after Abu Bakr. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1575,7 +1575,7 @@ ast:8i8R7wZtdVXiKmKj7wHVyq a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 096: Expansion into Syria ---
 ast:Eg49L6KoLbyzoUs1qsG8t1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:9pLmK4nR8sT2wQ6vY3xZbA1 ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject ev:qBKbbt25KsHFAxemoK8xDP ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 096 (Expansion into Syria): Muslim forces expanded into Syria during the caliphate of Umar. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1583,7 +1583,7 @@ ast:Eg49L6KoLbyzoUs1qsG8t1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 097: Abu Ubaydah in Syria ---
 ast:sjd3VXKkcTLwmNoDVZCQqv a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:7cVbN3mAsD9fGhJ4kQwErT1 ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:UtI7tfqLuYs902qoNowis1 ;
     mrs:assertionObject ev:qBKbbt25KsHFAxemoK8xDP ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 097 (Abu Ubaydah in Syria): Abu Ubaydah b. al-Jarrah served as a major Muslim commander in Syria. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1591,15 +1591,15 @@ ast:sjd3VXKkcTLwmNoDVZCQqv a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 098: Uthman Becomes Caliph ---
 ast:nyBksAkAsd15E6xKBsKYkA a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_succeeded ; mrs:assertionSubject per:8gY3kPcU5nR8yAdW3jS9eE1 ;
-    mrs:assertionObject per:9pLmK4nR8sT2wQ6vY3xZbA1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_succeeded ; mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
+    mrs:assertionObject per:vln6et5FvUrm7neh48NSJa ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 098 (Uthman Becomes Caliph): Uthman b. Affan became caliph following Umar's death. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 
 # --- Incident 099: Standardization of Qur'anic Copies ---
 ast:Ajb9tSgmnCcXP72yp7VsTs a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:8gY3kPcU5nR8yAdW3jS9eE1 ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
     mrs:assertionObject ev:56dB5Fy31CP6LGPsKuVSR6 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 099 (Standardization of Qur'anic Copies): During Uthman's caliphate, standardized copies of the Qur'anic text were prepared and distributed to major regions. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
@@ -1607,8 +1607,8 @@ ast:Ajb9tSgmnCcXP72yp7VsTs a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs
 # --- Incident 100: Ali Becomes Caliph ---
 ast:CUoERp9dH72q9ysTnQ51BR a mrs:Assertion ; mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:kTu6mgA6KseoQsoNk4Boe1 ;
     mrs:recordedAt "2026-09-18T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_succeeded ; mrs:assertionSubject per:3jLd4kNqR7mZpW2vXcT8b1 ;
-    mrs:assertionObject per:8gY3kPcU5nR8yAdW3jS9eE1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_succeeded ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
+    mrs:assertionObject per:TxhFk19HwO2OpgvY4kBVGi ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Seed dataset item 100 (Ali Becomes Caliph): Ali b. Abi Talib became caliph following Uthman's death. No source edition attached yet -- pending scholarly citation."@en ;
     prov:wasGeneratedBy act:hW9XtUYqyyf8rbp9UsxhEK .
 

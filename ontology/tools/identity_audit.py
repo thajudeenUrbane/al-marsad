@@ -24,6 +24,11 @@ Checks:
   4. no variant ID appears anywhere in the raw text of those Turtle files
   5. each canonical_id's source_files list matches the Turtle files that use it
   6. every stories-50 person (data.json) belongs to exactly one person row
+  7. the ID rule (docs/02 5.2.1): no payload is shared with, or one character (substituted, added or
+     dropped) away from, the payload of ANOTHER entity, of any kind. Every IRI in the four Turtle files and
+     every canonical_id counts, and so does every retired ID in variant_ids; a pair that is retired on both
+     sides is history, not a failure. IDs of one entity (a canonical_id and its own variant) never conflict.
+  8. every old ID in ontology/corpus/id-renames.csv is gone from the Turtle text and its new ID is in use
 New IDs come from ontology/tools/mint_id.py.
 """
 
@@ -41,6 +46,8 @@ from rdflib import URIRef
 ROOT = Path(__file__).resolve().parents[2]
 TABLE = ROOT / "ontology" / "corpus" / "identity.csv"
 STORIES = ROOT / "stories-50" / "data.json"
+RENAMES = ROOT / "ontology" / "corpus" / "id-renames.csv"  # slice 1d: every ID re-minted, old -> new
+RENAME_COLUMNS = ["old_id", "new_id", "kind", "reason"]
 FILES = {
     "thawr": ROOT / "ontology" / "examples" / "thawr.ttl",
     "generation-1": ROOT / "ontology" / "corpus" / "generation-1.ttl",
@@ -53,6 +60,55 @@ IRI_SEGMENT = {"per": "person", "plc": "place", "ev": "event", "grp": "group"}
 COLUMNS = ["kind", "canonical_id", "preferred_name_en", "name_ar", "variant_ids",
            "stories50_names", "source_files", "confidence", "note"]
 CONFIDENCE = {"exact", "probable", "needs-review"}
+
+
+def one_char_apart(a, b):
+    """True if the two payloads differ by exactly one substituted, added or dropped character."""
+    if a == b:
+        return False
+    if len(a) == len(b):
+        return sum(x != y for x, y in zip(a, b)) == 1
+    if abs(len(a) - len(b)) != 1:
+        return False
+    a, b = (a, b) if len(a) < len(b) else (b, a)
+    return any(b[:i] + b[i + 1:] == a for i in range(len(b)))
+
+
+def payload_conflicts(ids):
+    """ids: {(segment, payload): (entity, live)}. Returns (shared, near).
+
+    shared: payloads that two or more entities carry, as {payload: [id keys]}.
+    near:   pairs of id keys of different entities whose payloads are one character apart.
+    Only conflicts with at least one live ID are returned (retired-with-retired pairs are history)."""
+    by_pay = defaultdict(list)
+    for key, (entity, live) in ids.items():
+        by_pay[key[1]].append(key)
+
+    def conflicts(a, b):
+        return ids[a][0] != ids[b][0] and (ids[a][1] or ids[b][1])
+
+    shared = {}
+    for pay, keys in by_pay.items():
+        if any(conflicts(a, b) for i, a in enumerate(keys) for b in keys[i + 1:]):
+            shared[pay] = sorted(keys)
+    index = defaultdict(set)  # payload with one character dropped (or whole) -> payloads
+    for pay in by_pay:
+        index[pay].add(pay)
+        for i in range(len(pay)):
+            index[pay[:i] + pay[i + 1:]].add(pay)
+    pairs = set()
+    for group in index.values():
+        for a in group:
+            for b in group:
+                if a < b and one_char_apart(a, b):
+                    pairs.add((a, b))
+    near = []
+    for a, b in sorted(pairs):
+        for ka in by_pay[a]:
+            for kb in by_pay[b]:
+                if conflicts(ka, kb):
+                    near.append((ka, kb))
+    return shared, near
 
 
 def curie(iri):
@@ -94,6 +150,8 @@ def main():
 
     # 3 + 4. Turtle IRIs and raw text
     used = defaultdict(set)  # canonical id -> files
+    live = set()  # (segment, payload) of every IRI of any kind under BASE in the Turtle files
+    raw_text = {}
     for name, path in FILES.items():
         g = rdflib.Graph()
         g.parse(path, format="turtle")
@@ -101,6 +159,7 @@ def main():
             for x in (s, o):
                 if isinstance(x, URIRef) and str(x).startswith(BASE):
                     seg = str(x)[len(BASE):].split("/", 1)[0]
+                    live.add((seg, str(x)[len(BASE):].split("/", 1)[1]))
                     if seg not in IRI_SEGMENT.values() or seg not in ("person", "place", "event", "group"):
                         continue  # report, assertion, chain ... IDs are not entities in this table
                     c = curie(x)
@@ -111,6 +170,7 @@ def main():
                     else:
                         used[c].add(name)
         raw = path.read_text(encoding="utf-8")
+        raw_text[name] = raw
         for v, canon in variants.items():
             pre, payload = v.split(":")
             seg = IRI_SEGMENT[pre]
@@ -137,6 +197,41 @@ def main():
         if len(owners) != 1:
             errors.append(f"stories-50 person {p['name']!r} is in {len(owners)} person rows")
 
+    # 7. the ID rule: no shared payload, no one-character near-collision, between different entities
+    ids = {}  # (segment, payload) -> (entity, live)
+    for seg, payload in live:
+        pre = next(k for k, v in IRI_SEGMENT.items() if v == seg) if seg in IRI_SEGMENT.values() else None
+        entity = variants.get(f"{pre}:{payload}", f"{pre}:{payload}") if pre else f"{seg}/{payload}"
+        ids[(seg, payload)] = (entity, True)
+    for c in canonical:
+        ids[(IRI_SEGMENT[c.split(":")[0]], c.split(":")[1])] = (c, True)
+    for v, c in variants.items():
+        ids.setdefault((IRI_SEGMENT[v.split(":")[0]], v.split(":")[1]), (c, False))
+    shared, near = payload_conflicts(ids)
+    if shared or near:
+        errors.append(f"ID rule broken: {len(shared)} shared payload(s) and {len(near)} one-character near-collision(s) between different entities (details below)")
+    for pay, keys in sorted(shared.items()):
+        errors.append(f"payload {pay} is shared: " + " and ".join(f"{k[0]}" for k in keys))
+    for a, b in near:
+        errors.append(f"one character apart: {a[0]}/{a[1]} and {b[0]}/{b[1]}")
+
+    # 8. the rename log
+    renamed = []
+    if RENAMES.exists():
+        with RENAMES.open(encoding="utf-8", newline="") as fh:
+            rd = csv.DictReader(fh)
+            if rd.fieldnames != RENAME_COLUMNS:
+                errors.append(f"id-renames.csv columns are {rd.fieldnames}, expected {RENAME_COLUMNS}")
+            renamed = list(rd)
+        live_payloads = {pay for _, pay in live} | {c.split(":")[1] for c in canonical}
+        for r in renamed:
+            old, new = r["old_id"].split(":")[1], r["new_id"].split(":")[1]
+            if new not in live_payloads:
+                errors.append(f"id-renames.csv: new ID {r['new_id']} is not in use")
+            for name, raw in raw_text.items():
+                if re.search(rf"(?<![A-Za-z0-9]){old}(?![A-Za-z0-9])", raw):
+                    errors.append(f"{name}: raw text still contains the retired ID {r['old_id']} (renamed to {r['new_id']})")
+
     if errors:
         print(f"identity audit FAILED, {len(errors)} problem(s):")
         for e in errors[:40]:
@@ -151,14 +246,13 @@ def main():
     for r in rows:
         by_kind[r["kind"]] += 1
         by_conf[r["confidence"]] += 1
-    cross = defaultdict(set)
-    for i in owner:
-        cross[i.split(":")[1]].add(i.split(":")[0])
     print(f"rows: {len(rows)} (" + ", ".join(f"{k} {by_kind[k]}" for k in SEGMENT) + ")")
     print("confidence: " + ", ".join(f"{k} {by_conf[k]}" for k in sorted(CONFIDENCE)))
     print(f"variant IDs (must not appear in any .ttl): {len(variants)}")
     print(f"entity IRIs in the four Turtle files, all canonical: {len(used)}")
-    print(f"payloads shared across kinds (recorded, not renamed): {sum(1 for v in cross.values() if len(v) > 1)}")
+    print(f"IRIs and IDs checked against the ID rule: {len(ids)} ({sum(1 for v in ids.values() if v[1])} live, {sum(1 for v in ids.values() if not v[1])} retired)")
+    print(f"payloads shared by different entities: {len(shared)}; one-character near-collisions: {len(near)}")
+    print(f"IDs re-minted in slice 1d (id-renames.csv): {len(renamed)}")
     print("identity audit passed")
 
 
