@@ -102,9 +102,7 @@ def inline_css() -> str:
 
 
 def inline_js() -> tuple[str, str]:
-    js = (STATIC / "review.js").read_text(encoding="utf-8")
-    if "</script" in js.lower():
-        raise SystemExit("error: review.js must not contain </script")
+    js = (STATIC / "review.js").read_text(encoding="utf-8")  # a test checks it never closes its own script tag
     strings = {k: STRINGS[k] for k in js_keys(js)}
     data = json.dumps(strings, ensure_ascii=False, sort_keys=True).replace("</", "<\\/")
     return js.strip(), data
@@ -131,11 +129,6 @@ def passage_block(p: dict) -> str:
         out.append(f'<p class="muted">{t("card.passage.notext")}</p>')
     out.append("</div>")
     return "\n".join(out)
-
-
-def name_html(entity: dict) -> str:
-    out = esc(entity["name"])
-    return out + (" " + ar(entity["name_ar"]) if entity.get("name_ar") else "")
 
 
 def period_text(period) -> str:

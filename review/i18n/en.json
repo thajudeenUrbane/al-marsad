@@ -151,7 +151,6 @@
   "msg.saved": "Kept on this device.",
   "msg.sent": "Kept on this device, and sent.",
   "msg.changed": "You changed this after sending it. Send again: the maintainer will make the change by hand.",
-  "msg.no_reviewer": "Enter your reviewer ID at the top of the page first.",
   "msg.clear_confirm": "Clear this card, including what you typed?",
 
   "send.heading": "Send my decisions",
