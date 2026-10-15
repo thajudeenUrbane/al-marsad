@@ -5,7 +5,9 @@
 
 For every HTML page it adds the page itself and every same-site file the page loads
 (stylesheets, scripts, images, fonts and other resources, and what those stylesheets
-pull in with url() or @import). A page over LIMIT bytes fails the check. Any external
+pull in with url() or @import). A file that a script fetches at run time (the search
+index) counts too: the page must name it in a data-fetch attribute, and the script
+fetches only what that attribute names. A page over LIMIT bytes fails the check. Any external
 URL in the src/href of a stylesheet, script, image or other loaded resource fails the
 check too (plain <a href> links to other sites are navigation, not loads, and pass).
 KB here means 1,000 bytes, the stricter reading of "300 KB".
@@ -44,6 +46,8 @@ class Refs(HTMLParser):
             self.loads.append((tag, a["src"]))
         elif tag == "object" and a.get("data"):
             self.loads.append((tag, a["data"]))
+        if a.get("data-fetch"):
+            self.loads.append(("data-fetch", a["data-fetch"]))
         for key in ("srcset",):
             if a.get(key):
                 for part in a[key].split(","):

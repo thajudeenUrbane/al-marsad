@@ -1,0 +1,20 @@
+<section class="search-page">
+<h1>[[search.title]]</h1>
+<form id="search-form" class="search-form" role="search" action="./" method="get" data-fetch="${base}search.json">
+<label for="search-q">[[search.label]]</label>
+<div class="search-row">
+<input id="search-q" name="q" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search">
+<button type="submit">[[search.submit]]</button>
+</div>
+</form>
+<p class="search-help note">[[search.help]]</p>
+<div id="search-nojs" class="search-note">$nojs</div>
+<p id="search-status" class="search-status" role="status" aria-live="polite"></p>
+<div id="search-empty" class="search-note" hidden>$empty</div>
+<div id="search-results" class="search-results" hidden></div>
+<section id="search-all" class="search-all" aria-labelledby="search-all-h">
+<h2 id="search-all-h">[[search.all_heading]]</h2>
+$az
+</section>
+</section>
+<script type="application/json" id="search-strings">$strings</script>

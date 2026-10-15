@@ -130,6 +130,24 @@ dl.meta { display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 1re
 dl.meta dd, dl.glossary-list dd { margin: 0; }
 dl.glossary-list dt { font-weight: 700; margin-block-start: 1rem; }
 
+/* search: the box in the header, the search page and its results */
+[hidden] { display: none !important; }
+.site-search, .search-row { display: flex; gap: 0.4rem; flex: 1 1 14rem; max-inline-size: 26rem; }
+.site-search input, .search-row input {
+  flex: 1 1 auto; min-inline-size: 0; font: inherit; color: var(--fg); background: var(--bg);
+  padding-block: 0.3rem; padding-inline: 0.5rem; border: 1px solid var(--line); border-radius: 0.25rem;
+}
+.site-search button, .search-row button {
+  font: inherit; color: var(--accent-fg); background: var(--accent); border: 1px solid var(--accent);
+  border-radius: 0.25rem; padding-block: 0.3rem; padding-inline: 0.75rem; cursor: pointer;
+}
+.site-search input:focus-visible, .search-row input:focus-visible, .site-search button:focus-visible,
+.search-row button:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+.search-form label { display: block; font-weight: 600; margin-block-end: 0.25rem; }
+.search-row { max-inline-size: 34rem; }
+.search-note { margin-block: 1rem; padding-block: 0.4rem; padding-inline: 0.9rem; border-inline-start: 4px solid var(--line); background: var(--soft); }
+.search-status { font-weight: 600; min-block-size: 1.6em; }
+
 /* details layer */
 .details { border: 1px solid var(--line); border-radius: 0.35rem; padding: 0.25rem 0.9rem 0.9rem; }
 .details summary { cursor: pointer; padding-block: 0.5rem; font-weight: 600; }

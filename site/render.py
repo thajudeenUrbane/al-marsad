@@ -11,7 +11,7 @@ from string import Template
 
 import display
 from glossary import Glossary
-from model import Claim, Entity, Lit, Site
+from model import KINDS, Claim, Entity, Lit, Site
 
 NAV = (("people", "person"), ("events", "event"), ("places", "place"),
        ("groups", "group"), ("stories", "story"))
@@ -146,7 +146,8 @@ class Renderer:
 
     # ------------------------------------------------------------------ page shell
     def shell(self, ctx: Ctx, title: str, body: str, *, body_class: str, current: str | None,
-              crumbs: list[tuple[str, str | None]], description: str) -> str:
+              crumbs: list[tuple[str, str | None]], description: str, search_box: bool = True,
+              scripts: str = "") -> str:
         nav = [f'<li><a href="{ctx.base}"{" aria-current=" + chr(34) + "page" + chr(34) if current == "home" else ""}>'
                f'{html.escape(self.t("nav.home"))}</a></li>']
         for key, kind in NAV + (("glossary", "glossary"),):
@@ -163,6 +164,8 @@ class Renderer:
         return self.tpl("base", lang="en", dir="ltr", title=html.escape(title, quote=False),
                         description=self.attr(description), base=ctx.base, body_class=body_class,
                         nav="\n".join(nav), breadcrumb=breadcrumb, body=body,
+                        search_box=self.tpl("search_box", base=ctx.base) if search_box else "",
+                        scripts=scripts,
                         url_licensing=URL_LICENSING, url_cc_by_sa=URL_CC_BY_SA, url_agpl=URL_AGPL)
 
     def page_title(self, name: str) -> str:
@@ -591,12 +594,13 @@ class Renderer:
                 seen.append(l)
         return seen
 
-    def az_nav(self, ents: list[Entity]) -> str:
-        items = "".join(f'<li><a href="#letter-{self.attr(l if l != "#" else "other")}">{html.escape(l)}</a></li>'
+    def az_nav(self, ents: list[Entity], prefix: str = "letter") -> str:
+        items = "".join(f'<li><a href="#{prefix}-{self.attr(l if l != "#" else "other")}">{html.escape(l)}</a></li>'
                         for l in self.letters(ents))
         return f'<nav class="az" aria-label="{self.attr(self.t("index.az"))}"><ul>{items}</ul></nav>'
 
-    def az_sections(self, ctx: Ctx, ents: list[Entity], prefix: str, level: int = 2) -> str:
+    def az_sections(self, ctx: Ctx, ents: list[Entity], prefix: str, level: int = 2, row=None) -> str:
+        row = row or self.index_row
         out, cur, lis = [], None, []
 
         def flush():
@@ -610,7 +614,7 @@ class Renderer:
             if letter != cur:
                 flush()
                 cur, lis = letter, []
-            lis.append(self.index_row(ctx, e))
+            lis.append(row(ctx, e))
         flush()
         return "".join(out)
 
@@ -642,6 +646,57 @@ class Renderer:
                            names_note=names_note, glossary_note=glossary_note)
         return self.shell(ctx, self.t("site.name") + f' {self.t("title.sep")} ' + self.t("home.title_suffix"), content,
                           body_class="page-home", current="home", crumbs=[], description=self.t("home.lead"))
+
+    # ------------------------------------------------------------------ search
+    def search_row(self, ctx: Ctx, e: Entity) -> str:
+        """One line of the all-names list. search.js shows copies of these lines as results."""
+        kind = html.escape(self.t(f"type.{e.subtype or e.kind}"))
+        cov = display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage or self.t("common.not_recorded"))
+        return (f'<li><a href="{ctx.base}{e.kind}/{e.pid}/">{self.esc(e.name)}</a>{self.arabic_names(e.arabic)} '
+                f'<span class="meta">{kind}</span> <span class="cov"><span class="sr-only">'
+                f'{html.escape(self.t("coverage.sr"))} </span>{html.escape(cov)}</span></li>')
+
+    def search_scope(self, ctx: Ctx) -> str:
+        """What a search looks through and how far it has been checked: the empty-result
+        rule of docs/05 section 3 (report coverage, never a blank)."""
+        s = self.site
+        link = {k: f'<a href="{ctx.base}{k}/">{html.escape(self.i.tn("home.count." + k, len(s.by_kind[k])))}</a>'
+                for k in KINDS}
+        arabic = sum(len(e.arabic) for e in s.entities.values())
+        scope = self.i.th("search.scope", people=link["person"], events=link["event"], places=link["place"],
+                          groups=link["group"], stories=link["story"],
+                          arabic=html.escape(self.i.tn("search.arabic_count", arabic)))
+        sc, cc = s.status_counts(), s.coverage_counts()
+        if not sc.get("accepted") and not cc.get("reviewed") and not cc.get("verified"):
+            checked = html.escape(self.t("search.unverified"))
+        else:
+            checked = html.escape(self.t("search.partly_verified", accepted=sc.get("accepted", 0),
+                                         total=sum(sc.values())))
+        return f"<p>{scope}</p><p>{checked}</p>"
+
+    def search_page(self) -> str:
+        """The search page. Without JavaScript it is an A-Z list of every name, which the
+        search box on every page submits to; with it, search.js filters by search.json."""
+        ctx = Ctx("search/")
+        ents = sorted(self.site.entities.values(),
+                      key=lambda e: (display.sort_key(e.name), KINDS.index(e.kind), e.pid))
+        scope = self.search_scope(ctx)
+        strings = {
+            "count_one": self.t("search.count.one"), "count_other": self.t("search.count.other"),
+            "none": self.t("search.none"), "matching": self.t("search.matching"),
+            "similar": self.t("search.similar"), "similar_note": self.t("search.similar_note"),
+            "arabic_note": self.t("search.arabic_note"), "more": self.t("search.more"),
+        }
+        content = self.tpl(
+            "search", base=ctx.base,
+            nojs=f'<p>{html.escape(self.t("search.nojs"))}</p>{scope}',
+            empty=f'{scope}<p>{html.escape(self.t("search.empty_next"))}</p>',
+            az=self.az_nav(ents, "all") + self.az_sections(ctx, ents, "all", level=3, row=self.search_row),
+            strings=json.dumps(strings, ensure_ascii=False, sort_keys=True).replace("</", "<\\/"))
+        return self.shell(ctx, self.page_title(self.t("search.title")), content, body_class="page-search",
+                          current="search", crumbs=[(self.t("search.title"), None)],
+                          description=self.t("search.help"), search_box=False,
+                          scripts=f'<script src="{ctx.base}assets/search.js" defer></script>')
 
     # ------------------------------------------------------------------ glossary
     def glossary_page(self) -> str:
