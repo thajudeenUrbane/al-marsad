@@ -191,6 +191,8 @@
   "ix.tl.chart_label": "Timeline of the placed items",
   "ix.tl.axis_label": "Years",
   "ix.summary.window": "Showing {from} to {to}: {n} of {total} placed items.",
+  "ix.summary.unplaced": "{n} records with no date that can place them are listed below the timeline.",
+  "ix.summary.map": "{n} places drawn at their recorded coordinates; {off} without coordinates are listed below the map. Route segments drawn: {drawn} of {segments}.",
   "ix.summary.hidden.one": "1 placed item lies outside these years.",
   "ix.summary.hidden.other": "{n} placed items lie outside these years.",
   "ix.summary.year.one": "{year}: 1 placed item overlaps this year.",

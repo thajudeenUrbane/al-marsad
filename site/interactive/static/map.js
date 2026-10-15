@@ -215,12 +215,15 @@
       var p = allIds[id];
       panel.textContent = "";
       if (!p) { panel.appendChild(IX.el("p", { class: "ix-nojs", text: S["ix.map.panel_empty"] })); save(); return; }
+      var rec = IX.recordOf(id);
       if (p.lat !== undefined) {
         panel.appendChild(IX.el("h3", { html: p.name_html + (p.arabic_html ? " " + p.arabic_html : "") }));
-      } else {
-        panel.appendChild(IX.el("h3", { html: p.head_html }));
+        if (rec) panel.appendChild(IX.el("div", {}, [rec]));
+      } else if (rec) {
+        var head = rec.querySelector(".ix-seg-head");
+        if (head) { panel.appendChild(IX.el("h3", { html: head.innerHTML })); head.parentNode.removeChild(head); }
+        panel.appendChild(IX.el("div", {}, [rec]));
       }
-      panel.appendChild(IX.el("div", { html: p.info_html }));
       var links = IX.el("p", {});
       if (p.lat !== undefined) {
         links.appendChild(IX.el("a", { class: "ix-btn", href: p.href, text: S["ix.map.open"] }));
@@ -259,7 +262,9 @@
         m.a.classList.toggle("is-focus", !!f && okF);
       });
       segs.forEach(function (s) { if (segEls[s.id]) segEls[s.id].classList.toggle("is-dim", !!f || ys !== null); });
-      var parts = [];
+      var c = data.counts || {};
+      var parts = [IX.fmt(S["ix.summary.map"], { n: places.length, off: c.unplotted || 0,
+        drawn: c.segments_drawn || 0, segments: c.segments || 0 })];
       if (f) parts.push(IX.fmt(S["ix.summary.focus_map"], { name: f.name, n: nFocus, total: places.length }));
       if (ys !== null) parts.push(IX.fmt(S["ix.summary.year_map"], { year: IX.fmt(S["ix.ctl.year_value"], { year: state.year }), n: nYear, total: places.length }));
       summary.textContent = parts.join(" ");

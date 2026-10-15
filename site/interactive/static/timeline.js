@@ -100,7 +100,7 @@
         href: it.href, tabindex: "-1", title: it.title });
       if (whisker) track.appendChild(whisker);
       track.appendChild(bar);
-      var det = IX.el("div", { class: "tl-details", id: detId, hidden: true, html: it.info_html });
+      var det = IX.el("div", { class: "tl-details", id: detId, hidden: true });
       li.appendChild(label); li.appendChild(track); li.appendChild(det);
       var r = { it: it, li: li, bar: bar, whisker: whisker, det: det, more: more };
       more.addEventListener("click", function () { toggle(r, more.getAttribute("aria-expanded") !== "true"); });
@@ -108,6 +108,10 @@
     }
 
     function toggle(r, open) {
+      if (open && !r.det.firstChild) {
+        var rec = IX.recordOf(r.it.id);
+        if (rec) r.det.appendChild(rec);
+      }
       r.more.setAttribute("aria-expanded", String(open));
       r.det.hidden = !open;
       if (open) state.sel = r.it.id;
@@ -226,6 +230,7 @@
       });
       var parts = [IX.fmt(S["ix.summary.window"], { from: yearText(state.from), to: yearText(state.to), n: shown, total: rows.length })];
       if (hidden) parts.push(IX.fmt(S["ix.summary.hidden." + (hidden === 1 ? "one" : "other")], { n: hidden }));
+      if (data.counts && data.counts.unplaced) parts.push(IX.fmt(S["ix.summary.unplaced"], { n: data.counts.unplaced }));
       if (ys !== null) parts.push(IX.fmt(S["ix.summary.year." + (inYear === 1 ? "one" : "other")], { year: yearText(state.year), n: inYear }));
       if (f) parts.push(IX.fmt(S["ix.summary.focus_tl"], { name: f.name, n: f.items.length, m: f.unplaced }));
       summary.textContent = parts.join(" ");

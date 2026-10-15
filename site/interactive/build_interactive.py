@@ -279,6 +279,7 @@ def timeline_page(site: Site, S: Strings, P: Pieces, R: Renderer, tl: dict) -> t
         "view": "timeline",
         "axis": {"start": start, "end": end, "first_year": y0, "last_year": y1, "ce": ce, "ah": ah,
                  "ce_label": S.t("date.ce"), "ah_label": S.t("date.ah")},
+        "counts": {"placed": len(items), "unplaced": sum(len(v) for v in np_.values())},
         "items": items, "focus": focus,
         "strings": js_strings(S, "timeline"),
     }
@@ -588,8 +589,11 @@ def map_page(site: Site, S: Strings, P: Pieces, R: Renderer, tl: dict, tl_items:
     years = [it for it in tl_items if it["role"] == "event"]
     y0 = min((year_of(i["earliest"]) for i in years), default=None)
     y1 = max((year_of(i["latest"]) for i in years), default=None)
+    segs_all = [s for r in routes_v for s in r["segments"]]
     data = {
         "view": "map",
+        "counts": {"places": len(marks), "unplotted": len(pl["unlocated"]) + len(pl["no_location"]) + len(pl["other_geometry"]),
+                   "segments": len(segs_all), "segments_drawn": sum(1 for s in segs_all if s["drawn"])},
         "places": marks, "routes": routes_v, "focus": focus,
         "years": {"first": y0, "last": y1,
                   "starts": {str(y): float(extract.jdn_julian(y, 1, 1)) for y in range(y0, y1 + 2)} if y0 else {}},
@@ -742,18 +746,35 @@ JS_KEYS = {
                "ix.ctl.year_clear"),
     "timeline": ("ix.ctl.window_summary", "ix.ctl.from", "ix.ctl.to", "ix.ctl.reset", "ix.ctl.to_map", "ix.ctl.details",
                  "ix.ctl.details_for", "ix.tl.band.events", "ix.tl.band.deaths", "ix.tl.chart_label",
-                 "ix.tl.axis_label", "ix.summary.window", "ix.summary.hidden.one", "ix.summary.hidden.other",
+                 "ix.tl.axis_label", "ix.summary.window", "ix.summary.unplaced", "ix.summary.hidden.one", "ix.summary.hidden.other",
                  "ix.summary.year.one", "ix.summary.year.other", "ix.summary.focus_tl"),
     "map": ("ix.ctl.zoom", "ix.ctl.zoom_in", "ix.ctl.zoom_out", "ix.ctl.zoom_fit", "ix.ctl.zoom_fit_long",
             "ix.ctl.zoom_region", "ix.ctl.zoom_region_long",
             "ix.ctl.to_timeline", "ix.map.scale", "ix.map.chart_label", "ix.map.zoom_value", "ix.map.attrib",
             "ix.map.panel_label", "ix.map.panel_empty", "ix.map.open", "ix.map.open_segment", "ix.map.on_timeline",
-            "ix.summary.focus_map", "ix.summary.year_map"),
+            "ix.summary.map", "ix.summary.focus_map", "ix.summary.year_map"),
 }
 
 
 def js_strings(S: Strings, view: str) -> dict:
     return {k: S.t(k) for k in JS_KEYS["common"] + JS_KEYS[view]}
+
+
+PAGE_ONLY = ("info_html", "head_html")
+
+
+def public(data: dict) -> dict:
+    """What data.json carries: everything the drawing needs. A record's full text is not
+    repeated there: the scripts take it from the page's text version, generated from the
+    same values."""
+    strip = lambda d: {k: v for k, v in d.items() if k not in PAGE_ONLY}
+    out = dict(data)
+    for key in ("items", "places"):
+        if key in out:
+            out[key] = [strip(x) for x in out[key]]
+    if "routes" in out:
+        out["routes"] = [dict(r, segments=[strip(s) for s in r["segments"]]) for r in out["routes"]]
+    return out
 
 
 def weigh(out: Path, view: str) -> dict[str, int]:
@@ -791,7 +812,7 @@ def build(graph: Path, out: Path, quiet: bool = False) -> dict:
             shutil.rmtree(d)
         d.mkdir(parents=True)
         (d / "index.html").write_text(page, encoding="utf-8")
-        (d / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n",
+        (d / "data.json").write_text(json.dumps(public(data), ensure_ascii=False, separators=(",", ":")) + "\n",
                                      encoding="utf-8")
         for name in SHARED + (f"{view}.js",):
             shutil.copyfile(STATIC / name, d / name)

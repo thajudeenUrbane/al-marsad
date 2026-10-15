@@ -12,7 +12,8 @@
  *  - bars keep their positions when the year cursor or the focus change, and one scrub step
  *    is drawn in under 100 ms (docs/08 section 7);
  *  - with prefers-reduced-motion, transitions are off.
- * Then it loads both pages with JavaScript OFF: the text version must list every item.
+ * Then it loads both pages with JavaScript OFF: the text version must list every item. Last, it
+ * times both pages on an emulated slow 3G connection with a slowed CPU (fails over 20 s).
  *
  *   NODE_PATH="$(npm root -g)" PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers \
  *     node site/interactive/check_interactive.cjs [site/dist] [--shots DIR]
@@ -117,6 +118,7 @@ async function checkTimeline(browser, origin, name, options) {
     return performance.now() - t0;
   });
   if (ms > STEP_MS) fail(`${tag}: a scrub step took ${ms.toFixed(0)} ms`);
+  log.note = `one scrub step drawn in ${ms.toFixed(1)} ms`;
   const focusValue = await page.$eval("#ix-focus", (s) => (s.options[1] ? s.options[1].value : ""));
   if (focusValue) await page.selectOption("#ix-focus", focusValue);
   if (JSON.stringify(await boxes()) !== JSON.stringify(before)) fail(`${tag}: bars moved when the year or the focus changed`);
@@ -198,7 +200,31 @@ function report(tag, log, n) {
   if (log.images.length) fail(`${tag}: images were loaded: ${log.images.join(", ")}`);
   if (log.errors.length) fail(`${tag}: script errors: ${log.errors.join(" | ")}`);
   if (bytes > BUDGET) fail(`${tag}: ${bytes} bytes is over the ${BUDGET} byte budget`);
-  console.log(`${tag}: ${n} marks drawn, ${bytes.toLocaleString("en")} bytes loaded`);
+  console.log(`${tag}: ${n} marks drawn, ${bytes.toLocaleString("en")} bytes loaded` + (log.note ? `, ${log.note}` : ""));
+}
+
+/* Chrome's "Slow 3G" preset (400 ms latency, 400 kbit/s each way) with a CPU four times slower:
+   time until the text version is in the page, and until the drawing is ready. This local server
+   does not compress; the real host does, so these times are an upper bound. */
+const SLOW_LIMIT_MS = 20000;
+async function slowNetwork(browser, origin) {
+  for (const view of ["timeline", "map"]) {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const page = await ctx.newPage();
+    const cdp = await ctx.newCDPSession(page);
+    await cdp.send("Network.enable");
+    await cdp.send("Network.emulateNetworkConditions",
+      { offline: false, latency: 400, downloadThroughput: 50000, uploadThroughput: 50000 });
+    await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+    const t0 = Date.now();
+    await page.goto(`${origin}/${view}/`, { waitUntil: "domcontentloaded", timeout: 60000 });
+    const text = Date.now() - t0;
+    await page.waitForSelector("#ix-app[data-ready]", { timeout: 60000 });
+    const drawn = Date.now() - t0;
+    if (drawn > SLOW_LIMIT_MS) fail(`${view}: on slow 3G the drawing took ${drawn} ms`);
+    console.log(`${view} on slow 3G with a 4x slower CPU: text version at ${(text / 1000).toFixed(1)} s, drawing ready at ${(drawn / 1000).toFixed(1)} s`);
+    await ctx.close();
+  }
 }
 
 async function reducedMotion(browser, origin) {
@@ -238,6 +264,7 @@ async function withoutJs(browser, origin) {
   }
   await reducedMotion(browser, origin);
   await withoutJs(browser, origin);
+  await slowNetwork(browser, origin);
   await browser.close();
   server.close();
   console.log(failures.length ? `FAILED: ${failures.length}` : "OK: both pages render, stay local and under budget, and list every drawn item");

@@ -233,6 +233,45 @@ class Links(HTMLParser):
             self._section.pop()
 
 
+class Entries(HTMLParser):
+    """Text of each entry (li[data-id]) of the text version's lists (ol.ix-alt)."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.text: dict[str, str] = {}
+        self._in_alt = 0
+        self._li = 0
+        self._cur = None
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "ol" and "ix-alt" in (a.get("class") or "").split():
+            self._in_alt += 1
+        if tag == "li" and self._in_alt:
+            self._li += 1
+            if self._li == 1 and "data-id" in a:
+                self._cur = a["data-id"]
+                self.text[self._cur] = ""
+
+    def handle_endtag(self, tag):
+        if tag == "li" and self._in_alt:
+            self._li -= 1
+            if self._li == 0:
+                self._cur = None
+        if tag == "ol" and self._in_alt and not self._li:
+            self._in_alt -= 1
+
+    def handle_data(self, data):
+        if self._cur:
+            self.text[self._cur] += data
+
+
+def entries(html_text: str) -> dict:
+    p = Entries()
+    p.feed(html_text)
+    return p.text
+
+
 @unittest.skipUnless(GRAPH.exists(), "build/graph.ttl missing: run ontology/build_graph.py")
 class Built(unittest.TestCase):
     @classmethod
@@ -398,15 +437,20 @@ class Built(unittest.TestCase):
         from model import MRS
         recorded = {self.site.vkey(o, "as_") for o in self.site.g.objects(None, MRS.assertionStatus)}
         word = READER["status.label"].split("{")[0]
+        tl_text, map_text = entries(self.tl_html), entries(self.map_html)
         for it in self.tl["items"]:
             self.assertIn(word, it["status_html"])
-            self.assertIn(word, it["info_html"])
+            self.assertIn(word, tl_text[it["id"]])
             self.assertTrue(set(it["statuses"]) <= recorded)
             if not it["statuses"]:
                 self.assertIn(READER["status.none"], it["status_html"])
         for m in self.map["places"]:
-            self.assertIn(word, m["info_html"])
+            self.assertIn(word, map_text[m["id"]])
+            self.assertIn(word, m["title"])
             self.assertTrue(set(m["statuses"]) <= recorded)
+        for r in self.map["routes"]:
+            for s in r["segments"]:
+                self.assertIn(word, map_text[s["id"]])
         if "accepted" not in recorded:
             self.assertNotIn(READER["status.label"].format(value=READER["status.accepted"]), self.tl_html + self.map_html)
 
@@ -424,12 +468,19 @@ class Built(unittest.TestCase):
             self.assertLess(it["date_html"].index(ce), it["date_html"].index(ah), it["id"])
 
     def test_disputed_dates_are_marked_in_drawing_and_text(self):
+        text = entries(self.tl_html)
         for it in self.tl["items"]:
             if it["basis"] == "disputed":
                 self.assertTrue(it["disputed"], it["id"])
             if it["disputed"]:
-                self.assertIn(OWN["ix.info.disputed"], it["info_html"])
+                self.assertIn(OWN["ix.info.disputed"], text[it["id"]])
         self.assertIn("is-disputed", JS["timeline"])
+
+    def test_data_json_does_not_repeat_the_page_text(self):
+        for d in (self.tl, self.map):
+            blob = json.dumps(d)
+            for key in bi.PAGE_ONLY:
+                self.assertNotIn(f'"{key}"', blob)
 
     def test_focus_index_points_at_drawn_items(self):
         ids = {it["id"] for it in self.tl["items"]}

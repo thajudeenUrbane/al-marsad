@@ -155,7 +155,20 @@
     return IX.el("p", { class: "ix-summary", role: "status", "aria-live": "polite" });
   };
 
-  /* index: entity id -> list of item ids, and item id -> item */
+  /* A record's text, cloned from its entry in the page's text version (which the builder
+     generates from the same data), without the entry's name link. null if there is none. */
+  IX.recordOf = function (id) {
+    var q = window.CSS && CSS.escape ? CSS.escape(id) : id.replace(/["\\]/g, "\\$&");
+    var li = document.querySelector('.ix-text li[data-id="' + q + '"]');
+    if (!li) return null;
+    var frag = document.createDocumentFragment();
+    Array.prototype.forEach.call(li.children, function (c) {
+      if (!c.classList.contains("ix-alt-name") && !c.classList.contains("name-ar")) frag.appendChild(c.cloneNode(true));
+    });
+    return frag;
+  };
+
+  /* index: item id -> item */
   IX.byId = function (list) {
     var m = {};
     list.forEach(function (x) { m[x.id] = x; });
