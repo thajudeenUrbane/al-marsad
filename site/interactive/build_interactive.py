@@ -126,7 +126,19 @@ class Pieces:
         return f'<ul class="{cls}">' + "".join(f"<li>{i}</li>" for i in items if i) + "</ul>"
 
     def date(self, ext: dict) -> dict:
-        return display.format_extent(ext, self.S.t)
+        """display.format_extent, with the sign after every mention of the Prophet in the
+        recorded text (maintainer: honorifics on every mention)."""
+        fx = display.format_extent(ext, self.S.t)
+        return {"text": display.honour(fx["text"]) if fx["text"] else fx["text"],
+                "notes": [display.honour(n) for n in fx["notes"]]}
+
+    def notes(self, fx: dict, rec: dict) -> list[str]:
+        """The display notes of a date, less the two this page says more fully itself: that
+        it is disputed (with the questions) and that it is relative (with the anchors)."""
+        drop = {self.S.t("date.disputed")}
+        if rec["anchors"]:
+            drop.add(self.S.t("date.relative"))
+        return [n for n in fx["notes"] if n and n not in drop]
 
     def drawn(self, ext: dict) -> str:
         """The recorded bounds a bar spans, written out to the day (never narrowed)."""
@@ -186,7 +198,7 @@ def span_view(site: Site, P: Pieces, span: dict) -> dict:
     if span["role"] == "death":
         date_html = S.th("ix.tl.died", date=date_html)
     facts = [S.th("ix.info.drawn", range=esc(P.drawn(ext)))]
-    facts += [esc(n) for n in fx["notes"]]
+    facts += [esc(n) for n in P.notes(fx, rec)]
     if wider_than_precision(ext, span["start"], span["end"]):
         facts.append(html.escape(S.t("ix.info.wider", precision=display.t_opt(
             S.t, f"precision.{ext['precision']}", ext["precision"]))))
@@ -205,14 +217,12 @@ def span_view(site: Site, P: Pieces, span: dict) -> dict:
                            link=f'<a href="{href}#s-disputes">{html.escape(S.t("ix.info.see_questions"))}</a>'
                            if has_dispute_section else ""))
     facts.append(P.status(rec["statuses"]) + " " + P.coverage(e.coverage, e.coverage_label))
-    if not rec["statuses"]:
-        facts.append(html.escape(S.t("ix.info.date_field")))
     if span["places"]:
         links = ", ".join(P.link(site.entity(p)) if site.entity(p) else esc(site.label_of(p)) for p in span["places"])
         facts.append(S.th("ix.info.where", places=links))
-    others = [x for x in span["linked"] if x != ent_id]
-    if span["role"] == "event" and others:
-        facts.append(S.thn("ix.info.linked", len(others)))
+    people = [x for x in span["linked"] if x != ent_id and x.split("/", 1)[0] in ("person", "group")]
+    if span["role"] == "event" and people:
+        facts.append(S.thn("ix.info.linked", len(people)))
     info = f'<p class="ix-date">{date_html}</p>' + P.lst(facts)
 
     basis = ext.get("basis") or "none"
@@ -372,6 +382,7 @@ def text_version_timeline(S: Strings, P: Pieces, events, deaths, tl, y0, y1) -> 
              S.tn("ix.tl.scene.events", len(events)),
              S.tn("ix.tl.scene.deaths", len(deaths)),
              S.t("ix.tl.scene.bars"),
+             S.t("ix.tl.scene.status"),
              S.tn("ix.tl.scene.unplaced", n_np)]
     out = [f'<section class="ix-text" id="ix-text" aria-labelledby="ix-text-h">',
            f'<h2 id="ix-text-h">{html.escape(S.t("ix.text.heading"))}</h2>',
@@ -400,10 +411,11 @@ def unplaced_html(site: Site, S: Strings, P: Pieces, np_: dict) -> str:
             elif fx["text"]:
                 bits.append(f'<span class="date">{esc(fx["text"])}</span>')
             facts = [anchor_html(P, a) for a in it["rec"]["anchors"]]
-            facts += [esc(n) for n in fx["notes"] if n]
-            if it["rec"]["disputes"]:
+            facts += [esc(n) for n in P.notes(fx, it["rec"])]
+            if it["rec"]["disputes"] or ext.get("disputed") or ext.get("basis") == "disputed":
                 facts.append(f'<strong class="ix-disputed">{html.escape(S.t("ix.info.disputed"))}</strong>'
-                             + '<ul class="ix-questions">' + "".join(f"<li>{esc(q)}</li>" for q in it["rec"]["disputes"]) + "</ul>")
+                             + ('<ul class="ix-questions">' + "".join(f"<li>{esc(q)}</li>" for q in it["rec"]["disputes"]) + "</ul>"
+                                if it["rec"]["disputes"] else ""))
             facts.append(P.status(it["rec"]["statuses"]) + " " + P.coverage(e.coverage, e.coverage_label))
             lis.append(f'<li data-id="{attr(extract.entity_id(e))}">' + " ".join(bits) + P.lst(facts) + "</li>")
         groups.append(("relative", len(rel), "".join(lis)))
@@ -477,8 +489,6 @@ def place_view(site: Site, S: Strings, P: Pieces, pl: dict, at_place: dict, span
     if pl["of"] > 1:
         facts.append(html.escape(S.t("ix.info.several_points", n=pl["n"], of=pl["of"])))
     facts.append(P.status(pt["statuses"]) + " " + P.coverage(e.coverage, e.coverage_label))
-    if not pt["statuses"]:
-        facts.append(html.escape(S.t("ix.info.location_field")))
     evs = at_place.get(e.iri, [])
     linked, ev_ids, spans = set(), [], []
     if evs:
@@ -538,9 +548,7 @@ def segment_view(S: Strings, P: Pieces, route: dict, seg: dict, n_segs: int) -> 
     for q in seg["disputes"]:
         facts.append(S.th("ix.seg.dispute", question=esc(q)))
     facts.append(P.status(seg["statuses"]) + " " + P.coverage(route["coverage"], route["coverage_label"]))
-    if not seg["statuses"]:
-        facts.append(html.escape(S.t("ix.info.segment_field")))
-    title = " — ".join([display.name_display(route["label"]), S.t("ix.seg.confidence", value=conf),
+    title =" — ".join([display.name_display(route["label"]), S.t("ix.seg.confidence", value=conf),
                         S.t("status.label", value=P.status_words(seg["statuses"]))])
     return {"id": sid, "anchor": anchor, "href": f"#{anchor}", "order": seg["order"],
             "confidence": seg["confidence"] or "none", "drawn": bool(seg["line"]),
@@ -677,6 +685,7 @@ def text_version_map(S: Strings, P: Pieces, marks, routes_v, pl, ev_counts) -> s
     scene.append(S.tn("ix.map.scene.routes", len(routes_v), drawn=sum(1 for s in segs if s["drawn"]), segments=len(segs)))
     n_off = len(pl["unlocated"]) + len(pl["no_location"]) + len(pl["other_geometry"])
     scene.append(S.tn("ix.map.scene.unplotted", n_off))
+    scene.append(S.t("ix.map.scene.status"))
     scene.append(S.t("ix.map.scene.events", at=ev_counts[0], elsewhere=ev_counts[1], none=ev_counts[2]))
     out = [f'<section class="ix-text" id="ix-text" aria-labelledby="ix-text-h">',
            f'<h2 id="ix-text-h">{html.escape(S.t("ix.text.heading"))}</h2>',
@@ -689,6 +698,7 @@ def text_version_map(S: Strings, P: Pieces, marks, routes_v, pl, ev_counts) -> s
            + "</ol>"]
     for r in routes_v:
         out.append(f'<h3>{S.th("ix.map.alt.route", route=r["name_html"])}</h3>')
+        out.append(f'<p>{html.escape(S.t("ix.info.segment_field"))}</p>')
         out.append('<ol class="ix-alt ix-segments" data-group="segments">' + "".join(
             f'<li id="{attr(s["anchor"])}" data-id="{attr(s["id"])}" data-drawn="{"1" if s["drawn"] else "0"}">'
             f'<p class="ix-seg-head">{s["head_html"]}</p>{s["info_html"]}</li>' for s in r["segments"]) + "</ol>")
