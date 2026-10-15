@@ -1,7 +1,7 @@
 kind,canonical_id,preferred_name_en,name_ar,variant_ids,stories50_names,source_files,confidence,note
-person,per:GBH3zcgbBq2942xBqZo42T,Abdullah b. Abi Bakr,,,Abdullah ibn Abi Bakr,seed-incidents;stories-50,exact,
-person,per:CdhjM9YjkJPMW2fPbnnHmZ,Abdullah b. Mas'ud,,,Abdullah ibn Mas'ud,seed-incidents;stories-50,exact,
-person,per:KAKs6ddT1ONUnlYSA4UvTd,Abdullah ibn Abbas,,per:ejSIkcWMqJWM4iwFOKroh9,Abdullah ibn Abbas,stories-50,exact,new ID; no match in the three Turtle files
+person,per:GBH3zcgbBq2942xBqZo42T,Abdullah b. Abi Bakr,,,Abdullah ibn Abi Bakr,seed-incidents;stories-50;ibn-hisham,exact,
+person,per:CdhjM9YjkJPMW2fPbnnHmZ,Abdullah b. Mas'ud,,,Abdullah ibn Mas'ud,seed-incidents;stories-50;ibn-hisham,exact,
+person,per:KAKs6ddT1ONUnlYSA4UvTd,Abdullah ibn Abbas,,per:ejSIkcWMqJWM4iwFOKroh9,Abdullah ibn Abbas,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:M9G5YkIZoj1F3fR0jhqICf,Abdullah ibn Abi Rabi'ah,,per:DCL6JTt5yEd4oc7cMtmUNz,Abdullah ibn Abi Rabi'ah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:0cT4kOKcNXlVDGfF1g3L7A,Abdullah ibn Abi Talhah,,per:fFsoETjWGoAqEhOvtQPkqd,Abdullah ibn Abi Talhah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:46w7HOA7SyLJuvT03ieCKH,Abdullah ibn Amr ibn Haram,,per:qwFqD58uCw3IlivRr39QpA,Abdullah ibn Amr ibn Haram,stories-50,exact,new ID; no match in the three Turtle files
@@ -9,14 +9,14 @@ person,per:qaQ3LUK4aIbP7ZNgTidGgQ,Abdullah ibn Ja'far,,per:05IgpJ2AY8aE9dLwBvA3o
 person,per:VP6kyGErhbeyF2tEYzZcUU,Abdullah ibn Jubayr,,per:LqGEu5FoYne7ZI9DcGcUoL,Abdullah ibn Jubayr,stories-50,exact,new ID; no match in the three Turtle files
 person,per:Va5VstENGAzt9SVZLD0RwX,Abdullah ibn Ka'b,,per:V2XJUpCuDiXKUaaL2VPMVI,Abdullah ibn Ka'b,stories-50,exact,new ID; no match in the three Turtle files
 person,per:mrCxym7iz3BsfhQ8XTMXYq,Abdullah ibn Salam,,per:r0vVPTAXZfSlfwbD2yN8oD,Abdullah ibn Salam,stories-50,exact,new ID; no match in the three Turtle files
-person,per:JNllv4aNJdFcprTEsLTwxg,Abdullah ibn Umar,,per:nHKeqoOeVjsTBIQFPkYea1,Abdullah ibn Umar,stories-50,exact,new ID; no match in the three Turtle files
+person,per:JNllv4aNJdFcprTEsLTwxg,Abdullah ibn Umar,,per:nHKeqoOeVjsTBIQFPkYea1,Abdullah ibn Umar,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:hj71OV7Tq3wcZ1O0A4qh7I,Abdullah ibn Umm Maktum,,per:Bj2TdX9dTIx5Biws7eRH85,Abdullah ibn Umm Maktum,stories-50,exact,new ID; no match in the three Turtle files
 person,per:jmCoD9z5rV6bOsCMCEDfxS,Abdullah ibn Zayd ibn Abd Rabbih,,per:IiGs6ckA1dfVevMK67zbf1,Abdullah ibn Zayd ibn Abd Rabbih,stories-50,exact,new ID; no match in the three Turtle files
 person,per:SjQQ4Iq5MJ7glqivDq4e8c,Abu al-As ibn al-Rabi',,per:JdnBQSxZjAKZNXyJSVBTrp,Abu al-As ibn al-Rabi',stories-50,exact,new ID; no match in the three Turtle files
 person,per:1XZxa7XafPLJUkVpHGNouf,Abu al-Darda',,per:oSNv1eP7HoaBns3I22EoCn,Abu al-Darda',stories-50,exact,new ID; no match in the three Turtle files
 person,per:fIH1ZDw0cIPi7RmD73vszE,Abu al-Haytham ibn al-Tayyihan,,per:ASEidp88711go7EPrYIIOZ,Abu al-Haytham ibn al-Tayyihan,stories-50,exact,new ID; no match in the three Turtle files
 person,per:3VBDpvpQLtJnSVZUqRPFLj,Abu Aqil al-Ansari,,per:cg76eiEEOy6mxKYaEDzVBO,Abu Aqil al-Ansari,stories-50,exact,new ID; no match in the three Turtle files
-person,per:xqSsh3EQEz1TQohmQQaZgi,Abu Ayyub al-Ansari,,,Abu Ayyub al-Ansari;Abu Ayyub al-Ansari (Khalid ibn Zayd);Khalid ibn Zayd,seed-incidents;stories-50,exact,
+person,per:xqSsh3EQEz1TQohmQQaZgi,Abu Ayyub al-Ansari,,,Abu Ayyub al-Ansari;Abu Ayyub al-Ansari (Khalid ibn Zayd);Khalid ibn Zayd,seed-incidents;stories-50;ibn-hisham,exact,
 person,per:tmORqcJiAg0xLuqKOPhmWv,Abu Barzah al-Aslami,,per:JQvkzlqP3KuMUudcCD5lN0,Abu Barzah al-Aslami,stories-50,exact,new ID; no match in the three Turtle files
 person,per:JvrvR6S6BuguWZCuKBrIgw,Abu Basir,,per:AsFv7wTPy2FcL6Oi3lFYKt,Abu Basir,stories-50,exact,new ID; no match in the three Turtle files
 person,per:Cf369TS66mr597cqwZV0kS,Abu Dharr al-Ghifari,,per:0J6C2coMSKUUoXwByVaHYK,Abu Dharr al-Ghifari;Abu Dharr al-Ghifari (Jundub ibn Junadah);Jundub ibn Junadah,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Abu Dharr al-Ghifari / Abu Dharr al-Ghifari (Jundub ibn Junadah) / Jundub ibn Junadah
@@ -26,20 +26,20 @@ person,per:7dkRmOWEGXwFTu191Kwxbd,Abu Khaythamah,,per:GC6Ltqv9wkEnkZPRbD0txu,Abu
 person,per:ZnIwTCORszY7mTP8TOmoUC,Abu Lubabah ibn Abd al-Mundhir,,per:rzr8vMKpCkY65nbAigBEBg,Abu Lubabah ibn Abd al-Mundhir,stories-50,exact,new ID; no match in the three Turtle files
 person,per:6tgGz0lZLPI6t2H2VyRW2L,Abu Musa al-Ash'ari,,per:eoSin4leW5M3P7OVxmZDnt,Abu Musa al-Ash'ari,stories-50,exact,new ID; no match in the three Turtle files
 person,per:TNtFuYIWbgUi11IKTQhSMO,Abu Qatadah al-Ansari,,per:skWHjYCh1QRnAJ4vH4Vb21,Abu Qatadah al-Ansari,stories-50,exact,new ID; no match in the three Turtle files
-person,per:hnQ7VUBz4wtwsnQ6XyVAh6,Abu Quhafah,,per:LOEqxsc7kl4LWpDUink0MJ,Abu Quhafah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:hnQ7VUBz4wtwsnQ6XyVAh6,Abu Quhafah,,per:LOEqxsc7kl4LWpDUink0MJ,Abu Quhafah,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:eacNFBqQaSSdVLYbleSugB,Abu Sa'id al-Khudri,,per:F3k0D4GSOrkbpgAyWq23qD,Abu Sa'id al-Khudri,stories-50,exact,new ID; no match in the three Turtle files
-person,per:Y751QWwVaMDWUDzqRdFfzL,Abu Salama b. Abd al-Asad,,,Abu Salamah ibn Abd al-Asad,seed-incidents;stories-50,exact,
+person,per:Y751QWwVaMDWUDzqRdFfzL,Abu Salama b. Abd al-Asad,,,Abu Salamah ibn Abd al-Asad,seed-incidents;stories-50;ibn-hisham,exact,
 person,per:Qt8CBsPPzg8GbkhWwWC5mu,Abu Sufyan b. al-Harith,,,Abu Sufyan ibn al-Harith,seed-incidents;stories-50,exact,
-person,per:DZ2rT2zcYAfiuNSxpzU8Dv,Abu Sufyan b. Harb,,,Abu Sufyan ibn Harb,seed-incidents;stories-50,exact,
+person,per:DZ2rT2zcYAfiuNSxpzU8Dv,Abu Sufyan b. Harb,,,Abu Sufyan ibn Harb,seed-incidents;stories-50;ibn-hisham,exact,
 person,per:oKwvOg8PLbCBhIh4bnC94r,Abu Talhah al-Ansari,,per:dQ0HUQ39FHxKPGWEwzya8N,Abu Talhah al-Ansari;Abu Talhah al-Ansari (Zayd ibn Sahl);Zayd ibn Sahl,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Abu Talhah al-Ansari / Abu Talhah al-Ansari (Zayd ibn Sahl) / Zayd ibn Sahl
-person,per:jbYZ5cBD9GifB8RHTH4JZc,Abu Talib b. Abd al-Muttalib,,,,seed-incidents,exact,
+person,per:jbYZ5cBD9GifB8RHTH4JZc,Abu Talib b. Abd al-Muttalib,,,,seed-incidents;ibn-hisham,exact,
 person,per:Ksdne553FpqU1grS4Wv7d1,Abu Umayr,,per:uQsqeAIIPXMe2MUxosJi5n,Abu Umayr,stories-50,exact,new ID; no match in the three Turtle files
-person,per:QYWUDj7ATL1ApLn5P7gmsQ,Abū Bakr al-Ṣiddīq,,per:8sT3wY6xZc2mQ7vR9nK4pP;per:8sT3wY6xZc2mQ7vR9nK4pP1,Abu Bakr al-Siddiq;Abu Bakr,thawr;generation-1;seed-incidents;stories-50,probable,"merged on shared normalised label: per:8sT3wY6xZc2mQ7vR9nK4pP = Abū Bakr al-Ṣiddīq; per:8sT3wY6xZc2mQ7vR9nK4pP1 = Abū Bakr al-Ṣiddīq | slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
+person,per:QYWUDj7ATL1ApLn5P7gmsQ,Abū Bakr al-Ṣiddīq,,per:8sT3wY6xZc2mQ7vR9nK4pP;per:8sT3wY6xZc2mQ7vR9nK4pP1,Abu Bakr al-Siddiq;Abu Bakr,thawr;generation-1;seed-incidents;stories-50;ibn-hisham,probable,"merged on shared normalised label: per:8sT3wY6xZc2mQ7vR9nK4pP = Abū Bakr al-Ṣiddīq; per:8sT3wY6xZc2mQ7vR9nK4pP1 = Abū Bakr al-Ṣiddīq | slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
 person,per:MSrNg6crYox3LC1UHol8st,Abū Hurayra,,per:5fW9jNbT4mQ7xZcV2hR8dK1,Abu Hurayrah,generation-1;seed-incidents;stories-50,exact,
-person,per:UtI7tfqLuYs902qoNowis1,Abū ʿUbayda b. al-Jarrāḥ,,per:7cVbN3mAsD9fGhJ4kQwErT1,Abu Ubaydah ibn al-Jarrah;Abu Ubaydah,generation-1;seed-incidents;stories-50,exact,
+person,per:UtI7tfqLuYs902qoNowis1,Abū ʿUbayda b. al-Jarrāḥ,,per:7cVbN3mAsD9fGhJ4kQwErT1,Abu Ubaydah ibn al-Jarrah;Abu Ubaydah,generation-1;seed-incidents;stories-50;ibn-hisham,exact,
 person,per:pLsX5bBkHjDXlCkvsk4lu1,Addas,,per:ybAFUdU9YBr6E6S1LORj0B,Addas,stories-50,exact,new ID; no match in the three Turtle files
 person,per:ojZbGxn3A1JdvjaygFwXAa,al-Abbas b. Abd al-Muttalib,,,Al-Abbas ibn Abd al-Muttalib;al-Abbas,seed-incidents;stories-50,exact,
-person,per:rb5dst7FpF0k4xTJWoO8Bo,Al-Arqam ibn Abi al-Arqam,,per:3xstaBjr3tL6VSPE1zkC3x,Al-Arqam ibn Abi al-Arqam,stories-50,exact,new ID; no match in the three Turtle files
+person,per:rb5dst7FpF0k4xTJWoO8Bo,Al-Arqam ibn Abi al-Arqam,,per:3xstaBjr3tL6VSPE1zkC3x,Al-Arqam ibn Abi al-Arqam,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:2mZe6Ge5CQyOPL7zvKECfn,Al-Bara ibn Ma'rur,,per:X5AnqgvpxMCOqb8yJl3CsF,Al-Bara ibn Ma'rur,stories-50,exact,new ID; no match in the three Turtle files
 person,per:iFsqSYTVY2XfiITWFT3xq0,Al-Bara' ibn Azib,,per:ISGDhbsh2J4hu79V7NPk7a,Al-Bara' ibn Azib,stories-50,exact,new ID; no match in the three Turtle files
 person,per:NlktnCtJZWR1GFtPVRPKKk,al-Bukhārī,,per:6nBvCxZ4aSdF7gHjK9mQwE,,thawr,needs-review,"IRI nearly identical to per:6nBvCxZ4aSdF7gHjK9mQwE1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
@@ -48,77 +48,77 @@ person,per:oq2rTLZ9kQzzx5Hk1jMmsK,Al-Hasan,,per:4NsCUmosWJJw1za5l9UdqT,Al-Hasan,
 person,per:32LiYNieZ3LTU85VM5PsJ1,Al-Hubab ibn al-Mundhir,,per:F44NPH7tL6hbUcc7yTVVH3,Al-Hubab ibn al-Mundhir,stories-50,exact,new ID; no match in the three Turtle files
 person,per:8g3V6tqNS8LbkeUJSOK63u,Al-Husayn,,per:yFFI0fwvxCFCgAcYny4lLi,Al-Husayn,stories-50,exact,new ID; no match in the three Turtle files
 person,per:ojb5b2kSlN9AjIiLpqZVbK,al-Layth b. Saʿd,,per:2wErT5yUqP8pLkJ9hGfDsA,,thawr,needs-review,"IRI nearly identical to per:2wErT5yUqP8pLkJ9hGfDsA1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:UyMdny2eh90Lxs0Ub3izhs,al-Miqdād b. ʿAmr,,per:6nBvCxZ4aSdF7gHjK9mQwE1;per:aXsp7ttJkuvb5HdtfAmH9S,Al-Miqdad ibn al-Aswad;al-Miqdad,generation-1;stories-50,probable,"merged by maintainer decision 1 (15 Oct 2026): stories-50 'Al-Miqdad ibn al-Aswad' is the same man; 'ibn al-Aswad' comes from his adoption by al-Aswad ibn ʿAbd Yaghūth. The former stories-50 row per:aXsp7ttJkuvb5HdtfAmH9S is retired, never used in any file | IRI nearly identical to per:6nBvCxZ4aSdF7gHjK9mQwE, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed | slice 1d: the retired slice-1a ID per:aXsp7ttJkuvb5HdtfAmH9S is recorded as a variant (it was hash-derived and was never used in a .ttl)"
+person,per:UyMdny2eh90Lxs0Ub3izhs,al-Miqdād b. ʿAmr,,per:6nBvCxZ4aSdF7gHjK9mQwE1;per:aXsp7ttJkuvb5HdtfAmH9S,Al-Miqdad ibn al-Aswad;al-Miqdad,generation-1;stories-50;ibn-hisham,probable,"merged by maintainer decision 1 (15 Oct 2026): stories-50 'Al-Miqdad ibn al-Aswad' is the same man; 'ibn al-Aswad' comes from his adoption by al-Aswad ibn ʿAbd Yaghūth. The former stories-50 row per:aXsp7ttJkuvb5HdtfAmH9S is retired, never used in any file | IRI nearly identical to per:6nBvCxZ4aSdF7gHjK9mQwE, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed | slice 1d: the retired slice-1a ID per:aXsp7ttJkuvb5HdtfAmH9S is recorded as a variant (it was hash-derived and was never used in a .ttl)"
 person,per:IZ6TkzYUUccfnKiVItM6Vb,Al-Mughirah ibn Shu'bah,,per:mkHiSnoeiDf5lOjczyNoSi,Al-Mughirah ibn Shu'bah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:87EDx3NvCjwfKGfhqYkJcF,"al-Najashi (Aṣḥama), Negus of Abyssinia",,,Al-Najashi;Al-Najashi (Ashamah ibn Abjar);Ashamah ibn Abjar,seed-incidents;stories-50,probable,stories-50 name matched through a name variant: Al-Najashi / Al-Najashi (Ashamah ibn Abjar) / Ashamah ibn Abjar
 person,per:iI9eLoNN7WJkA1VW66inO8,Al-Rubayyi' bint al-Nadr,,per:VVKTz9kCQJHnOdftkaJ5HF,Al-Rubayyi' bint al-Nadr,stories-50,exact,new ID; no match in the three Turtle files
 person,per:Qo9VMmsZzMOjtp1cl80ykl,Al-Shayma' bint al-Harith,,per:cxk5HXRCn8G8UAwZJ7NGxQ,Al-Shayma' bint al-Harith,stories-50,exact,new ID; no match in the three Turtle files
 person,per:jIAsbLKJl3yEnakWoKHBRf,Al-Tufayl ibn Amr al-Dawsi,,per:w6WL45bm3Ho6Cjt2EuGl8e,Al-Tufayl ibn Amr al-Dawsi,stories-50,exact,new ID; no match in the three Turtle files
-person,per:emZYN2y2eJ4U3hYbzEdAzK,al-Zubayr b. al-ʿAwwām,,per:5dFgH8jKmN2bVcX6zAqWsE1,Al-Zubayr ibn al-Awwam;al-Zubayr,generation-1;stories-50,needs-review,"IRI nearly identical to per:5dFgH8jKmN2bVcX6zAqWsE, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:8gztwMhLzVG8nUtMnV3GUW,Amir b. Fuhayra,,,Amir ibn Fuhayrah,seed-incidents;stories-50,exact,
+person,per:emZYN2y2eJ4U3hYbzEdAzK,al-Zubayr b. al-ʿAwwām,,per:5dFgH8jKmN2bVcX6zAqWsE1,Al-Zubayr ibn al-Awwam;al-Zubayr,generation-1;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:5dFgH8jKmN2bVcX6zAqWsE, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:8gztwMhLzVG8nUtMnV3GUW,Amir b. Fuhayra,,,Amir ibn Fuhayrah,seed-incidents;stories-50;ibn-hisham,exact,
 person,per:WZm3G410NJEGJo2DAkMNDb,Amir ibn al-Akwa',,per:nxyQr7KyjjTaG8w405OJSM,Amir ibn al-Akwa',stories-50,exact,new ID; no match in the three Turtle files
 person,per:5Q7HYzd5qIFZpNL6PxlBFH,Amr ibn al-As,,per:czZoooZavM2Exg0I0CTynt,Amr ibn al-As,stories-50,exact,new ID; no match in the three Turtle files
 person,per:rEsn6DHU5MOEyYXLC8aCV6,Amr ibn al-Jamuh,,per:8epwFKEzFhJFo4Uzqywkke,Amr ibn al-Jamuh,stories-50,exact,new ID; no match in the three Turtle files
-person,per:pLEkcvWqj8roLomsW1ZaaM,Anas b. Mālik,,per:6gY3kPcU5nR8yAdW3jS9eE1,Anas ibn Malik,generation-1;stories-50,needs-review,"IRI nearly identical to per:8gY3kPcU5nR8yAdW3jS9eE1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:pLEkcvWqj8roLomsW1ZaaM,Anas b. Mālik,,per:6gY3kPcU5nR8yAdW3jS9eE1,Anas ibn Malik,generation-1;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:8gY3kPcU5nR8yAdW3jS9eE1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 person,per:JVLpGJErnzmNGOXEERk2vR,Anas ibn al-Nadr,,per:UNd2Qj5rIcerp5SgUW0Chm,Anas ibn al-Nadr,stories-50,exact,new ID; no match in the three Turtle files
-person,per:XjW1awtWbfXrS4LsQFpEVp,As'ad ibn Zurarah,,per:QDSxKbyfSKsoEoaHcvPk3V,As'ad ibn Zurarah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:XjW1awtWbfXrS4LsQFpEVp,As'ad ibn Zurarah,,per:QDSxKbyfSKsoEoaHcvPk3V,As'ad ibn Zurarah,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:8iSrO9E6SIP0NfPsIwMCEM,Asma bint Amr,,per:zijJDHqY0oqQujX6dESI7L,Asma bint Amr;Asma bint Amr (Umm Mani');Umm Mani',stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Asma bint Amr / Asma bint Amr (Umm Mani') / Umm Mani'
-person,per:nB2lo6Nt3iZdpUg3JmLNiZ,Asma bint Umays,,per:FEBUf6zHRakCm07vIQJnOy,Asma bint Umays,stories-50,exact,new ID; no match in the three Turtle files
-person,per:7XMkA64afEC5PCz0zGGPTs,Asmāʾ bint Abī Bakr,,per:6xZc2mQ7vR9nK4pT8sY3wA1,Asma bint Abi Bakr,generation-1;seed-incidents;stories-50,exact,
+person,per:nB2lo6Nt3iZdpUg3JmLNiZ,Asma bint Umays,,per:FEBUf6zHRakCm07vIQJnOy,Asma bint Umays,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
+person,per:7XMkA64afEC5PCz0zGGPTs,Asmāʾ bint Abī Bakr,,per:6xZc2mQ7vR9nK4pT8sY3wA1,Asma bint Abi Bakr,generation-1;seed-incidents;stories-50;ibn-hisham,exact,
 person,per:NBxyAMZokwZaFXS3HAyULl,Ayman ibn Umm Ayman,,per:1RbjQK4Cf0o3S7xev1qGg4,Ayman ibn Umm Ayman,stories-50,exact,new ID; no match in the three Turtle files
 person,per:Ffcy7q2BiVSagIdJJR1lrH,Barirah,,per:q0uiYverqXaGA6JbWBc1dk,Barirah,stories-50,exact,new ID; no match in the three Turtle files
-person,per:LokzGBbtKKXFdzLwoDZSi6,Bilāl b. Rabāḥ,,per:2aSdF6gHjK8mNbV5cXzQwE1,Bilal ibn Rabah,generation-1;seed-incidents;stories-50,exact,
+person,per:LokzGBbtKKXFdzLwoDZSi6,Bilāl b. Rabāḥ,,per:2aSdF6gHjK8mNbV5cXzQwE1,Bilal ibn Rabah,generation-1;seed-incidents;stories-50;ibn-hisham,exact,
 person,per:ZpYakVXByDJVpi9JFLHcYG,Bishr ibn al-Bara' ibn Ma'rur,,per:Bnz8EEWpZDleT4DmKLfH5b,Bishr ibn al-Bara' ibn Ma'rur,stories-50,exact,new ID; no match in the three Turtle files
 person,per:4qDrs4F2alXUB9hA5tej0A,Budayl ibn Warqa' al-Khuza'i,,per:rg0STif8MP4JDBW4SCRoVq,Budayl ibn Warqa' al-Khuza'i,stories-50,exact,new ID; no match in the three Turtle files
 person,per:yTkRvsLYQIIh4RmcmF2Po2,Buraydah ibn al-Husayb,,per:iqZ9L8U89G1vreQnUinFGX,Buraydah ibn al-Husayb,stories-50,exact,new ID; no match in the three Turtle files
 person,per:2FBp5PsTVHbKwjB5epiZv1,Fatimah bint al-Aswad al-Makhzumiyyah,,per:CO4rh3UDERc4MK4k6eIvTV,Fatimah bint al-Aswad al-Makhzumiyyah,stories-50,exact,new ID; no match in the three Turtle files
-person,per:qc93NP01sCCUcyGHh6If2f,Fāṭima bint al-Khaṭṭāb,,per:4qWeR7tYuP2aSdF9gHjKzX1,Fatimah bint al-Khattab,generation-1;stories-50,exact,
+person,per:qc93NP01sCCUcyGHh6If2f,Fāṭima bint al-Khaṭṭāb,,per:4qWeR7tYuP2aSdF9gHjKzX1,Fatimah bint al-Khattab,generation-1;stories-50;ibn-hisham,exact,
 person,per:6eCGwhJPqffwRQDnFPYoqa,Fāṭima bint Muḥammad,,per:9bVcX5zAsD2fGhJ6kQwErT1,Fatimah bint Muhammad,generation-1;stories-50,exact,
-person,per:CrkVgQgwLiuwKEDYQQqXUv,Hakim ibn Hizam,,per:Bw9c6gAqaeeHn4IO9h2KFT,Hakim ibn Hizam,stories-50,exact,new ID; no match in the three Turtle files
-person,per:mAGe5XwMkCXZ4Aojq7ERql,Hamnah bint Jahsh,,per:hjl8sB9t9fEBz0Cr1aGcOj,Hamnah bint Jahsh,stories-50,exact,new ID; no match in the three Turtle files
+person,per:CrkVgQgwLiuwKEDYQQqXUv,Hakim ibn Hizam,,per:Bw9c6gAqaeeHn4IO9h2KFT,Hakim ibn Hizam,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
+person,per:mAGe5XwMkCXZ4Aojq7ERql,Hamnah bint Jahsh,,per:hjl8sB9t9fEBz0Cr1aGcOj,Hamnah bint Jahsh,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:axoM0LC7gb1o9SuElHbAzM,Hanzalah ibn Abi Amir,,per:BMUAVJetN7sW21PfUDhwnU,Hanzalah ibn Abi Amir,stories-50,exact,new ID; no match in the three Turtle files
-person,per:Nxby4UEZroMup7jbi6EEXD,Harithah ibn Suraqah,,per:ZN1VFGPVpruv4nqFcSErmz,Harithah ibn Suraqah,stories-50,exact,new ID; no match in the three Turtle files
-person,per:eFoGtoIvqughumWYGMKe01,Hassan ibn Thabit,,per:PLb3NApFhwknTPqdDArQyT,Hassan ibn Thabit,stories-50,exact,new ID; no match in the three Turtle files
-person,per:52wF97ihmrqFQC2464peII,Hatib ibn Abi Balta'ah,,per:ixm1ARe8EG5D72LeLCsaXz,Hatib ibn Abi Balta'ah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:Nxby4UEZroMup7jbi6EEXD,Harithah ibn Suraqah,,per:ZN1VFGPVpruv4nqFcSErmz,Harithah ibn Suraqah,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
+person,per:eFoGtoIvqughumWYGMKe01,Hassan ibn Thabit,,per:PLb3NApFhwknTPqdDArQyT,Hassan ibn Thabit,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
+person,per:52wF97ihmrqFQC2464peII,Hatib ibn Abi Balta'ah,,per:ixm1ARe8EG5D72LeLCsaXz,Hatib ibn Abi Balta'ah,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:t3MlZtcgcfDg2zuDam94pf,Hilal ibn Umayyah,,per:6rPj4NxWqXaiz9hu4pEX0o,Hilal ibn Umayyah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:FDktfckRE26FEEpUqh7qHq,Hind bint Utba,,,Hind bint Utbah,seed-incidents;stories-50,exact,
 person,per:jQOBqrDemdItHjvYwXRBBu,Hudhayfah ibn al-Yaman,,per:SRl6AlFJlveGmTTk3amhIp,Hudhayfah ibn al-Yaman,stories-50,exact,new ID; no match in the three Turtle files
-person,per:ewQJnR9TU92BTTOsAMZhXJ,Ibn Shihāb al-Zuhrī,,per:4tVbN6yHjM3kQ9wErZ7uXs,,thawr,needs-review,"IRI nearly identical to per:4tVbN6yHjM3kQ9wErZ7uXs1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:ewQJnR9TU92BTTOsAMZhXJ,Ibn Shihāb al-Zuhrī,,per:4tVbN6yHjM3kQ9wErZ7uXs,,thawr;ibn-hisham,needs-review,"IRI nearly identical to per:4tVbN6yHjM3kQ9wErZ7uXs1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 person,per:arUS2eeyo7mOzBlRFCeyPT,Ikrimah ibn Abi Jahl,,per:LXnhf4hMsgeRgyuNX7W2sr,Ikrimah ibn Abi Jahl,stories-50,exact,new ID; no match in the three Turtle files
-person,per:h724qoD6hnLkHtR6x6Tq2Q,Itban ibn Malik,,per:VTYCHJ7pR51F6YxgptJ8Rd,Itban ibn Malik,stories-50,exact,new ID; no match in the three Turtle files
+person,per:h724qoD6hnLkHtR6x6Tq2Q,Itban ibn Malik,,per:VTYCHJ7pR51F6YxgptJ8Rd,Itban ibn Malik,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:b5KbqZyMuHeKxO9Am0KhWt,Jabir ibn Abdullah,,per:n0WCF1BTP7WFXUbKtWKUs3,Jabir ibn Abdullah,stories-50,exact,new ID; no match in the three Turtle files
-person,per:pgEqNKdrPeXOU9fcCIc5Tf,Jaʿfar b. Abī Ṭālib,,per:3wY6xZc2mQ7vR9nK4pT8sA1,Ja'far ibn Abi Talib,generation-1;seed-incidents;stories-50,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
-person,per:8YA0z6aec80PSSPNXxCfE0,Jubayr ibn Mut'im,,per:JsHTLv5DqIjZKaunxBkRB0,Jubayr ibn Mut'im,stories-50,exact,new ID; no match in the three Turtle files
+person,per:pgEqNKdrPeXOU9fcCIc5Tf,Jaʿfar b. Abī Ṭālib,,per:3wY6xZc2mQ7vR9nK4pT8sA1,Ja'far ibn Abi Talib,generation-1;seed-incidents;stories-50;ibn-hisham,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
+person,per:8YA0z6aec80PSSPNXxCfE0,Jubayr ibn Mut'im,,per:JsHTLv5DqIjZKaunxBkRB0,Jubayr ibn Mut'im,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:1L0UmS8fPNor71iHsWDPiM,Julaybib,,per:c5uO0DPSKvFQJhbqZMnCVa,Julaybib,stories-50,exact,new ID; no match in the three Turtle files
 person,per:hBxUQqPDrZGtgXPWBRgrHQ,Ka'b b. Malik,,,Ka'b ibn Malik,seed-incidents;stories-50,exact,
-person,per:L331CJT2Cnnm6plMPy3B9E,Khabbab ibn al-Aratt,,per:ALyhvNwZX7ahC8oWp6umon,Khabbab ibn al-Aratt,stories-50,exact,new ID; no match in the three Turtle files
-person,per:laOMIYgqaQ5Iw6DmtiCNkY,Khadīja bint Khuwaylid,,per:7hQ2mXvR9nK4pT8wY3zBcd1,Khadijah bint Khuwaylid,generation-1;seed-incidents;stories-50,exact,
+person,per:L331CJT2Cnnm6plMPy3B9E,Khabbab ibn al-Aratt,,per:ALyhvNwZX7ahC8oWp6umon,Khabbab ibn al-Aratt,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
+person,per:laOMIYgqaQ5Iw6DmtiCNkY,Khadīja bint Khuwaylid,,per:7hQ2mXvR9nK4pT8wY3zBcd1,Khadijah bint Khuwaylid,generation-1;seed-incidents;stories-50;ibn-hisham,exact,
 person,per:dKAPKxa69WzXASHWmGPk81,Khalid b. al-Walid,,,Khalid ibn al-Walid,seed-incidents;stories-50,exact,
 person,per:z6N8qotBRkLzA1hfmkEQ1i,Khalidah bint al-Harith,,per:pKP3W3amKgZ0RvqqE3ypj0,Khalidah bint al-Harith,stories-50,exact,new ID; no match in the three Turtle files
-person,per:w6bZlDPmtZ646kdmuaJ9rj,Kharijah ibn Zayd,,per:9sOkWtjbc4PQ9vHJHHhQRV,Kharijah ibn Zayd,stories-50,exact,new ID; no match in the three Turtle files
-person,per:AUZXELR4lacOKznbrtAq9K,Kulthum ibn al-Hidm,,per:CyH15GWx8soI6grbZhAd1H,Kulthum ibn al-Hidm,stories-50,exact,new ID; no match in the three Turtle files
+person,per:w6bZlDPmtZ646kdmuaJ9rj,Kharijah ibn Zayd,,per:9sOkWtjbc4PQ9vHJHHhQRV,Kharijah ibn Zayd,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
+person,per:AUZXELR4lacOKznbrtAq9K,Kulthum ibn al-Hidm,,per:CyH15GWx8soI6grbZhAd1H,Kulthum ibn al-Hidm,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:WzLFfw38FxtW8qtu74vn0G,Lubaynah,,per:0GexuMzgQknRKi7mhwzlVC,Lubaynah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:eNrm8BjbHlVVfOIv8rY1Vm,Malik ibn Awf al-Nasri,,per:bifB34MShHUClCaioJsXm6,Malik ibn Awf al-Nasri,stories-50,exact,new ID; no match in the three Turtle files
 person,per:IJeczA8EQZcaYYpxThHHso,Malik ibn Sa'sa'ah,,per:h0RM35iGRTa35pXCx9MPTR,Malik ibn Sa'sa'ah,stories-50,exact,new ID; no match in the three Turtle files
-person,per:3HWBuAIurSjd5jURWqbjxc,Mistah ibn Uthathah,,per:LVUCZtIrEFv81OaX1jbIgu,Mistah ibn Uthathah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:3HWBuAIurSjd5jURWqbjxc,Mistah ibn Uthathah,,per:LVUCZtIrEFv81OaX1jbIgu,Mistah ibn Uthathah,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:lgdXpiNtrjetas95lu6sgT,Mu'adh ibn Amr ibn al-Jamuh,,per:s9vf1YzbmonCd6ziVXEPND,Mu'adh ibn Amr ibn al-Jamuh,stories-50,exact,new ID; no match in the three Turtle files
 person,per:rGR5EaU6MN2wArBfkpfXlh,Mu'adh ibn Jabal,,per:uKYhotVGdouzPNYdL2sLsB,Mu'adh ibn Jabal,stories-50,exact,new ID; no match in the three Turtle files
-person,per:5eMvahIOnfXgs2QGzrtPeu,Mu'awwidh ibn Afra',,per:b5LczOCWeXGDX1loTEwLlq,Mu'awwidh ibn Afra',stories-50,exact,new ID; no match in the three Turtle files
+person,per:5eMvahIOnfXgs2QGzrtPeu,Mu'awwidh ibn Afra',,per:b5LczOCWeXGDX1loTEwLlq,Mu'awwidh ibn Afra',stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:MPCTwOyTKkKF2DmRDhUfB0,Muhammad ibn Maslamah,,per:t6jc7JEF70q32O3QvyHdQI,Muhammad ibn Maslamah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:PurO6THMGavePgXdiTbHgN,Murarah ibn al-Rabi',,per:xd7yenJaZ66yFXaYsGn6qN,Murarah ibn al-Rabi',stories-50,exact,new ID; no match in the three Turtle files
-person,per:xXOoS1i5K8dtQ7nTy6GZCT,Muṣʿab b. ʿUmayr,,per:2wErT5yUqP8pLkJ9hGfDsA1,Mus'ab ibn Umayr,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:2wErT5yUqP8pLkJ9hGfDsA, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:xXOoS1i5K8dtQ7nTy6GZCT,Muṣʿab b. ʿUmayr,,per:2wErT5yUqP8pLkJ9hGfDsA1,Mus'ab ibn Umayr,generation-1;seed-incidents;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:2wErT5yUqP8pLkJ9hGfDsA, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 person,per:w3tHuc3oZWF4Fz3rPrEpdj,Nu'aym b. Mas'ud,,,Nu'aym ibn Mas'ud,seed-incidents;stories-50,exact,
-person,per:dDbbwzk5lQKx7RBwOkAGfS,Nu'aym ibn Abdullah al-Nahham,,per:sObTUxfqofLyGtnaRnR2LF,Nu'aym ibn Abdullah al-Nahham,stories-50,exact,new ID; no match in the three Turtle files
+person,per:dDbbwzk5lQKx7RBwOkAGfS,Nu'aym ibn Abdullah al-Nahham,,per:sObTUxfqofLyGtnaRnR2LF,Nu'aym ibn Abdullah al-Nahham,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:iTBGyrTFv2ax4hGJH4J2ig,Nusayba bint Ka'b (Umm 'Ammara),,,Nusaybah bint Ka'b;Nusaybah bint Ka'b (Umm Umarah);Umm Umarah,seed-incidents;stories-50,probable,stories-50 name matched through a name variant: Nusaybah bint Ka'b / Nusaybah bint Ka'b (Umm Umarah) / Umm Umarah
 person,per:Qyb0RJoSPdz3yZDw7go8I4,Qatadah ibn al-Nu'man,,per:aFUkChTdGQPte2vsjdQ7JQ,Qatadah ibn al-Nu'man,stories-50,exact,new ID; no match in the three Turtle files
 person,per:NOPn0h0KzcMCggWcUsVRt9,Qutham ibn Abbas,,per:zrSf03xrAotwJdqSVQ7uMw,Qutham ibn Abbas,stories-50,exact,new ID; no match in the three Turtle files
 person,per:TBfFHdECNBrpb13GMk9oBg,Rabi'ah ibn Umayyah ibn Khalaf,,per:o6ayqVjKkDchChZJJuiqvR,Rabi'ah ibn Umayyah ibn Khalaf,stories-50,exact,new ID; no match in the three Turtle files
 person,per:GDmYcLkN6Jp7uoty3ijzv8,Rufaydah al-Aslamiyyah,,per:APf6xB5SrQAgLgFUtKjXXY,Rufaydah al-Aslamiyyah,stories-50,exact,new ID; no match in the three Turtle files
-person,per:IrmZRQOJCNAEYbYu1lH2YN,Ruqayya bint Muḥammad,,per:3fGhJ5kQwE8rTyU2mNbVcX1,Ruqayyah bint Muhammad,generation-1;stories-50,exact,
-person,per:108EB1iRo9x9o9nPZadRV5,Sa'd ibn al-Rabi',,per:w7cCQooSiRQrMumeCxJgpr,Sa'd ibn al-Rabi',stories-50,exact,new ID; no match in the three Turtle files
-person,per:ws5GkaNcADPCGAGIyoMY9n,Sa'd ibn Ubadah,,per:GRQZIZDW4v7dgsAwTWPHWH,Sa'd ibn Ubadah,stories-50,exact,new ID; no match in the three Turtle files
+person,per:IrmZRQOJCNAEYbYu1lH2YN,Ruqayya bint Muḥammad,,per:3fGhJ5kQwE8rTyU2mNbVcX1,Ruqayyah bint Muhammad,generation-1;stories-50;ibn-hisham,exact,
+person,per:108EB1iRo9x9o9nPZadRV5,Sa'd ibn al-Rabi',,per:w7cCQooSiRQrMumeCxJgpr,Sa'd ibn al-Rabi',stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
+person,per:ws5GkaNcADPCGAGIyoMY9n,Sa'd ibn Ubadah,,per:GRQZIZDW4v7dgsAwTWPHWH,Sa'd ibn Ubadah,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:JUEp7xfnQWt9zkNHKxxNqQ,Safiyyah bint Abd al-Muttalib,,per:Qm3clpWrh373qxmbghB7tB,Safiyyah bint Abd al-Muttalib,stories-50,exact,new ID; no match in the three Turtle files
-person,per:VYbEOApckVCwVTQVRPObZo,Safiyyah bint Huyayy,,per:xFUrVz0AmebRm90tqgLLvN,Safiyyah bint Huyayy,stories-50,exact,new ID; no match in the three Turtle files
+person,per:VYbEOApckVCwVTQVRPObZo,Safiyyah bint Huyayy,,per:xFUrVz0AmebRm90tqgLLvN,Safiyyah bint Huyayy,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:0t8cdIAO92AaJtw5McwD1f,Safwan ibn al-Mu'attal,,per:ovz0wxPOkX9d6KGpv9gzHi,Safwan ibn al-Mu'attal,stories-50,exact,new ID; no match in the three Turtle files
 person,per:iWaCuubmGmzLdoBycluYi6,Safwan ibn Umayyah,,per:wfqZg92zqtxvc94zqDRTEH,Safwan ibn Umayyah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:DKMYmm9IDXfDMmia0kpjSu,Sahl ibn Rafi',,per:wsmhUQPh4GOyB7iNGiQGl7,Sahl ibn Rafi',stories-50,probable,"new ID; no match in the three Turtle files | split out of the stories-50 string ""Sahl and Suhayl ibn Rafi'"" by build.py SPLITS"
@@ -126,23 +126,23 @@ person,per:G2Xn07WzguY1MrDmbgDhEn,Sahl ibn Sa'd,,per:89TwCuq9dWNxTltYcJ4vip,Sahl
 person,per:yOJrXyh7PaJUFTdkgL3VyO,Salamah ibn al-Akwa',,per:SJIz8TctVxHK9kTvlmtaAc,Salamah ibn al-Akwa',stories-50,exact,new ID; no match in the three Turtle files
 person,per:FBLYrnnJPF85SvdV5wSf52,Salman al-Farisi,,,Salman al-Farisi,seed-incidents;stories-50,exact,
 person,per:jAwtX6LABuC1OqMiA58lzD,Sawad ibn Ghaziyyah,,per:PyhX6PKHFiPxkXdE25wKed,Sawad ibn Ghaziyyah,stories-50,exact,new ID; no match in the three Turtle files
-person,per:dOPyrfzvo3NIvUQShyiRsk,Sawda bint Zamʿa,,per:2sDfG6hJkQ9wErT4yUmNbV1,,generation-1,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
-person,per:e8UKnTRZCYHGR7wuT2r5HN,Saʿd b. Abī Waqqāṣ,,per:9qWeR4tYuP7aSdF3gHjKzX1,Sa'd ibn Abi Waqqas,generation-1;seed-incidents;stories-50,exact,
-person,per:9GhccCRfUoDfmF9S98F2Rl,Saʿd b. Muʿādh,,per:7yUmK3jHgF9dSaQ2wErT5z1,Sa'd ibn Mu'adh,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:7yUmK3jHgF9dSaQ2wErT5z, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:u94wpqEKcCVqkezetgirQ8,Saʿīd b. Zayd,,per:5zAsD3fGhJ7kQwE4rTyUmN1,Sa'id ibn Zayd,generation-1;stories-50,exact,
+person,per:dOPyrfzvo3NIvUQShyiRsk,Sawda bint Zamʿa,,per:2sDfG6hJkQ9wErT4yUmNbV1,,generation-1;ibn-hisham,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
+person,per:e8UKnTRZCYHGR7wuT2r5HN,Saʿd b. Abī Waqqāṣ,,per:9qWeR4tYuP7aSdF3gHjKzX1,Sa'd ibn Abi Waqqas,generation-1;seed-incidents;stories-50;ibn-hisham,exact,
+person,per:9GhccCRfUoDfmF9S98F2Rl,Saʿd b. Muʿādh,,per:7yUmK3jHgF9dSaQ2wErT5z1,Sa'd ibn Mu'adh,generation-1;seed-incidents;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:7yUmK3jHgF9dSaQ2wErT5z, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:u94wpqEKcCVqkezetgirQ8,Saʿīd b. Zayd,,per:5zAsD3fGhJ7kQwE4rTyUmN1,Sa'id ibn Zayd,generation-1;stories-50;ibn-hisham,exact,
 person,per:WhsWErsr8QrgpUuEuvJqdT,Shuqran,,per:wnKxqyt6AaJnbNNX3cCn5F,Shuqran,stories-50,exact,new ID; no match in the three Turtle files
-person,per:etJ9DWzsPdnmCiosNMzPQw,Suhayb al-Rumi,,,,seed-incidents,exact,
-person,per:OuRuje9gRKHpi2JWSxEFZg,Suhayl ibn Amr,,per:cotGbRxMPX5KUn2siIomAX,Suhayl ibn Amr,stories-50,exact,new ID; no match in the three Turtle files
+person,per:etJ9DWzsPdnmCiosNMzPQw,Suhayb al-Rumi,,,,seed-incidents;ibn-hisham,exact,
+person,per:OuRuje9gRKHpi2JWSxEFZg,Suhayl ibn Amr,,per:cotGbRxMPX5KUn2siIomAX,Suhayl ibn Amr,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:nitJNfsL1y9jFFmX95h1Y5,Suhayl ibn Rafi',,per:o31n8YZ5c0Ml9YoVuKwwt5,Suhayl ibn Rafi',stories-50,probable,"new ID; no match in the three Turtle files | split out of the stories-50 string ""Sahl and Suhayl ibn Rafi'"" by build.py SPLITS"
 person,per:88YTgw6QtyTU0yQ77qVFhX,Suhaylah bint Mas'ud,,per:0ZRRp72EozMZ2DrH2DQoU2,Suhaylah bint Mas'ud,stories-50,exact,new ID; no match in the three Turtle files
 person,per:1HnlXPAkVc2kHRyfXPtI7U,Sumayyah bint Khayyat,,per:3Q1KPiSAAHas4v13YpFpRH,Sumayyah bint Khayyat,stories-50,exact,new ID; no match in the three Turtle files
-person,per:XbwWbpWClAPKlp3O8Bt6kS,Suraqah ibn Malik,,per:zbPULXoI4EH90JX8GGo8vA,Suraqah ibn Malik,stories-50,exact,new ID; no match in the three Turtle files
+person,per:XbwWbpWClAPKlp3O8Bt6kS,Suraqah ibn Malik,,per:zbPULXoI4EH90JX8GGo8vA,Suraqah ibn Malik,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:qs6DL3Fh1y1yZwO3yp4kp7,Thabit ibn Aqram,,per:NYTtcA0D1hjaQuBhEXAVF2,Thabit ibn Aqram,stories-50,exact,new ID; no match in the three Turtle files
-person,per:Vc74FSoBSMY4TBSEwjPyai,The Prophet Muḥammad (peace and blessings be upon him),,per:2mQ7vR9nK4pT8sY3wZ6xCe,,thawr;generation-1;seed-incidents,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
+person,per:Vc74FSoBSMY4TBSEwjPyai,The Prophet Muḥammad (peace and blessings be upon him),,per:2mQ7vR9nK4pT8sY3wZ6xCe,,thawr;generation-1;seed-incidents;ibn-hisham,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
 person,per:nIkXY9rLE4I0bjiWzma5Og,Thumamah ibn Uthal,,per:3uNZfE8y9zjryeSo4VJuFY,Thumamah ibn Uthal,stories-50,exact,new ID; no match in the three Turtle files
 person,per:rMELadKop2RnLmkVVxjEar,Ubadah ibn al-Samit,,per:LLMJ2L5PrlS97J9d6OJJa3,Ubadah ibn al-Samit,stories-50,exact,new ID; no match in the three Turtle files
 person,per:DLxhag2B7gfcqDeDSOg7yb,Umaymah bint Subayh,,per:lWxv0tVsu5iQrw76mBhnD4,Umaymah bint Subayh,stories-50,exact,new ID; no match in the three Turtle files
-person,per:Sjp3pGbjSzOdDSmJJcjI8j,Umayr ibn al-Humam,,per:z7uHHlVtVqj9T4nsBmp460,Umayr ibn al-Humam,stories-50,exact,new ID; no match in the three Turtle files
+person,per:Sjp3pGbjSzOdDSmJJcjI8j,Umayr ibn al-Humam,,per:z7uHHlVtVqj9T4nsBmp460,Umayr ibn al-Humam,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:ah2vkRdMfZrQIYcErG0vy9,Umm Ayman,,per:gAEtohDD2TbJUk5bnPh4Zq,Umm Ayman;Umm Ayman (Barakah);Barakah,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Umm Ayman / Umm Ayman (Barakah) / Barakah
 person,per:aGr1TCKdunSTUNuOY6F2jv,Umm Hakim bint al-Harith,,per:pHkNNiT1jbanrErERDyOxU,Umm Hakim bint al-Harith,stories-50,exact,new ID; no match in the three Turtle files
 person,per:zd0RDPmiy4L9XzbejGZs6z,Umm Hani bint Abi Talib,,per:ybnljfyhLWHhfkVTChGtiS,Umm Hani bint Abi Talib,stories-50,exact,new ID; no match in the three Turtle files
@@ -151,41 +151,41 @@ person,per:aKMZ0hMAdqsuorZjpY1MlG,Umm Ma'bad al-Khuza'iyyah,,per:0Pe9P0ZQLhr6px2
 person,per:hPTVOEpKDUmWZYyOoMRhQQ,Umm Mistah,,per:BsVJdyYs6OQlZl3Hwva9ui,Umm Mistah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:5umUZFhFzgD7DMtXSV2Mnu,Umm Ruman,,per:RzQnyBIOrAloONuY0ASBzw,Umm Ruman,stories-50,exact,new ID; no match in the three Turtle files
 person,per:wcM3ts3LYxpCCGFDi8duRg,Umm Sa'd,,per:WMamdaneJX5kayzt050oLF,Umm Sa'd;Umm Sa'd (Kabshah bint Rafi');Kabshah bint Rafi',stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Umm Sa'd / Umm Sa'd (Kabshah bint Rafi') / Kabshah bint Rafi'
-person,per:5sGHTje5qGKdw6c6RWyHKV,Umm Salama bint Abī Umayya,,per:7kQwE4rTyU2mNbV9cXzAsD1,Umm Salamah;Umm Salamah (Hind bint Abi Umayyah);Hind bint Abi Umayyah,generation-1;seed-incidents;stories-50,probable,"stories-50 name matched through a contained name: Umm Salamah / Umm Salamah (Hind bint Abi Umayyah) / Hind bint Abi Umayyah | slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
+person,per:5sGHTje5qGKdw6c6RWyHKV,Umm Salama bint Abī Umayya,,per:7kQwE4rTyU2mNbV9cXzAsD1,Umm Salamah;Umm Salamah (Hind bint Abi Umayyah);Hind bint Abi Umayyah,generation-1;seed-incidents;stories-50;ibn-hisham,probable,"stories-50 name matched through a contained name: Umm Salamah / Umm Salamah (Hind bint Abi Umayyah) / Hind bint Abi Umayyah | slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
 person,per:UftOIEnJxgklvQnpO0oYCv,Umm Sulaym bint Milhan,,per:Bw6au0op2rnhDQ9EpDiKUg,Umm Sulaym bint Milhan;Umm Sulaym,stories-50,probable,new ID; no match in the three Turtle files | name forms merged by stories-50 build.py ALIASES/aka: Umm Sulaym bint Milhan / Umm Sulaym
 person,per:nzSN0R9Ydv9W305gBofJWy,Umm Ubays,,per:WjEXt8VOW3aPnEnyEIw2UI,Umm Ubays,stories-50,exact,new ID; no match in the three Turtle files
 person,per:U7NpOsRCdyjUukMbU2ptkF,Unays,,per:kni99MFgssZV9wCIPEuJyY,Unays,stories-50,exact,new ID; no match in the three Turtle files
 person,per:mZxPAWXkqnFR8yYWEMx0Ut,Urwah ibn Mas'ud al-Thaqafi,,per:XWTzg09SfWoC8wLi7c1gJt,Urwah ibn Mas'ud al-Thaqafi,stories-50,exact,"new ID; no match in the three Turtle files | maintainer decision 2 (15 Oct 2026): ʿUrwa ibn Masʿūd al-Thaqafī (Companion, envoy at Ḥudaybiyya) and ʿUrwa b. al-Zubayr (Tābiʿī, narrator) are different people; kept separate"
 person,per:KrJiSdZXjpxWuduqA8kZUv,Usama b. Zayd,,,Usamah ibn Zayd,seed-incidents;stories-50,exact,
 person,per:V2JIm1kU0UcdH1CrJpUp9H,Usayd b. Ḥuḍayr,,per:8jKmN2bVcX6zAqWsE9fGhJ1,Usayd ibn Hudayr,generation-1;stories-50,exact,
-person,per:GsSz4BnpbobZPCdjwpza4w,Uthman ibn Maz'un,,per:JaB0FuFe8l9g7euqcmKvoG,Uthman ibn Maz'un,stories-50,exact,new ID; no match in the three Turtle files
+person,per:GsSz4BnpbobZPCdjwpza4w,Uthman ibn Maz'un,,per:JaB0FuFe8l9g7euqcmKvoG,Uthman ibn Maz'un,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:kKoJwKEfd3xwk6umpvHCXL,Uthman ibn Talhah,,per:MmUWfMOTwLQv3dxaGKbhbv,Uthman ibn Talhah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:jo19DENelGtE5cborHfVJo,Wahshi ibn Harb,,per:nIXwKTKAZ20Vhh80paZBVw,Wahshi ibn Harb,stories-50,exact,new ID; no match in the three Turtle files
 person,per:yLxAg4fUPuthMjBPup8ceQ,Waraqa b. Nawfal,,,Waraqah ibn Nawfal,seed-incidents;stories-50,exact,
 person,per:Xuo53haqAj91DK4O5kUrG3,Yasir ibn Amir,,per:6KZ4sLCoNKWt8gWs9HsEuD,Yasir ibn Amir,stories-50,exact,new ID; no match in the three Turtle files
 person,per:m88K9v3QFw59LHCium4jFs,Yaḥyā b. Bukayr,,per:5dFgH8jKmN2bVcX6zAqWsE,,thawr,needs-review,"IRI nearly identical to per:5dFgH8jKmN2bVcX6zAqWsE1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 person,per:nwfJDZQeYsrnk8ydaFWRr5,Zayd b. Thabit,,,,seed-incidents,exact,
-person,per:P4VAp86LIzXhq2pUAuEylx,Zayd b. Ḥāritha,,per:4kNqR7mZpW2vXcT8bH3jLd1,Zayd ibn Harithah,generation-1;seed-incidents;stories-50,exact,
-person,per:Pc4IPq6Y9cuyh74qnQNAjw,Zaynab bint Jahsh,,per:l3lfDwfyvbMEUECMgCQyCD,Zaynab bint Jahsh,stories-50,exact,new ID; no match in the three Turtle files
+person,per:P4VAp86LIzXhq2pUAuEylx,Zayd b. Ḥāritha,,per:4kNqR7mZpW2vXcT8bH3jLd1,Zayd ibn Harithah,generation-1;seed-incidents;stories-50;ibn-hisham,exact,
+person,per:Pc4IPq6Y9cuyh74qnQNAjw,Zaynab bint Jahsh,,per:l3lfDwfyvbMEUECMgCQyCD,Zaynab bint Jahsh,stories-50;ibn-hisham,exact,new ID; no match in the three Turtle files
 person,per:IuasQtUyHl7vlKDPbO4NWT,Zinnirah al-Rumiyyah,,per:Tm1aLZ8h5g64Mhhk4TpvmG,Zinnirah al-Rumiyyah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:XZvDZ7h2qGBzCdJ7zKECz7,Zuhayr ibn Abi Umayyah,,per:aYkcOQduiW3cppCrkrJULR,Zuhayr ibn Abi Umayyah,stories-50,exact,new ID; no match in the three Turtle files
 person,per:w6IaTbniNnbK3AO5XyjIxJ,ʿAbd al-Raḥmān b. Abī Bakr,,per:8pLkJ9hGfDsA3wErT5yUqP1,Abd al-Rahman ibn Abi Bakr,generation-1;stories-50,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
-person,per:No6KV9b4z8MnuoTMo3QxBY,ʿAbd al-Raḥmān b. ʿAwf,,per:3zXcV5bNmA8sDfG2hJkLqW1,Abd al-Rahman ibn Awf,generation-1;stories-50,exact,
-person,per:rJSKcJSfpcILWc0k73qk2I,ʿAbdullāh b. Rawāḥa,,per:2cXzA8sDfG3hJkQ6wErTyU1,Abdullah ibn Rawahah,generation-1;stories-50,exact,
-person,per:Q4trlHWdutjvFkvqpaEGag,ʿAlī b. Abī Ṭālib,,per:3jLd4kNqR7mZpW2vXcT8b1,Ali ibn Abi Talib;Ali,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8bH, per:3jLd4kNqR7mZpW2vXcT8bH1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:HlRtmjc07rUsfgTsP8rKRV,ʿAmmār b. Yāsir,,per:6wErT9yUmN5bVcX2zAsDfG1,Ammar ibn Yasir,generation-1;stories-50,exact,
-person,per:B67CfBuX1hWcwMB0SKWElx,ʿUbayda b. al-Ḥārith,,per:4sDfG6hJkQ2wErT9yUmNbV1,Ubaydah ibn al-Harith,generation-1;stories-50,exact,
-person,per:vln6et5FvUrm7neh48NSJa,ʿUmar b. al-Khaṭṭāb,,per:9pLmK4nR8sT2wQ6vY3xZbA1,Umar ibn al-Khattab;Umar,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:9pLmK4nR8sT2wQ6vY3xZbA, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:No6KV9b4z8MnuoTMo3QxBY,ʿAbd al-Raḥmān b. ʿAwf,,per:3zXcV5bNmA8sDfG2hJkLqW1,Abd al-Rahman ibn Awf,generation-1;stories-50;ibn-hisham,exact,
+person,per:rJSKcJSfpcILWc0k73qk2I,ʿAbdullāh b. Rawāḥa,,per:2cXzA8sDfG3hJkQ6wErTyU1,Abdullah ibn Rawahah,generation-1;stories-50;ibn-hisham,exact,
+person,per:Q4trlHWdutjvFkvqpaEGag,ʿAlī b. Abī Ṭālib,,per:3jLd4kNqR7mZpW2vXcT8b1,Ali ibn Abi Talib;Ali,generation-1;seed-incidents;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8bH, per:3jLd4kNqR7mZpW2vXcT8bH1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:HlRtmjc07rUsfgTsP8rKRV,ʿAmmār b. Yāsir,,per:6wErT9yUmN5bVcX2zAsDfG1,Ammar ibn Yasir,generation-1;stories-50;ibn-hisham,exact,
+person,per:B67CfBuX1hWcwMB0SKWElx,ʿUbayda b. al-Ḥārith,,per:4sDfG6hJkQ2wErT9yUmNbV1,Ubaydah ibn al-Harith,generation-1;stories-50;ibn-hisham,exact,
+person,per:vln6et5FvUrm7neh48NSJa,ʿUmar b. al-Khaṭṭāb,,per:9pLmK4nR8sT2wQ6vY3xZbA1,Umar ibn al-Khattab;Umar,generation-1;seed-incidents;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:9pLmK4nR8sT2wQ6vY3xZbA, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 person,per:EfCShfYzTpUKsxEkenDO2B,ʿUqayl b. Khālid,,per:7yUmK3jHgF9dSaQ2wErT5z,,thawr,needs-review,"IRI nearly identical to per:7yUmK3jHgF9dSaQ2wErT5z1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 person,per:813NoSCQ31EzXoTLMdYOqE,ʿUrwa b. al-Zubayr,,per:9pLmK4nR8sT2wQ6vY3xZbA,,thawr,needs-review,"maintainer decision 2 (15 Oct 2026): ʿUrwa ibn Masʿūd al-Thaqafī (Companion, envoy at Ḥudaybiyya) and ʿUrwa b. al-Zubayr (Tābiʿī, narrator) are different people; kept separate; this row stays needs-review only for the ID collision below | IRI nearly identical to per:9pLmK4nR8sT2wQ6vY3xZbA1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:TxhFk19HwO2OpgvY4kBVGi,ʿUthmān b. ʿAffān,,per:8gY3kPcU5nR8yAdW3jS9eE1,Uthman ibn Affan;Uthman,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:6gY3kPcU5nR8yAdW3jS9eE1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:2FTEMtzmUhqwffqT42Bb3J,ʿĀʾisha bint Abī Bakr,,per:3jLd4kNqR7mZpW2vXcT8bH1;per:3jLd4kNqR7mZpW2vXcT8bH,Aishah bint Abi Bakr;Aishah,thawr;generation-1;stories-50,needs-review,"merged on shared normalised label: per:3jLd4kNqR7mZpW2vXcT8bH = ʿĀʾisha bint Abī Bakr; per:3jLd4kNqR7mZpW2vXcT8bH1 = ʿĀʾisha bint Abī Bakr | IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8b1, which is a different entity by label; do not merge or trim IDs | IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8b1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:15ywiRwy5duq189kyMEIU1,Ḥafṣa bint ʿUmar,,per:5rTyU2mNbV8cXzA3sDfGhJ1,,generation-1,exact,
-person,per:4cFhNASabmB63JuKazjKPh,Ḥamza b. ʿAbd al-Muṭṭalib,,per:4tVbN6yHjM3kQ9wErZ7uXs1,Hamzah ibn Abd al-Muttalib;Hamzah,generation-1;seed-incidents;stories-50,needs-review,"IRI nearly identical to per:4tVbN6yHjM3kQ9wErZ7uXs, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
-person,per:PNkrkk1S9wmc5Y5Lza6PmV,Ṭalḥa b. ʿUbaydullāh,,per:9kQwE7rTyU4mNbV6cXzAsD1,Talhah ibn Ubaydillah,generation-1;seed-incidents;stories-50,exact,
+person,per:TxhFk19HwO2OpgvY4kBVGi,ʿUthmān b. ʿAffān,,per:8gY3kPcU5nR8yAdW3jS9eE1,Uthman ibn Affan;Uthman,generation-1;seed-incidents;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:6gY3kPcU5nR8yAdW3jS9eE1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:2FTEMtzmUhqwffqT42Bb3J,ʿĀʾisha bint Abī Bakr,,per:3jLd4kNqR7mZpW2vXcT8bH1;per:3jLd4kNqR7mZpW2vXcT8bH,Aishah bint Abi Bakr;Aishah,thawr;generation-1;stories-50;ibn-hisham,needs-review,"merged on shared normalised label: per:3jLd4kNqR7mZpW2vXcT8bH = ʿĀʾisha bint Abī Bakr; per:3jLd4kNqR7mZpW2vXcT8bH1 = ʿĀʾisha bint Abī Bakr | IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8b1, which is a different entity by label; do not merge or trim IDs | IRI nearly identical to per:3jLd4kNqR7mZpW2vXcT8b1, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:15ywiRwy5duq189kyMEIU1,Ḥafṣa bint ʿUmar,,per:5rTyU2mNbV8cXzA3sDfGhJ1,,generation-1;ibn-hisham,exact,
+person,per:4cFhNASabmB63JuKazjKPh,Ḥamza b. ʿAbd al-Muṭṭalib,,per:4tVbN6yHjM3kQ9wErZ7uXs1,Hamzah ibn Abd al-Muttalib;Hamzah,generation-1;seed-incidents;stories-50;ibn-hisham,needs-review,"IRI nearly identical to per:4tVbN6yHjM3kQ9wErZ7uXs, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+person,per:PNkrkk1S9wmc5Y5Lza6PmV,Ṭalḥa b. ʿUbaydullāh,,per:9kQwE7rTyU4mNbV6cXzAsD1,Talhah ibn Ubaydillah,generation-1;seed-incidents;stories-50;ibn-hisham,exact,
 place,plc:vzckhHVgDDTfVCbVwU7tLd,al-Aqaba,,,,seed-incidents,exact,
 place,plc:5n7tL67gMpBQGUbADR5wBb,al-Habasha (Aksum),,,,seed-incidents,exact,
-place,plc:GbMXYpUQqZcgkcj0nQueFW,al-Madīna,المدينة;يثرب,plc:5dFgH8jKmN2bVcX6zAqWsE;plc:5dFgH8jKmN2bVcX6zAqWsE2,,thawr;generation-1;seed-incidents,probable,merged on shared normalised label: plc:5dFgH8jKmN2bVcX6zAqWsE = al-Madīna (formerly Yathrib); plc:5dFgH8jKmN2bVcX6zAqWsE2 = al-Madīna
+place,plc:GbMXYpUQqZcgkcj0nQueFW,al-Madīna,المدينة;يثرب,plc:5dFgH8jKmN2bVcX6zAqWsE;plc:5dFgH8jKmN2bVcX6zAqWsE2,,thawr;generation-1;seed-incidents;ibn-hisham,probable,merged on shared normalised label: plc:5dFgH8jKmN2bVcX6zAqWsE = al-Madīna (formerly Yathrib); plc:5dFgH8jKmN2bVcX6zAqWsE2 = al-Madīna
 place,plc:ioWCg5AEr4UYA1dkWNwtbv,al-Sham,,,,seed-incidents,exact,
 place,plc:6J8V7krgHSbMntUrQBbhEw,al-Ta'if,,,,seed-incidents,exact,
 place,plc:98UT27bZxe9XmZVkDRUXiy,al-Yamama,,,,seed-incidents,exact,
@@ -194,11 +194,11 @@ place,plc:dNEwhw9hx8yPCaNQCwSRT8,Arafat,,,,seed-incidents,exact,
 place,plc:nVJ91NufhjHXlwcWdPhRn1,Badr,بدر,plc:6hJkQ3wErT9yUmN5bVcXzA1,,generation-1,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
 place,plc:fm5Uufhxzu3NjcReBM3jhi,Bayt al-Maqdis,,,,seed-incidents,exact,
 place,plc:sUFGV6BTYhoRrt5rG5pnLJ,Ghar Hira',,,,seed-incidents,exact,
-place,plc:Tvj82GYrHHvbBIehvFBQcA,Ghār Thawr,غار ثور,plc:uQSWiqCgjHmrPQaKnBERUn;plc:3zXcV5bNmA8sDfG2hJkLqW,,thawr;seed-incidents,probable,merged on shared normalised label: plc:3zXcV5bNmA8sDfG2hJkLqW = Ghār Thawr; plc:uQSWiqCgjHmrPQaKnBERUn = Ghar Thawr
+place,plc:Tvj82GYrHHvbBIehvFBQcA,Ghār Thawr,غار ثور,plc:uQSWiqCgjHmrPQaKnBERUn;plc:3zXcV5bNmA8sDfG2hJkLqW,,thawr;seed-incidents;ibn-hisham,probable,merged on shared normalised label: plc:3zXcV5bNmA8sDfG2hJkLqW = Ghār Thawr; plc:uQSWiqCgjHmrPQaKnBERUn = Ghar Thawr
 place,plc:8qF1DQ99XtNNCTaQW2eGA1,Hunayn,,,,seed-incidents,exact,
 place,plc:sTerKmn2YXLhYbtceEGMyR,Jazirat al-Arab (various fronts),,,,seed-incidents,exact,
 place,plc:f1Vh5RvPPhpCYVh32mJ8K2,Khaybar,,,,seed-incidents,exact,
-place,plc:frravRs7lhWiAQ4j9WnaAE,Makkah,مكة,plc:9qWeR4tYuP7aSdF3gHjKzX;plc:2aSdF6gHjK8mNbV5cXzQwE2,,thawr;generation-1;seed-incidents,needs-review,"merged on shared normalised label: plc:2aSdF6gHjK8mNbV5cXzQwE2 = Makkah; plc:9qWeR4tYuP7aSdF3gHjKzX = Makkah | IRI nearly identical to plc:2aSdF6gHjK8mNbV5cXzQwE, which is a different entity by label; do not merge or trim IDs | IRI nearly identical to plc:9qWeR4tYuP7aSdF3gHjKzX2, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+place,plc:frravRs7lhWiAQ4j9WnaAE,Makkah,مكة,plc:9qWeR4tYuP7aSdF3gHjKzX;plc:2aSdF6gHjK8mNbV5cXzQwE2,,thawr;generation-1;seed-incidents;ibn-hisham,needs-review,"merged on shared normalised label: plc:2aSdF6gHjK8mNbV5cXzQwE2 = Makkah; plc:9qWeR4tYuP7aSdF3gHjKzX = Makkah | IRI nearly identical to plc:2aSdF6gHjK8mNbV5cXzQwE, which is a different entity by label; do not merge or trim IDs | IRI nearly identical to plc:9qWeR4tYuP7aSdF3gHjKzX2, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 place,plc:nyxjqpT7HwgzZZHTCW6tuW,Quba',,,,seed-incidents,exact,
 place,plc:8zVELf1I21sCHmpPAb2iHz,Route waypoint (unidentified),,plc:2aSdF6gHjK8mNbV5cXzQwE,,thawr,needs-review,"placeholder label, never merged on name: Route waypoint (unidentified) | IRI nearly identical to plc:2aSdF6gHjK8mNbV5cXzQwE2, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
 place,plc:MWwPoFS7PzyXjhFqSxz2dD,Route waypoint (unidentified),,plc:7cVbN3mAsD9fGhJ4kQwErT,,thawr,needs-review,"placeholder label, never merged on name: Route waypoint (unidentified) | IRI nearly identical to plc:7cVbN3mAsD9fGhJ4kQwErT2, which is a different entity by label; do not merge or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
@@ -208,7 +208,7 @@ place,plc:9Egg3T1nRqQUQEIgMLEsGO,Uḥud,أُحُد,plc:9qWeR4tYuP7aSdF3gHjKzX2,,
 event,ev:zUEu8pjB72CHUJKgyW98sr,Abdullah ibn Mas'ud Recites at the Ka'bah,,,Abdullah ibn Mas'ud Recites at the Ka'bah,stories-50,exact,story-unit event minted in slice 1c for story 6 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:5y2oDtY57yVcVjYyNFUw7m,Abdullah ibn Salam Accepts Islam,,,Abdullah ibn Salam Accepts Islam,stories-50,exact,story-unit event minted in slice 1c for story 19 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:aNFT92sap1T6hghNnkdiPR,Abdullah ibn Umm Maktum and Surah Abasa,,,Abdullah ibn Umm Maktum and Surah Abasa,stories-50,exact,story-unit event minted in slice 1c for story 40 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
-event,ev:8MRi7tRDnu2TKS9PFFketJ,Abu Bakr's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:8MRi7tRDnu2TKS9PFFketJ,Abu Bakr's acceptance of Islam,,,,seed-incidents;ibn-hisham,exact,
 event,ev:s2Nto37t8CXznvKmoNRWbS,Abu Bakr's address after the Prophet's death,,,,seed-incidents,exact,
 event,ev:iuGZ3GGcGDqhhbwXJ8D1Cz,Abu Bakr's pledge of allegiance as caliph,,,,seed-incidents,exact,
 event,ev:onjWBs7kSZl2078NhJhf9b,Abu Dharr Accepts Islam,,,Abu Dharr Accepts Islam,stories-50,exact,story-unit event minted in slice 1c for story 42 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
@@ -218,18 +218,18 @@ event,ev:WDZd7t0kAE8mQaZW9PVsA4,Al-Isra wal-Mi'raj,,,Al-Isra wal-Mi'raj,stories-
 event,ev:mvtR3SmYdyTGKBmrrLZyR6,al-Isra' wa'l-Mi'raj (the Night Journey and Ascension),,,,seed-incidents,exact,
 event,ev:dyH3SpLyPnAi5IjEqSihEz,Al-Tufayl ibn Amr al-Dawsi,,,Al-Tufayl ibn Amr al-Dawsi,stories-50,exact,story-unit event minted in slice 1c for story 43 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:HRgd382CF584NW4uotthGW,Ali and Fatimah: Marriage and the Gift of Tasbih,,,Ali and Fatimah: Marriage and the Gift of Tasbih,stories-50,exact,story-unit event minted in slice 1c for story 48 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
-event,ev:Macm2CnEpUuL46qFy4oN2J,Ali's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:Macm2CnEpUuL46qFy4oN2J,Ali's acceptance of Islam,,,,seed-incidents;ibn-hisham,exact,
 event,ev:Px4ZY7w13uKaU4GQWCLiF9,Ali's succession as caliph,,,,seed-incidents,exact,
 event,ev:6AskWNH0iaEYmAB9YQ72NR,"Anas ibn al-Nadr: ""I Smell Paradise""",,,"Anas ibn al-Nadr: ""I Smell Paradise""",stories-50,exact,story-unit event minted in slice 1c for story 22 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
-event,ev:3lK8gd8ERkMXArSB2WMWFK,Arrival at Qubāʾ,,ev:DPiT3Qift9Qbxga9AiaDog;ev:6gY3kPcU5nR8yAdW3jS9eE,,thawr;seed-incidents,probable,merged on shared normalised label: ev:6gY3kPcU5nR8yAdW3jS9eE = Arrival at Qubāʾ; ev:DPiT3Qift9Qbxga9AiaDog = Arrival at Quba'
-event,ev:3Xjzj4QHY6FbgKENkGGXy7,Arrival in Madinah and early community-building,,,,seed-incidents,exact,
+event,ev:3lK8gd8ERkMXArSB2WMWFK,Arrival at Qubāʾ,,ev:DPiT3Qift9Qbxga9AiaDog;ev:6gY3kPcU5nR8yAdW3jS9eE,,thawr;seed-incidents;ibn-hisham,probable,merged on shared normalised label: ev:6gY3kPcU5nR8yAdW3jS9eE = Arrival at Qubāʾ; ev:DPiT3Qift9Qbxga9AiaDog = Arrival at Quba'
+event,ev:3Xjzj4QHY6FbgKENkGGXy7,Arrival in Madinah and early community-building,,,,seed-incidents;ibn-hisham,exact,
 event,ev:2JeuHTYYSbGuzG3AYEnohp,Arrival in Madinah and the Building of the Mosque,,,Arrival in Madinah and the Building of the Mosque,stories-50,exact,story-unit event minted in slice 1c for story 15 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
-event,ev:fnXxxzRKzKDFtsSvrMamC9,Battle of Badr,,ev:5rTyU9mNbV2cXzA8sDfGhJk1,,generation-1;seed-incidents,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
+event,ev:fnXxxzRKzKDFtsSvrMamC9,Battle of Badr,,ev:5rTyU9mNbV2cXzA8sDfGhJk1,,generation-1;seed-incidents;ibn-hisham,exact,"slice 1e (15 Oct 2026): ID re-minted (hand-typed: shares an 8-character run with another ID), retired ID kept in variant_ids; confidence not changed"
 event,ev:64rHL4f8ZTX5CHnsnStL6R,Battle of the Trench (Khandaq),,ev:5rTyU2mNbV8cXzA3sDfGhJ2,,generation-1;seed-incidents,exact,
 event,ev:5tBAYeftRqkNWJpOvUsfDX,Battle of Uḥud,,ev:8jKmN2bVcX6zAqWsE9fGhJ2,,generation-1;seed-incidents,exact,
 event,ev:tN1Zs8779iqujx5UkdywMn,"Bilal and ""Ahad, Ahad""",,,"Bilal and ""Ahad, Ahad""",stories-50,exact,story-unit event minted in slice 1c for story 4 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:EcDiFcMTUhmLq8tK91L0H8,Conquest of Makkah,,ev:5zAsD3fGhJ7kQwE4rTyUmN2,,generation-1;seed-incidents,exact,
-event,ev:n05mvN7iM2uRhPvs7q25ps,Death of the Prophet ﷺ,,ev:6xZc2mQ7vR9nK4pT8sY3wA3,,generation-1;seed-incidents,exact,
+event,ev:n05mvN7iM2uRhPvs7q25ps,Death of the Prophet ﷺ,,ev:6xZc2mQ7vR9nK4pT8sY3wA3,,generation-1;seed-incidents;ibn-hisham,exact,
 event,ev:7YRf0gbZPPT6MVwRmbVcBy,Departure from Makkah,,ev:5fW9jNbT4mQ7xZcV2hR8dK,,thawr,exact,"maintainer decision 3 (15 Oct 2026): not merged; part of ev:nkdSMuVDo7LS9vhSuq1Lxs (crm:P9i_forms_part_of, asserted in thawr.ttl)"
 event,ev:YQVwa1VsHgr7LpNqMuWw7v,Hamza's acceptance of Islam,,,,seed-incidents,exact,
 event,ev:wBWqW0jjsNax6cHsbDUtN7,Hamzah Accepts Islam,,,Hamzah Accepts Islam,stories-50,exact,story-unit event minted in slice 1c for story 7 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
@@ -244,7 +244,7 @@ event,ev:QrEi11wnvMS4hycQZuoQuy,Public proclamation from al-Safa,,,,seed-inciden
 event,ev:rMq6nNneuHpr8sxkUrbnbr,Sa'd b. Mu'adh's acceptance of Islam,,,,seed-incidents,exact,
 event,ev:KTEo1xOHS1eREM8TEkYkgR,Salman al-Farisi's Search for Truth,,,Salman al-Farisi's Search for Truth,stories-50,exact,story-unit event minted in slice 1c for story 17 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:2FL3PHoeGZ2gycJaBXxxPf,Sawad ibn Ghaziyyah at Badr,,,Sawad ibn Ghaziyyah at Badr,stories-50,exact,story-unit event minted in slice 1c for story 37 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
-event,ev:PM1PnOuFEtaqPnLVh1Pa7V,Sheltering at Ghār Thawr,,ev:7hQ2mXvR9nK4pT8wY3zBcd,,thawr,exact,"maintainer decision 3 (15 Oct 2026): not merged; part of ev:nkdSMuVDo7LS9vhSuq1Lxs (crm:P9i_forms_part_of, asserted in thawr.ttl)"
+event,ev:PM1PnOuFEtaqPnLVh1Pa7V,Sheltering at Ghār Thawr,,ev:7hQ2mXvR9nK4pT8wY3zBcd,,thawr;ibn-hisham,exact,"maintainer decision 3 (15 Oct 2026): not merged; part of ev:nkdSMuVDo7LS9vhSuq1Lxs (crm:P9i_forms_part_of, asserted in thawr.ttl)"
 event,ev:56dB5Fy31CP6LGPsKuVSR6,Standardisation of the Qur'anic text under Uthman,,,,seed-incidents,exact,
 event,ev:oPlPpUrWs3Ruu3vusLUPv0,The Battle of Badr,,,The Battle of Badr,stories-50,exact,story-unit event minted in slice 1c for story 20 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:jf1nBReADK35WxNBnwTS9V,The Battle of Hunayn,,,,seed-incidents,exact,
@@ -272,9 +272,9 @@ event,ev:0wLFxgTdjKzC8bdJcdrEXV,The First Adhan,,,The First Adhan,stories-50,exa
 event,ev:Xo2CeHC0qiLd2kA5zpDaWj,The First Believers,,,The First Believers,stories-50,exact,story-unit event minted in slice 1c for story 2 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:rwLrDMaMm3no4vEWjVcBrw,The First Pledge of al-Aqaba,,,,seed-incidents,exact,
 event,ev:pH31QwYeNTRrfK9FXDbnu4,The First Revelation in the Cave of Hira,,,The First Revelation in the Cave of Hira,stories-50,exact,story-unit event minted in slice 1c for story 1 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
-event,ev:nVEg76HzRApTAxhfpbrGUV,"The first revelation, at Ghar Hira'",,,,seed-incidents,exact,
+event,ev:nVEg76HzRApTAxhfpbrGUV,"The first revelation, at Ghar Hira'",,,,seed-incidents;ibn-hisham,exact,
 event,ev:JitvLyniWwRacZVtmuCUTY,The gathering at Saqifat Bani Sa'ida,,,,seed-incidents,exact,
-event,ev:nkdSMuVDo7LS9vhSuq1Lxs,"The Hijra: departure from Makkah, via Ghar Thawr",,,,thawr;seed-incidents,exact,"maintainer decision 3 (15 Oct 2026): thawr 'Departure from Makkah' (ev:5fW9jNbT4mQ7xZcV2hR8dK) and 'Sheltering at Ghār Thawr' (ev:7hQ2mXvR9nK4pT8wY3zBcd) are parts of this event (crm:P9i_forms_part_of), not merged"
+event,ev:nkdSMuVDo7LS9vhSuq1Lxs,"The Hijra: departure from Makkah, via Ghar Thawr",,,,thawr;seed-incidents;ibn-hisham,exact,"maintainer decision 3 (15 Oct 2026): thawr 'Departure from Makkah' (ev:5fW9jNbT4mQ7xZcV2hR8dK) and 'Sheltering at Ghār Thawr' (ev:7hQ2mXvR9nK4pT8wY3zBcd) are parts of this event (crm:P9i_forms_part_of), not merged"
 event,ev:wMdngvzQBtlbC6EyKySQg8,The Hijrah and the Cave of Thawr,,,The Hijrah and the Cave of Thawr,stories-50,exact,story-unit event minted in slice 1c for story 14 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:Ds5Bx1HGwsHR49guxdzXad,The journey to Ta'if,,,,seed-incidents,exact,
 event,ev:xGSpcMGjRekcCkj3q6jQ1N,The Journey to Ta'if,,,The Journey to Ta'if,stories-50,exact,story-unit event minted in slice 1c for story 11 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
@@ -297,7 +297,7 @@ event,ev:Im9a3UjJrKuCqf90ul49lv,Usamah's Intercession and Justice for All,,,Usam
 event,ev:PXDP7KOTRK8uh27eG6fCNT,Uthman and the Well of Rumah,,,Uthman and the Well of Rumah,stories-50,exact,story-unit event minted in slice 1c for story 32 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:dpFVBKdkRn2jzGYeunb13m,Uthman's succession as caliph,,,,seed-incidents,exact,
 event,ev:q46t1OKYqrdOybkABtbMAP,"Wahshi, the Killer of Hamzah",,,"Wahshi, the Killer of Hamzah",stories-50,exact,story-unit event minted in slice 1c for story 45 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
-event,ev:PH1oyScydKybkhdyn4MoCT,Zayd b. Haritha's acceptance of Islam,,,,seed-incidents,exact,
+event,ev:PH1oyScydKybkhdyn4MoCT,Zayd b. Haritha's acceptance of Islam,,,,seed-incidents;ibn-hisham,exact,
 event,ev:L8zGM78WmCoA61KnaDSvi1,Zayd b. Thabit's collection of the Qur'anic material,,,,seed-incidents,exact,
 event,ev:jAM6Iv8nQs3TNo71bhWhwx,Zayd ibn Harithah Chooses the Prophet ﷺ,,,Zayd ibn Harithah Chooses the Prophet ﷺ,stories-50,exact,story-unit event minted in slice 1c for story 34 of the 50 Stories doc; NOT identified with any seed-incidents/generation-1/thawr event (alignment is a scholar decision)
 event,ev:oetqPWHa2zcbQWtEhV9cSx,Ḥudaybiyya and the Pledge of Riḍwān,,ev:9qWeR4tYuP7aSdF3gHjKzX3,,generation-1;seed-incidents,exact,
