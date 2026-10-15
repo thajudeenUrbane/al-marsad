@@ -57,6 +57,14 @@ input[type="search"] { inline-size: 15rem; max-inline-size: 60vw; }
 .btn:hover { background: var(--panel-2); }
 .btn[hidden] { display: none; }
 .zoom { display: inline-flex; gap: 4px; }
+.moment-ctl { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+input[type="number"] { background: var(--panel); color: var(--text); border: 1px solid var(--rule); border-radius: 6px;
+  padding-block: 6px; padding-inline: 6px; font: inherit; min-block-size: 34px; inline-size: 5.2rem; }
+.young input[type="number"] { inline-size: 4rem; }
+.young-none[hidden] { display: none; }
+.plot .moment { fill: var(--text); fill-opacity: 0.16; stroke: var(--text); stroke-opacity: 0.75; stroke-width: 1; }
+.plot .mlabel { font-size: 11px; fill: var(--text); }
+.plot .mtick { fill: var(--text); fill-opacity: 0.55; }
 .orient { margin: 0; color: var(--muted); flex-basis: 100%; font-size: 0.92rem; }
 .orient output { color: var(--text); }
 .stage { position: relative; display: flex; gap: 12px; align-items: flex-start; }

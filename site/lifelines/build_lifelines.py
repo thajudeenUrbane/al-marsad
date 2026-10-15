@@ -350,6 +350,14 @@ def render(data: dict, t: T, home: str | None) -> str:
 <button type="button" class="btn" data-act="zoom-in" aria-label="{attr(t("controls.zoom_in"))}">+</button>
 <button type="button" class="btn" data-act="home">{esc(t("controls.home"))}</button>
 </div>
+<div class="moment-ctl" role="group" aria-label="{attr(t("controls.moment_group"))}">
+<label class="ctl">{esc(t("controls.moment"))} <input type="number" name="my" inputmode="numeric" step="1" placeholder="{attr(t("controls.moment_ph"))}"></label>
+<select name="mcal" aria-label="{attr(t("controls.moment_cal"))}"><option value="ce">{esc(t("date.ce"))}</option><option value="ah">{esc(t("date.ah"))}</option><option value="bh">{esc(t("date.bh"))}</option></select>
+<button type="button" class="btn" data-act="moment">{esc(t("controls.moment_go"))}</button>
+<button type="button" class="btn" data-act="clear-moment" hidden>{esc(t("controls.moment_clear"))}</button>
+</div>
+<label class="ctl chk young"><input type="checkbox" name="young"> {esc(t("controls.young_before"))} <input type="number" name="yn" value="20" min="1" max="120" step="1" aria-label="{attr(t("controls.young_n"))}"> {esc(t("controls.young_after"))}</label>
+<span class="young-none note" hidden>{esc(t("controls.young_none"))}</span>
 <p class="orient" aria-live="polite"><output id="ll-count"></output></p>
 </section>
 <div class="stage" hidden>

@@ -1,6 +1,8 @@
 /* Lifelines: each person's life as a line. Draws only what the build put in #ll-data:
  * every date, range and age there was worked out by site/lifelines (Python) from sourced
- * records. This script places, morphs and explains; it computes no date or age itself.
+ * records. This script places, morphs and explains. The one computation it does is the
+ * age at a moment the visitor picks (ageRange below), with the same formula as
+ * site/lifelines/calendars.py age_range; the browser check compares the two.
  * Hue = kind of thing (person, event). Dashes and hatching = proposed, not reviewed.
  */
 (function () {
@@ -18,10 +20,10 @@
   function h(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
-  var AR = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-ﷹﷻ-﷿ﹰ-﻿]+(?:[ ‌‍]+[؀-ۿݐ-ݿࢠ-ࣿﭐ-ﷹﷻ-﷿ﹰ-﻿]+)*/g;
+  var AR = /[\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff\ufb50-\ufdf9\ufdfb-\ufdff\ufe70-\ufeff]+(?:[ \u200c\u200d]+[\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff\ufb50-\ufdf9\ufdfb-\ufdff\ufe70-\ufeff]+)*/g;
   function ar(escaped) {
     return escaped.replace(AR, function (m) { return '<span lang="ar" dir="rtl">' + m + "</span>"; })
-      .replace(/ﷺ/g, '<span class="pbuh" lang="ar" dir="rtl">ﷺ</span>');
+      .replace(/\ufdfa/g, '<span class="pbuh" lang="ar" dir="rtl">\ufdfa</span>');
   }
   function hx(s) { return ar(h(s)); }
 
@@ -43,7 +45,9 @@
   var hasKin = P.some(function (p) { return p.kin >= 0; });
   var hasTabaqa = P.some(function (p) { return p.tb; });
 
-  var DEFAULTS = { align: "date", units: "lunar", order: "birth", filter: "", review: false, zoom: 1 };
+  var DEFAULTS = { align: "date", units: "lunar", order: "birth", filter: "", review: false, zoom: 1,
+                   moment: "", young: false, yn: 20 };
+  var HASH = { filter: "f", review: "rv", zoom: "z", moment: "mo", young: "yw", yn: "yn" };
   var state = Object.assign({}, DEFAULTS);
   var sel = null;        // {type: "e"|"p", i}
   var m = 0;             // morph: 0 = by date, 1 = by age
@@ -59,14 +63,18 @@
     if (q.get("rv") === "1") { state.review = true; }
     var z = parseFloat(q.get("z"));
     if (z > 0.2 && z < 40) { state.zoom = z; }
+    if (/^(e:[0-9A-Za-z]+|ce:\d{1,4}|ah:-?\d{1,4})$/.test(q.get("mo") || "")) { state.moment = q.get("mo"); }
+    if (q.get("yw") === "1") { state.young = true; }
+    var yn = parseInt(q.get("yn"), 10);
+    if (yn >= 1 && yn <= 120) { state.yn = yn; }
     m = state.align === "age" ? 1 : 0;
   }
   function writeHash() {
     var q = new URLSearchParams();
     Object.keys(DEFAULTS).forEach(function (k) {
       if (state[k] !== DEFAULTS[k]) {
-        var key = k === "filter" ? "f" : k === "review" ? "rv" : k === "zoom" ? "z" : k;
-        q.set(key, k === "review" ? "1" : k === "zoom" ? state.zoom.toFixed(2) : state[k]);
+        var v = state[k];
+        q.set(HASH[k] || k, v === true ? "1" : k === "zoom" ? v.toFixed(2) : String(v));
       }
     });
     var s = q.toString();
@@ -82,6 +90,70 @@
     if (!lf || !state.review) { return false; }
     var act = p.c.filter(function (c) { return c.lo !== null && c.hi !== null; });
     return act.length > 0 && act.every(function (c) { return c.rv; });
+  }
+
+  // ------------------------------------------------------------ ages at a moment (M4)
+  function ageRange(b, lo, hi, unit) {
+    var n = D.unitDays[unit];
+    return [(lo - b[1]) / n, (hi - b[0]) / n];
+  }
+  function yearsText(r) {
+    var a = Math.floor(Math.max(r[0], 0) + 1e-9), b = Math.floor(Math.max(r[1], 0) + 1e-9);
+    return a === b ? String(a) : a + "\u2013" + b;
+  }
+  window.lifelinesAgeText = function (b, lo, hi, unit) { return yearsText(ageRange(b, lo, hi, unit)); };
+  function prophetIndex() {
+    for (var i = 0; i < P.length; i++) { if (P[i].pr && life(P[i]) && life(P[i]).d) { return i; } }
+    return -1;
+  }
+  function yearRange(table, y) {
+    for (var i = 0; i + 1 < table.length; i++) { if (table[i][0] === y) { return [table[i][1], table[i + 1][1] - 1]; } }
+    return null;
+  }
+  function moment() {
+    if (state.young) {
+      var pi = prophetIndex();
+      if (pi < 0) { return null; }
+      var d = life(P[pi]).d;
+      return { lo: d[0], hi: d[1], kind: "young", pi: pi, label: t("js.moment_prophet_death", { name: P[pi].n }) };
+    }
+    var mo = state.moment;
+    if (!mo) { return null; }
+    var k = mo.split(":")[0], v = mo.slice(k.length + 1);
+    if (k === "e") {
+      for (var i = 0; i < E.length; i++) {
+        if (E[i].id === v) { return { lo: E[i].lo, hi: E[i].hi, kind: "event", ev: i, label: E[i].n + " (" + E[i].t + ")" }; }
+      }
+      return null;
+    }
+    var y = parseInt(v, 10), r = yearRange(k === "ce" ? D.axis.ce || [] : D.axis.ah || [], y);
+    if (!r) { return null; }
+    var label = k === "ce" ? t("js.moment_ce", { y: y }) : (y >= 1 ? t("js.ah_tick", { y: y }) : t("js.bh_tick", { y: 1 - y }));
+    return { lo: r[0], hi: r[1], kind: "date", label: label };
+  }
+  // alive at the whole moment by the recorded dates, possibly alive (the moment touches a
+  // birth or death range, or an end of what is known), or "" (the records do not say)
+  function aliveAt(lf, M) {
+    if (lf.segment && lf.s <= M.lo && M.hi <= lf.e) { return "alive"; }
+    var seg = lf.segment && M.hi >= lf.s && M.lo <= lf.e;
+    var b = lf.b && M.hi >= lf.b[0] && M.lo <= lf.b[1];
+    var d = lf.d && M.hi >= lf.d[0] && M.lo <= lf.d[1];
+    return seg || b || d ? "maybe" : "";
+  }
+  function youngSet(M) {
+    var out = { under: [], maybe: [] };
+    P.forEach(function (p, i) {
+      var lf = life(p);
+      if (!lf || !lf.b || p.pr) { return; }
+      if (lf.d && lf.d[1] < M.lo) { return; }                 // certainly dead before the moment
+      var r = ageRange(lf.b, M.lo, M.hi, state.units);
+      if (r[1] < 0 || r[0] >= state.yn) { return; }            // not yet born, or not under N
+      var sure = r[1] < state.yn && r[0] >= 0 && aliveAt(lf, M) === "alive";
+      out[sure ? "under" : "maybe"].push(i);
+    });
+    out.under.sort(cmp);
+    out.maybe.sort(cmp);
+    return out;
   }
 
   // ------------------------------------------------------------ filter (label lookup)
@@ -161,6 +233,13 @@
   // ------------------------------------------------------------ layout
   function layout() {
     var ref = filterRef(), fs = filterSet(ref);
+    var M = moment();
+    if (state.young && M) {
+      var ys = youngSet(M);
+      fs = {};
+      ys.under.concat(ys.maybe, [M.pi]).forEach(function (i) { fs[i] = true; });
+      ref = null;
+    }
     var ids = [];
     P.forEach(function (p, i) { if (life(p) && (!fs || fs[i])) { ids.push(i); } });
     var groups = groupsOf(ids);
@@ -188,6 +267,7 @@
       var on = e.ps.filter(function (ps) { var pl = placementOf(ps); return rowOf[ps.p] !== undefined && pl && pl.ok; });
       if (on.length) { evs.push({ i: ei, on: on }); lo = Math.min(lo, e.lo); hi = Math.max(hi, e.hi); }
     });
+    if (M) { lo = Math.min(lo, M.lo); hi = Math.max(hi, M.hi); }
     if (!isFinite(lo)) { lo = 0; hi = 1; }
     // age domain (years of the chosen unit)
     var u = state.units, amax = 1;
@@ -206,7 +286,7 @@
     var wD = 2 * PAD + 2 * FADE + (hi - lo) * kD;
     var wA = 2 * PAD + FADE + amax * D.unitDays[u] * kA + 24;
     L = { ids: ids, rows: rows, rowOf: rowOf, height: height, lo: lo, hi: hi, kD: kD, kA: kA, wD: wD, wA: wA,
-          evs: evs, ref: ref, units: u, amax: amax, spanY: spanY };
+          evs: evs, ref: ref, units: u, amax: amax, spanY: spanY, M: M };
     return L;
   }
   function namesWidth() {
@@ -417,6 +497,26 @@
       }
     });
     parts.push('<g class="nodes">' + nodes.join("") + "</g>");
+    if (L.M) {
+      var M = L.M, mk = [];
+      if (m < 0.999) {
+        var mx0 = xD(M.lo), mx1 = Math.max(xD(M.hi), mx0 + 1.5);
+        mk.push('<rect class="moment" x="' + mx0.toFixed(1) + '" y="0" width="' + (mx1 - mx0).toFixed(1) + '" height="' + L.height +
+          '" opacity="' + (1 - m).toFixed(3) + '"/>');
+        mk.push('<text class="mlabel" x="' + (mx1 + 4).toFixed(1) + '" y="14" opacity="' + (1 - m).toFixed(3) + '">' + h(t("js.moment_mark")) + "</text>");
+      }
+      if (m > 0.001) {
+        L.ids.forEach(function (i) {
+          var lf = life(P[i]);
+          if (!lf.b || !aliveAt(lf, M)) { return; }
+          var r = ageRange(lf.b, M.lo, M.hi, L.units), y = rowY(i);
+          var a0 = mix(xD(M.lo), xA(Math.max(0, r[0]))), a1 = mix(xD(M.hi), xA(Math.max(0, r[1])));
+          mk.push('<rect class="mtick" x="' + a0.toFixed(1) + '" y="' + (y - 9) + '" width="' + Math.max(2, a1 - a0).toFixed(1) +
+            '" height="18" opacity="' + m.toFixed(3) + '"/>');
+        });
+      }
+      parts.push('<g class="moments" aria-hidden="true">' + mk.join("") + "</g>");
+    }
     parts.push('<g class="labels">' + labels.join("") + "</g>");
 
     var svg = '<svg class="plot' + (m > 0.5 ? " m-age" : "") + '" xmlns="' + NS + '" width="' + width.toFixed(0) +
@@ -562,14 +662,82 @@
       out.push("<h3>" + h(t("js.also_no_dates", { n: e.oth.length })) + "</h3><ul>" +
         e.oth.map(function (o) { return "<li>" + (o.u ? '<a href="' + h(o.u) + '">' + hx(o.n) + "</a>" : hx(o.n)) + "</li>"; }).join("") + "</ul>");
     }
+    out.push('<p><button type="button" class="btn" data-moment-ev="' + ei + '">' + h(t("js.moment_from_event")) + "</button></p>");
     if (e.u) { out.push('<p><a href="' + h(e.u) + '">' + h(t("js.reader_page_event")) + "</a></p>"); }
     showDetails(out.join(""), focus);
+  }
+
+  function personRow(i, extra) {
+    var p = P[i];
+    return "<li><button type=\"button\" class=\"lk\" data-goto-p=\"" + i + "\">" + hx(p.n) + "</button>" +
+      '<div class="meta">' + extra + "</div></li>";
+  }
+  function ageAtText(lf, M) {
+    if (!lf.b) { return h(t("age.no_birth")); }
+    var u = state.units;
+    return h(t("js.age_value", { age: yearsText(ageRange(lf.b, M.lo, M.hi, u)), unit: t("units." + u) }));
+  }
+  function momentDetails(focus) {
+    var M = moment();
+    if (!M) { return false; }
+    var out = [];
+    if (M.kind === "young") {
+      var ys = youngSet(M), u = state.units;
+      out.push('<h2 id="ll-details-h">' + hx(t("js.young_h", { n: state.yn, name: P[M.pi].n })) + "</h2>");
+      var pd = P[M.pi].c.filter(function (c) { return c.k === "death" && (state.review || !c.rv); });
+      out.push('<p class="meta">' + pd.map(function (c) { return hx(c.t) + " · " + srcHTML(c.src); }).join("<br>") + "</p>");
+      out.push('<p class="meta">' + h(t("js.young_intro", { n: state.yn })) + "</p>");
+      var after = function (i) {
+        var lf = life(P[i]);
+        var a = ageAtText(lf, M);
+        if (!lf.d) { return a + " · " + h(t("js.young_death_unknown")); }
+        var n = D.unitDays[u];
+        var yrs = yearsText([(lf.d[0] - M.hi) / n, (lf.d[1] - M.lo) / n]);
+        return a + " · " + h(t("js.young_after", { years: yrs, unit: t("units." + u) }));
+      };
+      out.push("<h3>" + h(t("js.young_under", { n: state.yn, count: ys.under.length })) + "</h3>");
+      out.push(ys.under.length ? "<ul>" + ys.under.map(function (i) { return personRow(i, after(i)); }).join("") + "</ul>"
+        : '<p class="meta">' + h(t("js.none")) + "</p>");
+      if (ys.maybe.length) {
+        out.push("<h3>" + h(t("js.young_maybe", { n: state.yn, count: ys.maybe.length })) + "</h3><ul>" +
+          ys.maybe.map(function (i) { return personRow(i, after(i)); }).join("") + "</ul>");
+      }
+      out.push('<p class="meta">' + h(t("js.young_chains")) + "</p>");
+    } else {
+      out.push('<h2 id="ll-details-h">' + hx(t("js.moment_h", { label: M.label })) + "</h2>");
+      out.push('<p class="meta">' + h(t("js.moment_intro")) + "</p>");
+      if (M.kind === "event") {
+        var e = E[M.ev], seen = {}, present = [];
+        e.ps.forEach(function (ps) {
+          if (seen[ps.p]) { return; }
+          seen[ps.p] = true;
+          present.push(personRow(ps.p, h(ageText(placementOf(ps)))));
+        });
+        out.push("<h3>" + h(t("js.moment_present", { n: present.length })) + "</h3><ul>" + present.join("") + "</ul>");
+      }
+      var alive = [], maybe = [];
+      P.map(function (p, i) { return i; }).filter(function (i) { return life(P[i]); }).sort(cmp).forEach(function (i) {
+        var st = aliveAt(life(P[i]), M);
+        if (st === "alive") { alive.push(personRow(i, ageAtText(life(P[i]), M))); }
+        else if (st === "maybe") { maybe.push(personRow(i, ageAtText(life(P[i]), M) + " · " + h(t("js.moment_maybe_why")))); }
+      });
+      out.push("<h3>" + h(t("js.moment_alive", { n: alive.length })) + "</h3>" +
+        (alive.length ? "<ul>" + alive.join("") + "</ul>" : '<p class="meta">' + h(t("js.none")) + "</p>"));
+      if (maybe.length) { out.push("<h3>" + h(t("js.moment_maybe", { n: maybe.length })) + "</h3><ul>" + maybe.join("") + "</ul>"); }
+      out.push('<p class="meta">' + h(t("js.moment_unknown")) + "</p>");
+      out.push('<p><button type="button" class="btn" data-act="clear-moment">' + h(t("js.moment_clear")) + "</button></p>");
+    }
+    showDetails(out.join(""), focus);
+    return true;
   }
 
   function select(s, focus) {
     sel = s;
     applySelection();
-    if (!s) { details.hidden = true; return; }
+    if (!s) {
+      if (!momentDetails(false)) { details.hidden = true; }
+      return;
+    }
     if (s.type === "e") { eventDetails(s.i, focus); } else { personDetails(s.i, focus); }
     requestAnimationFrame(function () { reveal(s); });
   }
@@ -601,6 +769,7 @@
       var nm = L.ref.type === "e" ? E[L.ref.i].n : P[L.ref.i].n;
       txt += " · " + t(L.ref.type === "e" ? "js.filter_desc_event" : "js.filter_desc_person", { name: nm });
     }
+    if (L.M) { txt += " · " + t("js.orient_moment", { label: L.M.label }); }
     txt += " · " + t(state.align === "age" ? "js.mode_age" : "js.mode_date", { unit: t("units." + state.units) });
     countEl.textContent = txt;
     document.querySelector('[data-act="clear-filter"]').hidden = !state.filter;
@@ -640,7 +809,13 @@
     orient();
     syncTable();
     writeHash();
-    if (!keepSel) { select(null); } else if (sel) { select(sel, false); }
+    if (!keepSel) { select(null); } else if (sel) { select(sel, false); } else { momentDetails(false); }
+    if (L.M && !sel) {
+      requestAnimationFrame(function () {
+        var x = m < 0.5 ? xD(L.M.lo) : PAD, viewW = scroller.clientWidth - namesWidth();
+        if (x < scroller.scrollLeft + 8 || x > scroller.scrollLeft + viewW - 40) { scroller.scrollLeft = Math.max(0, x - viewW / 3); }
+      });
+    }
   }
 
   // ------------------------------------------------------------ zoom (buttons, ctrl+wheel, pinch)
@@ -705,12 +880,24 @@
   details.addEventListener("click", function (e) {
     var b = e.target.closest("button");
     if (!b) { return; }
-    if (b.dataset.act === "close") { select(null); scroller.focus(); return; }
+    if (b.dataset.act === "close") { state.moment = ""; state.young = false; syncControls(); refresh(false); scroller.focus(); return; }
+    if (b.dataset.act === "clear-moment") { state.moment = ""; syncControls(); refresh(false); return; }
+    if (b.dataset.momentEv !== undefined) {
+      state.moment = "e:" + E[+b.dataset.momentEv].id;
+      state.young = false;
+      syncControls();
+      refresh(false);
+      momentDetails(true);
+      return;
+    }
     if (b.dataset.gotoEv !== undefined) { select({ type: "e", i: +b.dataset.gotoEv }, true); }
     if (b.dataset.gotoP !== undefined) { select({ type: "p", i: +b.dataset.gotoP }, true); }
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !details.hidden) { select(null); scroller.focus(); }
+    if (e.key === "Escape" && !details.hidden) {
+      if (sel) { select(null); } else { state.moment = ""; state.young = false; syncControls(); refresh(false); }
+      scroller.focus();
+    }
   });
   controls.addEventListener("change", function (e) {
     var el = e.target;
@@ -719,6 +906,26 @@
     if (el.name === "order") { state.order = el.value; refresh(true); return; }
     if (el.name === "review") { state.review = el.checked; refresh(false); return; }
     if (el.name === "filter") { applyFilterInput(el.value); }
+    if (el.name === "young") { state.young = el.checked; if (el.checked) { state.filter = ""; state.moment = ""; } syncControls(); refresh(false); return; }
+    if (el.name === "yn") {
+      var n = parseInt(el.value, 10);
+      if (n >= 1 && n <= 120) { state.yn = n; if (state.young) { refresh(false); } else { writeHash(); } }
+    }
+  });
+  function applyMomentInput() {
+    var y = parseInt(controls.querySelector('input[name="my"]').value, 10);
+    var c = controls.querySelector('select[name="mcal"]').value;
+    if (isNaN(y)) { return; }
+    var mo = c === "ce" ? "ce:" + y : c === "ah" ? "ah:" + y : "ah:" + (1 - y);
+    var keep = state.moment;
+    state.moment = mo;
+    state.young = false;
+    if (!moment()) { state.moment = keep; countEl.textContent = t("js.moment_out_of_range"); return; }
+    syncControls();
+    refresh(false);
+  }
+  controls.querySelector('input[name="my"]').addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); applyMomentInput(); }
   });
   controls.querySelector('input[name="filter"]').addEventListener("input", function (e) {
     if (lookup[e.target.value]) { applyFilterInput(e.target.value); }
@@ -738,6 +945,8 @@
     if (act === "zoom-out") { setZoom(state.zoom / 1.4); }
     if (act === "clear-filter") { state.filter = ""; controls.querySelector('input[name="filter"]').value = ""; refresh(false); }
     if (act === "home") { goHome(); }
+    if (act === "moment") { applyMomentInput(); }
+    if (act === "clear-moment") { state.moment = ""; syncControls(); refresh(false); }
   });
 
   function syncControls() {
@@ -750,6 +959,12 @@
     o.querySelector('option[value="tabaqa"]').disabled = !hasTabaqa;
     if (!hasTribes) { o.querySelector('option[value="tribe"]').textContent = t("js.order_tribe_none"); }
     controls.querySelector('input[name="review"]').checked = state.review;
+    var yw = controls.querySelector('input[name="young"]'), pi = prophetIndex();
+    yw.checked = state.young && pi >= 0;
+    yw.disabled = pi < 0;
+    controls.querySelector('input[name="yn"]').value = state.yn;
+    controls.querySelector(".young-none").hidden = pi >= 0;
+    controls.querySelector('[data-act="clear-moment"]').hidden = !state.moment;
     var ref = filterRef();
     controls.querySelector('input[name="filter"]').value = ref ? (ref.type === "e" ? t("js.filter_event", { name: E[ref.i].n }) : t("js.filter_person", { name: P[ref.i].n })) : "";
   }
