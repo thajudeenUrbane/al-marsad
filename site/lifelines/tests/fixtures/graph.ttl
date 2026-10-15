@@ -99,3 +99,9 @@ as:TestAssert000000000004 a mrs:Assertion ; mrs:assertionSubject per:TestTheta00
 as:TestAssert000000000005 a mrs:Assertion ; mrs:assertionSubject per:TestBeta000000000000b ;
     mrs:predicate mrs:rel_migrated_to ; mrs:assertionObject plc:TestTown000000000000a ;
     mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .
+
+per:TestNu000000000000000n a mrs:Person ; rdfs:label "Test person Nu" .
+<https://w3id.org/marsad/id/chain/TestChain0000000000a> a mrs:TransmissionChain ; rdfs:label "Test chain" ;
+    mrs:hasLink [ a mrs:TransmissionLink ; mrs:linkOrder 1 ; mrs:fromNarrator per:TestAlpha00000000000a ; mrs:toNarrator per:TestNu000000000000000n ] ,
+                [ a mrs:TransmissionLink ; mrs:linkOrder 2 ; mrs:fromNarrator per:TestAlpha00000000000a ; mrs:toNarrator per:TestTheta00000000000h ] ,
+                [ a mrs:TransmissionLink ; mrs:linkOrder 3 ; mrs:fromNarrator per:TestEta0000000000000g ; mrs:toNarrator per:TestAlpha00000000000a ] .

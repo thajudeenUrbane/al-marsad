@@ -115,6 +115,8 @@ svg.plot, svg.axis { display: block; flex: none; }
 .plot .tiehead { font-size: 10px; fill: var(--muted); }
 .plot .tie.sel .tiepath, .plot .tie:focus-visible .tiepath { stroke: var(--focus); stroke-width: 2; stroke-dasharray: none; }
 .lg-exc { fill: none; stroke: var(--person); stroke-width: 1.3; stroke-dasharray: 2 2; }
+.lg-tm { fill: none; stroke: var(--person); stroke-width: 1.3; stroke-dasharray: 5 2 1 2; }
+.lg-flag { fill: var(--bg); stroke: var(--text); stroke-width: 1.3; }
 .lg-tie { fill: none; stroke: var(--person); stroke-width: 1.3; stroke-dasharray: 1.5 2.5; }
 .lg-tie-mark { stroke: var(--person); stroke-width: 1.3; }
 .plot .lane { fill: var(--panel); fill-opacity: 0.45; stroke: var(--rule); stroke-width: 1; }
@@ -125,6 +127,12 @@ svg.plot, svg.axis { display: block; flex: none; }
 .plot .exc { stroke-dasharray: 3 2; }
 .plot .pp.sel .pseg, .plot .pp.sel .exc, .plot .pp.sel .res { stroke: var(--focus); stroke-opacity: 1; }
 .plot .pp.sel .step { stroke: var(--focus); stroke-opacity: 0.9; stroke-width: 1.2; }
+.plot .tmpath { fill: none; stroke: var(--person); stroke-width: 1.3; stroke-dasharray: 5 2 1 2; }
+.plot .tmflag { fill: var(--bg); stroke: var(--text); stroke-width: 1.3; }
+.plot .tmunknown { fill: var(--muted); }
+.plot .tie.tm.sel .tmpath, .plot .tie.tm:focus-visible .tmpath { stroke: var(--focus); stroke-width: 2; }
+.flag { border: 1px solid var(--text); border-radius: 4px; padding-inline: 5px; }
+.tl-note { margin-inline: 0; }
 .plot .lhit { stroke: transparent; stroke-width: 18; fill: none; cursor: pointer; }
 .plot .lbl { font-size: 11px; fill: var(--text); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; display: none; }
 .plot .rowlbl { font-size: 11px; fill: var(--muted); font-style: italic; }

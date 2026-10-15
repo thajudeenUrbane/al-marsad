@@ -122,6 +122,19 @@ async function open(browser, url, vp, touch) {
   check(await page.locator("svg.plot.m-place .exc, svg.plot.m-place .res").count() >= withPlace, `By place: a step into a lane for each dated presence (${withPlace} people)`);
   await page.locator('label:has(input[name="align"][value="date"])').click();
   await page.waitForTimeout(150);
+  const drawnLinks = (data.tl || []).filter((l) => l.f !== null && l.t !== null && data.people[l.f].v.b && data.people[l.t].v.b).length;
+  if (drawnLinks) {
+    await page.selectOption('select[name="order"]', "tm");
+    await page.waitForTimeout(100);
+    check(await page.locator("svg.plot g.tie.tm").count() === drawnLinks, `transmission order: one bracket per link with both lines (${drawnLinks})`);
+    await page.locator("svg.plot g.tie.tm").first().focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(100);
+    check(/scholars rule/.test(await page.locator("#ll-details").textContent()), "a transmission link says the system flags and scholars rule");
+    await page.keyboard.press("Escape");
+  }
+  check(await page.locator("#transmission").count() === 1 && /scholars rule/.test(await page.locator("#transmission").textContent()),
+    "the overlap-check section states the rule");
   for (const v of ["tabaqa", "kin", "birth"]) {
     await page.selectOption('select[name="order"]', v);
     await page.waitForTimeout(100);

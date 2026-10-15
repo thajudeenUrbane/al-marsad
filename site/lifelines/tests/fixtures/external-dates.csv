@@ -14,3 +14,4 @@ per:TestZeta000000000000f,Q900000006,P569,0590-01-01T00:00:00Z,year,Julian,needs
 per:TestZeta000000000000f,Q900000007,P569,0700-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000007,normal,,
 per:TestTheta00000000000h,Q900000008,P569,0600-07-04T00:00:00Z,day,Gregorian,exact,proposed,Wikidata Q900000008,normal,,
 per:TestTheta00000000000h,Q900000008,P570,0001-01-01T00:00:00Z,millennium,Julian,exact,proposed,Wikidata Q900000008,normal,,
+per:TestNu000000000000000n,Q900000010,P569,0640-01-01T00:00:00Z,year,Julian,exact,proposed,Wikidata Q900000010,normal,,

@@ -43,6 +43,8 @@ MEMBER_OF = "rel_member_of"
 REL_AGE_AT, REL_BORN_DURING, REL_DIED_DURING, REL_DATED = "rel_age_at", "rel_born_during", "rel_died_during", "rel_dated"
 KINSHIP_CLASS = "relclass_kinship"
 SPATIAL_CLASS = "relclass_spatial"
+TRANSMISSION_CLASS = "relclass_transmission"
+FORWARD_TRANSMISSION = ("rel_narrated_to",)              # subject passed it on to object; others: object to subject
 PARENT_OF = ("rel_father_of", "rel_mother_of")          # subject is the parent
 CHILD_OF = ("rel_child_of",)                            # subject is the child
 SPOUSE_OF = ("rel_spouse_of", "rel_divorced_from")
@@ -128,6 +130,7 @@ class Collector:
         self.kin_ties: list[dict] = []
         self.place_links: list[dict] = []      # person -> place claims with no date (shown in words)
         self.residences: list[dict] = []       # person -> place affiliations with a placed extent
+        self.transmission: list[dict] = []     # recorded links: 'to' received from 'from'
         self.external_label = external_label
         self.ages: list[AgeClaim] = []
         self._load_people()
@@ -138,6 +141,7 @@ class Collector:
         self._load_ibn_hisham()
         self._date_life_events()
         self._load_kinship_and_membership()
+        self._load_transmission()
 
     # ------------------------------------------------------------ people
     def _load_people(self):
@@ -477,6 +481,42 @@ class Collector:
                 ev.text = " / ".join(dict.fromkeys(c.text for c in cs))
                 ev.notes.append(t("ih.life_event_dated", name=person.name,
                                   sources="; ".join(dict.fromkeys(c.source["label"] for c in cs))))
+
+    # ------------------------------------------------------------ transmission links (M7)
+    def _load_transmission(self):
+        """Chain links (mrs:TransmissionLink: fromNarrator -> toNarrator) and transmission-class
+        assertions between two people. Only what is recorded; nothing is inferred."""
+        g = self.g
+        for link in g.subjects(MRS.fromNarrator, None):
+            f, to = g.value(link, MRS.fromNarrator), g.value(link, MRS.toNarrator)
+            if f is None or to is None or str(f) not in self.people or str(to) not in self.people:
+                continue
+            chain = next(iter(g.subjects(MRS.hasLink, link)), None)
+            report = next(iter(g.subjects(MRS.hasChain, chain)), None) if chain is not None else None
+            passage = g.value(report, MRS.locatedIn) if report is not None else None
+            pinfo = self.site.passage_info(passage) if passage is not None else {}
+            mode = g.value(link, MRS.transmissionMode)
+            self.transmission.append({
+                "from": str(f), "to": str(to), "kind": "link",
+                "label": self.site.vocab(mode) if mode is not None else None,
+                "term": str(g.value(link, RDFS.label)) if g.value(link, RDFS.label) is not None else None,
+                "chain": str(g.value(chain, RDFS.label)) if chain is not None and g.value(chain, RDFS.label) is not None else None,
+                "citation": (pinfo or {}).get("citation"), "status": None})
+        for a in g.subjects(RDF.type, MRS.Assertion):
+            pred = g.value(a, MRS.predicate)
+            rc = g.value(pred, MRS.relationClass) if pred is not None else None
+            if rc is None or _local(rc) != TRANSMISSION_CLASS:
+                continue
+            subj, obj = str(g.value(a, MRS.assertionSubject)), str(g.value(a, MRS.assertionObject))
+            if subj not in self.people or obj not in self.people:
+                continue
+            f, to = (subj, obj) if _local(pred) in FORWARD_TRANSMISSION else (obj, subj)
+            passage = g.value(a, PROV.wasDerivedFrom)
+            pinfo = self.site.passage_info(passage) if passage is not None else {}
+            self.transmission.append({
+                "from": f, "to": to, "kind": "assertion", "label": self.site.vocab(pred) or _local(pred),
+                "term": None, "chain": None, "citation": (pinfo or {}).get("citation"),
+                "status": self.site.vkey(g.value(a, MRS.assertionStatus), "as_")})
 
     # ------------------------------------------------------------ kinship, membership, ties
     def _kin_tie(self, a, pred, subj: str, obj: str) -> dict:

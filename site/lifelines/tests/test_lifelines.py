@@ -164,6 +164,7 @@ class Fixture(unittest.TestCase):
     def test_people_without_dates_are_listed_not_drawn(self):
         self.assertEqual(sorted(u["n"] for u in self.data["undated"]),
                          ["Test person Eta", "Test person Iota", "Test person Zeta"])
+        self.assertIn("Test person Nu", self.by_name)
         why = {u["n"]: u["why"] for u in self.data["undated"]}
         self.assertEqual(why["Test person Zeta"], "ambiguous")     # two candidate items: never mixed
         self.assertEqual(why["Test person Iota"], "unplaced")      # relative date, in words only
@@ -244,6 +245,20 @@ class Fixture(unittest.TestCase):
         self.assertEqual(alpha["pp"], [[town, J(622, 1, 1), J(622, 12, 31), mig]])   # the event's own range
         self.assertEqual(beta["pp"], [])                                             # did not take part
         self.assertEqual(beta["pu"], [[town, "migrated to", "proposed"]])            # undated: listed, not drawn
+
+    def test_overlap_check_flags_only_and_never_judges(self):
+        res = {(l["tn"], l["fn"]): l for l in self.data["tl"]}
+        self.assertEqual(res[("Test person Nu", "Test person Alpha")]["ov"], "no_overlap")   # born 640, after 632
+        theta = res[("Test person Theta", "Test person Alpha")]
+        self.assertEqual(theta["ov"], "overlap")
+        self.assertEqual([self.data["places"][x[0]]["n"] for x in theta["sh"]], ["Test town"])
+        self.assertEqual(res[("Test person Alpha", "Test person Eta")]["ov"], "unknown")      # Eta has no dates
+        page = B.render(self.data, self.t, home="../")
+        self.assertIn(self.t("tl.flag_no_overlap"), page)
+        self.assertIn(self.t("tl.rule"), page)
+        for k, v in self.t.d.items():                                       # flags only: no verdict words
+            if k.startswith("tl.") and k != "tl.rule":
+                self.assertNotIn("broken", v.lower(), k)
 
     def test_kinship_ties_keep_direction_status_and_source(self):
         names = [p["n"] for p in self.data["people"]]

@@ -70,6 +70,48 @@ def attr(s) -> str:
 
 
 # ---------------------------------------------------------------- data
+def overlap(a: dict | None, b: dict | None) -> dict:
+    """Do two lifelines overlap, by their recorded dates? 'no_overlap' only when the dates rule it
+    out (one's latest possible death is before the other's earliest possible birth); 'overlap' when
+    the stretches each was certainly alive meet; 'possible' when the ranges allow it; 'unknown'
+    when a needed date is missing. A flag for scholars to review, never a verdict on a chain."""
+    def dated(lf):
+        return lf if lf and not lf.get("ages_only") else None
+    a, b = dated(a), dated(b)
+    if not a or not b:
+        return {"ov": "unknown"}
+    for x, y in ((a, b), (b, a)):
+        if x["d"] and y["b"] and x["d"][1] < y["b"][0]:
+            return {"ov": "no_overlap"}
+    if a["segment"] and b["segment"] and max(a["s"], b["s"]) <= min(a["e"], b["e"]):
+        return {"ov": "overlap", "win": [max(a["s"], b["s"]), min(a["e"], b["e"])]}
+    lo = max(a["b"][0] if a["b"] else -10**9, b["b"][0] if b["b"] else -10**9)
+    hi = min(a["d"][1] if a["d"] else 10**9, b["d"][1] if b["d"] else 10**9)
+    if (a["b"] or b["b"]) and (a["d"] or b["d"]) and lo <= hi:
+        return {"ov": "possible", "win": [lo, hi]}
+    return {"ov": "unknown"}
+
+
+def transmission_html(data: dict, t: T) -> str:
+    if not data["tl"]:
+        return f'<p class="note">{esc(t("tl.none"))}</p>'
+    rows = []
+    for tl in data["tl"]:
+        how = " · ".join(x for x in (tl["lab"], tl["term"]) if x)
+        src = " · ".join(x for x in (tl["ch"], tl["cit"]) if x)
+        shared = ""
+        if tl["sh"]:
+            shared = "<br><small>" + esc(t("tl.shared", places=", ".join(data["places"][s[0]]["n"] for s in tl["sh"]))) + "</small>"
+        flag = (f'<span class="flag">{esc(t("tl.flag_no_overlap"))}</span>' if tl["ov"] == "no_overlap"
+                else esc(t(f"tl.{tl['ov']}")))
+        rows.append(f'<tr data-ov="{tl["ov"]}"><td>{esc(tl["tn"])}</td><td>{esc(tl["fn"])}</td>'
+                    f'<td>{esc(how)}<br><small>{esc(src)} · {esc(t("status.label", value=t("status." + tl["st"]) if tl["st"] else t("status.none")))}</small></td>'
+                    f'<td>{flag}{shared}</td></tr>')
+    head = "".join(f'<th scope="col">{esc(t(k))}</th>' for k in ("tl.col_to", "tl.col_from", "tl.col_how", "tl.col_check"))
+    return (f'<div class="tablewrap" tabindex="0" role="region" aria-labelledby="tl-h"><table class="ll-table tl-table">'
+            f'<caption>{esc(t("tl.caption"))}</caption><thead><tr>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>')
+
+
 def ages_text(values: list[float], t: T) -> str:
     vals = [str(int(v)) if float(v).is_integer() else str(v) for v in values]
     if not vals:
@@ -226,6 +268,25 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
     for i, p_out in enumerate(out_people):
         p_out["pp"] = sorted(presences.get(i, []), key=lambda r: (r[1], r[0]))
         p_out["pu"] = undated_places.get(i, [])
+    # M7: for each recorded transmission link, do the two lifelines overlap, and did they share a
+    # recorded place during the overlap? A flag for scholars, computed here, never a verdict.
+    tlinks = []
+    for tl in c.transmission:
+        fi, ti = index.get(tl["from"]), index.get(tl["to"])
+        lf_f = lifes[tl["from"]][0] if fi is not None else None
+        lf_t = lifes[tl["to"]][0] if ti is not None else None
+        res = overlap(lf_f, lf_t)
+        shared = []
+        if res["ov"] in ("overlap", "possible") and fi is not None and ti is not None:
+            win = res.get("win")
+            for a in out_people[fi]["pp"]:
+                for b in out_people[ti]["pp"]:
+                    lo, hi = max(a[1], b[1]), min(a[2], b[2])
+                    if a[0] == b[0] and lo <= hi and (not win or (lo <= win[1] and hi >= win[0])):
+                        shared.append([a[0], lo, hi])
+        tlinks.append({"f": fi, "t": ti, "fn": c.people[tl["from"]].name, "tn": c.people[tl["to"]].name,
+                       "kd": tl["kind"], "lab": tl["label"], "term": tl["term"], "ch": tl["chain"],
+                       "cit": tl["citation"], "st": tl["status"], "ov": res["ov"], "sh": shared})
     kin_ties: dict[tuple, dict] = {}
     for tie in c.kin_ties:
         if tie["a"] not in index or tie["b"] not in index:
@@ -266,6 +327,7 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
         "people": out_people, "events": out_events, "undated": undated,
         "kt": [kin_ties[k] for k in sorted(kin_ties)],
         "places": places_out,
+        "tl": tlinks,
         "kin": {str(k): v for k, v in kin_labels.items()},
         "unitDays": {"lunar": cal.LUNAR_YEAR_DAYS, "solar": cal.SOLAR_YEAR_DAYS},
         "axis": axis, "sources": sources,
@@ -370,10 +432,11 @@ def legend_html(t: T) -> str:
         "given": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line><path d="M22.5 7 L28 1.5 L33.5 7 L28 12.5 Z" class="lg-given"></path></svg>',
         "tie": '<svg width="56" height="28" aria-hidden="true"><path d="M16 4 H10 V24 H16" class="lg-tie"></path><line x1="7" y1="12" x2="13" y2="12" class="lg-tie-mark"></line><line x1="7" y1="15" x2="13" y2="15" class="lg-tie-mark"></line><line x1="18" y1="4" x2="54" y2="4" class="lg-line"></line><line x1="18" y1="24" x2="54" y2="24" class="lg-line"></line></svg>',
         "place": '<svg width="56" height="28" aria-hidden="true"><line x1="2" y1="22" x2="54" y2="22" class="lg-line"></line><path d="M22 22 V6 H34 V22" class="lg-exc"></path></svg>',
+        "tm": '<svg width="56" height="28" aria-hidden="true"><path d="M16 4 H10 V24 H16" class="lg-tm"></path><rect x="6.5" y="10.5" width="7" height="7" class="lg-flag"></rect><line x1="18" y1="4" x2="54" y2="4" class="lg-line"></line><line x1="18" y1="24" x2="54" y2="24" class="lg-line"></line></svg>',
         "review": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line rv"></line></svg>',
     }
     rows = "".join(f'<li>{sw[k]}<span>{esc(t("legend." + k))}</span></li>' for k in
-                   ("line", "range", "open", "conn", "node", "given", "gap", "tie", "place", "review"))
+                   ("line", "range", "open", "conn", "node", "given", "gap", "tie", "tm", "place", "review"))
     return (f'<ul class="legend">{rows}</ul>'
             f'<p class="note">{esc(t("legend.hue"))}</p>'
             f'<p class="note">{esc(t("legend.calendar"))}</p>'
@@ -450,6 +513,7 @@ def render(data: dict, t: T, home: str | None) -> str:
 <option value="tabaqa">{esc(t("order.tabaqa"))}</option>
 <option value="kin">{esc(t("order.kin"))}</option>
 <option value="tribe">{esc(t("order.tribe"))}</option>
+<option value="tm">{esc(t("order.tm"))}</option>
 </select></label>
 <label class="ctl find">{esc(t("controls.filter"))} <input type="search" name="filter" list="ll-names" autocomplete="off" placeholder="{attr(t("controls.filter_ph"))}"></label>
 <datalist id="ll-names"></datalist>
@@ -481,6 +545,9 @@ def render(data: dict, t: T, home: str | None) -> str:
 {table_html(data, t)}</section>
 <section id="undated-sec" aria-labelledby="undated-h"><h2 id="undated-h">{esc(t("undated.h", n=len(data["undated"])))}</h2>
 <p class="note">{esc(t("undated.intro"))}</p>{undated_html(data, t)}</section>
+<section id="transmission" aria-labelledby="tl-h"><h2 id="tl-h">{esc(t("tl.h"))}</h2>
+<p class="banner tl-note" role="note">{esc(t("tl.rule"))}</p>
+{transmission_html(data, t)}</section>
 <section aria-labelledby="sources-h"><h2 id="sources-h">{esc(t("sources.h"))}</h2>{sources_html(data, t)}
 <h2>{esc(t("limits.h"))}</h2>{limits_html(data, t)}</section>
 </main>
@@ -516,7 +583,7 @@ def merge_graph(graph: Path, ih_text: str, renames: dict, out: Path) -> tuple[Pa
     return out, reader_iris
 
 
-JS_PREFIXES = ("js", "status", "age", "group", "match", "order", "units", "axis", "flag", "date", "ih")
+JS_PREFIXES = ("js", "status", "age", "group", "match", "order", "units", "axis", "flag", "date", "ih", "tl")
 
 
 def main(argv=None) -> int:

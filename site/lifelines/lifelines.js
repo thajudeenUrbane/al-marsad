@@ -40,7 +40,20 @@
   controls.hidden = false;
   stage.hidden = false;
 
-  var P = D.people, E = D.events, KT = D.kt || [], PL = D.places || [];
+  var P = D.people, E = D.events, KT = D.kt || [], PL = D.places || [], TL = D.tl || [];
+  var tmGroup = {};
+  (function () {
+    // people joined by recorded transmission links, as groups (union-find)
+    var par = {};
+    function f(x) { while (par[x] !== undefined && par[x] !== x) { x = par[x]; } return x; }
+    TL.forEach(function (l) {
+      if (l.f === null || l.t === null) { return; }
+      if (par[l.f] === undefined) { par[l.f] = l.f; }
+      if (par[l.t] === undefined) { par[l.t] = l.t; }
+      par[f(l.f)] = f(l.t);
+    });
+    Object.keys(par).forEach(function (k) { tmGroup[k] = String(f(+k)); });
+  })();
   var hasTribes = P.some(function (p) { return p.tr && p.tr.length; });
   var hasKin = P.some(function (p) { return p.kin >= 0; });
   var hasTabaqa = P.some(function (p) { return p.tb; });
@@ -58,7 +71,7 @@
     var q = new URLSearchParams(location.hash.replace(/^#/, ""));
     if (q.get("align") === "age" || q.get("align") === "place") { state.align = q.get("align"); }
     if (q.get("units") === "solar") { state.units = "solar"; }
-    if (["birth", "tabaqa", "kin", "tribe"].indexOf(q.get("order")) >= 0) { state.order = q.get("order"); }
+    if (["birth", "tabaqa", "kin", "tribe", "tm"].indexOf(q.get("order")) >= 0) { state.order = q.get("order"); }
     if (q.get("f")) { state.filter = q.get("f"); }
     if (q.get("rv") === "1") { state.review = true; }
     var z = parseFloat(q.get("z"));
@@ -214,6 +227,9 @@
     } else if (state.order === "kin") {
       key = function (p) { return p.kin >= 0 ? String(p.kin) : ""; };
       label = function (k) { return k ? D.kin[k] : t("js.group_no_kin"); };
+    } else if (state.order === "tm") {
+      key = function (p) { var i = P.indexOf(p); return tmGroup[i] !== undefined ? tmGroup[i] : ""; };
+      label = function (k) { return k ? t("js.group_tm") : t("js.group_no_tm"); };
     } else if (state.order === "tribe") {
       key = function (p) { return p.tr && p.tr.length ? p.tr[0] : ""; };
       label = function (k) { return k ? t("js.group_tribe", { name: k }) : t("js.group_no_tribe"); };
@@ -292,11 +308,12 @@
     var height = y + 16;
     // kinship ties are undated: they go in a gutter beside the time axis, never on it
     var brackets = [], lanes = [];
-    if (state.order === "kin") {
-      KT.forEach(function (tie, ti) {
-        if (rowOf[tie.a] === undefined || rowOf[tie.b] === undefined) { return; }
-        var r0 = Math.min(rowOf[tie.a], rowOf[tie.b]), r1 = Math.max(rowOf[tie.a], rowOf[tie.b]);
-        brackets.push({ ti: ti, r0: r0, r1: r1 });
+    if (state.order === "kin" || state.order === "tm") {
+      (state.order === "kin" ? KT : TL).forEach(function (tie, ti) {
+        var a = state.order === "kin" ? tie.a : tie.f, b = state.order === "kin" ? tie.b : tie.t;
+        if (a === null || b === null || rowOf[a] === undefined || rowOf[b] === undefined) { return; }
+        var r0 = Math.min(rowOf[a], rowOf[b]), r1 = Math.max(rowOf[a], rowOf[b]);
+        brackets.push({ ti: ti, r0: r0, r1: r1, tm: state.order === "tm" });
       });
       brackets.sort(function (a, b) { return (a.r1 - a.r0) - (b.r1 - b.r0) || a.r0 - b.r0; });
       brackets.forEach(function (bk) {
@@ -527,8 +544,9 @@
     }
     parts.push('<g class="conns">' + conns.join("") + "</g>");
     if (L.brackets.length) {
-      var tb = ['<text class="tiehead" x="4" y="12">' + h(t("js.ties_head")) + "</text>"];
+      var tb = ['<text class="tiehead" x="4" y="12">' + h(t(state.order === "tm" ? "js.tm_head" : "js.ties_head")) + "</text>"];
       L.brackets.forEach(function (bk) {
+        if (bk.tm) { tb.push(tmBracket(bk)); return; }
         var tie = KT[bk.ti], x = L.gut - 8 - bk.lane * 11;
         var ya = rowY(tie.a), yb = rowY(tie.b), y0 = Math.min(ya, yb), y1 = Math.max(ya, yb), ym = (y0 + y1) / 2;
         var mark = "";
@@ -803,6 +821,8 @@
     if (!sel) { return; }
     if (sel.type === "e") {
       scroller.querySelectorAll('[data-ev="' + sel.i + '"]').forEach(function (el) { el.classList.add("sel"); });
+    } else if (sel.type === "l") {
+      scroller.querySelectorAll('[data-tl="' + sel.i + '"]').forEach(function (el) { el.classList.add("sel"); });
     } else if (sel.type === "t") {
       scroller.querySelectorAll('[data-tie="' + sel.i + '"]').forEach(function (el) { el.classList.add("sel"); });
       [KT[sel.i].a, KT[sel.i].b].forEach(function (i) {
@@ -1004,6 +1024,34 @@
     return true;
   }
 
+  // a transmission link: receiver <- source, dash-dot; a neutral flag where the lives do not overlap
+  function tmBracket(bk) {
+    var l = TL[bk.ti], x = L.gut - 8 - bk.lane * 11;
+    var yf = rowY(l.f), yt = rowY(l.t), y0 = Math.min(yf, yt), y1 = Math.max(yf, yt), ym = (y0 + y1) / 2;
+    var flag = l.ov === "no_overlap" ? '<rect class="tmflag" x="' + (x - 3.5) + '" y="' + (ym - 3.5) + '" width="7" height="7"/>' :
+      l.ov === "unknown" ? '<circle class="tmunknown" cx="' + x + '" cy="' + ym + '" r="2.5"/>' : "";
+    var dir = yt > yf ? 1 : -1;
+    var aria = t("js.tm_aria", { to: l.tn, from: l.fn, check: t("tl." + (l.ov === "no_overlap" ? "flag_no_overlap" : l.ov)) });
+    return '<g class="tie tm" data-tl="' + bk.ti + '" tabindex="0" role="button" aria-label="' + h(aria) + '">' +
+      '<path class="tmpath" d="M' + (x + 5) + " " + y0 + " H" + x + " V" + y1 + " H" + (x + 5) + '"/>' +
+      '<path class="tiemark" d="M' + (x - 3) + " " + (yt - 6 * dir) + " L" + x + " " + (yt - 2 * dir) + " L" + (x + 3) + " " + (yt - 6 * dir) + '"/>' +
+      flag + '<rect class="tiehit" x="' + (x - 5) + '" y="' + y0 + '" width="12" height="' + Math.max(8, y1 - y0) + '"/></g>';
+  }
+  function tlDetails(i, focus) {
+    var l = TL[i];
+    var out = ['<h2 id="ll-details-h">' + hx(t("js.tm_h", { to: l.tn, from: l.fn })) + "</h2>"];
+    out.push('<p class="meta">' + h(t("tl.rule")) + "</p>");
+    out.push("<p>" + (l.ov === "no_overlap" ? '<span class="flag">' + h(t("tl.flag_no_overlap")) + "</span>" : h(t("tl." + l.ov))) + "</p>");
+    if (l.sh.length) {
+      out.push('<p class="meta">' + hx(t("tl.shared", { places: l.sh.map(function (x) { return PL[x[0]].n; }).join(", ") })) + "</p>");
+    }
+    out.push('<p class="meta">' + hx([l.lab, l.term, l.ch, l.cit].filter(Boolean).join(" · ")) + " · " + h(statusText(l.st)) + "</p>");
+    out.push("<p>" + [l.t, l.f].filter(function (x) { return x !== null; }).map(function (x) {
+      return '<button type="button" class="lk" data-goto-p="' + x + '">' + hx(P[x].n) + "</button>";
+    }).join(" · ") + "</p>");
+    showDetails(out.join(""), focus);
+  }
+
   function tieDetails(ti, focus) {
     var tie = KT[ti];
     var out = ['<h2 id="ll-details-h">' + hx(t("js.tie_h", { a: P[tie.a].n, rel: tie.cl[0].lab, b: P[tie.b].n })) + "</h2>"];
@@ -1027,7 +1075,8 @@
       if (!momentDetails(false)) { details.hidden = true; }
       return;
     }
-    if (s.type === "e") { eventDetails(s.i, focus); } else if (s.type === "t") { tieDetails(s.i, focus); } else { personDetails(s.i, focus); }
+    if (s.type === "e") { eventDetails(s.i, focus); } else if (s.type === "t") { tieDetails(s.i, focus); }
+    else if (s.type === "l") { tlDetails(s.i, focus); } else { personDetails(s.i, focus); }
     requestAnimationFrame(function () { reveal(s); });
   }
 
@@ -1158,9 +1207,10 @@
 
   // ------------------------------------------------------------ events
   scroller.addEventListener("click", function (e) {
-    var el = e.target.closest("[data-ev],[data-p],[data-tie]");
+    var el = e.target.closest("[data-ev],[data-p],[data-tie],[data-tl]");
     if (!el || !scroller.contains(el)) { return; }
-    if (el.dataset.tie !== undefined) { select({ type: "t", i: +el.dataset.tie }, false); }
+    if (el.dataset.tl !== undefined) { select({ type: "l", i: +el.dataset.tl }, false); }
+    else if (el.dataset.tie !== undefined) { select({ type: "t", i: +el.dataset.tie }, false); }
     else if (el.dataset.ev !== undefined) { select({ type: "e", i: +el.dataset.ev }, false); }
     else { select({ type: "p", i: +el.dataset.p }, false); }
   });
@@ -1171,7 +1221,8 @@
       select({ type: "e", i: +el.dataset.ev }, true);
     } else if ((e.key === "Enter" || e.key === " ") && el.matches && el.matches("g.tie")) {
       e.preventDefault();
-      select({ type: "t", i: +el.dataset.tie }, true);
+      if (el.dataset.tl !== undefined) { select({ type: "l", i: +el.dataset.tl }, true); }
+      else { select({ type: "t", i: +el.dataset.tie }, true); }
     } else if (e.key === "+" || e.key === "=") { setZoom(state.zoom * 1.25); }
     else if (e.key === "-") { setZoom(state.zoom / 1.25); }
   });
@@ -1263,6 +1314,7 @@
     o.querySelector('option[value="tribe"]').disabled = !hasTribes;
     o.querySelector('option[value="kin"]').disabled = !hasKin;
     o.querySelector('option[value="tabaqa"]').disabled = !hasTabaqa;
+    o.querySelector('option[value="tm"]').disabled = !TL.some(function (l) { return l.f !== null && l.t !== null; });
     if (!hasTribes) { o.querySelector('option[value="tribe"]').textContent = t("js.order_tribe_none"); }
     controls.querySelector('input[name="review"]').checked = state.review;
     var yw = controls.querySelector('input[name="young"]'), pi = prophetIndex();
