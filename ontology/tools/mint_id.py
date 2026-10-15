@@ -15,11 +15,17 @@ The rule:
     plus every ID in ontology/corpus/identity.csv), so no payload is ever shared
     across kinds, not only within one kind;
   * it is also at least two characters away from every taken payload (one
-    character substituted, added or dropped is a near-collision and is rejected).
+    character substituted, added or dropped is a near-collision and is rejected);
+  * it shares no run of 8 or more consecutive characters with any taken payload
+    (slice 1e). Two random 22-character base62 IDs essentially never do (about
+    1 in 10^14 for any one pair of positions), so a shared run means one of the
+    two was typed or derived by hand.
 
-Slice 1d renamed the IDs that broke this rule (see docs/handover/slice-1d.md);
-identity_audit.py fails if a shared payload or a one-character near-collision
-reappears.
+Slice 1d renamed the IDs that were hash-derived, shared a payload or sat one
+character from another (docs/handover/slice-1d.md); slice 1e re-minted the
+hand-typed ones that shared a run (docs/handover/slice-1e.md). identity_audit.py
+fails if a shared payload, a one-character near-collision or a shared
+8-character run reappears.
 This script only prints IDs. It writes nothing; put the ID in the data and
 the identity table yourself.
 """
@@ -35,6 +41,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BASE = "https://w3id.org/marsad/id/"
 ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 LENGTH = 22
+RUN = 8  # slice 1e: no new payload may share a run of this many consecutive characters (or more) with a taken one; same value as identity_audit.RUN
 IRI_RE = re.compile(re.escape(BASE) + r"[a-z]+/([A-Za-z0-9]+)")
 PREFIX_RE = re.compile(r"@prefix\s+([A-Za-z0-9_-]+):\s*<" + re.escape(BASE) + r"([a-z]+)/>")
 CURIE_RE = r"(?<![A-Za-z0-9_:])({prefixes}):([A-Za-z0-9]+)(?![A-Za-z0-9])"
@@ -64,14 +71,21 @@ def _keys(payload):
     return {payload} | {payload[:i] + payload[i + 1:] for i in range(len(payload))}
 
 
+def _runs(payload):
+    """Every run of RUN consecutive characters in the payload. Two payloads share a run of RUN or more iff these sets meet."""
+    return {payload[i:i + RUN] for i in range(len(payload) - RUN + 1)}
+
+
 def new_payload(taken):
-    """A fresh payload: not in `taken`, and not one character (substituted, added or dropped) from any member."""
-    near = set()
+    """A fresh payload: not in `taken`, not one character (substituted, added or dropped) from any member,
+    and sharing no run of RUN or more consecutive characters with any member."""
+    near, runs = set(), set()
     for p in taken:
         near |= _keys(p)
+        runs |= _runs(p)
     while True:
         payload = "".join(secrets.choice(ALPHABET) for _ in range(LENGTH))
-        if payload not in taken and not (_keys(payload) & near):
+        if payload not in taken and not (_keys(payload) & near) and not (_runs(payload) & runs):
             taken.add(payload)
             return payload
 

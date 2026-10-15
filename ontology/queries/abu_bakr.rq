@@ -7,16 +7,16 @@ PREFIX per:  <https://w3id.org/marsad/id/person/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?source ?kind (COUNT(DISTINCT ?node) AS ?links)
 WHERE {
-  { { ?node mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:assertionObject ?other }
+  { { ?node mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:assertionObject ?other }
     UNION
-    { ?node mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:assertionSubject ?other }
+    { ?node mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:assertionSubject ?other }
     ?node a mrs:Assertion ; mrs:predicate ?pred ; mrs:createdBy ?agent .
     OPTIONAL { ?pred mrs:relationClass ?rc }
     BIND (IF(BOUND(?rc) && ?rc = mrs:relclass_kinship, "kinship tie",
          IF(EXISTS { ?other a mrs:Event }, "assertion: event/story/incident",
          IF(EXISTS { ?other a mrs:Person }, "assertion: other person", "assertion: other"))) AS ?kind) }
   UNION
-  { ?node mrs:hasParticipation [ mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ] ; mrs:createdBy ?agent .
+  { ?node mrs:hasParticipation [ mrs:participant per:QYWUDj7ATL1ApLn5P7gmsQ ] ; mrs:createdBy ?agent .
     BIND ("event participation" AS ?kind) }
   ?agent rdfs:label ?source .
 }

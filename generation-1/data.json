@@ -1,7 +1,7 @@
 {
   "persons": [
     {
-      "id": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "id": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "label": "Abū Bakr al-Ṣiddīq",
       "tabaqa": "ṣaḥābī",
       "coverage": "stub",
@@ -57,7 +57,7 @@
       "role": null
     },
     {
-      "id": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1",
+      "id": "https://w3id.org/marsad/id/person/pgEqNKdrPeXOU9fcCIc5Tf",
       "label": "Jaʿfar b. Abī Ṭālib",
       "tabaqa": "ṣaḥābī",
       "coverage": "stub",
@@ -85,7 +85,7 @@
       "role": null
     },
     {
-      "id": "https://w3id.org/marsad/id/person/2sDfG6hJkQ9wErT4yUmNbV1",
+      "id": "https://w3id.org/marsad/id/person/dOPyrfzvo3NIvUQShyiRsk",
       "label": "Sawda bint Zamʿa",
       "tabaqa": "ṣaḥābī",
       "coverage": "stub",
@@ -113,7 +113,7 @@
       "role": null
     },
     {
-      "id": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "id": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "label": "The Prophet Muḥammad (peace and blessings be upon him)",
       "tabaqa": null,
       "coverage": "stub",
@@ -127,7 +127,7 @@
       "role": null
     },
     {
-      "id": "https://w3id.org/marsad/id/person/7kQwE4rTyU2mNbV9cXzAsD1",
+      "id": "https://w3id.org/marsad/id/person/5sGHTje5qGKdw6c6RWyHKV",
       "label": "Umm Salama bint Abī Umayya",
       "tabaqa": "ṣaḥābī",
       "coverage": "stub",
@@ -162,7 +162,7 @@
       "role": null
     },
     {
-      "id": "https://w3id.org/marsad/id/person/8pLkJ9hGfDsA3wErT5yUqP1",
+      "id": "https://w3id.org/marsad/id/person/w6IaTbniNnbK3AO5XyjIxJ",
       "label": "ʿAbd al-Raḥmān b. Abī Bakr",
       "tabaqa": null,
       "coverage": "stub",
@@ -274,7 +274,7 @@
   ],
   "event": [
     {
-      "id": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "id": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "label": "Battle of Badr",
       "placeLabel": "Badr",
       "native": "17 Ramaḍān 2 AH",
@@ -318,88 +318,88 @@
   ],
   "participation": [
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
-      "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
+      "person": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "role": "leader"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/Q4trlHWdutjvFkvqpaEGag",
       "role": "leader"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/4cFhNASabmB63JuKazjKPh",
       "role": "leader"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/9GhccCRfUoDfmF9S98F2Rl",
       "role": "leader"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/xXOoS1i5K8dtQ7nTy6GZCT",
       "role": "leader"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/emZYN2y2eJ4U3hYbzEdAzK",
       "role": "leader"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/UyMdny2eh90Lxs0Ub3izhs",
       "role": "leader"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
-      "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
+      "person": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/vln6et5FvUrm7neh48NSJa",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/No6KV9b4z8MnuoTMo3QxBY",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/e8UKnTRZCYHGR7wuT2r5HN",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/UtI7tfqLuYs902qoNowis1",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/LokzGBbtKKXFdzLwoDZSi6",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/B67CfBuX1hWcwMB0SKWElx",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/HlRtmjc07rUsfgTsP8rKRV",
       "role": "participant"
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "person": "https://w3id.org/marsad/id/person/rJSKcJSfpcILWc0k73qk2I",
       "role": "participant"
     },
     {
       "event": "https://w3id.org/marsad/id/event/5tBAYeftRqkNWJpOvUsfDX",
-      "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "person": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "role": "leader"
     },
     {
@@ -429,7 +429,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/5tBAYeftRqkNWJpOvUsfDX",
-      "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "person": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "role": "participant"
     },
     {
@@ -444,7 +444,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/64rHL4f8ZTX5CHnsnStL6R",
-      "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "person": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "role": "leader"
     },
     {
@@ -459,7 +459,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/64rHL4f8ZTX5CHnsnStL6R",
-      "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "person": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "role": "participant"
     },
     {
@@ -479,7 +479,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/oetqPWHa2zcbQWtEhV9cSx",
-      "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "person": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "role": "leader"
     },
     {
@@ -489,7 +489,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/oetqPWHa2zcbQWtEhV9cSx",
-      "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "person": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "role": "participant"
     },
     {
@@ -549,7 +549,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/EcDiFcMTUhmLq8tK91L0H8",
-      "person": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "person": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "role": "leader"
     },
     {
@@ -564,7 +564,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/EcDiFcMTUhmLq8tK91L0H8",
-      "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "person": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "role": "participant"
     },
     {
@@ -574,7 +574,7 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/EcDiFcMTUhmLq8tK91L0H8",
-      "person": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1",
+      "person": "https://w3id.org/marsad/id/person/pgEqNKdrPeXOU9fcCIc5Tf",
       "role": "participant"
     },
     {
@@ -584,31 +584,31 @@
     },
     {
       "event": "https://w3id.org/marsad/id/event/n05mvN7iM2uRhPvs7q25ps",
-      "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "person": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "role": "leader"
     }
   ],
   "eventAssertions": [
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "predicate": "led",
       "subjectLabel": "ʿAlī b. Abī Ṭālib",
       "basis": "Standard sira/maghazi tradition: Ali carried the Muhajirun banner and, per widely repeated accounts, personally accounted for several of the enemy's standard-bearers. Not yet matched to a specific passage."
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "predicate": "led",
       "subjectLabel": "Ḥamza b. ʿAbd al-Muṭṭalib",
       "basis": "Hamza b. Abd al-Muttalib led the counter-charge alongside Ali per the standard tradition. Not yet matched to a specific passage."
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "predicate": "led",
       "subjectLabel": "Saʿd b. Muʿādh",
       "basis": "Sa'd b. Mu'adh, chief of Aws, led the Ansar battalion at Badr per the standard tradition."
     },
     {
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "predicate": "participated in",
       "subjectLabel": "ʿUbayda b. al-Ḥārith",
       "basis": "Ubaydah b. al-Harith fought in the pre-battle triple duel (with Hamza and Ali) against three Qurashi champions; he was mortally wounded (his leg severed) and died of the wound shortly afterward, on the return march. Widely repeated in the standard sira tradition, not yet matched to a specific passage."
@@ -648,25 +648,25 @@
     {
       "subjectLabel": "ʿUthmān b. ʿAffān",
       "subject": "https://w3id.org/marsad/id/person/TxhFk19HwO2OpgvY4kBVGi",
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "basis": "Uthman b. Affan stayed in Madinah to nurse his ill wife Ruqayyah bint Muhammad, who died during the Badr campaign; the Prophet allotted him a share of the spoils as though he had been present. Standard sira tradition."
     },
     {
       "subjectLabel": "Ṭalḥa b. ʿUbaydullāh",
       "subject": "https://w3id.org/marsad/id/person/PNkrkk1S9wmc5Y5Lza6PmV",
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "basis": "Talha b. Ubaydullah was sent with Sa'id b. Zayd to Syria to gather intelligence on the Meccan caravan and returned after the battle; both were given shares of the spoils as though present. Standard sira tradition."
     },
     {
       "subjectLabel": "Saʿīd b. Zayd",
       "subject": "https://w3id.org/marsad/id/person/u94wpqEKcCVqkezetgirQ8",
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "basis": "Sa'id b. Zayd was on the same Syria intelligence mission as Talha b. Ubaydullah (see above)."
     },
     {
       "subjectLabel": "Jaʿfar b. Abī Ṭālib",
-      "subject": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1",
-      "event": "https://w3id.org/marsad/id/event/5rTyU9mNbV2cXzA8sDfGhJk1",
+      "subject": "https://w3id.org/marsad/id/person/pgEqNKdrPeXOU9fcCIc5Tf",
+      "event": "https://w3id.org/marsad/id/event/fnXxxzRKzKDFtsSvrMamC9",
       "basis": "Ja'far b. Abi Talib was in Abyssinia with the second group of migrants at the time of Badr; he returned to Madinah only around the time of Khaybar (7 AH). Standard sira tradition."
     },
     {
@@ -677,7 +677,7 @@
     },
     {
       "subjectLabel": "Jaʿfar b. Abī Ṭālib",
-      "subject": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1",
+      "subject": "https://w3id.org/marsad/id/person/pgEqNKdrPeXOU9fcCIc5Tf",
       "event": "https://w3id.org/marsad/id/event/oetqPWHa2zcbQWtEhV9cSx",
       "basis": "Ja'far b. Abi Talib was still in Abyssinia at this date, returning only around the time of Khaybar (7 AH) — after Hudaybiyya. See his Badr-absence assertion for the same underlying fact."
     }
@@ -687,7 +687,7 @@
       "person": "https://w3id.org/marsad/id/person/Q4trlHWdutjvFkvqpaEGag"
     },
     {
-      "person": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1"
+      "person": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ"
     },
     {
       "person": "https://w3id.org/marsad/id/person/vln6et5FvUrm7neh48NSJa"
@@ -735,7 +735,7 @@
       "person": "https://w3id.org/marsad/id/person/9GhccCRfUoDfmF9S98F2Rl"
     },
     {
-      "person": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1"
+      "person": "https://w3id.org/marsad/id/person/pgEqNKdrPeXOU9fcCIc5Tf"
     },
     {
       "person": "https://w3id.org/marsad/id/person/P4VAp86LIzXhq2pUAuEylx"
@@ -753,10 +753,10 @@
       "person": "https://w3id.org/marsad/id/person/qc93NP01sCCUcyGHh6If2f"
     },
     {
-      "person": "https://w3id.org/marsad/id/person/2sDfG6hJkQ9wErT4yUmNbV1"
+      "person": "https://w3id.org/marsad/id/person/dOPyrfzvo3NIvUQShyiRsk"
     },
     {
-      "person": "https://w3id.org/marsad/id/person/7kQwE4rTyU2mNbV9cXzAsD1"
+      "person": "https://w3id.org/marsad/id/person/5sGHTje5qGKdw6c6RWyHKV"
     },
     {
       "person": "https://w3id.org/marsad/id/person/7XMkA64afEC5PCz0zGGPTs"
@@ -774,7 +774,7 @@
   "kinship": [
     {
       "predicate": "father of",
-      "subject": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "subject": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "subjectLabel": "Abū Bakr al-Ṣiddīq",
       "object": "https://w3id.org/marsad/id/person/2FTEMtzmUhqwffqT42Bb3J",
       "objectLabel": "ʿĀʾisha bint Abī Bakr",
@@ -782,7 +782,7 @@
     },
     {
       "predicate": "father of",
-      "subject": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "subject": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "subjectLabel": "Abū Bakr al-Ṣiddīq",
       "object": "https://w3id.org/marsad/id/person/7XMkA64afEC5PCz0zGGPTs",
       "objectLabel": "Asmāʾ bint Abī Bakr",
@@ -790,9 +790,9 @@
     },
     {
       "predicate": "father of",
-      "subject": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "subject": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "subjectLabel": "Abū Bakr al-Ṣiddīq",
-      "object": "https://w3id.org/marsad/id/person/8pLkJ9hGfDsA3wErT5yUqP1",
+      "object": "https://w3id.org/marsad/id/person/w6IaTbniNnbK3AO5XyjIxJ",
       "objectLabel": "ʿAbd al-Raḥmān b. Abī Bakr",
       "basis": "Abu Bakr was Abd al-Rahman's father. Standard tradition."
     },
@@ -814,7 +814,7 @@
     },
     {
       "predicate": "spouse of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
       "object": "https://w3id.org/marsad/id/person/laOMIYgqaQ5Iw6DmtiCNkY",
       "objectLabel": "Khadīja bint Khuwaylid",
@@ -822,7 +822,7 @@
     },
     {
       "predicate": "father of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
       "object": "https://w3id.org/marsad/id/person/6eCGwhJPqffwRQDnFPYoqa",
       "objectLabel": "Fāṭima bint Muḥammad",
@@ -830,7 +830,7 @@
     },
     {
       "predicate": "father of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
       "object": "https://w3id.org/marsad/id/person/IrmZRQOJCNAEYbYu1lH2YN",
       "objectLabel": "Ruqayya bint Muḥammad",
@@ -838,7 +838,7 @@
     },
     {
       "predicate": "father of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
       "object": "https://w3id.org/marsad/id/person/u6Wfqrd9SmlceUqYksFFz8",
       "objectLabel": "Umm Kulthūm bint Muḥammad",
@@ -846,7 +846,7 @@
     },
     {
       "predicate": "spouse of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
       "object": "https://w3id.org/marsad/id/person/2FTEMtzmUhqwffqT42Bb3J",
       "objectLabel": "ʿĀʾisha bint Abī Bakr",
@@ -854,7 +854,7 @@
     },
     {
       "predicate": "spouse of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
       "object": "https://w3id.org/marsad/id/person/15ywiRwy5duq189kyMEIU1",
       "objectLabel": "Ḥafṣa bint ʿUmar",
@@ -862,17 +862,17 @@
     },
     {
       "predicate": "spouse of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
-      "object": "https://w3id.org/marsad/id/person/2sDfG6hJkQ9wErT4yUmNbV1",
+      "object": "https://w3id.org/marsad/id/person/dOPyrfzvo3NIvUQShyiRsk",
       "objectLabel": "Sawda bint Zamʿa",
       "basis": "Sawda bint Zam'a, wife — married after Khadija's death, before Aisha's marriage was consummated. Standard tradition."
     },
     {
       "predicate": "spouse of",
-      "subject": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "subject": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
-      "object": "https://w3id.org/marsad/id/person/7kQwE4rTyU2mNbV9cXzAsD1",
+      "object": "https://w3id.org/marsad/id/person/5sGHTje5qGKdw6c6RWyHKV",
       "objectLabel": "Umm Salama bint Abī Umayya",
       "basis": "Umm Salama, wife — married after Badr. Standard tradition; no Badr-time claim made."
     },
@@ -896,7 +896,7 @@
       "predicate": "sibling of",
       "subject": "https://w3id.org/marsad/id/person/Q4trlHWdutjvFkvqpaEGag",
       "subjectLabel": "ʿAlī b. Abī Ṭālib",
-      "object": "https://w3id.org/marsad/id/person/3wY6xZc2mQ7vR9nK4pT8sA1",
+      "object": "https://w3id.org/marsad/id/person/pgEqNKdrPeXOU9fcCIc5Tf",
       "objectLabel": "Jaʿfar b. Abī Ṭālib",
       "basis": "Ali and Ja'far, full brothers, both sons of Abu Talib. Standard tradition."
     },

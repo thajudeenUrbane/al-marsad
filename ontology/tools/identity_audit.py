@@ -24,10 +24,13 @@ Checks:
   4. no variant ID appears anywhere in the raw text of those Turtle files
   5. each canonical_id's source_files list matches the Turtle files that use it
   6. every stories-50 person (data.json) belongs to exactly one person row
-  7. the ID rule (docs/02 5.2.1): no payload is shared with, or one character (substituted, added or
-     dropped) away from, the payload of ANOTHER entity, of any kind. Every IRI in the four Turtle files and
-     every canonical_id counts, and so does every retired ID in variant_ids; a pair that is retired on both
-     sides is history, not a failure. IDs of one entity (a canonical_id and its own variant) never conflict.
+  7. the ID rule (docs/02 5.2.1): no payload is shared with, one character (substituted, added or
+     dropped) away from, or sharing a run of 8 or more consecutive characters with (slice 1e), the payload of
+     ANOTHER entity, of any kind. Every IRI in the four Turtle files and every canonical_id counts, and so
+     does every retired ID in variant_ids; a pair that is retired on both sides is history, not a failure.
+     IDs of one entity (a canonical_id and its own variant) never conflict. Two random 22-character base62 IDs
+     match at any one pair of 8-character positions about once in 10^14, so a shared run means one was typed
+     or derived by hand.
   8. every old ID in ontology/corpus/id-renames.csv is gone from the Turtle text and its new ID is in use
 New IDs come from ontology/tools/mint_id.py.
 """
@@ -38,6 +41,7 @@ import json
 import re
 import sys
 from collections import defaultdict
+from difflib import SequenceMatcher
 from pathlib import Path
 
 import rdflib
@@ -46,7 +50,7 @@ from rdflib import URIRef
 ROOT = Path(__file__).resolve().parents[2]
 TABLE = ROOT / "ontology" / "corpus" / "identity.csv"
 STORIES = ROOT / "stories-50" / "data.json"
-RENAMES = ROOT / "ontology" / "corpus" / "id-renames.csv"  # slice 1d: every ID re-minted, old -> new
+RENAMES = ROOT / "ontology" / "corpus" / "id-renames.csv"  # slices 1d and 1e: every ID re-minted, old -> new
 RENAME_COLUMNS = ["old_id", "new_id", "kind", "reason"]
 FILES = {
     "thawr": ROOT / "ontology" / "examples" / "thawr.ttl",
@@ -60,6 +64,13 @@ IRI_SEGMENT = {"per": "person", "plc": "place", "ev": "event", "grp": "group"}
 COLUMNS = ["kind", "canonical_id", "preferred_name_en", "name_ar", "variant_ids",
            "stories50_names", "source_files", "confidence", "note"]
 CONFIDENCE = {"exact", "probable", "needs-review"}
+RUN = 8  # slice 1e: payloads of two different entities may not share a run of this many consecutive characters (or more); same value as mint_id.RUN
+
+
+def longest_run(a, b):
+    """The longest run of consecutive characters that the two payloads have in common."""
+    m = SequenceMatcher(None, a, b, autojunk=False).find_longest_match(0, len(a), 0, len(b))
+    return a[m.a:m.a + m.size]
 
 
 def one_char_apart(a, b):
@@ -75,11 +86,14 @@ def one_char_apart(a, b):
 
 
 def payload_conflicts(ids):
-    """ids: {(segment, payload): (entity, live)}. Returns (shared, near).
+    """ids: {(segment, payload): (entity, live)}. Returns (shared, near, runs).
 
     shared: payloads that two or more entities carry, as {payload: [id keys]}.
     near:   pairs of id keys of different entities whose payloads are one character apart.
-    Only conflicts with at least one live ID are returned (retired-with-retired pairs are history)."""
+    runs:   (key, key, run) for different entities whose payloads share a run of RUN or more consecutive
+            characters, run being the longest such run; a pair already in `near` is not repeated here.
+    Only conflicts with at least one live ID are returned (retired-with-retired pairs are history, and the
+    IDs of one entity never conflict)."""
     by_pay = defaultdict(list)
     for key, (entity, live) in ids.items():
         by_pay[key[1]].append(key)
@@ -108,7 +122,23 @@ def payload_conflicts(ids):
             for kb in by_pay[b]:
                 if conflicts(ka, kb):
                     near.append((ka, kb))
-    return shared, near
+    by_run = defaultdict(set)  # every RUN-character run -> the payloads that contain it
+    for pay in by_pay:
+        for i in range(len(pay) - RUN + 1):
+            by_run[pay[i:i + RUN]].add(pay)
+    run_pairs = set()
+    for group in by_run.values():
+        for a in group:
+            for b in group:
+                if a < b and not one_char_apart(a, b):
+                    run_pairs.add((a, b))
+    runs = []
+    for a, b in sorted(run_pairs):
+        for ka in by_pay[a]:
+            for kb in by_pay[b]:
+                if conflicts(ka, kb):
+                    runs.append((ka, kb, longest_run(a, b)))
+    return shared, near, runs
 
 
 def curie(iri):
@@ -197,7 +227,7 @@ def main():
         if len(owners) != 1:
             errors.append(f"stories-50 person {p['name']!r} is in {len(owners)} person rows")
 
-    # 7. the ID rule: no shared payload, no one-character near-collision, between different entities
+    # 7. the ID rule: no shared payload, no one-character near-collision, no shared run of RUN+ characters, between different entities
     ids = {}  # (segment, payload) -> (entity, live)
     for seg, payload in live:
         pre = next(k for k, v in IRI_SEGMENT.items() if v == seg) if seg in IRI_SEGMENT.values() else None
@@ -207,13 +237,16 @@ def main():
         ids[(IRI_SEGMENT[c.split(":")[0]], c.split(":")[1])] = (c, True)
     for v, c in variants.items():
         ids.setdefault((IRI_SEGMENT[v.split(":")[0]], v.split(":")[1]), (c, False))
-    shared, near = payload_conflicts(ids)
-    if shared or near:
-        errors.append(f"ID rule broken: {len(shared)} shared payload(s) and {len(near)} one-character near-collision(s) between different entities (details below)")
+    shared, near, runs = payload_conflicts(ids)
+    if shared or near or runs:
+        errors.append(f"ID rule broken: {len(shared)} shared payload(s), {len(near)} one-character near-collision(s) and "
+                      f"{len(runs)} shared run(s) of {RUN}+ characters between different entities (details below)")
     for pay, keys in sorted(shared.items()):
         errors.append(f"payload {pay} is shared: " + " and ".join(f"{k[0]}" for k in keys))
     for a, b in near:
         errors.append(f"one character apart: {a[0]}/{a[1]} and {b[0]}/{b[1]}")
+    for a, b, run in runs:
+        errors.append(f"shared run of {len(run)} characters ({run}): {a[0]}/{a[1]} and {b[0]}/{b[1]}")
 
     # 8. the rename log
     renamed = []
@@ -236,6 +269,8 @@ def main():
         print(f"identity audit FAILED, {len(errors)} problem(s):")
         for e in errors[:40]:
             print("  -", e)
+        if len(errors) > 40:
+            print(f"  ... and {len(errors) - 40} more")
         sys.exit(1)
 
     if args.check:
@@ -251,8 +286,8 @@ def main():
     print(f"variant IDs (must not appear in any .ttl): {len(variants)}")
     print(f"entity IRIs in the four Turtle files, all canonical: {len(used)}")
     print(f"IRIs and IDs checked against the ID rule: {len(ids)} ({sum(1 for v in ids.values() if v[1])} live, {sum(1 for v in ids.values() if not v[1])} retired)")
-    print(f"payloads shared by different entities: {len(shared)}; one-character near-collisions: {len(near)}")
-    print(f"IDs re-minted in slice 1d (id-renames.csv): {len(renamed)}")
+    print(f"payloads shared by different entities: {len(shared)}; one-character near-collisions: {len(near)}; shared {RUN}+ character runs: {len(runs)}")
+    print(f"IDs re-minted (id-renames.csv; slice 1d and slice 1e): {len(renamed)}")
     print("identity audit passed")
 
 

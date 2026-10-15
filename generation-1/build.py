@@ -27,7 +27,7 @@ SEED_SOURCES = CORE_SOURCES + [SEED_FILE]
 # generation-1.ttl's own compilation agent — used to tell "the original 35/6"
 # apart from the seed batch's new people/events in the combined seed graph,
 # without needing a second SPARQL round-trip.
-GEN1_AGENT = "https://w3id.org/marsad/id/agent/9wErT4yUmN7bVcX2zAsDfGh"
+GEN1_AGENT = "https://w3id.org/marsad/id/agent/C7VpyqaTGtImKPBS8frhTf"
 
 TEMPLATES = [
     (ROOT / "generation-1" / "at-scale.template.html", ROOT / "generation-1" / "at-scale.html"),
