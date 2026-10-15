@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$title</title>
+<meta name="description" content="[[page.description]]">
+<link rel="stylesheet" href="${base}assets/site.css">
+<link rel="stylesheet" href="${base}ask/ask.css">
+$script
+</head>
+<body class="ask">
+<a class="skip-link" href="#main">[[nav.skip]]</a>
+<header class="site-header">
+<a class="home-link" href="${base}">[[site.name]]</a>
+<nav class="site-nav" aria-label="[[nav.sections]]">
+<ul>
+<li><a href="${base}">[[nav.home]]</a></li>
+<li><a href="${base}person/">[[nav.people]]</a></li>
+<li><a href="${base}event/">[[nav.events]]</a></li>
+<li><a href="${base}place/">[[nav.places]]</a></li>
+<li><a href="${base}group/">[[nav.groups]]</a></li>
+<li><a href="${base}story/">[[nav.stories]]</a></li>
+<li><a href="${base}ask/"$ask_current>[[nav.ask]]</a></li>
+</ul>
+</nav>
+</header>
+<main id="main" tabindex="-1">
+$body
+</main>
+<footer class="site-footer">
+<p class="licence"><a href="$url_licensing">[[footer.text_data]]</a> <a href="$url_cc_by_sa">[[footer.cc_by_sa]]</a>[[footer.sep]]<a href="$url_licensing">[[footer.code]]</a> <a href="$url_agpl">[[footer.agpl]]</a>[[footer.sep]]<a href="$url_licensing">[[footer.ids]]</a>[[footer.dash]]<a href="$url_licensing">[[footer.contributors]]</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<nav class="breadcrumb" aria-label="[[nav.breadcrumb]]"><ol><li><a href="../">[[nav.home]]</a></li><li aria-current="page">[[page.title]]</li></ol></nav>
+<h1>[[page.title]]</h1>
+<p class="lead">[[page.lead]]</p>
+<p class="note">[[page.how]]</p>
+<form id="ask-form" class="ask-form" role="search" action="./" hidden data-fetch="$index" data-loading="[[page.loading]]" data-failed="[[page.load_failed]]">
+<label for="ask-q">[[page.label]]</label>
+<div class="ask-row">
+<input id="ask-q" name="q" type="search" autocomplete="off" spellcheck="false" maxlength="$max" placeholder="[[page.placeholder]]">
+<button type="submit">[[page.submit]]</button>
+</div>
+<p class="ask-try">[[page.try]] $try</p>
+</form>
+<p class="ask-nojs" id="ask-nojs">[[page.nojs]]</p>
+<p class="ask-status" id="ask-status" role="status" aria-live="polite"></p>
+<div id="ask-answer" class="ask-answer"></div>
+<section class="cached" aria-labelledby="cached-h">
+<h2 id="cached-h">[[page.cached_heading]]</h2>
+<p>[[page.cached_lead]]</p>
+<p class="note">[[page.cached_check]]</p>
+$cached
+</section>
+<section class="limits" aria-labelledby="limits-h">
+<h2 id="limits-h">[[page.limits_heading]]</h2>
+<p>[[page.limits_lead]]</p>
+<ul>
+$limits
+</ul>
+</section>
+<section class="coverage" aria-labelledby="coverage-h">
+<h2 id="coverage-h">[[page.coverage_heading]]</h2>
+<p>$coverage</p>
+<p>$coverage_status</p>
+$gaps
+</section>

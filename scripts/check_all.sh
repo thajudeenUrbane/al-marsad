@@ -164,6 +164,7 @@ if step "site: build"                              "$PY" site/build.py; then
   step "learn: build"                              "$PY" learn/build_learn.py
   step "site/interactive: build"                   "$PY" site/interactive/build_interactive.py
   step "site/observatory: build"                   "$PY" site/observatory/build_observatory.py
+  step "ask: build"                                "$PY" ask/build_ask.py
   step "site: page budget"                         "$PY" site/check_budget.py
   step "site: HTML checks"                         "$PY" site/check_html.py
   step "site: pages work with JavaScript off"      browser_check site/check_nojs.cjs
@@ -173,6 +174,7 @@ if step "site: build"                              "$PY" site/build.py; then
   step "site/interactive: tests"                   "$PY" -m unittest discover -s site/interactive/tests
   step "site/observatory: page"                    browser_check site/observatory/check_observatory.cjs
   step "site/observatory: tests"                   "$PY" -m unittest discover -s site/observatory/tests
+  step "ask: page works (JS on and off)"           browser_check ask/tests/check_page.cjs
   # Checks that read site/dist go here.
 else
   skip "site: budget, HTML and JS-off checks" "the site did not build"
@@ -182,7 +184,7 @@ step "site: unit tests"                            "$PY" -m unittest discover -s
 step "review: statuses agree with the review log"  "$PY" review/import_decisions.py --check
 step "review: tests"                               "$PY" -m unittest discover -s review/tests
 step "learn: tests"                                "$PY" -m unittest discover -s learn/tests
-# step "ask: tests"                                "$PY" -m unittest discover -s ask/tests
+step "ask: tests"                                  "$PY" -m unittest discover -s ask/tests
 step "ci: actions pinned to commit SHAs"           actions_pinned
 
 # --- summary ------------------------------------------------------------------

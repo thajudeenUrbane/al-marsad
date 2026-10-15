@@ -1,0 +1,56 @@
+/* Ask the graph. Loaded after the site's own stylesheet (assets/site.css) and uses its
+   colour tokens. Logical properties only, so a right-to-left interface needs no rewrite. */
+.ask-form { margin-block: 1.25rem 0.5rem; }
+.ask-form label { display: block; font-weight: 600; margin-block-end: 0.35rem; }
+.ask-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ask-row input {
+  flex: 1 1 16rem; min-inline-size: 0;
+  font: inherit; padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line); border-radius: 0.3rem;
+  background: var(--bg); color: var(--fg);
+}
+.ask-row button, .ask-try button {
+  font: inherit; cursor: pointer;
+  border: 1px solid var(--accent); border-radius: 0.3rem;
+}
+.ask-row button { padding: 0.55rem 1.1rem; background: var(--accent); color: var(--accent-fg); }
+.ask-row input:focus-visible, .ask-row button:focus-visible, .ask-try button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.ask-try { font-size: 0.9rem; color: var(--muted); }
+.ask-try button { margin-block: 0.2rem; margin-inline-end: 0.35rem; padding: 0.15rem 0.55rem; background: var(--soft); color: var(--fg); font-size: 0.9rem; }
+.ask-nojs { padding: 0.6rem 0.9rem; border-inline-start: 6px solid var(--line); background: var(--soft); }
+.ask-status:empty { display: none; }
+.ask-status { color: var(--muted); }
+
+.answer { margin-block: 1.25rem 2rem; padding: 0.25rem 1rem 1rem; border: 1px solid var(--line); border-radius: 0.4rem; }
+.answer h2 { margin-block-start: 0.75rem; }
+.answer h2:focus { outline: none; }
+.answer .asked .k, .answer .searched { color: var(--muted); }
+.answer .query { margin-block: 0.5rem; }
+.answer .query summary { cursor: pointer; color: var(--muted); }
+code.dsl { display: block; padding: 0.4rem 0.6rem; background: var(--soft); border-radius: 0.25rem; overflow-wrap: anywhere; white-space: pre-wrap; }
+.answer .lead { font-weight: 600; font-size: 1.05rem; }
+.answer .lead.empty { font-weight: 600; }
+.status-summary { color: var(--muted); }
+.outcome-refusal { border-inline-start: 6px solid var(--draft-line); background: var(--draft-bg); }
+.refusal-reason { font-weight: 600; }
+.alts { font-size: 0.92rem; color: var(--muted); }
+.alts ul, .choices { margin-block: 0.25rem 0.75rem; }
+.rows { list-style: none; margin: 0; padding: 0; }
+.row { padding-block: 0.5rem; border-block-end: 1px solid var(--line); }
+.row-head { margin-block: 0.2rem; font-weight: 600; }
+.row-head .kind, .row-date { font-weight: 400; color: var(--muted); font-size: 0.9rem; }
+.row .claim-list { padding-inline-start: 1rem; }
+.row .claim { padding-block: 0.35rem; border-block-end: 0; }
+.tag { display: inline-block; padding: 0 0.4rem; border: 1px dashed var(--draft-line); border-radius: 0.25rem; font-weight: 400; font-size: 0.85rem; }
+.ai-note { font-style: italic; }
+.more-claims { padding-inline-start: 1rem; margin-block: 0.25rem; }
+.more-claims summary { cursor: pointer; color: var(--muted); font-size: 0.9rem; }
+.path { list-style: decimal; padding-inline-start: 1.5rem; }
+.searched-events { margin-block: 0.5rem; }
+.searched-events summary { cursor: pointer; }
+.notes { margin-block-start: 1rem; font-size: 0.92rem; }
+.notes h3 { margin-block: 0.5rem 0.25rem; }
+.composed { margin-block-start: 1rem; font-size: 0.85rem; color: var(--muted); }
+.error { font-weight: 600; }
+.cached-list li { margin-block: 0.3rem; }
+.back { margin-block-start: 1.5rem; }
