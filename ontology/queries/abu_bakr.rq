@@ -1,0 +1,24 @@
+# Slice 1c proof: everything attached to Abu Bakr's ONE canonical IRI, grouped by source.
+# Run:  .venv/bin/python ontology/build_graph.py --query ontology/queries/abu_bakr.rq
+# "source" = label of the agent that created the node carrying the link
+# (the Assertion, or the Event for a Participation).
+PREFIX mrs:  <https://w3id.org/marsad/core#>
+PREFIX per:  <https://w3id.org/marsad/id/person/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?source ?kind (COUNT(DISTINCT ?node) AS ?links)
+WHERE {
+  { { ?node mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:assertionObject ?other }
+    UNION
+    { ?node mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:assertionSubject ?other }
+    ?node a mrs:Assertion ; mrs:predicate ?pred ; mrs:createdBy ?agent .
+    OPTIONAL { ?pred mrs:relationClass ?rc }
+    BIND (IF(BOUND(?rc) && ?rc = mrs:relclass_kinship, "kinship tie",
+         IF(EXISTS { ?other a mrs:Event }, "assertion: event/story/incident",
+         IF(EXISTS { ?other a mrs:Person }, "assertion: other person", "assertion: other"))) AS ?kind) }
+  UNION
+  { ?node mrs:hasParticipation [ mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ] ; mrs:createdBy ?agent .
+    BIND ("event participation" AS ?kind) }
+  ?agent rdfs:label ?source .
+}
+GROUP BY ?source ?kind
+ORDER BY ?source ?kind
