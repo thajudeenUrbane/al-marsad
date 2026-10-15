@@ -415,9 +415,10 @@ HEADER = """#################################################################
 #
 #  ENTITIES. People, places and events already in identity.csv are
 #  only referenced, never redeclared, with one exception: a person
-#  already in the graph who is a narrator in a modelled chain is
-#  typed here with the name form attested in this text, so that this
-#  file validates on its own. New ones are declared below with the
+#  already in the graph who is a narrator in a modelled chain (so
+#  that this file validates on its own), or whose name form is listed
+#  in the entities file, is typed here with the name form attested in
+#  this text. New ones are declared below with the
 #  name as written, and have identity.csv rows marked needs-review.
 #  Nobody is merged or split.
 #
@@ -461,6 +462,7 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
 
     # ---- new entities
     new_ents = []
+    existing_forms = {}  # IRI of a person already in the graph -> [(name as written, passage)]
     for e in entities:
         where = f"entity {e.get('name')!r}"
         cid = resolve({"kind": e["kind"], "name": e["name"]}, where)
@@ -471,6 +473,11 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
             if p is None:
                 sys.exit(f"{where}: unknown passage {attested['passage']}")
             name_ar = as_written(s[p["start"]:p["end"]], [attested["span"]])
+        if e.get("existing"):
+            if e["kind"] != "person" or not name_ar:
+                sys.exit(f"{where}: an existing entity is listed only to record a person's name as written")
+            existing_forms.setdefault(cid, []).append((name_ar, p["id"]))
+            continue
         new_ents.append((e, cid, name_ar))
 
     # ---- claims
@@ -658,26 +665,34 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
                 props.append(("crm:P67i_is_referred_to_by", psg))
         out.append(block(cid, types, props + stamp()))
 
-    # ---- people already in the graph who narrate in a modelled chain
+    # ---- people already in the graph who narrate in a modelled chain, or whose name form is listed
     new_ids = {cid for _, cid, _ in new_ents}
-    existing_narrators = sorted(x for x in chain_people if x not in new_ids)
-    if existing_narrators:
+    forms_of = {}
+    for x in sorted(chain_people):
+        if x in new_ids:
+            continue
+        p = chain_people[x]
+        ch = p["chain"]
+        form = next(ln.get("from_name") if ln["_from"] == x else ln.get("to_name")
+                    for ln in ch["links"] if x in (ln["_from"], ln["_to"]))
+        if not form:
+            sys.exit(f"chain {ch['id']}: no attested name span for {x}")
+        forms_of[x] = [(as_written(s[p["start"]:p["end"]], [form]), p["id"])]
+    for x, forms in existing_forms.items():
+        forms_of.setdefault(x, [])
+        forms_of[x] += [f for f in forms if f not in forms_of[x]]
+    if forms_of:
         out.append("#################################################################\n"
-                   "#  NARRATORS ALREADY IN THE GRAPH: typed here with the name form\n"
-                   "#  attested in this text, so that this file validates on its own.\n"
+                   "#  PEOPLE ALREADY IN THE GRAPH: typed here with the name form\n"
+                   "#  attested in this text (chain narrators, so that this file\n"
+                   "#  validates on its own, and the forms listed as existing in\n"
+                   "#  ingest/claims/ibn-hisham-entities.jsonl).\n"
                    "#################################################################\n")
-        for x in existing_narrators:
-            p = chain_people[x]
-            ch = p["chain"]
-            form = next(ln.get("from_name") if ln["_from"] == x else ln.get("to_name")
-                        for ln in ch["links"] if x in (ln["_from"], ln["_to"]))
-            if not form:
-                sys.exit(f"chain {ch['id']}: no attested name span for {x}")
-            name_ar = as_written(s[p["start"]:p["end"]], [form])
+        for x in sorted(forms_of):
             out.append(block(x, ["mrs:Person"], [
-                ("mrs:nameForm", bnode(["mrs:ArabicNameForm"], [
+                ("mrs:nameForm", " ,\n        ".join(bnode(["mrs:ArabicNameForm"], [
                     ("mrs:fullFormAsAttested", lit(name_ar)), ("mrs:script", lit("arab")),
-                    ("mrs:attestedIn", p["id"])]))],
+                    ("mrs:attestedIn", pid)]) for name_ar, pid in forms_of[x]))],
                 comment=f"{resolve.used[x][1]} (declared in another corpus file)"))
 
     # ---- passages, reports, chains, claims, in the order of the text
