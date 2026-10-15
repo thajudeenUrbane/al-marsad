@@ -384,7 +384,7 @@ mrs:EntityShape a sh:NodeShape ;
     sh:property [ sh:path mrs:createdBy ;     sh:minCount 1 ; sh:severity sh:Violation ] ;
     sh:property [ sh:path mrs:recordedAt ;    sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
     # I12 (partial) — opaque identifiers. Full enforcement at ingestion.
-    sh:pattern "^https://w3id\\.org/marsad/id/[a-z-]+/[1-9A-HJ-NP-Za-km-z]{22}$" ;
+    sh:pattern "^https://w3id\\.org/marsad/id/[a-z-]+/[0-9A-Za-z]{22}$" ;  # base62, as minted by ontology/tools/mint_id.py
     sh:message "I12: Instance URIs MUST be opaque. A URI containing a name, date or transliteration is an assertion about identity, and identity is a scholar decision that may later be revised." .
 
 mrs:PersonShape a sh:NodeShape ;
