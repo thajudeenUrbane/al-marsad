@@ -115,15 +115,26 @@ LABEL_LANGS = ("en", "mul", "de", "fr", "es", "it", "id", "ms", "tr", "nl")   # 
 MALE, FEMALE = "Q6581097", "Q6581072"
 NOT_A_PLACE = {"Q5", "Q4167410", "Q13406463", "Q4167836", "Q11266439", "Q202444", "Q101352", "Q178561",
                "Q831663", "Q645883", "Q180684", "Q1656682", "Q13418847", "Q41710", "Q482994", "Q7725634"}
-PERIOD_CUE = re.compile(r"compan|sahab|muhammad|prophet|islam|caliph|hadith|narrat|quraysh|qurash|ansar|muhajir|"
-                        r"mecca|makkah|medina|madina|badr|uhud|abyssinia|aksum|negus|hijaz|arab|rashidun|umayyad|"
-                        r"sira|seerah|ummah", re.I)
-PLACE_CUE = re.compile(r"city|town|village|oasis|region|country|kingdom|empire|peninsula|mountain|mount|cave|valley|"
-                       r"plain|wadi|well|desert|site|area|district|governorate|province|settlement|quarter", re.I)
+PERIOD_CUE = re.compile(r"compan|sahab|muhammad|prophet|islam|muslim|caliph|hadith|narrat|muhaddith|traditionist|"
+                        r"quraysh|qurash|ansar|muhajir|mecca|makkah|medina|madina|badr|uhud|abyssinia|aksum|negus|"
+                        r"hijaz|arab|rashidun|umayyad|abbasid|tabi|faqih|imam|sira|seerah|ummah", re.I)
 REGION_CUE = re.compile(r"region|country|kingdom|empire|peninsula|province", re.I)
 ADMIN_CUE = re.compile(r"governorate|province of|district|municipality|county|prefecture|administrative|"
-                       r"region of saudi arabia|\bislah\b|\buzlah\b|muhafaz", re.I)
-MODERN_CUE = re.compile(r"orcid|researcher|football|cricket|basketball|athlete|player|actor|actress|singer|rapper|"
+                       r"neighbou?rhood|region of saudi arabia|\bislah\b|\buzlah\b|muhafaz", re.I)
+BUILDING_CUE = re.compile(r"\b(?:mosque|masjid|church|airport|airfield|railway|station|hotel|mall|stadium|university|"
+                          r"college|school|academy|hospital|company|museum|bridge|dam|tower|street|road|highway|mint|"
+                          r"fort|fortress|castle|caravanserai|palace|arms deal)\b", re.I)
+GEO_GENERIC = {"ghar", "jabal", "jebel", "wadi", "bilad", "shib", "ard", "mount", "mountain", "cave", "plain", "valley",
+               "oasis", "city", "of", "the", "b"}
+GEO_KIND = {"ghar": "cave", "cave": "cave", "jabal": "mountain", "jebel": "mountain", "mount": "mountain",
+            "mountain": "mountain", "wadi": "valley", "valley": "valley", "bilad": "region", "ard": "region",
+            "plain": "plain", "oasis": "oasis"}
+GEO_SEARCH = {"ghar": "cave of", "jabal": "mount", "jebel": "mount", "wadi": "wadi"}   # search spellings only
+
+
+def kinds(text):
+    return {GEO_KIND[w] for w in re.findall(r"[a-z]+", fold(text)) if w in GEO_KIND}
+MODERN_CUE = re.compile(r"orcid|ph\.?d|researcher|football|cricket|basketball|athlete|player|actor|actress|singer|rapper|"
                         r"musician|politician|journalist|businessman|businesswoman|engineer|scientist|physician|"
                         r"professor|academic|film|television|youtuber|model|wikimedian|\b(?:1[6-9]|20)\d\d\b", re.I)
 EVENT_CUE = re.compile(r"\b(battle|campaign|expedition|siege|war|treaty|raid|conquest)\b", re.I)
@@ -254,12 +265,33 @@ def name_level(ok, ck):
     ls, ll = (sa, sb) if len(sa) <= len(sb) else (sb, sa)
     if ll[:len(ls)] == ls and (len(ls) >= 3 or (len(ls) == 2 and specific(ls))):
         return 2
-    spa, spb = set(specific(sa)), set(specific(sb))
-    if spa and spb and (spa <= spb or spb <= spa):
-        return 1
-    if len(spa & spb) >= 2:
+    spa, spb = specific(sa), specific(sb)
+    if not spa or not spb:
+        return -1
+
+    def covered(xs, ys):
+        return all(any(same_word(x, y) for y in ys) for x in xs)
+    if same_word(spa[0], spb[0]) and (covered(spa, spb) or covered(spb, spa)):
+        return 1                      # the first name agrees and one name's words are all in the other
+    if sum(1 for t in set(spa) if any(same_word(t, u) for u in spb)) >= 2:
         return 0
     return -1
+
+
+def skeleton(t):
+    """Consonants only (y and w kept), th/dh as s/z, and the Turkish spellings common on Wikidata (v for w,
+    k for q, c for j): 'tayyihan' and 'tayyahan' agree, so do 'haytham' and 'heysam', 'warqa' and 'verka'.
+    Used only for the weak levels (at most needs-review)."""
+    s = t.replace("th", "s").replace("dh", "z").replace("v", "w").replace("q", "k").replace("c", "j")
+    s = re.sub(r"[aeiou]", "", s)
+    return re.sub(r"(.)\1+", r"\1", s).rstrip("h")
+
+
+def same_word(a, b):
+    if a == b:
+        return True
+    ka, kb = skeleton(a), skeleton(b)
+    return len(ka) >= 3 and ka == kb
 
 
 def haversine(p, q):
@@ -554,8 +586,33 @@ def lit(s):
     return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
+def fold_keep_apostrophe(s):
+    s = "".join("'" if ch in "ʿʾ‘’`´ʻʼ'" else SPECIAL.get(ch, ch) for ch in s)
+    s = unicodedata.normalize("NFKD", s)
+    return "".join(ch for ch in s if not unicodedata.combining(ch)).lower()
+
+
+def spellings(text):
+    """Further search spellings of one name form: apostrophes kept, final -ah/-a swapped, articles dropped,
+    and the short 'X ibn Y' for long names (entity search matches prefixes only)."""
+    base = re.sub(r"\bb\.\s+", "ibn ", fold_keep_apostrophe(text))
+    base = " ".join(re.sub(r"[()\[\],;:]", " ", base).split())
+    plain = base.replace("'", "")
+    swap = lambda s: " ".join(w[:-1] if len(w) > 3 and w.endswith("ah") and not w.endswith("llah") else w  # noqa: E731
+                              for w in s.split())
+    out = [base, swap(base), swap(plain), " ".join(ARTICLE.sub("", swap(plain)).split())]
+    words = plain.split()
+    if words and words[-1].endswith("a") and not words[-1].endswith("ah"):
+        out.append(" ".join(words[:-1] + [words[-1] + "h"]))
+    if len(words) >= 4 and words[1] in ("ibn", "bint", "bin"):
+        out.append(" ".join(words[:3]))
+    if len(words) >= 3 and words[0] in ("umm", "abu"):
+        out.append(" ".join(words[:2]))         # the kunya alone: Umm Salama
+    return out
+
+
 def search_terms(e):
-    en, text = [], []
+    en, en2, text = [], [], []
     for form in e["forms"][:5]:
         a = re.sub(r"\bb\.\s+", "ibn ", fold(form["text"]))
         a = " ".join(re.sub(r"[()\[\],;:]", " ", a).split())
@@ -566,17 +623,28 @@ def search_terms(e):
         t = " ".join(words)
         if t and t not in text:
             text.append(t)
+    for form in e["forms"][:4]:
+        extra = spellings(form["text"])
+        if e["kind"] == "place" and core(form["key"]) not in ("", form["key"]):
+            extra.append(core(form["key"]))          # "hira" for Ghar Hira'
+            first = form["key"].split()[0]
+            if first in GEO_SEARCH:                  # "cave of hira": the generic noun in English, for search only
+                extra.append(f"{GEO_SEARCH[first]} {core(form['key'])}")
+        for v in extra:
+            if v and v not in en[:6] and v not in en2:
+                en2.append(v)
     ar = []
     for form in e["forms_ar"][:4]:
         for v in (form["text"], AR_MARKS.sub("", form["text"])):
             if v not in ar:
                 ar.append(v)
     flt = " haswbstatement:P31=Q5" if e["kind"] == "person" else " haswbstatement:P625"
-    return en[:6], ar[:4], [t + flt for t in text[:3]]
+    return en[:6], ar[:4], [t + flt for t in text[:3]], en2[:8]
 
 
-def search_queries(en, ar, text):
-    """One query per search service (MWAPI needs its input bound by a top-level VALUES)."""
+def search_queries(en, ar, text, en2=()):
+    """One query per search service (MWAPI needs its input bound by a top-level VALUES). The further
+    spellings (en2) go in a query of their own, so that adding them left the earlier queries' cache valid."""
     def q(api, terms, lang=None):
         if api == "EntitySearch":
             params = (f'wikibase:api "EntitySearch" ; mwapi:search ?term ; mwapi:language "{lang}" ; '
@@ -594,6 +662,8 @@ def search_queries(en, ar, text):
         out.append(("ar", q("EntitySearch", ar, "ar")))
     if text:
         out.append(("text", q("Search", text)))
+    if en2:
+        out.append(("en", q("EntitySearch", list(en2), "en")))
     return out
 
 
@@ -807,6 +877,9 @@ def person_scores(e, hits, details):
         lvl, spec, form, lab = best
         if lvl < 0:
             continue
+        # how many of our distinct name forms this item matches (equal, extended or loosely equal)
+        matched = [f["text"] for f in e["forms"]
+                   if any(name_level(f["key"], name_key(v)) >= 3 for _, lang, v in d["labels"] if lang in LABEL_LANGS)]
         # period, contradictions
         births, deaths = life_window(d["birth"]), life_window(d["death"])
         windows = births + deaths
@@ -829,6 +902,10 @@ def person_scores(e, hits, details):
                 dates = "agree" if any(lo - 2 <= y <= hi + 2 for y in precise) else (
                     "disagree" if all(abs(y - lo) > 5 and abs(y - hi) > 5 for y in precise) else None)
         ev.append(f'name: ours "{form["text"]}" ({form["src"]}) {LEVEL_WORD[lvl]} {lab[1]} {lab[0]} "{lab[2]}"')
+        others = [t for t in matched if t != form["text"]]
+        if others:
+            ev.append("also matches our name form" + ("s " if len(others) > 1 else " ") +
+                      ", ".join(f'"{t}"' for t in others))
         if dates == "agree":
             ev.append(f"dates: died {fmt_years(d['death'])} (Wikidata) within our death date {e['death'][0]}-{e['death'][1]}")
         elif dates == "disagree":
@@ -841,14 +918,15 @@ def person_scores(e, hits, details):
             ev.append(f'description: "{desc}"' + (f" (our tabaqa: {e['tabaqa'].replace('tb_', '')})" if e["tabaqa"] and cue else ""))
         if gender and e["gender"]:
             ev.append(f"gender: {'female' if gender == 'F' else 'male'} as our name form implies")
-        out.append({"qid": q, "level": lvl, "spec": spec, "in_period": in_period, "cue": cue, "dates": dates,
+        out.append({"qid": q, "level": lvl, "spec": spec, "nforms": len(matched), "in_period": in_period, "cue": cue,
+                    "dates": dates,
                     "kin": None, "ev": ev, "label": wd_label(d), "ord": min(o for _, o in hits.get(q, [("", 99)])),
                     "details": d})
     return out
 
 
 LEVEL_WORD = {5: "equals", 4: "extends/is extended by", 3: "loosely equals", 2: "loosely extends",
-              1: "is contained in", 0: "shares words with"}
+              1: "agrees in part with", 0: "shares words with"}
 
 
 def fmt_years(yp):
@@ -894,9 +972,9 @@ def evidence(c, note):
     return "; ".join(c["ev"] + ([note] if note else []))
 
 
-PERSON_KEY = lambda c: (-c["level"], -c["spec"], c["dates"] != "agree", not c["kin"],      # noqa: E731
+PERSON_KEY = lambda c: (-c["level"], -c["spec"], -c["nforms"], c["dates"] != "agree", not c["kin"],   # noqa: E731
                         not (c["in_period"] and c["cue"]), not c["in_period"], c["ord"], int(c["qid"][1:]))
-PERSON_TIE = lambda c: (c["level"], c["spec"], c["dates"] == "agree", bool(c["kin"]),       # noqa: E731
+PERSON_TIE = lambda c: (c["level"], c["spec"], c["nforms"], c["dates"] == "agree", bool(c["kin"]),    # noqa: E731
                         c["in_period"] and c["cue"], c["in_period"])
 PERSON_HOMONYM = lambda c: c["level"] >= 3 and c["spec"] >= 2                                # noqa: E731
 PERSON_PLAUSIBLE = lambda c: c["level"] >= 1 and (c["in_period"] or c["cue"] or c["kin"])    # noqa: E731
@@ -913,20 +991,36 @@ def choose_place(cands):
 
 # ---------------------------------------------------------------- scoring: places
 
+def core(k):
+    """A place key without generic geographic words (ghar, jabal, wadi, mount, cave of ...)."""
+    return " ".join(t for t in k.split() if t not in GEO_GENERIC)
+
+
+def place_level(ok, ck, cand_kinds=frozenset()):
+    """name_level, plus: equal core names count as loosely equal (Ghar Thawr / Cave of Thawr) when the
+    candidate is of the kind our generic word names (a cave for ghar, a mountain for jabal, ...)."""
+    lvl = name_level(ok, ck)
+    if lvl < 3 and core(ok) and core(ok) == core(ck) and kinds(ok) <= (kinds(ck) | set(cand_kinds)):
+        return 3
+    return lvl
+
+
 def place_wd_scores(e, hits, details):
     out = []
     for q in sorted(details, key=lambda x: int(x[1:])):
         d = details[q]
-        if d["P31"] & NOT_A_PLACE or EVENT_CUE.search(d["desc"].get("en", "")):
-            continue
         desc = d["desc"].get("en", "")
-        if not d["coords"] and not PLACE_CUE.search(desc):
+        # a place candidate needs coordinates; events, people, lists and (unless our place is a structure)
+        # buildings and infrastructure are left out
+        if d["P31"] & NOT_A_PLACE or EVENT_CUE.search(desc) or not d["coords"]:
+            continue
+        if BUILDING_CUE.search(desc) and e["ptype"] not in ("pt_structure", "pt_cemetery"):
             continue
         best = (-1, None, None)
         for form in e["forms"]:
             for f, lang, v in d["labels"]:
                 if lang in LABEL_LANGS:
-                    lvl = name_level(form["key"], name_key(v))
+                    lvl = place_level(form["key"], name_key(v), kinds(desc))
                     if lvl > best[0]:
                         best = (lvl, form, (f, lang, v))
         ar_best = (-1, None, None)
@@ -966,15 +1060,15 @@ def classify_place(c):
 
 def place_spec(c, unique):
     """How strongly the location backs the name: 2 within 15 km of our point, 1 within 50 km, -1 more than
-    100 km away. Without a point of ours, 1 only for a name unique in its gazetteer that the other gazetteer
-    confirms (its own unique same-name entry nearby) or whose English and Arabic names both equal ours. A modern
-    administrative unit named after the place is never more than 1."""
+    100 km away. Without a point of ours: 1 when the cross-check counts (see cross_check), or when the name is
+    unique in its gazetteer and both its English and Arabic names equal ours; else 0. A modern administrative
+    unit named after the place is never more than 1."""
     if c["dist"] is not None:
         if c["dist"] > 100 and not c["region"]:
             return -1
         s = 2 if c["dist"] <= 15 else (1 if c["dist"] <= 50 else 0)
     else:
-        s = 1 if unique and (c["agree_ok"] or (c["en_level"] >= 5 and c["ar_level"] >= 5)) else 0
+        s = 1 if c["agree_ok"] or (unique and c["en_level"] >= 5 and c["ar_level"] >= 5) else 0
     return min(s, 1) if c.get("admin") else s
 
 
@@ -1018,7 +1112,7 @@ def thurayya_index(fx):
 def thurayya_scores(e, index):
     out = []
     for t in index:
-        lvl_la = max((name_level(f["key"], k) if name_level(f["key"], k) in (5, 3) else -1
+        lvl_la = max((lv if (lv := place_level(f["key"], k)) in (5, 3) else -1
                       for f in e["forms"] for k in t["la"]), default=-1)
         lvl_ar = max(((5 if f["key"] == k else (3 if ar_loose(f["key"]) == ar_loose(k) else -1))
                       for f in e["forms_ar"] for k in t["ar"]), default=-1)
@@ -1040,8 +1134,9 @@ def thurayya_scores(e, index):
 
 def cross_check(wd, th):
     """The gazetteers agree when same-name candidates from both lie close together (regions: 300 km). That
-    shows the two records are one place, not that it is ours: it counts (agree_ok) only when the name is
-    unique in both gazetteers."""
+    shows the two records are one place, not that it is ours. It counts (agree_ok) only when al-Thurayya,
+    a gazetteer of the classical Islamic world, has exactly one entry with the name: then that entry is the
+    classical place of that name, and the Wikidata item beside it is the same place."""
     for a in wd:
         for b in th:
             if a["level"] >= 5 and b["level"] >= 5 and a["coords"] and b["coords"]:
@@ -1050,13 +1145,14 @@ def cross_check(wd, th):
                 if dist <= limit:
                     a["agree"] = a["agree"] or (b["uri"], dist)
                     b["agree"] = b["agree"] or (a["qid"], dist)
-    unique = sum(1 for c in wd if c["level"] >= 5) == 1 and sum(1 for c in th if c["level"] >= 5) == 1
+    unique = sum(1 for c in th if c["level"] >= 5) == 1
     for c in wd + th:
         c["agree_ok"] = bool(c["agree"]) and unique
         if c["agree"]:
             other = "al-Thurayya" if "qid" in c else "Wikidata"
             c["ev"].append(f"cross-check: {other} {c['agree'][0]} (same name) lies {c['agree'][1]:.0f} km away" +
-                           ("" if unique else " (the name is not unique, so this does not identify our place)"))
+                           ("" if unique else " (al-Thurayya has several entries with this name, so this does not "
+                                              "identify our place)"))
 
 
 # ---------------------------------------------------------------- OpenITI
