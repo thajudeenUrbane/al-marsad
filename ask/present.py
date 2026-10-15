@@ -13,6 +13,7 @@ from ask.normalise import RULES
 import display  # noqa: E402  (site/display.py, on the path through ask.normalise)
 
 ROWS_SHOWN = RULES["limits"]["rows_shown"]
+CLAIMS_SHOWN = RULES["limits"]["claims_shown"]
 
 
 def esc(s) -> str:
@@ -104,6 +105,15 @@ class Presenter:
             return ""
         return '<ul class="claim-list">' + "".join(self.claim(j) for j in js) + "</ul>"
 
+    def claims_folded(self, js: list[int]) -> str:
+        """A row's claims: the first few shown, the rest one tap below."""
+        if len(js) <= CLAIMS_SHOWN:
+            return self.claims(js)
+        rest = js[CLAIMS_SHOWN:]
+        return (self.claims(js[:CLAIMS_SHOWN]) + '<details class="more-claims"><summary>'
+                + self.h(self.t(self.plural("answer.more_claims", len(rest)), n=len(rest))) + "</summary>"
+                + self.claims(rest) + "</details>")
+
     def row(self, r: dict) -> str:
         i = r["e"]
         head = self.link(i) + " " + self.kind(i)
@@ -112,7 +122,7 @@ class Presenter:
             head += ' <span class="row-date">' + self.h(dates[0]["t"]) + "</span>"
         if r.get("tag") == "overlaps":
             head += ' <span class="tag">' + self.h(self.T["answer.overlaps"]) + "</span>"
-        return '<li class="row"><p class="row-head">' + head + "</p>" + self.claims(r["c"]) + "</li>"
+        return '<li class="row"><p class="row-head">' + head + "</p>" + self.claims_folded(r["c"]) + "</li>"
 
     def rows(self, rows: list[dict]) -> str:
         shown = rows[:ROWS_SHOWN]

@@ -555,7 +555,7 @@
         var tags = new Map();
         evs.rows.forEach(function (r) { if (r.tag) tags.set(r.e, r.tag); });
         var tn = timeNotes(w, tags, 0, undatedDirect);
-        var notes = evs.notes.slice().concat(tn.filter(function (n) { return n.key === "note.time_undated_direct"; })).concat(leftOut(left));
+        var notes = [{ key: "note.people_at" }].concat(evs.notes).concat(tn.filter(function (n) { return n.key === "note.time_undated_direct"; })).concat(leftOut(left));
         return makeSet("agents", rows, notes, null, { absent: p.absent, searched: evs.rows });
       },
       stories: function (node) {
@@ -1063,11 +1063,17 @@
         if (!js.length) return "";
         return '<ul class="claim-list">' + js.map(function (j) { return claim(j); }).join("") + "</ul>";
       }
+      function claimsFolded(js) {
+        if (js.length <= LIMITS.claims_shown) return claims(js);
+        var rest = js.slice(LIMITS.claims_shown);
+        return claims(js.slice(0, LIMITS.claims_shown)) + '<details class="more-claims"><summary>'
+          + h(t(plural("answer.more_claims", rest.length), { n: rest.length })) + "</summary>" + claims(rest) + "</details>";
+      }
       function row(r) {
         var i = r.e, head = linkTo(i) + " " + kindTag(i), dates = E[i].dates || [];
         if (dates.length && dates[0].t) head += ' <span class="row-date">' + h(dates[0].t) + "</span>";
         if (r.tag === "overlaps") head += ' <span class="tag">' + h(T["answer.overlaps"]) + "</span>";
-        return '<li class="row"><p class="row-head">' + head + "</p>" + claims(r.c) + "</li>";
+        return '<li class="row"><p class="row-head">' + head + "</p>" + claimsFolded(r.c) + "</li>";
       }
       function rows(list) {
         var shown = list.slice(0, LIMITS.rows_shown);

@@ -281,6 +281,7 @@
     "path_max": 4,
     "path_default": 3,
     "rows_shown": 60,
+    "claims_shown": 6,
     "dsl_max": 2000,
     "question_max": 300
   }

@@ -43,6 +43,8 @@ code.dsl { display: block; padding: 0.4rem 0.6rem; background: var(--soft); bord
 .row .claim { padding-block: 0.35rem; border-block-end: 0; }
 .tag { display: inline-block; padding: 0 0.4rem; border: 1px dashed var(--draft-line); border-radius: 0.25rem; font-weight: 400; font-size: 0.85rem; }
 .ai-note { font-style: italic; }
+.more-claims { padding-inline-start: 1rem; margin-block: 0.25rem; }
+.more-claims summary { cursor: pointer; color: var(--muted); font-size: 0.9rem; }
 .path { list-style: decimal; padding-inline-start: 1.5rem; }
 .searched-events { margin-block: 0.5rem; }
 .searched-events summary { cursor: pointer; }

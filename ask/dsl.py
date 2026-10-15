@@ -593,7 +593,8 @@ class Engine:
             rows.setdefault(c["s"], []).append(j)
         tags = {r["e"]: r["tag"] for r in evs["rows"] if r.get("tag")}
         notes = self._time_notes(w, tags, 0, undated_direct)
-        notes = [n for n in evs["notes"]] + [n for n in notes if n["key"] == "note.time_undated_direct"] + self._left_out(left)
+        notes = ([{"key": "note.people_at"}] + [n for n in evs["notes"]]
+                 + [n for n in notes if n["key"] == "note.time_undated_direct"] + self._left_out(left))
         return self._set("agents", rows, notes, absent=absent, searched=evs["rows"])
 
     def op_stories(self, node: dict) -> dict:
