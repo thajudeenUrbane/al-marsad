@@ -47,7 +47,7 @@
     var msg = app.querySelector(".ix-nojs");
     app.setAttribute("aria-busy", "true");
     if (msg) msg.textContent = app.getAttribute("data-loading") || msg.textContent;
-    fetch(app.getAttribute("data-src"), { credentials: "same-origin" })
+    fetch(app.getAttribute("data-fetch"), { credentials: "same-origin" })
       .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
       .then(function (data) {
         app.textContent = "";

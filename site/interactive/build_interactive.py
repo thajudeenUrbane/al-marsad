@@ -159,8 +159,9 @@ def year_of(iso: str) -> int:
 
 
 def app_div(S: Strings) -> str:
-    """The container the script draws into; without JavaScript it points to the text version."""
-    return (f'<div id="ix-app" class="ix-app" data-src="data.json" data-loading="{attr(S.t("ix.app.loading"))}" '
+    """The container the script draws into; without JavaScript it points to the text version.
+    data-fetch names the one file the script fetches (site/check_budget.py counts it)."""
+    return (f'<div id="ix-app" class="ix-app" data-fetch="data.json" data-loading="{attr(S.t("ix.app.loading"))}" '
             f'data-failed="{attr(S.t("ix.app.failed"))}"><p class="ix-nojs">{html.escape(S.t("ix.app.nojs"))}</p></div>')
 
 
@@ -733,12 +734,11 @@ def about_map(S: Strings, source: dict) -> str:
 # ------------------------------------------------------------------------------ frame and output
 def shell(R: Renderer, S: Strings, view: str, body: str, description: str) -> str:
     title = S.t(f"ix.{view}.title")
+    scripts = f'<script src="common.js" defer></script>\n<script src="{view}.js" defer></script>'
     page = R.shell(Ctx(f"{view}/"), R.page_title(title), body, body_class=f"page-interactive view-{view}",
-                   current=None, crumbs=[(title, None)], description=description)
-    head = ('<link rel="stylesheet" href="interactive.css">\n'
-            '<script src="common.js" defer></script>\n'
-            f'<script src="{view}.js" defer></script>\n</head>')
-    return page.replace("</head>", head, 1)
+                   current=None, crumbs=[(title, None)], description=description, scripts=scripts)
+    # the frame links the reader's stylesheet only; this tier's own goes after it
+    return page.replace("</head>", '<link rel="stylesheet" href="interactive.css">\n</head>', 1)
 
 
 # Keys the scripts use; written into each data.json so the scripts hold no UI text.
