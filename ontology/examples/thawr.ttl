@@ -41,7 +41,7 @@
 #  misread it in exactly the way the architecture exists to prevent.
 #
 #  NOTE ON IDENTIFIERS. Every entity URI here is opaque, per I12.
-#  You cannot tell from 'per:9pLmK4nR8sT2wQ6vY3xZbA' who that is —
+#  You cannot tell from 'per:813NoSCQ31EzXoTLMdYOqE' who that is —
 #  deliberately. Identity is a scholar's determination that may later
 #  be revised, and an identifier that encodes a name silently asserts
 #  the determination. The human-readable name lives in rdfs:label and
@@ -59,6 +59,7 @@
 #    §6  a dispute preserved with three positions and no winner
 #    §7  a route segment that admits it is conjectural
 #    §8  an assertion that has not yet become knowledge
+#    §9  a "part of" link that is a claim to be reviewed, not a fact
 #
 #################################################################
 
@@ -67,13 +68,11 @@
 #  §1  THE EVENT
 #################################################################
 
-ev:7hQ2mXvR9nK4pT8wY3zBcd
+ev:PM1PnOuFEtaqPnLVh1Pa7V
     a mrs:Event ;
     rdfs:label "Sheltering at Ghār Thawr"@en ;
     mrs:coverageState mrs:cs_outline ;
-    # Slice 1b, maintainer decision 3 (15 Oct 2026): this event is a PART of the seed's Hijra event
-    # (corpus/seed-incidents.ttl), not a duplicate of it. CIDOC-CRM P9i; no new property.
-    crm:P9i_forms_part_of ev:nkdSMuVDo7LS9vhSuq1Lxs ;
+    # Part of the seed's Hijra event (corpus/seed-incidents.ttl): a proposed claim, see §9.
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
 
@@ -85,7 +84,7 @@ ev:7hQ2mXvR9nK4pT8wY3zBcd
           mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ;      # Abu Bakr al-Siddiq
           mrs:participantRole mrs:role_companion ] ;
 
-    mrs:eventPlace plc:3zXcV5bNmA8sDfG2hJkLqW ;
+    mrs:eventPlace plc:Tvj82GYrHHvbBIehvFBQcA ;
     mrs:eventTemporalExtent tmp:3yUmN7bVcX4zAsD8fGhJkQ ;
     mrs:attestedBy ast:6yUmN9bVcX4zAsD7fGhJkQ .
 
@@ -109,11 +108,11 @@ tmp:3yUmN7bVcX4zAsD8fGhJkQ
     mrs:relativeAnchor
         [ a mrs:RelativeAnchor ;
           mrs:allenRelation time:after ;
-          mrs:anchorTarget ev:5fW9jNbT4mQ7xZcV2hR8dK ;      # departure from Makkah
+          mrs:anchorTarget ev:7YRf0gbZPPT6MVwRmbVcBy ;      # departure from Makkah
           mrs:attestedBy ast:6yUmN9bVcX4zAsD7fGhJkQ ] ,
         [ a mrs:RelativeAnchor ;
           mrs:allenRelation time:before ;
-          mrs:anchorTarget ev:6gY3kPcU5nR8yAdW3jS9eE ;      # arrival at Quba'
+          mrs:anchorTarget ev:3lK8gd8ERkMXArSB2WMWFK ;      # arrival at Quba'
           mrs:attestedBy ast:6yUmN9bVcX4zAsD7fGhJkQ ] ;
 
     mrs:dispute dsp:7mNbV4cXzA9sDfG5hJkQwE .
@@ -127,7 +126,7 @@ dsp:7mNbV4cXzA9sDfG5hJkQwE
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
-    mrs:disputeSubject ev:7hQ2mXvR9nK4pT8wY3zBcd ;
+    mrs:disputeSubject ev:PM1PnOuFEtaqPnLVh1Pa7V ;
     mrs:disputeQuestion "What absolute date corresponds to the departure and the cave interval?"@en ;
     mrs:disputeSignificance mrs:sig_chronological ;
     mrs:disputeStatus mrs:ds_open ;
@@ -140,17 +139,15 @@ dsp:7mNbV4cXzA9sDfG5hJkQwE
 # relative dating above resolves to something a reader can see, rather
 # than to a bare identifier.
 
-ev:5fW9jNbT4mQ7xZcV2hR8dK
+ev:7YRf0gbZPPT6MVwRmbVcBy
     a mrs:Event ;
     rdfs:label "Departure from Makkah"@en ;
     mrs:coverageState mrs:cs_stub ;
-    # Slice 1b, maintainer decision 3 (15 Oct 2026): this event is a PART of the seed's Hijra event
-    # (corpus/seed-incidents.ttl), not a duplicate of it. CIDOC-CRM P9i; no new property.
-    crm:P9i_forms_part_of ev:nkdSMuVDo7LS9vhSuq1Lxs ;
+    # Part of the seed's Hijra event (corpus/seed-incidents.ttl): a proposed claim, see §9.
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime .
 
-ev:6gY3kPcU5nR8yAdW3jS9eE
+ev:3lK8gd8ERkMXArSB2WMWFK
     a mrs:Event ;
     rdfs:label "Arrival at Qubāʾ"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -162,7 +159,7 @@ ev:6gY3kPcU5nR8yAdW3jS9eE
 #  §3  PLACE — a named concept with an honest geometry.
 #################################################################
 
-plc:3zXcV5bNmA8sDfG2hJkLqW
+plc:Tvj82GYrHHvbBIehvFBQcA
     a mrs:Place ;
     rdfs:label "Ghār Thawr"@en ;
     mrs:coverageState mrs:cs_outline ;
@@ -173,7 +170,7 @@ plc:3zXcV5bNmA8sDfG2hJkLqW
     mrs:namePhase [
         a mrs:NamePhase ;
         mrs:phaseName "غار ثور"@ar ;
-        mrs:phaseExtent tmp:9bVcX5zAsD2fGhJ6kQwErT ] ;
+        mrs:phaseExtent tmp:sS5UIfWQtACrt9HZUMe52U ] ;
 
     # The BASIS of the identification is recorded, not merely the coordinate,
     # so a map can render this as probable rather than as certain.
@@ -183,13 +180,13 @@ plc:3zXcV5bNmA8sDfG2hJkLqW
                        geo:asWKT "POINT(39.8570 21.3580)"^^geo:wktLiteral ] ;
         mrs:locationConfidence mrs:lc_probable ;
         mrs:geometryBasis mrs:gb_traditional ;
-        mrs:validExtent tmp:9bVcX5zAsD2fGhJ6kQwErT ] .
+        mrs:validExtent tmp:sS5UIfWQtACrt9HZUMe52U ] .
 
 # <scholar> The modern identification rests on continuous local tradition
 # rather than on archaeological determination. Coordinates are approximate
 # and are given here only to exercise the model.
 
-plc:2aSdF6gHjK8mNbV5cXzQwE2
+plc:frravRs7lhWiAQ4j9WnaAE
     a mrs:Place ;
     rdfs:label "Makkah"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -202,9 +199,9 @@ plc:2aSdF6gHjK8mNbV5cXzQwE2
         mrs:geometry [ a geo:Geometry ; geo:asWKT "POINT(39.8262 21.4225)"^^geo:wktLiteral ] ;
         mrs:locationConfidence mrs:lc_certain ;
         mrs:geometryBasis mrs:gb_modern_identification ;
-        mrs:validExtent tmp:9bVcX5zAsD2fGhJ6kQwErT ] .
+        mrs:validExtent tmp:sS5UIfWQtACrt9HZUMe52U ] .
 
-plc:5dFgH8jKmN2bVcX6zAqWsE2
+plc:GbMXYpUQqZcgkcj0nQueFW
     a mrs:Place ;
     rdfs:label "al-Madīna (formerly Yathrib)"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -221,7 +218,7 @@ plc:5dFgH8jKmN2bVcX6zAqWsE2
         mrs:geometry [ a geo:Geometry ; geo:asWKT "POINT(39.6142 24.4686)"^^geo:wktLiteral ] ;
         mrs:locationConfidence mrs:lc_certain ;
         mrs:geometryBasis mrs:gb_modern_identification ;
-        mrs:validExtent tmp:9bVcX5zAsD2fGhJ6kQwErT ] .
+        mrs:validExtent tmp:sS5UIfWQtACrt9HZUMe52U ] .
 
 # TWO UNLOCATED WAYPOINTS.
 #
@@ -232,7 +229,7 @@ plc:5dFgH8jKmN2bVcX6zAqWsE2
 # A system that forces a coordinate here produces a map that lies. This
 # one says plainly that it does not know where these are.
 
-plc:7cVbN3mAsD9fGhJ4kQwErT
+plc:MWwPoFS7PzyXjhFqSxz2dD
     a mrs:Place ;
     rdfs:label "Route waypoint (unidentified)"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -244,9 +241,9 @@ plc:7cVbN3mAsD9fGhJ4kQwErT
         a mrs:GeometryState ;
         mrs:locationConfidence mrs:lc_unlocated ;
         mrs:geometryBasis mrs:gb_textual ;
-        mrs:validExtent tmp:9bVcX5zAsD2fGhJ6kQwErT ] .
+        mrs:validExtent tmp:sS5UIfWQtACrt9HZUMe52U ] .
 
-plc:2aSdF6gHjK8mNbV5cXzQwE
+plc:8zVELf1I21sCHmpPAb2iHz
     a mrs:Place ;
     rdfs:label "Route waypoint (unidentified)"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -258,7 +255,7 @@ plc:2aSdF6gHjK8mNbV5cXzQwE
         a mrs:GeometryState ;
         mrs:locationConfidence mrs:lc_unlocated ;
         mrs:geometryBasis mrs:gb_textual ;
-        mrs:validExtent tmp:9bVcX5zAsD2fGhJ6kQwErT ] .
+        mrs:validExtent tmp:sS5UIfWQtACrt9HZUMe52U ] .
 
 
 #################################################################
@@ -282,16 +279,16 @@ chn:8hJkQ3wErT6yUmN5bVcXzA
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
 
-    mrs:terminalNarrator per:3jLd4kNqR7mZpW2vXcT8bH ;      # 'A'isha bint Abi Bakr
-    mrs:collector per:6nBvCxZ4aSdF7gHjK9mQwE ;             # al-Bukhari
+    mrs:terminalNarrator per:2FTEMtzmUhqwffqT42Bb3J ;      # 'A'isha bint Abi Bakr
+    mrs:collector per:NlktnCtJZWR1GFtPVRPKKk ;             # al-Bukhari
 
     # mrs:continuity — DELIBERATELY ABSENT. <scholar> awaiting adjudication.
 
     mrs:hasLink
         [ a mrs:TransmissionLink ;
           mrs:linkOrder 1 ;
-          mrs:fromNarrator per:3jLd4kNqR7mZpW2vXcT8bH ;     # 'A'isha, d. 58
-          mrs:toNarrator   per:9pLmK4nR8sT2wQ6vY3xZbA ;     # 'Urwa b. al-Zubayr, d. 94
+          mrs:fromNarrator per:2FTEMtzmUhqwffqT42Bb3J ;     # 'A'isha, d. 58
+          mrs:toNarrator   per:813NoSCQ31EzXoTLMdYOqE ;     # 'Urwa b. al-Zubayr, d. 94
           mrs:transmissionMode mrs:tm_sama ;
           mrs:contactCheck [ a mrs:ContactCheck ;
               mrs:checkResult mrs:chk_plausible ;
@@ -301,8 +298,8 @@ chn:8hJkQ3wErT6yUmN5bVcXzA
 
         [ a mrs:TransmissionLink ;
           mrs:linkOrder 2 ;
-          mrs:fromNarrator per:9pLmK4nR8sT2wQ6vY3xZbA ;     # 'Urwa, d. 94
-          mrs:toNarrator   per:4tVbN6yHjM3kQ9wErZ7uXs ;     # Ibn Shihab al-Zuhri, d. 124
+          mrs:fromNarrator per:813NoSCQ31EzXoTLMdYOqE ;     # 'Urwa, d. 94
+          mrs:toNarrator   per:ewQJnR9TU92BTTOsAMZhXJ ;     # Ibn Shihab al-Zuhri, d. 124
           mrs:transmissionMode mrs:tm_sama ;
           mrs:contactCheck [ a mrs:ContactCheck ;
               mrs:checkResult mrs:chk_plausible ;
@@ -312,8 +309,8 @@ chn:8hJkQ3wErT6yUmN5bVcXzA
 
         [ a mrs:TransmissionLink ;
           mrs:linkOrder 3 ;
-          mrs:fromNarrator per:4tVbN6yHjM3kQ9wErZ7uXs ;     # al-Zuhri, d. 124
-          mrs:toNarrator   per:7yUmK3jHgF9dSaQ2wErT5z ;     # 'Uqayl b. Khalid, d. 144
+          mrs:fromNarrator per:ewQJnR9TU92BTTOsAMZhXJ ;     # al-Zuhri, d. 124
+          mrs:toNarrator   per:EfCShfYzTpUKsxEkenDO2B ;     # 'Uqayl b. Khalid, d. 144
           mrs:transmissionMode mrs:tm_sama ;
           mrs:contactCheck [ a mrs:ContactCheck ;
               mrs:checkResult mrs:chk_plausible ;
@@ -323,8 +320,8 @@ chn:8hJkQ3wErT6yUmN5bVcXzA
 
         [ a mrs:TransmissionLink ;
           mrs:linkOrder 4 ;
-          mrs:fromNarrator per:7yUmK3jHgF9dSaQ2wErT5z ;     # 'Uqayl, d. 144
-          mrs:toNarrator   per:2wErT5yUqP8pLkJ9hGfDsA ;     # al-Layth b. Sa'd, d. 175
+          mrs:fromNarrator per:EfCShfYzTpUKsxEkenDO2B ;     # 'Uqayl, d. 144
+          mrs:toNarrator   per:ojb5b2kSlN9AjIiLpqZVbK ;     # al-Layth b. Sa'd, d. 175
           mrs:transmissionMode mrs:tm_sama ;
           mrs:contactCheck [ a mrs:ContactCheck ;
               mrs:checkResult mrs:chk_plausible ;
@@ -334,8 +331,8 @@ chn:8hJkQ3wErT6yUmN5bVcXzA
 
         [ a mrs:TransmissionLink ;
           mrs:linkOrder 5 ;
-          mrs:fromNarrator per:2wErT5yUqP8pLkJ9hGfDsA ;     # al-Layth, d. 175
-          mrs:toNarrator   per:5dFgH8jKmN2bVcX6zAqWsE ;     # Yahya b. Bukayr, d. 231
+          mrs:fromNarrator per:ojb5b2kSlN9AjIiLpqZVbK ;     # al-Layth, d. 175
+          mrs:toNarrator   per:m88K9v3QFw59LHCium4jFs ;     # Yahya b. Bukayr, d. 231
           mrs:transmissionMode mrs:tm_sama ;
           mrs:contactCheck [ a mrs:ContactCheck ;
               mrs:checkResult mrs:chk_plausible ;
@@ -357,7 +354,7 @@ chn:8hJkQ3wErT6yUmN5bVcXzA
 # affiliations, teachers, students, and the jarh wa ta'dil assessments
 # recorded about them — each as an incoming Evaluation, never as a field.
 
-per:3jLd4kNqR7mZpW2vXcT8bH a mrs:Person ;
+per:2FTEMtzmUhqwffqT42Bb3J a mrs:Person ;
     rdfs:label "ʿĀʾisha bint Abī Bakr"@en ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
@@ -367,7 +364,7 @@ per:3jLd4kNqR7mZpW2vXcT8bH a mrs:Person ;
         mrs:ism "ʿĀʾisha" ; mrs:nasab ( "Abī Bakr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:4tVbN6yHjM3kQ9wErZ7uXs a mrs:Person ;
+per:ewQJnR9TU92BTTOsAMZhXJ a mrs:Person ;
     rdfs:label "Ibn Shihāb al-Zuhrī"@en ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
@@ -378,7 +375,7 @@ per:4tVbN6yHjM3kQ9wErZ7uXs a mrs:Person ;
         mrs:nisba [ a mrs:Nisba ; mrs:nisbaValue "al-Zuhrī" ; mrs:nisbaType mrs:nt_tribal ] ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:7yUmK3jHgF9dSaQ2wErT5z a mrs:Person ;
+per:EfCShfYzTpUKsxEkenDO2B a mrs:Person ;
     rdfs:label "ʿUqayl b. Khālid"@en ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
@@ -388,7 +385,7 @@ per:7yUmK3jHgF9dSaQ2wErT5z a mrs:Person ;
         mrs:ism "ʿUqayl" ; mrs:nasab ( "Khālid" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:2wErT5yUqP8pLkJ9hGfDsA a mrs:Person ;
+per:ojb5b2kSlN9AjIiLpqZVbK a mrs:Person ;
     rdfs:label "al-Layth b. Saʿd"@en ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
@@ -398,7 +395,7 @@ per:2wErT5yUqP8pLkJ9hGfDsA a mrs:Person ;
         mrs:ism "al-Layth" ; mrs:nasab ( "Saʿd" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:5dFgH8jKmN2bVcX6zAqWsE a mrs:Person ;
+per:m88K9v3QFw59LHCium4jFs a mrs:Person ;
     rdfs:label "Yaḥyā b. Bukayr"@en ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
@@ -407,7 +404,7 @@ per:5dFgH8jKmN2bVcX6zAqWsE a mrs:Person ;
         mrs:ism "Yaḥyā" ; mrs:nasab ( "ʿAbd Allāh" "Bukayr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:6nBvCxZ4aSdF7gHjK9mQwE a mrs:Person ;
+per:NlktnCtJZWR1GFtPVRPKKk a mrs:Person ;
     rdfs:label "al-Bukhārī"@en ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
@@ -441,7 +438,7 @@ per:8sT3wY6xZc2mQ7vR9nK4pP1 a mrs:Person ;
 # One narrator modelled in full — showing why name decomposition matters,
 # and why a person's city is a fact about A PERIOD OF THEIR LIFE.
 
-per:9pLmK4nR8sT2wQ6vY3xZbA
+per:813NoSCQ31EzXoTLMdYOqE
     a mrs:Person ;
     rdfs:label "ʿUrwa b. al-Zubayr"@en ;
     mrs:coverageState mrs:cs_outline ;
@@ -477,9 +474,9 @@ per:9pLmK4nR8sT2wQ6vY3xZbA
     # Temporally bounded and individually evidenced. Not "he was from Madinah".
     mrs:placeAffiliation [
         a mrs:PlaceAffiliation ;
-        mrs:affiliatedPlace plc:5dFgH8jKmN2bVcX6zAqWsE2 ;
+        mrs:affiliatedPlace plc:GbMXYpUQqZcgkcj0nQueFW ;
         mrs:affiliationType mrs:aff_resided ;
-        mrs:affiliationExtent tmp:5zAsD3fGhJ7kQwE4rTyUmN ] .
+        mrs:affiliationExtent tmp:STFYacqfDJZRpdvILXfa4h ] .
 
 
 #################################################################
@@ -493,7 +490,7 @@ per:9pLmK4nR8sT2wQ6vY3xZbA
 #  points AT it, from a named authority, at a named locus.
 #################################################################
 
-rpt:4mNbV7cXzA2sDfG9hJkQwR
+rpt:Irph6QtOHlnTrNYuPywnrj
     a mrs:Hadith ;
     rdfs:label "Report of the Hijrah, via 'A'isha"@en ;
     mrs:coverageState mrs:cs_outline ;
@@ -504,7 +501,7 @@ rpt:4mNbV7cXzA2sDfG9hJkQwR
     mrs:reportGenre mrs:rg_hadith ;
     mrs:terminalAscription mrs:asc_mawquf ;     # <scholar> classification of this matn
     mrs:hasChain chn:8hJkQ3wErT6yUmN5bVcXzA ;
-    mrs:locatedIn psg:3fGhJ5kQwE8rTyU2mNbVcX ;
+    mrs:locatedIn psg:fH7MZWIn0UU5u0s806NNvU ;
 
     # D6 — when the CONTAINING WORK was composed, not when the event occurred.
     mrs:sourceDate [
@@ -523,27 +520,27 @@ rpt:4mNbV7cXzA2sDfG9hJkQwR
 # The full citation chain: Work -> Recension -> Edition -> Witness -> Passage.
 # "Ibn Ishaq says X" is almost always shorthand for something four levels
 # deeper, and the difference is frequently where the argument lives.
-psg:3fGhJ5kQwE8rTyU2mNbVcX
+psg:fH7MZWIn0UU5u0s806NNvU
     a mrs:Passage ;
     mrs:coverageState mrs:cs_outline ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
     mrs:canonicalCitation "Ṣaḥīḥ al-Bukhārī, Kitāb Manāqib al-Anṣār, bāb hijrat al-nabī" ;
-    mrs:inWitness wit:8gHjK4wErT7yUmN3bVcXzA .
+    mrs:inWitness wit:A1larM7BamdjfUCbbDTidZ .
 
 # *** Grading as an ACT, not a property. ***
-evl:9kQwE7rTyU4mNbV6cXzAsD
+evl:CmnBvsceQdzAbm1huWSWD7
     a mrs:Evaluation ;
     mrs:coverageState mrs:cs_outline ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
 
-    mrs:evaluator per:6nBvCxZ4aSdF7gHjK9mQwE ;             # al-Bukhari
-    mrs:evaluationTarget rpt:4mNbV7cXzA2sDfG9hJkQwR ;
+    mrs:evaluator per:NlktnCtJZWR1GFtPVRPKKk ;             # al-Bukhari
+    mrs:evaluationTarget rpt:Irph6QtOHlnTrNYuPywnrj ;
     mrs:grade mrsv:grade_sunni_sahih ;
     mrs:gradeScheme mrsv:scheme_sunni_hadith ;
     mrs:tradition mrsv:tradition_sunni_hadith ;
-    mrs:locatedIn psg:3fGhJ5kQwE8rTyU2mNbVcX ;
+    mrs:locatedIn psg:fH7MZWIn0UU5u0s806NNvU ;
     mrs:justification "Inclusion in the Ṣaḥīḥ."@en .
 
 # <scholar> Whether inclusion in a Sahih collection constitutes an EXPLICIT
@@ -574,14 +571,14 @@ mrsv:grade_sunni_sahih a skos:Concept ;
 #  not even assume the positions are mutually exclusive.
 #################################################################
 
-dsp:5rTyU2mNbV8cXzA3sDfGhJ
+dsp:nS29tWe4PNlAXegtSlLRMw
     a mrs:Dispute ;
     rdfs:label "Who conveyed provisions to the cave"@en ;
     mrs:coverageState mrs:cs_outline ;
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
 
-    mrs:disputeSubject ev:7hQ2mXvR9nK4pT8wY3zBcd ;
+    mrs:disputeSubject ev:PM1PnOuFEtaqPnLVh1Pa7V ;
     mrs:disputeQuestion "Who conveyed provisions and intelligence to the cave, and on whose instruction?"@en ;
     mrs:disputeSignificance mrs:sig_factual ;
     mrs:disputeStatus mrs:ds_open ;
@@ -614,7 +611,7 @@ dsp:5rTyU2mNbV8cXzA3sDfGhJ
 #  solid stretches, diffuse corridors, and outright gaps.
 #################################################################
 
-rte:4sDfG6hJkQ2wErT9yUmNbV
+rte:akoSQG1iJJzRdkjJHVz2m8
     a mrs:Route ;
     rdfs:label "Route of the Hijrah"@en ;
     mrs:coverageState mrs:cs_outline ;
@@ -625,8 +622,8 @@ rte:4sDfG6hJkQ2wErT9yUmNbV
         # Attested: named endpoints, multiple independent reports.
         [ a mrs:RouteSegment ;
           mrs:segmentOrder 1 ;
-          mrs:segmentFrom plc:2aSdF6gHjK8mNbV5cXzQwE2 ;      # Makkah
-          mrs:segmentTo   plc:3zXcV5bNmA8sDfG2hJkLqW ;      # Ghar Thawr
+          mrs:segmentFrom plc:frravRs7lhWiAQ4j9WnaAE ;      # Makkah
+          mrs:segmentTo   plc:Tvj82GYrHHvbBIehvFBQcA ;      # Ghar Thawr
           mrs:segmentConfidence mrs:sc_attested ;
           mrs:travelMode mrs:tvm_foot ;
           mrs:segmentGeometry [ a geo:Geometry ;
@@ -636,22 +633,22 @@ rte:4sDfG6hJkQ2wErT9yUmNbV
         #     them is inferred. Rendered as a corridor, never as a line.
         [ a mrs:RouteSegment ;
           mrs:segmentOrder 2 ;
-          mrs:segmentFrom plc:3zXcV5bNmA8sDfG2hJkLqW ;
-          mrs:segmentTo   plc:7cVbN3mAsD9fGhJ4kQwErT ;      # waypoint
+          mrs:segmentFrom plc:Tvj82GYrHHvbBIehvFBQcA ;
+          mrs:segmentTo   plc:MWwPoFS7PzyXjhFqSxz2dD ;      # waypoint
           mrs:segmentConfidence mrs:sc_conjectural ;
           mrs:travelMode mrs:tvm_camel ;
-          mrs:dispute dsp:2cXzA8sDfG3hJkQ6wErTyU ] ,
+          mrs:dispute dsp:oy1hc3dpbZLbkU1CtNByPz ] ,
 
         # *** Unknown: NO GEOMETRY AT ALL. Enforced by SHACL — a segment of
         #     unknown confidence must not carry a geometry. This renders as a
         #     BREAK in the line, never as a smooth curve across the ignorance.
         [ a mrs:RouteSegment ;
           mrs:segmentOrder 3 ;
-          mrs:segmentFrom plc:7cVbN3mAsD9fGhJ4kQwErT ;
-          mrs:segmentTo   plc:2aSdF6gHjK8mNbV5cXzQwE ;      # waypoint
+          mrs:segmentFrom plc:MWwPoFS7PzyXjhFqSxz2dD ;
+          mrs:segmentTo   plc:8zVELf1I21sCHmpPAb2iHz ;      # waypoint
           mrs:segmentConfidence mrs:sc_unknown ] .
 
-dsp:2cXzA8sDfG3hJkQ6wErTyU
+dsp:oy1hc3dpbZLbkU1CtNByPz
     a mrs:Dispute ;
     rdfs:label "Waypoint sequence on the coastal route"@en ;
     mrs:coverageState mrs:cs_stub ;
@@ -681,23 +678,23 @@ ast:6yUmN9bVcX4zAsD7fGhJkQ
     mrs:createdBy agt:7wQzE2rTyU9mNbV4cXzAsF ;
     mrs:recordedAt "2026-09-11T00:00:00Z"^^xsd:dateTime ;
 
-    mrs:fromReport rpt:4mNbV7cXzA2sDfG9hJkQwR ;
+    mrs:fromReport rpt:Irph6QtOHlnTrNYuPywnrj ;
     mrs:predicate mrs:rel_sheltered_at ;
     mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject plc:3zXcV5bNmA8sDfG2hJkLqW ;
+    mrs:assertionObject plc:Tvj82GYrHHvbBIehvFBQcA ;
     mrs:assertionStatus mrs:as_proposed ;
 
-    prov:wasGeneratedBy act:6wErT9yUmN5bVcX2zAsDfG .
+    prov:wasGeneratedBy act:jFPGeCiTyuLmDNi2DV69k4 .
 
-act:6wErT9yUmN5bVcX2zAsDfG
+act:jFPGeCiTyuLmDNi2DV69k4
     a prov:Activity ;
     prov:startedAtTime "2026-09-11T00:00:00Z"^^xsd:dateTime ;
     prov:qualifiedAssociation [
         a prov:Association ;
-        prov:agent agt:2aSdF6gHjK8mNbV5cXzQwR ;
+        prov:agent agt:4ywheCMjEtapMHy6mAQ3Af ;
         prov:hadRole mrs:role_extractor ] .
 
-agt:2aSdF6gHjK8mNbV5cXzQwR
+agt:4ywheCMjEtapMHy6mAQ3Af
     a prov:SoftwareAgent ;
     rdfs:label "Report extraction model, v2.0.1"@en .
 
@@ -723,3 +720,52 @@ agt:7wQzE2rTyU9mNbV4cXzAsF
 #  That append is the moment a proposal becomes knowledge — and it is
 #  the only way anything becomes knowledge in this system.
 #################################################################
+
+
+#################################################################
+#  §9  PART OF THE HIJRA — a claim, not a plain triple
+#
+#  Slice 1b (maintainer decision 3, 15 Oct 2026) said these two
+#  events are PARTS of the seed's Hijra event
+#  (corpus/seed-incidents.ttl), not duplicates of it, and recorded
+#  that as a bare crm:P9i_forms_part_of triple. Slice 1d (decision
+#  O1) turned it into two Assertions so the link can be reviewed:
+#  predicate mrs:rel_part_of (mapped to crm:P9i_forms_part_of in
+#  relations.ttl), status PROPOSED, no adjudicator, no source
+#  passage. The plain triples are gone.
+#################################################################
+
+agt:Zl7nTTgrUIIATM9Gni66Bq
+    a prov:Person ;
+    rdfs:label "Project maintainer (role label, not a name)"@en .
+
+act:QfVKUaOJS165YSC680EYfA
+    a prov:Activity ;
+    rdfs:label "Modelling decision recorded by the project maintainer (slice 1b decision 3, 15 October 2026); not an adjudication"@en ;
+    prov:startedAtTime "2026-10-15T00:00:00Z"^^xsd:dateTime ;
+    prov:wasAssociatedWith agt:Zl7nTTgrUIIATM9Gni66Bq .
+    # NO adjudicator association. A scholar has not reviewed this link.
+
+ast:THHcWTbHOHkyOe4NBLSDxD
+    a mrs:Assertion ;
+    mrs:coverageState mrs:cs_stub ;
+    mrs:createdBy agt:Zl7nTTgrUIIATM9Gni66Bq ;
+    mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
+    mrs:nonReportBasis "Project maintainer's modelling decision (slice 1b, decision 3, 15 October 2026): the sheltering at Ghar Thawr is a part of the Hijra event of the seed incidents file, not a duplicate of it. No source passage is attached; not reviewed by a scholar."@en ;
+    mrs:predicate mrs:rel_part_of ;
+    mrs:assertionSubject ev:PM1PnOuFEtaqPnLVh1Pa7V ;
+    mrs:assertionObject ev:nkdSMuVDo7LS9vhSuq1Lxs ;
+    mrs:assertionStatus mrs:as_proposed ;
+    prov:wasGeneratedBy act:QfVKUaOJS165YSC680EYfA .
+
+ast:Hq7FN4dDit9MjYXnrJOwJK
+    a mrs:Assertion ;
+    mrs:coverageState mrs:cs_stub ;
+    mrs:createdBy agt:Zl7nTTgrUIIATM9Gni66Bq ;
+    mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
+    mrs:nonReportBasis "Project maintainer's modelling decision (slice 1b, decision 3, 15 October 2026): the departure from Makkah is a part of the Hijra event of the seed incidents file, not a duplicate of it. No source passage is attached; not reviewed by a scholar."@en ;
+    mrs:predicate mrs:rel_part_of ;
+    mrs:assertionSubject ev:7YRf0gbZPPT6MVwRmbVcBy ;
+    mrs:assertionObject ev:nkdSMuVDo7LS9vhSuq1Lxs ;
+    mrs:assertionStatus mrs:as_proposed ;
+    prov:wasGeneratedBy act:QfVKUaOJS165YSC680EYfA .

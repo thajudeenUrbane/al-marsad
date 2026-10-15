@@ -13,10 +13,13 @@ The rule:
   * it is checked against the payload of every existing IRI of ANY kind
     (person, place, event, report, assertion, ... in every .ttl under ontology/,
     plus every ID in ontology/corpus/identity.csv), so no payload is ever shared
-    across kinds, not only within one kind.
+    across kinds, not only within one kind;
+  * it is also at least two characters away from every taken payload (one
+    character substituted, added or dropped is a near-collision and is rejected).
 
-Existing IDs that already share a payload across kinds are not renamed here;
-renaming stable IRIs is a separate decision (see docs/handover/slice-1b.md).
+Slice 1d renamed the IDs that broke this rule (see docs/handover/slice-1d.md);
+identity_audit.py fails if a shared payload or a one-character near-collision
+reappears.
 This script only prints IDs. It writes nothing; put the ID in the data and
 the identity table yourself.
 """
@@ -56,10 +59,19 @@ def taken_payloads():
     return taken
 
 
+def _keys(payload):
+    """The payload and each form of it with one character dropped."""
+    return {payload} | {payload[:i] + payload[i + 1:] for i in range(len(payload))}
+
+
 def new_payload(taken):
+    """A fresh payload: not in `taken`, and not one character (substituted, added or dropped) from any member."""
+    near = set()
+    for p in taken:
+        near |= _keys(p)
     while True:
         payload = "".join(secrets.choice(ALPHABET) for _ in range(LENGTH))
-        if payload not in taken:
+        if payload not in taken and not (_keys(payload) & near):
             taken.add(payload)
             return payload
 

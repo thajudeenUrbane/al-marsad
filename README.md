@@ -150,6 +150,10 @@ These constrain every later decision and are not renegotiable at implementation 
 - **Computed ≠ significant.** No network metric is ever presented as religious, moral or scholarly rank.
 - **The data must outlive the app.** Open schema, open export, static archival fallback. If the organization dies, the corpus survives and remains usable.
 
+## Licence
+
+Code is under the [GNU AGPL v3.0 or later](LICENSE). Data, the ontology and the documentation are under [CC BY-SA 4.0](LICENSES/CC-BY-SA-4.0.txt), and the identifier tables under [CC0](LICENSES/CC0-1.0.txt). [LICENSING.md](LICENSING.md) says which files are which and how to credit the project.
+
 ---
 
 *Prepared as the Phase 0 research and architecture corpus. Nothing here has been built; everything here is intended to be buildable.*
