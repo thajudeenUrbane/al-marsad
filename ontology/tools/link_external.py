@@ -50,7 +50,8 @@ Confidence (at most one `exact` per entity and system; when the best candidates 
                   gazetteer has a same-name entry within 30 km (300 km for regions), or both the Arabic and
                   the English name equal.
     needs-review  name equality without location agreement, several same-name entries, a far point.
-  person/openiti  through the person's Wikidata candidate (its P13870, or OpenITI's own wikidata@ link) or
+  person/openiti  through the person's exact or probable Wikidata candidate (its P13870, or OpenITI's own
+                  wikidata@ link) or
                   an OpenITI author name equal to ours. Never more confident than the Wikidata candidate it
                   comes through; exact needs both directions to agree. A direct name match is needs-review
                   (probable when our death year agrees with OpenITI's).
@@ -1091,6 +1092,8 @@ def openiti_for_person(e, wd_rows, authors, by_wd):
     """wd_rows: [(candidate, confidence)] for this person from Wikidata."""
     found = {}
     for c, conf, _ in wd_rows:
+        if conf == "needs-review":          # a homonym or tie: following it would only add noise
+            continue
         q = c["qid"]
         forward = sorted(c["details"]["openiti"])
         back = sorted(by_wd.get(q, []))
