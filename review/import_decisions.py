@@ -152,14 +152,14 @@ class Importer:
         self.tradition = tree.default_tradition()
 
     def resolve(self, kind: str, target: str):
-        iri = c.expand(target)
+        key = c.curie(target) if target.startswith(c.BASE) else target
+        for _ in range(20):  # an ID re-minted since the queue was built (ontology/corpus/id-renames.csv)
+            if key not in self.tree.renames:
+                break
+            key = self.tree.renames[key]
+        iri = c.expand(key)
         if iri is None:
             raise Refused(f"target {target!r} is not an al-Marsad ID")
-        for _ in range(20):  # an ID re-minted since the queue was built (ontology/corpus/id-renames.csv)
-            new = self.tree.renames.get(c.curie(iri))
-            if not new:
-                break
-            iri = c.expand(new)
         if kind == "claim":
             if (iri, c.RDF.type, c.MRS.Assertion) not in self.tree.graph:
                 raise Refused(f"no claim {c.curie(iri)} in the corpus")

@@ -206,6 +206,20 @@ class ReviewSlice3a(unittest.TestCase):
         self.assertIn("3 already imported", out)
         self.assertEqual(self.snapshot(), before)
 
+    def test_renamed_target_followed_and_dry_run_writes_nothing(self):
+        tree = c.Tree(self.ont)
+        decided = {d.target for d in tree.decisions()}
+        old = next(o for o, n in sorted(tree.renames.items()) if o.startswith("ast:")
+                   and tree.status(c.expand(n)) == "proposed" and c.expand(n) not in decided)
+        f = decision_file(self.inbox / "renamed.json", "Test Reviewer A",
+                          [{"kind": "claim", "target": old, "decision": "reject", "note": NOTE, "date": TODAY}])
+        before = self.snapshot()
+        code, out = self.run_import(f, "--dry-run")
+        self.assertEqual(code, 0, out)
+        self.assertIn("1 new", out)
+        self.assertIn("dry run: 1 decision(s) would be recorded", out)
+        self.assertEqual(self.snapshot(), before)
+
     def test_malformed_file_refused_whole(self):
         bad = self.inbox / "bad.json"
         bad.write_text(json.dumps({"format": "marsad-review-decisions", "version": 1, "reviewer_id": reviewer_id("Test Reviewer A"),
