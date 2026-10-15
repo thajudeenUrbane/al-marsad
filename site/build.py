@@ -14,6 +14,10 @@ external requests. JavaScript only enhances: assets/enhance.js (the plain-words 
 every page), assets/search.js (the search page) and assets/thread.js (person and group
 pages); every page works without it.
 
+The Arabic interface (slice 9, a draft awaiting review by the scholars) is a copy of the
+reader tier under site/dist/ar/ at the same paths, built from site/i18n/ar.json by
+build_arabic; the data on it is as recorded.
+
 The folders other builders write into site/dist (site/hub.py: observatory, lifelines,
 timeline, map, learn, ask) are never deleted here. The home page links a view only if
 its folder holds an index.html when the hub pages are written: run the view builders
