@@ -23,11 +23,13 @@ Ask adds, in ask/rules.json "normalise":
 score(M, N) compares a mention's words with one name's words:
   6 the same words
   5 the same number of words, each the same name spelled differently: one letter off
-    (from 4 letters; two from 8), or the same sound key of 3 consonants or more
-    (Hudaybiyah / al-Hudaybiyya, Medina / al-Madina, Usman / Uthman)
+    (from 4 letters; two from 8), or the same sound key of 3 consonants or more and
+    no more than sound_max_edits letters apart (Hudaybiyah / al-Hudaybiyya, Medina /
+    al-Madina, Usman / Uthman; not Siffin / ʿUsfān, which share s-f-n only)
   4 the mention's words start the name
   3 the mention's words start the name, each spelled differently or with the same
-    sound key of any length (Mecca / Makkah, Ayesha / A'isha)
+    sound key of any length (Mecca / Makkah, Ayesha / A'isha); a key of 3 or more is
+    bounded as in 5
   2 the mention is a run of words inside the name, or both are equal with spaces
     removed (abubakr / Abu Bakr)
   1 the name starts with the squashed mention, or every mention word is somewhere in
@@ -116,12 +118,17 @@ def levenshtein(a: str, b: str) -> int:
 
 
 def close(a: str, b: str, loose: bool = False) -> bool:
-    """The same word spelled differently. loose also accepts a short shared sound key."""
+    """The same word spelled differently. loose also accepts a short shared sound key.
+    A sound key of three consonants or more is shared by many different names (Siffin,
+    ʿUsfān, Ṣafwān are all s-f-n), so it counts only when the spellings are also within
+    sound_max_edits letters; a shorter key is the documented spelling-variant class
+    (Mecca / Makkah, Ayesha / A'isha) and is not bounded."""
     if a == b:
         return True
     sa = sound(a)
     if sa and sa == sound(b) and (loose or len(sa) >= _L["sound_exact_min_len"]):
-        return True
+        if len(sa) < _L["sound_exact_min_len"] or levenshtein(a, b) <= _L["sound_max_edits"]:
+            return True
     shortest = min(len(a), len(b))
     if shortest >= _L["fuzzy_two_min_len"]:
         limit = 2
@@ -132,6 +139,11 @@ def close(a: str, b: str, loose: bool = False) -> bool:
     if abs(len(a) - len(b)) > limit:
         return False
     return levenshtein(a, b) <= limit
+
+
+def spelling_distance(m: list[str], n: list[str]) -> int:
+    """How many letters apart a mention's words are from the name's first words."""
+    return sum(levenshtein(m[i], n[i]) for i in range(min(len(m), len(n))))
 
 
 def _run_inside(m: list[str], n: list[str]) -> bool:

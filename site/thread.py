@@ -57,8 +57,16 @@ def _status(c: Claim, t) -> tuple[str, str]:
     return (c.status or "none", t("status.label", value=word))
 
 
+# thread.json is fetched by every person and group page, so it counts against each page's
+# 300 KB budget (site/check_budget.py). A claim's comment longer than this is left out of it:
+# it is long free text (the machine-written glosses of the Ibn Hisham passages run to 100-250
+# characters each, and were 70 KB of the file), and the moment's own page shows it in full,
+# with its status and source.
+MAX_ROLE_CHARS = 120
+
+
 def _role(c: Claim, t) -> str:
-    if not c.role:
+    if not c.role or len(c.role.text) > MAX_ROLE_CHARS:
         return ""
     if c.kind == "participation":
         return t("claim.role", value=c.role.text)

@@ -309,7 +309,34 @@ class Dsl(unittest.TestCase):
         self.assertEqual(a["outcome"], "not_found")
         a = answer("Relatives of Zayd", self.eng, self.T)
         self.assertEqual(a["outcome"], "ambiguous")
-        self.assertEqual(len(a["options"]), 2)
+        # every person the graph names Zayd is offered (more than one), and nobody is picked
+        zayds = sorted(e["l"] for e in self.eng.E if e["k"] == "person" and e["l"].startswith("Zayd "))
+        self.assertGreaterEqual(len(zayds), 3)
+        offered = sorted(self.eng.E[o["e"]]["l"] for o in a["options"])
+        self.assertEqual([l for l in offered if l.startswith("Zayd ")], zayds)
+
+    def test_a_sound_alike_is_not_a_spelling_of_another_name(self):
+        """Siffin and ʿUsfān share their consonants (s-f-n) but are four letters apart: the
+        first is not a spelling of the second. A real variant spelling still matches."""
+        from ask.normalise import close
+        from ask.translate import answer
+        self.assertFalse(close("siffin", "usfan"))
+        self.assertFalse(close("siffin", "usfan", True))
+        for a, b in (("bedr", "badr"), ("ayesha", "aisha"), ("ohud", "uhud")):
+            self.assertTrue(close(a, b, True), (a, b))
+        # the place the question names is not in the graph: no answer, and no place offered
+        # as if it were that one
+        res = answer("Who was at Siffin?", self.eng, self.T)
+        self.assertEqual(res["outcome"], "not_found")
+        self.assertNotIn("dsl", res)
+        self.assertNotIn("Usfān", json.dumps(res, ensure_ascii=False))
+        # while the real variant spellings still reach their entries
+        res = answer("Who was at Ushfan?", self.eng, self.T)  # a plain variant of ʿUsfān
+        self.assertEqual(res["outcome"], "answer")
+        self.assertIn("ʿUsfān", res["dsl"])
+        res = answer("Who was Ayesha's father?", self.eng, self.T)
+        self.assertEqual(res["outcome"], "answer")
+        self.assertIn("ʿĀʾisha bint Abī Bakr", res["dsl"])  # not also ʿAyyāsh b. Abī Rabīʿa
 
 
 @unittest.skipUnless(have_graph(), "build/graph.ttl missing")

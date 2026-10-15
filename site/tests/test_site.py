@@ -343,6 +343,24 @@ class BuiltSite(unittest.TestCase):
                     graph_named.add(str(s))
         self.assertEqual(graph_named, set(self.site.entities))
 
+    def test_a_text_as_object_is_shown_as_written_and_raises_no_warning(self):
+        """rel_dated claims (slice 4) have a text as their object, not an entity: it is shown as written,
+        in its language, filed under no entity, and nothing tries to read it as an IRI."""
+        import html as htmllib
+        lits = [c for cl in self.site.claims.values() for c in cl if c.literal is not None]
+        self.assertTrue(lits, "the graph has no claim with a text object")
+        c = lits[0]
+        self.assertEqual(c.literal.text, c.object)
+        self.assertEqual(c.literal.lang, "ar")
+        self.assertNotIn(c.object, self.site.claims)          # no phantom entity keyed by the text
+        self.assertEqual(self.site.label_of(c.object), c.object)
+        page = self.page(self.site.entity(c.subject))
+        self.assertIn(f'<span class="lit" lang="ar" dir="rtl">{htmllib.escape(c.literal.text, quote=False)}</span>', page)
+        with tempfile.TemporaryDirectory() as d, self.assertNoLogs("rdflib", level="WARNING"):
+            from model import Site
+            Site(GRAPH)
+            site_build.build(GRAPH, Path(d), quiet=True)
+
     def test_the_checks_pass_on_the_built_site(self):
         self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
         self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)

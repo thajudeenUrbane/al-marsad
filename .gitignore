@@ -18,3 +18,4 @@ build/
 # Generated reader-tier site (site/build.py)
 site/dist/
 review/roster.csv
+ingest/cache/

@@ -47,6 +47,8 @@ ODD = [
     "Was Umar greater than Uthman?", "What might have happened at Thawr?", "Is Abu Talib in hell?",
     "Who was to blame at Jamal?", "Show me the centrality of Abu Bakr",
     "can you tell me who was at the conquest of makkah please", "list the companions at badr",
+    "Who was at Siffin?", "Who was at Usfan?", "Who was at Ushfan?", "Who was at Safwan?", "Who was Ayesha's father?",
+    "Relatives of Zayd", "Relatives of Ziyad", "What happened in Mecca?",
 ]
 
 DSL = [

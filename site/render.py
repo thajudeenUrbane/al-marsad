@@ -189,6 +189,13 @@ class Renderer:
             return f'<strong class="self">{self.esc(e.name)}</strong>'
         return f'<a href="{ctx.base}{e.kind}/{e.pid}/">{self.esc(e.name)}</a>'
 
+    def literal_html(self, lit) -> str:
+        """An object that is a text, shown as written (no glossary links, no rewording), in its language."""
+        attrs = f' lang="{self.attr(lit.lang)}"' if lit.lang else ""
+        if lit.lang in ("ar", "fa", "ur", "he"):
+            attrs += ' dir="rtl"'
+        return f'<span class="lit"{attrs}>{html.escape(lit.text, quote=False)}</span>'
+
     @staticmethod
     def arabic_names(names: list[str]) -> str:
         """Arabic names beside the English one; several are told apart by a slash."""
@@ -324,7 +331,7 @@ class Renderer:
         pred = self.t(c.predicate) if c.predicate_is_key else c.predicate
         sentence = (f'{self.ent_link(ctx, c.subject, cur)} '
                     f'<span class="rel">{self.text(ctx, pred, verbatim=True, data=not c.predicate_is_key)}</span> '
-                    f'{self.ent_link(ctx, c.object, cur)}')
+                    f'{self.literal_html(c.literal) if c.literal else self.ent_link(ctx, c.object, cur)}')
         # a relation recorded in English makes the whole sentence English; one of ours (a key) is Arabic
         whole = "" if c.predicate_is_key else self.en_attrs
         parts = [f'<p class="claim-text"{whole}>{sentence}</p>']

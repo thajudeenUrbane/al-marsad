@@ -164,7 +164,13 @@ class ObservatoryTests(unittest.TestCase):
                 recorded.add(ch["collector"])
         self.assertEqual(on_chain, recorded)
         transmission_links = [l for l in self.data["links"] if l["c"] == "transmission"]
-        self.assertEqual(len(transmission_links), sum(len(ch["links"]) for ch in self.data["chains"]))
+        # A narrator pair that recurs across chains (al-Zuhri -> Ibn Ishaq, say) is one link
+        # carrying one claim per chain, so count distinct pairs, and check no claim is lost.
+        pairs = {frozenset(ln[:2]) for ch in self.data["chains"] for ln in ch["links"]}
+        self.assertEqual(len(transmission_links), len(pairs))
+        self.assertEqual({frozenset((l["a"], l["b"])) for l in transmission_links}, pairs)
+        self.assertEqual(sum(len(l["cl"]) for l in transmission_links),
+                         sum(len(ch["links"]) for ch in self.data["chains"]))
 
     # ------------------------------------------------------------------ claims, statuses, sources
     def test_every_link_carries_its_claim_status_and_source(self):

@@ -86,6 +86,37 @@ mrs:AssertionShape a sh:NodeShape ;
 
 
 #################################################################
+#  LIFE DATES AND AGES (slice 4) — kept as written, never computed.
+#################################################################
+
+mrs:AgeAndDateAssertionShape a sh:NodeShape ;
+    sh:targetClass mrs:Assertion ;
+    sh:property [ sh:path mrs:ageAsWritten ;    sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:dateAsWritten ;   sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:ageYearsAsGiven ; sh:datatype xsd:decimal ; sh:severity sh:Violation ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "An age claim (mrs:rel_age_at) MUST carry the age exactly as the source gives it (mrs:ageAsWritten). An age that is only a number has lost its source form and its calendar." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:predicate mrs:rel_age_at .
+                FILTER NOT EXISTS { $this mrs:ageAsWritten ?a }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "A dating claim (mrs:rel_dated) MUST have as its object the time expression exactly as written: a literal, never a converted date and never an entity." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:predicate mrs:rel_dated ; mrs:assertionObject ?o .
+                FILTER (!isLiteral(?o))
+            }
+        """ ] .
+
+
+#################################################################
 #  I3 — No Evaluation without an identified evaluator and a citable locus.
 #  I9 — Grades never cross traditions.
 #################################################################
