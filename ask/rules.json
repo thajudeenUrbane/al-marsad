@@ -8,14 +8,9 @@
     "punct_map": [["“", "\""], ["”", "\""], ["–", "-"], ["—", "-"], [" ", " "]],
     "honorific_paren": "\\((?:pbuh|p\\.b\\.u\\.h\\.?|saw|saws|s\\.a\\.w\\.?|sas|ra|r\\.a\\.?|as|a\\.s\\.?|peace be upon him|peace and blessings be upon him)\\)",
     "possessive": "'s(?=[^a-z0-9]|$)",
-    "article": "(^|[^a-z0-9])(?:al|el|as|ash|ar|at|ad|adh|an|az|ath|ul)-",
-    "nonword": "[^a-z0-9؀-ۿ]+",
-    "token_map": {"ibn": "b", "bin": "b", "b": "b", "bint": "bint", "bt": "bint", "abi": "abu", "aba": "abu", "al": "", "el": "", "the": ""},
+    "stop_words": ["the"],
     "allah_heads": ["abd", "ubayd", "ubaid"],
-    "allah_tails": ["allah", "ullah", "illah", "allaah"],
-    "arabic_article": "ال",
-    "phonetic_multi": [["ee", "i"], ["oo", "u"], ["ou", "u"], ["ay", "ai"], ["aw", "au"], ["ph", "f"]],
-    "phonetic_single": [["e", "a"], ["o", "u"], ["c", "k"], ["q", "k"]]
+    "allah_tails": ["allah", "ullah", "illah", "allaah"]
   },
 
   "cleanup": {
@@ -272,7 +267,10 @@
 
   "linking": {
     "min_score": 1,
-    "alternatives_min_score": 3,
+    "alternatives_min_score": 2,
+    "alternatives_same_kind_min_score": 5,
+    "ambiguity_margin": 1,
+    "sound_exact_min_len": 3,
     "max_alternatives": 4,
     "max_candidates": 8,
     "fuzzy_one_min_len": 4,

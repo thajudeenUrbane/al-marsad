@@ -127,7 +127,7 @@ class StaticChecks(unittest.TestCase):
         pats = [p for r in RULES["refusals"] for p in r["patterns"] + ([r["unless"]] if r.get("unless") else [])]
         pats += [p for s in RULES["shapes"] for p in s["patterns"]] + RULES["status_suffix"]
         pats += [RULES["time"][k] for k in ("range", "single", "single_bare")]
-        pats += [RULES["normalise"][k] for k in ("spaces", "honorific_paren", "possessive", "article", "nonword")]
+        pats += [RULES["normalise"][k] for k in ("spaces", "honorific_paren", "possessive")]
         for p in pats:
             with self.subTest(p[:50]):
                 re.compile(p)
@@ -136,8 +136,12 @@ class StaticChecks(unittest.TestCase):
 
     def test_site_normaliser_is_imported_not_copied(self):
         import display
+        import names
         self.assertIs(normalise.fold, display.fold)
-        self.assertNotIn("def fold", (ASK / "normalise.py").read_text(encoding="utf-8"))
+        self.assertIs(normalise.names, names)
+        src = (ASK / "normalise.py").read_text(encoding="utf-8")
+        for fn in ("def fold", "def normalise", "def skeleton"):
+            self.assertNotIn(fn, src)
 
     @unittest.skipUnless(have_graph(), "build/graph.ttl missing")
     def test_no_entity_id_is_hard_coded(self):
@@ -152,16 +156,26 @@ class Normaliser(unittest.TestCase):
         keys = {tuple(name_tokens(n)) for n in names}
         self.assertEqual(len(keys), 1, {n: name_tokens(n) for n in names})
 
-    def test_spelling_variants_meet(self):
-        self.same("Abū Bakr", "Abu Bakr", "abu  bakr", "ABU BAKR")
-        self.same("Mecca", "Makkah", "Makka")
-        self.same("Medina", "al-Madīna", "Madinah")
-        self.same("Hudaybiyah", "al-Ḥudaybiyya")
+    def test_spellings_that_give_the_same_key(self):
+        self.same("Abū Bakr", "Abu Bakr", "abu  bakr", "ABU BAKR", "Abu Bakr (RA)")
         self.same("ʿAbd Allāh", "Abdullah", "Abdallah", "Abd Allah")
-        self.same("ʿUthmān", "Uthman", "Othman")
+        self.same("ʿUthmān", "Uthman")
         self.same("أُحُد", "احد")
         self.same("Ibn Hisham", "b. Hisham", "bin Hisham")
-        self.same("Abu Bakr (RA)", "Abu Bakr")
+        self.same("al-Madīna", "Madina")
+
+    def test_spellings_that_meet_by_sound_or_one_letter(self):
+        k = name_tokens
+        for a, b in (("Hudaybiyah", "al-Ḥudaybiyya"), ("Medina", "al-Madīna"), ("Usman", "ʿUthmān"),
+                     ("Othman", "ʿUthmān"), ("Bedr", "Badr"), ("Ohud", "Uḥud")):
+            with self.subTest(a):
+                self.assertEqual(score(k(a), k(b)), 5)
+        self.assertEqual(score(k("Mecca"), k("Makkah")), 3)
+        self.assertEqual(score(k("Ayesha"), k("ʿĀʾisha bint Abī Bakr")), 3)
+
+    def test_the_key_is_the_sites_search_form(self):
+        import names
+        self.assertEqual(" ".join(name_tokens("Abū Bakr al-Ṣiddīq")), names.normalise("Abū Bakr al-Ṣiddīq"))
 
     def test_text_key_folds_and_drops_signs(self):
         self.assertEqual(text_key("Who was at Badr ﷺ (pbuh)?"), "who was at badr ?")
@@ -169,11 +183,12 @@ class Normaliser(unittest.TestCase):
 
     def test_score_levels(self):
         k = name_tokens
-        self.assertEqual(score(k("Abu Bakr al-Siddiq"), k("Abū Bakr al-Ṣiddīq")), 5)
+        self.assertEqual(score(k("Abu Bakr al-Siddiq"), k("Abū Bakr al-Ṣiddīq")), 6)
+        self.assertEqual(score(k("Hudaybiyah"), k("al-Ḥudaybiyya")), 5)
         self.assertEqual(score(k("Umar"), k("ʿUmar b. al-Khaṭṭāb")), 4)
-        self.assertEqual(score(k("Khattab"), k("ʿUmar b. al-Khaṭṭāb")), 3)
-        self.assertEqual(score(k("abubakr"), k("Abū Bakr")), 3)
-        self.assertEqual(score(k("Belal"), k("Bilāl b. Rabāḥ")), 2)
+        self.assertEqual(score(k("Belal"), k("Bilāl b. Rabāḥ")), 3)
+        self.assertEqual(score(k("Khattab"), k("ʿUmar b. al-Khaṭṭāb")), 2)
+        self.assertEqual(score(k("abubakr"), k("Abū Bakr")), 2)
         self.assertEqual(score(k("uhud battle"), k("Battle of Uḥud")), 1)
         self.assertEqual(score(k("Siffin"), k("Badr")), 0)
 

@@ -1,28 +1,38 @@
 """Name keys for spelling-tolerant lookup, and the match score between two keys.
 
-The first step is the site's own normaliser, `display.fold` from site/display.py
-(diacritics stripped, the ayn/hamza marks and curly apostrophes made one plain
-apostrophe). It is imported, not copied; the browser port folds the same characters
-because build_ask.py embeds display's mark list and the combining-character table in
-the index. Everything after fold is ask-specific and table-driven from ask/rules.json
-(section "normalise"), so ask/static/ask.js applies the very same tables:
+Built on the site's own name rules, site/names.py (slice 2b), imported and not copied:
+  names.fold          diacritics stripped, the ayn/hamza marks and curly apostrophes
+                      made one plain apostrophe (display.fold is the same function)
+  names.normalise     the search form of a name: marks and apostrophes dropped, lower
+                      case, Arabic letter forms unified, the article (al-, as-, ash- ...,
+                      Arabic al-) left out, b./bin/ibn and abi/aba/abu made one
+  names.skeleton_words  the sound key of each word: consonant classes, so that Mecca and
+                      Makkah, Uthman and Usman, Badr and Bedr meet
+The browser port (ask/static/ask.js) repeats those steps with names.RULES, which
+build_ask.py writes into the index, so it holds no table of its own; the parity test
+compares the two on every name in the graph.
 
-  text_key(s)    fold, lower case, Arabic letter forms unified (alif forms, ta marbuta,
-                 alif maqsura), tatweel and the honorific ligatures dropped, "(pbuh)"-style
-                 honorifics removed, spaces collapsed. Used to match question shapes.
-  name_tokens(s) text_key, then: possessive 's and apostrophes dropped, the article
-                 (al-, as-, ash- ... and a free-standing "al"/"the") dropped, ibn/bin/b. ->
-                 b, abi/aba -> abu, Abd Allah / Abdallah -> abdullah, the Arabic article
-                 dropped, and a light phonetic key per Latin token (double letters
-                 collapsed, ee->i, oo/ou->u, ay->ai, aw->au, e->a, o->u, c/q->k, final
-                 -ah -> -a). "Mecca" and "Makkah" both become "maka".
+Ask adds, in ask/rules.json "normalise":
+  text_key(s)    for matching question shapes: fold, lower case, Arabic letter forms,
+                 tatweel and honorific signs out, "(pbuh)"-style honorifics out, spaces
+                 collapsed. Punctuation and apostrophes are kept (the shapes need "'s").
+  name_tokens(s) the words of names.normalise, after "(pbuh)"-style honorifics and a
+                 possessive 's are taken off; "the" is left out; Abd Allah, Abdallah and
+                 Abdullah become one word.
 
-score(M, N) compares a mention's tokens with one name's tokens:
-  5 same tokens; 4 the mention starts the name; 3 the mention is a run inside the
-  name, or both are equal with spaces removed; 2 every token close (edit distance 1
-  from 4 letters, 2 from 8) as a prefix, or the name starts with the squashed
-  mention; 1 every mention token appears somewhere in the name, or the squashed
-  mention is inside the squashed name; 0 no match.
+score(M, N) compares a mention's words with one name's words:
+  6 the same words
+  5 the same number of words, each the same name spelled differently: one letter off
+    (from 4 letters; two from 8), or the same sound key of 3 consonants or more
+    (Hudaybiyah / al-Hudaybiyya, Medina / al-Madina, Usman / Uthman)
+  4 the mention's words start the name
+  3 the mention's words start the name, each spelled differently or with the same
+    sound key of any length (Mecca / Makkah, Ayesha / A'isha)
+  2 the mention is a run of words inside the name, or both are equal with spaces
+    removed (abubakr / Abu Bakr)
+  1 the name starts with the squashed mention, or every mention word is somewhere in
+    the name, or the squashed mention is inside the squashed name
+  0 no match
 """
 from __future__ import annotations
 
@@ -38,24 +48,20 @@ SITE = ROOT / "site"
 if str(SITE) not in sys.path:
     sys.path.insert(0, str(SITE))
 
-import display  # noqa: E402  (site/display.py: the site's display rules and normaliser)
+import display  # noqa: E402,F401  (site/display.py: the site's display rules)
+import names  # noqa: E402  (site/names.py: the site's name rules, shared by display and search)
 
 RULES = json.loads((ASK / "rules.json").read_text(encoding="utf-8"))
 _N = RULES["normalise"]
 _L = RULES["linking"]
 
-fold = display.fold                      # the site's normaliser, imported
-MARK_CHARS = display._MARK_CHARS        # what fold turns into an apostrophe (embedded for the JS port)
+fold = names.fold                                   # the site's fold, imported
+MARK_CHARS = names.AYN_HAMZA + names.APOSTROPHES    # what fold turns into an apostrophe
 
 _SPACES = re.compile(_N["spaces"])
 _HON = re.compile(_N["honorific_paren"])
 _POSS = re.compile(_N["possessive"])
-_ART = re.compile(_N["article"])
-_NONWORD = re.compile(_N["nonword"])
-_DOUBLE = re.compile(r"([a-z])\1+")
-_LATIN = re.compile(r"^[a-z0-9]+$")
-_ARABIC_TOKEN = re.compile("^[؀-ۿ]")
-_TOKEN_MAP = _N["token_map"]
+_STOP = set(_N["stop_words"])
 _HEADS = _N["allah_heads"]
 _TAILS = _N["allah_tails"]
 _ALLAH_ONE = re.compile("^(" + "|".join(_HEADS) + ")(" + "|".join(_TAILS) + ")$")
@@ -74,49 +80,28 @@ def text_key(text: str) -> str:
     return s
 
 
-def phonetic(tok: str) -> str:
-    if not _LATIN.match(tok):
-        return tok
-    tok = _DOUBLE.sub(r"\1", tok)
-    for a, b in _N["phonetic_multi"]:
-        tok = tok.replace(a, b)
-    for a, b in _N["phonetic_single"]:
-        tok = tok.replace(a, b)
-    tok = _DOUBLE.sub(r"\1", tok)
-    if len(tok) > 3 and tok.endswith("ah"):
-        tok = tok[:-1]
-    return tok
-
-
 def name_tokens(text: str) -> list[str]:
-    s = text_key(text)
+    s = _HON.sub(" ", fold(text or "").lower())
     s = _POSS.sub("", s)
-    s = s.replace("'", "")
-    s = _ART.sub(lambda m: m.group(1), s)
-    s = _NONWORD.sub(" ", s)
-    toks: list[str] = []
-    for tok in s.split(" "):
-        if not tok:
-            continue
-        tok = _TOKEN_MAP.get(tok, tok)
-        if not tok:
-            continue
-        art = _N["arabic_article"]
-        if _ARABIC_TOKEN.match(tok) and tok.startswith(art) and len(tok) >= 4:
-            tok = tok[len(art):]
-        toks.append(tok)
+    words = [w for w in names.normalise(s).split(" ") if w and w not in _STOP]
     merged: list[str] = []
     i = 0
-    while i < len(toks):
-        t = toks[i]
-        if t in _HEADS and i + 1 < len(toks) and toks[i + 1] in _TAILS:
-            merged.append(t + "ullah")
+    while i < len(words):
+        w = words[i]
+        if w in _HEADS and i + 1 < len(words) and words[i + 1] in _TAILS:
+            merged.append(w + "ullah")
             i += 2
             continue
-        m = _ALLAH_ONE.match(t)
-        merged.append(m.group(1) + "ullah" if m else t)
+        m = _ALLAH_ONE.match(w)
+        merged.append(m.group(1) + "ullah" if m else w)
         i += 1
-    return [phonetic(t) for t in merged]
+    return merged
+
+
+def sound(word: str) -> str:
+    """The site's sound key of one word ("" when it has no consonant)."""
+    keys = names.skeleton_words(word)
+    return keys[0] if keys else ""
 
 
 def levenshtein(a: str, b: str) -> int:
@@ -130,8 +115,12 @@ def levenshtein(a: str, b: str) -> int:
     return prev[len(b)]
 
 
-def close(a: str, b: str) -> bool:
+def close(a: str, b: str, loose: bool = False) -> bool:
+    """The same word spelled differently. loose also accepts a short shared sound key."""
     if a == b:
+        return True
+    sa = sound(a)
+    if sa and sa == sound(b) and (loose or len(sa) >= _L["sound_exact_min_len"]):
         return True
     shortest = min(len(a), len(b))
     if shortest >= _L["fuzzy_two_min_len"]:
@@ -157,19 +146,21 @@ def score(m: list[str], n: list[str]) -> int:
     if not m or not n:
         return 0
     if m == n:
-        return 5
+        return 6
     k = len(m)
+    if k == len(n) and all(close(m[i], n[i]) for i in range(k)):
+        return 5
     if k <= len(n) and n[:k] == m:
         return 4
-    if _run_inside(m, n):
+    if k <= len(n) and all(close(m[i], n[i], True) for i in range(k)):
         return 3
+    if _run_inside(m, n):
+        return 2
     ms, ns = "".join(m), "".join(n)
     if ms == ns:
-        return 3
-    if k <= len(n) and all(close(m[i], n[i]) for i in range(k)):
         return 2
     if len(ms) >= _L["squash_prefix_min_len"] and ns.startswith(ms):
-        return 2
+        return 1
     if all(t in n for t in m):
         return 1
     if len(ms) >= _L["squash_contains_min_len"] and ms in ns:
@@ -178,8 +169,8 @@ def score(m: list[str], n: list[str]) -> int:
 
 
 def combining_ranges() -> list[list[int]]:
-    """Code point ranges (BMP and beyond) that fold drops: canonical combining class
-    not 0, per this Python's unicodedata. Embedded in the index for the JS port."""
+    """Code point ranges that fold drops: canonical combining class not 0, per this
+    Python's unicodedata. Embedded in the index for the JS port of fold."""
     out: list[list[int]] = []
     start = None
     for cp in range(0x110000):

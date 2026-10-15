@@ -128,12 +128,17 @@ class Linker:
                 top = tk
                 break
         if len(top) > 1:
-            return {"status": "ambiguous", "cands": top[: self.L["max_candidates"]], "n": len(top)}
-        # other matches worth offering: another kind of entry (the story of an event, the
-        # event at a place), or the same kind matching almost as well
+            # put back to the visitor: every entry of that kind matching as well, or
+            # nearly as well (Fatima, Fatima, Fatimah)
+            kind = self.E[top[0]]["k"]
+            cands = [i for s, i in inkind if self.E[i]["k"] == kind and s >= best - self.L["ambiguity_margin"]]
+            return {"status": "ambiguous", "cands": cands[: self.L["max_candidates"]], "n": len(cands)}
+        # other matches worth offering: another kind of entry (the event at a place, the
+        # story of an event), or an entry of the same kind matching near-exactly
         chosen = top[0]
-        alts = [i for s, i in inkind if i != chosen and s >= self.L["alternatives_min_score"]
-                and (self.E[i]["k"] != self.E[chosen]["k"] or s >= best - 1)]
+        alts = [i for s, i in inkind if i != chosen and (
+            (self.E[i]["k"] != self.E[chosen]["k"] and s >= self.L["alternatives_min_score"])
+            or (self.E[i]["k"] == self.E[chosen]["k"] and s >= self.L["alternatives_same_kind_min_score"]))]
         return {"status": "ok", "e": chosen, "score": best, "alts": alts[: self.L["max_alternatives"]]}
 
 

@@ -1,7 +1,8 @@
 /* al-Marṣad — ask the graph, in the browser.
  *
- * A port of ask/normalise.py (after the site's fold), ask/dsl.py, ask/translate.py and
- * ask/present.py. ask/tests/test_parity.py runs both on the golden set and on extra
+ * A port of ask/normalise.py (with site/names.py's normalise and skeleton_words, whose
+ * tables it reads from the index), ask/dsl.py, ask/translate.py and ask/present.py.
+ * ask/tests/test_parity.py runs both on the golden set and on extra
  * questions and requires the same answer objects and the same HTML. The rules, the
  * strings and the index come from ask-index.json, built by ask/build_ask.py; nothing
  * here calls a model or any other site. Works as a progressive enhancement: without
@@ -64,11 +65,60 @@
       return out;
     }
 
+    // ------------------------------------------------------------------ site/names.py
+    // normalise and skeleton_words, step for step; every table is names.RULES (data.norm.names)
+    var SR = data.norm.names;
+    var SR_DROP = Array.from(SR.drop), SR_NONWORD = new RegExp(SR.nonword, "g"), SR_ABD = new RegExp(SR.abd);
+    var SR_KEEP = new RegExp(SR.sk_keep), SR_MARKS = /\p{M}/gu;
+    function siteNormalise(text) {
+      var s = "", t = "", words = [], out = [], i;
+      for (var ch of text) if (SR_DROP.indexOf(ch) < 0) s += ch;
+      s = s.normalize("NFKD").replace(SR_MARKS, "").toLowerCase();
+      for (var c of s) t += has(SR.chars, c) ? SR.chars[c] : c;
+      t = t.replace(SR_NONWORD, " ");
+      t.split(" ").forEach(function (raw) {
+        var parts = raw.split("-").filter(function (x) { return x; });
+        parts.forEach(function (x, k) { if (!(k < parts.length - 1 && SR.articles.indexOf(x) >= 0)) words.push(x); });
+      });
+      for (i = 0; i < words.length; i++) {
+        var w = words[i], more = i < words.length - 1;
+        if (more && SR.lone_articles.indexOf(w) >= 0) continue;
+        if (w.indexOf(SR.ar_article) === 0 && w.length >= 4) w = w.slice(2);
+        if (more) {
+          if (has(SR.particles, w)) w = SR.particles[w];
+          else if (SR_ABD.test(w)) w = "abd";
+        }
+        out.push(w);
+      }
+      return out.join(" ");
+    }
+    function collapseRuns(s) {
+      var out = "";
+      for (var i = 0; i < s.length; i++) if (i === 0 || s[i] !== s[i - 1]) out += s[i];
+      return out;
+    }
+    function skeletonWords(normal) {
+      var out = [];
+      normal.split(" ").forEach(function (w) {
+        var k = "", i = 0;
+        while (i < w.length) {
+          var two = w.slice(i, i + 2);
+          if (has(SR.sk_digraphs, two)) { k += SR.sk_digraphs[two]; i += 2; continue; }
+          var ch = w[i];
+          if (has(SR.sk_chars, ch)) k += SR.sk_chars[ch];
+          else if (SR_KEEP.test(ch)) k += ch;
+          i += 1;
+        }
+        k = collapseRuns(k);
+        if (k.length > 1 && k[k.length - 1] === "h") k = k.slice(0, -1);
+        if (k) out.push(k);
+      });
+      return out;
+    }
+
     // ------------------------------------------------------------------ normalise.py
     var RX_SPACES = new RegExp(NR.spaces, "g"), RX_HON = new RegExp(NR.honorific_paren, "g");
-    var RX_POSS = new RegExp(NR.possessive, "g"), RX_ART = new RegExp(NR.article, "g");
-    var RX_NONWORD = new RegExp(NR.nonword, "g"), RX_DOUBLE = /([a-z])\1+/g, RX_LATIN = /^[a-z0-9]+$/;
-    var RX_ARTOKEN = /^[؀-ۿ]/;
+    var RX_POSS = new RegExp(NR.possessive, "g");
     var RX_ALLAH = new RegExp("^(" + NR.allah_heads.join("|") + ")(" + NR.allah_tails.join("|") + ")$");
 
     function textKey(text) {
@@ -80,44 +130,23 @@
       s = s.replace(RX_SPACES, " ");
       return stripSpaces(s);
     }
-    function phonetic(tok) {
-      if (!RX_LATIN.test(tok)) return tok;
-      var i;
-      tok = tok.replace(RX_DOUBLE, "$1");
-      for (i = 0; i < NR.phonetic_multi.length; i++) tok = replaceAll(tok, NR.phonetic_multi[i][0], NR.phonetic_multi[i][1]);
-      for (i = 0; i < NR.phonetic_single.length; i++) tok = replaceAll(tok, NR.phonetic_single[i][0], NR.phonetic_single[i][1]);
-      tok = tok.replace(RX_DOUBLE, "$1");
-      if (tok.length > 3 && tok.slice(-2) === "ah") tok = tok.slice(0, -1);
-      return tok;
-    }
     function nameTokens(text) {
-      var s = textKey(text);
+      var s = fold(text || "").toLowerCase().replace(RX_HON, " ");
       s = s.replace(RX_POSS, "");
-      s = replaceAll(s, "'", "");
-      s = s.replace(RX_ART, function (m, g1) { return g1; });
-      s = s.replace(RX_NONWORD, " ");
-      var toks = [], parts = s.split(" "), i, art = NR.arabic_article;
-      for (i = 0; i < parts.length; i++) {
-        var tok = parts[i];
-        if (!tok) continue;
-        if (has(NR.token_map, tok)) tok = NR.token_map[tok];
-        if (!tok) continue;
-        if (RX_ARTOKEN.test(tok) && tok.indexOf(art) === 0 && tok.length >= 4) tok = tok.slice(art.length);
-        toks.push(tok);
-      }
-      var merged = [];
-      i = 0;
-      while (i < toks.length) {
-        var t = toks[i];
-        if (NR.allah_heads.indexOf(t) >= 0 && i + 1 < toks.length && NR.allah_tails.indexOf(toks[i + 1]) >= 0) {
+      var words = siteNormalise(s).split(" ").filter(function (w) { return w && NR.stop_words.indexOf(w) < 0; });
+      var merged = [], i = 0;
+      while (i < words.length) {
+        var t = words[i];
+        if (NR.allah_heads.indexOf(t) >= 0 && i + 1 < words.length && NR.allah_tails.indexOf(words[i + 1]) >= 0) {
           merged.push(t + "ullah"); i += 2; continue;
         }
         var m = RX_ALLAH.exec(t);
         merged.push(m ? m[1] + "ullah" : t);
         i += 1;
       }
-      return merged.map(phonetic);
+      return merged;
     }
+    function sound(word) { var k = skeletonWords(word); return k.length ? k[0] : ""; }
     function levenshtein(a, b) {
       var prev = [], cur, i, j;
       for (j = 0; j <= b.length; j++) prev.push(j);
@@ -131,8 +160,10 @@
       }
       return prev[b.length];
     }
-    function close(a, b) {
+    function close(a, b, loose) {
       if (a === b) return true;
+      var sa = sound(a);
+      if (sa && sa === sound(b) && (loose || sa.length >= LK.sound_exact_min_len)) return true;
       var shortest = Math.min(a.length, b.length), limit;
       if (shortest >= LK.fuzzy_two_min_len) limit = 2;
       else if (shortest >= LK.fuzzy_one_min_len) limit = 1;
@@ -150,20 +181,21 @@
       for (var i = 1; i < n.length - k + 1; i++) if (arrEq(n.slice(i, i + k), m)) return true;
       return false;
     }
+    function allClose(m, n, loose) {
+      for (var i = 0; i < m.length; i++) if (!close(m[i], n[i], loose)) return false;
+      return true;
+    }
     function score(m, n) {
       if (!m.length || !n.length) return 0;
-      if (arrEq(m, n)) return 5;
-      var k = m.length, i;
+      if (arrEq(m, n)) return 6;
+      var k = m.length;
+      if (k === n.length && allClose(m, n, false)) return 5;
       if (k <= n.length && arrEq(n.slice(0, k), m)) return 4;
-      if (runInside(m, n)) return 3;
+      if (k <= n.length && allClose(m, n, true)) return 3;
+      if (runInside(m, n)) return 2;
       var ms = m.join(""), ns = n.join("");
-      if (ms === ns) return 3;
-      if (k <= n.length) {
-        var all = true;
-        for (i = 0; i < k; i++) if (!close(m[i], n[i])) { all = false; break; }
-        if (all) return 2;
-      }
-      if (ms.length >= LK.squash_prefix_min_len && ns.indexOf(ms) === 0) return 2;
+      if (ms === ns) return 2;
+      if (ms.length >= LK.squash_prefix_min_len && ns.indexOf(ms) === 0) return 1;
       if (m.every(function (t) { return n.indexOf(t) >= 0; })) return 1;
       if (ms.length >= LK.squash_contains_min_len && ns.indexOf(ms) >= 0) return 1;
       return 0;
@@ -817,10 +849,16 @@
         var tk = top.filter(function (i) { return E[i].k === kinds[q]; });
         if (tk.length) { top = tk; break; }
       }
-      if (top.length > 1) return { status: "ambiguous", cands: top.slice(0, LK.max_candidates), n: top.length };
+      if (top.length > 1) {
+        var kd = E[top[0]].k;
+        var cands = inkind.filter(function (x) { return E[x[1]].k === kd && x[0] >= best - LK.ambiguity_margin; }).map(function (x) { return x[1]; });
+        return { status: "ambiguous", cands: cands.slice(0, LK.max_candidates), n: cands.length };
+      }
       var chosen = top[0];
       var alts = inkind.filter(function (x) {
-        return x[1] !== chosen && x[0] >= LK.alternatives_min_score && (E[x[1]].k !== E[chosen].k || x[0] >= best - 1);
+        if (x[1] === chosen) return false;
+        if (E[x[1]].k !== E[chosen].k) return x[0] >= LK.alternatives_min_score;
+        return x[0] >= LK.alternatives_same_kind_min_score;
       }).map(function (x) { return x[1]; });
       return { status: "ok", e: chosen, score: best, alts: alts.slice(0, LK.max_alternatives) };
     }

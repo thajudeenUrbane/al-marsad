@@ -235,7 +235,8 @@ def build(graph: Path = GRAPH) -> dict:
         "claims": claims,
         "agents": agents,
         "norm": {"marks": normalise.MARK_CHARS, "ccc": normalise.combining_ranges(),
-                 "arabic_run": display._ARABIC_RUN.pattern, "pbuh": display.PBUH_SIGN},
+                 "arabic_run": display._ARABIC_RUN.pattern, "pbuh": display.PBUH_SIGN,
+                 "names": normalise.names.RULES},
     }
 
 
