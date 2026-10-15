@@ -1,7 +1,8 @@
-"""Turns journeys and the practice bank into HTML. No data is read here and no UI
-string is written here: every visible string is a key in learn/i18n/en.json (or, for
-the shared page frame, dates and status words, site/i18n/en.json), or comes from the
-graph. The markup reuses the site's CSS classes, so site.css styles most of it."""
+"""Turns journeys and the practice bank into HTML. No file is read here except the
+templates, and no UI string is written here: every visible string is a key in
+learn/i18n/en.json (or, for the shared page frame, dates and status words,
+site/i18n/en.json), or comes from the graph through site/model.py. The markup reuses
+the site's CSS classes, so site.css styles most of it; learn.css adds the rest."""
 from __future__ import annotations
 
 import html
@@ -10,11 +11,14 @@ import re
 from pathlib import Path
 from string import Template
 
+from rdflib import URIRef
+from rdflib.namespace import RDFS, SKOS
+
 import display
-from model import Claim, Entity, Site
+from model import MRS, Claim, Entity, Site
 from render import URL_AGPL, URL_CC_BY_SA, URL_LICENSING
 
-from journeys import Journey, Reason, Step
+from journeys import Journey, Reason, Step, term
 
 NAV = (("people", "person"), ("events", "event"), ("places", "place"), ("groups", "group"),
        ("stories", "story"), ("glossary", "glossary"))
@@ -47,12 +51,6 @@ class Strings:
     def tn(self, key: str, n: int, **kw) -> str:
         return self.t(f"{key}.{'one' if n == 1 else 'other'}", n=n, **kw)
 
-    def thn(self, key: str, n: int, **kw) -> str:
-        return self.th(f"{key}.{'one' if n == 1 else 'other'}", n=n, **kw)
-
-    def has(self, key: str) -> bool:
-        return key in self.learn or key in self.site
-
 
 def esc(s: str) -> str:
     return display.mark_arabic(html.escape(s, quote=False))
@@ -82,8 +80,8 @@ class LearnRenderer:
         nav = [f'<li><a href="{base}">{html.escape(self.t("nav.home"))}</a></li>']
         for key, kind in NAV:
             nav.append(f'<li><a href="{base}{kind}/">{html.escape(self.t("nav." + key))}</a></li>')
-        current = ' aria-current="page"' if len(crumbs) == 1 else ""
-        nav.append(f'<li><a href="{base}learn/"{current}>{html.escape(self.t("learn.nav"))}</a></li>')
+        # the section link is marked current on every learn page, as the site does for its sections
+        nav.append(f'<li><a href="{base}learn/" aria-current="page">{html.escape(self.t("learn.nav"))}</a></li>')
         items = [f'<li><a href="{base}">{html.escape(self.t("nav.home"))}</a></li>']
         for text, href in crumbs:
             if href is None:
@@ -236,8 +234,7 @@ class LearnRenderer:
         return self.s.tn(key, rule["max_links"], links=links)
 
     def term_label(self, curie: str) -> str:
-        from journeys import term
-        from rdflib.namespace import RDFS, SKOS
+        """The graph's own label for an ontology term named in a rule."""
         node = term(curie, "rule")
         for p in (SKOS.prefLabel, RDFS.label):
             v = self.site.first_lit(node, p)
@@ -467,8 +464,9 @@ class LearnRenderer:
             src = c.get("citation") or c.get("basis")
             source = (f'<span class="source">{html.escape(self.t("claim.source"))} {esc(src)}</span>' if src
                       else f'<span class="source not-recorded">{html.escape(self.t("claim.source"))} {html.escape(self.t("common.not_recorded"))}</span>')
+            pred = self.site.vocab(URIRef(str(MRS) + c["predicate"])) or c["predicate"]
             return (f'<li class="claim"><p class="claim-text">{self.link(base, c["subject"])} '
-                    f'<span class="rel">{esc(c["predicate"])}</span> {self.link(base, c["object"])}</p>'
+                    f'<span class="rel">{esc(pred)}</span> {self.link(base, c["object"])}</p>'
                     f'<p class="claim-meta">{self.status_html(c["status"])} {source}</p></li>')
         return self.claim_li(base, claim)
 

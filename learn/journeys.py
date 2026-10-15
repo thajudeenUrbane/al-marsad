@@ -30,8 +30,8 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from rdflib import BNode, Namespace, URIRef
-from rdflib.namespace import RDF, RDFS
+from rdflib import Namespace, URIRef
+from rdflib.namespace import RDFS
 
 import display
 from model import CRM, MRS, Claim, Entity, Site
