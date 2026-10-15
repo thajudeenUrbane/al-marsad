@@ -24,23 +24,18 @@
     return out;
   }
 
-  function osa(a, b) {
-    var d = [], i, j;
-    for (i = 0; i <= a.length; i++) {
-      d.push(new Array(b.length + 1).fill(0));
-      d[i][0] = i;
+  // at most one edit apart: a letter changed, added or dropped, or two neighbours swapped
+  function withinOne(a, b) {
+    if (a === b) return true;
+    var la = a.length, lb = b.length, i = 0;
+    if (Math.abs(la - lb) > 1) return false;
+    while (i < Math.min(la, lb) && a[i] === b[i]) i++;
+    if (la === lb) {
+      return a.slice(i + 1) === b.slice(i + 1) ||
+        (i + 1 < la && a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
     }
-    for (j = 0; j <= b.length; j++) d[0][j] = j;
-    for (i = 1; i <= a.length; i++) {
-      for (j = 1; j <= b.length; j++) {
-        var cost = a[i - 1] === b[j - 1] ? 0 : 1;
-        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
-        if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
-          d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
-        }
-      }
-    }
-    return d[a.length][b.length];
+    if (la > lb) return a.slice(i + 1) === b.slice(i);
+    return a.slice(i) === b.slice(i + 1);
   }
 
   function makeEngine(R) {
@@ -118,7 +113,7 @@
       var n = q.c.length;
       if (n < R.min_near) return false;
       return k.csufs.some(function (s) {
-        return [n - 1, n, n + 1].some(function (m) { return osa(q.c, s.slice(0, m)) <= 1; });
+        return [n - 1, n, n + 1].some(function (m) { return withinOne(q.c, s.slice(0, m)); });
       });
     }
 

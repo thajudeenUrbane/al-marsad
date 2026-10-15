@@ -282,20 +282,23 @@ def prepare(items: list[dict]) -> list[dict]:
     return [{"u": it["u"], "keys": [Key(k) for k in it["k"]]} for it in items]
 
 
-def osa(a: str, b: str) -> int:
-    """Edit distance with adjacent transpositions (optimal string alignment)."""
-    d = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]
-    for i in range(len(a) + 1):
-        d[i][0] = i
-    for j in range(len(b) + 1):
-        d[0][j] = j
-    for i in range(1, len(a) + 1):
-        for j in range(1, len(b) + 1):
-            cost = 0 if a[i - 1] == b[j - 1] else 1
-            d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
-            if i > 1 and j > 1 and a[i - 1] == b[j - 2] and a[i - 2] == b[j - 1]:
-                d[i][j] = min(d[i][j], d[i - 2][j - 2] + 1)
-    return d[len(a)][len(b)]
+def within_one(a: str, b: str) -> bool:
+    """True if a and b differ by at most one edit: a letter changed, added or dropped,
+    or two neighbouring letters swapped. Linear time."""
+    if a == b:
+        return True
+    la, lb = len(a), len(b)
+    if abs(la - lb) > 1:
+        return False
+    i = 0
+    while i < min(la, lb) and a[i] == b[i]:
+        i += 1
+    if la == lb:
+        return a[i + 1:] == b[i + 1:] or (
+            i + 1 < la and a[i] == b[i + 1] and a[i + 1] == b[i] and a[i + 2:] == b[i + 2:])
+    if la > lb:
+        return a[i + 1:] == b[i:]
+    return a[i:] == b[i + 1:]
 
 
 def near(q: Key, k: Key) -> bool:
@@ -303,7 +306,7 @@ def near(q: Key, k: Key) -> bool:
     n = len(q.c)
     if n < RULES["min_near"]:
         return False
-    return any(osa(q.c, s[:m]) <= 1 for s in k.csufs for m in (n - 1, n, n + 1))
+    return any(within_one(q.c, s[:m]) for s in k.csufs for m in (n - 1, n, n + 1))
 
 
 def tier(q: Key, k: Key) -> int:

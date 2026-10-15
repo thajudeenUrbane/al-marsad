@@ -30,7 +30,8 @@ JS = SITE / "static" / "search.js"
 NODE = shutil.which("node")
 REQUIRED = ("Abu Bakr", "Abū Bakr", "abubakr", "ابو بكر", "أبو بكر")   # slice-2 brief, 2b item 3
 EXTRA_QUERIES = ("Abu Bark", "zzqx", "Mohammed", "Muhammad", "Medina", "عمر", "Siddiq", "abu ba",
-                 "siddiq abu", "akr", "Khaild", "b", "al-", "ﷺ", "")
+                 "siddiq abu", "akr", "Khaild", "b", "al-", "ﷺ", "",
+                 "Arrival in Madinah and the Building of the Mosqeu", "arrivalinmadinahandthebuildingx")
 
 
 def run_node(job: dict) -> dict:
@@ -137,6 +138,17 @@ class Ranking(unittest.TestCase):
         self.assertEqual(self.first("مكة"), ("place/6", 0))
         self.assertEqual(self.first("Abu Bark"), ("person/1", 6))
         self.assertEqual(names.search(self.ITEMS, "zzqx"), [])
+
+    def test_one_edit(self):
+        yes = [("abubakr", "abubakr"), ("abubark", "abubakr"), ("abubakx", "abubakr"),
+               ("abubak", "abubakr"), ("abubakrr", "abubakr"), ("bubakr", "abubakr")]
+        no = [("abukabr", "abubakr"), ("abubkar", "abubakrx"), ("ab", "abcd"), ("abcd", "abdc x")]
+        for a, b in yes:
+            self.assertTrue(names.within_one(a, b), (a, b))
+            self.assertTrue(names.within_one(b, a), (b, a))
+        for a, b in no:
+            self.assertFalse(names.within_one(a, b), (a, b))
+            self.assertFalse(names.within_one(b, a), (b, a))
 
     def test_the_name_as_shown_breaks_ties(self):
         """Both have the ism Muhammad; the one whose shown name has it comes first."""
