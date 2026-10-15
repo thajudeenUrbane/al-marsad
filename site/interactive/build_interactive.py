@@ -274,7 +274,7 @@ def timeline_page(site: Site, S: Strings, P: Pieces, R: Renderer, tl: dict) -> t
             n += 1
 
     # focus: people, groups and places that placed items link to
-    focus = focus_index(site, items, spans, tl, kinds=("person", "group", "place"))
+    focus = focus_index(site, items, spans, kinds=("person", "group", "place"))
 
     data = {
         "view": "timeline",
@@ -306,7 +306,7 @@ def timeline_page(site: Site, S: Strings, P: Pieces, R: Renderer, tl: dict) -> t
     return page, data
 
 
-def focus_index(site: Site, items: list[dict], spans: list[dict], tl: dict, kinds) -> list[dict]:
+def focus_index(site: Site, items: list[dict], spans: list[dict], kinds) -> list[dict]:
     """Who and where the drawn items link to, with how many linked items are not placed."""
     placed_entities = {s["entity"].iri for s in spans if s["role"] == "event"}
     by_id = {extract.entity_id(e): e for e in site.entities.values()}
