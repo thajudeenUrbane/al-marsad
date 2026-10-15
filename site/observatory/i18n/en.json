@@ -172,7 +172,8 @@
   "panel.on_map": "On the map at {place}: the located place recorded most often for it. Every recorded place is listed here.",
   "panel.off_map": "Not on the map: no place with coordinates is recorded for it.",
   "panel.story_no": "story {no}, part {part}",
-  "panel.story_meta": "Story {no} of the 50 Stories, part {part}: {label}",
+  "panel.story_meta": "Story {no} of the 50 Stories · {part}",
+  "panel.part_label": "Part {part}: {label}",
 
   "facet.evidence": "Evidence summary",
   "facet.relationships": "Relationships, by kind",
@@ -364,6 +365,7 @@
   "frame.stories.note": "An AI-generated document, not yet reviewed. People and groups sit inside the dial near the stories that name them.",
   "frame.stories.part": "Part {n}: {label}",
   "frame.stories.part_plain": "Part {n}",
+  "frame.stories.part_range": "{label} (stories {a}–{b})",
   "frame.stories.shelf": "In no story",
   "frame.isnad.title": "Transmission (isnād)",
   "frame.isnad.note": "{n} chain recorded so far: the worked example for the report of the Hijrah (Ghār Thawr).",

@@ -223,11 +223,19 @@
     if (x0 === Infinity) return { x0: -500, y0: -500, x1: 500, y1: 500 };
     return { x0, y0, x1, y1 };
   }
+  // On a phone the open bottom sheet covers the lower part of the canvas (once the canvas
+  // is scrolled to the top); fitting leaves that part out so the focus stays visible.
+  function bottomInset() {
+    const pn = byId("obs-panel");
+    if (!pn || pn.dataset.open !== "true" || getComputedStyle(pn).position !== "fixed") return 0;
+    const visible = window.innerHeight - pn.getBoundingClientRect().height;
+    return Math.max(0, Math.min(H * 0.6, H - visible));
+  }
   function fitTo(b, pad) {
     const bw = Math.max(b.x1 - b.x0, 60), bh = Math.max(b.y1 - b.y0, 60);
-    const p = pad === undefined ? 30 : pad, top = p + 44;
-    const k = Math.max(0.02, Math.min(60, Math.min((W - 2 * p) / bw, (H - top - p) / bh)));
-    return { x: (b.x0 + b.x1) / 2, y: (b.y0 + b.y1) / 2 - (top - p) / 2 / k, k };
+    const p = pad === undefined ? 30 : pad, top = p + 44, ins = bottomInset();
+    const k = Math.max(0.02, Math.min(60, Math.min((W - 2 * p) / bw, (H - top - p - ins) / bh)));
+    return { x: (b.x0 + b.x1) / 2, y: (b.y0 + b.y1) / 2 - (top - p - ins) / 2 / k, k };
   }
   const allIdx = Array.from({ length: n }, (_, i) => i);
   const fitAll = () => fitTo(bbox(allIdx, true));
@@ -482,7 +490,8 @@
     const seen = new Set();
     const cands = labelCandidates();
     let count = 0;
-    const max = FAST ? 12 : S.lens === "discover" ? 40 : 160;
+    // the label budget follows the canvas area, so a phone gets fewer than a desktop
+    const max = Math.min(FAST ? 12 : S.lens === "discover" ? 40 : 160, Math.max(10, Math.round((W * H) / 6000)));
     ctx.textBaseline = "middle"; ctx.textAlign = "left";
     for (const [pri, i, alpha] of cands) {
       if (seen.has(i)) continue;
@@ -898,12 +907,14 @@
     for (const [o, list] of items) ul.append(otherRow(i, o, list, N[o].no ? t("panel.story_no", { no: N[o].no, part: N[o].part || "—" }) : null));
     let extra = null;
     if (N[i].k === "story") {
+      const part = N[i].partl && /^part\b/i.test(N[i].partl) ? N[i].partl : t("panel.part_label", { part: N[i].part || "—", label: N[i].partl || "" });
       extra = h("div", null,
-        h("p", null, t("panel.story_meta", { no: N[i].no || "—", part: N[i].part || "—", label: N[i].partl || "" })),
+        h("p", null, t("panel.story_meta", { no: N[i].no || "—", part })),
         N[i].work !== undefined ? h("p", { class: "muted" }, srcLabel(N[i].work)) : null,
         h("p", null, readerLink(i)));
     }
-    return facet("stories", t("facet.stories"), m.size, h("div", null, extra, m.size ? ul : h("p", { class: "muted" }, t("panel.none_recorded"))),
+    const empty = N[i].k === "story" ? null : h("p", { class: "muted" }, t("panel.none_recorded"));
+    return facet("stories", t("facet.stories"), N[i].k === "story" ? null : m.size, h("div", null, extra, m.size ? ul : empty),
       N[i].k === "story" ? null : t("facet.stories_note"));
   }
   function timeFacet(i) {
@@ -1067,10 +1078,22 @@
   }
   function openSheet() {
     panel.dataset.open = "true";
+    // on a phone the panel is a bottom sheet: bring the picture up so the focus stays in view above it
+    if (getComputedStyle(panel).position === "fixed") {
+      const top = byId("obs-canvas").getBoundingClientRect().top;
+      if (Math.abs(top) > 4) window.scrollBy({ top, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+    refit();
     const title = byId("panel-title");
     if (title && document.activeElement !== byId("obs-search") && document.activeElement !== canvas) title.focus({ preventScroll: true });
   }
-  function closeSheet() { panel.dataset.open = "false"; }
+  function closeSheet() { panel.dataset.open = "false"; refit(); }
+  // the visible part of the canvas changed (bottom sheet opened or closed): fit again unless moving
+  function refit() {
+    if (anim || S.camMode === "free") return;
+    S.cam = S.camMode === "focus" ? fitEgo() : fitAll();
+    requestDraw();
+  }
 
   // ------------------------------------------------------------------ research: view-state (docs/04 §6)
   function viewState() {

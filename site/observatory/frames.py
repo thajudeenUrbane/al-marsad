@@ -361,8 +361,9 @@ def stories_frame(data, t) -> dict:
         slots = len(stories) + gap * len(parts)
         slot = 0.0
         deco.append({"t": "circle", "x": 0, "y": 0, "r": R, "o": 0.18})
-        deco.append({"t": "text", "x": -WIDTH / 2, "y": -R - 50, "dy": -16, "s": t("frame.stories.title"), "a": "start", "z": 13, "w": 600})
-        deco.append({"t": "text", "x": -WIDTH / 2, "y": -R - 50, "dy": 0, "s": t("frame.stories.note"), "a": "start", "z": 11, "o": 0.8})
+        head = -R - 150
+        deco.append({"t": "text", "x": -WIDTH / 2, "y": head, "dy": -16, "s": t("frame.stories.title"), "a": "start", "z": 13, "w": 600})
+        deco.append({"t": "text", "x": -WIDTH / 2, "y": head, "dy": 0, "s": t("frame.stories.note"), "a": "start", "z": 11, "o": 0.8})
         for p, plabel, items in parts:
             start = slot
             for i in items:
@@ -372,13 +373,20 @@ def stories_frame(data, t) -> dict:
                 slot += 1
             mid = -math.pi / 2 + ((start + slot) / 2) / slots * 2 * math.pi
             lx, ly = (R + 48) * math.cos(mid), (R + 48) * math.sin(mid)
+            short = t("frame.stories.part_plain", n=p if p is not None else "?")
+            deco.append({"t": "text", "x": lx, "y": ly, "dy": 4, "s": short, "a": "middle", "z": 12, "w": 600, "o": 0.9})
+            # the part's full recorded name, listed under the title (it is too long for the ring)
             if plabel and plabel.lower().startswith("part"):
-                text = plabel  # the recorded label already names the part
+                text = plabel
             elif plabel:
                 text = t("frame.stories.part", n=p, label=plabel)
             else:
-                text = t("frame.stories.part_plain", n=p if p is not None else "?")
-            deco.append({"t": "text", "x": lx, "y": ly, "s": text, "a": "middle", "z": 12, "w": 600, "o": 0.9})
+                text = short
+            first, last = data.nodes[items[0]].get("no"), data.nodes[items[-1]].get("no")
+            if first is not None and last is not None:
+                text = t("frame.stories.part_range", label=text, a=first, b=last)
+            deco.append({"t": "text", "x": -WIDTH / 2, "y": head, "dy": 16 + 14 * len([d for d in deco if d.get("part_list")]),
+                         "s": text, "a": "start", "z": 11, "o": 0.85, "part_list": True})
             slot += gap
         # nodes tied to stories: start at the mean of their stories, pulled inside the ring
         free = [i for i, nd in enumerate(data.nodes) if nd["k"] != "story" and nd["_stories"]]
@@ -435,6 +443,8 @@ def stories_frame(data, t) -> dict:
         for i in order:
             pos[i] = (xy[i][0], xy[i][1])
             region[i] = "dial"
+    for d in deco:
+        d.pop("part_list", None)
     rest = [i for i in range(len(data.nodes)) if i not in pos]
     shelf(data, rest, R + 110, t("frame.stories.shelf"), t, pos, deco, region)
     return {"pos": pos, "deco": deco, "region": region}
