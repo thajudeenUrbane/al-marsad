@@ -182,7 +182,8 @@ class Reason:
 @dataclass
 class Step:
     entity: Entity
-    reasons: list[Reason] = field(default_factory=list)
+    reasons: list[Reason] = field(default_factory=list)  # why it was chosen
+    links: list[Reason] = field(default_factory=list)    # its other recorded links to steps of the journey
     records: list[Claim] = field(default_factory=list)   # people: records that choose them; stories: people named
     contrary: list[Claim] = field(default_factory=list)  # shown beside, never used to choose
     order_note: str | None = None  # None (first) | part | recorded | unrecorded
@@ -267,7 +268,8 @@ class Links:
         self.site = site
         g = site.g
         self.events = {e.iri for k in EVENT_KINDS for e in site.by_kind[k]}
-        self.adj: dict[str, list[tuple[str, str, Reason]]] = {}     # iri -> [(other, follow, reason for other)]
+        self.adj: dict[str, list[tuple[str, str, Reason]]] = {}     # iri -> [(other, follow, reason shown on other)]
+        self.about: dict[str, list[tuple[str, str, Reason]]] = {}   # iri -> [(other, follow, reason shown on iri)]
         self.order: list[tuple[str, str, str]] = []                  # (before, after, kind)
         self.whole_of: dict[str, set[str]] = {}                      # part -> wholes
         # part-of claims and other event-to-event claims
@@ -325,9 +327,12 @@ class Links:
         return [self.by_node[n] for n in sorted({str(x) for x in nodes}) if n in self.by_node]
 
     def _add(self, a: str, b: str, follow: str, reason_for_b_about_a: Reason, reason_for_a_about_b: Reason):
-        """adj[a] holds (b, follow, the reason shown on b, which names a)."""
+        """adj[a] holds (b, follow, the reason shown on b, which names a); about[b] holds
+        the same reason as (a, follow, reason)."""
         self.adj.setdefault(a, []).append((b, follow, reason_for_b_about_a))
         self.adj.setdefault(b, []).append((a, follow, reason_for_a_about_b))
+        self.about.setdefault(b, []).append((a, follow, reason_for_b_about_a))
+        self.about.setdefault(a, []).append((b, follow, reason_for_a_about_b))
 
     def _part(self, part: str, whole: str, claims: list[Claim]):
         self.whole_of.setdefault(part, set()).add(whole)
@@ -396,13 +401,18 @@ def _order_events(site: Site, links: Links, chosen: list[str]) -> tuple[list[str
         return (lo is None, _iso_key(lo) if lo else (), n is None, n or 0, display.sort_key(e.name), e.pid)
 
     conflict = False
+    order: list[str] = []
+    used: set = set()
     for edges in (recorded | dated | parts, recorded | dated, recorded, set()):
-        order = _kahn(chosen, edges, whole_in_sel, key)
-        if order is not None:
+        found = _kahn(chosen, edges, whole_in_sel, key)
+        if found is not None:
+            order, used = found, edges
             break
         conflict = True
-    # notes: how each step's place relates to the step before it
-    closure = _closure(chosen, recorded | dated)
+    # notes: how each step's place relates to the step before it. A recorded order
+    # (dates, before/after links) is named first; a part follows its whole; otherwise
+    # the record gives no order and the tie-break rule placed it.
+    closure = _closure(chosen, used & (recorded | dated))
     notes: dict[str, tuple[str | None, str | None]] = {}
     for idx, i in enumerate(order):
         if idx == 0:
@@ -410,10 +420,10 @@ def _order_events(site: Site, links: Links, chosen: list[str]) -> tuple[list[str
             continue
         prev = order[idx - 1]
         ws = [w for w in whole_in_sel[i] if order.index(w) < idx]
-        if ws:
-            notes[i] = ("part", ws[0])
-        elif (prev, i) in closure:
+        if (prev, i) in closure:
             notes[i] = ("recorded", prev)
+        elif ws and (ws[0], i) in used:
+            notes[i] = ("part", ws[0])
         else:
             notes[i] = ("unrecorded", prev)
     return order, notes, conflict
@@ -472,10 +482,16 @@ def build_events(site: Site, links: Links, spec: dict) -> Journey:
     hop, reasons = select_events(site, links, rule)
     chosen = sorted(hop)
     order, notes, conflict = _order_events(site, links, chosen)
+    sel = set(chosen)
     steps = []
     for i in order:
         st = Step(entity=site.entity(i), reasons=reasons[i], hop=hop[i])
         st.order_note, st.order_ref = notes[i]
+        for other, follow, r in links.about.get(i, []):
+            if other in sel and follow in rule["follow"] and r not in st.reasons and r not in st.links:
+                st.links.append(r)
+        pos = {x: n for n, x in enumerate(order)}
+        st.links.sort(key=lambda r: (pos.get(r.other, 10**6), r.kind))
         steps.append(st)
     kinds = {s.entity.kind for s in steps}
     universe = sum(len(site.by_kind[k]) for k in EVENT_KINDS)

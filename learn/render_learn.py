@@ -260,12 +260,13 @@ class LearnRenderer:
         else:
             text = self.s.th(f"learn.why.{r.kind}", other=other)
         meta = []
+        sep = ' <span class="sep" aria-hidden="true">&middot;</span> '
         if r.kind != "named":
             if r.claims:
                 for c in r.claims:
-                    meta.append(self.status_html(c.status) + " " + self.source_html(base, c))
+                    meta.append(self.status_html(c.status) + sep + self.source_html(base, c))
             else:
-                meta.append(self.status_html(None) + " " + f'<span class="note">{html.escape(self.t("learn.why.plain_link"))}</span>')
+                meta.append(self.status_html(None) + sep + f'<span class="note">{html.escape(self.t("learn.why.plain_link"))}</span>')
         out = f'<li><p>{text}</p>'
         if meta:
             out += "".join(f'<p class="claim-meta">{m}</p>' for m in meta)
@@ -284,13 +285,16 @@ class LearnRenderer:
                 f'<a href="{base}{e.kind}/{e.pid}/">{esc(e.name)}</a> <span class="kind">({html.escape(kind)})</span></h3>')
 
     def facts_line(self, base: str, e: Entity) -> str:
+        """When and where, as recorded. An event says "not yet recorded" for a missing
+        value; a story, which is a narrative rather than a dated record, just leaves it out."""
         bits = []
         when = self.date_text(e)
-        if e.kind in ("event", "story"):
-            bits.append(f'{html.escape(self.t("fact.when"))} {when or self.not_recorded()}')
-            places = e.data.get("places") or []
-            where = ", ".join(self.link(base, p) for p in places) if places else self.not_recorded()
-            bits.append(f'{html.escape(self.t("fact.where"))} {where}')
+        places = e.data.get("places") or []
+        where = ", ".join(self.link(base, p) for p in places) if places else None
+        if e.kind == "event" or when:
+            bits.append(self.s.th("learn.facts.when", value=when or self.not_recorded()))
+        if e.kind == "event" or where:
+            bits.append(self.s.th("learn.facts.where", value=where or self.not_recorded()))
         if e.kind == "story" and e.data.get("number") is not None:
             bits.append(html.escape(self.t("fact.story_number", n=e.data["number"], total=len(self.site.by_kind["story"]))))
         sep = ' <span class="sep" aria-hidden="true">&middot;</span> '
@@ -328,6 +332,10 @@ class LearnRenderer:
                 parts.append(f'<p class="banner" role="note">{html.escape(self.t("story.banner"))}</p>')
             why = "".join(self.reason_html(base, r, positions) for r in st.reasons)
             parts.append(f'<div class="step-why"><h4>{html.escape(self.t("learn.why.heading"))}</h4><ul class="plain">{why}</ul></div>')
+            if st.links:
+                more = "".join(self.reason_html(base, r, positions) for r in st.links)
+                parts.append(f'<div class="step-why step-links"><h4>{html.escape(self.t("learn.links.heading"))}</h4>'
+                             f'<ul class="plain">{more}</ul></div>')
             parts.append(self.order_html(st, positions))
             parts.append(self.claims_block(base, e, open_=study))
         elif t == "people":

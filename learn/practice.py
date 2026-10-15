@@ -9,12 +9,15 @@ accepted claim that they participated in X and another that they participated in
 
 The one rule that matters: a claim is usable only if its assertionStatus is exactly
 `accepted` (mrs:as_accepted) and nothing else. A claim that is proposed, under review,
-rejected, superseded, has no status, or carries two statuses at once is never read.
-Participation records stored on an event (mrs:Participation) have no status at all,
-so they never make a question either. An accepted "absent from" claim for the same
-person and event removes that person from the answer: a contested matter is never
-presented as settled. Answers are not multiple choice: a wrong option would assert
-that someone was *not* somewhere, which no claim says.
+rejected, superseded, has no status, or carries two statuses at once never helps to
+make a question. Participation records stored on an event (mrs:Participation) have no
+status at all, so they never make a question either.
+
+Claims that are not accepted can only take away, never add: an "absent from" claim for
+the same person and event that has not been rejected or superseded (whatever else its
+status) removes that person from the answer, so a contested matter is never presented
+as settled. Answers are not multiple choice: a wrong option would assert that someone
+was *not* somewhere, which no claim says.
 
 Each answer carries the claims behind it (their IRIs, citation and basis), so a page
 can link every answer to its sources. This module reads only an rdflib Graph; it does
@@ -91,6 +94,22 @@ def accepted_claims(g: Graph) -> list[AcceptedClaim]:
     return out
 
 
+def contested_pairs(g: Graph) -> set[tuple[str, str]]:
+    """(person, event) pairs that a live "absent from" claim contests: any status except
+    rejected or superseded, including none. Used only to remove answers, never to add."""
+    dead = {MRS.as_rejected, MRS.as_superseded}
+    out = set()
+    for a in set(g.subjects(RDF.type, MRS.Assertion)):
+        if set(g.objects(a, MRS.predicate)) & set(CONTRARY):
+            statuses = set(g.objects(a, MRS.assertionStatus))
+            if statuses and statuses <= dead:
+                continue
+            for s in g.objects(a, MRS.assertionSubject):
+                for o in g.objects(a, MRS.assertionObject):
+                    out.add((str(s), str(o)))
+    return out
+
+
 def _types(g: Graph, iri: str) -> set:
     return set(g.objects(URIRef(iri), RDF.type))
 
@@ -109,7 +128,7 @@ def question_id(qtype: str, predicate: str, about: list[str]) -> str:
 def bank(g: Graph) -> list[dict]:
     """Every question the accepted claims support, in a stable order."""
     claims = accepted_claims(g)
-    contrary = {(c.subject, c.object) for c in claims if URIRef(c.predicate) in CONTRARY}
+    contrary = contested_pairs(g)
     who_ok = {}
     ev_ok = {}
 
