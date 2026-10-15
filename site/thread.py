@@ -39,9 +39,9 @@ STRINGS = ("thread.close", "thread.kicker", "thread.path", "thread.lead.one", "t
            "thread.title")
 
 
-def _short_date(exts: list[dict], t) -> str:
+def _short_date(exts: list[dict], t, mark=lambda s: s) -> str:
     for x in exts:
-        v = display.format_extent(x, t)
+        v = display.format_extent(x, t, mark)
         if v["text"]:
             return v["text"]
     return ""
@@ -75,11 +75,13 @@ def _source(c: Claim, t) -> str:
 
 def build_thread(site: Site, t, lang: str = "en") -> dict:
     ents = [e for kind in KINDS for e in site.by_kind[kind]]
-    index = {e.iri: i for i, e in enumerate(ents)}
+    # in Arabic, a date as recorded (English) is isolated inside the Arabic date text
+    iso = (lambda s: f"⁦{s}⁩" if re.search("[A-Za-z]", s) else s) if lang == "ar" else (lambda s: s)
+    index ={e.iri: i for i, e in enumerate(ents)}
     rows, places = [], {}
     for i, e in enumerate(ents):
         exts = (e.data.get("dates") or []) if e.kind in ("event", "story") else []
-        row = [KINDS.index(e.kind), e.pid, e.name, _short_date(exts, t), _sort_day(exts),
+        row = [KINDS.index(e.kind), e.pid, e.name, _short_date(exts, t, iso), _sort_day(exts),
                e.data.get("number") if e.kind == "story" else None]
         while row and row[-1] in ("", None):
             row.pop()

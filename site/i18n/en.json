@@ -168,6 +168,7 @@
   "date.ce": "CE",
   "date.ah": "AH",
   "date.around": "around",
+  "date.around_recorded": "around",
   "date.from": "from {date}",
   "date.until": "until {date}",
   "date.converted": "Gregorian date converted from the Hijri date ({method}); it may be off by up to {days} days",

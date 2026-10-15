@@ -134,6 +134,11 @@
   function sentenceNode(words) {
     var p = el("p", "m-line");
     if (!AR) { p.textContent = words.map(function (w) { return w[0]; }).join(" "); return p; }
+    if (words.some(function (w) { return !w[1] && w[0].charAt(0) === "⁦"; })) {
+      // the relation is recorded in English, so the whole sentence is English
+      p.textContent = words.map(function (w) { return w[0].replace(/[⁦⁩]/g, ""); }).join(" ");
+      return data(p);
+    }
     words.forEach(function (w, i) {
       if (i) p.appendChild(document.createTextNode(" "));
       if (w[1]) p.appendChild(data(el("span", null, w[0])));

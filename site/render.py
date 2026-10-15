@@ -205,13 +205,17 @@ class Renderer:
             return ""
         return f' <span class="honorific" lang="ar" dir="rtl">{html.escape(self.t(key), quote=False)}</span>'
 
+    def mark_recorded(self, s: str) -> str:
+        """The recorded part of a date, isolated inside an Arabic date (see display.format_extent)."""
+        return f"{LRI}{s}{PDI}" if self.ar and _LATIN.search(s) else s
+
     def date_text(self, v: dict) -> str:
-        """A formatted date: recorded English text stays data; a date worked out from the
-        recorded bounds is interface text (its month names and era words are translated)."""
-        return self.esc(v["text"]) if v.get("recorded") else self.mixed(v["text"])
+        """A formatted date: what was worked out from the recorded bounds is interface text
+        (month names and era words translated); recorded English text inside it is isolated."""
+        return self.mixed(v["text"])
 
     def date_html(self, ext: dict) -> str:
-        v = display.format_extent(ext, self.t)
+        v = display.format_extent(ext, self.t, self.mark_recorded)
         if not v["text"]:
             return f'<span class="not-recorded">{html.escape(self.t("common.not_recorded"))}</span>'
         out = f'<span class="date">{self.date_text(v)}</span>'
@@ -227,7 +231,7 @@ class Renderer:
     def short_date(self, exts: list[dict]) -> str | None:
         """The first recorded date as marked-up HTML (see date_text), or None."""
         for x in exts:
-            v = display.format_extent(x, self.t)
+            v = display.format_extent(x, self.t, self.mark_recorded)
             if v["text"]:
                 return self.date_text(v)
         return None
@@ -321,7 +325,9 @@ class Renderer:
         sentence = (f'{self.ent_link(ctx, c.subject, cur)} '
                     f'<span class="rel">{self.text(ctx, pred, verbatim=True, data=not c.predicate_is_key)}</span> '
                     f'{self.ent_link(ctx, c.object, cur)}')
-        parts = [f'<p class="claim-text">{sentence}</p>']
+        # a relation recorded in English makes the whole sentence English; one of ours (a key) is Arabic
+        whole = "" if c.predicate_is_key else self.en_attrs
+        parts = [f'<p class="claim-text"{whole}>{sentence}</p>']
         if c.kind == "participation" and c.role:
             parts.append(f'<p class="claim-role">{html.escape(self.t("claim.role", value=c.role.text))}</p>')
         elif c.role:
