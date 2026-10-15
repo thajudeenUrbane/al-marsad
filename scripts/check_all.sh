@@ -179,7 +179,8 @@ else
 fi
 step "site: unit tests"                            "$PY" -m unittest discover -s site/tests
 # Other modules, one line each when they land, e.g.
-# step "review: tests"                             "$PY" -m unittest discover -s review/tests
+step "review: statuses agree with the review log"  "$PY" review/import_decisions.py --check
+step "review: tests"                               "$PY" -m unittest discover -s review/tests
 step "learn: tests"                                "$PY" -m unittest discover -s learn/tests
 # step "ask: tests"                                "$PY" -m unittest discover -s ask/tests
 step "ci: actions pinned to commit SHAs"           actions_pinned

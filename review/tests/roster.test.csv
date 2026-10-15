@@ -1,0 +1,5 @@
+reviewer_id,name,role,scope,granted_on,granted_by,revoked_on
+agt:TestReviewerA000000000,Test Reviewer A,scholar,source:stories-50; source:generation-1; source:seed-incidents; source:thawr; topic:identity,2026-10-15,Test Maintainer,
+agt:TestReviewerB000000000,Test Reviewer B,reviewer,topic:kinship,2026-10-15,Test Maintainer,
+agt:TestReviewerC000000000,Test Reviewer C,contributor,source:stories-50,2026-10-15,Test Maintainer,
+agt:TestReviewerD000000000,Test Reviewer D,scholar,source:stories-50,2026-10-15,Test Maintainer,
