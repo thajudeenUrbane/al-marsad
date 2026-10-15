@@ -58,6 +58,7 @@ class Claim:
     ai_draft: bool = False
     agents: list[Agent] = field(default_factory=list)
     node: str | None = None
+    literal: Lit | None = None    # the object, when it is a text as written (rel_dated) and not an entity
 
 
 @dataclass
@@ -78,6 +79,9 @@ class Entity:
     recorded: list[str] = field(default_factory=list)
     # kind-specific, filled by Site
     data: dict = field(default_factory=dict)
+
+
+_IRI_LIKE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:[^\s]+$")
 
 
 def _local(iri) -> str:
@@ -279,6 +283,7 @@ class Site:
             wi = pinfo.get("work") if pinfo else None
             claim = Claim(
                 kind="assertion", subject=str(subj), object=str(obj),
+                literal=Lit(str(obj), obj.language) if isinstance(obj, Literal) else None,
                 predicate=self.vocab(pred) or _local(pred or ""),
                 relclass=self.vkey(rel_class, "relclass_"),
                 role=self.first_lit(a, RDFS.comment),
@@ -291,8 +296,8 @@ class Site:
                 agents=self.agents_of(a), node=str(a),
             )
             self.claims[claim.subject].append(claim)
-            if claim.object != claim.subject:
-                self.claims[claim.object].append(claim)
+            if claim.literal is None and claim.object != claim.subject:
+                self.claims[claim.object].append(claim)   # a text is no entity: nothing is filed under it
         # participations: stored on the event, no status of their own
         seen_part: set = set()
         for ev in sorted(set(g.subjects(MRS.hasParticipation, None)), key=str):
@@ -489,6 +494,8 @@ class Site:
         e = self.entities.get(iri)
         if e:
             return e.name
+        if not _IRI_LIKE.match(iri):
+            return iri  # a text as written (a literal object), not a node of the graph
         l = self.first_lit(URIRef(iri), RDFS.label)
         return display.name_display(l.text) if l else iri.rsplit("/", 1)[-1]
 
