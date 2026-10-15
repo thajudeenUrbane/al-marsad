@@ -2558,6 +2558,16 @@ ev:gKZk9PCCO198FcGtSoJCFO
     mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime .
 
+ev:1CNFIsNHrWE19G0gAony7u
+    a mrs:Event , crm:E69_Death ;
+    rdfs:label "Death of ʿUthmān b. ʿAffān"@en ;
+    rdfs:comment "The passage says only that he was killed (qutila); it gives no date or place."@en ;
+    crm:P100_was_death_of per:TxhFk19HwO2OpgvY4kBVGi ;
+    crm:P67i_is_referred_to_by psg:RYwJlnaZmacoBjgFo2ytXe ;
+    mrs:coverageState mrs:cs_stub ;
+    mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
+    mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime .
+
 ev:Jt86lPkehYMvi6frgLAnbv
     a mrs:Event ;
     rdfs:label "Five early converts brought to the Prophet ﷺ by Abū Bakr"@en ;
@@ -2762,7 +2772,7 @@ rpt:Fb0RL3XDdxssipbkMN1peP
     mrs:locatedIn psg:WUiEn6n0cqReTGqUV7E7Cm ;
     mrs:sourceDate tmp:YezEHJYOELI5ffHCKk0cVq ;
     rdfs:comment "No ascription formula in this passage; the surrounding text is Ibn Ishaq's account. The ascription is not completed here."@en ;
-    mrs:asserts ast:l8ynUX6SYCkTdN2Mk4hPy3 , ast:jRlVWSoquRoNssPCVOz657 ;
+    mrs:asserts ast:l8ynUX6SYCkTdN2Mk4hPy3 , ast:jRlVWSoquRoNssPCVOz657 , ast:WaN7yNt4dZqs3Zc7KDlDww ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime .
@@ -2800,6 +2810,25 @@ ast:jRlVWSoquRoNssPCVOz657
           oa:hasSelector [ a oa:TextPositionSelector ;
               oa:start 11 ;
               oa:end 70 ] ] ;
+    prov:wasGeneratedBy act:oxNGDz9lLFz8d9WV2jbxoU ;
+    mrs:coverageState mrs:cs_stub ;
+    mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
+    mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime .
+
+ast:WaN7yNt4dZqs3Zc7KDlDww
+    a mrs:Assertion , oa:Annotation ;
+    mrs:predicate mrs:rel_dated ;
+    mrs:assertionSubject ev:gKZk9PCCO198FcGtSoJCFO ;
+    mrs:assertionObject "وأم رسول الله صلى الله عليه وسلم حامل به"@ar ;
+    mrs:assertionStatus mrs:as_proposed ;
+    mrs:fromReport rpt:Fb0RL3XDdxssipbkMN1peP ;
+    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): ʿAbdullāh b. ʿAbd al-Muṭṭalib's death is placed while the Prophet's mother was pregnant with him."@en ;
+    prov:wasDerivedFrom psg:WUiEn6n0cqReTGqUV7E7Cm ;
+    oa:hasTarget [ a oa:SpecificResource ;
+          oa:hasSource psg:WUiEn6n0cqReTGqUV7E7Cm ;
+          oa:hasSelector [ a oa:TextPositionSelector ;
+              oa:start 0 ;
+              oa:end 120 ] ] ;
     prov:wasGeneratedBy act:oxNGDz9lLFz8d9WV2jbxoU ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
@@ -7875,7 +7904,7 @@ rpt:JhTmP5iwBJaO2xx7R9r9Rr
     mrs:locatedIn psg:RYwJlnaZmacoBjgFo2ytXe ;
     mrs:sourceDate tmp:YezEHJYOELI5ffHCKk0cVq ;
     rdfs:comment "No ascription formula in this passage; it continues the account of the passage before. The ascription is not completed here."@en ;
-    mrs:asserts ast:vOAR19Y5NpH1DVpoeKlohO , ast:so2jrnpDSfQk1dKhidg4Ba ;
+    mrs:asserts ast:vOAR19Y5NpH1DVpoeKlohO , ast:so2jrnpDSfQk1dKhidg4Ba , ast:j7jNZMmW86uMMvCvc7N6Eh ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime .
@@ -7913,6 +7942,25 @@ ast:so2jrnpDSfQk1dKhidg4Ba
           oa:hasSelector [ a oa:TextPositionSelector ;
               oa:start 23 ;
               oa:end 62 ] ] ;
+    prov:wasGeneratedBy act:oxNGDz9lLFz8d9WV2jbxoU ;
+    mrs:coverageState mrs:cs_stub ;
+    mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
+    mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime .
+
+ast:j7jNZMmW86uMMvCvc7N6Eh
+    a mrs:Assertion , oa:Annotation ;
+    mrs:predicate mrs:rel_died_during ;
+    mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
+    mrs:assertionObject ev:1CNFIsNHrWE19G0gAony7u ;
+    mrs:assertionStatus mrs:as_proposed ;
+    mrs:fromReport rpt:JhTmP5iwBJaO2xx7R9r9Rr ;
+    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ḥassān wept for ʿUthmān 'when he was killed': the text records that ʿUthmān was killed, with no date."@en ;
+    prov:wasDerivedFrom psg:RYwJlnaZmacoBjgFo2ytXe ;
+    oa:hasTarget [ a oa:SpecificResource ;
+          oa:hasSource psg:RYwJlnaZmacoBjgFo2ytXe ;
+          oa:hasSelector [ a oa:TextPositionSelector ;
+              oa:start 84 ;
+              oa:end 123 ] ] ;
     prov:wasGeneratedBy act:oxNGDz9lLFz8d9WV2jbxoU ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;

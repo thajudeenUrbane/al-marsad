@@ -177,3 +177,4 @@
 {"key": "amr_harith_fihr", "kind": "person", "name": "ʿAmr b. al-Ḥārith b. Zuhayr", "attested": {"passage": "psg:Cvq1m9kGFdxvXdNIYQY9zH", "span": [126, 150]}}
 {"key": "suhayl_wahb", "kind": "person", "name": "Suhayl b. Wahb (son of Bayḍāʾ)", "attested": {"passage": "psg:Cvq1m9kGFdxvXdNIYQY9zH", "span": [207, 218]}}
 {"key": "amr_abi_sarh", "kind": "person", "name": "ʿAmr b. Abī Sarḥ", "attested": {"passage": "psg:Cvq1m9kGFdxvXdNIYQY9zH", "span": [308, 323]}}
+{"key": "death_uthman", "kind": "event", "name": "Death of ʿUthmān b. ʿAffān", "comment": "The passage says only that he was killed (qutila); it gives no date or place.", "life_event": {"type": "death", "person": {"kind": "person", "name": "ʿUthmān b. ʿAffān"}}}
