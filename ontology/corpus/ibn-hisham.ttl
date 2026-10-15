@@ -90,9 +90,10 @@
 #
 #  ENTITIES. People, places and events already in identity.csv are
 #  only referenced, never redeclared, with one exception: a person
-#  already in the graph who is a narrator in a modelled chain is
-#  typed here with the name form attested in this text, so that this
-#  file validates on its own. New ones are declared below with the
+#  already in the graph who is a narrator in a modelled chain (so
+#  that this file validates on its own), or whose name form is listed
+#  in the entities file, is typed here with the name form attested in
+#  this text. New ones are declared below with the
 #  name as written, and have identity.csv rows marked needs-review.
 #  Nobody is merged or split.
 #
@@ -2674,8 +2675,10 @@ ev:eDHHzBGLgKlXqSgZkNI5MJ
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime .
 
 #################################################################
-#  NARRATORS ALREADY IN THE GRAPH: typed here with the name form
-#  attested in this text, so that this file validates on its own.
+#  PEOPLE ALREADY IN THE GRAPH: typed here with the name form
+#  attested in this text (chain narrators, so that this file
+#  validates on its own, and the forms listed as existing in
+#  ingest/claims/ibn-hisham-entities.jsonl).
 #################################################################
 
 # ʿĀʾisha bint Abī Bakr (declared in another corpus file)
@@ -2717,6 +2720,14 @@ per:KAKs6ddT1ONUnlYSA4UvTd
           mrs:fullFormAsAttested "عبد الله بن عباس" ;
           mrs:script "arab" ;
           mrs:attestedIn psg:SJk5yF9X5gy9OcWr31pt86 ] .
+
+# Abū Bakr al-Ṣiddīq (declared in another corpus file)
+per:QYWUDj7ATL1ApLn5P7gmsQ
+    a mrs:Person ;
+    mrs:nameForm [ a mrs:ArabicNameForm ;
+          mrs:fullFormAsAttested "أبو بكر بن أبي قحافة" ;
+          mrs:script "arab" ;
+          mrs:attestedIn psg:7JpvQRQvTlsQbmjpLaYPui ] .
 
 # Ibn Shihāb al-Zuhrī (declared in another corpus file)
 per:ewQJnR9TU92BTTOsAMZhXJ
@@ -5306,7 +5317,7 @@ ast:FC7r1670Z2KnPXtb2PXKNE
     mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:fX94Wn3DGCaeboTlRU3wIW ;
-    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): ʿĀmir b. Fuhayra is called the mawlā of Abū Bakr al-Ṣiddīq (Ibn Hishām adds that Abū Bakr bought him)."@en ;
+    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): ʿĀmir b. Fuhayra is called the mawlā of Abū Bakr (Ibn Hishām adds that Abū Bakr bought him)."@en ;
     prov:wasDerivedFrom psg:HMzkES7V6RDtOwvELXjAPZ ;
     oa:hasTarget [ a oa:SpecificResource ;
           oa:hasSource psg:HMzkES7V6RDtOwvELXjAPZ ;
@@ -8767,7 +8778,7 @@ ast:7XgIZavwzmrxxzjgdpJqPY
     mrs:assertionObject ev:nkdSMuVDo7LS9vhSuq1Lxs ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:fGC9p5tG9zgrfBqdMMcBOG ;
-    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Asmāʾ bint Abī Bakr names Abū Bakr al-Ṣiddīq among the four travellers."@en ;
+    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Asmāʾ bint Abī Bakr names Abū Bakr among the four travellers."@en ;
     prov:wasDerivedFrom psg:jRqHuQQdVZZtWkFzay2Ql7 ;
     oa:hasTarget [ a oa:SpecificResource ;
           oa:hasSource psg:jRqHuQQdVZZtWkFzay2Ql7 ;
@@ -11738,7 +11749,7 @@ ast:9cN1dgo1TqgyZkuMuU40NY
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:NvnfbyjNl9ft6JOlc4bLFW ;
     mrs:qualifier mrsv:q_editorial_brackets ;
-    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Bakr al-Ṣiddīq, whose name was ʿAtīq b. ʿUthmān."@en ;
+    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Bakr, called here by his epithet, whose name was ʿAtīq b. ʿUthmān; the word bakr is in editorial brackets."@en ;
     prov:wasDerivedFrom psg:I8oVImjqCLRaMiSPyJWptN ;
     oa:hasTarget [ a oa:SpecificResource ;
           oa:hasSource psg:I8oVImjqCLRaMiSPyJWptN ;
@@ -13771,7 +13782,7 @@ ast:8YjPA35EuSwTGZb92YEOHs
     mrs:ageYearsAsGiven "7"^^xsd:decimal ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:RWjuDrDSBHCj9UUYS6lcAR ;
-    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): The Messenger of God ﷺ married ʿĀʾisha bint Abī Bakr al-Ṣiddīq in Makkah when she was seven."@en ;
+    rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): The Messenger of God ﷺ married ʿĀʾisha bint Abī Bakr in Makkah when she was seven."@en ;
     prov:wasDerivedFrom psg:7DzSjsVjStGRb6dJg5JctL ;
     oa:hasTarget [ a oa:SpecificResource ;
           oa:hasSource psg:7DzSjsVjStGRb6dJg5JctL ;
