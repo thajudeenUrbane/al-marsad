@@ -1,0 +1,136 @@
+# Every push and pull request runs every check (scripts/check_all.sh).
+# A push to main, once the checks pass, deploys the checked site to Cloudflare
+# Pages, but only when the maintainer has added the two Cloudflare secrets;
+# without them the deploy job says it was skipped and still succeeds.
+# Setup steps and how to keep the site private: docs/handover/slice-2c-ci.md.
+#
+# Every action is pinned to a full commit SHA (tag in the comment);
+# scripts/check_all.sh fails if one is not. Tools are pinned below.
+name: Checks and deploy
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  PYTHON_VERSION: "3.13.16"     # the development venv's Python
+  NODE_VERSION: "22.23.3"       # Node.js 22 LTS
+  PLAYWRIGHT_VERSION: "1.56.1"  # the development container's Playwright (same Chromium build)
+  WRANGLER_VERSION: "4.145.0"   # Cloudflare's deploy tool
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  checks:
+    name: All checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - id: python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install the pinned Python packages (hash-checked)
+        env:
+          PYTHON: ${{ steps.python.outputs.python-path }}
+        run: '"$PYTHON" -m pip install --require-hashes -r requirements.txt'
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager-cache: false
+
+      - name: Install Playwright and its headless Chromium
+        run: |
+          npm install --global --no-audit --no-fund "playwright@${PLAYWRIGHT_VERSION}"
+          playwright install --with-deps --only-shell chromium
+
+      - name: Run scripts/check_all.sh
+        env:
+          PYTHON: ${{ steps.python.outputs.python-path }}
+        run: bash scripts/check_all.sh
+
+      # Same condition as the deploy job. Hidden files (the generator's marker) stay out.
+      - name: Keep the checked site for the deploy job
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.repository.fork == false
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-dist
+          path: site/dist/
+          if-no-files-found: error
+          overwrite: true   # a re-run replaces it
+          retention-days: 7
+
+  deploy:
+    name: Deploy to Cloudflare Pages
+    needs: checks
+    # A push to main of this repository only: never a pull request, never a fork.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.repository.fork == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    concurrency:
+      group: cloudflare-pages-deploy
+      cancel-in-progress: false
+    # No checkout and no Python here: the only code that sees the token is wrangler.
+    steps:
+      - name: Check that the Cloudflare secrets are set
+        id: secrets
+        env:
+          HAS_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+          HAS_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+        run: |
+          if [ "$HAS_TOKEN" = true ] && [ "$HAS_ACCOUNT" = true ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "ready=false" >> "$GITHUB_OUTPUT"
+          msg="Deploy skipped: the repository secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are not both set (see docs/handover/slice-2c-ci.md). The checks passed; nothing was published."
+          echo "$msg"
+          echo "::notice title=Deploy skipped::$msg"
+          echo "$msg" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Download the checked site
+        if: steps.secrets.outputs.ready == 'true'
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: site-dist
+          path: site/dist
+
+      - if: steps.secrets.outputs.ready == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager-cache: false
+
+      - name: Install wrangler
+        if: steps.secrets.outputs.ready == 'true'
+        run: npm install --global --no-audit --no-fund "wrangler@${WRANGLER_VERSION}"
+
+      - name: Deploy site/dist with wrangler pages deploy
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'al-marsad' }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          WRANGLER_SEND_METRICS: "false"
+        run: |
+          title=${COMMIT_MESSAGE%%$'\n'*}
+          title=${title:-$GITHUB_SHA}
+          wrangler pages deploy site/dist --project-name "$PROJECT" --branch main \
+            --commit-hash "$GITHUB_SHA" --commit-message "${title:0:200}"
