@@ -6,6 +6,8 @@ per:TestBeta000000000000b,Q900000002,P569,0573-01-01T00:00:00Z,year,Julian,proba
 per:TestBeta000000000000b,Q900000002,P569,0574-01-01T00:00:00Z,year,Julian,probable,proposed,Wikidata Q900000002,normal,,
 per:TestBeta000000000000b,Q900000002,P570,0634-01-01T00:00:00Z,year,Julian,probable,proposed,Wikidata Q900000002,normal,"P1319 earliest date: 0633-01-01T00:00:00Z (year, Julian)",
 per:TestDelta00000000000d,Q900000004,P569,0590-01-01T00:00:00Z,decade,Julian,exact,proposed,Wikidata Q900000004,normal,,
+per:TestDelta00000000000d,Q900000004,P570,0650-01-01T00:00:00Z,year,Julian,exact,proposed,Wikidata Q900000004,normal,,
+per:TestDelta00000000000d,Q900000004,P570,0652-01-01T00:00:00Z,year,Julian,exact,proposed,Wikidata Q900000004,normal,,
 per:TestEpsilon000000000e,Q900000005,P569,0600-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000005,normal,,
 per:TestEpsilon000000000e,Q900000005,P570,0660-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000005,normal,,
 per:TestZeta000000000000f,Q900000006,P569,0590-01-01T00:00:00Z,year,Julian,needs-review,proposed,Wikidata Q900000006,normal,,

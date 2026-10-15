@@ -94,6 +94,9 @@ def hijri_year_start(y: int) -> int:
 
 # ---------------------------------------------------------------- ranges from recorded values
 PRECISIONS = ("day", "month", "year", "decade", "century")
+# Drawn on the axis. A century-wide value is honest but, drawn, it reads as a life of 100 years'
+# uncertainty and ages such as "8-114"; it is listed in words instead and the end stays open.
+DRAWN_PRECISIONS = ("day", "month", "year", "decade")
 WIKIDATA_PRECISION = {11: "day", 10: "month", 9: "year", 8: "decade", 7: "century"}
 _ISO = re.compile(r"^\s*([+-]?)(\d{1,6})-(\d{1,2})-(\d{1,2})")
 

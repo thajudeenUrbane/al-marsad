@@ -134,6 +134,7 @@
   // alive at the whole moment by the recorded dates, possibly alive (the moment touches a
   // birth or death range, or an end of what is known), or "" (the records do not say)
   function aliveAt(lf, M) {
+    if (lf.ages_only) { return ""; }
     if (lf.segment && lf.s <= M.lo && M.hi <= lf.e) { return "alive"; }
     var seg = lf.segment && M.hi >= lf.s && M.lo <= lf.e;
     var b = lf.b && M.hi >= lf.b[0] && M.lo <= lf.b[1];
@@ -196,7 +197,7 @@
 
   // ------------------------------------------------------------ order and groups
   function birthKey(p) { var lf = life(p); return lf && lf.b ? lf.b[0] : Infinity; }
-  function startKey(p) { var lf = life(p); return lf ? (lf.b ? lf.b[0] : lf.s) : Infinity; }
+  function startKey(p) { var lf = life(p); return lf && !lf.ages_only ? (lf.b ? lf.b[0] : lf.s) : Infinity; }
   function cmp(a, b) {
     var ka = birthKey(P[a]), kb = birthKey(P[b]);
     if (ka !== kb) { return ka < kb ? -1 : 1; }
@@ -216,8 +217,8 @@
       key = function (p) { return p.tr && p.tr.length ? p.tr[0] : ""; };
       label = function (k) { return k ? t("js.group_tribe", { name: k }) : t("js.group_no_tribe"); };
     } else {
-      key = function (p) { return birthKey(p) === Infinity ? "" : "all"; };
-      label = function (k) { return k ? "" : t("js.group_no_birth"); };
+      key = function (p) { return life(p).ages_only ? "~ages" : birthKey(p) === Infinity ? "" : "all"; };
+      label = function (k) { return k === "~ages" ? t("js.group_ages_only") : k ? "" : t("js.group_no_birth"); };
     }
     var g = {};
     ids.forEach(function (i) { var k = key(P[i]); (g[k] = g[k] || []).push(i); });
@@ -259,13 +260,22 @@
     var lo = Infinity, hi = -Infinity;
     ids.forEach(function (i) {
       var lf = life(P[i]);
+      if (lf.ages_only) { return; }
       lo = Math.min(lo, lf.b ? lf.b[0] : lf.s);
       hi = Math.max(hi, lf.d ? lf.d[1] : lf.e);
     });
     var evs = [];
     E.forEach(function (e, ei) {
-      var on = e.ps.filter(function (ps) { var pl = placementOf(ps); return rowOf[ps.p] !== undefined && pl && pl.ok; });
-      if (on.length) { evs.push({ i: ei, on: on }); lo = Math.min(lo, e.lo); hi = Math.max(hi, e.hi); }
+      var on = e.ps.filter(function (ps) {
+        if (rowOf[ps.p] === undefined) { return false; }
+        if (ps.kd === "age") { return true; }               // an age as given shows by age even without a date
+        var pl = placementOf(ps);
+        return pl && pl.ok;
+      });
+      if (on.length) {
+        evs.push({ i: ei, on: on });
+        if (e.lo !== null) { lo = Math.min(lo, e.lo); hi = Math.max(hi, e.hi); }
+      }
     });
     if (M) { lo = Math.min(lo, M.lo); hi = Math.max(hi, M.hi); }
     if (!isFinite(lo)) { lo = 0; hi = 1; }
@@ -274,9 +284,14 @@
     ids.forEach(function (i) {
       var lf = life(P[i]);
       if (lf.age) { amax = Math.max(amax, lf.age[u].d ? lf.age[u].d[1] : lf.age[u].e); }
+      if (lf.ages_only) { amax = Math.max(amax, lf.amax); }
     });
     evs.forEach(function (ev) {
-      ev.on.forEach(function (ps) { var pl = placementOf(ps); if (pl && pl[u]) { amax = Math.max(amax, pl[u][1]); } });
+      ev.on.forEach(function (ps) {
+        var pl = placementOf(ps);
+        if (pl && pl[u]) { amax = Math.max(amax, pl[u][1]); }
+        if (ps.ag && ps.ag.length) { amax = Math.max(amax, ps.ag[ps.ag.length - 1]); }
+      });
     });
     var avail = Math.max(240, scroller.clientWidth - namesWidth() - 2);
     var yearDays = D.unitDays.solar;
@@ -373,8 +388,20 @@
   function seg(x1, x2) { return [Math.min(x1, x2), Math.max(x1, x2)]; }
 
   // geometry of one person's line at the current morph
+  // placed only by ages as given: from 0 to the last anchor, by age only, never past it
+  function agesGeom(i, amax) {
+    var g = { y: rowY(i), op: m, agesOnly: true, openStart: false, openEnd: true };
+    g.b = [xA(0), xA(0)];
+    g.s = [xA(0), xA(amax)];
+    g.x0 = xA(0);
+    g.x1 = xA(amax);
+    g.min = g.x0;
+    g.max = g.x1 + FADE;
+    return g;
+  }
   function personGeom(i) {
     var p = P[i], lf = life(p), u = L.units, g = { y: rowY(i), op: 1 };
+    if (lf.ages_only) { return agesGeom(i, lf.amax); }
     var canAge = !!lf.b;
     function X(dateJ, ageY) { return canAge ? mix(xD(dateJ), xA(ageY)) : xD(dateJ); }
     var ag = canAge ? lf.age[u] : null;
@@ -394,11 +421,24 @@
     return g;
   }
 
+  // a link can be drawn by date when its event has a date and the person's line reaches it
+  function dateOK(ev, ps) {
+    var pl = placementOf(ps);
+    return E[ev.i].lo !== null && !!pl && pl.ok;
+  }
   function nodeX(ev, ps) {
     var e = E[ev.i], pl = placementOf(ps), u = L.units;
+    if (e.lo === null) { return pl && pl[u] ? [xA(pl[u][0]), xA(pl[u][1])] : null; }
     var d0 = xD(e.lo), d1 = xD(e.hi);
     if (pl && pl[u]) { return [mix(d0, xA(pl[u][0])), mix(d1, xA(pl[u][1]))]; }
     return [d0, d1];
+  }
+  function givenX(ev, ps) {
+    // an age as given sits at that number on the age axis; by date, at the event's date
+    if (!ps.ag || !ps.ag.length) { return null; }
+    var e = E[ev.i], a0 = xA(ps.ag[0]), a1 = xA(ps.ag[ps.ag.length - 1]);
+    if (e.lo === null || !dateOK(ev, ps)) { return { x0: a0, x1: a1, op: m }; }
+    return { x0: mix(xD(e.lo), a0), x1: mix(xD(e.hi), a1), op: 1 };
   }
 
   function draw() {
@@ -413,9 +453,10 @@
     var conns = [];
     if (m < 0.999) {
       L.evs.forEach(function (ev) {
-        if (ev.on.length < 2) { return; }
         var e = E[ev.i];
-        var ys = ev.on.map(function (ps) { return rowY(ps.p); });
+        var dated = e.lo === null ? [] : ev.on.filter(function (ps) { return dateOK(ev, ps); });
+        if (dated.length < 2) { return; }
+        var ys = dated.map(function (ps) { return rowY(ps.p); });
         var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
         var x0 = xD(e.lo), x1 = xD(e.hi), w = x1 - x0;
         var body;
@@ -428,17 +469,29 @@
           if (w < 12) { x0 -= (12 - w) / 2; w = 12; }
         }
         conns.push('<g class="ev" data-ev="' + ev.i + '" tabindex="0" role="button" aria-label="' +
-          h(t("js.conn_aria", { name: e.n, date: e.t, n: ev.on.length })) + '" opacity="' + (1 - m).toFixed(3) + '">' +
+          h(t("js.conn_aria", { name: e.n, date: e.t, n: dated.length })) + '" opacity="' + (1 - m).toFixed(3) + '">' +
           body + '<rect class="chit" x="' + x0.toFixed(1) + '" y="' + y0 + '" width="' + w.toFixed(1) + '" height="' + (y1 - y0) + '"/></g>');
       });
     }
     parts.push('<g class="conns">' + conns.join("") + "</g>");
     // lines (halo first: it opens a visible gap wherever a line crosses a connector it is not part of)
     var lines = [];
+    var geoms = [];
     L.ids.forEach(function (i) {
-      var p = P[i], g = personGeom(i), y = g.y;
+      var lf = life(P[i]);
+      geoms.push([i, personGeom(i)]);
+      if (!lf.b && !lf.ages_only && lf.gmax) { geoms.push([i, agesGeom(i, lf.gmax), true]); }
+    });
+    geoms.forEach(function (gi) {
+      var i = gi[0], g = gi[1], p = P[i], y = g.y;
+      if (gi[2] && g.op <= 0.001) { return; }
+      if (g.agesOnly && m < 0.999) {
+        lines.push('<text class="rowlbl" x="' + (PAD + 4) + '" y="' + (y + 4) + '" opacity="' + (1 - m).toFixed(3) + '">' + h(t("js.ages_only_row")) + "</text>");
+      }
       if (g.op <= 0.001) {
-        lines.push('<text class="rowlbl" x="' + (PAD + 4) + '" y="' + (y + 4) + '" opacity="' + m.toFixed(3) + '">' + h(t("js.no_birth_row")) + "</text>");
+        if (!g.agesOnly && !life(p).gmax) {
+          lines.push('<text class="rowlbl" x="' + (PAD + 4) + '" y="' + (y + 4) + '" opacity="' + m.toFixed(3) + '">' + h(t("js.no_birth_row")) + "</text>");
+        }
         return;
       }
       var cls = "pl" + (isReviewOnly(p) ? " rv" : "");
@@ -473,13 +526,29 @@
     // nodes: only where a connector meets a participant's line
     var nodes = [], labels = [], lastLbl = {};
     var all = [];
+    var given = [];
     L.evs.forEach(function (ev) {
       ev.on.forEach(function (ps) {
-        var lf = life(P[ps.p]);
+        var lf = life(P[ps.p]), y = rowY(ps.p);
+        if (ps.kd === "age") {
+          var gx = givenX(ev, ps);
+          if (gx && gx.op > 0.001) { given.push({ ev: ev, ps: ps, x0: gx.x0, x1: gx.x1, y: y, op: gx.op }); }
+          // the age computed from dates, beside it, by age only
+          var pl = placementOf(ps);
+          if (pl && pl.ok && pl[L.units] && m > 0.001) {
+            all.push({ ev: ev, ps: ps, x0: xA(pl[L.units][0]), x1: xA(pl[L.units][1]), y: y, op: m });
+          } else if (gx === null && dateOK(ev, ps) && m < 0.999) {
+            var d = nodeX(ev, ps);
+            all.push({ ev: ev, ps: ps, x0: d[0], x1: d[1], y: y, op: 1 - m });
+          }
+          return;
+        }
+        if (lf.ages_only) { return; }
         var vis = lf.b ? 1 : 1 - m;
         if (vis <= 0.001) { return; }
         var xr = nodeX(ev, ps);
-        all.push({ ev: ev, ps: ps, x0: xr[0], x1: xr[1], y: rowY(ps.p), op: vis });
+        if (!xr) { return; }
+        all.push({ ev: ev, ps: ps, x0: xr[0], x1: xr[1], y: y, op: vis });
       });
     });
     all.sort(function (a, b) { return a.y - b.y || a.x0 - b.x0; });
@@ -495,6 +564,22 @@
         if (!skip) { lastLbl[key] = xc; }
         labels.push('<text class="lbl' + (skip ? " skip" : "") + '" data-ev="' + n.ev.i + '" x="' + (xc - 6).toFixed(1) + '" y="' + (n.y - 8) + '">' + h(txt) + "</text>");
       }
+    });
+    given.sort(function (a, b) { return a.y - b.y || a.x0 - b.x0; });
+    given.forEach(function (n) {
+      var d = 5.5, out = [];
+      [n.x0, n.x1].filter(function (x, k) { return k === 0 || Math.abs(n.x1 - n.x0) > 1; }).forEach(function (x) {
+        out.push('<path class="given" d="M' + (x - d).toFixed(1) + " " + n.y + " L" + x.toFixed(1) + " " + (n.y - d) + " L" + (x + d).toFixed(1) + " " + n.y +
+          " L" + x.toFixed(1) + " " + (n.y + d) + ' Z" data-ev="' + n.ev.i + '" data-p="' + n.ps.p + '" opacity="' + n.op.toFixed(3) + '"/>');
+      });
+      if (n.x1 - n.x0 > 1) {
+        out.unshift('<line class="given-span" x1="' + n.x0.toFixed(1) + '" y1="' + n.y + '" x2="' + n.x1.toFixed(1) + '" y2="' + n.y + '" opacity="' + n.op.toFixed(3) + '"/>');
+      }
+      nodes.push(out.join(""));
+      var txt = t("js.given_label", { ages: n.ps.ag.join("/") });
+      var gk = "g" + n.y, gskip = lastLbl[gk] !== undefined && n.x0 - lastLbl[gk] < 8 + 7 * txt.length;
+      if (!gskip) { lastLbl[gk] = n.x0; }
+      labels.push('<text class="lbl given-lbl' + (gskip ? " skip" : "") + '" data-ev="' + n.ev.i + '" x="' + (n.x0 - 4).toFixed(1) + '" y="' + (n.y + 17) + '">' + h(txt) + "</text>");
     });
     parts.push('<g class="nodes">' + nodes.join("") + "</g>");
     if (L.M) {
@@ -608,6 +693,11 @@
         " · " + h(t("js.age_value", { age: lf.age_at_death[o], unit: t("units." + o) })) +
         '<div class="meta">' + h(t("js.age_how")) + "</div></dd>");
     }
+    if (lf && lf.ages_only) {
+      out.push("<dt>" + h(t("js.placed_by")) + "</dt><dd>" + h(t("js.placed_by_ages")) + "</dd>");
+    } else if (lf && !lf.b && lf.gmax) {
+      out.push("<dt>" + h(t("js.placed_by")) + "</dt><dd>" + h(t("js.placed_by_ages_too")) + "</dd>");
+    }
     if (lf && lf.conflict && lf.conflict.length) {
       out.push("<dt>" + h(t("js.conflict")) + "</dt><dd>" + h(t("js.conflict_birth_after_death")) + "</dd>");
     }
@@ -624,8 +714,13 @@
     E.forEach(function (e, ei) {
       e.ps.forEach(function (ps) {
         if (ps.p !== i) { return; }
-        evs.push("<li><button type=\"button\" class=\"lk\" data-goto-ev=\"" + ei + "\">" + hx(e.n) + "</button> — " + hx(e.t) +
-          '<div class="meta">' + h(ageText(placementOf(ps))) + " · " + hx(ps.how) + " · " + h(statusText(ps.st)) + "</div></li>");
+        var comp = placementOf(ps);
+        evs.push("<li><button type=\"button\" class=\"lk\" data-goto-ev=\"" + ei + "\">" + hx(e.n) + "</button> — " +
+          (e.t ? hx(e.t) : h(t("js.event_undated"))) +
+          (ps.kd === "age" ? '<div class="meta given-meta">' + hx(ps.how) + (ps.aw ? " · " + hx(t("ih.age_written", { value: ps.aw })) : "") +
+            " · " + hx(ps.src) + "</div>" : "") +
+          '<div class="meta">' + h(comp ? t("js.computed_from_dates", { age: ageText(comp) }) : t("js.no_computed_age")) +
+          (ps.kd === "age" ? "" : " · " + hx(ps.how)) + " · " + h(statusText(ps.st)) + "</div></li>");
       });
     });
     out.push("<h3>" + h(t("js.events_on_line", { n: evs.length })) + "</h3>");
@@ -636,7 +731,7 @@
 
   function eventDetails(ei, focus) {
     var e = E[ei];
-    var out = ['<h2 id="ll-details-h">' + hx(e.n) + "</h2>", "<p>" + hx(e.t) + "</p>"];
+    var out = ['<h2 id="ll-details-h">' + hx(e.n) + "</h2>", "<p>" + (e.t ? hx(e.t) : h(t("js.event_undated"))) + "</p>"];
     if (e.nt.length) { out.push('<p class="meta">' + e.nt.map(hx).join("<br>") + "</p>"); }
     out.push('<p class="meta">' + h(t("js.event_source", { agents: e.ag.join(", ") || t("js.unknown") })) + "</p>");
     if (e.dis) { out.push('<p class="meta">' + h(t("date.disputed")) + "</p>"); }
@@ -651,18 +746,26 @@
       var claims = byP[pi].map(function (ps) {
         var cit = ps.cit ? " · " + hx(ps.cit) : "";
         var ai = ps.ai ? " · " + h(t("js.ai_source")) : "";
+        if (ps.kd === "age") {
+          return '<div class="meta given-meta">' + hx(ps.how) + (ps.aw ? " · " + hx(t("ih.age_written", { value: ps.aw })) : "") +
+            " · " + h(statusText(ps.st)) + " · " + hx(ps.src) + cit + "</div>";
+        }
         return '<div class="meta">' + hx(ps.how) + " · " + h(statusText(ps.st)) + cit + ai + "</div>";
       }).join("");
+      var comp = byP[pi].filter(function (ps) { return placementOf(ps); })[0];
       return "<li><button type=\"button\" class=\"lk\" data-goto-p=\"" + pi + "\">" + hx(p.n) + "</button>" +
         (shown ? "" : ' <span class="tag">' + h(t("js.not_shown")) + "</span>") +
-        '<div class="meta">' + h(ageText(placementOf(first))) + "</div>" + claims + "</li>";
+        '<div class="meta">' + h(comp ? t("js.computed_from_dates", { age: ageText(placementOf(comp)) }) : t("js.no_computed_age")) + "</div>" +
+        claims + "</li>";
     });
     out.push("<h3>" + h(t("js.took_part", { n: order.length })) + "</h3><ul>" + rows.join("") + "</ul>");
     if (e.oth.length) {
       out.push("<h3>" + h(t("js.also_no_dates", { n: e.oth.length })) + "</h3><ul>" +
         e.oth.map(function (o) { return "<li>" + (o.u ? '<a href="' + h(o.u) + '">' + hx(o.n) + "</a>" : hx(o.n)) + "</li>"; }).join("") + "</ul>");
     }
-    out.push('<p><button type="button" class="btn" data-moment-ev="' + ei + '">' + h(t("js.moment_from_event")) + "</button></p>");
+    if (e.lo !== null) {
+      out.push('<p><button type="button" class="btn" data-moment-ev="' + ei + '">' + h(t("js.moment_from_event")) + "</button></p>");
+    }
     if (e.u) { out.push('<p><a href="' + h(e.u) + '">' + h(t("js.reader_page_event")) + "</a></p>"); }
     showDetails(out.join(""), focus);
   }

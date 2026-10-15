@@ -181,9 +181,13 @@ class Fixture(unittest.TestCase):
                     if v[k]:
                         self.assertLessEqual(v[k][0], v[k][1])
         self.assertGreater(n, 3)
-        beta = self.by_name["Test person Beta"]["v"]["b"]
-        self.assertEqual(beta["b"], [J(573, 1, 1), J(574, 12, 31)])      # two statements: the range
-        self.assertEqual(beta["d"], [J(633, 1, 1), J(634, 12, 31)])      # earliest-date qualifier widens
+        beta = self.by_name["Test person Beta"]
+        self.assertEqual(beta["v"]["b"]["b"], list(year(573)))            # the preferred value is drawn
+        alt = [c for c in beta["c"] if c["alt"]]
+        self.assertEqual([(c["k"], c["lo"]) for c in alt], [("birth", J(574, 1, 1))])   # the other is listed
+        self.assertEqual(beta["v"]["b"]["d"], [J(633, 1, 1), J(634, 12, 31)])  # earliest-date qualifier widens
+        delta = self.by_name["Test person Delta"]["v"]["b"]
+        self.assertEqual(delta["d"], [J(650, 1, 1), J(652, 12, 31)])     # no preferred value: the range
 
     def test_connectors_only_at_recorded_event_dates(self):
         from rdflib import Graph, Namespace, URIRef
@@ -208,7 +212,7 @@ class Fixture(unittest.TestCase):
 
     def test_one_wikidata_item_per_person(self):
         alpha = self.by_name["Test person Alpha"]
-        self.assertEqual({c["src"]["label"] for c in alpha["c"]}, {"Wikidata Q900000001"})
+        self.assertEqual({c["src"]["label"] for c in alpha["c"]}, {"proposed: from Wikidata Q900000001"})
         self.assertEqual(alpha["oc"], ["Q900000099"])
         eps = self.by_name["Test person Epsilon"]
         self.assertNotIn("b", eps["v"])
@@ -269,6 +273,73 @@ class Fixture(unittest.TestCase):
             self.assertEqual(rc, 0)
             self.assertTrue((out / "index.html").exists())
             self.assertTrue((out.parent / B.SITE_MARKER).exists())       # site/build.py may replace it later
+
+
+class IbnHisham(unittest.TestCase):
+    """Claims shaped like slice 4's, from a fictional fixture merged into the fixture graph."""
+
+    @classmethod
+    def setUpClass(cls):
+        from model import Site
+        cls.tmp = tempfile.TemporaryDirectory()
+        renames = {"per:TestOldAlphaId00000000x": "per:TestAlpha00000000000a"}
+        merged, cls.reader_iris = B.merge_graph(FX_GRAPH, (HERE / "fixtures" / "ibn-hisham.ttl").read_text(encoding="utf-8"),
+                                                renames, Path(cls.tmp.name) / "merged.ttl")
+        cls.site = Site(merged)
+        cls.t = B.T(LL / "i18n" / "en.json")
+        cls.data = B.build_data(cls.site, cls.t, (FX_CSV.read_text(encoding="utf-8"), FX_CSV.name), "../", renames,
+                                ibn_hisham="ibn-hisham.ttl", reader_iris=cls.reader_iris)[0]
+        cls.P = {p["n"]: p for p in cls.data["people"]}
+        cls.E = {e["n"]: e for e in cls.data["events"]}
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def links(self, event, person):
+        return [ps for ps in self.E[event]["ps"] if self.data["people"][ps["p"]]["n"] == person]
+
+    def test_ages_as_given_are_kept_as_given_and_never_merged(self):
+        ps = [x for x in self.links("Test battle", "Test person Gamma") if x["kd"] == "age"][0]
+        self.assertEqual(ps["ag"], [40.0])
+        self.assertIn("as given", ps["how"])
+        self.assertNotIn("lunar years", ps["how"])                       # no unit is claimed for it
+        alpha = [x for x in self.links("Birth of Test person Beta", "Test person Alpha") if x["kd"] == "age"][0]
+        self.assertEqual(alpha["ag"], [7.0, 8.0])                       # both alternatives, as given
+        self.assertEqual(alpha["aw"], "سبع أو ثمان")
+        self.assertEqual(alpha["pl"]["b"]["lunar_text"], "2–4")          # computed separately (years 570, 573), beside it
+
+    def test_renamed_ids_are_mapped(self):
+        self.assertTrue(self.links("Birth of Test person Beta", "Test person Alpha"))
+
+    def test_a_birth_event_takes_that_persons_recorded_birth(self):
+        ev = self.E["Birth of Test person Beta"]
+        self.assertEqual((ev["lo"], ev["hi"]), year(573))
+        self.assertTrue(any("Test person Beta" in n for n in ev["nt"]))
+
+    def test_died_during_a_dated_event_places_the_death(self):
+        kappa = self.P["Test person Kappa"]
+        death = [c for c in kappa["c"] if c["k"] == "death"][0]
+        self.assertEqual((death["lo"], death["hi"]), (J(624, 3, 13), J(624, 3, 13)))
+        self.assertEqual(death["src"]["type"], "ibn-hisham")
+        self.assertEqual(death["src"]["status"], "proposed")
+        self.assertIsNone(kappa["u"])                                     # no reader page in the main graph yet
+
+    def test_born_during_an_undated_event_is_listed_not_drawn(self):
+        self.assertIn("Test person Lambda", {u["n"]: u for u in self.data["undated"]})
+
+    def test_ages_only_lines_stop_at_the_last_age_given(self):
+        mu = self.P["Test person Mu"]["v"]["b"]
+        self.assertTrue(mu["ages_only"])
+        self.assertEqual(mu["amax"], 30.0)
+        self.assertIsNone(mu["b"])
+        gamma = self.P["Test person Gamma"]["v"]["b"]                     # a death date but no birth
+        self.assertEqual(gamma["gmax"], 40.0)
+        self.assertIn("Test undated gathering", self.E)                   # undated: shown by age only
+        self.assertIsNone(self.E["Test undated gathering"]["lo"])
+
+    def test_dates_as_written_are_shown_in_words(self):
+        self.assertTrue(any("يوم الاختبار" in n for n in self.E["Test battle"]["nt"]))
 
 
 class Repo(unittest.TestCase):

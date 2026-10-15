@@ -35,6 +35,12 @@ import lives  # noqa: E402
 
 EXTERNAL_DATES = "ontology/corpus/external-dates.csv"
 EXTERNAL_BRANCH = "slice-5-links"
+IBN_HISHAM = "ontology/corpus/ibn-hisham.ttl"
+IBN_HISHAM_BRANCH = "slice-4-ingest"
+MERGED_GRAPH = "build/lifelines-graph.ttl"     # gitignored: the graph plus a branch's Ibn Hisham file
+# canonical-ID prefix -> IRI path, for mapping renamed IDs (ontology/corpus/id-renames.csv)
+ID_PATHS = {"per": "person", "ev": "event", "plc": "place", "grp": "group", "act": "activity",
+            "agt": "agent", "ast": "assertion", "tmp": "temporal", "psg": "passage", "rpt": "report"}
 SITE_MARKER = ".al-marsad-site"
 URL_LICENSING = "https://github.com/thajudeenUrbane/al-marsad/blob/main/LICENSING.md"
 URL_CC_BY_SA = "https://creativecommons.org/licenses/by-sa/4.0/"
@@ -64,30 +70,64 @@ def attr(s) -> str:
 
 
 # ---------------------------------------------------------------- data
-def build_data(site, t: T, external: tuple[str | None, str | None], reader_base: str,
-               renames: dict) -> tuple[dict, collect.Collector]:
+def ages_text(values: list[float], t: T) -> str:
+    vals = [str(int(v)) if float(v).is_integer() else str(v) for v in values]
+    if not vals:
+        return ""
+    return vals[0] if len(vals) == 1 else t("ih.ages_or", a=", ".join(vals[:-1]), b=vals[-1])
+
+
+def ages_only_life(values: list[float]) -> dict:
+    """A line placed only by ages as given (by age, never by date): from 0 to the last
+    anchor, open after it. Nothing is extrapolated past the last anchor."""
+    return {"b": None, "d": None, "s": None, "e": None, "segment": False, "open_start": False,
+            "open_end": True, "conflict": [], "ages_only": True, "amax": max(values)}
+
+
+def build_data(site, t: T, external: tuple[str | None, str | None], reader_base: str | None,
+               renames: dict, ibn_hisham: str | None = None, reader_iris: set | None = None
+               ) -> tuple[dict, collect.Collector]:
     text, label = external
     c = collect.Collector(site, t, ROOT, external_csv=text, external_label=label, renames=renames)
     people = sorted(c.people.values(), key=lambda p: (p.sort, p.pid))
-    # events each person took part in (only events placed on the axis)
+
+    def link(kind: str, ent) -> str | None:
+        if reader_base is None or (reader_iris is not None and ent.iri not in reader_iris):
+            return None
+        return f"{reader_base}{kind}/{ent.pid}/"
+
+    # dated events each person is linked to (took part, or an age is given there)
     ev_ranges: dict[str, list[tuple[int, int]]] = {}
     for ev in c.events.values():
         if ev.lo is None:
             continue
         for part in ev.parts:
             ev_ranges.setdefault(part["person"], []).append((ev.lo, ev.hi))
+    ages_by_person: dict[str, list] = {}
+    for a in c.ages:
+        ages_by_person.setdefault(a.person, []).append(a)
+        ev = c.events[a.event]
+        if ev.lo is not None:
+            ev_ranges.setdefault(a.person, []).append((ev.lo, ev.hi))
     lifes = {}
     for p in people:
         rng = sorted(set(ev_ranges.get(p.iri, [])))
         base = lives.life(p.claims, rng, include_review=False)
         allv = lives.life(p.claims, rng, include_review=True)
+        given = [v for a in ages_by_person.get(p.iri, []) for v in a.values]
+        if given:
+            base = base or ages_only_life(given)
+            allv = allv or ages_only_life(given)
+            for lf in (base, allv):
+                if not lf.get("ages_only"):
+                    lf["gmax"] = max(given)     # by age, a line with no birth date is placed by these anchors
         lifes[p.iri] = (base, allv if allv != base else None)
     drawn = [p for p in people if lifes[p.iri][0] or lifes[p.iri][1]]
     index = {p.iri: i for i, p in enumerate(drawn)}
 
     def claim_json(cl: collect.DateClaim) -> dict:
         return {"k": cl.kind, "lo": cl.lo, "hi": cl.hi, "t": cl.text, "nt": cl.notes,
-                "src": cl.source, "rv": cl.review, "pr": cl.precision}
+                "src": cl.source, "rv": cl.review, "pr": cl.precision, "alt": cl.alt}
 
     kin_labels: dict[int, str] = {}
     for p in drawn:
@@ -105,47 +145,59 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
             v["a"] = allv
         ties = sorted(index[q] for q in c.ties.get(p.iri, ()) if q in index)
         out_people.append({
-            "id": p.pid, "n": p.name, "u": f"{reader_base}person/{p.pid}/" if reader_base is not None else None,
+            "id": p.pid, "n": p.name, "u": link("person", p),
             "pr": p.prophet, "tb": p.tabaqa or "", "kin": p.kin if p.kin is not None else -1,
             "tr": p.tribes, "c": [claim_json(cl) for cl in p.claims], "v": v, "ties": ties,
             "oc": p.other_candidates})
+
+    def placements(iri: str, ev) -> dict:
+        lb, la = lifes[iri]
+        pl = {}
+        for key, lf in (("b", lb), ("a", la)):
+            if lf and ev.lo is not None and not lf.get("ages_only"):
+                pl[key] = lives.placement(lf, ev.lo, ev.hi)
+        return pl
+
     out_events, undrawn_events = [], 0
+    ages_by_event: dict[str, list] = {}
+    for a in c.ages:
+        ages_by_event.setdefault(a.event, []).append(a)
     for ev in sorted(c.events.values(), key=lambda e: (e.lo if e.lo is not None else 10**9, display.sort_key(e.name))):
-        if ev.lo is None:
+        given = ages_by_event.get(ev.iri, [])
+        if ev.lo is None and not given:
             continue
         ps, others = [], []
-        for part in ev.parts:
+        for part in ev.parts if ev.lo is not None else []:
             if part["person"] in index:
-                lb, la = lifes[part["person"]]
-                pl = {}
-                if lb:
-                    pl["b"] = lives.placement(lb, ev.lo, ev.hi)
-                if la:
-                    pl["a"] = lives.placement(la, ev.lo, ev.hi)
                 ps.append({"p": index[part["person"]], "how": part["how"], "st": part["status"],
                            "cit": part.get("citation"), "wk": part.get("work"), "ai": part["ai"],
-                           "kd": part["kind"], "pl": pl})
+                           "kd": part["kind"], "pl": placements(part["person"], ev)})
             else:
                 person = c.people[part["person"]]
                 if person.name not in [o["n"] for o in others]:
-                    others.append({"n": person.name, "u": f"{reader_base}person/{person.pid}/" if reader_base is not None else None})
+                    others.append({"n": person.name, "u": link("person", person)})
+        for a in given:
+            if a.person not in index:
+                continue
+            ps.append({"p": index[a.person], "kd": "age", "ag": a.values, "aw": a.written,
+                       "how": t("ih.age_as_given", ages=ages_text(a.values, t)) if a.values else t("ih.age_no_number"),
+                       "st": a.source["status"], "cit": a.source["detail"], "src": a.source["label"],
+                       "ai": True, "pl": placements(a.person, ev)})
         if not ps:
             if ev.parts:
                 undrawn_events += 1
             continue
-        out_events.append({"id": ev.pid, "n": ev.name, "kd": ev.kind,
-                           "u": f"{reader_base}{ev.kind}/{ev.pid}/" if reader_base is not None else None,
+        out_events.append({"id": ev.pid, "n": ev.name, "kd": ev.kind, "u": link(ev.kind, ev),
                            "lo": ev.lo, "hi": ev.hi, "t": ev.text, "nt": ev.notes, "dis": ev.disputed,
                            "ag": ev.agents, "ps": ps, "oth": others})
-    undated = [{"n": p.name, "u": f"{reader_base}person/{p.pid}/" if reader_base is not None else None,
+    undated = [{"n": p.name, "u": link("person", p),
                 "why": "ambiguous" if p.ambiguous else "unplaced" if p.claims else "none"}
                for p in people if p.iri not in index]
     # axis helpers: year starts for both calendars across the drawn domain (computed here,
     # so the page does no calendar arithmetic of its own)
-    lo_all = [x for p in out_people for v in p["v"].values() for x in ([v["b"][0]] if v["b"] else [v["s"]])]
-    hi_all = [x for p in out_people for v in p["v"].values() for x in ([v["d"][1]] if v["d"] else [v["e"]])]
-    lo_all += [e["lo"] for e in out_events]
-    hi_all += [e["hi"] for e in out_events]
+    dated = [v for p in out_people for v in p["v"].values() if not v.get("ages_only")]
+    lo_all = [v["b"][0] if v["b"] else v["s"] for v in dated] + [e["lo"] for e in out_events if e["lo"] is not None]
+    hi_all = [v["d"][1] if v["d"] else v["e"] for v in dated] + [e["hi"] for e in out_events if e["hi"] is not None]
     axis = {}
     if lo_all:
         y0 = cal.julian_from_jdn(min(lo_all))[0] - 12
@@ -154,19 +206,24 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
         h0 = cal.hijri_from_jdn(cal.jdn_from_julian(y0, 1, 1))[0]
         h1 = cal.hijri_from_jdn(cal.jdn_from_julian(y1, 1, 1))[0] + 1
         axis["ah"] = [[h, cal.hijri_year_start(h)] for h in range(h0, h1 + 1)]
+    ih_dates = sum(1 for p in c.people.values() for cl in p.claims if cl.source["type"] == "ibn-hisham")
     sources = {
         "graph": t("src.graph"),
         "external": label,
         "external_used": getattr(c, "external_used", 0),
-        "ibn_hisham": None,
+        "ibn_hisham": ibn_hisham,
+        "ibn_hisham_ages": len(c.ages),
+        "ibn_hisham_dates": ih_dates,
     }
     data = {
         "people": out_people, "events": out_events, "undated": undated,
         "kin": {str(k): v for k, v in kin_labels.items()},
         "unitDays": {"lunar": cal.LUNAR_YEAR_DAYS, "solar": cal.SOLAR_YEAR_DAYS},
         "axis": axis, "sources": sources,
-        "counts": {"people": len(site.by_kind["person"]), "drawn": len(out_people),
+        "counts": {"people": len(c.people), "drawn": len(out_people),
                    "drawn_base": sum(1 for p in out_people if "b" in p["v"]),
+                   "drawn_by_date": sum(1 for p in out_people if "b" in p["v"] and not p["v"]["b"].get("ages_only")),
+                   "ages_only": sum(1 for p in out_people if "b" in p["v"] and p["v"]["b"].get("ages_only")),
                    "review_only": sum(1 for p in out_people if "b" not in p["v"]),
                    "events": len(out_events), "events_undrawn": undrawn_events,
                    "events_dated": sum(1 for e in c.events.values() if e.lo is not None),
@@ -206,15 +263,15 @@ def ages_cell(pi: int, data: dict, t: T, variant: str) -> str:
             if ps["p"] != pi:
                 continue
             pl = ps["pl"].get(variant) or ps["pl"].get("b")
-            if not pl:
-                continue
-            if not pl["ok"]:
-                txt = t(f"age.flag.{pl['flag']}")
-            elif "lunar" in pl:
-                txt = t("age.both", lunar=pl["lunar_text"], solar=pl["solar_text"])
-            else:
-                txt = t("age.no_birth")
-            rows.append(f'<li data-ev="{ei}">{esc(ev["n"])}: {esc(txt)}</li>')
+            parts = [ps["how"]] if ps["kd"] == "age" else []
+            if pl and not pl["ok"]:
+                parts.append(t(f"age.flag.{pl['flag']}"))
+            elif pl and "lunar" in pl:
+                parts.append(t("table.computed", value=t("age.both", lunar=pl["lunar_text"], solar=pl["solar_text"])))
+            elif pl:
+                parts.append(t("age.no_birth"))
+            if parts:
+                rows.append(f'<li data-ev="{ei}">{esc(ev["n"])}: {esc(" · ".join(parts))}</li>')
     return f'<ul class="ages">{"".join(rows)}</ul>' if rows else f'<span class="none">{esc(t("table.no_events"))}</span>'
 
 
@@ -228,7 +285,7 @@ def table_html(data: dict, t: T) -> str:
                 continue
             lf = p["v"][variant]
             inc = variant == "a"
-            ad = lf.get("age_at_death")
+            ad = lf.get("age_at_death") if not lf.get("ages_only") else None
             age = esc(t("age.both", lunar=ad["lunar"], solar=ad["solar"])) if ad else \
                 f'<span class="none">{esc(t("table.age_unknown"))}</span>'
             name = f'<a href="{attr(p["u"])}">{esc(p["n"])}</a>' if p["u"] else esc(p["n"])
@@ -261,10 +318,11 @@ def legend_html(t: T) -> str:
         "conn": '<svg width="56" height="28" aria-hidden="true"><line x1="20" y1="2" x2="20" y2="26" class="lg-conn"></line><rect x="31" y="2" width="8" height="24" class="lg-band"></rect></svg>',
         "node": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line><circle cx="28" cy="7" r="4.5" class="lg-node"></circle></svg>',
         "gap": '<svg width="56" height="28" aria-hidden="true"><line x1="28" y1="2" x2="28" y2="26" class="lg-conn"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-halo"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-line"></line></svg>',
+        "given": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line><path d="M22.5 7 L28 1.5 L33.5 7 L28 12.5 Z" class="lg-given"></path></svg>',
         "review": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line rv"></line></svg>',
     }
     rows = "".join(f'<li>{sw[k]}<span>{esc(t("legend." + k))}</span></li>' for k in
-                   ("line", "range", "open", "conn", "node", "gap", "review"))
+                   ("line", "range", "open", "conn", "node", "given", "gap", "review"))
     return (f'<ul class="legend">{rows}</ul>'
             f'<p class="note">{esc(t("legend.hue"))}</p>'
             f'<p class="note">{esc(t("legend.calendar"))}</p>'
@@ -383,7 +441,30 @@ def render(data: dict, t: T, home: str | None) -> str:
 """
 
 
-JS_PREFIXES = ("js", "status", "age", "group", "match", "order", "units", "axis", "flag", "date")
+def merge_graph(graph: Path, ih_text: str, renames: dict, out: Path) -> tuple[Path, set]:
+    """The graph plus an Ibn Hisham Turtle file from a branch, with renamed IDs mapped to the
+    current ones. Returns (merged file, IRIs of entities that have reader pages)."""
+    from rdflib import Graph, URIRef
+    from rdflib.namespace import RDF
+    base = "https://w3id.org/marsad/id/"
+    iri_map = {}
+    for old, new in renames.items():
+        po, pn = old.split(":", 1), new.split(":", 1)
+        if po[0] in ID_PATHS and pn[0] in ID_PATHS:
+            iri_map[URIRef(f"{base}{ID_PATHS[po[0]]}/{po[1]}")] = URIRef(f"{base}{ID_PATHS[pn[0]]}/{pn[1]}")
+    g = Graph()
+    g.parse(str(graph), format="turtle")
+    reader_iris = {str(s) for s in g.subjects(RDF.type, None) if str(s).startswith(base)}
+    ih = Graph()
+    ih.parse(data=ih_text, format="turtle")
+    for s, p, o in ih:
+        g.add((iri_map.get(s, s), p, iri_map.get(o, o)))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    g.serialize(str(out), format="turtle")
+    return out, reader_iris
+
+
+JS_PREFIXES = ("js", "status", "age", "group", "match", "order", "units", "axis", "flag", "date", "ih")
 
 
 def main(argv=None) -> int:
@@ -392,6 +473,9 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default=str(SITE / "dist" / "lifelines"))
     ap.add_argument("--external-dates", default=None,
                     help=f"CSV of proposed external dates (default: {EXTERNAL_DATES}, else origin/{EXTERNAL_BRANCH})")
+    ap.add_argument("--ibn-hisham", default=None,
+                    help=f"Turtle of proposed Ibn Hisham claims (default: {IBN_HISHAM} when it is in the graph, "
+                         f"else origin/{IBN_HISHAM_BRANCH}); 'none' to leave them out")
     ap.add_argument("--reader-base", default="../",
                     help="prefix for links to reader pages; pass '' for none (page published on its own)")
     a = ap.parse_args(argv)
@@ -399,16 +483,26 @@ def main(argv=None) -> int:
     if not graph.exists():
         sys.exit(f"{graph} not found: run ontology/build_graph.py first")
     from model import Site  # site/model.py, the site's only rdflib reader
-    site = Site(graph)
     t = T(HERE / "i18n" / "en.json")
+    renames = collect.read_renames(ROOT / "ontology" / "corpus" / "id-renames.csv")
+    graph_used, ih_label, reader_iris = graph, None, None
+    if a.ibn_hisham != "none" and not (ROOT / IBN_HISHAM).exists():
+        if a.ibn_hisham:
+            ih_text, ih_label = Path(a.ibn_hisham).read_text(encoding="utf-8"), Path(a.ibn_hisham).name
+        else:
+            ih_text, ih_label = collect.read_text_source(ROOT, IBN_HISHAM, IBN_HISHAM_BRANCH)
+        if ih_text:
+            graph_used, reader_iris = merge_graph(graph, ih_text, renames, ROOT / MERGED_GRAPH)
+    elif (ROOT / IBN_HISHAM).exists():
+        ih_label = IBN_HISHAM
+    site = Site(graph_used)
     if a.external_dates:
         p = Path(a.external_dates)
         external = (p.read_text(encoding="utf-8"), p.name) if p.exists() else (None, None)
     else:
         external = collect.read_text_source(ROOT, EXTERNAL_DATES, EXTERNAL_BRANCH)
-    renames = collect.read_renames(ROOT / "ontology" / "corpus" / "id-renames.csv")
     reader_base = a.reader_base if a.reader_base != "" else None
-    data, coll = build_data(site, t, external, reader_base, renames)
+    data, coll = build_data(site, t, external, reader_base, renames, ibn_hisham=ih_label, reader_iris=reader_iris)
     page = render(data, t, home=reader_base)
     out = Path(a.out)
     dist = out.parent
@@ -421,11 +515,14 @@ def main(argv=None) -> int:
     size = len(page.encode("utf-8"))
     c = data["counts"]
     print(f"wrote {out / 'index.html'} ({size:,} bytes)")
-    print(f"  people with a line: {c['drawn_base']} (+{c['review_only']} only from matches that need review)"
-          f" of {c['people']}; no dates recorded: {len(data['undated'])}")
-    print(f"  events drawn: {c['events']} of {c['events_dated']} dated ({c['events_all']} events in all)")
+    print(f"  people with a line: {c['drawn_base']} ({c['drawn_by_date']} by date, {c['ages_only']} by ages as given only;"
+          f" +{c['review_only']} only from matches that need review) of {c['people']}; no dates recorded: {len(data['undated'])}")
+    print(f"  events on the chart: {c['events']} ({c['events_dated']} of {c['events_all']} events have a date that can be placed)")
     print(f"  external dates: {data['sources']['external'] or 'not found'}"
           f"{' (' + str(data['sources']['external_used']) + ' rows used)' if data['sources']['external'] else ''}")
+    if data["sources"]["ibn_hisham"]:
+        print(f"  Ibn Hisham: {data['sources']['ibn_hisham']} ({data['sources']['ibn_hisham_ages']} ages as given,"
+              f" {data['sources']['ibn_hisham_dates']} born/died-during claims)")
     for w in data["warnings"]:
         print("  warning:", w)
     if size > MAX_BYTES:

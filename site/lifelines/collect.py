@@ -5,7 +5,10 @@ Sources, in the order they are read:
      ṭabaqa, kinship and membership claims). Graph dates are fields, not claims: they
      carry no status of their own.
   2. Proposed Wikidata dates (ontology/corpus/external-dates.csv, written by slice 5).
-  3. Proposed Ibn Hishām birth/death/age claims (slice 4), when they exist.
+  3. Proposed Ibn Hishām claims (slice 4): ages as given at events (mrs:rel_age_at), births and
+     deaths during an event (mrs:rel_born_during / rel_died_during), dates as written
+     (mrs:rel_dated), and birth/death events (crm:E67_Birth / crm:E69_Death).
+     Ages as given are never converted: the text does not say lunar or solar years.
 
 Nothing here invents a date. A person is drawn only when at least one birth or death
 date with a source can be placed on the axis; everyone else goes on the "no dates
@@ -21,7 +24,7 @@ import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from rdflib import Namespace, URIRef
+from rdflib import Literal, Namespace, URIRef
 from rdflib.namespace import RDF, RDFS
 
 import calendars as cal
@@ -29,12 +32,15 @@ import display
 
 MRS = Namespace("https://w3id.org/marsad/core#")
 PROV = Namespace("http://www.w3.org/ns/prov#")
+CRM = Namespace("http://www.cidoc-crm.org/cidoc-crm/")
 ID_BASE = "https://w3id.org/marsad/id/"
 
 # Relation types that mean "took part in" an event. "absent from" is deliberately not here.
 TOOK_PART = ("rel_participated_in", "rel_led", "rel_witnessed", "rel_present_at",
              "rel_pledged_allegiance_to", "rel_party_to_treaty_with")
 MEMBER_OF = "rel_member_of"
+# Ibn Hishām lifeline relations (slice 4)
+REL_AGE_AT, REL_BORN_DURING, REL_DIED_DURING, REL_DATED = "rel_age_at", "rel_born_during", "rel_died_during", "rel_dated"
 KINSHIP_CLASS = "relclass_kinship"
 
 # Wikidata calendar models (vocabulary, not entity IDs of this project)
@@ -57,10 +63,20 @@ class DateClaim:
     notes: list[str]
     source: dict                    # {type, label, href?, detail, status, confidence?}
     review: bool = False            # True: identity match needs review (hidden by default)
+    alt: bool = False               # an alternative value (Wikidata normal rank beside a preferred one): listed, not drawn
 
     @property
     def drawable(self) -> bool:
-        return self.lo is not None and self.hi is not None and self.lo <= self.hi
+        return self.lo is not None and self.hi is not None and self.lo <= self.hi and not self.alt
+
+
+@dataclass
+class AgeClaim:
+    person: str                     # IRIs
+    event: str
+    values: list[float]             # the numbers as given, one per alternative; never converted
+    written: str | None             # the age exactly as written (Arabic)
+    source: dict
 
 
 @dataclass
@@ -104,11 +120,14 @@ class Collector:
         self.events: dict[str, Event] = {}
         self.ties: dict[str, set[str]] = {}
         self.external_label = external_label
+        self.ages: list[AgeClaim] = []
         self._load_people()
         self._load_graph_dates()
         if external_csv is not None:
             self._load_external(external_csv)
         self._load_events()
+        self._load_ibn_hisham()
+        self._date_life_events()
         self._load_kinship_and_membership()
 
     # ------------------------------------------------------------ people
@@ -175,6 +194,7 @@ class Collector:
         "qualifiers": ("qualifiers",),
         "note": ("note", "notes"),
     }
+    _QUAL_REFINE = re.compile(r"^P4241\b[^:]*:\s*(\d{1,4})\s*AH\b")
     _QUAL_TIME = re.compile(r"^(P1319|P1326)\b[^:]*:\s*([+-]?\d{1,6}-\d\d-\d\dT\S*)\s*\((\w+),\s*(\w+)\)")
 
     def _load_external(self, text: str):
@@ -225,8 +245,16 @@ class Collector:
                 chosen, is_review = (review, True) if len(review) == 1 else ([], True)
             for r in rs:
                 if r["qid"] in chosen:
+                    # Wikidata's preferred rank, where a person has one, is drawn; the item's
+                    # other values are listed beside it as alternatives, not drawn
+                    alt = (r.get("rank", "").lower() != "preferred" and
+                           any(x.get("rank", "").lower() == "preferred" for x in rs
+                               if x["qid"] == r["qid"] and x["kind"] == r["kind"]))
                     claim = self._wikidata_claim(r, is_review)
                     if claim:
+                        claim.alt = alt
+                        if alt:
+                            claim.notes.insert(0, self.t("src.wikidata_alternative"))
                         person.claims.append(claim)
                         used += 1
             others = sorted({r["qid"] for r in rs} - set(chosen))
@@ -238,7 +266,7 @@ class Collector:
 
     def _range_of(self, value: str, precision: str | None, calendar: str | None) -> tuple[int, int] | None:
         ymd = cal.parse_iso(value)
-        if not ymd or not precision or not calendar or ymd[0] <= 0:
+        if not ymd or precision not in cal.DRAWN_PRECISIONS or not calendar or ymd[0] <= 0:
             return None
         return cal.range_for(*ymd, precision, calendar)
 
@@ -252,7 +280,8 @@ class Collector:
         notes: list[str] = []
         rng = self._range_of(value, precision, calendar)
         if rng is None:
-            notes.append(self.t("date.not_placed_precision" if calendar else "date.not_placed_calendar"))
+            notes.append(self.t("date.not_placed_precision", precision=self.t(f"precision.{precision}") if precision else prec_raw or "?")
+                         if calendar else self.t("date.not_placed_calendar"))
         # earliest / latest date qualifiers widen the range; never narrow it. Day- or month-precise
         # qualifier values come from the query service, which may give a Julian date converted to
         # the Gregorian calendar, so both readings are covered.
@@ -270,6 +299,12 @@ class Collector:
             if cands:
                 rng = (min([rng[0]] + [c[0] for c in cands]), max([rng[1]] + [c[1] for c in cands]))
                 notes.append(self.t("date.qualifier_range", value=q))
+        for q in quals:
+            m = self._QUAL_REFINE.match(q)
+            if m and rng is not None:            # "refine date: 74 AH": the range also covers that Hijri year
+                y = int(m.group(1))
+                rng = (min(rng[0], cal.hijri_year_start(y)), max(rng[1], cal.hijri_year_start(y + 1) - 1))
+                notes.append(self.t("date.qualifier_range", value=q))
         lo, hi = rng if rng else (None, None)
         qid = r["qid"].rsplit("/", 1)[-1]
         text = self._ce_text(lo, hi, precision) if lo is not None else value
@@ -284,7 +319,7 @@ class Collector:
         if r.get("rank"):
             notes.append(self.t("src.wikidata_rank", rank=r["rank"]))
         for q in quals:
-            if not self._QUAL_TIME.match(q):
+            if not self._QUAL_TIME.match(q) and not self._QUAL_REFINE.match(q):
                 notes.append(self.t("src.wikidata_qualifier", value=q))
         if r.get("note"):
             notes.append(self.t("src.wikidata_note", value=r["note"]))
@@ -369,6 +404,70 @@ class Collector:
                 "ai": bool(wi and wi["ai"])})
         for ev in self.events.values():
             ev.parts.sort(key=lambda p: (self.people[p["person"]].sort, p["kind"], p["how"]))
+
+    # ------------------------------------------------------------ Ibn Hishām (slice 4)
+    def _load_ibn_hisham(self):
+        g, t = self.g, self.t
+        for a in g.subjects(RDF.type, MRS.Assertion):
+            pred = g.value(a, MRS.predicate)
+            name = _local(pred) if pred is not None else ""
+            if name not in (REL_AGE_AT, REL_BORN_DURING, REL_DIED_DURING, REL_DATED):
+                continue
+            subj, obj = g.value(a, MRS.assertionSubject), g.value(a, MRS.assertionObject)
+            passage = g.value(a, PROV.wasDerivedFrom)
+            pinfo = self.site.passage_info(passage) if passage is not None else {}
+            cit = (pinfo or {}).get("citation")
+            src = {"type": "ibn-hisham", "label": t("src.ibn_hisham"), "detail": cit or "",
+                   "status": self.site.vkey(g.value(a, MRS.assertionStatus), "as_")}
+            if name == REL_DATED:
+                ev = self.events.get(str(subj))
+                if ev is not None and isinstance(obj, Literal):
+                    ev.notes.append(t("ih.dated", value=str(obj), cite=cit or ""))
+                continue
+            person = self.people.get(str(subj))
+            ev = self.events.get(str(obj)) if obj is not None else None
+            if person is None:
+                continue
+            if name == REL_AGE_AT:
+                if ev is None:
+                    continue
+                vals = sorted({float(str(v)) for v in g.objects(a, MRS.ageYearsAsGiven)})
+                written = g.value(a, MRS.ageAsWritten)
+                self.ages.append(AgeClaim(person=person.iri, event=ev.iri, values=vals,
+                                          written=str(written) if written is not None else None, source=src))
+                continue
+            kind = "birth" if name == REL_BORN_DURING else "death"
+            ev_name = ev.name if ev is not None else self.site.label_of(str(obj))
+            written = g.value(a, MRS.dateAsWritten)
+            notes = [t("ih.as_written", value=str(written))] if written is not None else []
+            if ev is not None and ev.lo is not None:
+                lo, hi = ev.lo, ev.hi
+                notes.append(t("ih.dated_by_event", event=ev_name, date=ev.text))
+            else:
+                lo = hi = None
+                notes.append(t("ih.event_undated", event=ev_name))
+            person.claims.append(DateClaim(kind=kind, lo=lo, hi=hi, precision=None,
+                                           text=t(f"ih.{kind}_during", event=ev_name), notes=notes, source=src))
+
+    def _date_life_events(self):
+        """A birth event (crm:E67_Birth) is that person's birth, so it takes the person's
+        recorded birth date, and likewise a death event; it is said so wherever shown."""
+        g, t = self.g, self.t
+        for cls, prop, kind in ((CRM.E67_Birth, CRM.P98_brought_into_life, "birth"),
+                                (CRM.E69_Death, CRM.P100_was_death_of, "death")):
+            for node in g.subjects(RDF.type, cls):
+                ev, who = self.events.get(str(node)), g.value(node, prop)
+                person = self.people.get(str(who)) if who is not None else None
+                if ev is None or person is None or ev.lo is not None:
+                    continue
+                cs = [c for c in person.claims if c.kind == kind and c.drawable and not c.review]
+                if not cs:
+                    ev.notes.append(t("ih.life_event_undated", name=person.name))
+                    continue
+                ev.lo, ev.hi = min(c.lo for c in cs), max(c.hi for c in cs)
+                ev.text = " / ".join(dict.fromkeys(c.text for c in cs))
+                ev.notes.append(t("ih.life_event_dated", name=person.name,
+                                  sources="; ".join(dict.fromkeys(c.source["label"] for c in cs))))
 
     # ------------------------------------------------------------ kinship, membership, ties
     def _load_kinship_and_membership(self):
