@@ -8,9 +8,9 @@
   "nav.skip_main": "Skip to the chart",
   "nav.label": "al-Marṣad",
   "banner.strong": "Proposed, not reviewed.",
-  "banner.text": "Every date, line and age on this page comes from proposed records that no scholar has reviewed yet: dates recorded in the al-Marṣad graph and dates matched automatically from Wikidata. Ages are computed from those dates. Dashed lines and hatched connectors mark this.",
+  "banner.text": "Every date, line and age on this page comes from proposed records that no scholar has reviewed yet: dates recorded in the al-Marṣad graph, dates matched automatically from Wikidata, and ages and dates extracted by AI from Ibn Hishām's Sīra. Ages from dates are computed; ages from Ibn Hishām are shown as given. Dashed lines and hatched connectors mark this.",
 
-  "banner.short": "Dates come from unreviewed records (the al-Marṣad graph, Wikidata matches); ages are computed. Dashed = proposed.",
+  "banner.short": "Unreviewed records: the al-Marṣad graph, Wikidata matches, AI-extracted Ibn Hishām claims. Ages from dates are computed. Dashed = proposed.",
 
   "controls.label": "View controls",
   "controls.align": "Align lines",
