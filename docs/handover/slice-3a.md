@@ -36,7 +36,7 @@ No other fields are allowed. `checks` may be empty or left out.
 - Scope is a list of grants separated by `;`. Each grant is space-separated conditions, all of which must hold: `source:<file stem>`, `topic:<relation class|identity>` or `period:A..B` (CE years; an undated claim never matches). Example: `source:stories-50; topic:kinship period:570..661`.
 
 ## Verify (all pass)
-`scripts/check_all.sh` (all 18 steps) · `.venv/bin/python ontology/build_graph.py` (CONFORMS) · `ontology/validate.py` on each of corpus/{generation-1,seed-incidents,stories-50,reviews}.ttl and examples/thawr.ttl (CONFORMS) · `.venv/bin/python -m unittest discover -s review/tests` (16 tests, about 2 min, on a temporary copy; the real corpus is checked byte-identical) · site build and site tests still pass · `review/build_queue.py` · `review/import_decisions.py --check` · `identity_audit.py --check` · `stories50_to_ttl.py --check`.
+`scripts/check_all.sh` (all 19 steps) · `.venv/bin/python ontology/build_graph.py` (CONFORMS) · `ontology/validate.py` on each of corpus/{generation-1,seed-incidents,stories-50,reviews}.ttl and examples/thawr.ttl (CONFORMS) · `.venv/bin/python -m unittest discover -s review/tests` (16 tests, about 2 min, on a temporary copy; the real corpus is checked byte-identical) · site build and site tests still pass · `review/build_queue.py` · `review/import_decisions.py --check` · `identity_audit.py --check` · `stories50_to_ttl.py --check`.
 
 ## For a human
 1. **Identity flags to clear.** 32 needs-review rows are flagged only for slice-1a ID bookkeeping. `build_queue.py --list-excluded` prints their IDs and reasons.
