@@ -138,6 +138,10 @@ Every instance **MUST** carry a URI of the form `https://w3id.org/marsad/id/{cla
 3. Identifiers **MUST** be minted by the canonical log, never by a client.
 4. Where an external authority provides an identifier (Pleiades, Wikidata, al-Ṯurayyā, OpenITI, VIAF), it **MUST** be recorded via `mrs:externalIdentifier` — as alignment, never as the primary key.
 
+### 5.2.1 Minting rule (maintainer decision, 15 October 2026)
+
+Every new identifier is 22 characters of base62 drawn from the operating system's random source (Python `secrets`), and is checked for uniqueness against the payload of **every** existing instance IRI of **any** kind, not only of its own class token. It is never derived from a name, a date, another identifier or a hash of one. `ontology/tools/mint_id.py` does this: `python ontology/tools/mint_id.py per` prints one new `per:` identifier. Instance prefixes in use: `per:` (person), `plc:` (place), `ev:` (event), and `grp:` (group, `https://w3id.org/marsad/id/group/`, class `mrs:Group` ⊑ `crm:E74_Group`; the 12 groups of the 50 Stories are declared in `ontology/corpus/stories-50.ttl`). Slice 1c also uses `wrk:` (work, `https://w3id.org/marsad/id/work/`) for the 50 Stories doc. Some identifiers minted before this rule share a payload with an identifier of another kind, or differ from one by a single character; they are valid, distinct IRIs and are **not** renamed (renaming a stable IRI is a separate decision). Note: §5.2 says base58; the corpus in fact uses base62 and the minting tool follows the corpus.
+
 ### 5.3 Versioning of the ontology itself
 `major.minor.patch`. A **major** increment may remove or redefine a class or property; a **minor** increment adds; a **patch** corrects documentation only. Every published corpus release **MUST** declare the ontology version it validates against. Removed terms **MUST** be retained as `owl:deprecated` with `mrs:supersededBy`, permanently.
 
