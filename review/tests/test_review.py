@@ -145,11 +145,14 @@ class ReviewSlice3a(unittest.TestCase):
         self.assertEqual(listed, {r["canonical_id"] for r in rows})
         for r in q["identity_excluded"]:
             self.assertTrue(r["reasons"])
-        # the classifier: an ID-only note is left out, any other flag is kept
-        self.assertTrue(c.id_only({"note": "IRI nearly identical to per:X, which is a different entity by label; do not merge "
-                                           "or trim IDs | slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept"}))
-        self.assertFalse(c.id_only({"note": "IRI nearly identical to per:X | may name the same man as per:Y; a scholar's call"}))
-        self.assertFalse(c.id_only({"note": ""}))
+        # the classifier: an ID-only flag is not a question, a label merge is a 'probable' one, any other flag stays
+        coll = "IRI nearly identical to per:X, which is a different entity by label; do not merge or trim IDs"
+        remint = "slice 1d (15 Oct 2026): ID re-minted, retired ID(s) kept in variant_ids; confidence not changed"
+        merge = "merged on shared normalised label: per:X = A; per:Y = A"
+        for note, want in [(f"{coll} | {remint}", "exact"), (f"{merge} | {coll} | {remint}", "probable"),
+                           (f"{coll} | may name the same man as per:Y; a scholar's call", "needs-review"), ("", "needs-review")]:
+            self.assertEqual(c.queued_confidence({"confidence": "needs-review", "note": note}), want, note)
+        self.assertEqual(c.queued_confidence({"confidence": "probable", "note": merge}), "probable")
 
     # ---- the import ---------------------------------------------------------------------------
     def test_import_moves_three_claims(self):

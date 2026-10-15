@@ -40,7 +40,6 @@ SEGMENTS = {
 PREFIX_OF = {seg: p for p, seg in SEGMENTS.items()}
 PAYLOAD_RE = re.compile(r"^[0-9A-Za-z]{22}$")
 
-STATUSES = ["proposed", "under_review", "accepted", "rejected", "superseded"]
 OUTCOMES = {"accept": MRS.ro_accept, "reject": MRS.ro_reject, "needs_discussion": MRS.ro_needs_discussion}
 OUTCOME_STATUS = {"accept": "accepted", "reject": "rejected", "needs_discussion": "under_review"}
 CHECKS = {"report_in_source": MRS.rc_report_in_source, "chain_sound": MRS.rc_chain_sound,
@@ -160,6 +159,8 @@ class Tree:
 
     # ---- names and labels -------------------------------------------------
     def label(self, node, prop=RDFS.label) -> str | None:
+        if node is None:  # rdflib reads None as "any subject"
+            return None
         values = sorted(self.graph.objects(node, prop), key=lambda l: (getattr(l, "language", None) not in (None, "en"), str(l)))
         return str(values[0]) if values else None
 
@@ -189,7 +190,8 @@ class Tree:
         return files[0].stem if files else "unknown"
 
     def topic_of(self, a) -> str:
-        cls = self.graph.value(self.graph.value(a, MRS.predicate), MRS.relationClass)
+        pred = self.graph.value(a, MRS.predicate)
+        cls = self.graph.value(pred, MRS.relationClass) if pred is not None else None
         local = str(cls).rsplit("#", 1)[-1] if cls is not None else ""
         return local[len("relclass_"):].replace("_", "-") if local.startswith("relclass_") else "unclassified"
 
@@ -208,6 +210,8 @@ class Tree:
         """CE years spanned by the dated events the claim is about (subject or object); None if undated."""
         years = []
         for node in (self.graph.value(a, MRS.assertionSubject), self.graph.value(a, MRS.assertionObject)):
+            if node is None:
+                continue
             for te in self.graph.objects(node, MRS.eventTemporalExtent):
                 for corner in (MRS.earliestStart, MRS.latestStart, MRS.earliestEnd, MRS.latestEnd):
                     years += [y for y in (year_of(v) for v in self.graph.objects(te, corner)) if y is not None]
@@ -270,7 +274,7 @@ class Tree:
         return None
 
     def passage_json(self, p) -> dict:
-        texts = list(self.graph.objects(p, CRM.P190_has_symbolic_content))
+        texts = sorted(self.graph.objects(p, CRM.P190_has_symbolic_content), key=str)
         en = [str(t) for t in texts if getattr(t, "language", None) != "ar"]
         ar = [str(t) for t in texts if getattr(t, "language", None) == "ar"]
         works = sorted(self.works_of(p), key=str)
@@ -363,33 +367,39 @@ def drift(tree: Tree) -> tuple[list, list]:
 # ---------------------------------------------------------------------------
 # Identity rows: which needs-review flags are ID bookkeeping, not identity questions
 # ---------------------------------------------------------------------------
-# A note is "|"-separated. A part matching one of these says the row is flagged for
-# the slice-1a ID problems that slice 1d fixed (re-minted, see id-renames.csv), or
-# only explains a merge/non-merge. Any other part is a real question and keeps the
-# row in the queue (unknown notes are treated as real, never dropped).
-ID_ONLY_NOTES = [
-    (re.compile(r"^IRI nearly identical to "), "slice-1a ID collision (fixed by the slice 1d re-mint)"),
-    (re.compile(r"^slice 1d \(.*\): ID re-minted"), "record of the slice 1d re-mint"),
-    (re.compile(r"stays needs-review only for the ID collision"), "flag kept only for the ID collision"),
-    (re.compile(r"stays needs-review \(ID minted in slice 1a by hash"), "slice-1a hash-minted ID (re-minted in slice 1d)"),
-    (re.compile(r"^merged on shared normalised label: "), "label merge; alone it gives 'probable', not needs-review"),
-    (re.compile(r"^placeholder label, never merged on name"), "explains why two placeholders were not merged"),
+# A note is "|"-separated. Known parts are sorted into: "id" (the row is flagged for a
+# slice-1a ID problem that slice 1d fixed by re-minting, see id-renames.csv), "merge"
+# (slice 1a merged two IDs on one label: on its own that gives 'probable'), and "info"
+# (explains something, asks nothing). Any other part is a real question: unknown notes
+# are never dropped.
+NOTE_KINDS = [
+    (re.compile(r"^IRI nearly identical to "), "id", "slice-1a ID collision (fixed by the slice 1d re-mint)"),
+    (re.compile(r"stays needs-review only for the ID collision"), "id", "flag kept only for the ID collision"),
+    (re.compile(r"stays needs-review \(ID minted in slice 1a by hash"), "id", "slice-1a hash-minted ID (re-minted in slice 1d)"),
+    (re.compile(r"^merged on shared normalised label: "), "merge", "label merge ('probable' once the ID flag is cleared)"),
+    (re.compile(r"^slice 1d \(.*\): ID re-minted"), "info", "record of the slice 1d re-mint"),
+    (re.compile(r"^placeholder label, never merged on name"), "info", "explains why two placeholders were not merged"),
 ]
 
 
-def note_flags(note: str) -> list[tuple[str, str | None]]:
-    """[(note part, ID-only reason or None)]"""
+def note_flags(note: str) -> list[tuple[str, str | None, str | None]]:
+    """[(note part, kind or None, reason or None)]"""
     out = []
     for part in [p.strip() for p in (note or "").split("|") if p.strip()]:
-        reason = next((why for rx, why in ID_ONLY_NOTES if rx.search(part)), None)
-        out.append((part, reason))
+        kind, reason = next(((k, why) for rx, k, why in NOTE_KINDS if rx.search(part)), (None, None))
+        out.append((part, kind, reason))
     return out
 
 
-def id_only(row: dict) -> bool:
+def queued_confidence(row: dict) -> str:
+    """The confidence an identity row is queued at. A needs-review row whose flags are all
+    slice-1a ID bookkeeping counts as 'probable' if it is a label merge and as 'exact'
+    otherwise, so no scholar time goes on the ID flag. Any other row keeps its own."""
     flags = note_flags(row.get("note", ""))
-    return bool(flags) and all(reason for _, reason in flags) and any(
-        "collision" in reason or "hash-minted" in reason for _, reason in flags)
+    kinds = [k for _, k, _ in flags]
+    if row.get("confidence") == "needs-review" and kinds and None not in kinds and "id" in kinds:
+        return "probable" if "merge" in kinds else "exact"
+    return row.get("confidence", "")
 
 
 # ---------------------------------------------------------------------------
@@ -700,10 +710,13 @@ PHONE_RE = re.compile(r"\+\d[\d\s().-]{6,}\d")
 
 
 def private_data_in(text: str, roster_names) -> str | None:
-    """Why `text` may not enter the public record, or None."""
+    """Why `text` may not enter the public record, or None. A roster name is matched whole
+    (two words or more, any case or diacritics): a one-word name would also match the
+    historical names notes are about."""
     folded = fold(text)
     for name in roster_names:
-        if name and fold(name) in folded:
+        words = fold(name).split()
+        if len(words) >= 2 and re.search(r"(?<!\w)" + r"\s+".join(map(re.escape, words)) + r"(?!\w)", folded):
             return "a reviewer's name"
     if EMAIL_RE.search(text):
         return "an email address"

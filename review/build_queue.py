@@ -138,13 +138,13 @@ def identity_batches(tree: c.Tree, levels: set, size: int) -> tuple[list, list]:
     earlier = tree.decisions_by_target()
     units, excluded = [], []
     for row in tree.identity:
-        if row["confidence"] not in levels:
-            continue
+        queued_as = c.queued_confidence(row)
         flags = c.note_flags(row.get("note", ""))
-        if c.id_only(row):
-            excluded.append({"id": row["canonical_id"], "kind": row["kind"], "name": row["preferred_name_en"],
-                             "confidence": row["confidence"],
-                             "reasons": sorted({why for _, why in flags})})
+        if queued_as not in levels:
+            if row["confidence"] in levels:
+                excluded.append({"id": row["canonical_id"], "kind": row["kind"], "name": row["preferred_name_en"],
+                                 "confidence": row["confidence"], "queued_as": queued_as,
+                                 "reasons": sorted({why for _, _, why in flags if why})})
             continue
         iri = c.expand(row["canonical_id"])
         units.append({
@@ -158,7 +158,8 @@ def identity_batches(tree: c.Tree, levels: set, size: int) -> tuple[list, list]:
             "stories50_names": [v for v in row.get("stories50_names", "").split(";") if v],
             "files": [v for v in row.get("source_files", "").split(";") if v],
             "confidence": row["confidence"],
-            "note_parts": [part for part, _ in flags],
+            "queued_as": queued_as,
+            "note_parts": [part for part, _, _ in flags],
             "earlier_decisions": [d.as_json() for d in earlier.get(iri, [])],
         })
     units.sort(key=lambda u: (u["entity"], c.fold(u["name"]), u["id"]))

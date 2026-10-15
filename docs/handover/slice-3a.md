@@ -10,7 +10,7 @@ Spec: docs/handover/slice-3-brief.md, part 3a. No status moved in the real corpu
 ## Queue: `review/build_queue.py` writes `review/dist/queue.json` (gitignored, deterministic)
 - 549 proposed claims in 97 batches: 50 story batches (one per story, in order), 45 person batches (sorted by name) and 2 file batches. Any batch over 50 is split; the Prophet ﷺ's is 50 + 14.
 - Each unit holds: id, the claim in plain words, subject/predicate/object (identity.csv names, Arabic where present), qualifiers, the doc's own wording, its basis verbatim, status, file, topic and period. It also has the flags `ai_generated_basis` and `citation_required_to_accept`, and lists earlier decisions. Passages are verbatim in `passages` (English, and Arabic where the graph has it).
-- The identity queue holds needs-review rows as "same as?" questions. Today it is empty: all 32 rows are ID bookkeeping (see For a human). `--identity-confidence needs-review,probable` adds the 18 `probable` rows, which are the real identity questions.
+- The identity queue holds needs-review rows as "same as?" questions. Today it is empty: all 32 rows are ID bookkeeping (see For a human). `--identity-confidence needs-review,probable` adds the 18 `probable` rows and the two label merges among the 32 (ʿĀʾisha, Makkah): 20 real identity questions.
 - The queue builder refuses to run while corpus statuses disagree with reviews.ttl, so decided claims are not sent back to the scholars.
 
 ## Importer: `review/import_decisions.py [files]` (default `review/inbox/*.json`)
