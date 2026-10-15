@@ -264,3 +264,23 @@ dl.glossary-list dt { font-weight: 700; margin-block-start: 1rem; }
 @media (prefers-reduced-motion: reduce) {
   .moment { animation: none; }
 }
+
+/* language switch (every reader page links its twin in the other language) */
+.lang-switch { font-weight: 600; text-decoration: none; padding-block: 0.1rem; padding-inline: 0.6rem;
+  border: 1px solid var(--line); border-radius: 999px; }
+.lang-switch:hover { border-color: var(--accent); }
+.lang-switch:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+.draft-note { margin-block-start: 0.5rem; }
+.english-only { white-space: nowrap; }
+
+/* Arabic interface (html lang="ar" dir="rtl"). Every rule above is logical, so the layout
+   mirrors itself; what is set here is what direction alone cannot do: the font stack,
+   joined letters (no letter-spacing), no slanted Arabic, and the arrows that point on. */
+:root { --font-ar-ui: system-ui, -apple-system, "Segoe UI", "Noto Sans Arabic", "Noto Naskh Arabic", "Geeza Pro", Tahoma, Arial, sans-serif; }
+html[lang="ar"] body { font-family: var(--font-ar-ui); font-size: 1.05rem; line-height: 1.85; }
+html[lang="ar"] [lang="ar"] { font-family: var(--font-ar-ui); }
+html[lang="ar"] [lang="en"] { font-family: var(--font); }
+html[dir="rtl"] .breadcrumb li + li::before, html[dir="rtl"] .thread-path li + li::before { content: "\2039"; }
+html[dir="rtl"] .kicker, html[dir="rtl"] .thread-group, html[dir="rtl"] .m-when { letter-spacing: normal; text-transform: none; }
+html[dir="rtl"] .claim-text .rel, html[dir="rtl"] .not-recorded, html[dir="rtl"] .m-line { font-style: normal; }
+html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3 { line-height: 1.5; }

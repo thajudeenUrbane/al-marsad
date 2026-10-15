@@ -12,6 +12,9 @@
   "nav.stories": "Stories",
   "nav.glossary": "Glossary",
 
+  "lang.switch": "العربية",
+  "lang.switch_help": "Read this page in Arabic. The Arabic interface text is a draft awaiting review by the scholars; names, claims and sources stay as recorded.",
+
   "footer.text_data": "Text and data:",
   "footer.cc_by_sa": "CC BY-SA 4.0",
   "footer.sep": " · ",
@@ -20,6 +23,8 @@
   "footer.ids": "IDs: CC0",
   "footer.dash": " — ",
   "footer.contributors": "al-Marṣad contributors",
+  "footer.ar_draft": "Arabic interface text: draft, awaiting review by the scholars",
+  "footer.ar_draft_en": "Arabic interface text: draft, awaiting review by the scholars",
 
   "common.not_recorded": "not yet recorded",
 
@@ -163,6 +168,7 @@
   "date.ce": "CE",
   "date.ah": "AH",
   "date.around": "around",
+  "date.around_recorded": "around",
   "date.from": "from {date}",
   "date.until": "until {date}",
   "date.converted": "Gregorian date converted from the Hijri date ({method}); it may be off by up to {days} days",
@@ -240,6 +246,7 @@
   "home.glossary_note": "Arabic terms link to the {glossary}.",
   "home.plain_note": "With JavaScript on, the Plain words switch at the top of each page shows plain English in place of an Arabic term wherever the glossary records a plain wording, and leaves out Arabic terms given in brackets after their English. Your choice is kept on this device only.",
   "home.doors_label": "Three ways in",
+  "home.ar_note": "This is the Arabic interface, a draft awaiting review by the scholars. It covers the reader pages. Names, claims, sources and story texts are shown as recorded, in English where no Arabic is recorded, and the views listed below are in English only for now.",
 
   "search.title": "Search names",
   "search.label": "Name of a person, event, place, group or story",
@@ -296,6 +303,7 @@
   "door.research.go": "Open sources and data",
   "door.research.page_lead": "Who recorded the claims, what they cite, what is disputed or missing, and the data itself. Each record opens at its evidence, and links its own raw data.",
 
+  "hub.english_only": "English only for now",
   "hub.heading": "Every view of the graph",
   "hub.lead": "All of these show the same graph and the same claims, with the same status labels.",
   "hub.reader.name": "Reader pages",

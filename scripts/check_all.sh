@@ -182,6 +182,7 @@ if step "site: build"                              "$PY" site/build.py; then
   step "site/lifelines: tests"                     "$PY" -m unittest discover -s site/lifelines/tests
   step "site: home page links every built view"    "$PY" site/check_hub.py
   step "site: doors, thread, plain words (JS on/off)" browser_check site/check_doors.cjs
+  step "site/arabic: pages, switch, search, thread (390 px)" browser_check site/check_arabic.cjs
   # Checks that read site/dist go here.
 else
   skip "site: budget, HTML and JS-off checks" "the site did not build"

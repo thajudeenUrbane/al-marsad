@@ -8,8 +8,10 @@
  * It holds no table of its own: every table comes from search.json ("rules"), which
  * site/build.py writes from names.RULES. site/tests/test_search.py runs this file and
  * the Python on the same cases and fails on any difference. Every visible string comes
- * from the page (#search-strings, from site/i18n/en.json). The only request is the
- * index the page names in data-fetch, on the same site.
+ * from the page (#search-strings, from site/i18n/en.json or ar.json). The only request is
+ * the index the page names in data-fetch, on the same site. On an Arabic page (html
+ * lang="ar") the result count picks the Arabic plural form (count_zero ... count_other)
+ * and the query typed is isolated inside the sentence, whichever script it is in.
  */
 (function () {
   "use strict";
@@ -170,6 +172,13 @@
   var nojs = document.getElementById("search-nojs");
   var S = JSON.parse(document.getElementById("search-strings").textContent);
   var LIMIT = 50;
+  var RTL = document.documentElement.dir === "rtl";
+  function category(n) {
+    if (!RTL) return n === 1 ? "one" : "other";
+    var m = n % 100;
+    return n === 0 ? "zero" : n === 1 ? "one" : n === 2 ? "two" : m >= 3 && m <= 10 ? "few" : m >= 11 ? "many" : "other";
+  }
+  function quoted(q) { return RTL ? "\u2068" + q + "\u2069" : q; }   // first-strong isolate: Arabic or Latin query
   var ARABIC = /[\u0600-\u06ff]/; // Arabic script in the query
   var engine = null, items = null, timer = null;
 
@@ -222,13 +231,13 @@
     var found = engine.search(items, q);
     all.hidden = true;
     if (!found.length) {
-      status.textContent = fmt(S.none, { q: q });
+      status.textContent = fmt(S.none, { q: quoted(q) });
       results.hidden = true;
       empty.hidden = false;
       return;
     }
     empty.hidden = true;
-    status.textContent = fmt(found.length === 1 ? S.count_one : S.count_other, { n: found.length, q: q });
+    status.textContent = fmt(S["count_" + category(found.length)] || S.count_other, { n: found.length, q: quoted(q) });
     var close = found.filter(function (f) { return f[1] < engine.similarFrom; });
     var similar = found.filter(function (f) { return f[1] >= engine.similarFrom; });
     if (close.length) group(S.matching, close, []);

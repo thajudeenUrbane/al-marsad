@@ -195,17 +195,22 @@ def bounds_text(earliest: str | None, latest: str | None, precision: str | None,
     return f"{e[0]}–{l[0]} {ce}"
 
 
-def format_extent(ext: dict, t) -> dict:
+def format_extent(ext: dict, t, mark=lambda s: s) -> dict:
     """ext keys: native, calendar, earliest, latest, precision, basis, conv_method,
     conv_days, relative, disputed (all optional, strings or bools).
-    Returns {'text': str|None, 'notes': [str]}. `text` may contain Arabic script;
-    the renderer marks that up."""
+    Returns {'text': str|None, 'notes': [str]}. `text` may contain Arabic script; the
+    renderer marks that up. A part of the text that is the date as recorded (English words
+    such as "CE" and "AH" stay as they were written) goes through `mark`, which an Arabic
+    page uses to isolate it; a part worked out from the recorded bounds is written with the
+    translator's month and era words and is not marked."""
     native = (ext.get("native") or "").strip()
     cal = ext.get("calendar")
     g_text = h_text = other = None
     ah, ce = t("date.ah"), t("date.ce")
+    around = t_opt(t, "date.around_recorded", t("date.around")) + " "   # a recorded "c." stays in its own language
 
     remark = None
+    nat: set[str] = set()   # which of the parts below are the recorded text
     if native:
         n = native.translate(_DIGITS)
         # a trailing "(...)" in the recorded text is the recorder's remark, not part of the date
@@ -214,14 +219,18 @@ def format_extent(ext: dict, t) -> dict:
             n, remark = m.group(1), m.group(2).strip()
         if " / " in n and n.split(" / ", 1)[0].rstrip().endswith("AH") and "CE" in n.split(" / ", 1)[1]:
             h_text, g_text = [p.strip() for p in n.split(" / ", 1)]
+            nat |= {"h", "g"}
         elif re.search(r"\bCE\b", n) and not re.search(r"\bAH\b", n):
             g_text = n
+            nat.add("g")
         elif re.search(r"\bAH\b", n):
             h_text = n
+            nat.add("h")
         elif cal == "hijri" and re.fullmatch(r"\d{1,4}", n):
             h_text = f"{n} {ah}"
         else:
             other = native  # recorded text we do not parse; shown as it stands
+            nat.add("o")
 
     notes: list[str] = []
     converted = False
@@ -239,15 +248,21 @@ def format_extent(ext: dict, t) -> dict:
         else:
             notes.append(t("date.converted_plain"))
     if remark:
-        notes.append(t("date.remark", value=_C_DOT.sub(t("date.around") + " ", remark)))
+        notes.append(t("date.remark", value=_C_DOT.sub(around, remark)))
 
     def tidy(s: str | None) -> str | None:
         if s is None:
             return None
-        s = _C_DOT.sub(t("date.around") + " ", s)
+        s = _C_DOT.sub(around, s)
         return popularize(s) if not has_arabic(s) else s
 
     g_text, h_text, other = tidy(g_text), tidy(h_text), tidy(other)
+    if g_text and "g" in nat:
+        g_text = mark(g_text)
+    if h_text and "h" in nat:
+        h_text = mark(h_text)
+    if other and "o" in nat:
+        other = mark(other)
     if g_text and h_text:
         text = f"{g_text} ({h_text})"
     else:

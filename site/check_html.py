@@ -8,7 +8,9 @@ order (no unclosed or stray tags), one <html lang>, a <title>, exactly one <h1>,
 skipped heading levels, no link inside a link, the landmarks (header, nav, main, footer), a skip link that
 points at an existing #main, unique ids, working #fragment links, internal links that
 resolve to a generated file, lang="ar" elements that carry dir="rtl", and the licence
-footer. Exit status 1 on any problem.
+footer. The Arabic copy under ar/ must be <html lang="ar" dir="rtl">, and every page that
+has a twin in the other language (the same path with or without ar/) must name both in
+hreflang alternates that resolve. Exit status 1 on any problem.
 """
 from __future__ import annotations
 
@@ -41,6 +43,8 @@ class Page(HTMLParser):
         self.headings: list[int] = []
         self.tags: dict[str, int] = {}
         self.html_lang = None
+        self.html_dir = None
+        self.alternates: dict[str, str] = {}
         self.title = ""
         self._in_title = False
         self.first_link: str | None = None
@@ -54,6 +58,9 @@ class Page(HTMLParser):
         self.tags[tag] = self.tags.get(tag, 0) + 1
         if tag == "html":
             self.html_lang = a.get("lang")
+            self.html_dir = a.get("dir")
+        if tag == "link" and "alternate" in a.get("rel", "").split() and a.get("hreflang"):
+            self.alternates[a["hreflang"]] = a.get("href", "")
         if tag == "title":
             self._in_title = True
         if "id" in a:
@@ -120,6 +127,19 @@ def check_page(root: Path, path: Path, all_ids: dict[str, set[str]]) -> list[str
         errs.append(f"line {l}: <{t}> is never closed")
     if not p.html_lang:
         errs.append("<html> has no lang")
+    in_ar = rel.startswith("ar/")
+    if in_ar and (p.html_lang != "ar" or p.html_dir != "rtl"):
+        errs.append(f'the Arabic copy must be <html lang="ar" dir="rtl">, found lang={p.html_lang} dir={p.html_dir}')
+    if not in_ar and p.html_dir == "rtl":
+        errs.append("a page outside ar/ is right to left")
+    twin = rel[3:] if in_ar else "ar/" + rel
+    if (root / twin).is_file() and not experiments.is_copy(rel):
+        for lang in ("en", "ar"):
+            if lang not in p.alternates:
+                errs.append(f"has a twin in the other language ({twin}) but no hreflang={lang} alternate")
+        p.links.extend(p.alternates.values())
+    elif in_ar:
+        errs.append(f"an Arabic page with no English twin at {twin}")
     if not p.title.strip():
         errs.append("empty or missing <title>")
     if p.tags.get("h1", 0) != 1:

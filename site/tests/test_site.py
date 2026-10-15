@@ -31,6 +31,7 @@ def quiet(fn, *args):
         return fn(*args)
 
 EN = json.loads((SITE / "i18n" / "en.json").read_text(encoding="utf-8"))
+AR = json.loads((SITE / "i18n" / "ar.json").read_text(encoding="utf-8"))
 PY_FILES = [SITE / n for n in ("build.py", "display.py", "glossary.py", "model.py", "names.py", "render.py",
                                "hub.py", "thread.py", "external.py", "experiments.py")]
 JS_FILES = [SITE / "static" / n for n in ("search.js", "enhance.js", "thread.js")]
@@ -87,7 +88,8 @@ def family_keys() -> set:
         keys.add(f"external.system.{system}")
     for key, _, _ in site_build.DOWNLOADS:
         keys |= {f"research.download.{key}", f"research.download.{key}.note"}
-    keys |= {"research.claims.one", "research.claims.other", "thread.lead.one", "thread.lead.other"}
+    keys |= {"research.claims.one", "research.claims.other", "thread.lead.one", "thread.lead.other",
+             "search.count.one", "search.count.other"}
     return keys
 
 
@@ -356,12 +358,12 @@ class BuiltSite(unittest.TestCase):
             self.assertIsNone(re.search(r'(?:src|data-fetch|rel="stylesheet" href)="(?:https?:)?//', src), p)
             if experiments.is_copy(rel):
                 continue
-            base = "../" * rel.count("/")
+            base = "../" * rel.count("/")   # the assets are in the site root, for the Arabic pages too
             want = [f"{base}assets/enhance.js"]
-            if rel == "search/index.html":
-                want.append("../assets/search.js")
-            elif re.match(r"(person|group)/[^/]+/index\.html$", rel):
-                want.append("../../assets/thread.js")
+            if rel in ("search/index.html", "ar/search/index.html"):
+                want.append(f"{base}assets/search.js")
+            elif re.match(r"(ar/)?(person|group)/[^/]+/index\.html$", rel):
+                want.append(f"{base}assets/thread.js")
             self.assertEqual(re.findall(r"<script[^>]*\bsrc=\"([^\"]+)\"", src), want, rel)
             inline = [s for s in re.findall(r"<script(?![^>]*\bsrc=)([^>]*)>", src) if 'type="application/json"' not in s]
             self.assertEqual(inline, [], rel)
@@ -370,9 +372,10 @@ class BuiltSite(unittest.TestCase):
         for p in self.out.rglob("*.html"):
             src = p.read_text(encoding="utf-8")
             foot = src[src.index("<footer"):]
+            words = AR if p.relative_to(self.out).parts[0] == "ar" else EN
             for needle in ("blob/main/LICENSING.md", "creativecommons.org/licenses/by-sa/4.0/",
-                           "gnu.org/licenses/agpl-3.0.html", EN["footer.cc_by_sa"], EN["footer.agpl"],
-                           EN["footer.ids"], EN["footer.contributors"]):
+                           "gnu.org/licenses/agpl-3.0.html", words["footer.cc_by_sa"], words["footer.agpl"],
+                           words["footer.ids"], words["footer.contributors"]):
                 self.assertIn(needle, foot, p)
 
     def test_abu_bakr_lists_stories_incidents_and_kinship_from_all_sources(self):

@@ -33,15 +33,42 @@ SECTION_ORDER = {
 }
 
 
+LRI, PDI = "\u2066", "\u2069"   # left-to-right isolate, pop directional isolate
+_LATIN = re.compile(r"[A-Za-z]")
+_ISOLATED = re.compile(f"{LRI}(.*?){PDI}", re.S)
+
+
+def plural_category(lang: str, n: int) -> str:
+    """The CLDR plural category of n: English has one and other; Arabic has zero, one,
+    two, few (3-10), many (11-99) and other (100 and over, and 0 when no zero form is written)."""
+    if lang != "ar":
+        return "one" if n == 1 else "other"
+    if n == 0:
+        return "zero"
+    if n == 1:
+        return "one"
+    if n == 2:
+        return "two"
+    return "few" if 3 <= n % 100 <= 10 else "many" if 11 <= n % 100 <= 99 else "other"
+
+
 class I18n:
-    def __init__(self, path: str | Path):
+    def __init__(self, path: str | Path, lang: str = "en"):
         self.d: dict[str, str] = json.loads(Path(path).read_text(encoding="utf-8"))
         self.used: set[str] = set()
+        self.lang = lang
 
     def t(self, key: str, **kw) -> str:
         s = self.d[key]  # a missing key is a build error on purpose
         self.used.add(key)
-        return s.format(**kw) if kw else s
+        if not kw:
+            return s
+        if self.lang == "ar":
+            # a value that is recorded data in Latin script (a name, a citation) is isolated, so
+            # that it keeps its own direction inside the Arabic sentence; the page shell turns
+            # each isolate into a lang="en" dir="ltr" span (Renderer.finish)
+            kw = {k: f"{LRI}{v}{PDI}" if isinstance(v, str) and _LATIN.search(v) else v for k, v in kw.items()}
+        return s.format(**kw)
 
     def th(self, key: str, **kw) -> str:
         """Escaped string; keyword values must already be HTML."""
@@ -49,8 +76,13 @@ class I18n:
         self.used.add(key)
         return s.format(**kw) if kw else s
 
+    def category(self, n: int) -> str:
+        return plural_category(self.lang, n)
+
     def tn(self, key: str, n: int, **kw) -> str:
-        return self.t(f"{key}.{'one' if n == 1 else 'other'}", n=n, **kw)
+        """A counted string: key.one, key.other and, in Arabic, key.two, key.few and key.many."""
+        full = f"{key}.{self.category(n)}"
+        return self.t(full if full in self.d else f"{key}.other", n=n, **kw)
 
     def has(self, key: str) -> bool:
         return key in self.d
@@ -60,16 +92,25 @@ class I18n:
 class Ctx:
     path: str                      # directory of the page: '', 'person/', 'person/ID/'
     seen: set = field(default_factory=set)   # glossary terms already linked on this page
+    ar: bool = False               # an Arabic page: its folder is ar/ inside the site
 
     @property
     def base(self) -> str:
+        """The way up to the root of this language's pages (the site root for English, ar/ for Arabic)."""
         return "../" * self.path.count("/")
+
+    @property
+    def site(self) -> str:
+        """The way up to the site root: assets, search.json, downloads and the views are there."""
+        return self.base + ("../" if self.ar else "")
 
 
 class Renderer:
     def __init__(self, site: Site, glossary: Glossary, i18n: I18n, templates: str | Path,
                  external: dict[str, list[dict]] | None = None):
         self.site, self.glossary, self.i = site, glossary, i18n
+        self.lang = i18n.lang
+        self.ar = i18n.lang == "ar"
         self.tpl_dir = Path(templates)
         self._tpl: dict[str, str] = {}
         self.t = i18n.t
@@ -83,27 +124,62 @@ class Renderer:
             self._tpl[name] = src
         return Template(self._tpl[name]).substitute(vars)
 
+    def ctx(self, path: str) -> Ctx:
+        return Ctx(path, ar=self.ar)
+
     # ------------------------------------------------------------------ text helpers
     @staticmethod
-    def esc(s: str) -> str:
+    def mixed(s: str) -> str:
+        """Escaped text with its Arabic-script runs marked: for a string that is interface
+        text, or interface text with isolated data in it."""
         return display.mark_arabic(html.escape(s, quote=False))
+
+    def data_span(self, out: str, raw: str) -> str:
+        """Recorded data in Latin script inside an Arabic page: English, left to right."""
+        if self.ar and _LATIN.search(raw):
+            return f'<span lang="en" dir="ltr">{out}</span>'
+        return out
+
+    def esc(self, s: str) -> str:
+        """Escaped recorded data (a name, a citation): on an Arabic page, marked as English."""
+        return self.data_span(self.mixed(s), s)
+
+    @property
+    def en_attrs(self) -> str:
+        """Attributes that mark a block of recorded English text inside an Arabic page."""
+        return ' lang="en" dir="ltr"' if self.ar else ""
+
+    @property
+    def english_only_attrs(self) -> str:
+        return ' hreflang="en"' if self.ar else ""
+
+    @property
+    def english_only_note(self) -> str:
+        """The label on a link from an Arabic page to a page that is English only for now."""
+        return (f'<span class="note english-only">({html.escape(self.t("hub.english_only"))})</span> '
+                if self.ar else "")
+
+    def finish(self, page: str) -> str:
+        """Turns the isolates that I18n.t put round data into marked-up English spans."""
+        return _ISOLATED.sub(lambda m: f'<span lang="en" dir="ltr">{m.group(1)}</span>', page)
 
     @staticmethod
     def attr(s: str) -> str:
         return html.escape(s, quote=True)
 
-    def text(self, ctx: Ctx, s: str, verbatim: bool = False, once: bool = False) -> str:
+    def text(self, ctx: Ctx, s: str, verbatim: bool = False, once: bool = False, data: bool = True) -> str:
+        """Free text with its glossary terms linked. data=False: interface text, not recorded data."""
         if not verbatim:
             s = display.honour(s)
         out, keys = display.link_terms(s, self.glossary.matchers,
                                        lambda k: f"{ctx.base}glossary/#term-{k}", ctx.seen, once,
                                        plain_for=self.glossary.plain_for)
         self.glossary.used |= keys
-        return out
+        return self.data_span(out, s) if data else out
 
     def label(self, ctx: Ctx, key: str, **kw) -> str:
         """A UI string that may contain glossary terms."""
-        return self.text(ctx, self.t(key, **kw), verbatim=True)
+        return self.text(ctx, self.t(key, **kw), verbatim=True, data=False)
 
     def ent_link(self, ctx: Ctx, iri: str, cur: str | None = None) -> str:
         e = self.site.entity(iri)
@@ -129,13 +205,22 @@ class Renderer:
             return ""
         return f' <span class="honorific" lang="ar" dir="rtl">{html.escape(self.t(key), quote=False)}</span>'
 
+    def mark_recorded(self, s: str) -> str:
+        """The recorded part of a date, isolated inside an Arabic date (see display.format_extent)."""
+        return f"{LRI}{s}{PDI}" if self.ar and _LATIN.search(s) else s
+
+    def date_text(self, v: dict) -> str:
+        """A formatted date: what was worked out from the recorded bounds is interface text
+        (month names and era words translated); recorded English text inside it is isolated."""
+        return self.mixed(v["text"])
+
     def date_html(self, ext: dict) -> str:
-        v = display.format_extent(ext, self.t)
+        v = display.format_extent(ext, self.t, self.mark_recorded)
         if not v["text"]:
             return f'<span class="not-recorded">{html.escape(self.t("common.not_recorded"))}</span>'
-        out = f'<span class="date">{self.esc(v["text"])}</span>'
+        out = f'<span class="date">{self.date_text(v)}</span>'
         if v["notes"]:
-            out += f'<br><span class="note">{self.esc(" · ".join(v["notes"]))}</span>'
+            out += f'<br><span class="note">{self.mixed(" · ".join(v["notes"]))}</span>'
         return out
 
     def dates_html(self, exts: list[dict]) -> str:
@@ -144,16 +229,19 @@ class Renderer:
         return "<br>".join(self.date_html(x) for x in exts)
 
     def short_date(self, exts: list[dict]) -> str | None:
+        """The first recorded date as marked-up HTML (see date_text), or None."""
         for x in exts:
-            v = display.format_extent(x, self.t)
+            v = display.format_extent(x, self.t, self.mark_recorded)
             if v["text"]:
-                return v["text"]
+                return self.date_text(v)
         return None
 
     # ------------------------------------------------------------------ page shell
     def shell(self, ctx: Ctx, title: str, body: str, *, body_class: str, current: str | None,
               crumbs: list[tuple[str, str | None]], description: str, search_box: bool = True,
-              scripts: str = "") -> str:
+              scripts: str = "", twin: bool = False) -> str:
+        """One page. twin=True: the same page exists in the other language (the reader tier),
+        so the page links it with a language switch and hreflang alternates."""
         nav = [f'<li><a href="{ctx.base}"{" aria-current=" + chr(34) + "page" + chr(34) if current == "home" else ""}>'
                f'{html.escape(self.t("nav.home"))}</a></li>']
         for key, kind in NAV + (("glossary", "glossary"),):
@@ -167,18 +255,37 @@ class Renderer:
                 crumb_items.append(f'<li><a href="{ctx.base}{href}">{self.esc(text)}</a></li>')
         breadcrumb = (f'<nav class="breadcrumb" aria-label="{self.attr(self.t("nav.breadcrumb"))}"><ol>'
                       + "".join(crumb_items) + "</ol></nav>") if crumbs else ""
-        return self.tpl("base", lang="en", dir="ltr", title=html.escape(title, quote=False),
-                        description=self.attr(description), base=ctx.base, body_class=body_class,
-                        nav="\n".join(nav), breadcrumb=breadcrumb, body=body,
+        alternates = lang_switch = ""
+        if twin:
+            en_href, ar_href = (f"{ctx.site}{ctx.path}", "./") if self.ar else ("./", f"{ctx.base}ar/{ctx.path}")
+            alternates = (f'<link rel="alternate" hreflang="en" href="{en_href}">\n'
+                          f'<link rel="alternate" hreflang="ar" href="{ar_href}">\n')
+            other, href = ("en", en_href) if self.ar else ("ar", ar_href)
+            rtl = ' dir="rtl"' if other == "ar" else ""
+            lang_switch = (f'<a class="lang-switch" href="{href}" hreflang="{other}" lang="{other}"{rtl} '
+                           f'title="{self.attr(self.t("lang.switch_help"))}">{html.escape(self.t("lang.switch"))}</a>\n')
+        page = self.tpl("base", lang=self.lang, dir="rtl" if self.ar else "ltr",
+                        title=html.escape(title, quote=False),
+                        description=self.attr(_ISOLATED.sub(r"\1", description)), base=ctx.base, site=ctx.site,
+                        body_class=body_class, nav="\n".join(nav), breadcrumb=breadcrumb, body=body,
                         search_box=self.tpl("search_box", base=ctx.base) if search_box else "",
-                        scripts=scripts, footer=self.footer_html())
+                        scripts=scripts, footer=self.footer_html(), alternates=alternates,
+                        lang_switch=lang_switch)
+        head, end, rest = page.partition("</head>")
+        return head + end + self.finish(rest)   # the <head> keeps the isolates: a title cannot hold markup
 
     def footer_html(self, footer_class: str = "site-footer") -> str:
         """The licence footer: every page ends with it, the prototype copies too."""
+        draft = ""
+        if self.ar:   # the translations are drafts: say so in both languages on every page
+            draft = (f'\n<p class="draft-note">{html.escape(self.t("footer.ar_draft"))} '
+                     f'<span lang="en" dir="ltr">({html.escape(self.t("footer.ar_draft_en"))})</span></p>')
         return self.tpl("footer", footer_class=footer_class, url_licensing=URL_LICENSING,
-                        url_cc_by_sa=URL_CC_BY_SA, url_agpl=URL_AGPL)
+                        url_cc_by_sa=URL_CC_BY_SA, url_agpl=URL_AGPL, draft=draft)
 
     def page_title(self, name: str) -> str:
+        if self.ar and _LATIN.search(name):
+            name = f"{LRI}{name}{PDI}"   # keeps its own direction in the Arabic title
         return f'{name} {self.t("title.sep")} {self.t("site.name")}'
 
     # ------------------------------------------------------------------ coverage and status
@@ -216,9 +323,11 @@ class Renderer:
     def claim_li(self, ctx: Ctx, c: Claim, cur: str) -> str:
         pred = self.t(c.predicate) if c.predicate_is_key else c.predicate
         sentence = (f'{self.ent_link(ctx, c.subject, cur)} '
-                    f'<span class="rel">{self.text(ctx, pred, verbatim=True)}</span> '
+                    f'<span class="rel">{self.text(ctx, pred, verbatim=True, data=not c.predicate_is_key)}</span> '
                     f'{self.ent_link(ctx, c.object, cur)}')
-        parts = [f'<p class="claim-text">{sentence}</p>']
+        # a relation recorded in English makes the whole sentence English; one of ours (a key) is Arabic
+        whole = "" if c.predicate_is_key else self.en_attrs
+        parts = [f'<p class="claim-text"{whole}>{sentence}</p>']
         if c.kind == "participation" and c.role:
             parts.append(f'<p class="claim-role">{html.escape(self.t("claim.role", value=c.role.text))}</p>')
         elif c.role:
@@ -344,8 +453,9 @@ class Renderer:
                 bits = []
                 for a in d["affiliations"]:
                     place = self.ent_link(ctx, a["place"]) if a["place"] else nr
-                    extra = [x for x in (a["type"], self.short_date([a["extent"]]) if a["extent"] else None) if x]
-                    bits.append(place + (f' ({self.esc("; ".join(extra))})' if extra else ""))
+                    extra = [x for x in (self.esc(a["type"]) if a["type"] else None,
+                                         self.short_date([a["extent"]]) if a["extent"] else None) if x]
+                    bits.append(place + (f' ({"; ".join(extra)})' if extra else ""))
                 rows.append((html.escape(self.t("fact.places")), "<br>".join(bits)))
             if not rows:
                 rows.append((html.escape(self.t("fact.dates_places")), nr))
@@ -375,10 +485,10 @@ class Renderer:
             if d["geometry"]:
                 bits = []
                 for g in d["geometry"]:
-                    seg = [g["confidence"]] if g["confidence"] else []
+                    seg = [self.esc(g["confidence"])] if g["confidence"] else []
                     if g["basis"]:
-                        seg.append(self.t("location.basis", value=g["basis"]))
-                    b = self.esc(" · ".join(seg)) if seg else nr
+                        seg.append(self.mixed(self.t("location.basis", value=g["basis"])))
+                    b = " · ".join(seg) if seg else nr
                     if b not in bits:
                         bits.append(b)
                 rows.append((html.escape(self.t("fact.location")), "<br>".join(bits)))
@@ -481,7 +591,7 @@ class Renderer:
 
         # raw identifiers and turtle
         raw = [f'<dt>{html.escape(self.t("details.iri"))}</dt><dd><code class="iri">{html.escape(e.iri, quote=False)}</code></dd>',
-               f'<dt>{html.escape(self.t("details.turtle"))}</dt><dd><a href="entity.ttl">{html.escape(self.t("details.turtle_link"))}</a></dd>']
+               f'<dt>{html.escape(self.t("details.turtle"))}</dt><dd><a href="{ctx.site + e.kind + "/" + e.pid + "/" if self.ar else ""}entity.ttl">{html.escape(self.t("details.turtle_link"))}</a></dd>']
         out.append(f'<h3>{html.escape(self.t("details.raw_heading"))}</h3><dl class="meta">{"".join(raw)}</dl>')
         claim_iris = sorted({c.node for c in claims if c.node})
         if claim_iris:
@@ -504,7 +614,7 @@ class Renderer:
                 name = f'<a href="{self.attr(r["url"])}" rel="external noreferrer">{name}</a>'
             bits = [name]
             if r["external_label"]:
-                bits.append(self.esc(self.t("external.label", value=r["external_label"])))
+                bits.append(self.mixed(self.t("external.label", value=r["external_label"])))
             if r["status"] == "proposed":
                 word = self.t("external.proposed")
             else:
@@ -516,7 +626,7 @@ class Renderer:
             if r["confidence"]:
                 notes.append(self.t("external.confidence", value=r["confidence"]))
             if notes:
-                bits.append(f'<span class="note">{self.esc(" ".join(notes))}</span>')
+                bits.append(f'<span class="note">{self.mixed(" ".join(notes))}</span>')
             lis.append(f'<li>{" ".join(bits)}</li>')
         return (f'<h3>{html.escape(self.t("external.heading"))}</h3><p class="note">{html.escape(self.t("external.lead"))}</p>'
                 f'<ul class="plain external-list">{"".join(lis)}</ul>')
@@ -530,7 +640,7 @@ class Renderer:
         return self.tpl("thread_root", base=ctx.base, focus=f"{e.kind}/{e.pid}")
 
     def entity_page(self, e: Entity) -> str:
-        ctx = Ctx(f"{e.kind}/{e.pid}/")
+        ctx = self.ctx(f"{e.kind}/{e.pid}/")
         sections, counts = self.sections(ctx, e)
         extra = ""
         banner = ""
@@ -556,12 +666,12 @@ class Renderer:
             prose = e.data.get("prose")
             if prose:
                 paras = [p for p in re.split(r"\n\s*\n", prose.text) if p.strip()]
-                inner = "".join(f"<p>{self.text(ctx, p.strip(), once=True)}</p>" for p in paras)
+                inner = "".join(f"<p>{self.text(ctx, p.strip(), once=True, data=False)}</p>" for p in paras)
             else:
                 inner = f'<p class="not-recorded">{html.escape(self.t("story.no_text"))}</p>'
             story_html = (f'<section class="story-text" aria-labelledby="h-story">'
                           f'<h2 id="h-story">{html.escape(self.t("story.text_heading"))}</h2>'
-                          f'<div class="prose">{inner}</div></section>')
+                          f'<div class="prose"{self.en_attrs if prose else ""}>{inner}</div></section>')
         evidence = "\n".join(p for p in (sections, self.open_questions(ctx, e)) if p)
         # The evidence: one anchor (#evidence) that the Study and Research doors link to, so
         # those readers land on the claims first while Discover readers start at the top.
@@ -578,8 +688,8 @@ class Renderer:
                           body_class=f"page-entity kind-{e.kind}" + (" is-prophet" if e.prophet else ""),
                           current=KIND_NAV[e.kind],
                           crumbs=[(self.t(f"nav.{KIND_NAV[e.kind]}"), f"{kind_dir}/"), (e.name, None)],
-                          description=desc,
-                          scripts=f'<script src="{ctx.base}assets/thread.js" defer></script>' if thread else "")
+                          description=desc, twin=True,
+                          scripts=f'<script src="{ctx.site}assets/thread.js" defer></script>' if thread else "")
 
     # ------------------------------------------------------------------ index pages
     def index_row(self, ctx: Ctx, e: Entity, numbered: bool = False, anchor: str = "") -> str:
@@ -589,7 +699,7 @@ class Renderer:
         if e.kind == "event":
             when = self.short_date(d["dates"])
             if when:
-                meta.append(self.esc(when))
+                meta.append(when)
             if d["places"]:
                 meta.append(self.place_links(ctx, d["places"]))
         elif e.kind == "place" and d["types"]:
@@ -617,7 +727,7 @@ class Renderer:
         return html.escape(self.t("index.coverage_prefix")) + " " + ", ".join(bits)
 
     def index_page(self, kind: str) -> str:
-        ctx = Ctx(f"{kind}/")
+        ctx = self.ctx(f"{kind}/")
         ents = self.site.by_kind[kind]
         nav_key = KIND_NAV[kind]
         banner = ""
@@ -641,7 +751,7 @@ class Renderer:
                            coverage_summary=self.coverage_summary(ents), banner=banner, body=body)
         return self.shell(ctx, self.page_title(self.t(f"nav.{nav_key}")), content, body_class=f"page-index kind-{kind}",
                           current=nav_key, crumbs=[(self.t(f"nav.{nav_key}"), None)],
-                          description=lead)
+                          description=lead, twin=True)
 
     def letters(self, ents: list[Entity]) -> list[str]:
         seen = []
@@ -654,7 +764,7 @@ class Renderer:
     def az_nav(self, ents: list[Entity], prefix: str = "letter") -> str:
         items = "".join(f'<li><a href="#{prefix}-{self.attr(l if l != "#" else "other")}">{html.escape(l)}</a></li>'
                         for l in self.letters(ents))
-        return f'<nav class="az" aria-label="{self.attr(self.t("index.az"))}"><ul>{items}</ul></nav>'
+        return f'<nav class="az" aria-label="{self.attr(self.t("index.az"))}"><ul{self.en_attrs}>{items}</ul></nav>'
 
     def az_sections(self, ctx: Ctx, ents: list[Entity], prefix: str, level: int = 2, row=None) -> str:
         row = row or self.index_row
@@ -663,7 +773,7 @@ class Renderer:
         def flush():
             if cur is not None:
                 anchor = cur if cur != "#" else "other"
-                out.append(f'<section><h{level} id="{prefix}-{self.attr(anchor)}">{html.escape(cur)}</h{level}>'
+                out.append(f'<section><h{level} id="{prefix}-{self.attr(anchor)}"{self.en_attrs}>{html.escape(cur)}</h{level}>'
                            f'<ul class="index-list">\n' + "\n".join(lis) + "\n</ul></section>")
 
         for e in ents:
@@ -693,8 +803,11 @@ class Renderer:
             status += f'<p><strong>{html.escape(self.t("home.status_none"))}</strong></p>'
         return status
 
-    def view_link(self, ctx: Ctx, folder: str) -> str:
-        return f'<a href="{ctx.base}{folder}/">{html.escape(self.t(f"hub.view.{folder}.name"))}</a>'
+    def view_link(self, ctx: Ctx, folder: str, cls: str = "") -> str:
+        """A link to a view (written by another builder, English only for now) from the site root."""
+        attrs = (f' class="{cls}"' if cls else "") + self.english_only_attrs
+        return (f'<a href="{ctx.site}{folder}/"{attrs}>{html.escape(self.t(f"hub.view.{folder}.name"))}</a> '
+                f'{self.english_only_note}').rstrip()
 
     def door_views(self, ctx: Ctx, door: str, views: list[str]) -> str:
         """The views built for one door (site/hub.py), as a short list; empty if none is built."""
@@ -720,7 +833,7 @@ class Renderer:
             go["discover"].append((f"{ctx.base}story/{stories[0].pid}/", self.t("door.discover.first", name=stories[0].name)))
         out = []
         for door in hub.DOORS:
-            links = "".join(f'<li><a href="{href}">{self.esc(text)}</a></li>' for href, text in go[door])
+            links = "".join(f'<li><a href="{href}">{self.mixed(text)}</a></li>' for href, text in go[door])
             out.append(f'<li class="door door-{door}" id="door-{door}"><h2>{html.escape(self.t(f"door.{door}.title"))}</h2>'
                        f'<p>{html.escape(self.t(f"door.{door}.lead"))}</p><ul class="door-go">{links}</ul>'
                        f'{self.door_views(ctx, door, views)}</li>')
@@ -742,27 +855,31 @@ class Renderer:
             items.append(f'<li><a class="hub-name" href="{ctx.base}{folder}/">{html.escape(self.t(f"hub.{folder}.name"))}</a> '
                          f'<span class="hub-desc">{html.escape(self.t(f"hub.{folder}.desc"))}</span></li>')
         for v in views:
-            items.append(f'<li><a class="hub-name" href="{ctx.base}{v}/">{html.escape(self.t(f"hub.view.{v}.name"))}</a> '
+            items.append(f'<li>{self.view_link(ctx, v, "hub-name")} '
                          f'<span class="hub-desc">{html.escape(self.t(f"hub.view.{v}.desc"))}</span></li>')
-        items.append(f'<li><a class="hub-name" href="{ctx.base}{experiments.FOLDER}/">{html.escape(self.t("experiments.title"))}</a> '
-                     f'<span class="hub-desc">{html.escape(self.t("hub.experiments.desc"))}</span></li>')
+        items.append(f'<li><a class="hub-name" href="{ctx.site}{experiments.FOLDER}/"{self.english_only_attrs}>{html.escape(self.t("experiments.title"))}</a> '
+                     f'{self.english_only_note}<span class="hub-desc">{html.escape(self.t("hub.experiments.desc"))}</span></li>')
         return f'<ul class="hub-list" data-views="{self.attr(" ".join(views))}">' + "\n".join(items) + "</ul>"
 
     def home_page(self, views: list[str] | None = None) -> str:
         """The home page: three doors, then the hub. `views`: the view folders found in
         site/dist (site/hub.py); the hub links only those."""
-        ctx = Ctx("")
+        ctx = self.ctx("")
         views = views or []
         names_note = html.escape(self.t("home.names_note"))
         glossary_note = self.i.th("home.glossary_note", glossary=f'<a href="{ctx.base}glossary/">{html.escape(self.t("nav.glossary"))}</a>')
+        # the Arabic interface says what it covers, right under the lead
+        ar_note = f'<p class="banner" role="note">{html.escape(self.t("home.ar_note"))}</p>\n' if self.ar else ""
         content = self.tpl("home", doors=self.doors_html(ctx, views), hub=self.hub_html(ctx, views),
-                           status=self.checked_html(), names_note=names_note, glossary_note=glossary_note)
+                           status=self.checked_html(), names_note=names_note, glossary_note=glossary_note,
+                           ar_note=ar_note)
         return self.shell(ctx, self.t("site.name") + f' {self.t("title.sep")} ' + self.t("home.title_suffix"), content,
-                          body_class="page-home", current="home", crumbs=[], description=self.t("home.lead"))
+                          body_class="page-home", current="home", crumbs=[], description=self.t("home.lead"),
+                          twin=True)
 
     # ------------------------------------------------------------------ door pages
     def door_page(self, door: str, views: list[str], toc: list[tuple[str, str]], body: str) -> str:
-        ctx = Ctx(f"{door}/")
+        ctx = self.ctx(f"{door}/")
         title = self.t(f"door.{door}.title")
         toc_html = "".join(f'<li><a href="#{a}">{html.escape(text)}</a></li>' for a, text in toc)
         more = self.door_views(ctx, door, views)
@@ -770,7 +887,8 @@ class Renderer:
         content = self.tpl("door", door=door, h1=html.escape(title), lead=html.escape(self.t(f"door.{door}.page_lead")),
                            views=views_html, toc=toc_html, body=body)
         return self.shell(ctx, self.page_title(title), content, body_class=f"page-door door-{door}",
-                          current=None, crumbs=[(title, None)], description=self.t(f"door.{door}.page_lead"))
+                          current=None, crumbs=[(title, None)], description=self.t(f"door.{door}.page_lead"),
+                          twin=True)
 
     def evidence_href(self, ctx: Ctx, e: Entity, anchor: str = "evidence") -> str:
         return f"{ctx.base}{e.kind}/{e.pid}/#{anchor}"
@@ -791,7 +909,7 @@ class Renderer:
                    + f' <span class="cov"><span class="sr-only">{html.escape(self.t("coverage.sr"))} </span>{html.escape(cov)}</span>')
             if days and when:
                 dated.append(((days[0], ends[0] if ends else "", display.sort_key(e.name), e.pid),
-                              f'<li><span class="when">{self.esc(when)}</span> {row}</li>'))
+                              f'<li><span class="when">{when}</span> {row}</li>'))
             else:
                 undated.append(f"<li>{row}</li>")
         return [r for _, r in sorted(dated)], undated
@@ -799,7 +917,7 @@ class Renderer:
     def study_page(self, views: list[str]) -> str:
         """Study: people, groups and events in time order; every link opens the record's page
         at its evidence (#evidence)."""
-        ctx = Ctx("study/")
+        ctx = self.ctx("study/")
         s = self.site
         dated, undated = self.timeline_rows(ctx)
         events = (f'<section id="study-events" aria-labelledby="study-events-h"><h2 id="study-events-h">{html.escape(self.t("study.events"))}</h2>'
@@ -858,7 +976,7 @@ class Renderer:
         lis = []
         for key, rel, size in downloads:
             kb = html.escape(self.t("research.size_kb", n=max(1, round(size / 1000))))
-            lis.append(f'<li><a href="{ctx.base}{rel}">{html.escape(self.t(f"research.download.{key}"))}</a> '
+            lis.append(f'<li><a href="{ctx.site}{rel}">{html.escape(self.t(f"research.download.{key}"))}</a> '
                        f'<span class="note">({kb})</span> {html.escape(self.t(f"research.download.{key}.note"))}</li>')
         lis.append(f'<li>{html.escape(self.t("research.entity_ttl"))}</li>')
         lis.append(f'<li>{html.escape(self.t("research.iris"))}</li>')
@@ -869,12 +987,12 @@ class Renderer:
         cov = display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage or self.t("common.not_recorded"))
         return (f'<li><a href="{self.evidence_href(ctx, e)}">{self.esc(e.name)}</a> '
                 f'<span class="meta">{html.escape(self.i.tn("research.claims", n))}</span> '
-                f'<a class="ttl" href="{ctx.base}{e.kind}/{e.pid}/entity.ttl">{html.escape(self.t("details.turtle"))}</a>'
+                f'<a class="ttl" href="{ctx.site}{e.kind}/{e.pid}/entity.ttl">{html.escape(self.t("details.turtle"))}</a>'
                 f' <span class="cov"><span class="sr-only">{html.escape(self.t("coverage.sr"))} </span>{html.escape(cov)}</span></li>')
 
     def research_page(self, views: list[str], downloads: list[tuple[str, str, int]]) -> str:
         """Research: sources and data, and every record linked at its evidence (#evidence)."""
-        ctx = Ctx("research/")
+        ctx = self.ctx("research/")
         s = self.site
         records = "".join(f'<h3 id="research-{kind}">{html.escape(self.t(f"nav.{nav}"))}</h3>'
                           f'<ul class="index-list">\n' + "\n".join(self.record_row(ctx, e) for e in s.by_kind[kind]) + "\n</ul>"
@@ -897,7 +1015,7 @@ class Renderer:
         return f"experiments.{stem}" if page == "index.html" else f"experiments.{stem}.{page[:-5].replace('-', '_')}"
 
     def experiments_page(self) -> str:
-        ctx = Ctx(f"{experiments.FOLDER}/")
+        ctx = self.ctx(f"{experiments.FOLDER}/")
         items = []
         for folder, _, pages, stem in experiments.PROTOTYPES:
             subs = []
@@ -947,36 +1065,37 @@ class Renderer:
     def search_page(self) -> str:
         """The search page. Without JavaScript it is an A-Z list of every name, which the
         search box on every page submits to; with it, search.js filters by search.json."""
-        ctx = Ctx("search/")
+        ctx = self.ctx("search/")
         ents = sorted(self.site.entities.values(),
                       key=lambda e: (display.sort_key(e.name), KINDS.index(e.kind), e.pid))
         scope = self.search_scope(ctx)
         strings = {
-            "count_one": self.t("search.count.one"), "count_other": self.t("search.count.other"),
+            **{f"count_{cat}": self.t(f"search.count.{cat}")
+               for cat in ("zero", "one", "two", "few", "many", "other") if self.i.has(f"search.count.{cat}")},
             "none": self.t("search.none"), "matching": self.t("search.matching"),
             "similar": self.t("search.similar"), "similar_note": self.t("search.similar_note"),
             "arabic_note": self.t("search.arabic_note"), "more": self.t("search.more"),
         }
         content = self.tpl(
-            "search", base=ctx.base,
+            "search", base=ctx.base, site=ctx.site,
             nojs=f'<p>{html.escape(self.t("search.nojs"))}</p>{scope}',
             empty=f'{scope}<p>{html.escape(self.t("search.empty_next"))}</p>',
             az=self.az_nav(ents, "all") + self.az_sections(ctx, ents, "all", level=3, row=self.search_row),
             strings=json.dumps(strings, ensure_ascii=False, sort_keys=True).replace("</", "<\\/"))
         return self.shell(ctx, self.page_title(self.t("search.title")), content, body_class="page-search",
                           current="search", crumbs=[(self.t("search.title"), None)],
-                          description=self.t("search.help"), search_box=False,
-                          scripts=f'<script src="{ctx.base}assets/search.js" defer></script>')
+                          description=self.t("search.help"), search_box=False, twin=True,
+                          scripts=f'<script src="{ctx.site}assets/search.js" defer></script>')
 
     # ------------------------------------------------------------------ glossary
     def glossary_page(self) -> str:
-        ctx = Ctx("glossary/")
+        ctx = self.ctx("glossary/")
         defined, needed = self.glossary.listed()
         dl = []
         def plain(e: dict) -> str:
             if not e.get("plain"):
                 return ""
-            return (f'<p class="note plain-wording">{self.esc(self.t("glossary.plain", value=e["plain"]))} '
+            return (f'<p class="note plain-wording">{self.mixed(self.t("glossary.plain", value=e["plain"]))} '
                     f'{html.escape(self.t("glossary.source", value=e["plain_source"]))}</p>')
         for e in defined:
             ar = f' <span class="name-ar" lang="ar" dir="rtl">{html.escape(e["arabic"], quote=False)}</span>' if e.get("arabic") else ""
@@ -990,4 +1109,4 @@ class Renderer:
         content = self.tpl("glossary", defined=defined_html, needed=needed_html)
         return self.shell(ctx, self.page_title(self.t("nav.glossary")), content, body_class="page-glossary",
                           current="glossary", crumbs=[(self.t("nav.glossary"), None)],
-                          description=self.t("glossary.lead"))
+                          description=self.t("glossary.lead"), twin=True)

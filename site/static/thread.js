@@ -12,8 +12,12 @@
  * tab, say) is left to the browser. Escape or the close button returns to the page.
  *
  * Every visible string and all the data come from thread.json (site/thread.py, built from
- * the graph and site/i18n/en.json) or from the page; this file holds neither. The only
- * request is the file the page names in data-fetch, on the same site.
+ * the graph and site/i18n/en.json or ar.json) or from the page; this file holds neither.
+ * The only request is the file the page names in data-fetch, on the same site.
+ *
+ * On an Arabic page (html lang="ar", thread.json from ar.json) the recorded names stay as
+ * recorded: each is marked lang="en" dir="ltr" (or isolated inside a sentence), and the
+ * count in the lead picks the Arabic plural form (zero, one, two, few, many, other).
  */
 (function () {
   "use strict";
@@ -25,6 +29,7 @@
   var status = root.querySelector(".thread-status");
   if (!article || !openBtn) return;
 
+  var AR = document.documentElement.lang === "ar";
   var base = root.getAttribute("data-base") || "";
   var selfKey = root.getAttribute("data-self");
   var pageTitle = document.title;
@@ -38,6 +43,13 @@
   function kind(i) { return D.k[D.e[i][0]]; }
   function key(i) { return kind(i) + "/" + D.e[i][1]; }
   function name(i) { return D.e[i][2]; }
+  function iso(s) { return AR ? "\u2066" + s + "\u2069" : s; }   // a recorded name inside a sentence keeps its direction
+  function data(n) { if (AR) { n.setAttribute("lang", "en"); n.setAttribute("dir", "ltr"); } return n; }
+  function category(n) {
+    if (!AR) return n === 1 ? "one" : "other";
+    var m = n % 100;
+    return n === 0 ? "zero" : n === 1 ? "one" : n === 2 ? "two" : m >= 3 && m <= 10 ? "few" : m >= 11 ? "many" : "other";
+  }
   function when(i) { return D.e[i][3] || ""; }
   function day(i) { return D.e[i][4] || ""; }
   function num(i) { return typeof D.e[i][5] === "number" ? D.e[i][5] : Infinity; }
@@ -103,7 +115,7 @@
   }
 
   function link(i, cls) {
-    var a = el("a", cls, name(i));
+    var a = data(el("a", cls, name(i)));
     a.href = href(i);
     if (FOLLOW[kind(i)]) a.setAttribute("data-follow", key(i));
     return a;
@@ -113,15 +125,31 @@
   // whose thread it is goes without saying, unless the claim runs towards them.
   function sentence(n, f, m) {
     var c = D.c[n], words = [];
-    if (c[0] !== f && c[0] !== m.o) words.push(name(c[0]));
-    words.push(D.l[c[2]]);
-    if (c[1] !== m.o && (c[1] !== f || c[0] !== f)) words.push(name(c[1]));
-    return words.join(" ");
+    if (c[0] !== f && c[0] !== m.o) words.push([name(c[0]), true]);
+    words.push([D.l[c[2]], false]);
+    if (c[1] !== m.o && (c[1] !== f || c[0] !== f)) words.push([name(c[1]), true]);
+    return words;
+  }
+
+  function sentenceNode(words) {
+    var p = el("p", "m-line");
+    if (!AR) { p.textContent = words.map(function (w) { return w[0]; }).join(" "); return p; }
+    if (words.some(function (w) { return !w[1] && w[0].charAt(0) === "⁦"; })) {
+      // the relation is recorded in English, so the whole sentence is English
+      p.textContent = words.map(function (w) { return w[0].replace(/[⁦⁩]/g, ""); }).join(" ");
+      return data(p);
+    }
+    words.forEach(function (w, i) {
+      if (i) p.appendChild(document.createTextNode(" "));
+      if (w[1]) p.appendChild(data(el("span", null, w[0])));
+      else p.appendChild(document.createTextNode(w[0]));
+    });
+    return p;
   }
 
   function claimNodes(n, f, m, box) {
     var c = D.c[n];
-    box.appendChild(el("p", "m-line", sentence(n, f, m)));
+    box.appendChild(sentenceNode(sentence(n, f, m)));
     if (c[4] && D.o[c[4]]) box.appendChild(el("p", "m-role", D.o[c[4]]));
     var meta = el("p", "m-meta");
     var st = D.t[c[3]];
@@ -158,7 +186,11 @@
     var places = (D.p[String(m.o)] || []);
     if (when(m.o) || places.length) {
       var head = el("p", "m-when");
-      if (when(m.o)) head.appendChild(el("span", "m-date", when(m.o)));
+      if (when(m.o)) {
+        var date = el("span", "m-date", when(m.o));
+        if (AR) date.setAttribute("dir", "auto");
+        head.appendChild(date);
+      }
       places.forEach(function (p) { head.appendChild(link(p, "m-place")); });
       li.appendChild(head);
     }
@@ -194,11 +226,11 @@
     bar.appendChild(shut);
     view.appendChild(bar);
     view.appendChild(el("p", "kicker", S.kicker));
-    var h1 = el("h1", null, name(f));
+    var h1 = data(el("h1", null, name(f)));
     h1.id = "thread-h";
     view.appendChild(h1);
     if (key(f) !== selfKey) {
-      var page = el("a", "thread-page", fmt(S.open_page, { name: name(f) }));
+      var page = el("a", "thread-page", fmt(S.open_page, { name: iso(name(f)) }));
       page.href = href(f);
       var pp = el("p");
       pp.appendChild(page);
@@ -212,7 +244,7 @@
       trail.forEach(function (t, n) {
         var li = el("li");
         if (n === trail.length - 1) {
-          var cur = el("span", null, name(t));
+          var cur = data(el("span", null, name(t)));
           cur.setAttribute("aria-current", "step");
           li.appendChild(cur);
         } else {
@@ -229,9 +261,9 @@
     var g = moments(f);
     var total = g.dated.length + g.stories.length + g.undated.length + g.people.length + g.places.length;
     if (!total) {
-      view.appendChild(el("p", "not-recorded", fmt(S.none, { name: name(f) })));
+      view.appendChild(el("p", "not-recorded", fmt(S.none, { name: iso(name(f)) })));
     } else {
-      view.appendChild(el("p", "thread-lead", fmt(total === 1 ? S["lead.one"] : S["lead.other"], { n: total })));
+      view.appendChild(el("p", "thread-lead", fmt(S["lead." + category(total)] || S["lead.other"], { n: total })));
       var n = 0;
       [["dated", "group_dated"], ["stories", "group_stories"], ["undated", "group_undated"],
        ["people", "group_people"], ["places", "group_places"]].forEach(function (pair) {
@@ -244,7 +276,7 @@
       });
     }
     view.appendChild(el("p", "thread-note note", S.note));
-    document.title = fmt(S.title, { name: name(f) });
+    document.title = fmt(S.title, { name: iso(name(f)) });
     view.focus();
     view.scrollIntoView({ block: "start" });
   }

@@ -26,6 +26,8 @@ arrives (loading, failed) are in the page itself (templates/thread_root.html).
 """
 from __future__ import annotations
 
+import re
+
 import display
 from model import KINDS, Claim, Site
 
@@ -37,9 +39,9 @@ STRINGS = ("thread.close", "thread.kicker", "thread.path", "thread.lead.one", "t
            "thread.title")
 
 
-def _short_date(exts: list[dict], t) -> str:
+def _short_date(exts: list[dict], t, mark=lambda s: s) -> str:
     for x in exts:
-        v = display.format_extent(x, t)
+        v = display.format_extent(x, t, mark)
         if v["text"]:
             return v["text"]
     return ""
@@ -71,13 +73,15 @@ def _source(c: Claim, t) -> str:
     return ""
 
 
-def build_thread(site: Site, t) -> dict:
+def build_thread(site: Site, t, lang: str = "en") -> dict:
     ents = [e for kind in KINDS for e in site.by_kind[kind]]
-    index = {e.iri: i for i, e in enumerate(ents)}
+    # in Arabic, a date as recorded (English) is isolated inside the Arabic date text
+    iso = (lambda s: f"⁦{s}⁩" if re.search("[A-Za-z]", s) else s) if lang == "ar" else (lambda s: s)
+    index ={e.iri: i for i, e in enumerate(ents)}
     rows, places = [], {}
     for i, e in enumerate(ents):
         exts = (e.data.get("dates") or []) if e.kind in ("event", "story") else []
-        row = [KINDS.index(e.kind), e.pid, e.name, _short_date(exts, t), _sort_day(exts),
+        row = [KINDS.index(e.kind), e.pid, e.name, _short_date(exts, t, iso), _sort_day(exts),
                e.data.get("number") if e.kind == "story" else None]
         while row and row[-1] in ("", None):
             row.pop()
@@ -95,6 +99,8 @@ def build_thread(site: Site, t) -> dict:
             if c.subject not in index or c.object not in index or c.subject == c.object:
                 continue
             label = t(c.predicate) if c.predicate_is_key else c.predicate
+            if lang == "ar" and not c.predicate_is_key and re.search("[A-Za-z]", label):
+                label = f"\u2066{label}\u2069"   # recorded English inside an Arabic sentence
             found.add((index[c.subject], index[c.object], display.honour(label), _status(c, t),
                        _role(c, t), _source(c, t), 1 if c.ai_draft else 0))
     # tables sorted, so the file does not depend on the order the graph was read in
@@ -104,6 +110,10 @@ def build_thread(site: Site, t) -> dict:
     claims = sorted([a, b, pos["l"][l], pos["t"][st], pos["o"][o], pos["u"][u], ai]
                     for a, b, l, st, o, u, ai in found)
     strings = {k.split(".", 1)[1]: t(k) for k in STRINGS}
+    for cat in ("zero", "two", "few", "many"):   # the plural forms Arabic adds to one and other
+        form = display.t_opt(t, f"thread.lead.{cat}", None)
+        if form is not None:
+            strings[f"lead.{cat}"] = form
     sc, cc = site.status_counts(), site.coverage_counts()
     if not sc.get("accepted") and not cc.get("reviewed") and not cc.get("verified"):
         strings["note"] = t("thread.unreviewed") + " " + strings["note"]
