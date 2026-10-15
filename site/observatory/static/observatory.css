@@ -173,6 +173,8 @@ ul.items { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wr
 ul.rows { list-style: none; margin: 0; padding: 0; }
 ul.rows > li { padding-block: 6px; border-block-end: 1px solid rgba(255, 255, 255, 0.05); }
 .row-main { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.row-claim { margin-block: 1px; }
+.this { color: var(--muted); font-style: italic; }
 .row-extra { font-size: 0.86em; }
 .row-sub { margin-block-start: 2px; font-size: 0.88em; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .pred { color: var(--muted); font-style: italic; }

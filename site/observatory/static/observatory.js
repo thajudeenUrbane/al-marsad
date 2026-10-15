@@ -37,6 +37,7 @@
     cam: { x: 0, y: 0, k: 1 }, camMode: "fit", baseK: 1,
     evidence: "expanded",
     history: [],
+    allOpen: false,
   };
 
   // ------------------------------------------------------------------ i18n
@@ -80,8 +81,11 @@
   const optionLabel = [];
   const byOption = new Map();
   N.forEach((nd, i) => {
-    let lab = `${nd.n} — ${I18N["kind." + nd.k]}`;
-    if (byOption.has(lab)) { let k = 2; while (byOption.has(`${lab} (${k})`)) k++; lab = `${lab} (${k})`; }
+    let lab = I18N["search.option"].replace("{name}", nd.n).replace("{kind}", I18N["kind." + nd.k]);
+    if (byOption.has(lab)) {
+      const nth = (k) => I18N["search.option_nth"].replace("{label}", lab).replace("{k}", k);
+      let k = 2; while (byOption.has(nth(k))) k++; lab = nth(k);
+    }
     optionLabel[i] = lab;
     byOption.set(lab, i);
   });
@@ -729,10 +733,10 @@
   function readerLink(i) {
     return h("a", { class: "reader", href: readerHref(i) }, t("panel.read_page", { name: N[i].n }));
   }
-  function nameOrBtn(i, focus) { return i === focus ? h("strong", null, N[i].n) : nodeBtn(i, "inline"); }
+  function nameOrBtn(i, focus) { return i === focus ? h("span", { class: "this" }, t("panel.this." + N[i].k)) : nodeBtn(i, "inline"); }
   function claimSentence(c, focus) {
     return h("span", { class: "claim" }, nameOrBtn(c.s, focus), " ", h("span", { class: "pred" }, c.p), " ", nameOrBtn(c.o, focus),
-      c.r ? h("span", { class: "role" }, " — " + c.r) : null);
+      c.r ? h("span", { class: "role" }, t("claim.role", { role: c.r })) : null);
   }
   function dateText(i) {
     const d = N[i].d;
@@ -827,14 +831,21 @@
     return m;
   }
 
+  // one row per item linked to the focus: each claim as a sentence ("this person — father of — A'isha"),
+  // then its status labels and the way down the evidence ladder
   function otherRow(i, o, rs, extra) {
-    const preds = [...new Set(rs.map((r) => C[r.ci].p + (C[r.ci].s === i ? "" : " " + t("panel.inverse_mark"))))];
+    const seen = new Set(), sentences = [];
+    for (const r of rs) {
+      const c = C[r.ci], key = [c.s, c.p, c.o, c.r || ""].join("|");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      sentences.push(h("div", { class: "row-claim" }, claimSentence(c, i)));
+    }
     const statuses = [...new Set(rs.map((r) => C[r.ci].st || ""))];
     const lis = [...new Set(rs.map((r) => r.li))];
-    return h("li", { class: "row" },
-      h("div", { class: "row-main" }, nodeBtn(o), extra ? h("span", { class: "muted row-extra" }, extra) : null),
-      h("div", { class: "row-sub" }, h("span", { class: "pred" }, preds.join("; ")), " ", statuses.map((s) => statusChip(s || null)),
-        " ", howBtn(() => interrogateLinks(lis))));
+    return h("li", { class: "row" }, sentences,
+      extra ? h("div", { class: "muted row-extra" }, extra) : null,
+      h("div", { class: "row-sub" }, statuses.map((s) => statusChip(s || null)), " ", howBtn(() => interrogateLinks(lis))));
   }
 
   function facet(id, title, count, body, note) {
@@ -922,7 +933,7 @@
     const nd = N[i];
     const body = h("div", null);
     if (nd.d && nd.d.length) {
-      body.append(h("ul", { class: "plain" }, nd.d.map((d) => h("li", null, d[2] || "—", d[3] && d[3].length ? h("div", { class: "muted" }, d[3].join(" · ")) : null))));
+      body.append(h("ul", { class: "plain" }, nd.d.map((d) => h("li", null, d[2] || "—", d[3] && d[3].length ? h("div", { class: "muted" }, d[3].join(t("sep.dot"))) : null))));
     }
     if (nd.death) body.append(h("p", null, t("panel.death", { value: nd.death.map((d) => d[2]).join("; ") })));
     if (nd.k === "person") {
@@ -945,7 +956,7 @@
     rung("recorded_by", nd.rec.map(srcLabel).join("; ") || t("src.unknown"));
     if (nd.k === "story") rung("source", nd.cit || "—", nd.work !== undefined ? h("div", null, srcLabel(nd.work)) : null);
     if (nd.k === "place") rung("location", nd.geo ? t("panel.coords", { lon: nd.geo[0], lat: nd.geo[1], conf: nd.geo[2] || "—" }) : t("panel.no_coords"));
-    if (nd.d) rung("dates", ...nd.d.map((d) => h("div", null, d[2] || "—", d[3] && d[3].length ? h("div", { class: "muted" }, d[3].join(" · ")) : null)));
+    if (nd.d) rung("dates", ...nd.d.map((d) => h("div", null, d[2] || "—", d[3] && d[3].length ? h("div", { class: "muted" }, d[3].join(t("sep.dot"))) : null)));
     if (nd.gaps) rung("gaps", ...nd.gaps.map((g) => h("div", null, g)));
     if (nd.sch) rung("scholarly", nd.sch);
     const rows = rowsFor(i);
@@ -1031,7 +1042,7 @@
           out.append(h("section", { class: "thread-box" + (sel ? " sel" : "") },
             h("h3", null, h("button", { type: "button", class: "btn", "aria-pressed": sel ? "true" : "false", onclick: () => { S.trace.sel = k; update(true); } },
               t("trace.thread_n", { k: k + 1, steps: p.hops.length }))),
-            sel ? threadView(p) : h("p", { class: "muted" }, p.hops.map((x) => N[x.to].n).slice(0, -1).join(" · ") || t("trace.direct"))));
+            sel ? threadView(p) : h("p", { class: "muted" }, p.hops.map((x) => N[x.to].n).slice(0, -1).join(t("sep.dot")) || t("trace.direct"))));
         });
         out.append(h("button", { type: "button", class: "btn", onclick: () => copyText(location.href, t("trace.link_copied")) }, t("trace.copy_link")));
       }
@@ -1215,7 +1226,7 @@
     const d = dominant();
     if (w[d] > 0.985) return t("frame." + FRAMES[d]);
     return FRAMES.map((f, k) => [f, w[k]]).filter((x) => x[1] > 0.01).sort((a, b) => b[1] - a[1])
-      .map(([f, x]) => t("here.blend_part", { frame: t("frame." + f), pct: Math.round(x * 100) })).join(" + ");
+      .map(([f, x]) => t("here.blend_part", { frame: t("frame." + f), pct: Math.round(x * 100) })).join(t("sep.plus"));
   }
   function shownCount() {
     let shown = 0;
@@ -1228,7 +1239,7 @@
     if (S.trace.a >= 0 && S.trace.b >= 0) parts.push(t("here.trace", { a: N[S.trace.a].n, b: N[S.trace.b].n }));
     if (S.preset) parts.push(t("here.vantage", { name: t("preset." + S.preset) }));
     parts.push(S.scrub.on ? t("here.period", { y0: S.scrub.y0, y1: S.scrub.y1 }) : t("here.period_all"));
-    byId("obs-here").textContent = parts.join(" · ");
+    byId("obs-here").textContent = parts.join(t("sep.dot"));
     const shown = shownCount();
     const hidden = [...S.hidden].map((k) => t("kind.plural." + k)).join(", ");
     byId("obs-scale").textContent = t("scale.showing", { shown: fmt(shown), total: fmt(n) }) + (hidden ? " " + t("scale.hidden", { list: hidden }) : "")
@@ -1262,7 +1273,7 @@
         const names = [];
         if (ch.links.length) names.push(N[ch.links[0][0]].n);
         for (const ln of ch.links) names.push(N[ln[1]].n);
-        box.append(h("p", null, t("textalt.chain", { label: ch.label || "—", list: names.join(" → ") })));
+        box.append(h("p", null, t("textalt.chain", { label: ch.label || "—", list: names.join(t("sep.arrow")) })));
       }
     }
     if (S.focus >= 0) {
@@ -1272,11 +1283,11 @@
       for (const r of rows) {
         const k = N[r.o].k === "person" || N[r.o].k === "group" ? "class." + C[r.ci].c : "kind.plural." + N[r.o].k;
         if (!groups.has(k)) groups.set(k, new Set());
-        groups.get(k).add(`${C[r.ci].p} ${N[r.o].n} (${t(C[r.ci].st ? "status." + C[r.ci].st : "status.none")})`);
+        groups.get(k).add(t("textalt.claim", { s: N[C[r.ci].s].n, p: C[r.ci].p, o: N[C[r.ci].o].n, status: t(C[r.ci].st ? "status." + C[r.ci].st : "status.none") }));
       }
       box.append(h("h3", null, t("textalt.focus", { name: N[i].n, kind: t("kind." + N[i].k) })));
       const ul = h("ul", null);
-      for (const [k, set] of groups) ul.append(h("li", null, t(k) + ": " + [...set].join("; ")));
+      for (const [k, set] of groups) ul.append(h("li", null, t("textalt.group", { group: t(k), list: [...set].join(t("sep.list")) })));
       if (N[i].tb) ul.append(h("li", null, t("panel.generation", { value: N[i].tb })));
       if (N[i].d) ul.append(h("li", null, t("textalt.dates", { value: N[i].d.map((x) => x[2]).join("; ") })));
       if (!rows.length) ul.append(h("li", null, t("panel.none_recorded")));
@@ -1288,12 +1299,13 @@
       const ol = h("ol", null);
       for (const hop of path.hops) {
         const cl = L[hop.li].cl.map((ci) => C[ci]);
-        ol.append(h("li", null, cl.map((c) => `${N[c.s].n} ${c.p} ${N[c.o].n} (${t(c.st ? "status." + c.st : "status.none")})`).join("; ")));
+        ol.append(h("li", null, cl.map((c) => t("textalt.claim", { s: N[c.s].n, p: c.p, o: N[c.o].n, status: t(c.st ? "status." + c.st : "status.none") })).join(t("sep.list"))));
       }
       box.append(ol);
     }
     // every item, grouped by where this view puts it; each is a button (keyboard route to every node)
-    const det = h("details", { class: "all-items" }, h("summary", null, t("textalt.all_items", { n: fmt(shown) })));
+    const det = h("details", { class: "all-items", open: S.allOpen ? true : null, ontoggle: (e) => { S.allOpen = e.target.open; } },
+      h("summary", null, t("textalt.all_items", { n: fmt(shown) })));
     for (const [r] of rc) {
       const items = [];
       for (let i = 0; i < n; i++) if (visible(i) && FR[d].region[i] === r) items.push(i);
@@ -1380,7 +1392,7 @@
       swatch(k), " ", t("legend.kind." + k), h("span", { class: "count" }, " " + fmt(META.counts.kinds[k] || 0)))));
     }
     const lines = byId("legend-lines");
-    for (const cls of CLASSES) lines.append(h("li", null, lineSample(cls), " ", t("class." + cls), h("span", { class: "muted" }, " — " + t("legend.class." + cls))));
+    for (const cls of CLASSES) lines.append(h("li", null, lineSample(cls), " ", t("class." + cls), h("span", { class: "muted" }, t("legend.class_note", { note: t("legend.class." + cls) }))));
   }
 
   // ------------------------------------------------------------------ update
