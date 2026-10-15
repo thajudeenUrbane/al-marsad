@@ -40,3 +40,140 @@
 {"key": "death_jafar", "kind": "event", "name": "Death of Jaʿfar b. Abī Ṭālib", "life_event": {"type": "death", "person": {"kind": "person", "name": "Jaʿfar b. Abī Ṭālib"}}}
 {"key": "aisha_marriage", "kind": "event", "name": "Marriage of the Prophet ﷺ and ʿĀʾisha bint Abī Bakr (at Makkah)"}
 {"key": "aisha_household", "kind": "event", "name": "ʿĀʾisha bint Abī Bakr joins the Prophet's household (at al-Madīna)"}
+{"key": "khadija_conversion", "kind": "event", "name": "Khadīja bint Khuwaylid's acceptance of Islam"}
+{"key": "five_converts", "kind": "event", "name": "Five early converts brought to the Prophet ﷺ by Abū Bakr", "comment": "Ibn Ishaq's account of 'Uthman, al-Zubayr, 'Abd al-Rahman b. 'Awf, Sa'd b. Abi Waqqas and Talha accepting Islam at Abu Bakr's invitation (bi-du'a'ihi: words Ibn Hisham says are not Ibn Ishaq's)."}
+{"key": "early_converts", "kind": "event", "name": "The early acceptance of Islam in Makkah (Ibn Isḥāq's list after the first eight)", "comment": "The people Ibn Ishaq names, one after another, as accepting Islam after the first eight. A collective event: each claim is one person's acceptance of Islam as the list gives it; the order of the list is kept by the spans."}
+{"key": "masud_qari", "kind": "person", "name": "Masʿūd b. al-Qārī (Masʿūd b. Rabīʿa)", "attested": {"passage": "psg:xOt3NY8qbX9Yvvk0paOhJg", "span": [172, 187]}}
+{"key": "salit", "kind": "person", "name": "Salīṭ b. ʿAmr", "attested": {"passage": "psg:t7fPKnTwAGLRGH4XmHYkKF", "span": [16, 28]}}
+{"key": "ayyash", "kind": "person", "name": "ʿAyyāsh b. Abī Rabīʿa", "attested": {"passage": "psg:t7fPKnTwAGLRGH4XmHYkKF", "span": [132, 149]}}
+{"key": "asma_salama", "kind": "person", "name": "Asmāʾ bint Salāma", "attested": {"passage": "psg:t7fPKnTwAGLRGH4XmHYkKF", "span": [230, 266]}}
+{"key": "khunays", "kind": "person", "name": "Khunays b. Ḥudhāfa", "attested": {"passage": "psg:t7fPKnTwAGLRGH4XmHYkKF", "span": [270, 283]}}
+{"key": "amir_rabia", "kind": "person", "name": "ʿĀmir b. Rabīʿa", "attested": {"passage": "psg:t7fPKnTwAGLRGH4XmHYkKF", "span": [340, 353]}}
+{"key": "abdullah_jahsh", "kind": "person", "name": "ʿAbdullāh b. Jaḥsh", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [16, 31]}}
+{"key": "abu_ahmad", "kind": "person", "name": "Abū Aḥmad b. Jaḥsh", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [112, 127]}}
+{"key": "hatib_harith", "kind": "person", "name": "Ḥāṭib b. al-Ḥārith", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [258, 272]}}
+{"key": "fatima_mujallil", "kind": "person", "name": "Fāṭima bint al-Mujallil", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [367, 383]}}
+{"key": "hattab", "kind": "person", "name": "Ḥaṭṭāb b. al-Ḥārith", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [479, 493]}}
+{"key": "fukayha", "kind": "person", "name": "Fukayha bint Yasār", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [503, 517]}}
+{"key": "mamar_harith", "kind": "person", "name": "Maʿmar b. al-Ḥārith", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [520, 534]}}
+{"key": "saib", "kind": "person", "name": "al-Sāʾib b. ʿUthmān b. Maẓʿūn", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [611, 635]}}
+{"key": "muttalib_azhar", "kind": "person", "name": "al-Muṭṭalib b. Azhar", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [653, 668]}}
+{"key": "ramla", "kind": "person", "name": "Ramla bint Abī ʿAwf", "attested": {"passage": "psg:XwYzPYb6woygXaVWGxgjS3", "span": [748, 764]}}
+{"key": "khalid_said", "kind": "person", "name": "Khālid b. Saʿīd b. al-ʿĀṣ", "attested": {"passage": "psg:cQYSYV7LwTJE4smOfDm2b6", "span": [16, 37]}}
+{"key": "umayna", "kind": "person", "name": "Umayna bint Khalaf", "attested": {"passage": "psg:cQYSYV7LwTJE4smOfDm2b6", "span": [116, 129]}}
+{"key": "hatib_amr", "kind": "person", "name": "Ḥāṭib b. ʿAmr", "attested": {"passage": "psg:Dt9YXZzOZrqxxBgNnt75Rr", "span": [16, 28]}}
+{"key": "abu_hudhayfa", "kind": "person", "name": "Abū Ḥudhayfa b. ʿUtba b. Rabīʿa", "attested": {"passage": "psg:mcNftLMZUneWrFkyMf7799", "span": [231, 257]}}
+{"key": "waqid", "kind": "person", "name": "Wāqid b. ʿAbdullāh", "attested": {"passage": "psg:Dt9YXZzOZrqxxBgNnt75Rr", "span": [250, 266]}}
+{"key": "qudama", "kind": "person", "name": "Qudāma b. Maẓʿūn", "attested": {"passage": "psg:vVlPJarPuh3fcux29zNadg", "span": [116, 130]}}
+{"key": "abdullah_mazun", "kind": "person", "name": "ʿAbdullāh b. Maẓʿūn", "attested": {"passage": "psg:vVlPJarPuh3fcux29zNadg", "span": [133, 152]}}
+{"key": "dar_nadwa", "kind": "place", "name": "Dār al-Nadwa", "attested": {"passage": "psg:Zc8lOK62kFIS0Vpcxj8YMf", "span": [287, 297]}, "place_type": "structure"}
+{"key": "council", "kind": "event", "name": "The council of Quraysh at Dār al-Nadwa before the Hijra"}
+{"key": "shayba", "kind": "person", "name": "Shayba b. Rabīʿa", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [659, 675]}}
+{"key": "tuayma", "kind": "person", "name": "Ṭuʿayma b. ʿAdī", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [722, 734]}}
+{"key": "harith_amir", "kind": "person", "name": "al-Ḥārith b. ʿĀmir b. Nawfal", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [754, 776]}}
+{"key": "nadr", "kind": "person", "name": "al-Naḍr b. al-Ḥārith", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [804, 829]}}
+{"key": "abu_bakhtari", "kind": "person", "name": "Abū al-Bakhtarī b. Hishām", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [857, 877]}}
+{"key": "zama", "kind": "person", "name": "Zamʿa b. al-Aswad", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [880, 906]}}
+{"key": "abu_jahl", "kind": "person", "name": "Abū Jahl b. Hishām", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [940, 955]}}
+{"key": "nubayh", "kind": "person", "name": "Nubayh b. al-Ḥajjāj", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [970, 974]}}
+{"key": "munabbih", "kind": "person", "name": "Munabbih b. al-Ḥajjāj", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [976, 980]}}
+{"key": "umayya_khalaf", "kind": "person", "name": "Umayya b. Khalaf", "attested": {"passage": "psg:NJ6xVAQtvvcNfpvK7C0iVR", "span": [1009, 1020]}}
+{"key": "mk_qurazi", "kind": "person", "name": "Muḥammad b. Kaʿb al-Quraẓī", "attested": {"passage": "psg:wxRieHF9R7Lv9eAKhWP2OD", "span": [39, 57]}}
+{"key": "yazid_ziyad", "kind": "person", "name": "Yazīd b. Ziyād", "attested": {"passage": "psg:wxRieHF9R7Lv9eAKhWP2OD", "span": [22, 34]}}
+{"key": "ibn_urayqit", "kind": "person", "name": "ʿAbdullāh b. Arqaṭ", "attested": {"passage": "psg:b4YvwD3z8VIP7AhDszvszs", "span": [993, 1009]}}
+{"key": "aws_hajar", "kind": "person", "name": "Aws b. Ḥajar al-Aslamī", "attested": {"passage": "psg:0zONofF2JN3JZUSuzzP0X9", "span": [118, 128]}}
+{"key": "masud_hunayda", "kind": "person", "name": "Masʿūd b. Hunayda", "attested": {"passage": "psg:0zONofF2JN3JZUSuzzP0X9", "span": [222, 236]}}
+{"key": "khubayb", "kind": "person", "name": "Khubayb b. Isāf", "attested": {"passage": "psg:tokQSWBnRB1iJQKcyJhJfh", "span": [588, 600]}}
+{"key": "abbas_ubada", "kind": "person", "name": "ʿAbbās b. ʿUbāda b. Naḍla", "attested": {"passage": "psg:GocDXXiKtVSkxnj1QGh1fS", "span": [567, 588]}}
+{"key": "ziyad_labid", "kind": "person", "name": "Ziyād b. Labīd", "attested": {"passage": "psg:GocDXXiKtVSkxnj1QGh1fS", "span": [778, 790]}}
+{"key": "farwa_amr", "kind": "person", "name": "Farwa b. ʿAmr", "attested": {"passage": "psg:GocDXXiKtVSkxnj1QGh1fS", "span": [793, 805]}}
+{"key": "mundhir_amr", "kind": "person", "name": "al-Mundhir b. ʿAmr", "attested": {"passage": "psg:GocDXXiKtVSkxnj1QGh1fS", "span": [1017, 1031]}}
+{"key": "salit_qays", "kind": "person", "name": "Salīṭ b. Qays", "attested": {"passage": "psg:GocDXXiKtVSkxnj1QGh1fS", "span": [1529, 1540]}}
+{"key": "abu_salit", "kind": "person", "name": "Abū Salīṭ Usayra b. Abī Khārija", "attested": {"passage": "psg:GocDXXiKtVSkxnj1QGh1fS", "span": [1543, 1571]}}
+{"key": "muadh_afra", "kind": "person", "name": "Muʿādh b. ʿAfrāʾ", "attested": {"passage": "psg:GocDXXiKtVSkxnj1QGh1fS", "span": [1954, 1967]}}
+{"key": "sahil", "kind": "place", "name": "The coast (al-sāḥil)", "attested": {"passage": "psg:sMeHTfFjiswE0yLPFsfBIy", "span": [92, 98]}, "place_type": "region"}
+{"key": "usfan", "kind": "place", "name": "ʿUsfān", "attested": {"passage": "psg:sMeHTfFjiswE0yLPFsfBIy", "span": [124, 129]}, "place_type": "route_node"}
+{"key": "amaj", "kind": "place", "name": "Amaj", "attested": {"passage": "psg:sMeHTfFjiswE0yLPFsfBIy", "span": [154, 157]}, "place_type": "route_node"}
+{"key": "qudayd", "kind": "place", "name": "Qudayd", "attested": {"passage": "psg:sMeHTfFjiswE0yLPFsfBIy", "span": [209, 214]}, "place_type": "route_node"}
+{"key": "kharrar", "kind": "place", "name": "al-Kharrār", "attested": {"passage": "psg:sMeHTfFjiswE0yLPFsfBIy", "span": [255, 261]}, "place_type": "route_node"}
+{"key": "thaniyyat_marra", "kind": "place", "name": "Thaniyyat al-Marra", "attested": {"passage": "psg:sMeHTfFjiswE0yLPFsfBIy", "span": [281, 291]}, "place_type": "route_node"}
+{"key": "liqf", "kind": "place", "name": "Liqf", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [34, 37]}, "place_type": "route_node"}
+{"key": "madlajat_liqf", "kind": "place", "name": "Madlajat Liqf", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [28, 37]}, "place_type": "route_node"}
+{"key": "madlajat_mahaj", "kind": "place", "name": "Madlajat Maḥāj", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [53, 63]}, "place_type": "route_node"}
+{"key": "marjih_mahaj", "kind": "place", "name": "Marjiḥ Maḥāj", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [112, 121]}, "place_type": "route_node"}
+{"key": "marjih_ghadwayn", "kind": "place", "name": "Marjiḥ of Dhū al-Ghaḍwayn", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [138, 156]}, "place_type": "route_node"}
+{"key": "dhu_kashr", "kind": "place", "name": "Dhū Kashr", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [195, 201]}, "place_type": "route_node"}
+{"key": "jadajid", "kind": "place", "name": "al-Jadājid", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [222, 229]}, "place_type": "route_node"}
+{"key": "ajrad", "kind": "place", "name": "al-Ajrad", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [238, 244]}, "place_type": "route_node"}
+{"key": "dhu_salam", "kind": "place", "name": "Dhū Salam", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [258, 264]}, "place_type": "route_node"}
+{"key": "ababid", "kind": "place", "name": "al-ʿAbābīd", "attested": {"passage": "psg:br99lKLp08XFSo9Hjwb5mx", "span": [301, 309]}, "place_type": "route_node"}
+{"key": "faja", "kind": "place", "name": "al-Fāja", "attested": {"passage": "psg:tuHZEFGlJJ2i6SVgb16IUt", "span": [28, 34]}, "place_type": "route_node"}
+{"key": "arj", "kind": "place", "name": "al-ʿArj", "attested": {"passage": "psg:0zONofF2JN3JZUSuzzP0X9", "span": [26, 31]}, "place_type": "route_node"}
+{"key": "thaniyyat_air", "kind": "place", "name": "Thaniyyat al-ʿĀʾir", "attested": {"passage": "psg:0zONofF2JN3JZUSuzzP0X9", "span": [278, 289]}, "place_type": "route_node"}
+{"key": "rakuba", "kind": "place", "name": "Rakūba", "attested": {"passage": "psg:0zONofF2JN3JZUSuzzP0X9", "span": [301, 306]}, "place_type": "route_node"}
+{"key": "batn_rim", "kind": "place", "name": "Baṭn Riʾm", "attested": {"passage": "psg:0zONofF2JN3JZUSuzzP0X9", "span": [360, 369]}, "place_type": "route_node"}
+{"key": "tanim", "kind": "place", "name": "al-Tanʿīm", "attested": {"passage": "psg:fBTp4XA5Dw61wg3v0OTL3I", "span": [1242, 1249]}, "place_type": "route_node"}
+{"key": "salama_abdullah", "kind": "person", "name": "Salama b. ʿAbdullāh b. ʿUmar b. Abī Salama", "attested": {"passage": "psg:fBTp4XA5Dw61wg3v0OTL3I", "span": [44, 82]}}
+{"key": "ishaq_yasar", "kind": "person", "name": "Isḥāq b. Yasār", "attested": {"passage": "psg:fBTp4XA5Dw61wg3v0OTL3I", "span": [26, 39]}}
+{"key": "salama_abi_salama", "kind": "person", "name": "Salama b. Abī Salama", "attested": {"passage": "psg:fBTp4XA5Dw61wg3v0OTL3I", "span": [220, 236]}}
+{"key": "layla", "kind": "person", "name": "Laylā bint Abī Ḥathma", "attested": {"passage": "psg:r8RWChyYUFCeNh4j5VCorZ", "span": [112, 129]}}
+{"key": "umayma", "kind": "person", "name": "Umayma bint ʿAbd al-Muṭṭalib", "attested": {"passage": "psg:r8RWChyYUFCeNh4j5VCorZ", "span": [493, 523]}}
+{"key": "fara", "kind": "person", "name": "al-Farʿa bint Abī Sufyān", "attested": {"passage": "psg:r8RWChyYUFCeNh4j5VCorZ", "span": [454, 481]}}
+{"key": "ukkasha", "kind": "person", "name": "ʿUkkāsha b. Miḥṣan", "attested": {"passage": "psg:r8RWChyYUFCeNh4j5VCorZ", "span": [1638, 1651]}}
+{"key": "shuja", "kind": "person", "name": "Shujāʿ b. Wahb", "attested": {"passage": "psg:8xLfaiy4eIjnkZFm1QDAok", "span": [217, 228]}}
+{"key": "uqba_wahb", "kind": "person", "name": "ʿUqba b. Wahb", "attested": {"passage": "psg:8xLfaiy4eIjnkZFm1QDAok", "span": [308, 319]}}
+{"key": "arbad", "kind": "person", "name": "Arbad b. Ḥumayra", "attested": {"passage": "psg:r8RWChyYUFCeNh4j5VCorZ", "span": [1678, 1692]}}
+{"key": "umm_habib_jahsh", "kind": "person", "name": "Umm Ḥabīb bint Jaḥsh", "attested": {"passage": "psg:Cl4VRd3262QZ8SwYz8q6yY", "span": [33, 48]}}
+{"key": "judhama", "kind": "person", "name": "Judhāma bint Jandal", "attested": {"passage": "psg:Cl4VRd3262QZ8SwYz8q6yY", "span": [51, 65]}}
+{"key": "umm_qays", "kind": "person", "name": "Umm Qays bint Miḥṣan", "attested": {"passage": "psg:Cl4VRd3262QZ8SwYz8q6yY", "span": [68, 85]}}
+{"key": "umm_habib_thumama", "kind": "person", "name": "Umm Ḥabīb bint Thumāma", "attested": {"passage": "psg:Cl4VRd3262QZ8SwYz8q6yY", "span": [88, 105]}}
+{"key": "amina_ruqaysh", "kind": "person", "name": "Āmina bint Ruqaysh", "attested": {"passage": "psg:Cl4VRd3262QZ8SwYz8q6yY", "span": [108, 121]}}
+{"key": "sakhbara", "kind": "person", "name": "Sakhbara bint Tamīm", "attested": {"passage": "psg:Cl4VRd3262QZ8SwYz8q6yY", "span": [124, 138]}}
+{"key": "harith_hisham", "kind": "person", "name": "al-Ḥārith b. Hishām", "attested": {"passage": "psg:6PyL11TVEvMmiaFJF9YBMh", "span": [560, 574]}}
+{"key": "nafi", "kind": "person", "name": "Nāfiʿ, mawlā of ʿAbdullāh b. ʿUmar", "attested": {"passage": "psg:6PyL11TVEvMmiaFJF9YBMh", "span": [93, 97]}}
+{"key": "zayd_khattab", "kind": "person", "name": "Zayd b. al-Khaṭṭāb", "attested": {"passage": "psg:CngqyIqOFWEJzTeuEM8xbC", "span": [84, 97]}}
+{"key": "amr_suraqa", "kind": "person", "name": "ʿAmr b. Surāqa", "attested": {"passage": "psg:KWprFpnoezDKABD4JNvpLi", "span": [16, 29]}}
+{"key": "abdullah_suraqa", "kind": "person", "name": "ʿAbdullāh b. Surāqa", "attested": {"passage": "psg:KWprFpnoezDKABD4JNvpLi", "span": [129, 146]}}
+{"key": "rifaa", "kind": "person", "name": "Rifāʿa b. ʿAbd al-Mundhir", "attested": {"passage": "psg:jNQa7l8Zocl9NsesbmNVuL", "span": [137, 167]}}
+{"key": "iyas_bukayr", "kind": "person", "name": "Iyās b. al-Bukayr", "attested": {"passage": "psg:jNQa7l8Zocl9NsesbmNVuL", "span": [36, 50]}}
+{"key": "amir_bukayr", "kind": "person", "name": "ʿĀmir b. al-Bukayr", "attested": {"passage": "psg:jNQa7l8Zocl9NsesbmNVuL", "span": [72, 86]}}
+{"key": "khalid_bukayr", "kind": "person", "name": "Khālid b. al-Bukayr", "attested": {"passage": "psg:jNQa7l8Zocl9NsesbmNVuL", "span": [89, 103]}}
+{"key": "abu_marthad", "kind": "person", "name": "Abū Marthad Kannāz b. Ḥiṣn", "attested": {"passage": "psg:3nrUQzkoafPzfvfMMdFTep", "span": [56, 78]}}
+{"key": "marthad", "kind": "person", "name": "Marthad b. Abī Marthad", "attested": {"passage": "psg:N3AOyQqdRbhyLQajUehgXo", "span": [21, 37]}}
+{"key": "anasa", "kind": "person", "name": "Anasa, mawlā of the Prophet ﷺ", "attested": {"passage": "psg:3nrUQzkoafPzfvfMMdFTep", "span": [166, 170]}}
+{"key": "abu_kabsha", "kind": "person", "name": "Abū Kabsha, mawlā of the Prophet ﷺ", "attested": {"passage": "psg:3nrUQzkoafPzfvfMMdFTep", "span": [174, 182]}}
+{"key": "tufayl", "kind": "person", "name": "al-Ṭufayl b. al-Ḥārith", "attested": {"passage": "psg:fLXj7IW60uLZrFUAdqHlHk", "span": [38, 54]}}
+{"key": "husayn", "kind": "person", "name": "al-Ḥuṣayn b. al-Ḥārith", "attested": {"passage": "psg:fLXj7IW60uLZrFUAdqHlHk", "span": [57, 76]}}
+{"key": "suwaybit", "kind": "person", "name": "Suwaybiṭ b. Saʿd", "attested": {"passage": "psg:fLXj7IW60uLZrFUAdqHlHk", "span": [113, 135]}}
+{"key": "tulayb", "kind": "person", "name": "Ṭulayb b. ʿUmayr", "attested": {"passage": "psg:fLXj7IW60uLZrFUAdqHlHk", "span": [159, 171]}}
+{"key": "khabbab_mawla", "kind": "person", "name": "Khabbāb, mawlā of ʿUtba b. Ghazwān", "attested": {"passage": "psg:fLXj7IW60uLZrFUAdqHlHk", "span": [194, 198]}}
+{"key": "utba_ghazwan", "kind": "person", "name": "ʿUtba b. Ghazwān", "attested": {"passage": "psg:fLXj7IW60uLZrFUAdqHlHk", "span": [206, 221]}}
+{"key": "abdullah_salama", "kind": "person", "name": "ʿAbdullāh b. Salama", "attested": {"passage": "psg:fLXj7IW60uLZrFUAdqHlHk", "span": [227, 243]}}
+{"key": "mundhir_muhammad", "kind": "person", "name": "al-Mundhir b. Muḥammad b. ʿUqba", "attested": {"passage": "psg:HDGfhZmTiSznABCSzHI2Yn", "span": [62, 104]}}
+{"key": "abu_sabra", "kind": "person", "name": "Abū Sabra b. Abī Ruhm", "attested": {"passage": "psg:HDGfhZmTiSznABCSzHI2Yn", "span": [24, 56]}}
+{"key": "salim", "kind": "person", "name": "Sālim, mawlā of Abū Ḥudhayfa", "attested": {"passage": "psg:p3YOJRU5VQlyD8zeU686Lu", "span": [34, 38]}}
+{"key": "thubayta", "kind": "person", "name": "Thubayta bint Yaʿār", "attested": {"passage": "psg:fOBird5WkS4HmwegcFFDMM", "span": [45, 59]}}
+{"key": "abbad_bishr", "kind": "person", "name": "ʿAbbād b. Bishr", "attested": {"passage": "psg:fiUA0Gjr4Ftwlo7xA68Ewu", "span": [54, 72]}}
+{"key": "aws_thabit", "kind": "person", "name": "Aws b. Thābit b. al-Mundhir", "attested": {"passage": "psg:RYwJlnaZmacoBjgFo2ytXe", "span": [23, 44]}}
+{"key": "subayh", "kind": "person", "name": "Ṣubayḥ, mawlā of Abū al-ʿĀṣ b. Umayya", "attested": {"passage": "psg:CtOGsB3flwXcr64XdRlh4t", "span": [203, 207]}}
+{"key": "yazid_ruqaysh", "kind": "person", "name": "Yazīd b. Ruqaysh", "attested": {"passage": "psg:8xLfaiy4eIjnkZFm1QDAok", "span": [322, 335]}}
+{"key": "abu_sinan", "kind": "person", "name": "Abū Sinān b. Miḥṣan", "attested": {"passage": "psg:8xLfaiy4eIjnkZFm1QDAok", "span": [403, 419]}}
+{"key": "sinan", "kind": "person", "name": "Sinān b. Abī Sinān", "attested": {"passage": "psg:8xLfaiy4eIjnkZFm1QDAok", "span": [464, 480]}}
+{"key": "muhriz", "kind": "person", "name": "Muḥriz b. Naḍla", "attested": {"passage": "psg:8xLfaiy4eIjnkZFm1QDAok", "span": [483, 495]}}
+{"key": "rabia_aktham", "kind": "person", "name": "Rabīʿa b. Aktham", "attested": {"passage": "psg:8xLfaiy4eIjnkZFm1QDAok", "span": [564, 577]}}
+{"key": "thaqf", "kind": "person", "name": "Thaqf b. ʿAmr", "attested": {"passage": "psg:9egbEjSZvvLaHYOtVFZC5H", "span": [43, 54]}}
+{"key": "malik_amr", "kind": "person", "name": "Mālik b. ʿAmr", "attested": {"passage": "psg:9egbEjSZvvLaHYOtVFZC5H", "span": [64, 78]}}
+{"key": "mudlij", "kind": "person", "name": "Mudlij b. ʿAmr", "attested": {"passage": "psg:9egbEjSZvvLaHYOtVFZC5H", "span": [81, 93]}}
+{"key": "abu_makhshi", "kind": "person", "name": "Abū Makhshī", "attested": {"passage": "psg:BvLkBO8RNcr8NFqGRwv5Mt", "span": [45, 53]}}
+{"key": "saad_mawla_hatib", "kind": "person", "name": "Saʿd, mawlā of Ḥāṭib b. Abī Baltaʿa", "attested": {"passage": "psg:Hpa8gCOXXTjkT47x93MdPO", "span": [90, 103]}}
+{"key": "shammas", "kind": "person", "name": "Shammās b. ʿUthmān", "attested": {"passage": "psg:OSoCuXDff6NgMRCdfkKw9R", "span": [159, 172]}}
+{"key": "muattib", "kind": "person", "name": "Muʿattib b. ʿAwf", "attested": {"passage": "psg:GCBuNgw9LYeEH1kBqZod3Z", "span": [16, 27]}}
+{"key": "khawli", "kind": "person", "name": "Khawlī b. Abī Khawlī", "attested": {"passage": "psg:KWprFpnoezDKABD4JNvpLi", "span": [258, 274]}}
+{"key": "malik_khawli", "kind": "person", "name": "Mālik b. Abī Khawlī", "attested": {"passage": "psg:KWprFpnoezDKABD4JNvpLi", "span": [277, 293]}}
+{"key": "abdullah_makhrama", "kind": "person", "name": "ʿAbdullāh b. Makhrama", "attested": {"passage": "psg:Y1Y5GNYb3PBWcsjbhzohgH", "span": [147, 164]}}
+{"key": "abdullah_suhayl", "kind": "person", "name": "ʿAbdullāh b. Suhayl b. ʿAmr", "attested": {"passage": "psg:Y1Y5GNYb3PBWcsjbhzohgH", "span": [222, 246]}}
+{"key": "umayr_awf", "kind": "person", "name": "ʿUmayr b. ʿAwf, mawlā of Suhayl b. ʿAmr", "attested": {"passage": "psg:Y1Y5GNYb3PBWcsjbhzohgH", "span": [396, 407]}}
+{"key": "saad_khawla", "kind": "person", "name": "Saʿd b. Khawla", "attested": {"passage": "psg:Y1Y5GNYb3PBWcsjbhzohgH", "span": [429, 442]}}
+{"key": "amr_harith_fihr", "kind": "person", "name": "ʿAmr b. al-Ḥārith b. Zuhayr", "attested": {"passage": "psg:Cvq1m9kGFdxvXdNIYQY9zH", "span": [126, 150]}}
+{"key": "suhayl_wahb", "kind": "person", "name": "Suhayl b. Wahb (son of Bayḍāʾ)", "attested": {"passage": "psg:Cvq1m9kGFdxvXdNIYQY9zH", "span": [207, 218]}}
+{"key": "amr_abi_sarh", "kind": "person", "name": "ʿAmr b. Abī Sarḥ", "attested": {"passage": "psg:Cvq1m9kGFdxvXdNIYQY9zH", "span": [308, 323]}}
