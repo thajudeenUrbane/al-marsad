@@ -1,7 +1,7 @@
 {
   "persons": [
     {
-      "id": "https://w3id.org/marsad/id/person/8sT3wY6xZc2mQ7vR9nK4pP1",
+      "id": "https://w3id.org/marsad/id/person/QYWUDj7ATL1ApLn5P7gmsQ",
       "label": "Abū Bakr al-Ṣiddīq",
       "tabaqa": "ṣaḥābī",
       "coverage": "stub",
@@ -15,7 +15,7 @@
       "role": null
     },
     {
-      "id": "https://w3id.org/marsad/id/person/2mQ7vR9nK4pT8sY3wZ6xCe",
+      "id": "https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai",
       "label": "The Prophet Muḥammad (peace and blessings be upon him)",
       "tabaqa": null,
       "coverage": "stub",
@@ -66,7 +66,7 @@
   ],
   "chain": [
     {
-      "chain": "https://w3id.org/marsad/id/chain/8hJkQ3wErT6yUmN5bVcXzA",
+      "chain": "https://w3id.org/marsad/id/chain/VwuN5BCUwH0f3HtpyxBwKn",
       "chainLabel": "Chain for the Hijrah report",
       "collector": "https://w3id.org/marsad/id/person/NlktnCtJZWR1GFtPVRPKKk",
       "terminal": "https://w3id.org/marsad/id/person/2FTEMtzmUhqwffqT42Bb3J"
@@ -74,7 +74,7 @@
   ],
   "continuity": [
     {
-      "chain": "https://w3id.org/marsad/id/chain/8hJkQ3wErT6yUmN5bVcXzA",
+      "chain": "https://w3id.org/marsad/id/chain/VwuN5BCUwH0f3HtpyxBwKn",
       "continuity": null
     }
   ],
@@ -277,7 +277,7 @@
   ],
   "disputes": [
     {
-      "id": "https://w3id.org/marsad/id/dispute/7mNbV4cXzA9sDfG5hJkQwE",
+      "id": "https://w3id.org/marsad/id/dispute/5XpLhaWiTOcjESmY2MlFnI",
       "label": "Absolute dating of the cave interval",
       "question": "What absolute date corresponds to the departure and the cave interval?",
       "significance": "chronological",
@@ -300,11 +300,11 @@
   ],
   "positions": [
     {
-      "dispute": "https://w3id.org/marsad/id/dispute/7mNbV4cXzA9sDfG5hJkQwE",
+      "dispute": "https://w3id.org/marsad/id/dispute/5XpLhaWiTOcjESmY2MlFnI",
       "claim": "Dating per reckoning A — see dispute record."
     },
     {
-      "dispute": "https://w3id.org/marsad/id/dispute/7mNbV4cXzA9sDfG5hJkQwE",
+      "dispute": "https://w3id.org/marsad/id/dispute/5XpLhaWiTOcjESmY2MlFnI",
       "claim": "Dating per reckoning B — see dispute record."
     },
     {
@@ -330,7 +330,7 @@
   ],
   "assertion": [
     {
-      "id": "https://w3id.org/marsad/id/assertion/6yUmN9bVcX4zAsD7fGhJkQ",
+      "id": "https://w3id.org/marsad/id/assertion/VbZxdNdNCgzZQDB8G6R5YI",
       "predicate": "sheltered at",
       "subjectLabel": "The Prophet Muḥammad (peace and blessings be upon him)",
       "objectLabel": "Ghār Thawr",

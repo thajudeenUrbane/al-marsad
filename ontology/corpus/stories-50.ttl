@@ -2494,7 +2494,7 @@ ast:w4SIpSWlUL5qcaah9DKa4G
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:Xo2CeHC0qiLd2kA5zpDaWj ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 2 ('The First Believers') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -2704,7 +2704,7 @@ ast:3F3QaSW6xY5h2xxyuYaIAn
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:tN1Zs8779iqujx5UkdywMn ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis """Companion list of story 4 ('Bilal and "Ahad, Ahad"') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."""@en ;
@@ -2970,7 +2970,7 @@ ast:UiWcvTQKTk1jX8iRIHyFks
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject ev:DrfxHC5VRV8wg6X6YrmPM1 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 9 ('Ja'far Before the Negus of Abyssinia') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -2984,7 +2984,7 @@ ast:msr7gG7tFhCOVMahf3CyFl
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:assertionSubject per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:assertionObject ev:DrfxHC5VRV8wg6X6YrmPM1 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 9 ('Ja'far Before the Negus of Abyssinia') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -3297,7 +3297,7 @@ ast:g5yv5No7WsV7EKybdVefND
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:WDZd7t0kAE8mQaZW9PVsA4 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 12 ('Al-Isra wal-Mi'raj') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -3550,7 +3550,7 @@ ast:f2tJdUo5IQX9oPjjrtDFrJ
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:wMdngvzQBtlbC6EyKySQg8 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 14 ('The Hijrah and the Cave of Thawr') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -3734,7 +3734,7 @@ ast:d1pJxcShkOAoVzVTd07jsl
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:2JeuHTYYSbGuzG3AYEnohp ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 15 ('Arrival in Madinah and the Building of the Mosque') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -3860,7 +3860,7 @@ ast:51oXfZmg9ejJwOorqLE4wN
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:hN8HDx1Y9ICzmFKejALLxD ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 16 ('The Brotherhood of the Muhajirun and Ansar') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -4168,7 +4168,7 @@ ast:Iqj2NqdiLnIwMi7RkBPvHk
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:oPlPpUrWs3Ruu3vusLUPv0 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 20 ('The Battle of Badr') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -4660,7 +4660,7 @@ ast:Dqihpz2xdxivsIyemw49Z0
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:C6QQ1ofri1GI9wNPE631Jv ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 21 ('The Battle of Uhud') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -5228,7 +5228,7 @@ ast:2cqJrELWVFVESMsH3bQFHg
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:lW0F3Leiip7MIlnVloWdy9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 25 ('The Treaty of Hudaybiyah') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -5242,7 +5242,7 @@ ast:3pJ14QmdSKIjD2PlEXi4BC
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:assertionSubject per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:assertionObject ev:lW0F3Leiip7MIlnVloWdy9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 25 ('The Treaty of Hudaybiyah') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -5427,7 +5427,7 @@ ast:A8g3vbQJMLYwbkGSQOcuaX
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject ev:8AsdDzdoVrdOUx44sOKhF5 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 26 ('The Conquest of Khaybar') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -5497,7 +5497,7 @@ ast:fYlDwzaeREfin7t3BL7rp2
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject ev:EgVEgSWlpu8iKlVoPSSRor ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 27 ('The Battle of Mu'tah') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -5875,7 +5875,7 @@ ast:suvV2N6sWeTyQj8cJWGo0I
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:5cRVmhPCcc7zxotTXpIGQs ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 29 ('The Battle of Hunayn') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -6058,7 +6058,7 @@ ast:Hl4MmpsyZCUHzR7ETCG68r
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:qOVrmxwiGDJjo74MEVF5H4 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 30 ('The Expedition of Tabuk') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -6310,7 +6310,7 @@ ast:wCGPFSxnBvnrILHWL5vwYj
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:H0mClpFAfGco9zqw29MOgt ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 31 ('Ka'b ibn Malik and the Three Who Stayed Behind') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -6380,7 +6380,7 @@ ast:FqqrqqTsi0bm6Vd5FOsW3N
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:xujWoW6WQU8LGm20uG1p0r ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 33 ('The Slander Against Aishah (al-Ifk)') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -6646,7 +6646,7 @@ ast:wwq0dKJu1Cd0GMb73361t8
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:d4rSHjOPFqyy1YnVivxf3R ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 35 ('Abu Hurayrah and the Cup of Milk') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -7516,7 +7516,7 @@ ast:TbafWygwyfhIudccjkWzz9
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:Xc5MZGkJOE35hT6xordrrc ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 49 ('The Farewell Pilgrimage') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -7558,7 +7558,7 @@ ast:zJCC7F5ZbOnGKi6gMjfMAo
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:CDxwUJ6cALsaOk1onbaiV2 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 50 ('The Final Illness and Passing of the Prophet ﷺ') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;
@@ -7600,7 +7600,7 @@ ast:T7UxloefAgI0yOj7ENnThm
     mrs:createdBy agt:99lfWZ9Al5KAc3YUZNakNh ;
     mrs:recordedAt "2026-10-15T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8pLkJ9hGfDsA3wErT5yUqP1 ;
+    mrs:assertionSubject per:w6IaTbniNnbK3AO5XyjIxJ ;
     mrs:assertionObject ev:CDxwUJ6cALsaOk1onbaiV2 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Companion list of story 50 ('The Final Illness and Passing of the Prophet ﷺ') in the 50 Stories doc, rev 7, 10 October 2026: an AI-generated, unreviewed document, not transmitted material. No source edition or passage is attached to this link."@en ;

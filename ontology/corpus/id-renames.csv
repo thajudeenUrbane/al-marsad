@@ -267,3 +267,19 @@ tmp:6xZc2mQ7vR9nK4pT8sY3wA2,tmp:zFU245q5w8nwResOMNjqVG,temporal,payload one char
 tmp:8gHjK4wErT7yUmN3bVcXzA1,tmp:HS6SncE7bQ3oaeB8KGLIfm,temporal,payload one character from another entity's payload
 tmp:9bVcX5zAsD2fGhJ6kQwErT,tmp:sS5UIfWQtACrt9HZUMe52U,temporal,payload one character from another entity's payload
 wit:8gHjK4wErT7yUmN3bVcXzA,wit:A1larM7BamdjfUCbbDTidZ,witness,payload one character from another entity's payload
+act:4bVcX7zAsD2fGhJ9kQwErTy,act:fuU3s9la4uBpODztXJBrdJ,activity,hand-typed: shares an 8-character run with another ID
+agt:7wQzE2rTyU9mNbV4cXzAsF,agt:EoHVIA3JZBvDsQ5jyi4SvE,agent,hand-typed: shares an 8-character run with another ID
+agt:9wErT4yUmN7bVcX2zAsDfGh,agt:C7VpyqaTGtImKPBS8frhTf,agent,hand-typed: shares an 8-character run with another ID
+ast:6yUmN9bVcX4zAsD7fGhJkQ,ast:VbZxdNdNCgzZQDB8G6R5YI,assertion,hand-typed: shares an 8-character run with another ID
+chn:8hJkQ3wErT6yUmN5bVcXzA,chn:VwuN5BCUwH0f3HtpyxBwKn,chain,hand-typed: shares an 8-character run with another ID
+dsp:7mNbV4cXzA9sDfG5hJkQwE,dsp:5XpLhaWiTOcjESmY2MlFnI,dispute,hand-typed: shares an 8-character run with another ID
+ev:5rTyU9mNbV2cXzA8sDfGhJk1,ev:fnXxxzRKzKDFtsSvrMamC9,event,hand-typed: shares an 8-character run with another ID
+per:2mQ7vR9nK4pT8sY3wZ6xCe,per:Vc74FSoBSMY4TBSEwjPyai,person,hand-typed: shares an 8-character run with another ID
+per:2sDfG6hJkQ9wErT4yUmNbV1,per:dOPyrfzvo3NIvUQShyiRsk,person,hand-typed: shares an 8-character run with another ID
+per:3wY6xZc2mQ7vR9nK4pT8sA1,per:pgEqNKdrPeXOU9fcCIc5Tf,person,hand-typed: shares an 8-character run with another ID
+per:7kQwE4rTyU2mNbV9cXzAsD1,per:5sGHTje5qGKdw6c6RWyHKV,person,hand-typed: shares an 8-character run with another ID
+per:8pLkJ9hGfDsA3wErT5yUqP1,per:w6IaTbniNnbK3AO5XyjIxJ,person,hand-typed: shares an 8-character run with another ID
+per:8sT3wY6xZc2mQ7vR9nK4pP1,per:QYWUDj7ATL1ApLn5P7gmsQ,person,hand-typed: shares an 8-character run with another ID
+plc:6hJkQ3wErT9yUmN5bVcXzA1,plc:nVJ91NufhjHXlwcWdPhRn1,place,hand-typed: shares an 8-character run with another ID
+tmp:3yUmN7bVcX4zAsD8fGhJkQ,tmp:TKki0g4ygeTVQsz4V3lHwA,temporal,hand-typed: shares an 8-character run with another ID
+tmp:7yUmN5bVcX2zAsD8fGhJkQ1,tmp:lVbfoQpPIBr52EUOKAdAkl,temporal,hand-typed: shares an 8-character run with another ID

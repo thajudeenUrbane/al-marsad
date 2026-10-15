@@ -63,16 +63,16 @@
 #
 #################################################################
 
-agt:9wErT4yUmN7bVcX2zAsDfGh
+agt:C7VpyqaTGtImKPBS8frhTf
     a prov:SoftwareAgent ;
     rdfs:label "Corpus compilation model, generation-1 pass"@en .
 
-act:4bVcX7zAsD2fGhJ9kQwErTy
+act:fuU3s9la4uBpODztXJBrdJ
     a prov:Activity ;
     prov:startedAtTime "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     prov:qualifiedAssociation [
         a prov:Association ;
-        prov:agent agt:9wErT4yUmN7bVcX2zAsDfGh ;
+        prov:agent agt:C7VpyqaTGtImKPBS8frhTf ;
         prov:hadRole mrs:role_extractor ] .
     # NO adjudicator association. See file header.
 
@@ -81,11 +81,11 @@ act:4bVcX7zAsD2fGhJ9kQwErTy
 #  §1  THE ORIGIN
 #################################################################
 
-per:2mQ7vR9nK4pT8sY3wZ6xCe
+per:Vc74FSoBSMY4TBSEwjPyai
     a mrs:Person ;
     rdfs:label "The Prophet Muḥammad (peace and blessings be upon him)"@en ;
     mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:nameForm [ a mrs:ArabicNameForm ;
         mrs:ism "Muḥammad" ; mrs:nasab ( "ʿAbd Allāh" "ʿAbd al-Muṭṭalib" ) ;
@@ -101,11 +101,11 @@ per:2mQ7vR9nK4pT8sY3wZ6xCe
 #  §2  THE PLACE AND THE EVENT
 #################################################################
 
-plc:6hJkQ3wErT9yUmN5bVcXzA1
+plc:nVJ91NufhjHXlwcWdPhRn1
     a mrs:Place ;
     rdfs:label "Badr"@en ;
     mrs:coverageState mrs:cs_outline ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:placeType mrs:pt_settlement ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "بدر"@ar ] ;
@@ -124,7 +124,7 @@ tmp:HS6SncE7bQ3oaeB8KGLIfm
     # One corner only, deliberately: this expresses "known valid from at
     # least this point, no asserted end" rather than fabricating a close.
 
-tmp:7yUmN5bVcX2zAsD8fGhJkQ1
+tmp:lVbfoQpPIBr52EUOKAdAkl
     a mrs:TemporalExtent ;
     mrs:calendar mrs:cal_hijri ;
     mrs:nativeValue "17 Ramaḍān 2 AH" ;
@@ -135,21 +135,21 @@ tmp:7yUmN5bVcX2zAsD8fGhJkQ1
     mrs:earliestStart "0624-03-13T00:00:00Z"^^xsd:dateTime ;
     mrs:latestEnd     "0624-03-13T23:59:59Z"^^xsd:dateTime .
 
-ev:5rTyU9mNbV2cXzA8sDfGhJk1
+ev:fnXxxzRKzKDFtsSvrMamC9
     a mrs:Event ;
     rdfs:label "Battle of Badr"@en ;
     mrs:coverageState mrs:cs_outline ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:eventPlace plc:6hJkQ3wErT9yUmN5bVcXzA1 ;
-    mrs:eventTemporalExtent tmp:7yUmN5bVcX2zAsD8fGhJkQ1 ;
+    mrs:eventPlace plc:nVJ91NufhjHXlwcWdPhRn1 ;
+    mrs:eventTemporalExtent tmp:lVbfoQpPIBr52EUOKAdAkl ;
 
     # Structural membership: who was there, in what capacity. The colourful
     # specific detail (Ali's eight standard-bearers, Ubaydah's severed leg)
     # is carried on the corresponding Assertions in §3, not invented here as
     # a role vocabulary term that does not exist yet.
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+        [ a mrs:Participation ; mrs:participant per:Vc74FSoBSMY4TBSEwjPyai ;
           mrs:participantRole mrs:role_leader ] ,                              # the Prophet ﷺ
         [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ;
           mrs:participantRole mrs:role_leader ] ,                              # Ali — Muhajirun banner
@@ -163,7 +163,7 @@ ev:5rTyU9mNbV2cXzA8sDfGhJk1
           mrs:participantRole mrs:role_leader ] ,                              # Zubayr — right flank
         [ a mrs:Participation ; mrs:participant per:UyMdny2eh90Lxs0Ub3izhs ;
           mrs:participantRole mrs:role_leader ] ,                              # Miqdad — left flank
-        [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+        [ a mrs:Participation ; mrs:participant per:QYWUDj7ATL1ApLn5P7gmsQ ;
           mrs:participantRole mrs:role_participant ] ,                        # Abu Bakr
         [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ;
           mrs:participantRole mrs:role_participant ] ,                        # Umar
@@ -192,36 +192,36 @@ ev:5rTyU9mNbV2cXzA8sDfGhJk1
 #################################################################
 
 ast:KbC1XCI12lwGpoZOQ4AwOU a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard sira/maghazi tradition: Ali carried the Muhajirun banner and, per widely repeated accounts, personally accounted for several of the enemy's standard-bearers. Not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:qOYaCVA3O5FmC1RNvVupPu a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:4cFhNASabmB63JuKazjKPh ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Hamza b. Abd al-Muttalib led the counter-charge alongside Ali per the standard tradition. Not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:7qVNtgPNIpLB8RQG8OUPXK a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:9GhccCRfUoDfmF9S98F2Rl ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Sa'd b. Mu'adh, chief of Aws, led the Ansar battalion at Badr per the standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:CgQ4QeeTBYmJNXqacN32BN a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:B67CfBuX1hWcwMB0SKWElx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Ubaydah b. al-Harith fought in the pre-battle triple duel (with Hamza and Ali) against three Qurashi champions; he was mortally wounded (his leg severed) and died of the wound shortly afterward, on the return march. Widely repeated in the standard sira tradition, not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 
 #################################################################
@@ -233,36 +233,36 @@ ast:CgQ4QeeTBYmJNXqacN32BN a mrs:Assertion ;
 #################################################################
 
 ast:U8iSiNVqkpVzAOLtiG9CbH a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Uthman b. Affan stayed in Madinah to nurse his ill wife Ruqayyah bint Muhammad, who died during the Badr campaign; the Prophet allotted him a share of the spoils as though he had been present. Standard sira tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:pWssqbIJkoIjcuj9Eb8PCd a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:PNkrkk1S9wmc5Y5Lza6PmV ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Talha b. Ubaydullah was sent with Sa'id b. Zayd to Syria to gather intelligence on the Meccan caravan and returned after the battle; both were given shares of the spoils as though present. Standard sira tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:h02g5wY9EsEcByQtRO3G6g a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:u94wpqEKcCVqkezetgirQ8 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Sa'id b. Zayd was on the same Syria intelligence mission as Talha b. Ubaydullah (see above)."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:50fXQsunCrr7DsX0mad7e6 a mrs:Assertion ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Ja'far b. Abi Talib was in Abyssinia with the second group of migrants at the time of Badr; he returned to Madinah only around the time of Khaybar (7 AH). Standard sira tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 
 #################################################################
@@ -274,81 +274,81 @@ ast:50fXQsunCrr7DsX0mad7e6 a mrs:Assertion ;
 #################################################################
 
 per:Q4trlHWdutjvFkvqpaEGag a mrs:Person ; rdfs:label "ʿAlī b. Abī Ṭālib"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿAlī" ; mrs:nasab ( "Abī Ṭālib" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:4cFhNASabmB63JuKazjKPh a mrs:Person ; rdfs:label "Ḥamza b. ʿAbd al-Muṭṭalib"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Ḥamza" ; mrs:nasab ( "ʿAbd al-Muṭṭalib" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 # ⟨scholar⟩ Later martyred at Uhud (3 AH), not modelled here — out of
 # this file's Badr-centred scope.
 
-per:8sT3wY6xZc2mQ7vR9nK4pP1 a mrs:Person ; rdfs:label "Abū Bakr al-Ṣiddīq"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+per:QYWUDj7ATL1ApLn5P7gmsQ a mrs:Person ; rdfs:label "Abū Bakr al-Ṣiddīq"@en ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:kunya "Abū Bakr" ; mrs:laqab "al-Ṣiddīq" ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:vln6et5FvUrm7neh48NSJa a mrs:Person ; rdfs:label "ʿUmar b. al-Khaṭṭāb"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿUmar" ; mrs:nasab ( "al-Khaṭṭāb" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:TxhFk19HwO2OpgvY4kBVGi a mrs:Person ; rdfs:label "ʿUthmān b. ʿAffān"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿUthmān" ; mrs:nasab ( "ʿAffān" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:PNkrkk1S9wmc5Y5Lza6PmV a mrs:Person ; rdfs:label "Ṭalḥa b. ʿUbaydullāh"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Ṭalḥa" ; mrs:nasab ( "ʿUbaydullāh" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:emZYN2y2eJ4U3hYbzEdAzK a mrs:Person ; rdfs:label "al-Zubayr b. al-ʿAwwām"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "al-Zubayr" ; mrs:nasab ( "al-ʿAwwām" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:No6KV9b4z8MnuoTMo3QxBY a mrs:Person ; rdfs:label "ʿAbd al-Raḥmān b. ʿAwf"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿAbd al-Raḥmān" ; mrs:nasab ( "ʿAwf" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:e8UKnTRZCYHGR7wuT2r5HN a mrs:Person ; rdfs:label "Saʿd b. Abī Waqqāṣ"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Saʿd" ; mrs:nasab ( "Abī Waqqāṣ" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:u94wpqEKcCVqkezetgirQ8 a mrs:Person ; rdfs:label "Saʿīd b. Zayd"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Saʿīd" ; mrs:nasab ( "Zayd" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:UtI7tfqLuYs902qoNowis1 a mrs:Person ; rdfs:label "Abū ʿUbayda b. al-Jarrāḥ"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:kunya "Abū ʿUbayda" ; mrs:nasab ( "al-Jarrāḥ" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:LokzGBbtKKXFdzLwoDZSi6 a mrs:Person ; rdfs:label "Bilāl b. Rabāḥ"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Bilāl" ; mrs:nasab ( "Rabāḥ" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:B67CfBuX1hWcwMB0SKWElx a mrs:Person ; rdfs:label "ʿUbayda b. al-Ḥārith"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿUbayda" ; mrs:nasab ( "al-Ḥārith" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] ;
@@ -357,36 +357,36 @@ per:B67CfBuX1hWcwMB0SKWElx a mrs:Person ; rdfs:label "ʿUbayda b. al-Ḥārith"@
             mrs:nativeValue "shortly after Badr, 2 AH" ; mrs:precision mrs:pr_period ;
             mrs:temporalBasis mrs:tbas_attested ;
             mrs:relativeAnchor [ a mrs:RelativeAnchor ; mrs:allenRelation time:after ;
-                mrs:anchorTarget ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+                mrs:anchorTarget ev:fnXxxzRKzKDFtsSvrMamC9 ;
                 mrs:attestedBy ast:CgQ4QeeTBYmJNXqacN32BN ] ] ] .
 # Died of the wound sustained in the pre-battle duel (see §3).
 
 per:HlRtmjc07rUsfgTsP8rKRV a mrs:Person ; rdfs:label "ʿAmmār b. Yāsir"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿAmmār" ; mrs:nasab ( "Yāsir" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:rJSKcJSfpcILWc0k73qk2I a mrs:Person ; rdfs:label "ʿAbdullāh b. Rawāḥa"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿAbdullāh" ; mrs:nasab ( "Rawāḥa" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:xXOoS1i5K8dtQ7nTy6GZCT a mrs:Person ; rdfs:label "Muṣʿab b. ʿUmayr"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Muṣʿab" ; mrs:nasab ( "ʿUmayr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:UyMdny2eh90Lxs0Ub3izhs a mrs:Person ; rdfs:label "al-Miqdād b. ʿAmr"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "al-Miqdād" ; mrs:nasab ( "ʿAmr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:9GhccCRfUoDfmF9S98F2Rl a mrs:Person ; rdfs:label "Saʿd b. Muʿādh"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Saʿd" ; mrs:nasab ( "Muʿādh" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] ;
@@ -404,14 +404,14 @@ per:9GhccCRfUoDfmF9S98F2Rl a mrs:Person ; rdfs:label "Saʿd b. Muʿādh"@en ;
 # Now anchored to the real Khandaq Event (§8) rather than left as free text
 # with nothing in the graph for "after" to point at.
 
-per:3wY6xZc2mQ7vR9nK4pT8sA1 a mrs:Person ; rdfs:label "Jaʿfar b. Abī Ṭālib"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+per:pgEqNKdrPeXOU9fcCIc5Tf a mrs:Person ; rdfs:label "Jaʿfar b. Abī Ṭālib"@en ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Jaʿfar" ; mrs:nasab ( "Abī Ṭālib" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:P4VAp86LIzXhq2pUAuEylx a mrs:Person ; rdfs:label "Zayd b. Ḥāritha"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Zayd" ; mrs:nasab ( "Ḥāritha" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
@@ -421,7 +421,7 @@ per:P4VAp86LIzXhq2pUAuEylx a mrs:Person ; rdfs:label "Zayd b. Ḥāritha"@en ;
 # claimed — companion_of only, deliberately.
 
 per:V2JIm1kU0UcdH1CrJpUp9H a mrs:Person ; rdfs:label "Usayd b. Ḥuḍayr"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Usayd" ; mrs:nasab ( "Ḥuḍayr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
@@ -431,7 +431,7 @@ per:V2JIm1kU0UcdH1CrJpUp9H a mrs:Person ; rdfs:label "Usayd b. Ḥuḍayr"@en ;
 # who was and wasn't there.
 
 per:MSrNg6crYox3LC1UHol8st a mrs:Person ; rdfs:label "Abū Hurayra"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:transmitterRole mrs:tr_narrator ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:kunya "Abū Hurayra" ;
@@ -440,7 +440,7 @@ per:MSrNg6crYox3LC1UHol8st a mrs:Person ; rdfs:label "Abū Hurayra"@en ;
 # participant, and no Badr-related assertion is made about him.
 
 per:pLEkcvWqj8roLomsW1ZaaM a mrs:Person ; rdfs:label "Anas b. Mālik"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:transmitterRole mrs:tr_narrator ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Anas" ; mrs:nasab ( "Mālik" ) ;
@@ -454,7 +454,7 @@ per:pLEkcvWqj8roLomsW1ZaaM a mrs:Person ; rdfs:label "Anas b. Mālik"@en ;
 #################################################################
 
 per:laOMIYgqaQ5Iw6DmtiCNkY a mrs:Person ; rdfs:label "Khadīja bint Khuwaylid"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Khadīja" ; mrs:nasab ( "Khuwaylid" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] ;
@@ -468,34 +468,34 @@ per:laOMIYgqaQ5Iw6DmtiCNkY a mrs:Person ; rdfs:label "Khadīja bint Khuwaylid"@e
 # Fatimah — her presence in the network is via kinship, not the battle.
 
 per:6eCGwhJPqffwRQDnFPYoqa a mrs:Person ; rdfs:label "Fāṭima bint Muḥammad"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Fāṭima" ; mrs:nasab ( "Muḥammad" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:IrmZRQOJCNAEYbYu1lH2YN a mrs:Person ; rdfs:label "Ruqayya bint Muḥammad"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Ruqayya" ; mrs:nasab ( "Muḥammad" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] ;
     mrs:death [ a mrs:Event ;
-        mrs:eventTemporalExtent tmp:7yUmN5bVcX2zAsD8fGhJkQ1 ] .
+        mrs:eventTemporalExtent tmp:lVbfoQpPIBr52EUOKAdAkl ] .
 # Died during the Badr campaign — the reason Uthman, her husband, was absent.
 
 per:u6Wfqrd9SmlceUqYksFFz8 a mrs:Person ; rdfs:label "Umm Kulthūm bint Muḥammad"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Umm Kulthūm" ; mrs:nasab ( "Muḥammad" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:2FTEMtzmUhqwffqT42Bb3J a mrs:Person ; rdfs:label "ʿĀʾisha bint Abī Bakr"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿĀʾisha" ; mrs:nasab ( "Abī Bakr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
 per:15ywiRwy5duq189kyMEIU1 a mrs:Person ; rdfs:label "Ḥafṣa bint ʿUmar"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Ḥafṣa" ; mrs:nasab ( "ʿUmar" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
@@ -504,27 +504,27 @@ per:15ywiRwy5duq189kyMEIU1 a mrs:Person ; rdfs:label "Ḥafṣa bint ʿUmar"@en 
 # temporally anchored to Badr here — see the spouse_of Assertion below,
 # which carries no Badr-time claim.
 
-per:2sDfG6hJkQ9wErT4yUmNbV1 a mrs:Person ; rdfs:label "Sawda bint Zamʿa"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+per:dOPyrfzvo3NIvUQShyiRsk a mrs:Person ; rdfs:label "Sawda bint Zamʿa"@en ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Sawda" ; mrs:nasab ( "Zamʿa" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:7kQwE4rTyU2mNbV9cXzAsD1 a mrs:Person ; rdfs:label "Umm Salama bint Abī Umayya"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+per:5sGHTje5qGKdw6c6RWyHKV a mrs:Person ; rdfs:label "Umm Salama bint Abī Umayya"@en ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Umm Salama" ; mrs:nasab ( "Abī Umayya" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 # ⟨scholar⟩ Married the Prophet after Badr — no Badr-time claim made.
 
 per:7XMkA64afEC5PCz0zGGPTs a mrs:Person ; rdfs:label "Asmāʾ bint Abī Bakr"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Asmāʾ" ; mrs:nasab ( "Abī Bakr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
 
-per:8pLkJ9hGfDsA3wErT5yUqP1 a mrs:Person ; rdfs:label "ʿAbd al-Raḥmān b. Abī Bakr"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+per:w6IaTbniNnbK3AO5XyjIxJ a mrs:Person ; rdfs:label "ʿAbd al-Raḥmān b. Abī Bakr"@en ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "ʿAbd al-Raḥmān" ; mrs:nasab ( "Abī Bakr" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
@@ -532,7 +532,7 @@ per:8pLkJ9hGfDsA3wErT5yUqP1 a mrs:Person ; rdfs:label "ʿAbd al-Raḥmān b. Ab�
 # tabaqa or Badr-participation claim is made about him in this file.
 
 per:qc93NP01sCCUcyGHh6If2f a mrs:Person ; rdfs:label "Fāṭima bint al-Khaṭṭāb"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ; mrs:tabaqa mrs:tb_sahabi ;
     mrs:nameForm [ a mrs:ArabicNameForm ; mrs:ism "Fāṭima" ; mrs:nasab ( "al-Khaṭṭāb" ) ;
         mrs:script "latn" ; mrs:transliterationScheme "IJMES" ] .
@@ -548,359 +548,359 @@ per:qc93NP01sCCUcyGHh6If2f a mrs:Person ; rdfs:label "Fāṭima bint al-Khaṭ�
 
 # --- companion_of: every Companion, direct to the origin ---
 ast:MXn3jdG5STNmuqhIjwhVEh a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:Q4trlHWdutjvFkvqpaEGag ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 # The remaining companion_of ties follow the identical pattern for every
 # Companion listed in §5 and §6. Spelled out individually below rather
 # than left implicit, so each is independently queryable and citable.
 
 ast:8WFxKQFtYtmBpsB9hn8fu4 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:0xC2L7NQPGfbaVg4SxMNNe a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:vln6et5FvUrm7neh48NSJa ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:sRN2yDsGWwNdEMVynfTt6t a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:TxhFk19HwO2OpgvY4kBVGi ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:Exhv4UESXu9PbJJBqljLbf a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:PNkrkk1S9wmc5Y5Lza6PmV ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:RjoWQ8JiWXmQtiSIoXdVSQ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:emZYN2y2eJ4U3hYbzEdAzK ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:KYzIZIcQbXFwt77AN5VUFq a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:No6KV9b4z8MnuoTMo3QxBY ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:2hvh5T9oaRu29ubKmpcILc a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:e8UKnTRZCYHGR7wuT2r5HN ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:0niEx2jUX9H1ZICLx7Rcek a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:u94wpqEKcCVqkezetgirQ8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:17rObhSLh5hKbWzGOKfmLN a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:UtI7tfqLuYs902qoNowis1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:zQdRYNXFwwCrVaQhlgwSdZ a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:LokzGBbtKKXFdzLwoDZSi6 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:2iIpjEsqkZj6And7oAeJCv a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:B67CfBuX1hWcwMB0SKWElx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:YwtwLEBcQ24jOg24TonXmD a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:HlRtmjc07rUsfgTsP8rKRV ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:RDAZhTvzDbc5aTNtbI0xBo a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:rJSKcJSfpcILWc0k73qk2I ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:aquS3qj2tSFTW8sUCSdPv4 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:xXOoS1i5K8dtQ7nTy6GZCT ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:nzWh2Q0CsNXMfjXgE3xeuk a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:UyMdny2eh90Lxs0Ub3izhs ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:dAgEd3QR9plTzmo1XWjf6m a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:9GhccCRfUoDfmF9S98F2Rl ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:eP9snJFSd7np0t3lMTtglC a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:3wY6xZc2mQ7vR9nK4pT8sA1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:pgEqNKdrPeXOU9fcCIc5Tf ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:4lL8x7P7Uad3y83YnXw9w9 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:P4VAp86LIzXhq2pUAuEylx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:yYIIwaFD63ibDwCrlH9YVx a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:V2JIm1kU0UcdH1CrJpUp9H ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:W7Y7HxjcXRjdQsPEwCCDCo a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:MSrNg6crYox3LC1UHol8st ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:F0yRtvKLuX5DS91eI9jas0 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:pLEkcvWqj8roLomsW1ZaaM ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 # --- kinship, documented ---
 
 ast:XFjEpWL4BOvR4mzddccsoD a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:laOMIYgqaQ5Iw6DmtiCNkY ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "First wife of the Prophet; deceased before Badr. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:I8GdgF5ORWDvd8uMQstIrG a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:laOMIYgqaQ5Iw6DmtiCNkY ;
     mrs:assertionObject per:6eCGwhJPqffwRQDnFPYoqa ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Khadija was Fatima's mother — modelled here with rel_father_of's inverse in mind; ⟨scholar⟩ a mrs:rel_mother_of instance would be the precise relation and is not yet in the registry as of v0.1 (see docs/02 §14 for known gaps). Recorded via rel_father_of as the nearest existing term pending that fix."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:ZP8xcILZh5aAAW6Ply7Gh5 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:6eCGwhJPqffwRQDnFPYoqa ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:6aCzFDpKGguPLBtwaW9WrA a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:IrmZRQOJCNAEYbYu1lH2YN ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:9AbKADh8djHYms7fPCKFqK a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:u6Wfqrd9SmlceUqYksFFz8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:vvqbDgtFoNL7ZswpyhPHk1 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
     mrs:assertionObject per:6eCGwhJPqffwRQDnFPYoqa ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Ali married Fatima. Standard tradition, precise date not modelled here."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:AD4oN8eLQkkbGSnahhoI27 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
     mrs:assertionObject per:IrmZRQOJCNAEYbYu1lH2YN ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Uthman married Ruqayya, who died during the Badr campaign — the reason for his absence (§4)."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:rGHQfqJfaLunrFtYrtz2Ko a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
     mrs:assertionObject per:u6Wfqrd9SmlceUqYksFFz8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "After Ruqayya's death, Uthman married her sister Umm Kulthum (date after Badr, not modelled here)."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:gQrAM83IkU4T6vRz0rSj1s a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:2FTEMtzmUhqwffqT42Bb3J ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Aisha bint Abi Bakr, wife. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:vhVHKKVIXCXSjPqkwlKi6O a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject per:2FTEMtzmUhqwffqT42Bb3J ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Abu Bakr was Aisha's father. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:mhVLgaIlGpxD5sGgu4B0xM a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject per:7XMkA64afEC5PCz0zGGPTs ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Abu Bakr was Asma's father — a full sibling of Aisha. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:t3otwAStBysS0TCVczfDxR a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
-    mrs:assertionObject per:8pLkJ9hGfDsA3wErT5yUqP1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
+    mrs:assertionObject per:w6IaTbniNnbK3AO5XyjIxJ ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Abu Bakr was Abd al-Rahman's father. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:rFjl3vkghdqtGsIigX500P a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_sibling_of ; mrs:assertionSubject per:2FTEMtzmUhqwffqT42Bb3J ;
     mrs:assertionObject per:7XMkA64afEC5PCz0zGGPTs ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Aisha and Asma, full sisters, both daughters of Abu Bakr. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:C4olMRaIYvnPVlWP5TTTLS a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:emZYN2y2eJ4U3hYbzEdAzK ;
     mrs:assertionObject per:7XMkA64afEC5PCz0zGGPTs ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Zubayr ibn al-Awwam married Asma bint Abi Bakr — linking the Zubayr and Abu Bakr households. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:NTZlNN07P5A4YrRPmKZ7uX a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject per:15ywiRwy5duq189kyMEIU1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Umar was Hafsa's father. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:ntjK6dKfXfrUUDkteabdjY a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:15ywiRwy5duq189kyMEIU1 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Hafsa bint Umar, wife — generally dated after Badr. Standard tradition; no Badr-time claim made."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:sNFa6HeoN1gt8oQEnpW1vp a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:2sDfG6hJkQ9wErT4yUmNbV1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:dOPyrfzvo3NIvUQShyiRsk ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Sawda bint Zam'a, wife — married after Khadija's death, before Aisha's marriage was consummated. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:ossFY5PdcFueZ9CqvwvOku a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:7kQwE4rTyU2mNbV9cXzAsD1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:5sGHTje5qGKdw6c6RWyHKV ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Umm Salama, wife — married after Badr. Standard tradition; no Badr-time claim made."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:uyLsg3kdaIxGkaJz7w2Jn4 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_spouse_of ; mrs:assertionSubject per:u94wpqEKcCVqkezetgirQ8 ;
     mrs:assertionObject per:qc93NP01sCCUcyGHh6If2f ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Sa'id b. Zayd married Fatima bint al-Khattab, Umar's sister — famous as the household where Umar heard the Qur'an recited before his own conversion. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:1lsiXxoFuNcmm8DF3yg1xC a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_sibling_of ; mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
     mrs:assertionObject per:qc93NP01sCCUcyGHh6If2f ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Umar and Fatima bint al-Khattab, siblings. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:EFUDf73nRSoSISbaUOfCrG a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_sibling_of ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
-    mrs:assertionObject per:3wY6xZc2mQ7vR9nK4pT8sA1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:assertionObject per:pgEqNKdrPeXOU9fcCIc5Tf ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Ali and Ja'far, full brothers, both sons of Abu Talib. Standard tradition."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:hTL4FpEiaCwqdanBolYmyt a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:qc93NP01sCCUcyGHh6If2f ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:uXJwMjwUYaHKcOeP6gZ567 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:2sDfG6hJkQ9wErT4yUmNbV1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:dOPyrfzvo3NIvUQShyiRsk ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:1A2dJjtTXWWOtb747retLG a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:7kQwE4rTyU2mNbV9cXzAsD1 ; mrs:assertionStatus mrs:as_proposed ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:5sGHTje5qGKdw6c6RWyHKV ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:jRDAx21oL9fqGn5iN0yAqY a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:7XMkA64afEC5PCz0zGGPTs ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:4YAEBnJPkpe8I3Mon9HgZj a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:6eCGwhJPqffwRQDnFPYoqa ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:VwTRZk6FTWNYpI3jq5het5 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:IrmZRQOJCNAEYbYu1lH2YN ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:jlIwMPrQB5Ip2pOni6jtvW a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_companion_of ; mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:u6Wfqrd9SmlceUqYksFFz8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 
 #################################################################
@@ -918,7 +918,7 @@ ast:jlIwMPrQB5Ip2pOni6jtvW a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
 # --- Places these events occurred at ---
 
 plc:9Egg3T1nRqQUQEIgMLEsGO a mrs:Place ; rdfs:label "Uḥud"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_mountain ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "أُحُد"@ar ] ;
     mrs:geometryState [ a mrs:GeometryState ;
@@ -927,7 +927,7 @@ plc:9Egg3T1nRqQUQEIgMLEsGO a mrs:Place ; rdfs:label "Uḥud"@en ;
         mrs:validExtent tmp:HS6SncE7bQ3oaeB8KGLIfm ] .
 
 plc:GbMXYpUQqZcgkcj0nQueFW a mrs:Place ; rdfs:label "al-Madīna"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_settlement ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "المدينة"@ar ] ;
     mrs:geometryState [ a mrs:GeometryState ;
@@ -939,7 +939,7 @@ plc:GbMXYpUQqZcgkcj0nQueFW a mrs:Place ; rdfs:label "al-Madīna"@en ;
 # for Khandaq, deliberately not more precise than the sources warrant here.
 
 plc:NxJ150cvXvN3Vg7FWqsX1W a mrs:Place ; rdfs:label "al-Ḥudaybiyya"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_route_node ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "الحديبية"@ar ] ;
     mrs:geometryState [ a mrs:GeometryState ;
@@ -948,7 +948,7 @@ plc:NxJ150cvXvN3Vg7FWqsX1W a mrs:Place ; rdfs:label "al-Ḥudaybiyya"@en ;
         mrs:validExtent tmp:HS6SncE7bQ3oaeB8KGLIfm ] .
 
 plc:frravRs7lhWiAQ4j9WnaAE a mrs:Place ; rdfs:label "Makkah"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ; mrs:placeType mrs:pt_settlement ;
     mrs:namePhase [ a mrs:NamePhase ; mrs:phaseName "مكة"@ar ] ;
     mrs:geometryState [ a mrs:GeometryState ;
@@ -964,17 +964,17 @@ tmp:zHbsFBAoZeOgCYuXCFZoZZ a mrs:TemporalExtent ; mrs:calendar mrs:cal_hijri ;
     mrs:earliestStart "0625-03-23T00:00:00Z"^^xsd:dateTime ; mrs:latestEnd "0625-03-23T23:59:59Z"^^xsd:dateTime .
 
 ev:5tBAYeftRqkNWJpOvUsfDX a mrs:Event ; rdfs:label "Battle of Uḥud"@en ;
-    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:9Egg3T1nRqQUQEIgMLEsGO ; mrs:eventTemporalExtent tmp:zHbsFBAoZeOgCYuXCFZoZZ ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:Vc74FSoBSMY4TBSEwjPyai ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:4cFhNASabmB63JuKazjKPh ; mrs:participantRole mrs:role_participant ] , # Hamza — martyred here
         [ a mrs:Participation ; mrs:participant per:xXOoS1i5K8dtQ7nTy6GZCT ; mrs:participantRole mrs:role_participant ] , # Mus'ab — martyred here
         [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_participant ] , # Ali
         [ a mrs:Participation ; mrs:participant per:PNkrkk1S9wmc5Y5Lza6PmV ; mrs:participantRole mrs:role_participant ] , # Talha — wounded shielding the Prophet
         [ a mrs:Participation ; mrs:participant per:e8UKnTRZCYHGR7wuT2r5HN ; mrs:participantRole mrs:role_participant ] , # Sa'd b. Abi Waqqas — the archer
-        [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_participant ] , # Abu Bakr
+        [ a mrs:Participation ; mrs:participant per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:participantRole mrs:role_participant ] , # Abu Bakr
         [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] , # Umar
         [ a mrs:Participation ; mrs:participant per:emZYN2y2eJ4U3hYbzEdAzK ; mrs:participantRole mrs:role_participant ] . # Zubayr
 
@@ -989,18 +989,18 @@ per:xXOoS1i5K8dtQ7nTy6GZCT mrs:death [ a mrs:Event ;
 # continued reciting Qur'an holding it in his left hand. Standard tradition.
 
 ast:QKPt5hfMW47VHg1NTi4Ucm a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:PNkrkk1S9wmc5Y5Lza6PmV ;
     mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Talha b. Ubaydullah shielded the Prophet at Uhud, sustaining multiple wounds and reportedly losing the use of a hand — remembered as 'Talha of the day of Uhud'. Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:zy6hB0sTlo3eH9WPTXG7Z5 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:e8UKnTRZCYHGR7wuT2r5HN ;
     mrs:assertionObject ev:5tBAYeftRqkNWJpOvUsfDX ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Sa'd b. Abi Waqqas fought as an archer at Uhud; widely-repeated tradition has the Prophet urging him on with 'shoot, may my father and mother be sacrificed for you'. Not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 # --- Event: Khandaq (the Trench / al-Ahzab), Shawwal–Dhu'l-Qa'da 5 AH / c. March–April 627 CE ---
 
@@ -1010,24 +1010,24 @@ tmp:zFU245q5w8nwResOMNjqVG a mrs:TemporalExtent ; mrs:calendar mrs:cal_hijri ;
     mrs:earliestStart "0627-03-31T00:00:00Z"^^xsd:dateTime ; mrs:latestEnd "0627-04-14T23:59:59Z"^^xsd:dateTime .
 
 ev:64rHL4f8ZTX5CHnsnStL6R a mrs:Event ; rdfs:label "Battle of the Trench (Khandaq)"@en ;
-    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:zFU245q5w8nwResOMNjqVG ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:Vc74FSoBSMY4TBSEwjPyai ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_leader ] , # Ali — the duel
         [ a mrs:Participation ; mrs:participant per:9GhccCRfUoDfmF9S98F2Rl ; mrs:participantRole mrs:role_leader ] , # Sa'd b. Mu'adh — wounded here
-        [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:emZYN2y2eJ4U3hYbzEdAzK ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:PNkrkk1S9wmc5Y5Lza6PmV ; mrs:participantRole mrs:role_participant ] .
 
 ast:IxkqiR06csjyFzDJSz2PWd a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_led ; mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
     mrs:assertionObject ev:64rHL4f8ZTX5CHnsnStL6R ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Ali fought and killed the Qurashi champion Amr b. Abd Wudd in single combat when he crossed the trench; no other warrior crossed again afterward. Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 # per:9GhccCRfUoDfmF9S98F2Rl (Sa'd b. Mu'adh) already carries a death event
 # (see §5) dated "of wounds sustained at the Battle of the Trench" — that
@@ -1042,13 +1042,13 @@ tmp:4vAVuFyuEzozQ9PUcKZohP a mrs:TemporalExtent ; mrs:calendar mrs:cal_hijri ;
     mrs:earliestStart "0628-03-01T00:00:00Z"^^xsd:dateTime ; mrs:latestEnd "0628-03-30T23:59:59Z"^^xsd:dateTime .
 
 ev:oetqPWHa2zcbQWtEhV9cSx a mrs:Event ; rdfs:label "Ḥudaybiyya and the Pledge of Riḍwān"@en ;
-    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:NxJ150cvXvN3Vg7FWqsX1W ; mrs:eventTemporalExtent tmp:4vAVuFyuEzozQ9PUcKZohP ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:Vc74FSoBSMY4TBSEwjPyai ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:emZYN2y2eJ4U3hYbzEdAzK ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:PNkrkk1S9wmc5Y5Lza6PmV ; mrs:participantRole mrs:role_participant ] ,
@@ -1067,18 +1067,18 @@ ev:oetqPWHa2zcbQWtEhV9cSx a mrs:Event ; rdfs:label "Ḥudaybiyya and the Pledge 
 # not established at this coverage level.
 
 ast:I19hHo03SqVycfGu60Nybo a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
     mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Uthman was sent by the Prophet as an envoy to the Quraysh in Makkah during this expedition; his delay caused rumour of his death, prompting the Pledge itself. The Prophet reportedly struck his own hand as a pledge made on Uthman's behalf. He was present at the wider expedition but absent from the pledge under the tree. Standard tradition; not yet matched to a specific passage."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:IhDnXQj2BXqpBvIn9CY7Wi a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_absent_from ; mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject ev:oetqPWHa2zcbQWtEhV9cSx ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Ja'far b. Abi Talib was still in Abyssinia at this date, returning only around the time of Khaybar (7 AH) — after Hudaybiyya. See his Badr-absence assertion for the same underlying fact."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 # --- Event: Conquest of Makkah, 20 Ramadan 8 AH / January 630 CE ---
 
@@ -1088,23 +1088,23 @@ tmp:cOcNaf3Yc4GNyq4jHG7E5a a mrs:TemporalExtent ; mrs:calendar mrs:cal_hijri ;
     mrs:earliestStart "0630-01-11T00:00:00Z"^^xsd:dateTime ; mrs:latestEnd "0630-01-11T23:59:59Z"^^xsd:dateTime .
 
 ev:EcDiFcMTUhmLq8tK91L0H8 a mrs:Event ; rdfs:label "Conquest of Makkah"@en ;
-    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:frravRs7lhWiAQ4j9WnaAE ; mrs:eventTemporalExtent tmp:cOcNaf3Yc4GNyq4jHG7E5a ;
     mrs:hasParticipation
-        [ a mrs:Participation ; mrs:participant per:2mQ7vR9nK4pT8sY3wZ6xCe ; mrs:participantRole mrs:role_leader ] ,
+        [ a mrs:Participation ; mrs:participant per:Vc74FSoBSMY4TBSEwjPyai ; mrs:participantRole mrs:role_leader ] ,
         [ a mrs:Participation ; mrs:participant per:LokzGBbtKKXFdzLwoDZSi6 ; mrs:participantRole mrs:role_participant ] , # Bilal — the adhan
         [ a mrs:Participation ; mrs:participant per:Q4trlHWdutjvFkvqpaEGag ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_participant ] ,
+        [ a mrs:Participation ; mrs:participant per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:participantRole mrs:role_participant ] ,
         [ a mrs:Participation ; mrs:participant per:vln6et5FvUrm7neh48NSJa ; mrs:participantRole mrs:role_participant ] ,
-        [ a mrs:Participation ; mrs:participant per:3wY6xZc2mQ7vR9nK4pT8sA1 ; mrs:participantRole mrs:role_participant ] . # Ja'far — returned by now
+        [ a mrs:Participation ; mrs:participant per:pgEqNKdrPeXOU9fcCIc5Tf ; mrs:participantRole mrs:role_participant ] . # Ja'far — returned by now
 
 ast:KPnGLlPBKRHlareDKf8PPT a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_participated_in ; mrs:assertionSubject per:LokzGBbtKKXFdzLwoDZSi6 ;
     mrs:assertionObject ev:EcDiFcMTUhmLq8tK91L0H8 ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Bilal is reported to have given the call to prayer from the roof of the Kaaba at the conquest — found in early sources including Musannaf Ibn Abi Shayba and the works of Ibn Hisham and al-Bayhaqi, but ⟨scholar⟩ this specific detail is NOT established via an authenticated connected narration in Sahih al-Bukhari or Sahih Muslim, despite being widely repeated. Rendered here at reduced confidence deliberately — a real example of the gap between 'widely repeated' and 'authenticated'."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 # --- Event: the death of the Prophet ﷺ, 11 AH ---
 
@@ -1116,29 +1116,29 @@ tmp:zqOaokS72dPPpqLYahgVqf a mrs:TemporalExtent ; mrs:calendar mrs:cal_hijri ;
     mrs:attestedBy ast:lVXFuE2CG3tC7EXh6Bn2EY .
 
 ev:n05mvN7iM2uRhPvs7q25ps a mrs:Event ; rdfs:label "Death of the Prophet ﷺ"@en ;
-    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_outline ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:eventPlace plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:eventTemporalExtent tmp:zqOaokS72dPPpqLYahgVqf ;
     mrs:hasParticipation
         [ a mrs:Participation ; mrs:participant per:2FTEMtzmUhqwffqT42Bb3J ; mrs:participantRole mrs:role_witness ] , # Aisha
-        [ a mrs:Participation ; mrs:participant per:8sT3wY6xZc2mQ7vR9nK4pP1 ; mrs:participantRole mrs:role_leader ] . # Abu Bakr
+        [ a mrs:Participation ; mrs:participant per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:participantRole mrs:role_leader ] . # Abu Bakr
 
 ast:lVXFuE2CG3tC7EXh6Bn2EY a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:predicate mrs:rel_occurred_at ; mrs:assertionSubject ev:n05mvN7iM2uRhPvs7q25ps ;
     mrs:assertionObject plc:GbMXYpUQqZcgkcj0nQueFW ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Widely dated to 12 Rabi al-Awwal, 11 AH (8 June 632 CE); the exact day is itself a point of scholarly disagreement (some accounts favour the 1st or 2nd of the month) — see the Dispute object for this Event."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:UALkaG7FqjP6g7IeGqy9Nz a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
-    mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
+    mrs:predicate mrs:rel_led ; mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:n05mvN7iM2uRhPvs7q25ps ; mrs:assertionStatus mrs:as_proposed ;
     mrs:nonReportBasis "Abu Bakr led the congregational prayers during the Prophet's final illness, at his instruction — a well-attested tradition, historically cited by some as bearing on the succession, a question this file does not adjudicate."@en ;
-    prov:wasGeneratedBy act:4bVcX7zAsD2fGhJ9kQwErTy .
+    prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 dsp:YGFAKUSy3iFrQPw6pWxKxg a mrs:Dispute ; rdfs:label "Exact date of the Prophet's death"@en ;
-    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:9wErT4yUmN7bVcX2zAsDfGh ;
+    mrs:coverageState mrs:cs_stub ; mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ;
     mrs:recordedAt "2026-09-13T00:00:00Z"^^xsd:dateTime ;
     mrs:disputeSubject ev:n05mvN7iM2uRhPvs7q25ps ;
     mrs:disputeQuestion "On which day of Rabi al-Awwal, 11 AH, did the Prophet ﷺ die?"@en ;
