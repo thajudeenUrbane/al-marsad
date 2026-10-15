@@ -190,6 +190,8 @@ step "site: unit tests"                            "$PY" -m unittest discover -s
 # Other modules, one line each when they land, e.g.
 step "review: statuses agree with the review log"  "$PY" review/import_decisions.py --check
 step "review: tests"                               "$PY" -m unittest discover -s review/tests
+step "review: build the review pages"              "$PY" review/build_pages.py
+step "review: pages to importer (browser)"         "$PY" review/check_pages.py
 step "learn: tests"                                "$PY" -m unittest discover -s learn/tests
 step "ask: tests"                                  "$PY" -m unittest discover -s ask/tests
 step "ci: actions pinned to commit SHAs"           actions_pinned

@@ -2,7 +2,7 @@
 """
 Import reviewers' decision files (slice 3a). The only way a claim's status moves.
 
-    .venv/bin/python review/import_decisions.py                  # every *.json in review/inbox/
+    .venv/bin/python review/import_decisions.py                  # every *.json and *.txt in review/inbox/ (Android shares decision files as .txt)
     .venv/bin/python review/import_decisions.py FILE.json ...    # these files
     .venv/bin/python review/import_decisions.py --dry-run ...    # check and report, write nothing
     .venv/bin/python review/import_decisions.py --check          # do corpus statuses agree with reviews.ttl? (exit 1 if not)
@@ -343,7 +343,7 @@ def plan_edits(tree: c.Tree, changes: list) -> dict:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("files", nargs="*", type=Path, help="decision files (default: every *.json in review/inbox/)")
+    ap.add_argument("files", nargs="*", type=Path, help="decision files (default: every *.json and *.txt in review/inbox/)")
     ap.add_argument("--roster", type=Path, default=DEFAULT_ROSTER)
     ap.add_argument("--ontology", type=Path, default=c.ONTOLOGY)
     ap.add_argument("--dry-run", action="store_true")
@@ -384,7 +384,7 @@ def main(argv=None) -> int:
     except ValueError as e:
         print(f"error: {e}")
         return 2
-    files = args.files or sorted(DEFAULT_INBOX.glob("*.json"))
+    files = args.files or sorted([*DEFAULT_INBOX.glob("*.json"), *DEFAULT_INBOX.glob("*.txt")])
     if not files:
         print(f"no decision files (looked in {DEFAULT_INBOX})")
         return 0
