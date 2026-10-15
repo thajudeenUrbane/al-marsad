@@ -21,7 +21,7 @@ All of it is `stub` / `proposed`. The same person (e.g. Abū Bakr) exists up to 
 
 | # | Question | Answer | What it forces |
 |---|---|---|---|
-| D1 | First audience | **The whole world** — anyone, anywhere | Accessibility and low cost of access outrank visual ambition |
+| D1 | First audience | **The whole world** — anyone, anywhere, **from the general public to in-depth researchers** | Accessibility and low cost of access outrank visual ambition; one graph must serve every depth |
 | D2 | Scholarly review | **Scholars onboarded; more needed for in-depth review, later** | Reviewer time is the scarcest resource; the system must spend it well |
 | D3 | Language | **English first, then Arabic.** No others early | Arabic is the *second UI*, but must not be a retrofit |
 | D4 | Model | **Completely non-profit, funded by donations from Muslims worldwide** | Running cost near zero; trust and transparency are the product |
@@ -34,6 +34,22 @@ All of it is `stub` / `proposed`. The same person (e.g. Abū Bakr) exists up to 
 - **The text tier (L0) ships first** — every person, event, place and report has a plain, linkable, screen-reader-friendly page. The network view is an enhancement on top of it, never the only way in.
 - **Installable and offline** (PWA) once the reader tier is stable.
 - **Assume no shared background.** A first-time visitor who has never heard of Badr must be able to orient: short "who/what/when/where" summaries on every page, a glossary for every Arabic term.
+
+### D1 → one graph, every depth (added 15 October 2026)
+
+The public and the researcher look at the **same** graph; they differ only in how far the evidence is unfolded (the README's master vision, made a product rule).
+
+| Depth | Who | What they see first | What one click deeper shows |
+|---|---|---|---|
+| 1 | General public | Stories, short summaries, "who/what/when/where" | The people and places in the story |
+| 2 | Students and teachers | Learning paths, timelines, connections between people | The reports a summary rests on, with review status |
+| 3 | Serious readers | Reports, sources, disagreements (`Dispute`) | Chains (isnād), narrator notes, competing evaluations by tradition |
+| 4 | Researchers | Full evidentiary record, raw assertions, provenance | SPARQL endpoint / data dumps, pinned citable views, change history |
+
+Rules:
+- **Depth is a disclosure control, not a separate product.** Every page at depth 1 links down to depth 4; nothing at depth 1 may say more than depth 4 supports.
+- **Researchers get the data, not just the interface:** versioned bulk downloads (Turtle + CSV), stable IRIs, citable view URLs, and a read-only query endpoint once funding allows (until then, downloadable dumps run locally).
+- **The public never needs to know the depth exists** — plain language at the top, scholarly apparatus available beneath, never forced on them.
 
 ### D2 → design rules for scarce scholars
 

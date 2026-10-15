@@ -11,3 +11,6 @@ __pycache__/
 
 # Local Python env
 .venv/
+
+# Generated graph
+build/
