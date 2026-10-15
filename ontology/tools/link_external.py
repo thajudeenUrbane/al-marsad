@@ -2,9 +2,9 @@
 """
 Propose external-identifier candidates for the people, places and works in the graph (slice 5).
 
-    .venv/bin/python ontology/tools/link_external.py             # fetch what is not cached yet, write both CSVs
+    .venv/bin/python ontology/tools/link_external.py             # fetch what is not cached yet, write the CSVs
     .venv/bin/python ontology/tools/link_external.py --offline   # cache only: a cache miss is an error
-    .venv/bin/python ontology/tools/link_external.py --check     # cache only: exit 1 if the CSVs on disk differ
+    .venv/bin/python ontology/tools/link_external.py --check     # cache only: exit 1 if a CSV on disk differs
     .venv/bin/python ontology/tools/link_external.py --report    # also list ties, contradictions, uncovered
 
 Reads ontology/corpus/identity.csv and the Turtle files build_graph.py loads. Writes, in ontology/corpus/:
@@ -26,35 +26,53 @@ edits an entity, and nothing is written into the corpus (docs/02 §5.2 rule 4 an
 external_id is copied from a response received from the source; none is constructed.
 
 Sources
-  wikidata    query.wikidata.org/sparql only. Per entity: one search query (entity search in English and
-              Arabic, full-text search, through the MWAPI service, batched with VALUES), then one query for
+  wikidata    query.wikidata.org/sparql only. Per entity: search queries through the MWAPI service (entity
+              search in English and Arabic, full-text search; each batched with VALUES), then one query for
               the candidates' labels, aliases, description, P31, P21, P569/P570, P625, P13870 (OpenITI
-              author ID) and family links (P22 P25 P26 P40 P3373).
+              author ID) and family links (P22 P25 P26 P40 P3373), then one for the person candidates'
+              dates. At most one request starts per second; up to five run at once (the WDQS limit).
   althurayya  al-Thurayya gazetteer, master/places.geojson (data CC BY 4.0, al-Thurayya Gazetteer Project).
   openiti     OpenITI author metadata (kitab-metadata-automation output; it records wikidata@Q links),
               Wikidata P13870, and for works the OpenITI light metadata (titles).
 
-Confidence (at most one `exact` per entity and system; when the best candidates tie, all are needs-review)
+Names are compared after one normalisation (diacritics, ʿ ʾ and apostrophes, al-/as-/..., ibn/bin/b./bint,
+Abdullah = ʿAbd Allāh, final -ah): equal; one extends the other (3+ shared leading words); loosely equal
+(doubled letters, a leading bilad); in part (the first name agrees and one name's words are all in the
+other, words compared by consonants, e.g. Tayyihan/Tayyahan, Warqa/Verka). The last level can never give
+more than needs-review.
+
+Left out before ranking: for people, an item that is not human, whose dated life falls outside 500-950 CE,
+whose gender contradicts our name form (bint, Umm, -iyya), or whose description is plainly modern; and, for
+anyone the corpus places at an event (all of the Prophet's lifetime) or records as a ṣaḥābī, an item born
+after 640 or dead after 740 CE. For places: an item with no coordinates, an event, (unless our place is a
+structure) a building or infrastructure, and an item more than 100 km from the corpus's own point (listed by
+--report, not in the CSV).
+
+Confidence (at most one `exact` per entity and system; when the best candidates are equally supported on
+every count, all of them are needs-review)
   person/wikidata
-    exact         one of our full name forms (3+ tokens) equals a label or alias after normalisation, no
-                  other candidate matches as specifically, nothing contradicts (gender, our death date),
-                  and something besides the name agrees: our death date, a family link, or a dated life
-                  in 500-950 CE together with a description naming the period (companion, Muhammad, ...).
-    probable      the name equals, or one extends the other (3+ shared leading tokens), uniquely; nothing
+    exact         one of our full name forms (3+ words, or fewer with a family link or our death date) equals
+                  a label or alias, no rival is as well supported, nothing contradicts (our death date), and
+                  something besides the name agrees: our death date, a family link (our spouse, parent, child
+                  or sibling matched to an item this one names as family), or a dated life in 500-950 CE
+                  together with a description of the period (companion, Muhammad, Islam, Quraysh, ...).
+    probable      the name equals or extends ours (or loosely equals it, for 3+ words), uniquely; nothing
                   contradicts; the period, the description, a family link or our date agrees.
     needs-review  every other plausible candidate: ties, partial names, homonyms of the best match.
   place/wikidata, place/althurayya
     exact         the English or Arabic name equals, uniquely, and the candidate lies within 15 km of the
                   corpus's own (proposed) point.
-    probable      the name equals, uniquely, and the location agrees with our point (50 km), or the other
-                  gazetteer has a same-name entry within 30 km (300 km for regions), or both the Arabic and
-                  the English name equal.
-    needs-review  name equality without location agreement, several same-name entries, a far point.
+    probable      the name equals, uniquely, and the candidate lies within 50 km of our point; or, without a
+                  point of ours, al-Thurayya (a gazetteer of the classical Islamic world) has exactly one entry
+                  with the name and a Wikidata candidate of that name lies within 30 km of it (300 km for
+                  regions): then both are probable. A modern administrative unit is never more than probable.
+    needs-review  name equality without location agreement, several same-name entries, or an equal core
+                  name (Ghar Hira / Cave of Hira) of the same kind (cave, mountain, valley ...).
   person/openiti  through the person's exact or probable Wikidata candidate (its P13870, or OpenITI's own
-                  wikidata@ link) or
-                  an OpenITI author name equal to ours. Never more confident than the Wikidata candidate it
-                  comes through; exact needs both directions to agree. A direct name match is needs-review
-                  (probable when our death year agrees with OpenITI's).
+                  wikidata@ link), or an OpenITI author name equal to ours (2+ words) within the person's
+                  possible lifetime. Never more confident than the Wikidata candidate it comes through; exact
+                  needs both directions to agree. A direct name match alone is needs-review (probable when
+                  our death year agrees with OpenITI's).
   work/openiti    a title equal after normalisation, or a book of the work's author with shared title words.
 
 Exit codes:  0 = done   1 = --check found a difference   2 = could not run (e.g. cache miss offline)
@@ -111,6 +129,10 @@ OPENITI_BOOKS_URL = ("https://raw.githubusercontent.com/OpenITI/kitab-metadata-a
 THURAYYA_SOURCE = "al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0)"
 
 PERIOD = (500, 950)          # CE: a dated life inside this window "fits the period"
+SEERAH_LIFE = (640, 570, 740)  # CE: someone the corpus places at events of the Prophet's lifetime (or a ṣaḥābī)
+                               # was born by 640 and died between 570 and 740; a candidate outside is left out
+SEERAH_PREDICATES = {"rel_participated_in", "rel_led", "rel_witnessed", "rel_present_at", "rel_absent_from",
+                     "rel_pledged_allegiance_to", "rel_party_to_treaty_with"}
 LABEL_LANGS = ("en", "mul", "de", "fr", "es", "it", "id", "ms", "tr", "nl")   # Latin-script label languages compared
 MALE, FEMALE = "Q6581097", "Q6581072"
 NOT_A_PLACE = {"Q5", "Q4167410", "Q13406463", "Q4167836", "Q11266439", "Q202444", "Q101352", "Q178561",
@@ -455,7 +477,7 @@ def load_entities():
     def ent(cid, kind):
         return ents.setdefault(cid, {"id": cid, "kind": kind, "names": [], "names_ar": [], "death": None,
                                      "points": [], "ptype": None, "tabaqa": None, "kin": {}, "creators": [],
-                                     "placeholder": False})
+                                     "placeholder": False, "at_event": False})
 
     def add(e, text, src):
         for f in display_forms(text):
@@ -536,6 +558,18 @@ def load_entities():
                     cc = cid_of(c)
                     if cc and cc not in e["creators"]:
                         e["creators"].append(cc)
+
+    # people the corpus places at events (participations, or assertions that they took part in, led,
+    # witnessed, were present at or absent from an event): all events in the graph are of the Prophet's lifetime
+    at_event = {cid_of(p) for p in g.objects(None, MRS.participant)}
+    for a in g.subjects(RDF.type, MRS.Assertion):
+        obj, subj = g.value(a, MRS.assertionObject), g.value(a, MRS.assertionSubject)
+        if str(g.value(a, MRS.predicate) or "").split("#")[-1] in SEERAH_PREDICATES and obj is not None and \
+                subj is not None and (obj, RDF.type, MRS.Event) in g:
+            at_event.add(cid_of(subj))
+    for cid in at_event:
+        if cid in ents:
+            ents[cid]["at_event"] = True
 
     # family links between persons, from the corpus's (proposed) assertions
     rel = {"rel_spouse_of": ("spouse", "spouse"), "rel_father_of": ("father of", "child of"),
@@ -886,6 +920,8 @@ def person_scores(e, hits, details):
         if (births and all(lo > 850 for lo, _ in births)) or \
                 (deaths and all(lo > PERIOD[1] or hi < PERIOD[0] for lo, hi in deaths)):
             continue
+        if seerah_person(e) and not seerah_life(d):
+            continue
         gender = "M" if MALE in d["P21"] else ("F" if FEMALE in d["P21"] else None)
         if e["gender"] and gender and e["gender"] != gender:
             continue
@@ -923,6 +959,22 @@ def person_scores(e, hits, details):
                     "kin": None, "ev": ev, "label": wd_label(d), "ord": min(o for _, o in hits.get(q, [("", 99)])),
                     "details": d})
     return out
+
+
+def seerah_person(e):
+    return e["at_event"] or e["tabaqa"] == "tb_sahabi"
+
+
+def seerah_life(d):
+    """False when the item's dated life cannot include the Prophet's lifetime (see SEERAH_LIFE)."""
+    born_by, died_from, died_by = SEERAH_LIFE
+    births = [(lo, hi) for lo, hi in life_window(d["birth"]) if hi - lo <= 20]
+    deaths = [(lo, hi) for lo, hi in life_window(d["death"]) if hi - lo <= 20]
+    if births and all(lo > born_by for lo, _ in births):
+        return False
+    if deaths and all(lo > died_by or hi < died_from for lo, hi in deaths):
+        return False
+    return True
 
 
 LEVEL_WORD = {5: "equals", 4: "extends/is extended by", 3: "loosely equals", 2: "loosely extends",
@@ -1178,8 +1230,9 @@ def openiti_authors(fx):
             date = int(m.get("date") or "")
         except ValueError:
             date = None
+        ar_names = sorted(m.get("author_ar") or [], key=lambda n: (len(n), n))
         out[uri] = {"uri": uri, "keys": sorted({name_key(n) for n in names if name_key(n)}),
-                    "label": " / ".join(x for x in ((m.get("author_lat") or [""])[0], (m.get("author_ar") or [""])[0]) if x),
+                    "label": " / ".join(x for x in ((m.get("author_lat") or [""])[0], (ar_names or [""])[0]) if x),
                     "wd": wd, "date": date, "books": sorted(m.get("books") or [])}
     return out
 
@@ -1206,7 +1259,7 @@ def openiti_for_person(e, wd_rows, authors, by_wd):
                 found[uri] = (level, ev)
     for uri in sorted(authors):
         a = authors[uri]
-        if a["date"] is None or a["date"] > 400:
+        if a["date"] is None or a["date"] > 400 or (seerah_person(e) and ah_to_ce(a["date"]) > SEERAH_LIFE[2]):
             continue
         lvl = max((name_level(f["key"], k) for f in e["forms"] for k in a["keys"]), default=-1)
         if lvl < 5 or not any(f["n"] >= 2 for f in e["forms"] if f["key"] in a["keys"]):
@@ -1335,15 +1388,17 @@ def run(fx, report=False):
             for c in cands:
                 dist_note(c, ours)
                 c["spec"] = place_spec(c, unique)
-            chosen = choose_place(cands)
+            for c in cands:                  # more than 100 km from our own point: ruled out, not ambiguous
+                if c["spec"] < 0 and c["level"] >= 5:
+                    notes["contradictions"].append(f"{e['id']} {system} {c.get('qid') or c.get('uri')} {c['label']}: "
+                                                   f"{c['dist']:.0f} km from our point, left out")
+            chosen = choose_place([c for c in cands if c["spec"] >= 0])
             ties = [c for c, conf, note in chosen if note]
             if ties:
                 notes["ties"].append(f"{e['id']} {e['forms'][0]['text']} ({system}): " +
                                      ", ".join(f"{c.get('qid') or c.get('uri')} {c['label']}" for c in ties))
             for c, conf, note in chosen:
                 ext = c.get("qid") or c.get("uri")
-                if c["dist"] is not None and c["dist"] > 100 and not c["region"]:
-                    notes["contradictions"].append(f"{e['id']} {system} {ext}: {c['dist']:.0f} km from our point")
                 rows.append([e["id"], "place", system, ext, c["label"], evidence(c, note), conf, "proposed"])
                 src = f"Wikidata {ext} P625" if system == "wikidata" else f"{THURAYYA_SOURCE}, {ext}"
                 for la, lo, raw_la, raw_lo in c["coords"]:
