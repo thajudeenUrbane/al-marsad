@@ -118,7 +118,7 @@ Slices 1–3 are the foundation and should go in that order. After that, 4–9 c
 
 ## 5. Open questions for brainstorming
 
-The maintainer's first answers to these, and to many more, are in [handover/maintainer-answers-1.md](handover/maintainer-answers-1.md).
+The maintainer's first answers to these, and to many more, are in [handover/maintainer-answers-1.md](handover/maintainer-answers-1.md), with follow-ups in [handover/maintainer-answers-2.md](handover/maintainer-answers-2.md).
 
 1. **Licences.** *Decided 15 October 2026:* code AGPL-3.0-or-later (forks that run as websites must stay open); data, ontology and docs CC BY-SA 4.0; identifier tables CC0 1.0, so Wikidata and other databases can link to our IDs. See [LICENSING.md](../LICENSING.md).
 2. **Name and home.** Is *al-Marṣad* the public name? Who is the legal non-profit entity that receives donations?

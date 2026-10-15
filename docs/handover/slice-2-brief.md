@@ -27,7 +27,7 @@ These override anything above that conflicts. Put each rule in one place in code
 - **Possibly-same people** (identity rows marked needs-review): show them as separate people with no hint. Show nothing until a scholar rules.
 - **Groups and tribes:** full pages of their own (add `/group/<id>/` and a group index).
 - **The Prophet ﷺ:** a distinct, respectful page layout (no "profile card" treatment). ﷺ after every mention of him. Other honorifics (رضي الله عنه / عنها) on every mention **only where the graph records the person as a Companion and their gender**. Never guess either; list the gaps in the handover.
-- **Pages read story first, chain one tap below.** The home page is graph-first ("Explore N people, N events…") with a clear second door to the stories.
+- **Pages read story first, chain one tap below** for the public. Study and Research show the chain (the evidence) first (round 2, R9). The home page has **three doors**: Discover (stories), Study (people, timelines), Research (sources and data) (R4). 2a built a graph-first home; 2c turns it into the three doors.
 - **50 Stories are AI-generated** (maintainer answer E35). Every story page shows its status at the top in plain words ("Draft, not yet reviewed by scholars"). The details layer says it was generated with AI and its authenticity is unknown.
 - **Plain-words option:** keep every Arabic term linked to the glossary in 2a. The on/off "plain words" toggle comes in 2c.
 - No human figures; abstract icons are fine. The current look is a placeholder, so keep styling minimal and token-based.
@@ -53,8 +53,9 @@ Done when: `build_graph.py && site/build.py && site/check_budget.py` runs clean;
 1. Port the "follow the thread" interaction from `generation-1/wider-network.template.html` as a progressive enhancement on entity pages (works only on top of the plain links; with JS off the page is complete).
 2. GitHub Actions workflow: set up Python, install rdflib + pyshacl, run `ontology/build_graph.py`, `site/build.py`, `site/check_budget.py`, and the 2b normaliser test. Any failure fails the job.
 3. **Deploy to Cloudflare Pages** (decided 15 October 2026). After the checks pass on a push to `main`, the workflow deploys `site/dist/` with Cloudflare's `wrangler pages deploy` (pin its version). It runs only when the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets exist; otherwise it prints that the deploy was skipped and still passes. Never deploy from a pull request. Going public is the maintainer's decision: they create the Cloudflare account, the Pages project and the secrets. Write those steps in the handover, plus how to keep the site private to scholars and the team first (Cloudflare Access in front of the Pages project).
-4. An "Experiments" page linking the old demo, generation-1 and stories-50 pages, labelled as earlier prototypes. Do not delete them.
-5. `docs/handover/slice-2-summary.md` (≤30 lines, for the maintainer): what a visitor can now do, page counts, page weights, what is still unverified.
+4. **Three doors and the plain-words option** (maintainer-answers-2.md R4, R9; round 1 B11). The home page offers Discover, Study and Research. Discover lands on stories, story first. Study and Research land on the same entity pages at the evidence (for example an `#evidence` anchor), so there is still one page per entity and one citable URL, and it works with JS off. No accounts. Add the on/off "plain words" option for Arabic terms (glossary-backed; JS only as an enhancement; the default is readable without it).
+5. An "Experiments" page linking the old demo, generation-1 and stories-50 pages, labelled as earlier prototypes. Do not delete them.
+6. `docs/handover/slice-2-summary.md` (≤30 lines, for the maintainer): what a visitor can now do, page counts, page weights, what is still unverified.
 
 ## Out of scope for slice 2
 Arabic UI strings and RTL switch (slice 9 — but nothing in 2 may block it), PWA/offline, a custom domain (the name may change), network/timeline/map views, review tooling.
