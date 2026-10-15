@@ -62,7 +62,7 @@ def _status(c: Claim, t) -> tuple[str, str]:
 # it is long free text (the machine-written glosses of the Ibn Hisham passages run to 100-250
 # characters each, and were 70 KB of the file), and the moment's own page shows it in full,
 # with its status and source.
-MAX_ROLE_CHARS = 150
+MAX_ROLE_CHARS = 120
 
 
 def _role(c: Claim, t) -> str:

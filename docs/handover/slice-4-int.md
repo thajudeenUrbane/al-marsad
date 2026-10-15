@@ -14,12 +14,12 @@ Branch `slice-4-int`: `slice-4-ingest` rebased onto `slice-3b`, then onto main a
 5. `LICENSING.md`: a paragraph on `ibn-hisham.ttl` (pointers, names, ascriptions, short age/date expressions; OpenITI CC BY-NC-SA 4.0 text not redistributed; credit OpenITI and the edition).
 
 **A failure the ingestion's handover did not see: the page budget.** On this stack the Prophet's page was 345,749 bytes (limit 300,000), and after the Arabic interface (slice 9) its Arabic twin was 327,731. Two causes, two fixes:
-- Every person page loads `thread.json` (176 KB), and 70 KB of it was the machine-written glosses of the new claims. `site/thread.py` now leaves out a claim's comment longer than 150 characters (`MAX_ROLE_CHARS`); the claim's page still shows it in full. Test: `test_long_comments_stay_on_the_pages_not_in_the_thread`.
+- Every person page loads `thread.json` (176 KB), and 70 KB of it was the machine-written glosses of the new claims. `site/thread.py` now leaves out a claim's comment longer than 120 characters (`MAX_ROLE_CHARS`); the claim's page still shows it in full. Test: `test_long_comments_stay_on_the_pages_not_in_the_thread`.
 - The passage citation shown beside each claim was about 330 characters, and the Prophet's page carries hundreds. `ingest/ibn_hisham.py` now writes the short form: `Ibn Hishām, al-Sīra al-Nabawiyya (al-Saqqā et al. ed., Cairo 1375/1955; provisional), vol. 1, pp. 494–496; OpenITI ms310–ms311, lines 8600–8638`. The full edition, OpenITI version, checksum and character offsets stay on the Edition, Witness and selector of each passage. `ibn-hisham.ttl` was rebuilt: only the 100-odd citation lines changed.
 
 **For the maintainer**
 - Confirm the LICENSING.md wording and that quoting names and short age/date expressions from the OpenITI text is acceptable (open point of slice 4).
-- The budget margin on the Prophet's page is small (see the check output).  The next large ingestion will need a structural fix (split a very large page); the two cuts above are the stopgap.
+- The budget margin is small: the Prophet's Arabic page is 294,267 of 300,000 bytes (English 257,699).  The next large ingestion will need a structural fix (split a very large page); the two cuts above are the stopgap.
 - The thread no longer shows the AI gloss for Ibn Hishām claims; it shows relation, status and source, and links to the page.
 - The ask golden set is still what the graph records, not what is true; it needs the scholar check.
 - Everything in slice 4's own "left for a scholar" list still stands.
