@@ -31,7 +31,7 @@ def quiet(fn, *args):
         return fn(*args)
 
 EN = json.loads((SITE / "i18n" / "en.json").read_text(encoding="utf-8"))
-PY_FILES = [SITE / n for n in ("build.py", "display.py", "glossary.py", "model.py", "render.py")]
+PY_FILES = [SITE / n for n in ("build.py", "display.py", "glossary.py", "model.py", "names.py", "render.py")]
 KEY = re.compile(r"^[a-z_]+(\.[a-z0-9_]+)+$")
 KINDS = ("person", "event", "place", "group", "story")
 # his name not followed by the sign (the sign sits in a lang="ar" span in the HTML)
@@ -76,7 +76,7 @@ def literal_keys() -> set:
         for node in ast.walk(tree):
             if (isinstance(node, ast.Constant) and isinstance(node.value, str) and KEY.match(node.value)
                     and node.value.split(".")[0] in namespaces
-                    and not re.search(r"\.(json|html|css|py|ttl|cjs)$", node.value)):
+                    and not re.search(r"\.(json|html|css|py|ttl|cjs|js)$", node.value)):
                 found.add(node.value)
     for path in (SITE / "templates").glob("*.html"):
         found |= set(re.findall(r"\[\[([a-z0-9_.]+)\]\]", path.read_text(encoding="utf-8")))
@@ -158,7 +158,7 @@ class StaticChecks(unittest.TestCase):
         site = Site(GRAPH)
         sources = ""
         for path in PY_FILES + list((SITE / "templates").glob("*")) + [SITE / "i18n" / "en.json",
-                                                                        SITE / "static" / "site.css",
+                                                                        SITE / "static" / "site.css", SITE / "static" / "search.js",
                                                                         SITE / "data" / "glossary.json"]:
             sources += path.read_text(encoding="utf-8")
         leaked = [e.pid for e in site.entities.values() if e.pid in sources]
@@ -213,6 +213,21 @@ class ChecksCatchProblems(unittest.TestCase):
             tmp = Path(d)
             self.make(tmp, self.GOOD, head='<script src="assets/big.js" defer></script>')
             (tmp / "assets" / "big.js").write_text("//" + "x" * 300_100)
+            self.assertEqual(quiet(check_budget.main, [d]), 1)
+
+    def test_budget_counts_files_a_script_fetches(self):
+        """A page that names its search index in data-fetch carries the index's weight."""
+        with tempfile.TemporaryDirectory() as d:
+            tmp = Path(d)
+            self.make(tmp, self.GOOD.replace("<h1>x</h1>", '<h1>x</h1><form data-fetch="big.json"></form>'))
+            (tmp / "big.json").write_text("[" + "0," * 150_100 + "0]")
+            self.assertEqual(quiet(check_budget.main, [d]), 1)
+            (tmp / "big.json").write_text("[0]")
+            self.assertEqual(quiet(check_budget.main, [d]), 0)
+
+    def test_budget_fails_on_an_external_fetch(self):
+        with tempfile.TemporaryDirectory() as d:
+            self.make(Path(d), self.GOOD.replace("<h1>x</h1>", '<h1>x</h1><form data-fetch="https://x.example/i.json"></form>'))
             self.assertEqual(quiet(check_budget.main, [d]), 1)
 
     def test_html_check_catches_unclosed_and_double_h1_and_missing_lang(self):
@@ -283,10 +298,14 @@ class BuiltSite(unittest.TestCase):
         self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
 
     def test_no_scripts_and_no_external_loads(self):
+        """The search page alone loads a script (same site); every other page has none."""
         for p in self.out.rglob("*.html"):
             src = p.read_text(encoding="utf-8")
-            self.assertNotIn("<script", src, p)
-            self.assertIsNone(re.search(r'(?:src|rel="stylesheet" href)="(?:https?:)?//', src), p)
+            if p.relative_to(self.out).as_posix() == "search/index.html":
+                self.assertEqual(re.findall(r"<script[^>]*\bsrc=\"([^\"]+)\"", src), ["../assets/search.js"])
+            else:
+                self.assertNotIn("<script", src, p)
+            self.assertIsNone(re.search(r'(?:src|data-fetch|rel="stylesheet" href)="(?:https?:)?//', src), p)
 
     def test_licence_footer_on_every_page(self):
         for p in self.out.rglob("*.html"):

@@ -27,8 +27,8 @@ import unicodedata
 # --------------------------------------------------------------------------
 # Shared tables
 # --------------------------------------------------------------------------
-AYN_HAMZA = "ʿʾʻʼ"     # ʿ ʾ ʻ ʼ: the marks of a scholarly spelling
-APOSTROPHES = "‘’`"              # curly apostrophes and backtick
+AYN_HAMZA = "\u02bf\u02be\u02bb\u02bc"     # ʿ ʾ ʻ ʼ: the marks of a scholarly spelling
+APOSTROPHES = "\u2018\u2019`"              # ‘ ’ and the backtick
 # The article al- assimilates before these (written th sh dh t d r z s n; ṣ ḍ ṭ ẓ fold
 # to s d t z). Before l it is unchanged (al-Layth), as before a moon letter (al-Madina).
 SUN_LETTERS = ("th", "sh", "dh", "t", "d", "r", "z", "s", "n")
@@ -131,17 +131,18 @@ def popular(text: str, expand_b: bool = False) -> str:
 # joined and runs collapsed again, so "abu bakr" and "abubakr" give the same key.
 SEARCH_ARTICLES = sorted({"al", "el", "ul", "l"} | {v + s for v in "ae" for s in SUN_LETTERS})
 RULES = {
-    "drop": "ﷺﷻ" + AYN_HAMZA + "ʽ" + APOSTROPHES + "'´′",
+    # ﷺ ﷻ, the ayn and hamza marks, ʽ, the apostrophes, ' ´ ′
+    "drop": "\ufdfa\ufdfb" + AYN_HAMZA + "\u02bd" + APOSTROPHES + "'\u00b4\u2032",
     "chars": {
-        "ٱ": "ا", "ة": "ه", "ى": "ي", "ـ": "",
-        "ک": "ك", "ی": "ي", "ے": "ي",
-        "ہ": "ه", "ۃ": "ه", "ھ": "ه",
-        "ı": "i", "ł": "l", "ø": "o", "đ": "d", "ß": "ss",
-        "æ": "ae", "œ": "oe",
-        **{chr(0x0660 + d): str(d) for d in range(10)},
-        **{chr(0x06F0 + d): str(d) for d in range(10)},
+        "ٱ": "ا", "ة": "ه", "ى": "ي", "\u0640": "",       # alif wasla, ta marbuta, alif maqsura, tatweel
+        "ک": "ك", "ی": "ي", "ے": "ي",                      # Persian and Urdu kaf and ya
+        "ہ": "ه", "ۃ": "ه", "ھ": "ه",                      # Urdu ha forms
+        "ı": "i", "ł": "l", "ø": "o", "đ": "d", "ß": "ss", "æ": "ae", "œ": "oe",
+        **{chr(0x0660 + d): str(d) for d in range(10)},    # Arabic-Indic digits
+        **{chr(0x06F0 + d): str(d) for d in range(10)},    # Persian digits
     },
-    "nonword": "[^a-z0-9ؠ-يٮٯٱ-ۓە-]+",
+    # keep a-z, 0-9, the Arabic letters (U+0620-064A, 066E-066F, 0671-06D3, 06D5), hyphen
+    "nonword": "[^a-z0-9\u0620-\u064a\u066e\u066f\u0671-\u06d3\u06d5-]+",
     "articles": SEARCH_ARTICLES,
     "lone_articles": ["al", "el"],
     "ar_article": "ال",
@@ -163,8 +164,8 @@ RULES = {
         "ق": "k", "ك": "k", "ل": "l", "م": "m", "ن": "n", "ه": "h",
         "پ": "b", "چ": "j", "ژ": "z", "گ": "g", "ڤ": "f",
     },
-    # every other character: a-z and 0-9 stand for themselves, anything else is dropped
-    "sk_keep": "^[a-z0-9]$",
+    # every other character: a-z stand for themselves; digits and anything else are dropped
+    "sk_keep": "^[a-z]$",
     "min_inside": 3,      # tiers 3 and 8 need at least this many letters / consonants
     "min_sound_start": 2, # tiers 5 and 7 need at least this many consonants
     "min_near": 4,        # tier 6 needs at least this many letters

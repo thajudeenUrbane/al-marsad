@@ -175,7 +175,7 @@
   var nojs = document.getElementById("search-nojs");
   var S = JSON.parse(document.getElementById("search-strings").textContent);
   var LIMIT = 50;
-  var ARABIC = /[؀-ۿ]/;
+  var ARABIC = /[\u0600-\u06ff]/; // Arabic script in the query
   var engine = null, items = null, timer = null;
 
   // the A-Z lines already on the page, by their url path ("person/ID")
