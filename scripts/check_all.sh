@@ -113,9 +113,10 @@ islands_current() {
   echo "OK: the committed ${ISLANDS[*]} outputs match a fresh build"
 }
 
-# The JS-off browser check (site/check_nojs.cjs) with Node and Playwright found as documented above.
-nojs_check() {
-  local np
+# A browser check (site/check_nojs.cjs, site/check_search.cjs) with Node and Playwright found as documented above.
+# Usage: browser_check SCRIPT
+browser_check() {
+  local script=$1 np
   if ! command -v node >/dev/null 2>&1; then
     echo "node not found: install Node.js 22 and the playwright npm package with its Chromium"
     return 1
@@ -129,7 +130,7 @@ nojs_check() {
     export PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
   fi
   echo "node $(node --version), playwright $(NODE_PATH="$np" node -p 'require("playwright/package.json").version')"
-  NODE_PATH="$np" node site/check_nojs.cjs site/dist
+  NODE_PATH="$np" node "$script" site/dist
 }
 
 # Every `uses:` in the workflows names a full commit SHA, with the tag in a comment.
@@ -160,7 +161,8 @@ step "prototypes: outputs committed and current"   islands_current
 if step "site: build"                              "$PY" site/build.py; then
   step "site: page budget"                         "$PY" site/check_budget.py
   step "site: HTML checks"                         "$PY" site/check_html.py
-  step "site: pages work with JavaScript off"      nojs_check
+  step "site: pages work with JavaScript off"      browser_check site/check_nojs.cjs
+  step "site: search works (JS on and off)"        browser_check site/check_search.cjs
   # Checks that read site/dist go here, e.g.
   # step "site/interactive: tests"                 "$PY" -m unittest discover -s site/interactive/tests
   # step "site/observatory: tests"                 "$PY" -m unittest discover -s site/observatory/tests

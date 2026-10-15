@@ -8,7 +8,7 @@ decide how they are shown. A rule that needs a field the graph does not have
 (gender, Companion status, a modern place name) does nothing until the field exists.
 
 Rules, in the order they appear below:
-  1. Names: popular transliteration, derived mechanically from the scholarly form.
+  1. Names: popular transliteration (the rules are in site/names.py, shared with search).
   2. The Prophet: the sallallahu 'alayhi wa sallam sign after every mention.
   3. Companions: the radiya Allahu 'anhu / 'anha formula, only when both Companion
      status and gender are recorded. Neither is recorded today, so it never shows.
@@ -21,86 +21,30 @@ import html
 import re
 import unicodedata
 
+import names
+from names import fold, fold_with_map, has_scholarly_marks  # noqa: F401  (re-exported)
+
 # --------------------------------------------------------------------------
 # 1. Names: popular transliteration
 # --------------------------------------------------------------------------
-# The maintainer: "use identity.csv preferred_name_en when it is already in popular
-# form; otherwise derive the popular form mechanically from the scholarly form."
-# The graph is the only source, so "already in popular form" means: the label carries
-# no scholarly mark (no diacritic, no ʿ ʾ ʻ ʼ). Such a label is shown as written.
-# A label that does carry a mark is derived with these rules, in this order
-# (see tests/test_display.py):
-#   a. A leading ayn or hamza mark (ʿ ʾ ʻ ʼ) at the start of a word is dropped:
-#      ʿUmar -> Umar, ʿAbd al-Raḥmān -> Abd ar-Rahman.
-#   b. Every other ayn / hamza / curly apostrophe becomes a plain apostrophe:
-#      Saʿd -> Sa'd, Āʾisha -> A'isha.
-#   c. Diacritics are stripped (macrons, dots below, etc.): Ṣiddīq -> Siddiq.
-#   d. The article al- is assimilated before a sun letter (written th sh dh t d r z
-#      s n): al-Ṣiddīq -> as-Siddiq, al-Raḥmān -> ar-Rahman. Before l it is left
-#      alone (al-Layth), as it is before a moon letter (al-Madina).
-#   e. Optional, OFF by default: b. -> ibn. identity.csv itself writes "b." in
-#      some popular forms (Abdullah b. Mas'ud), so the maintainer has not ruled yet.
+# The rules live in site/names.py, next to the search rules that share their tables
+# (marks, sun letters, the article, b. for ibn). Summary: a label with no scholarly
+# mark is kept as written; a scholarly label loses its leading ayn/hamza marks and its
+# diacritics; in every label al- assimilates before a sun letter (Abū Bakr al-Ṣiddīq
+# -> Abu Bakr as-Siddiq, Anas ibn al-Nadr -> Anas ibn an-Nadr).
+# The one switch: b. -> ibn, OFF by default. identity.csv itself writes "b." in some
+# popular forms (Abdullah b. Mas'ud), so the maintainer has not ruled yet. Search
+# treats b., bin and ibn as the same either way.
 EXPAND_B_TO_IBN = False
 
-_LEADING_MARKS = re.compile(r"(?<![^\W_])[\u02bf\u02be\u02bb\u02bc]+")
-_MARK_CHARS = "\u02bf\u02be\u02bb\u02bc\u2018\u2019`"  # ayn, hamza, curly apostrophes, backtick
-_SUN_ARTICLE = re.compile(r"\b([Aa])l-(th|sh|dh|t|d|r|z|s|n)", re.IGNORECASE)
-_B_ABBREV = re.compile(r"\bb\.(?=\s)")
 _BLESSING_TAIL = re.compile(
     r"\s*\((?:may\s+)?peace(?:\s+and\s+blessings)?\s+(?:be\s+)?upon\s+him\)\s*$", re.IGNORECASE
 )
 
 
-def fold_with_map(text: str) -> tuple[str, list[int]]:
-    """Strip diacritics and unify apostrophes. Returns (folded, index_map) where
-    index_map[i] is the index in `text` of folded[i]. Used to find terms in text
-    that carries diacritics and wrap the original characters."""
-    text = unicodedata.normalize("NFC", text)
-    out: list[str] = []
-    idx: list[int] = []
-    for i, ch in enumerate(text):
-        if ch in _MARK_CHARS:
-            out.append("'")
-            idx.append(i)
-            continue
-        base = "".join(c for c in unicodedata.normalize("NFD", ch) if not unicodedata.combining(c))
-        for c in base:
-            out.append(c)
-            idx.append(i)
-    return "".join(out), idx
-
-
-def fold(text: str) -> str:
-    return fold_with_map(text)[0]
-
-
-_SCHOLARLY_MARKS = re.compile("[\u02bf\u02be\u02bb\u02bc]")
-
-
-def has_scholarly_marks(text: str) -> bool:
-    """True if the text is written in a scholarly scheme (a diacritic or an ayn/hamza mark)."""
-    if _SCHOLARLY_MARKS.search(text):
-        return True
-    return any(unicodedata.combining(c) for c in unicodedata.normalize("NFD", text))
-
-
 def popularize(text: str) -> str:
-    """Popular transliteration of a name: a label already in popular form is returned
-    as written; a label in a scholarly scheme is derived by the rules above."""
-    text = unicodedata.normalize("NFC", text)
-    if not has_scholarly_marks(text):
-        return text.strip()
-    text = _LEADING_MARKS.sub("", text)
-    text = fold(text)
-
-    def assimilate(m: re.Match) -> str:
-        letters = m.group(2)
-        return f"{m.group(1)}{letters.lower()}-{letters}"
-
-    text = _SUN_ARTICLE.sub(assimilate, text)
-    if EXPAND_B_TO_IBN:
-        text = _B_ABBREV.sub("ibn", text)
-    return text.strip()
+    """Popular transliteration of a name (site/names.py, rules a-e)."""
+    return names.popular(text, expand_b=EXPAND_B_TO_IBN)
 
 
 def strip_blessing_tail(label: str) -> str:

@@ -50,10 +50,20 @@ class Popularize(unittest.TestCase):
         self.assertEqual(display.popularize("Al-Ṣafā"), "As-Safa")
 
     def test_already_popular_form_is_kept_as_written(self):
-        for name in ("Anas ibn al-Nadr", "Abdullah ibn Abbas", "Abdullah b. Mas'ud", "Ahl al-Suffah",
-                     "Al-Tufayl ibn Amr al-Dawsi", "The Ridda ('apostasy') wars", "Uthman and the Well of Rumah"):
+        for name in ("Abdullah ibn Abbas", "Abdullah b. Mas'ud", "al-Abbas b. Abd al-Muttalib",
+                     "The Ridda ('apostasy') wars", "Uthman and the Well of Rumah", "Bilal b. Rabah"):
             with self.subTest(name):
                 self.assertEqual(display.popularize(name), name)
+
+    def test_sun_letters_assimilate_in_popular_labels_too(self):
+        """Slice 2b: the article rule applies to every label, so the display is uniform."""
+        cases = {"Anas ibn al-Nadr": "Anas ibn an-Nadr", "Ahl al-Suffah": "Ahl as-Suffah",
+                 "Al-Tufayl ibn Amr al-Dawsi": "At-Tufayl ibn Amr ad-Dawsi"}
+        for recorded, shown in cases.items():
+            with self.subTest(recorded):
+                self.assertEqual(display.popularize(recorded), shown)
+        # the scholarly and the popular spelling of one name now display alike
+        self.assertEqual(display.popularize("Anas b. al-Naḍr"), display.popularize("Anas b. al-Nadr"))
 
     def test_b_to_ibn_is_off_until_the_maintainer_rules(self):
         self.assertFalse(display.EXPAND_B_TO_IBN)
