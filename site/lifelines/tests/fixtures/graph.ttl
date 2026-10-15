@@ -25,6 +25,7 @@ plc:TestTown000000000000a a mrs:Place ; rdfs:label "Test town" .
 mrs:role_participant skos:prefLabel "participant"@en .
 mrs:as_proposed skos:prefLabel "proposed"@en .
 mrs:tb_sahabi skos:prefLabel "ṣaḥābī"@en .
+mrs:tb_tabii skos:prefLabel "tābiʿī"@en .
 <https://w3id.org/marsad/id/agent/TestAgent000000000000a> rdfs:label "Test recording pass" .
 
 per:TestAlpha00000000000a a mrs:Person ; rdfs:label "Test person Alpha" ; mrs:tabaqa mrs:tb_sahabi ;
@@ -42,7 +43,7 @@ per:TestDelta00000000000d a mrs:Person ; rdfs:label "Test person Delta" .
 per:TestEpsilon000000000e a mrs:Person ; rdfs:label "Test person Epsilon" .
 per:TestZeta000000000000f a mrs:Person ; rdfs:label "Test person Zeta" .
 per:TestEta0000000000000g a mrs:Person ; rdfs:label "Test person Eta" .
-per:TestTheta00000000000h a mrs:Person ; rdfs:label "Test person Theta" .
+per:TestTheta00000000000h a mrs:Person ; rdfs:label "Test person Theta" ; mrs:tabaqa mrs:tb_tabii .
 per:TestIota000000000000i a mrs:Person ; rdfs:label "Test person Iota" ;
     mrs:death [ a mrs:Death ; mrs:eventTemporalExtent [ a mrs:TemporalExtent ;
         mrs:nativeValue "shortly after the test battle" ; mrs:calendar mrs:cal_hijri ; mrs:precision mrs:pr_period ;

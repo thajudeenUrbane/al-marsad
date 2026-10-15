@@ -133,6 +133,15 @@ svg.plot, svg.axis { display: block; flex: none; }
 .plot .tie.tm.sel .tmpath, .plot .tie.tm:focus-visible .tmpath { stroke: var(--focus); stroke-width: 2; }
 .flag { border: 1px solid var(--text); border-radius: 4px; padding-inline: 5px; }
 .tl-note { margin-inline: 0; }
+.plot .gen0 .seg { stroke: #86bdf5; }
+.plot .gen1 .seg { stroke: #e8d36a; stroke-dasharray: 2 3; }
+.plot .gen1 .band { fill: #e8d36a; stroke: #e8d36a; }
+.plot .gen2 .seg { stroke: #c9a0f0; stroke-dasharray: 9 3 2 3; }
+.plot .gen2 .band { fill: #c9a0f0; stroke: #c9a0f0; }
+.plot .gen-1 .seg { stroke: #8a929c; stroke-dasharray: 1 3; }
+.plot .gen-1 .band { fill: #8a929c; stroke: #8a929c; }
+.plot .genwin rect { fill: #e8d36a; fill-opacity: 0.07; stroke: #e8d36a; stroke-opacity: 0.35; stroke-dasharray: 4 4; }
+.plot .genwin text { font-size: 11px; fill: #e8d36a; }
 .plot .lhit { stroke: transparent; stroke-width: 18; fill: none; cursor: pointer; }
 .plot .lbl { font-size: 11px; fill: var(--text); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; display: none; }
 .plot .rowlbl { font-size: 11px; fill: var(--muted); font-style: italic; }

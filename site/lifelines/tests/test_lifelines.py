@@ -260,6 +260,13 @@ class Fixture(unittest.TestCase):
             if k.startswith("tl.") and k != "tl.rule":
                 self.assertNotIn("broken", v.lower(), k)
 
+    def test_generations_come_from_recorded_tabaqa_only(self):
+        gen = self.data["gen"]
+        self.assertEqual(gen["order"], ["ṣaḥābī", "tābiʿī"])                 # in order of earliest dates
+        w = gen["windows"][0]
+        self.assertEqual((w["lo"], w["hi"]), (cal.jdn_from_gregorian(600, 7, 4), J(622, 1, 1)))
+        self.assertEqual(self.by_name["Test person Gamma"]["tb"], "")           # not recorded: none given
+
     def test_kinship_ties_keep_direction_status_and_source(self):
         names = [p["n"] for p in self.data["people"]]
         ties = [(names[k["a"]], names[k["b"]], k["kd"]) for k in self.data["kt"]]

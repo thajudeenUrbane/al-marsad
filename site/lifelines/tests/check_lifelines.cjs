@@ -135,6 +135,14 @@ async function open(browser, url, vp, touch) {
   }
   check(await page.locator("#transmission").count() === 1 && /scholars rule/.test(await page.locator("#transmission").textContent()),
     "the overlap-check section states the rule");
+  if ((data.gen.windows || []).length) {
+    await page.locator('input[name="gen"]').check();
+    await page.waitForTimeout(120);
+    check(await page.locator("svg.plot .genwin").count() === data.gen.windows.length, "colour by generation shades each overlap window");
+    check(/generation as recorded/.test(await page.locator("#ll-count").textContent()), "colour by generation names its encoding");
+    await page.locator('input[name="gen"]').uncheck();
+    await page.waitForTimeout(80);
+  }
   for (const v of ["tabaqa", "kin", "birth"]) {
     await page.selectOption('select[name="order"]', v);
     await page.waitForTimeout(100);

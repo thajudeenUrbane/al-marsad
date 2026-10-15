@@ -287,6 +287,22 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
         tlinks.append({"f": fi, "t": ti, "fn": c.people[tl["from"]].name, "tn": c.people[tl["to"]].name,
                        "kd": tl["kind"], "lab": tl["label"], "term": tl["term"], "ch": tl["chain"],
                        "cit": tl["citation"], "st": tl["status"], "ov": res["ov"], "sh": shared})
+    # M8: generations from recorded ṭabaqa only, in order of their earliest certainly-alive date;
+    # the window where lines of consecutive generations coexist (certainly-alive stretches)
+    gen_groups: dict[str, list] = {}
+    for i, p_out in enumerate(out_people):
+        v = p_out["v"].get("b")
+        if p_out["tb"] and v and not v.get("ages_only") and v["segment"]:
+            gen_groups.setdefault(p_out["tb"], []).append((v["s"], v["e"]))
+    gens = sorted(({"n": k, "count": len(v), "lo": min(x[0] for x in v), "hi": max(x[1] for x in v)}
+                   for k, v in gen_groups.items()), key=lambda g: (g["lo"], g["n"]))
+    windows = []
+    for g0, g1 in zip(gens, gens[1:]):
+        lo, hi = max(g0["lo"], g1["lo"]), min(g0["hi"], g1["hi"])
+        if lo <= hi:
+            y0, y1 = cal.julian_from_jdn(lo)[0], cal.julian_from_jdn(hi)[0]
+            windows.append({"a": g0["n"], "b": g1["n"], "lo": lo, "hi": hi,
+                            "t": f"{y0}–{y1} {t('date.ce')} ({cal.hijri_years_text(lo, hi, t('date.ah'), t('date.bh'))})"})
     kin_ties: dict[tuple, dict] = {}
     for tie in c.kin_ties:
         if tie["a"] not in index or tie["b"] not in index:
@@ -328,6 +344,7 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
         "kt": [kin_ties[k] for k in sorted(kin_ties)],
         "places": places_out,
         "tl": tlinks,
+        "gen": {"order": [g["n"] for g in gens], "windows": windows},
         "kin": {str(k): v for k, v in kin_labels.items()},
         "unitDays": {"lunar": cal.LUNAR_YEAR_DAYS, "solar": cal.SOLAR_YEAR_DAYS},
         "axis": axis, "sources": sources,
@@ -519,6 +536,7 @@ def render(data: dict, t: T, home: str | None) -> str:
 <datalist id="ll-names"></datalist>
 <button type="button" class="btn" data-act="clear-filter" hidden>{esc(t("controls.clear"))}</button>
 <label class="ctl chk"><input type="checkbox" name="review"> {esc(t("controls.review"))}</label>
+<label class="ctl chk"><input type="checkbox" name="gen"> {esc(t("controls.gen"))}</label>
 <div class="zoom" role="group" aria-label="{attr(t("controls.zoom"))}">
 <button type="button" class="btn" data-act="zoom-out" aria-label="{attr(t("controls.zoom_out"))}">−</button>
 <button type="button" class="btn" data-act="zoom-in" aria-label="{attr(t("controls.zoom_in"))}">+</button>

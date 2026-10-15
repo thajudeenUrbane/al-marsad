@@ -25,6 +25,7 @@
   "controls.filter_ph": "an event or a person…",
   "controls.clear": "Show everyone",
   "controls.review": "Include Wikidata matches that need review",
+  "controls.gen": "Colour by generation (recorded ṭabaqa)",
   "controls.zoom": "Zoom",
   "controls.zoom_out": "Zoom out",
   "controls.zoom_in": "Zoom in",
@@ -71,6 +72,7 @@
   "legend.tie": "A bracket beside the axis: a recorded kinship tie (= a marriage, an arrow from parent to child). No tie has a date recorded, so ties are drawn beside the time axis, never on it; parents sit above their children.",
   "legend.place": "By place: each line runs in the lane 'place not recorded' and steps perpendicularly into a place's lane only for the date range of a recorded presence there (a dated event at that place they took part in, or a dated affiliation). No residence or move is guessed between them.",
   "legend.tm": "By transmission links: a dash-dot bracket from source to receiver; a small hollow square marks 'lives don't overlap: for scholars to review', a dot 'cannot be checked'. The system flags; scholars rule.",
+  "legend.gen": "Colour by generation (a switch, off by default): line colour and dash show the recorded ṭabaqa (blue, yellow, purple in order of their earliest dates; grey: generation not recorded), and a shaded band marks the years where lines of two consecutive generations coexist. It shows the record, not anyone's standing.",
   "legend.review": "Fainter line marked (?): the date comes from a Wikidata match that needs review (shown only when switched on).",
   "legend.hue": "Colour shows only the kind of thing: blue for people, amber for events. Nothing is ranked or sized by importance; the order is by birth unless you choose a recorded grouping.",
   "legend.calendar": "CE dates are Julian-calendar dates, as usual for this period. Hijri years are worked out with the tabular Islamic calendar and may differ from the sighted calendar by a day or two; BH counts lunar years before the Hijra.",
@@ -312,5 +314,8 @@
   "js.tm_head": "links, undated",
   "js.tm_aria": "{to} received from {from}: {check}. Open details.",
   "js.tm_h": "{to} received from {from}",
+  "js.gen_window": "{a} and {b} lines coexist: {date}",
+  "js.gen_none_short": "generation not recorded",
+  "js.orient_gen": "colour and dash: generation as recorded ({order}); grey: generation not recorded",
   "js.order_tribe_none": "By tribe (none recorded yet)"
 }

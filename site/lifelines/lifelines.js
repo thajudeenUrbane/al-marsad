@@ -59,8 +59,10 @@
   var hasTabaqa = P.some(function (p) { return p.tb; });
 
   var DEFAULTS = { align: "date", units: "lunar", order: "birth", filter: "", review: false, zoom: 1,
-                   moment: "", young: false, yn: 20 };
-  var HASH = { filter: "f", review: "rv", zoom: "z", moment: "mo", young: "yw", yn: "yn" };
+                   moment: "", young: false, yn: 20, gen: false };
+  var HASH = { filter: "f", review: "rv", zoom: "z", moment: "mo", young: "yw", yn: "yn", gen: "gen" };
+  var GEN = (D.gen && D.gen.order) || [];
+  function genIndex(p) { var k = GEN.indexOf(p.tb); return k < 0 ? -1 : Math.min(k, 2); }
   var state = Object.assign({}, DEFAULTS);
   var sel = null;        // {type: "e"|"p", i}
   var m = 0;             // morph: 0 = by date, 1 = by age
@@ -78,6 +80,7 @@
     if (z > 0.2 && z < 40) { state.zoom = z; }
     if (/^(e:[0-9A-Za-z]+|ce:\d{1,4}|ah:-?\d{1,4})$/.test(q.get("mo") || "")) { state.moment = q.get("mo"); }
     if (q.get("yw") === "1") { state.young = true; }
+    if (q.get("gen") === "1") { state.gen = true; }
     var yn = parseInt(q.get("yn"), 10);
     if (yn >= 1 && yn <= 120) { state.yn = yn; }
     m = state.align === "age" ? 1 : 0;
@@ -518,6 +521,14 @@
       '<linearGradient id="fadeL" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="fade-0"/><stop offset="1" class="fade-1"/></linearGradient>' +
       '<linearGradient id="fadeR" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="fade-1"/><stop offset="1" class="fade-0"/></linearGradient></defs>');
     parts.push(gridSVG(width));
+    if (state.gen && m < 0.999) {
+      (D.gen.windows || []).forEach(function (w) {
+        var x0 = xD(w.lo), x1 = xD(w.hi);
+        parts.push('<g class="genwin" opacity="' + (1 - m).toFixed(3) + '"><rect x="' + x0.toFixed(1) + '" y="0" width="' + Math.max(2, x1 - x0).toFixed(1) +
+          '" height="' + L.height + '"/><text x="' + (x0 + 4).toFixed(1) + '" y="' + (L.height - 8) + '">' +
+          hx(t("js.gen_window", { a: w.a, b: w.b, date: w.t })) + "</text></g>");
+      });
+    }
     // connectors: perpendicular, by date only; as wide as the date's uncertainty
     var conns = [];
     if (m < 0.999) {
@@ -584,7 +595,7 @@
         }
         return;
       }
-      var cls = "pl" + (isReviewOnly(p) ? " rv" : "");
+      var cls = "pl" + (isReviewOnly(p) ? " rv" : "") + (state.gen ? " gen" + genIndex(p) : "");
       var s = ['<g class="' + cls + '" data-p="' + i + '" opacity="' + g.op.toFixed(3) + '">'];
       s.push('<line class="halo" x1="' + g.min.toFixed(1) + '" y1="' + y + '" x2="' + g.max.toFixed(1) + '" y2="' + y + '"/>');
       if (g.b) {
@@ -699,7 +710,7 @@
     var names = L.rows.map(function (r) {
       if (r.g) { return '<li class="gh" style="block-size:' + r.h + 'px"><span>' + hx(r.g) + "</span></li>"; }
       var p = P[r.p], rv = isReviewOnly(p);
-      var label = p.n + (rv ? " " + t("js.review_mark") : "");
+      var label = p.n + (rv ? " " + t("js.review_mark") : "") + (state.gen ? " · " + (p.tb || t("js.gen_none_short")) : "");
       return '<li style="block-size:' + ROW + 'px"><button type="button" data-p="' + r.p + '" class="' + (rv ? "rv" : "") +
         '" title="' + h(label) + '">' + hx(label) + "</button></li>";
     }).join("");
@@ -1108,6 +1119,7 @@
       txt += " · " + t(L.ref.type === "e" ? "js.filter_desc_event" : "js.filter_desc_person", { name: nm });
     }
     if (L.M) { txt += " · " + t("js.orient_moment", { label: L.M.label }); }
+    if (state.gen) { txt += " · " + t("js.orient_gen", { order: GEN.join(" → ") }); }
     if (state.align === "place") {
       var withPlace = L.ids.filter(function (i) { return (P[i].pp || []).length; }).length;
       txt += " · " + t("js.mode_place", { n: withPlace });
@@ -1262,6 +1274,7 @@
     if (el.name === "units") { state.units = el.value; refresh(true); return; }
     if (el.name === "order") { state.order = el.value; refresh(true); return; }
     if (el.name === "review") { state.review = el.checked; refresh(false); return; }
+    if (el.name === "gen") { state.gen = el.checked; refresh(true); return; }
     if (el.name === "filter") { applyFilterInput(el.value); }
     if (el.name === "young") { state.young = el.checked; if (el.checked) { state.filter = ""; state.moment = ""; } syncControls(); refresh(false); return; }
     if (el.name === "yn") {
@@ -1317,6 +1330,8 @@
     o.querySelector('option[value="tm"]').disabled = !TL.some(function (l) { return l.f !== null && l.t !== null; });
     if (!hasTribes) { o.querySelector('option[value="tribe"]').textContent = t("js.order_tribe_none"); }
     controls.querySelector('input[name="review"]').checked = state.review;
+    controls.querySelector('input[name="gen"]').checked = state.gen;
+    controls.querySelector('input[name="gen"]').disabled = !GEN.length;
     var yw = controls.querySelector('input[name="young"]'), pi = prophetIndex();
     yw.checked = state.young && pi >= 0;
     yw.disabled = pi < 0;
