@@ -2494,7 +2494,7 @@ plc:uYVJ2jhB2Aaq448zoeRHxO
 ev:PUAnqQfgokFzQW9dlDTNlo
     a mrs:Event , crm:E67_Birth ;
     rdfs:label "Birth of the Prophet Muḥammad ﷺ"@en ;
-    crm:P98_brought_into_life per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    crm:P98_brought_into_life per:Vc74FSoBSMY4TBSEwjPyai ;
     crm:P67i_is_referred_to_by psg:WUiEn6n0cqReTGqUV7E7Cm ;
     crm:P67i_is_referred_to_by psg:aQSb3QHXfuMFD3W9MDL0XY ;
     crm:P67i_is_referred_to_by psg:hNBG3W197HI0v90xUrem9D ;
@@ -2514,7 +2514,7 @@ ev:tOlJyml39W34J7hX8tq1kE
 ev:GGk9JXKlvnlTZ11XbuATDJ
     a mrs:Event , crm:E69_Death ;
     rdfs:label "Death of Jaʿfar b. Abī Ṭālib"@en ;
-    crm:P100_was_death_of per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    crm:P100_was_death_of per:pgEqNKdrPeXOU9fcCIc5Tf ;
     crm:P67i_is_referred_to_by psg:Te1YF7YJ0MBCmfqGrn73IM ;
     mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:tcCkInIropKEmSqn1NHNv0 ;
@@ -2686,6 +2686,14 @@ per:2FTEMtzmUhqwffqT42Bb3J
           mrs:script "arab" ;
           mrs:attestedIn psg:u2IKBojMeH4GwmPBeEwU1s ] .
 
+# Umm Salama bint Abī Umayya (declared in another corpus file)
+per:5sGHTje5qGKdw6c6RWyHKV
+    a mrs:Person ;
+    mrs:nameForm [ a mrs:ArabicNameForm ;
+          mrs:fullFormAsAttested "أم سلمة" ;
+          mrs:script "arab" ;
+          mrs:attestedIn psg:fBTp4XA5Dw61wg3v0OTL3I ] .
+
 # Asmāʾ bint Abī Bakr (declared in another corpus file)
 per:7XMkA64afEC5PCz0zGGPTs
     a mrs:Person ;
@@ -2693,14 +2701,6 @@ per:7XMkA64afEC5PCz0zGGPTs
           mrs:fullFormAsAttested "أسماء بنت أبي بكر" ;
           mrs:script "arab" ;
           mrs:attestedIn psg:sEz9Xgg7DyMh7ICBwModPW ] .
-
-# Umm Salama bint Abī Umayya (declared in another corpus file)
-per:7kQwE4rTyU2mNbV9cXzAsD1
-    a mrs:Person ;
-    mrs:nameForm [ a mrs:ArabicNameForm ;
-          mrs:fullFormAsAttested "أم سلمة" ;
-          mrs:script "arab" ;
-          mrs:attestedIn psg:fBTp4XA5Dw61wg3v0OTL3I ] .
 
 # Abdullah ibn Umar (declared in another corpus file)
 per:JNllv4aNJdFcprTEsLTwxg
@@ -2800,7 +2800,7 @@ ast:jRlVWSoquRoNssPCVOz657
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_father_of ;
     mrs:assertionSubject per:RckkGEOATPbtKagmgiiEGI ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Fb0RL3XDdxssipbkMN1peP ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): ʿAbdullāh b. ʿAbd al-Muṭṭalib is named as the father of the Messenger of God ﷺ."@en ;
@@ -2868,7 +2868,7 @@ rpt:99hSUWQabuEVEthfnPHyXR
 ast:apDEGkuK0cINs15oxU1TfZ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_born_during ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:sYqZqv1Vz2exLADHbYzUs7 ;
     mrs:dateAsWritten "يوم الاثنين، لاثنتي عشرة ليلة خلت من شهر ربيع الأول، عام الفيل"@ar ;
     mrs:assertionStatus mrs:as_proposed ;
@@ -2939,7 +2939,7 @@ ast:XvHzjxDaJkwDBOEhD7DuW9
 ast:lzEkWbQT6s49aXFnC7vvaE
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_born_during ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:sYqZqv1Vz2exLADHbYzUs7 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Mtu2BBOfEJ7EHGjmMry7UM ;
@@ -3064,7 +3064,7 @@ ast:hvGSbA0hr53h9U3J3416JQ
 ast:1d0MQkZGNGk8u2ku4jDzsl
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:3Xjzj4QHY6FbgKENkGGXy7 ;
     mrs:ageAsWritten "ابن ثلاث وخمسين سنة"@ar ;
     mrs:ageYearsAsGiven "53"^^xsd:decimal ;
@@ -3137,7 +3137,7 @@ rpt:7YqmF9WyIRQk8U08qmWaZW
 ast:Hwl2a7cdLoMuWN3LTiyuqw
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:Y617zBnt4gWoJ8tgQterjH ;
     mrs:ageAsWritten "ست سنين"@ar ;
     mrs:ageYearsAsGiven "6"^^xsd:decimal ;
@@ -3159,7 +3159,7 @@ ast:QCSpfjzXz1V2EeYtHMMC5L
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_mother_of ;
     mrs:assertionSubject per:FXAgBvKSXfer9S0187ByXU ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:7YqmF9WyIRQk8U08qmWaZW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Āmina bint Wahb is named as the mother of the Messenger of God ﷺ."@en ;
@@ -3178,7 +3178,7 @@ ast:Jl1soGbs7iCYLD6Xfyykl5
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_ancestor_of ;
     mrs:assertionSubject per:6ITkJfCT41qTtYGfkfApgX ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:7YqmF9WyIRQk8U08qmWaZW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): ʿAbd al-Muṭṭalib b. Hāshim is named as his grandfather (jadd)."@en ;
@@ -3244,7 +3244,7 @@ chn:s54xspdKsoOPkzwG3Pzm8D
 ast:5cpnGlprfUKaYJjtbiK1Dg
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:Y617zBnt4gWoJ8tgQterjH ;
     mrs:ageAsWritten "ابن ست سنين"@ar ;
     mrs:ageYearsAsGiven "6"^^xsd:decimal ;
@@ -3315,7 +3315,7 @@ rpt:spHQXZYhunhP1pR96PYSRK
 ast:mes8UoIXSKhBSMTAVjKCzk
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:vWnnhqq23OO3vT8UDw4hnv ;
     mrs:ageAsWritten "ثماني سنين"@ar ;
     mrs:ageYearsAsGiven "8"^^xsd:decimal ;
@@ -3387,7 +3387,7 @@ rpt:joalhrc3xbO2B6IjqfdDnm
 ast:WkqXNAYVGbRg9Ax4LWDows
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:vWnnhqq23OO3vT8UDw4hnv ;
     mrs:ageAsWritten "ابن ثماني سنين"@ar ;
     mrs:ageYearsAsGiven "8"^^xsd:decimal ;
@@ -3439,7 +3439,7 @@ rpt:D0AJUe7O6sqABtW4cVFhjC
 ast:AlESMlHv0plK831fw3g9p1
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:jxMQ9rMZ3fM2HF20HlZJVh ;
     mrs:ageAsWritten "ابن عشرين سنة"@ar ;
     mrs:ageYearsAsGiven "20"^^xsd:decimal ;
@@ -3492,7 +3492,7 @@ rpt:QneOkwBRufWi3AuKRE0BwO
 ast:NwKfhIk2VuLGE5GTSpVokq
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:4cJKBXkhbtJGe6yQGICtZz ;
     mrs:ageAsWritten "خمسا وعشرين سنة"@ar ;
     mrs:ageYearsAsGiven "25"^^xsd:decimal ;
@@ -3513,7 +3513,7 @@ ast:NwKfhIk2VuLGE5GTSpVokq
 ast:I63y3Wo0LQUklDYvlrObpm
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:laOMIYgqaQ5Iw6DmtiCNkY ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:QneOkwBRufWi3AuKRE0BwO ;
@@ -3563,7 +3563,7 @@ rpt:EdyXEo8ygPFOnYR3xdmghV
 ast:31Vp1ficIfxyu8qFVCh43C
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:sA0UOfmKsdzNLm5lR97aB2 ;
     mrs:ageAsWritten "خمسا وثلاثين سنة"@ar ;
     mrs:ageYearsAsGiven "35"^^xsd:decimal ;
@@ -3615,7 +3615,7 @@ rpt:8J70nmrGpM42v8ZuMpzm23
 ast:JzWDStXsQN7dovDxLUZk3k
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:nVEg76HzRApTAxhfpbrGUV ;
     mrs:ageAsWritten "أربعين سنة"@ar ;
     mrs:ageYearsAsGiven "40"^^xsd:decimal ;
@@ -3734,7 +3734,7 @@ chn:6AxZfQmziW8Jo4TBfcriuN
 ast:rzNVDGdNnO5m3jDhnFcbOC
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_dated ;
-    mrs:assertionSubject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionSubject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionObject "يوم الجمعة، صبيحة سبع عشرة من رمضان"@ar ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4dCXayt6EwHdTVKkHKqPLS ;
@@ -3925,7 +3925,7 @@ ast:cT04spvQteFUKFqWLtniet
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_mawla_of ;
     mrs:assertionSubject per:P4VAp86LIzXhq2pUAuEylx ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:UaDigmHB4FRiofwvDEiiPM ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Zayd b. Ḥāritha is called the mawlā of the Messenger of God ﷺ (which party is patron is for a reviewer to confirm)."@en ;
@@ -3974,7 +3974,7 @@ rpt:khmdl3JrE1GJyTBs6IEc9y
 ast:rbU5OVXIPsH1p8ojvkqOOf
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_manumitted ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:P4VAp86LIzXhq2pUAuEylx ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:khmdl3JrE1GJyTBs6IEc9y ;
@@ -3994,7 +3994,7 @@ ast:lhRHdJTrlYYxKBrfimomUh
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_adopted_by ;
     mrs:assertionSubject per:P4VAp86LIzXhq2pUAuEylx ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:khmdl3JrE1GJyTBs6IEc9y ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Hishām: the Messenger of God ﷺ adopted Zayd b. Ḥāritha after freeing him, before revelation came to him."@en ;
@@ -4043,7 +4043,7 @@ rpt:cy56ZatDsZ8gxgyr5dp4WV
 ast:Le0hBTzCmey1cKtqFwSr2W
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:8MRi7tRDnu2TKS9PFFketJ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:cy56ZatDsZ8gxgyr5dp4WV ;
@@ -4063,7 +4063,7 @@ ast:arnnPMSBdmcplUDRDYO1wZ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_father_of ;
     mrs:assertionSubject per:hnQ7VUBz4wtwsnQ6XyVAh6 ;
-    mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:cy56ZatDsZ8gxgyr5dp4WV ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Abū Bakr is the son of Abū Quḥāfa, whose name was ʿUthmān b. ʿĀmir."@en ;
@@ -4213,7 +4213,7 @@ ast:gB7Wbg6FGoCA0csyPgL9L5
 ast:Ao4E3j1LCUB4ChxSY9v1os
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:Jt86lPkehYMvi6frgLAnbv ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:0FbP5R44ibLGB4N6TEk31X ;
@@ -4232,7 +4232,7 @@ ast:Ao4E3j1LCUB4ChxSY9v1os
 ast:8nAeAR7uIJkEGFEgiLo8Cn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:Jt86lPkehYMvi6frgLAnbv ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:0FbP5R44ibLGB4N6TEk31X ;
@@ -4948,7 +4948,7 @@ ast:NzB8VUdhsKSc2Tvgl7Pp8Q
 ast:CTUxt7YnNbVdHXSSqmyrj7
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject ev:qN1qzp7YxSUtsFRuzCJkYa ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Ck3QKctBiNsYQFSzAJ86Xb ;
@@ -4986,7 +4986,7 @@ ast:4QKfCAD6ufWkP2gY5JAant
 ast:gLs1HjRoIqKsR9bbVH9dQn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject per:nB2lo6Nt3iZdpUg3JmLNiZ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Ck3QKctBiNsYQFSzAJ86Xb ;
@@ -5303,7 +5303,7 @@ ast:FC7r1670Z2KnPXtb2PXKNE
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_mawla_of ;
     mrs:assertionSubject per:8gztwMhLzVG8nUtMnV3GUW ;
-    mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:fX94Wn3DGCaeboTlRU3wIW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): ʿĀmir b. Fuhayra is called the mawlā of Abū Bakr al-Ṣiddīq (Ibn Hishām adds that Abū Bakr bought him)."@en ;
@@ -5744,7 +5744,7 @@ ast:BGfe1rjjoxNfGhRDhohMKl
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_paternal_uncle_of ;
     mrs:assertionSubject per:jbYZ5cBD9GifB8RHTH4JZc ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:IRAoA4zVZW6myaSKOPQutY ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Abū Ṭālib is named as his paternal uncle (ʿamm)."@en ;
@@ -5864,11 +5864,11 @@ rpt:ApqPaNCNok1VJXDCKpsmAK
 chn:mAOoJ2dz06lnMo26cwTbN5
     a mrs:TransmissionChain ;
     rdfs:label "فحدثني أبي إسحاق بن يسار، عن سلمة بن عبد الله بن عمر ابن أبي سلمة، عن جدته أم سلمة"@ar ;
-    mrs:terminalNarrator per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:terminalNarrator per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:collector per:iQm0BXg0F8Orcv7LKUPVpU ;
     mrs:hasLink [ a mrs:TransmissionLink ;
           mrs:linkOrder 1 ;
-          mrs:fromNarrator per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+          mrs:fromNarrator per:5sGHTje5qGKdw6c6RWyHKV ;
           mrs:toNarrator per:o9Il2LNRbNlkXxFo2Dw57c ;
           mrs:transmissionMode mrs:tm_anana ;
           rdfs:label "عن"@ar ] ,
@@ -5891,7 +5891,7 @@ chn:mAOoJ2dz06lnMo26cwTbN5
 ast:5KE1rERQ4vZM1Oe8bA1O5W
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:assertionSubject per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:assertionObject per:Y751QWwVaMDWUDzqRdFfzL ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:ApqPaNCNok1VJXDCKpsmAK ;
@@ -5910,7 +5910,7 @@ ast:5KE1rERQ4vZM1Oe8bA1O5W
 ast:NvoKY9ukArg4aWSscslCqJ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_mother_of ;
-    mrs:assertionSubject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:assertionSubject per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:assertionObject per:X2ng15gKbvEUL5bcM16USs ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:ApqPaNCNok1VJXDCKpsmAK ;
@@ -5929,7 +5929,7 @@ ast:NvoKY9ukArg4aWSscslCqJ
 ast:A7Zvi5SikLpB3rNcZOsufF
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_migrated_to ;
-    mrs:assertionSubject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:assertionSubject per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:assertionObject plc:GbMXYpUQqZcgkcj0nQueFW ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:ApqPaNCNok1VJXDCKpsmAK ;
@@ -5948,7 +5948,7 @@ ast:A7Zvi5SikLpB3rNcZOsufF
 ast:KJEyBjSXqY1W8AH52EYrkz
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:assertionSubject per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:assertionObject plc:WwHTpWuLytzfhxsGgROiKT ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:ApqPaNCNok1VJXDCKpsmAK ;
@@ -6788,7 +6788,7 @@ ast:Vbb0L8jmHasRkczmPpwYao
 ast:EdURsqaXCzJ9oaeKTnAqup
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:15ywiRwy5duq189kyMEIU1 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:c3XfYgzSFNq8pWdH8SgNOl ;
@@ -7284,7 +7284,7 @@ ast:bl5u1UP9u6D6qClMZ1DCFi
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_mawla_of ;
     mrs:assertionSubject per:YaAY8aQ10UvphFazG1mnii ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:K0tToJnIBhXpP5TlqfwdOK ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Anasa is called a mawlā of the Messenger of God ﷺ."@en ;
@@ -7303,7 +7303,7 @@ ast:UtrhaR3D6A7aHoPgHPZ4O2
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_mawla_of ;
     mrs:assertionSubject per:byg7cenr0nnKIoA2lBqAsF ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:K0tToJnIBhXpP5TlqfwdOK ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Abū Kabsha is called a mawlā of the Messenger of God ﷺ."@en ;
@@ -8479,7 +8479,7 @@ ast:HVrkt3dSp7eBRvH91PYHWn
 ast:2v1tbjwqAPWTC64qJlP06S
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_father_of ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject per:7XMkA64afEC5PCz0zGGPTs ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4OmsgeMV3ks273661MsYf6 ;
@@ -8548,7 +8548,7 @@ rpt:tghaGfhEE2CQEFQpRantUe
 ast:pyoosMkYtLRuW3pI130Mef
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_sheltered_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:Tvj82GYrHHvbBIehvFBQcA ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:tghaGfhEE2CQEFQpRantUe ;
@@ -8567,7 +8567,7 @@ ast:pyoosMkYtLRuW3pI130Mef
 ast:heyqs30FGX8XQwtEiebBec
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_sheltered_at ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject plc:Tvj82GYrHHvbBIehvFBQcA ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:tghaGfhEE2CQEFQpRantUe ;
@@ -8605,7 +8605,7 @@ ast:oVhqgQTdyXyF4tTZur0xcP
 ast:HaZ0HFDy5OeXRS15eNmBQY
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_father_of ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject per:GBH3zcgbBq2942xBqZo42T ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:tghaGfhEE2CQEFQpRantUe ;
@@ -8744,7 +8744,7 @@ rpt:fGC9p5tG9zgrfBqdMMcBOG
 ast:sit8ngJrxwDPNluwBrZfL7
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:nkdSMuVDo7LS9vhSuq1Lxs ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:fGC9p5tG9zgrfBqdMMcBOG ;
@@ -8763,7 +8763,7 @@ ast:sit8ngJrxwDPNluwBrZfL7
 ast:7XgIZavwzmrxxzjgdpJqPY
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:nkdSMuVDo7LS9vhSuq1Lxs ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:fGC9p5tG9zgrfBqdMMcBOG ;
@@ -8943,7 +8943,7 @@ rpt:FopuyRupEOK6q7J5Pq02qj
 ast:HFqsCD9oWS4tnRx1SXhFuf
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:lsnxCxuvtLE7DJl0eqVcYx ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:FopuyRupEOK6q7J5Pq02qj ;
@@ -8962,7 +8962,7 @@ ast:HFqsCD9oWS4tnRx1SXhFuf
 ast:rtGiKP7Kch0O627ks2NncO
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:uYVJ2jhB2Aaq448zoeRHxO ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:FopuyRupEOK6q7J5Pq02qj ;
@@ -8981,7 +8981,7 @@ ast:rtGiKP7Kch0O627ks2NncO
 ast:N9NmECoipI8kg1fchAeqHi
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:6QTW5VxAPNm4dHpwQjN8YY ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:FopuyRupEOK6q7J5Pq02qj ;
@@ -9000,7 +9000,7 @@ ast:N9NmECoipI8kg1fchAeqHi
 ast:hPA8u7RUxAteGgAtmbcuMc
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:kDxyIkAIMn3WopHOnvfoAs ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:FopuyRupEOK6q7J5Pq02qj ;
@@ -9019,7 +9019,7 @@ ast:hPA8u7RUxAteGgAtmbcuMc
 ast:kKpbXWXKIh5jhjXheihVPa
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:eBBykrJ0NPEL372vtvGF5M ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:FopuyRupEOK6q7J5Pq02qj ;
@@ -9038,7 +9038,7 @@ ast:kKpbXWXKIh5jhjXheihVPa
 ast:FhlMtpMmgKrBfUF31W3E5C
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:4AjyemDMJnAr1cB8kzo2Fq ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:FopuyRupEOK6q7J5Pq02qj ;
@@ -9057,7 +9057,7 @@ ast:FhlMtpMmgKrBfUF31W3E5C
 ast:crNSaUciwGjdpBgQVs1qc9
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:hmrB22D9n64myMxjBNImTn ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:FopuyRupEOK6q7J5Pq02qj ;
@@ -9108,7 +9108,7 @@ rpt:DoLpQDnnlV3L7MmySRaDpQ
 ast:kRabQ7l01ncVfLfNdbFowZ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:RK1HwA3cNEb3MZxboofz50 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9127,7 +9127,7 @@ ast:kRabQ7l01ncVfLfNdbFowZ
 ast:abBZQSAD9d2gEg76111LHC
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:ZK7ECS2plmbtBuJZJ7Ze4n ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9146,7 +9146,7 @@ ast:abBZQSAD9d2gEg76111LHC
 ast:C8dC815p99HAs6hCJ2JlTt
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:6eyJu0cNKDmoIEOwVxdBwb ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9165,7 +9165,7 @@ ast:C8dC815p99HAs6hCJ2JlTt
 ast:ZV7ytT3e1uzAEZagIIeqvQ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:JOGwJDZWowXvhzn9NIhNu5 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9184,7 +9184,7 @@ ast:ZV7ytT3e1uzAEZagIIeqvQ
 ast:1Xj4vnWqa5RmTwpO8PIOQJ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:ISX3wZMga0HOtY2NiiJm6m ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9203,7 +9203,7 @@ ast:1Xj4vnWqa5RmTwpO8PIOQJ
 ast:Sf2FQzQ0rqwfRCNqUtNnxB
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:TYHIoje2AeNFiqH6TPUDn8 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9222,7 +9222,7 @@ ast:Sf2FQzQ0rqwfRCNqUtNnxB
 ast:1w1uOApQ6OIWRmWClQSOYQ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:FQRH42GsOoMI4N6BnnONeE ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9241,7 +9241,7 @@ ast:1w1uOApQ6OIWRmWClQSOYQ
 ast:lOwEswXD8UbT4skUGdgaBU
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:6jGasvNst975lfVylRqrhT ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9260,7 +9260,7 @@ ast:lOwEswXD8UbT4skUGdgaBU
 ast:hja7kYi6lMyVUAMKBCrf4U
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:xkQiJgVAD7F4CCvSHnuYQR ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DoLpQDnnlV3L7MmySRaDpQ ;
@@ -9310,7 +9310,7 @@ rpt:4HBA42oDjmVeKYYSxmADh7
 ast:0LrISMM57GMIrO4x2F4rUQ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:M3uU6vmmPTggWx1F59ayMH ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4HBA42oDjmVeKYYSxmADh7 ;
@@ -9380,7 +9380,7 @@ ast:nznwg0kcV3zoGdIgpcjqlZ
 ast:vQ7br8IUeEmgBy4b4ACpKx
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:TwVDoz3yUBX8IB56ZhnpnV ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:lAQaGufpcYsQLXjBDtwWmN ;
@@ -9437,7 +9437,7 @@ ast:SnV2stBpI55NXd86ezKB1b
 ast:BftUEt7aYpxV8YezFBjFGo
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:Xax72Ns3mxjnH5coBqM501 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:lAQaGufpcYsQLXjBDtwWmN ;
@@ -9456,7 +9456,7 @@ ast:BftUEt7aYpxV8YezFBjFGo
 ast:WN8W1dZ58e1N9IORaatX31
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:4jjRRxLlrXPnIQbumVRFEp ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:lAQaGufpcYsQLXjBDtwWmN ;
@@ -9475,7 +9475,7 @@ ast:WN8W1dZ58e1N9IORaatX31
 ast:jzZjO8FLTLL3rFgr6tistj
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_travelled_via ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject plc:e1kzoE5mBoWRkQICkvNjZk ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:lAQaGufpcYsQLXjBDtwWmN ;
@@ -9494,7 +9494,7 @@ ast:jzZjO8FLTLL3rFgr6tistj
 ast:jX8kyCnNF0OG509LAcYexh
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:3lK8gd8ERkMXArSB2WMWFK ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:lAQaGufpcYsQLXjBDtwWmN ;
@@ -9513,7 +9513,7 @@ ast:jX8kyCnNF0OG509LAcYexh
 ast:ENAhXcxHYz7YZpe52WXnQn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:3lK8gd8ERkMXArSB2WMWFK ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:lAQaGufpcYsQLXjBDtwWmN ;
@@ -9564,7 +9564,7 @@ rpt:XZTt4OzGlZqdYETJ7VQekj
 ast:JHiLe9kqlwnNCsLoDzXvmU
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject ev:3lK8gd8ERkMXArSB2WMWFK ;
     mrs:ageAsWritten "في مثل سنه"@ar ;
     mrs:assertionStatus mrs:as_proposed ;
@@ -9616,7 +9616,7 @@ ast:RpNgPAgLY9XcC8bo28dBlN
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_sheltered ;
     mrs:assertionSubject per:AUZXELR4lacOKznbrtAq9K ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:shHzLuNahTbJyeeP4nbkjx ;
     mrs:qualifier mrsv:q_hedged ;
@@ -9636,7 +9636,7 @@ ast:vY0QdImA1seLU4eIdyzPoJ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_sheltered ;
     mrs:assertionSubject per:ezMirtw1UJmuRR9qg2yIMO ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:shHzLuNahTbJyeeP4nbkjx ;
     mrs:qualifier mrsv:q_text_alternative ;
@@ -9656,7 +9656,7 @@ ast:mRiPdrkwffl4shGzjaDWdn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_sheltered ;
     mrs:assertionSubject per:3DKPol2RrRo58vyEWBPtSV ;
-    mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:shHzLuNahTbJyeeP4nbkjx ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Abū Bakr lodged with Khubayb b. Isāf of Banū al-Ḥārith b. al-Khazraj at al-Sunḥ."@en ;
@@ -9675,7 +9675,7 @@ ast:EB0lAkqv5tgMMSlIPey73t
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_sheltered ;
     mrs:assertionSubject per:w6bZlDPmtZ646kdmuaJ9rj ;
-    mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:shHzLuNahTbJyeeP4nbkjx ;
     mrs:qualifier mrsv:q_text_alternative ;
@@ -9744,7 +9744,7 @@ rpt:Yvm3kqdqYBNKcvdLoDf5zq
 ast:tUoqWXkQJH9FMx7ZQgs5of
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:3Xjzj4QHY6FbgKENkGGXy7 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Yvm3kqdqYBNKcvdLoDf5zq ;
@@ -9973,7 +9973,7 @@ ast:2pPSzUalD6WIdo4k8uOuAO
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_sheltered ;
     mrs:assertionSubject per:xqSsh3EQEz1TQohmQQaZgi ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Yvm3kqdqYBNKcvdLoDf5zq ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Abū Ayyūb Khālid b. Zayd carried his saddle into his house, and the Messenger of God ﷺ lodged with him."@en ;
@@ -10115,7 +10115,7 @@ rpt:lOQtiMmXvTPyv2Q8AFhNqw
 ast:JoAxZGNOBbvxiFai8IcjMJ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject ev:3Xjzj4QHY6FbgKENkGGXy7 ;
     mrs:ageAsWritten "ابن ثلاث وخمسين سنة"@ar ;
     mrs:ageYearsAsGiven "53"^^xsd:decimal ;
@@ -10187,8 +10187,8 @@ rpt:0JjT4H99OJJIAVvUXOmsmI
 ast:B8Ucis632rviVRCoAN87cW
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:0JjT4H99OJJIAVvUXOmsmI ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Muḥammad, the Messenger of God ﷺ, first."@en ;
@@ -10207,7 +10207,7 @@ ast:z9ILyyHDFfoSllNETrIqm4
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:4cFhNASabmB63JuKazjKPh ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:0JjT4H99OJJIAVvUXOmsmI ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Ḥamza b. ʿAbd al-Muṭṭalib, 'lion of God and of His Messenger', the uncle of the Messenger of God ﷺ."@en ;
@@ -10226,7 +10226,7 @@ ast:EpvAKwRn68ps8U66ES4eQm
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_paternal_uncle_of ;
     mrs:assertionSubject per:4cFhNASabmB63JuKazjKPh ;
-    mrs:assertionObject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionObject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:0JjT4H99OJJIAVvUXOmsmI ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ḥamza b. ʿAbd al-Muṭṭalib is named as the paternal uncle (ʿamm) of the Messenger of God ﷺ."@en ;
@@ -10245,7 +10245,7 @@ ast:rr76XTVEZCR3a6cM33gWlV
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:Q4trlHWdutjvFkvqpaEGag ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:0JjT4H99OJJIAVvUXOmsmI ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAlī b. Abī Ṭālib."@en ;
@@ -10264,7 +10264,7 @@ ast:7PSSU7juZFmAWyl8KHF3jA
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:P4VAp86LIzXhq2pUAuEylx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:0JjT4H99OJJIAVvUXOmsmI ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Zayd b. Ḥāritha al-Kalbī."@en ;
@@ -10315,7 +10315,7 @@ ast:RrBdfFNzwU4xhvHX6ilQe8
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:YaAY8aQ10UvphFazG1mnii ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:iu45L9i7cTyyvWiPYs0TOv ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Anasa, mawlā of the Messenger of God ﷺ."@en ;
@@ -10334,7 +10334,7 @@ ast:hhQ8rtVRw07rZTN2iOwVZj
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:byg7cenr0nnKIoA2lBqAsF ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:iu45L9i7cTyyvWiPYs0TOv ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Kabsha, mawlā of the Messenger of God ﷺ."@en ;
@@ -10385,7 +10385,7 @@ ast:Iod2KlQJUdVp2eburabYWh
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:FxfwhGiFLVsfpSYY5Bqfw3 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hYqqk5aCjYzwU50a4zeO9q ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Marthad Kannāz b. Ḥiṣn."@en ;
@@ -10436,7 +10436,7 @@ ast:cQaKyPwovYQFdB9SymXHpA
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:ppZOlPDI486G6CdoJbPqQo ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:8TMfkGMj3MUVhwUsETVqE6 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Marthad b. Abī Marthad, ally of Ḥamza."@en ;
@@ -10455,7 +10455,7 @@ ast:ttq3RbKZdOMLLUy5NtPdD0
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:B67CfBuX1hWcwMB0SKWElx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:8TMfkGMj3MUVhwUsETVqE6 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUbayda b. al-Ḥārith b. al-Muṭṭalib."@en ;
@@ -10474,7 +10474,7 @@ ast:XJQQKHxITIJW0K8Bje6eCh
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:pt5072ARfghHxuLpEisTyz ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:8TMfkGMj3MUVhwUsETVqE6 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUbayda's brother al-Ṭufayl b. al-Ḥārith."@en ;
@@ -10493,7 +10493,7 @@ ast:sT1hji94IeN7ieift8y77Z
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:01zFKBy4DaPLuyUVxMTSPQ ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:8TMfkGMj3MUVhwUsETVqE6 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUbayda's brother al-Ḥuṣayn b. al-Ḥārith."@en ;
@@ -10531,7 +10531,7 @@ ast:hyc1Hau24j5WYy6IcS5N58
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:3HWBuAIurSjd5jURWqbjxc ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:8TMfkGMj3MUVhwUsETVqE6 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Misṭaḥ, whose name was ʿAwf b. Uthātha."@en ;
@@ -10581,7 +10581,7 @@ ast:V6BuoZTLWGQBpOPq9xPtMP
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_absent_from ;
     mrs:assertionSubject per:TxhFk19HwO2OpgvY4kBVGi ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4V9HNYsiIzNlugMFFfWi0d ;
     mrs:qualifier mrsv:q_share_not_present ;
@@ -10619,7 +10619,7 @@ ast:ztqLhJiJz2hG9sUguSgfMv
 ast:g6pvBo3t2sv0312Ve2drQg
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_father_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:IrmZRQOJCNAEYbYu1lH2YN ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4V9HNYsiIzNlugMFFfWi0d ;
@@ -10639,7 +10639,7 @@ ast:IasfHynCnSbWYFR67LWiQr
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:N87Fg8tUv0pjApeq4SiK06 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4V9HNYsiIzNlugMFFfWi0d ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Ḥudhayfa b. ʿUtba b. Rabīʿa of Banū ʿAbd Shams."@en ;
@@ -10658,7 +10658,7 @@ ast:pcns8J5XhLmygHh7jjb6av
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:W6eDABkWOsDrwKGC8qXmjp ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4V9HNYsiIzNlugMFFfWi0d ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Sālim, mawlā of Abū Ḥudhayfa."@en ;
@@ -10708,7 +10708,7 @@ ast:y6v97ma8a9shsYOxiIHJEA
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_absent_from ;
     mrs:assertionSubject per:u27kc6kXiGvVC6m6oBB9ct ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:KihUsgefAacn6HTFVTLZfi ;
     mrs:qualifier mrsv:q_hedged ;
@@ -10759,7 +10759,7 @@ ast:2E6cjwYu1s6hRxy6VTA6bv
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:6QXVxRGBr5r2blXLmxwVXd ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAbdullāh b. Jaḥsh."@en ;
@@ -10778,7 +10778,7 @@ ast:HYOzE2QCbKc15ZT8G1YWx5
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:ZkfdllhD4W9WVeeeb4p17w ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUkkāsha b. Miḥṣan."@en ;
@@ -10797,7 +10797,7 @@ ast:krv4yoTf3379TCGDFGe7wY
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:Zo3dJs0DKeV8V21FZNjdrE ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Shujāʿ b. Wahb."@en ;
@@ -10816,7 +10816,7 @@ ast:2r78a5Fp2Hp9VIaYeqHYxk
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:cEcnHQZ5HSAShALRwPnbRO ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Shujāʿ's brother ʿUqba b. Wahb."@en ;
@@ -10835,7 +10835,7 @@ ast:ZZFh6ggqxK5t9UlwOOtQix
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:2Qq9BgAoF6jASBcqV22Tcm ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Yazīd b. Ruqaysh."@en ;
@@ -10854,7 +10854,7 @@ ast:RQbCCvCLp68E308Cnb2S1F
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:3WtLRS0NSdTiCPT24fsFHY ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Sinān b. Miḥṣan, brother of ʿUkkāsha."@en ;
@@ -10873,7 +10873,7 @@ ast:zFzEXbcJyYvKhOk2Lu2cht
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:5zzWFz10eqyWeasrF7JDfH ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Sinān's son Sinān."@en ;
@@ -10892,7 +10892,7 @@ ast:gbwQel8jf8V0PB0vNXrB5b
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:dQz7MCrKnpYH50a60ymxm0 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Muḥriz b. Naḍla."@en ;
@@ -10911,7 +10911,7 @@ ast:9HjPonaB1pbRkUTIhHwaUD
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:T9bphkuNVXNoYLHWlKu3Iy ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:LhbjNfmhQF16i0kCcUGyjZ ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Rabīʿa b. Aktham."@en ;
@@ -10999,7 +10999,7 @@ ast:1RwQZyKwDBpDlNQwMZAC3W
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:pvTPuPx0TCrRtU7Z31EKT9 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:RLwp9mCYGUUvAzFmwBs3Nf ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Thaqf b. ʿAmr, ally of Banū Kabīr."@en ;
@@ -11018,7 +11018,7 @@ ast:89BcJKPXcOGgFjNXhyhppc
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:E1Dqnq5tde3WuSxyjso5op ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:RLwp9mCYGUUvAzFmwBs3Nf ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Thaqf's brother Mālik b. ʿAmr."@en ;
@@ -11037,7 +11037,7 @@ ast:PUr40NJjmC5ftwpXe158NS
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:NCHsSeeozucnrLOyV7mhyv ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:RLwp9mCYGUUvAzFmwBs3Nf ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Thaqf's brother Mudlij b. ʿAmr (Ibn Hishām: Midlāj)."@en ;
@@ -11126,7 +11126,7 @@ ast:EkfudfuCTmZIV2YXtWC05s
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:lo8xh6YCfAIC0H4OE3CpyU ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Y1fPPegREKIhDS1HS3lWOL ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Makhshī, their ally."@en ;
@@ -11177,7 +11177,7 @@ ast:nG3o2tWSybeXQ90uTSQzFb
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:PLMNBz5Jz8AbnR9Tymbs6r ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:nM6D90ko1G6DorYQMAor6V ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUtba b. Ghazwān, of Banū Nawfal."@en ;
@@ -11196,7 +11196,7 @@ ast:pchki9CYaxSj5wruY6MXNS
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:9WlHUDXnp9xa5hmuSv0NLf ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:nM6D90ko1G6DorYQMAor6V ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Khabbāb, mawlā of ʿUtba b. Ghazwān."@en ;
@@ -11246,7 +11246,7 @@ ast:6DPXV2VZPx5udJKG3UNOLN
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:emZYN2y2eJ4U3hYbzEdAzK ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:6YSeX3nRkoQ6kAd3ECAjDo ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names al-Zubayr b. al-ʿAwwām."@en ;
@@ -11265,7 +11265,7 @@ ast:7ZAOQkTIv7HlTCi4484i1I
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:52wF97ihmrqFQC2464peII ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:6YSeX3nRkoQ6kAd3ECAjDo ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Ḥāṭib b. Abī Baltaʿa."@en ;
@@ -11284,7 +11284,7 @@ ast:NENXOZWEAmrTTDTr6DjJM2
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:xBaB0ylNCp913U4WnJnLrN ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:6YSeX3nRkoQ6kAd3ECAjDo ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Saʿd, mawlā of Ḥāṭib."@en ;
@@ -11354,7 +11354,7 @@ ast:INSxWqCsjYMma8X4j2qoRC
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:xXOoS1i5K8dtQ7nTy6GZCT ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:xoLP0pQ65AZoUODAuw2RDt ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Muṣʿab b. ʿUmayr."@en ;
@@ -11373,7 +11373,7 @@ ast:tYSpvCztyNJ30UBonjYgEx
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:3CwMWajXApZhzanSwQLNWr ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:xoLP0pQ65AZoUODAuw2RDt ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Suwaybiṭ b. Saʿd."@en ;
@@ -11423,7 +11423,7 @@ ast:rF7eXgfP5NxXbtrkB5Mj8C
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:No6KV9b4z8MnuoTMo3QxBY ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hxP8xWBGOykrr2hL5geQUj ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAbd al-Raḥmān b. ʿAwf."@en ;
@@ -11442,7 +11442,7 @@ ast:2xEiQlsfldVbFSh6jhokjb
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:e8UKnTRZCYHGR7wuT2r5HN ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hxP8xWBGOykrr2hL5geQUj ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Saʿd b. Abī Waqqāṣ."@en ;
@@ -11461,7 +11461,7 @@ ast:6oGl92THeLl0CWhDRPWfW7
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:QBrtRNOW5fc5wZNNuvYZTp ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hxP8xWBGOykrr2hL5geQUj ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Saʿd's brother ʿUmayr b. Abī Waqqāṣ."@en ;
@@ -11511,7 +11511,7 @@ ast:Doc9X9aZyJh2TxaZY1iPfZ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:UyMdny2eh90Lxs0Ub3izhs ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Q9v11XSfoQY1uVlST4o5w0 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names al-Miqdād b. ʿAmr, ally of Banū Zuhra."@en ;
@@ -11562,7 +11562,7 @@ ast:TljJG1Vc8lyuNg26faETfR
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:CdhjM9YjkJPMW2fPbnnHmZ ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:iGLmQfyVFijw8WyNdGfegz ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAbdullāh b. Masʿūd."@en ;
@@ -11581,7 +11581,7 @@ ast:gkO5Zl7Ax8nrNeRjQ0wXsF
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:qixOabALTTmrXQacCg8nfz ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:iGLmQfyVFijw8WyNdGfegz ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Masʿūd b. Rabīʿa of al-Qāra."@en ;
@@ -11632,7 +11632,7 @@ ast:Y3yoow3nnbKhMxk1xBjVkJ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:l85OgxdZnXf0HEjcvErdfx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:Fy2viDl13uIGDJRmSaeHVC ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Dhū al-Shimālayn b. ʿAbd ʿAmr of Khuzāʿa."@en ;
@@ -11683,7 +11683,7 @@ ast:A5cfDgNSKPjpaUe5D8Ubvt
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:L331CJT2Cnnm6plMPy3B9E ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:jg14ryOwI12vmUFSrKqT4o ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Khabbāb b. al-Aratt."@en ;
@@ -11733,8 +11733,8 @@ rpt:NvnfbyjNl9ft6JOlc4bLFW
 ast:9cN1dgo1TqgyZkuMuU40NY
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:NvnfbyjNl9ft6JOlc4bLFW ;
     mrs:qualifier mrsv:q_editorial_brackets ;
@@ -11786,7 +11786,7 @@ ast:LqmwbdnAJbCz5gzCdAApbm
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:LokzGBbtKKXFdzLwoDZSi6 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:zzih7g4c8bUts8PTGsKPDR ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Bilāl, mawlā of Abū Bakr."@en ;
@@ -11805,7 +11805,7 @@ ast:eqBcLPXMLwV0I7q6lKpLlM
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_mawla_of ;
     mrs:assertionSubject per:LokzGBbtKKXFdzLwoDZSi6 ;
-    mrs:assertionObject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionObject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:zzih7g4c8bUts8PTGsKPDR ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Bilāl b. Rabāḥ is called the mawlā of Abū Bakr, who bought him from Umayya b. Khalaf."@en ;
@@ -11824,7 +11824,7 @@ ast:rpnrJfFDXagfzzyobfan3R
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:8gztwMhLzVG8nUtMnV3GUW ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:zzih7g4c8bUts8PTGsKPDR ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿĀmir b. Fuhayra."@en ;
@@ -11875,7 +11875,7 @@ ast:DxYmgW9txx6fX1n5Lv58V6
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:etJ9DWzsPdnmCiosNMzPQw ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:7MVkkZK0gw76HKiPrIHlpx ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Ṣuhayb b. Sinān of al-Namir b. Qāsiṭ."@en ;
@@ -11926,7 +11926,7 @@ ast:9PHmEnEAlFdx25FYuHVvgn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_absent_from ;
     mrs:assertionSubject per:PNkrkk1S9wmc5Y5Lza6PmV ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:i3UNRNy1MOEEfTDCLkrOiE ;
     mrs:qualifier mrsv:q_share_not_present ;
@@ -11978,7 +11978,7 @@ ast:PrvPyhrzCgQ23P1bOIv0Ux
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:Y751QWwVaMDWUDzqRdFfzL ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:gtrUrbXdeYuRXgLUFO2REg ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Salama b. ʿAbd al-Asad."@en ;
@@ -11997,7 +11997,7 @@ ast:0XHG9ecZCkwa9vt3gyjJoB
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:2aq7kXxhtCfbWedYUMEUbs ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:gtrUrbXdeYuRXgLUFO2REg ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Shammās b. ʿUthmān."@en ;
@@ -12048,7 +12048,7 @@ ast:uiGr0501p3cP4uqR0J5Gvn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:rb5dst7FpF0k4xTJWoO8Bo ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:p97TKhA1y9MRQLSpZ4KI3s ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names al-Arqam b. Abī al-Arqam."@en ;
@@ -12067,7 +12067,7 @@ ast:xxQQc7oAwckjwSgKgA2Kye
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:HlRtmjc07rUsfgTsP8rKRV ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:p97TKhA1y9MRQLSpZ4KI3s ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAmmār b. Yāsir."@en ;
@@ -12118,7 +12118,7 @@ ast:LbjolbuwxxK96BsHm2SuLy
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:ISY9WVybjCOgoId1VVzJim ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:1xx4LHYGO4La07Djt5kdu2 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Muʿattib b. ʿAwf of Khuzāʿa, their ally, called ʿAyhāma."@en ;
@@ -12168,7 +12168,7 @@ ast:hODVeObeK4V4lAsDlPkQhu
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:vln6et5FvUrm7neh48NSJa ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DLdhx6L0Rb5dnVKugFxF0b ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUmar b. al-Khaṭṭāb."@en ;
@@ -12187,7 +12187,7 @@ ast:g6fPqbZ6UIaqnwJw03eKSE
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:csYJQroFrONS9jrI8TpDXb ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DLdhx6L0Rb5dnVKugFxF0b ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUmar's brother Zayd b. al-Khaṭṭāb."@en ;
@@ -12206,7 +12206,7 @@ ast:FNREoHNBlASCt2uSuzV36J
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:wsvyTnBKBBu9WVO9kfQGBd ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:DLdhx6L0Rb5dnVKugFxF0b ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Mihjaʿ, mawlā of ʿUmar, of the people of Yemen, the first Muslim killed between the two lines on the day of Badr, by an arrow."@en ;
@@ -12257,7 +12257,7 @@ ast:mzJfFkIlKDdN2PjVZ3ZDOO
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:70AQtv80ZyPEdNK02cVxg9 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:cgzoJNEZHzNM8QuKGYL36g ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAmr b. Surāqa."@en ;
@@ -12276,7 +12276,7 @@ ast:97qzoMhVlNFHk1bogpM9xB
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:2WqIZdpnvZpl9ERR6whTQP ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:cgzoJNEZHzNM8QuKGYL36g ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAmr's brother ʿAbdullāh b. Surāqa."@en ;
@@ -12295,7 +12295,7 @@ ast:oQJAEaniUwP0XocutkRcJy
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:5WwMBG4ATc7T6cHEuR3qNA ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:cgzoJNEZHzNM8QuKGYL36g ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Wāqid b. ʿAbdullāh of Tamīm, their ally."@en ;
@@ -12314,7 +12314,7 @@ ast:iC0MUdEsA58BnOba4fPrRo
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:XRxbiu6cfvWTcwpnqhVlWZ ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:cgzoJNEZHzNM8QuKGYL36g ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Khawlī b. Abī Khawlī, their ally."@en ;
@@ -12333,7 +12333,7 @@ ast:e2L7CDNOCt8NWdsR8dkP3w
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:ZGTVjbB1ffS4j3qp0kxRgi ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:cgzoJNEZHzNM8QuKGYL36g ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Mālik b. Abī Khawlī, their ally."@en ;
@@ -12384,7 +12384,7 @@ ast:9vjxMEIsaWORY8HfoNwD2R
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:jM3u5Nf5CKn6CJC1WKpT2U ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:2S4yP0CxBt170WcKH54LNk ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿĀmir b. Rabīʿa, ally of the family of al-Khaṭṭāb."@en ;
@@ -12435,7 +12435,7 @@ ast:1u1wc3Rq2V0k3i5NqSq3W0
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:2LQfPEVusaAPSMmDxzTxZN ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:QTTTSivzqJJRuGOtfU2val ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿĀmir b. al-Bukayr."@en ;
@@ -12454,7 +12454,7 @@ ast:BKL0YNx6eBPB5LIJ10XCMd
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:Gu23VflZ6BijRLkbYttaJD ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:QTTTSivzqJJRuGOtfU2val ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿĀqil b. al-Bukayr."@en ;
@@ -12473,7 +12473,7 @@ ast:88wwkntA6CLj2C2na2YBNF
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:PNi3j6I3MCwGzqgZCmYngU ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:QTTTSivzqJJRuGOtfU2val ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Khālid b. al-Bukayr."@en ;
@@ -12492,7 +12492,7 @@ ast:QE4pDJ4t4we0KmnyFTYtDV
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:zmAkPJmBPn6VPlmQUCHYWB ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:QTTTSivzqJJRuGOtfU2val ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Iyās b. al-Bukayr."@en ;
@@ -12511,7 +12511,7 @@ ast:QeMREivYPrZ9ef4fbVV7pB
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_absent_from ;
     mrs:assertionSubject per:u94wpqEKcCVqkezetgirQ8 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:QTTTSivzqJJRuGOtfU2val ;
     mrs:qualifier mrsv:q_share_not_present ;
@@ -12562,7 +12562,7 @@ ast:ebzddYaDxjW92RT2aV9TXV
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:GsSz4BnpbobZPCdjwpza4w ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:j8kPnTssee0qTsWCDOgxzW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUthmān b. Maẓʿūn."@en ;
@@ -12581,7 +12581,7 @@ ast:eL5JFMQNdlfIQkIlCLRbvj
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:BQ13uD3TnjC2iSycT3ZbiD ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:j8kPnTssee0qTsWCDOgxzW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names his son al-Sāʾib b. ʿUthmān."@en ;
@@ -12619,7 +12619,7 @@ ast:H3NDwbr11zKPbeH7lw1s48
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:MdZYO3xwfTB5SUW1DLdUJy ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:j8kPnTssee0qTsWCDOgxzW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names his brother Qudāma b. Maẓʿūn."@en ;
@@ -12638,7 +12638,7 @@ ast:qDHRyK7jHjXhUg0b4xueig
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:7P1nSYc97bzEUQidfsKCVX ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:j8kPnTssee0qTsWCDOgxzW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names his brother ʿAbdullāh b. Maẓʿūn."@en ;
@@ -12657,7 +12657,7 @@ ast:OSsjmteTU768eYAsaSrYsk
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:KINBmxV5fjjEysB36R1V9o ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:j8kPnTssee0qTsWCDOgxzW ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Maʿmar b. al-Ḥārith."@en ;
@@ -12707,7 +12707,7 @@ ast:0qy6gDEMkVfE7IdxpKBotk
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:774VrlLYMpOWRsro2q7SGY ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:6fAR76ilpbBdvJTPQNpd1z ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Khunays b. Ḥudhāfa of Banū Sahm."@en ;
@@ -12758,7 +12758,7 @@ ast:NEoREwhTCpUdJTf5Mcnb5N
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:gZfKcHVSCTDCWsaedsmkQX ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4SrdChLzDHOn283tUPO69Q ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū Sabra b. Abī Ruhm."@en ;
@@ -12777,7 +12777,7 @@ ast:artjzgCNpSyLUcq5rXmXFI
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:WFoNra9goeI8fBHclPkSkY ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4SrdChLzDHOn283tUPO69Q ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAbdullāh b. Makhrama."@en ;
@@ -12796,7 +12796,7 @@ ast:Q0FemxO7MjkfgGENVavvZT
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:1YfSOUjZGpyQgb47dbYGMx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4SrdChLzDHOn283tUPO69Q ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAbdullāh b. Suhayl b. ʿAmr, who had come out with his father Suhayl b. ʿAmr and, when the armies halted at Badr, fled to the Messenger of God ﷺ and fought with him."@en ;
@@ -12834,7 +12834,7 @@ ast:8fwc1oqavQwgA7jNuHSpiw
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:J0hCKxQZa8rD3Ns0WovHVx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4SrdChLzDHOn283tUPO69Q ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿUmayr b. ʿAwf, mawlā of Suhayl b. ʿAmr."@en ;
@@ -12872,7 +12872,7 @@ ast:LJ4fOIE8g4znEDRKdAZOR0
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:2vlgDxZ2KaYccr4CkgHqyf ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:4SrdChLzDHOn283tUPO69Q ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Saʿd b. Khawla, their ally."@en ;
@@ -12923,7 +12923,7 @@ ast:EY11Qw4unZZuYho4qXdl5c
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:UtI7tfqLuYs902qoNowis1 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:YO8gWEihc9GCGCp8qTZOAs ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Abū ʿUbayda b. al-Jarrāḥ."@en ;
@@ -12942,7 +12942,7 @@ ast:S5jtnDfJnVh1aXvsGAdOT3
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:kqWGjBuXZTfjluptr6T435 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:YO8gWEihc9GCGCp8qTZOAs ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAmr b. al-Ḥārith b. Zuhayr."@en ;
@@ -12961,7 +12961,7 @@ ast:gsk4vdcugebWMhrXkfY9Tn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:oHPZ95JU13R0LhLhCxvNXG ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:YO8gWEihc9GCGCp8qTZOAs ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names Suhayl b. Wahb."@en ;
@@ -12980,7 +12980,7 @@ ast:UyAZaWDgbFyVqk9zleTZI4
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:QCd9tCP8TCGfGWMWHjJVvb ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:YO8gWEihc9GCGCp8qTZOAs ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names his brother Ṣafwān b. Wahb; the two are the sons of Bayḍāʾ."@en ;
@@ -13018,7 +13018,7 @@ ast:Dc8ykMXeVAdYgyUPhVrZMV
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_participated_in ;
     mrs:assertionSubject per:GI1czw3LtWIFMa1hvL9nu7 ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:YO8gWEihc9GCGCp8qTZOAs ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Isḥāq's list of the Muslims who were present at Badr names ʿAmr b. Abī Sarḥ."@en ;
@@ -13068,7 +13068,7 @@ ast:AOxZFjZf8goddxn3Pfeain
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:B67CfBuX1hWcwMB0SKWElx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): First of the Muslims martyred with the Messenger of God ﷺ on the day of Badr: ʿUbayda b. al-Ḥārith b. al-Muṭṭalib, whose leg ʿUtba b. Rabīʿa cut off; he died at al-Ṣafrāʾ."@en ;
@@ -13125,7 +13125,7 @@ ast:qidxDLwPcUMHtS9jgUIfdW
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:QBrtRNOW5fc5wZNNuvYZTp ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū Zuhra: ʿUmayr b. Abī Waqqāṣ."@en ;
@@ -13163,7 +13163,7 @@ ast:bpE9g7r0PehYhjJMrMGFGL
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:l85OgxdZnXf0HEjcvErdfx ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr: Dhū al-Shimālayn b. ʿAbd ʿAmr, an ally of Banū Zuhra from Khuzāʿa."@en ;
@@ -13182,7 +13182,7 @@ ast:ALsF1PGr4ivOTLncpApa3e
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:Gu23VflZ6BijRLkbYttaJD ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū ʿAdī: ʿĀqil b. al-Bukayr, their ally."@en ;
@@ -13201,7 +13201,7 @@ ast:Mdin9cAKLhH1PRy3bwKtNC
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:wsvyTnBKBBu9WVO9kfQGBd ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr: Mihjaʿ, the mawlā of ʿUmar b. al-Khaṭṭāb."@en ;
@@ -13239,7 +13239,7 @@ ast:biYgVIdAzVpQIlBdbIPZuf
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:QCd9tCP8TCGfGWMWHjJVvb ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū al-Ḥārith b. Fihr: Ṣafwān b. Bayḍāʾ."@en ;
@@ -13258,7 +13258,7 @@ ast:d0c5L0ueCACE197oYj8WSo
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:ezMirtw1UJmuRR9qg2yIMO ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the Anṣār martyred at Badr, of Banū ʿAmr b. ʿAwf: Saʿd b. Khaythama."@en ;
@@ -13277,7 +13277,7 @@ ast:flCKH0GMf2GwMpPqR8zepQ
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:vPphNkldTFmEbIpQ3arMeP ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the Anṣār martyred at Badr, of Banū ʿAmr b. ʿAwf: Mubashshir b. ʿAbd al-Mundhir."@en ;
@@ -13296,7 +13296,7 @@ ast:S58vFUk5VE0o01VsjGoR5k
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:hagpH9ij28AZO8aFX6zq6E ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū al-Ḥārith b. al-Khazraj: Yazīd b. al-Ḥārith, called Ibn Fusḥum."@en ;
@@ -13315,7 +13315,7 @@ ast:cRD690OSVze7nih84sDcoX
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:Sjp3pGbjSzOdDSmJJcjI8j ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū Salima: ʿUmayr b. al-Ḥumām."@en ;
@@ -13334,7 +13334,7 @@ ast:4rgKryx25Ih1lL6oahY696
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:MkqqEgyHUfszpRF3qJBcBi ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū Ḥabīb: Rāfiʿ b. al-Muʿallā."@en ;
@@ -13353,7 +13353,7 @@ ast:Jb94nmcCfXexbNclI2VNTx
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:Nxby4UEZroMup7jbi6EEXD ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū al-Najjār: Ḥāritha b. Surāqa."@en ;
@@ -13372,7 +13372,7 @@ ast:Wva1H1dL6qgwQGPZqDGN7l
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:7GU5QQcuQDeFhwLFrA1Yhe ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū Ghanm b. Mālik b. al-Najjār: ʿAwf, son of al-Ḥārith and of ʿAfrāʾ."@en ;
@@ -13391,7 +13391,7 @@ ast:8LdjXUkb4fzswRHnxFUz6F
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
     mrs:assertionSubject per:5eMvahIOnfXgs2QGzrtPeu ;
-    mrs:assertionObject ev:5rTyU9mNbV2cXzA8sDfGhJk1 ;
+    mrs:assertionObject ev:fnXxxzRKzKDFtsSvrMamC9 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:duMBOfhnwD93CdsCy9Lwd7 ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Listed among the martyrs of Badr, of Banū Ghanm b. Mālik b. al-Najjār: Muʿawwidh, son of al-Ḥārith and of ʿAfrāʾ."@en ;
@@ -13460,7 +13460,7 @@ rpt:5jL0kzc0l4Tp2HCaRQg4xl
 ast:V66PK4IoiUjdiz1vBmiibu
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_died_during ;
-    mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject ev:TgndynNHEEcsztJA7iVT3x ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:5jL0kzc0l4Tp2HCaRQg4xl ;
@@ -13510,7 +13510,7 @@ rpt:SsWPrEbMRJ61lzPtKj0AwY
 ast:3d02pMLndwdudYkdA70mjR
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_age_at ;
-    mrs:assertionSubject per:3wY6xZc2mQ7vR9nK4pT8sA1 ;
+    mrs:assertionSubject per:pgEqNKdrPeXOU9fcCIc5Tf ;
     mrs:assertionObject ev:GGk9JXKlvnlTZ11XbuATDJ ;
     mrs:ageAsWritten "وهو ابن ثلاث وثلاثين سنة"@ar ;
     mrs:ageYearsAsGiven "33"^^xsd:decimal ;
@@ -13563,7 +13563,7 @@ rpt:hjMQpaynoTi66L9h9hOAIq
 ast:tBG6E7SWjpLgqfw2w8rZKA
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:2FTEMtzmUhqwffqT42Bb3J ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
@@ -13582,7 +13582,7 @@ ast:tBG6E7SWjpLgqfw2w8rZKA
 ast:6FVKYaXIxqeGnghVszKUv6
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:15ywiRwy5duq189kyMEIU1 ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
@@ -13601,7 +13601,7 @@ ast:6FVKYaXIxqeGnghVszKUv6
 ast:GnAFBsbfFJ9wluOqtxJsPx
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:X7c6HVfMSWH0v3lA9uNbKq ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
@@ -13620,8 +13620,8 @@ ast:GnAFBsbfFJ9wluOqtxJsPx
 ast:7c8ETYrpJOKgx3IktLxiLk
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:7kQwE4rTyU2mNbV9cXzAsD1 ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:5sGHTje5qGKdw6c6RWyHKV ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Hishām names Umm Salama bint Abī Umayya b. al-Mughīra among the nine wives of the Messenger of God ﷺ."@en ;
@@ -13639,8 +13639,8 @@ ast:7c8ETYrpJOKgx3IktLxiLk
 ast:fHOqkdq10uOXFldX45sWzm
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
-    mrs:assertionObject per:2sDfG6hJkQ9wErT4yUmNbV1 ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
+    mrs:assertionObject per:dOPyrfzvo3NIvUQShyiRsk ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
     rdfs:comment "AI gloss (proposed; machine-written, not reviewed, not a translation): Ibn Hishām names Sawda bint Zamʿa b. Qays among the nine wives of the Messenger of God ﷺ."@en ;
@@ -13658,7 +13658,7 @@ ast:fHOqkdq10uOXFldX45sWzm
 ast:K2PGV4b8zRzOCx7I6g2AS4
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:Pc4IPq6Y9cuyh74qnQNAjw ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
@@ -13677,7 +13677,7 @@ ast:K2PGV4b8zRzOCx7I6g2AS4
 ast:ZQPdn5TsLB6WiHgjdNHcAI
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:iSGKHiSh3I85U6bp9Q5xwT ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
@@ -13696,7 +13696,7 @@ ast:ZQPdn5TsLB6WiHgjdNHcAI
 ast:dQXDytZqnOHssXzDm9UWOn
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:OsryCWEFGa4AFD8m9igTxF ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
@@ -13715,7 +13715,7 @@ ast:dQXDytZqnOHssXzDm9UWOn
 ast:ZnIk0F1cR75zo22uSMu7M3
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_spouse_of ;
-    mrs:assertionSubject per:2mQ7vR9nK4pT8sY3wZ6xCe ;
+    mrs:assertionSubject per:Vc74FSoBSMY4TBSEwjPyai ;
     mrs:assertionObject per:VYbEOApckVCwVTQVRPObZo ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:hjMQpaynoTi66L9h9hOAIq ;
@@ -13808,7 +13808,7 @@ ast:EUTO5quj2TpRP1V4gdiWNP
 ast:us57YBiqgrY2vJZo8ALHdg
     a mrs:Assertion , oa:Annotation ;
     mrs:predicate mrs:rel_father_of ;
-    mrs:assertionSubject per:8sT3wY6xZc2mQ7vR9nK4pP1 ;
+    mrs:assertionSubject per:QYWUDj7ATL1ApLn5P7gmsQ ;
     mrs:assertionObject per:2FTEMtzmUhqwffqT42Bb3J ;
     mrs:assertionStatus mrs:as_proposed ;
     mrs:fromReport rpt:RWjuDrDSBHCj9UUYS6lcAR ;
