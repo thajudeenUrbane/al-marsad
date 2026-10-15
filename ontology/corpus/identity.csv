@@ -355,3 +355,140 @@ event,ev:TgndynNHEEcsztJA7iVT3x,The expedition of Muʾta,غزوة مؤتة,,,ibn
 event,ev:GGk9JXKlvnlTZ11XbuATDJ,Death of Jaʿfar b. Abī Ṭālib,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
 event,ev:D0lhalJN5ephmJYufYlICL,Marriage of the Prophet ﷺ and ʿĀʾisha bint Abī Bakr (at Makkah),,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
 event,ev:eDHHzBGLgKlXqSgZkNI5MJ,ʿĀʾisha bint Abī Bakr joins the Prophet's household (at al-Madīna),,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:6a2P8ufeULL32DhjcWyF9X,Khadīja bint Khuwaylid's acceptance of Islam,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:Jt86lPkehYMvi6frgLAnbv,Five early converts brought to the Prophet ﷺ by Abū Bakr,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:qN1qzp7YxSUtsFRuzCJkYa,The early acceptance of Islam in Makkah (Ibn Isḥāq's list after the first eight),,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:qixOabALTTmrXQacCg8nfz,Masʿūd b. al-Qārī (Masʿūd b. Rabīʿa),مسعود بن القاري,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:S9QMjo2ynXN19xzuQxvKH3,Salīṭ b. ʿAmr,سليط بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:rsl7CaE6oYVwogiO76iELy,ʿAyyāsh b. Abī Rabīʿa,عياش بن أبي ربيعة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:0Fx4ePi9t7VIURCoDnDhdY,Asmāʾ bint Salāma,أسماء بنت سلامة ابن مخربة التميمية,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:774VrlLYMpOWRsro2q7SGY,Khunays b. Ḥudhāfa,خنيس بن حذافة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:jM3u5Nf5CKn6CJC1WKpT2U,ʿĀmir b. Rabīʿa,عامر بن ربيعة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:6QXVxRGBr5r2blXLmxwVXd,ʿAbdullāh b. Jaḥsh,عبد الله بن جحش,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ro8xRyXvCzbDtTkElK0no1,Abū Aḥmad b. Jaḥsh,أبو أحمد بن جحش,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:3lHT4c2OFVnTZR8EQUxJfo,Ḥāṭib b. al-Ḥārith,حاطب بن الحارث,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:gpKczxxzgWhQYppRvWhw2m,Fāṭima bint al-Mujallil,فاطمة بنت المجلل,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:0lP1n5V2dJnXleeXRPKBCs,Ḥaṭṭāb b. al-Ḥārith,حطاب بن الحارث,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:M2yIhHsKLDGlr0xihKlz9Q,Fukayha bint Yasār,فكيهة بنت يسار,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:KINBmxV5fjjEysB36R1V9o,Maʿmar b. al-Ḥārith,معمر بن الحارث,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:BQ13uD3TnjC2iSycT3ZbiD,al-Sāʾib b. ʿUthmān b. Maẓʿūn,السائب بن عثمان بن مظعون,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:tLdz53JRJl9PCyodcHzFF5,al-Muṭṭalib b. Azhar,المطلب ابن أزهر,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:3VXn89SotF4wSljFLiwNrM,Ramla bint Abī ʿAwf,رملة بنت أبي عوف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:HxsjyAbrgMXNdWoU4AzfaD,Khālid b. Saʿīd b. al-ʿĀṣ,خالد بن سعيد بن العاص,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:LtECNZ4Y9DZtrUEzo5D5dq,Umayna bint Khalaf,أمينة بنت خلف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as همينة بنت خلف (Humayna)
+person,per:lRnviypgAnE5EJSzIAoh7J,Ḥāṭib b. ʿAmr,حاطب بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:N87Fg8tUv0pjApeq4SiK06,Abū Ḥudhayfa b. ʿUtba b. Rabīʿa,أبو حذيفة بن عتبة بن ربيعة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:5WwMBG4ATc7T6cHEuR3qNA,Wāqid b. ʿAbdullāh,واقد بن عبد الله,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:MdZYO3xwfTB5SUW1DLdUJy,Qudāma b. Maẓʿūn,قدامة بن مظعون,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:7P1nSYc97bzEUQidfsKCVX,ʿAbdullāh b. Maẓʿūn,عبد الله بن مظعون,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:bMjocVxMwUH7jPwJcAIXfp,Dār al-Nadwa,دار الندوة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:2aJq0dONtpXehdFO9YJUhz,The council of Quraysh at Dār al-Nadwa before the Hijra,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:cYbv9qKd3bFz6A1yHyKELy,Shayba b. Rabīʿa,شيبة ابن ربيعة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:NkYLj4RFm3ICEIx17JyQk8,Ṭuʿayma b. ʿAdī,طعيمة بن عدي,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:u7FAWnIzMTylm3qpdoKS1L,al-Ḥārith b. ʿĀmir b. Nawfal,الحارث بن عامر بن نوفل,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:50p3N68NQRtTeKXIQ9YCdj,al-Naḍr b. al-Ḥārith,النضر بن الحارث بن كلدة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:uvt9r6NizyafL9Gybo88ZT,Abū al-Bakhtarī b. Hishām,أبو البختري ابن هشام,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:wQbof3UnsFBfTDfS2MQ2fR,Zamʿa b. al-Aswad,زمعة بن الأسود بن المطلب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:l0uK9NhyYP6hydHY3sKDGz,Abū Jahl b. Hishām,أبو جهل بن هشام,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:oXB3wO7QfTEiDGMsI2htek,Nubayh b. al-Ḥajjāj,نبيه,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:hJTF6eImV0jsYG6VccbIbh,Munabbih b. al-Ḥajjāj,منبه,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:6TTdsKKwOuAe2lTzrhRQaK,Umayya b. Khalaf,أمية بن خلف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:KaJpcLCOtfvCewd0zxtJe3,Muḥammad b. Kaʿb al-Quraẓī,محمد بن كعب القرظي,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:rwPbhrfnkGhT6cxu17dAZp,Yazīd b. Ziyād,يزيد بن زياد,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:qqfhp0QdvuSgMwHGey7r6G,ʿAbdullāh b. Arqaṭ,عبد الله بن أرقط,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as عبد الله بن أريقط (Ibn Urayqit)
+person,per:oiLTh7isgHYnslqurVlPHB,Aws b. Ḥajar al-Aslamī,أوس بن حجر,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:vFEPxdwh3nr0SpjnXpADj6,Masʿūd b. Hunayda,مسعود بن هنيدة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:3DKPol2RrRo58vyEWBPtSV,Khubayb b. Isāf,خبيب بن إساف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ZM6AFn8xwsInPqAb1351Fn,ʿAbbās b. ʿUbāda b. Naḍla,عباس بن عبادة بن نضلة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:OneTKuyqoKBwAe7kEJG8jc,Ziyād b. Labīd,زياد بن لبيد,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:hVglleSBUsjd9erO5zbrAZ,Farwa b. ʿAmr,فروة بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:e40bsnzQfvA15bHnySKIkP,al-Mundhir b. ʿAmr,المنذر بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:PUtkNfjgyqdjUoucag7zUb,Salīṭ b. Qays,سليط بن قيس,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:UuICsOoajrB3Hje54LmSJ0,Abū Salīṭ Usayra b. Abī Khārija,أبو سليط، أسيرة بن أبي خارجة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:uNB46AY0Wj1w3d9SQYtsku,Muʿādh b. ʿAfrāʾ,معاذ بن عفراء,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:lsnxCxuvtLE7DJl0eqVcYx,The coast (al-sāḥil),الساحل,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:uYVJ2jhB2Aaq448zoeRHxO,ʿUsfān,عسفان,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:6QTW5VxAPNm4dHpwQjN8YY,Amaj,أمج,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:kDxyIkAIMn3WopHOnvfoAs,Qudayd,قديدا,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:eBBykrJ0NPEL372vtvGF5M,al-Kharrār,الخرار,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:4AjyemDMJnAr1cB8kzo2Fq,Thaniyyat al-Marra,ثنية المرة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:hmrB22D9n64myMxjBNImTn,Liqf,لقف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as لفت (Lift)
+place,plc:RK1HwA3cNEb3MZxboofz50,Madlajat Liqf,مدلجة لقف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:ZK7ECS2plmbtBuJZJ7Ze4n,Madlajat Maḥāj,مدلجة محاج,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as مجاج (Majaj)
+place,plc:6eyJu0cNKDmoIEOwVxdBwb,Marjiḥ Maḥāj,مرجح محاج,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:JOGwJDZWowXvhzn9NIhNu5,Marjiḥ of Dhū al-Ghaḍwayn,مرجح من ذي الغضوين,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as العضوين (al-'Adwayn)
+place,plc:ISX3wZMga0HOtY2NiiJm6m,Dhū Kashr,ذي كشر,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:TYHIoje2AeNFiqH6TPUDn8,al-Jadājid,الجداجد,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:FQRH42GsOoMI4N6BnnONeE,al-Ajrad,الأجرد,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:6jGasvNst975lfVylRqrhT,Dhū Salam,ذا سلم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:xkQiJgVAD7F4CCvSHnuYQR,al-ʿAbābīd,العبابيد,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as العبابيب (al-'Ababib) and العثيانة (al-'Uthyana)
+place,plc:M3uU6vmmPTggWx1F59ayMH,al-Fāja,الفاجة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as القاحة (al-Qaha)
+place,plc:TwVDoz3yUBX8IB56ZhnpnV,al-ʿArj,العرج,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:Xax72Ns3mxjnH5coBqM501,Thaniyyat al-ʿĀʾir,ثنية العائر,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as ثنية الغائر (Thaniyyat al-Gha'ir)
+place,plc:4jjRRxLlrXPnIQbumVRFEp,Rakūba,ركوبة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:e1kzoE5mBoWRkQICkvNjZk,Baṭn Riʾm,بطن رئم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:WwHTpWuLytzfhxsGgROiKT,al-Tanʿīm,التنعيم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:o9Il2LNRbNlkXxFo2Dw57c,Salama b. ʿAbdullāh b. ʿUmar b. Abī Salama,سلمة بن عبد الله بن عمر ابن أبي سلمة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:4nRtAb16YW5q9oG6vgYj3n,Isḥāq b. Yasār,إسحاق بن يسار,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:X2ng15gKbvEUL5bcM16USs,Salama b. Abī Salama,سلمة بن أبي سلمة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:xF9QiKKkfheLLWNb3ttlLb,Laylā bint Abī Ḥathma,ليلى بنت أبي حثمة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:qCoTvR19u1mgIczmSQyDrn,Umayma bint ʿAbd al-Muṭṭalib,أميمة بنت عبد المطلب بن هاشم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ohk9bMiUmPzvJGrjx7vNdy,al-Farʿa bint Abī Sufyān,الفرعة بنت أبي سفيان بن حرب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ZkfdllhD4W9WVeeeb4p17w,ʿUkkāsha b. Miḥṣan,عكاشة بن محصن,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:Zo3dJs0DKeV8V21FZNjdrE,Shujāʿ b. Wahb,شجاع بن وهب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:cEcnHQZ5HSAShALRwPnbRO,ʿUqba b. Wahb,عقبة بن وهب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:SSMv9z5IysrWTUQn151XT2,Arbad b. Ḥumayra,أربد ابن حميرة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:sKny1ndKS0LkgFdotbnxbD,Umm Ḥabīb bint Jaḥsh,أم حبيب بنت جحش,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:V3hduEDYm7nSGVnx3XlAXM,Judhāma bint Jandal,جذامة بنت جندل,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:0VV2TaaHUezXFRf4C6yMdL,Umm Qays bint Miḥṣan,أم قيس بنت محصن,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:LOL9JiNAzeTbsC2cw0erf1,Umm Ḥabīb bint Thumāma,أم حبيب بنت ثمامة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:1QUASh3TQIOI7vmskuWnj6,Āmina bint Ruqaysh,آمنة بنت رقيش,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:9bT8KB1h0F3TTPUKmzQjlQ,Sakhbara bint Tamīm,سخبرة بنت تميم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:fd134G3AmoeV04ICG1MbHp,al-Ḥārith b. Hishām,الحارث بن هشام,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:gzTmD5OlRyz5oxEkl0fz5G,"Nāfiʿ, mawlā of ʿAbdullāh b. ʿUmar",نافع,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:csYJQroFrONS9jrI8TpDXb,Zayd b. al-Khaṭṭāb,زيد بن الخطاب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:70AQtv80ZyPEdNK02cVxg9,ʿAmr b. Surāqa,عمرو بن سراقة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:2WqIZdpnvZpl9ERR6whTQP,ʿAbdullāh b. Surāqa,عبد الله بن سراقة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:UM6dNzHhF6lLPRKBb1U0BW,Rifāʿa b. ʿAbd al-Mundhir,رفاعة ابن عبد المنذر بن زنبر,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:zmAkPJmBPn6VPlmQUCHYWB,Iyās b. al-Bukayr,إياس بن البكير,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:2LQfPEVusaAPSMmDxzTxZN,ʿĀmir b. al-Bukayr,عامر بن البكير,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:PNi3j6I3MCwGzqgZCmYngU,Khālid b. al-Bukayr,خالد بن البكير,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:FxfwhGiFLVsfpSYY5Bqfw3,Abū Marthad Kannāz b. Ḥiṣn,أبو مرثد كناز بن حصن,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as ابن حصين (Ibn Husayn)
+person,per:ppZOlPDI486G6CdoJbPqQo,Marthad b. Abī Marthad,مرثد بن أبي مرثد,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:YaAY8aQ10UvphFazG1mnii,"Anasa, mawlā of the Prophet ﷺ",أنسة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:byg7cenr0nnKIoA2lBqAsF,"Abū Kabsha, mawlā of the Prophet ﷺ",أبو كبشة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:pt5072ARfghHxuLpEisTyz,al-Ṭufayl b. al-Ḥārith,الطفيل بن الحارث,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:01zFKBy4DaPLuyUVxMTSPQ,al-Ḥuṣayn b. al-Ḥārith,الحصين ابن الحارث,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:3CwMWajXApZhzanSwQLNWr,Suwaybiṭ b. Saʿd,سويبط بن سعد بن حريملة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:v59qkEhokcu3rsAsuZpDXK,Ṭulayb b. ʿUmayr,طليب بن عمير,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:9WlHUDXnp9xa5hmuSv0NLf,"Khabbāb, mawlā of ʿUtba b. Ghazwān",خباب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion). NOT Khabbab b. al-Aratt: this Khabbab is the mawla of 'Utba b. Ghazwan
+person,per:PLMNBz5Jz8AbnR9Tymbs6r,ʿUtba b. Ghazwān,عتبة بن غزوان,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:MDKTEFXdRdFsVRUQDOS106,ʿAbdullāh b. Salama,عبد الله بن سلمة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:GXtos5J50K8mqpjZgzW5bS,al-Mundhir b. Muḥammad b. ʿUqba,منذر ابن محمد بن عقبة بن أحيحة بن الجلاح,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:gZfKcHVSCTDCWsaedsmkQX,Abū Sabra b. Abī Ruhm,أبو سبرة بن أبي رهم بن عبد العزى,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:W6eDABkWOsDrwKGC8qXmjp,"Sālim, mawlā of Abū Ḥudhayfa",سالم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:IFx1QlTUObBemDHX5PnNwu,Thubayta bint Yaʿār,ثبيتة بنت يعار,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:Yj9KT5F6ZovSgcA3n8lBD2,ʿAbbād b. Bishr,عباد بن بشر بن وقش,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:bxh4oaUqkx3OghjlhqBXCz,Aws b. Thābit b. al-Mundhir,أوس بن ثابت بن المنذر,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:u27kc6kXiGvVC6m6oBB9ct,"Ṣubayḥ, mawlā of Abū al-ʿĀṣ b. Umayya",صبيح,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:2Qq9BgAoF6jASBcqV22Tcm,Yazīd b. Ruqaysh,يزيد ابن رقيش,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:3WtLRS0NSdTiCPT24fsFHY,Abū Sinān b. Miḥṣan,أبو سنان بن محصن,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:5zzWFz10eqyWeasrF7JDfH,Sinān b. Abī Sinān,سنان بن أبي سنان,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:dQz7MCrKnpYH50a60ymxm0,Muḥriz b. Naḍla,محرز بن نضلة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:T9bphkuNVXNoYLHWlKu3Iy,Rabīʿa b. Aktham,ربيعة بن أكثم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:pvTPuPx0TCrRtU7Z31EKT9,Thaqf b. ʿAmr,ثقف بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:E1Dqnq5tde3WuSxyjso5op,Mālik b. ʿAmr,مالك بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:NCHsSeeozucnrLOyV7mhyv,Mudlij b. ʿAmr,مدلج بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as مدلاج بن عمرو (Midlaj)
+person,per:lo8xh6YCfAIC0H4OE3CpyU,Abū Makhshī,أبو مخشي,,,ibn-hisham,needs-review,"minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row. Ibn Hisham gives the name also as سويد بن مخشي (Suwayd b. Makhshi), a Ta'i"
+person,per:xBaB0ylNCp913U4WnJnLrN,"Saʿd, mawlā of Ḥāṭib b. Abī Baltaʿa",سعد مولى حاطب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:2aq7kXxhtCfbWedYUMEUbs,Shammās b. ʿUthmān,شماس بن عثمان,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ISY9WVybjCOgoId1VVzJim,Muʿattib b. ʿAwf,معتب بن عوف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:XRxbiu6cfvWTcwpnqhVlWZ,Khawlī b. Abī Khawlī,خولي بن أبي خولي,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ZGTVjbB1ffS4j3qp0kxRgi,Mālik b. Abī Khawlī,مالك بن أبي خولي,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:WFoNra9goeI8fBHclPkSkY,ʿAbdullāh b. Makhrama,عبد الله بن مخرمة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:1YfSOUjZGpyQgb47dbYGMx,ʿAbdullāh b. Suhayl b. ʿAmr,عبد الله بن سهيل بن عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:J0hCKxQZa8rD3Ns0WovHVx,"ʿUmayr b. ʿAwf, mawlā of Suhayl b. ʿAmr",عمير بن عوف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:2vlgDxZ2KaYccr4CkgHqyf,Saʿd b. Khawla,سعد بن خولة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:kqWGjBuXZTfjluptr6T435,ʿAmr b. al-Ḥārith b. Zuhayr,عمرو بن الحارث بن زهير,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:oHPZ95JU13R0LhLhCxvNXG,Suhayl b. Wahb (son of Bayḍāʾ),سهيل بن وهب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:GI1czw3LtWIFMa1hvL9nu7,ʿAmr b. Abī Sarḥ,عمرو بن أبي سرح,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
