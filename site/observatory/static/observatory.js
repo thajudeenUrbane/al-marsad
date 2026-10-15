@@ -206,24 +206,31 @@
   }
 
   // ------------------------------------------------------------------ camera
-  function bbox(indices) {
+  function bbox(indices, withDeco) {
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-    for (const i of indices) {
-      if (!visible(i)) continue;
-      const x = P[2 * i], y = P[2 * i + 1];
-      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    const add = (x, y) => { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; };
+    for (const i of indices) if (visible(i)) add(P[2 * i], P[2 * i + 1]);
+    if (withDeco) {
+      FRAMES.forEach((f, fi) => {
+        if (S.weights[fi] < 0.25) return;
+        for (const d of FR[f].deco) {
+          if (d.t === "text") add(d.x, d.y);
+          else if (d.t === "line") { add(d.x1, d.y1); add(d.x2, d.y2); }
+          else if (d.t === "circle") { add(d.x - d.r, d.y - d.r); add(d.x + d.r, d.y + d.r); }
+        }
+      });
     }
     if (x0 === Infinity) return { x0: -500, y0: -500, x1: 500, y1: 500 };
     return { x0, y0, x1, y1 };
   }
   function fitTo(b, pad) {
     const bw = Math.max(b.x1 - b.x0, 60), bh = Math.max(b.y1 - b.y0, 60);
-    const p = pad === undefined ? 34 : pad;
-    const k = Math.min((W - 2 * p) / bw, (H - 2 * p) / bh);
-    return { x: (b.x0 + b.x1) / 2, y: (b.y0 + b.y1) / 2, k: Math.max(0.02, Math.min(60, k)) };
+    const p = pad === undefined ? 30 : pad, top = p + 44;
+    const k = Math.max(0.02, Math.min(60, Math.min((W - 2 * p) / bw, (H - top - p) / bh)));
+    return { x: (b.x0 + b.x1) / 2, y: (b.y0 + b.y1) / 2 - (top - p) / 2 / k, k };
   }
   const allIdx = Array.from({ length: n }, (_, i) => i);
-  const fitAll = () => fitTo(bbox(allIdx));
+  const fitAll = () => fitTo(bbox(allIdx, true));
   function fitEgo() {
     if (emphNodes && emphNodes.size) {
       const f = fitTo(bbox(emphNodes), 60);
@@ -303,6 +310,9 @@
   }
 
   function drawDeco() {
+    // frame text keeps its pixel size near the fit zoom and shrinks when zoomed far out,
+    // so stacked headings never run into the rows they label
+    const f0 = Math.max(0.55, Math.min(1, S.cam.k / 0.6));
     FRAMES.forEach((f, fi) => {
       const w = S.weights[fi];
       if (w < 0.02) return;
@@ -310,14 +320,14 @@
         const a = w * (d.o === undefined ? 1 : d.o);
         ctx.globalAlpha = a;
         if (d.t === "text") {
-          ctx.font = FONT(d.z || 11, d.w || 400);
+          ctx.font = FONT(Math.max(7, (d.z || 11) * f0), d.w || 400);
           ctx.fillStyle = COL.deco;
           ctx.textAlign = d.a === "middle" ? "center" : d.a === "end" ? "right" : "left";
           ctx.textBaseline = "alphabetic";
-          ctx.fillText(d.s, sx(d.x), sy(d.y));
+          ctx.fillText(d.s, sx(d.x), sy(d.y) + (d.dy || 0) * f0);
         } else if (d.t === "line") {
           ctx.strokeStyle = COL.deco; ctx.lineWidth = 1; ctx.setLineDash([]);
-          ctx.beginPath(); ctx.moveTo(sx(d.x1), sy(d.y1)); ctx.lineTo(sx(d.x2), sy(d.y2)); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(sx(d.x1), sy(d.y1) + (d.dy || 0) * f0); ctx.lineTo(sx(d.x2), sy(d.y2) + (d.dy || 0) * f0); ctx.stroke();
         } else if (d.t === "circle") {
           ctx.strokeStyle = COL.deco; ctx.lineWidth = 1; ctx.setLineDash([]);
           ctx.beginPath(); ctx.arc(sx(d.x), sy(d.y), d.r * S.cam.k, 0, Math.PI * 2); ctx.stroke();
@@ -348,7 +358,7 @@
 
   function drawLinks() {
     const wNet = S.weights[0];
-    const alphaFor = [0, 0.035 + 0.05 * wNet, 0.1 + 0.3 * wNet, 0.9, 1];
+    const alphaFor = [0, 0.035 + 0.05 * wNet, 0.1 + 0.3 * wNet, 0.3 + 0.6 * wNet, 1];
     const widthFor = [0, 1.2, 1.4, 2.1, 3];
     for (let lv = 1; lv <= 4; lv++) {
       for (const cls of CLASSES) {
@@ -435,7 +445,9 @@
     const zoomRel = S.cam.k / (S.baseK || S.cam.k);
     const disc = S.lens === "discover";
     const path = selectedPath();
-    const push = (i, pri) => { if (i >= 0 && nodeA[i] > 0.5) out.push([pri, i]); };
+    const push = (i, pri) => { if (i >= 0 && nodeA[i] > 0.5) out.push([pri, i, 1]); };
+    // map labels and chain names stay readable even when dimmed: they are the frame's structure
+    const pushStructural = (i, pri) => { if (i >= 0 && nodeA[i] > 0) out.push([pri, i, nodeA[i] > 0.5 ? 1 : 0.6]); };
     if (S.hover >= 0) push(S.hover, 9);
     push(S.focus, 8);
     if (path) { push(S.trace.a, 7); push(S.trace.b, 7); for (const hop of path.hops) push(hop.to, 6); }
@@ -447,11 +459,11 @@
       }
     }
     for (let i = 0; i < n; i++) {
-      if (!nodeA[i] || nodeA[i] < 0.5) continue;
+      if (!nodeA[i]) continue;
       const kind = N[i].k;
-      const reg2 = FR.geo.region[i], reg4 = FR.isnad.region[i], reg3 = FR.stories.region[i];
-      if (wd[2] > 0.5 && kind === "place" && reg2 === "map") push(i, 3);
-      if (wd[4] > 0.5 && reg4 === "chain") push(i, 3);
+      if (wd[2] > 0.5 && kind === "place" && FR.geo.region[i] === "map") pushStructural(i, 6.5);
+      if (wd[4] > 0.5 && FR.isnad.region[i] === "chain") pushStructural(i, 6.5);
+      if (nodeA[i] < 0.5) continue;
       if (wd[3] > 0.5 && kind === "story") push(i, disc ? 3 : 2);
       if (wd[1] > 0.5 && kind === "event" && FR.time.region[i] === "axis") push(i, 2);
       if (zoomRel > 1.9 && (!disc || kind === "story" || kind === "place" || kind === "event")) push(i, 1);
@@ -468,7 +480,7 @@
     let count = 0;
     const max = S.lens === "discover" ? 40 : 160;
     ctx.textBaseline = "middle"; ctx.textAlign = "left";
-    for (const [pri, i] of cands) {
+    for (const [pri, i, alpha] of cands) {
       if (seen.has(i)) continue;
       seen.add(i);
       if (count >= max && pri < 6) break;
@@ -481,13 +493,14 @@
       if (pri < 7 && placed.some((b) => b[0] < box[2] && b[2] > box[0] && b[1] < box[3] && b[3] > box[1])) continue;
       placed.push(box);
       ctx.font = font;
-      ctx.globalAlpha = 1;
+      ctx.globalAlpha = alpha;
       ctx.lineWidth = 3.5; ctx.strokeStyle = COL.bg; ctx.lineJoin = "round";
       ctx.strokeText(text, x, y);
       ctx.fillStyle = pri >= 4 ? COL.ink : COL.muted;
       ctx.fillText(text, x, y);
       count++;
     }
+    ctx.globalAlpha = 1;
   }
 
   function draw() {
@@ -864,6 +877,7 @@
     }
     let extra = null;
     if (N[i].k === "place") extra = h("p", null, N[i].geo ? t("panel.coords", { lon: N[i].geo[0], lat: N[i].geo[1], conf: N[i].geo[2] || "—" }) : t("panel.no_coords"));
+    else extra = h("p", { class: "muted" }, N[i].pl !== undefined ? t("panel.on_map", { place: N[N[i].pl].n }) : t("panel.off_map"));
     return facet("places", t("facet.places"), m.size, h("div", null, extra, m.size ? ul : h("p", { class: "muted" }, t("panel.none_recorded"))));
   }
   function storiesFacet(i, rows) {

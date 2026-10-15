@@ -149,6 +149,8 @@ def payload(data: ObsData, frames: dict, presets: list[dict], reader_base: str, 
         out = {k: v for k, v in nd.items() if not k.startswith("_")}
         if nd["_marks"]:
             out["mk"] = [[round(m[0], 3), round(m[1], 3)] for m in nd["_marks"]]
+        if nd["_places"] and nd["k"] != "place":
+            out["pl"] = nd["_places"][0]
         nodes.append(out)
     return {
         "meta": {"version": data.fingerprint(), "counts": data.counts(), "readerBase": reader_base, "ask": ask},

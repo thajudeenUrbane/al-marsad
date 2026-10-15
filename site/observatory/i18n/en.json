@@ -169,6 +169,8 @@
   "panel.not_located": "no coordinates recorded",
   "panel.coords": "Coordinates recorded: {lat}° N, {lon}° E ({conf}).",
   "panel.no_coords": "No coordinates recorded, so it is not on the map.",
+  "panel.on_map": "On the map at {place}: the located place recorded most often for it. Every recorded place is listed here.",
+  "panel.off_map": "Not on the map: no place with coordinates is recorded for it.",
   "panel.story_no": "story {no}, part {part}",
   "panel.story_meta": "Story {no} of the 50 Stories, part {part}: {label}",
 

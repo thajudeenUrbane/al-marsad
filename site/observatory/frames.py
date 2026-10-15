@@ -32,13 +32,14 @@ def _r(v: float) -> float:
 # --------------------------------------------------------------------------- shelves
 def shelf(data, members: list[int], top: float, heading: str, t, pos: dict, deco: list,
           region: dict, region_name: str = "shelf", cell: float = 22.0, width: float = WIDTH) -> float:
-    """Lay members out in a labelled grid starting at y=top, grouped by kind.
-    Returns the y below the shelf."""
+    """Lay members out in a labelled grid below y=top, grouped by kind. Text sits a
+    fixed number of pixels above the row it labels ("dy"), so it never overlaps at
+    any zoom. Returns the y below the shelf."""
     if not members:
         return top
-    deco.append({"t": "text", "x": -width / 2, "y": top, "s": heading, "a": "start", "z": 13, "w": 600})
-    deco.append({"t": "line", "x1": -width / 2, "y1": top + 8, "x2": width / 2, "y2": top + 8, "o": 0.35})
-    y = top + 30
+    y = top + 80
+    deco.append({"t": "text", "x": -width / 2, "y": y, "dy": -40, "s": heading, "a": "start", "z": 13, "w": 600})
+    deco.append({"t": "line", "x1": -width / 2, "y1": y, "x2": width / 2, "y2": y, "dy": -33, "o": 0.35})
     per_row = max(1, int(width // cell))
     by_kind = {k: [] for k in KIND_ORDER}
     for i in members:
@@ -47,15 +48,14 @@ def shelf(data, members: list[int], top: float, heading: str, t, pos: dict, deco
         items = sorted(by_kind[kind], key=lambda i: (data.nodes[i]["n"].lower(), data.nodes[i]["id"]))
         if not items:
             continue
-        deco.append({"t": "text", "x": -width / 2, "y": y, "s": t(f"shelf.kind.{kind}", n=len(items)), "a": "start", "z": 11, "o": 0.8})
-        y += 16
+        deco.append({"t": "text", "x": -width / 2, "y": y, "dy": -11, "s": t(f"shelf.kind.{kind}", n=len(items)), "a": "start", "z": 11, "o": 0.8})
         for j, i in enumerate(items):
             r, c = divmod(j, per_row)
             pos[i] = (-width / 2 + cell / 2 + c * cell, y + r * cell)
             region[i] = region_name
         rows = (len(items) + per_row - 1) // per_row
-        y += rows * cell + 10
-    return y + 10
+        y += (rows - 1) * cell + 34
+    return y
 
 
 # --------------------------------------------------------------------------- network
@@ -172,7 +172,7 @@ def network_frame(data, t) -> dict:
             scale = min(WIDTH / raw_w, WIDTH / raw_h)
             row_y = max(p[1] for p in pts.values()) + 70
             if len(comps) > 1:
-                deco.append({"t": "text", "x": -WIDTH / 2, "y": row_y - 22, "s": t("frame.network.parts"), "a": "start", "z": 11, "o": 0.75})
+                deco.append({"t": "text", "x": -WIDTH / 2, "y": row_y, "dy": -16, "s": t("frame.network.parts"), "a": "start", "z": 11, "o": 0.75})
         else:
             x0 = min(p[0] for p in xy)
             y0 = min(p[1] for p in xy)
@@ -216,16 +216,16 @@ def time_frame(data, t) -> dict:
         y0, y1 = 600, 700
     X = lambda yr: -WIDTH / 2 + (yr - y0) / (y1 - y0) * WIDTH  # noqa: E731
     axis_y = -40.0
-    deco.append({"t": "text", "x": -WIDTH / 2, "y": axis_y - 52, "s": t("frame.time.axis_title"), "a": "start", "z": 13, "w": 600})
+    deco.append({"t": "text", "x": -WIDTH / 2, "y": axis_y, "dy": -30, "s": t("frame.time.axis_title"), "a": "start", "z": 13, "w": 600})
     deco.append({"t": "line", "x1": -WIDTH / 2, "y1": axis_y, "x2": WIDTH / 2, "y2": axis_y, "o": 0.7})
     for yr in _year_ticks(y0, y1):
         x = X(yr)
         deco.append({"t": "line", "x1": x, "y1": axis_y - 5, "x2": x, "y2": axis_y + 5, "o": 0.7})
-        deco.append({"t": "text", "x": x, "y": axis_y - 12, "s": t("frame.time.tick", year=yr), "a": "middle", "z": 11, "o": 0.85})
+        deco.append({"t": "text", "x": x, "y": axis_y, "dy": -9, "s": t("frame.time.tick", year=yr), "a": "middle", "z": 11, "o": 0.85})
     lanes = [("event", t("frame.time.lane_events")), ("story", t("frame.time.lane_stories")),
              ("person", t("frame.time.lane_people")), ("group", t("frame.time.lane_groups")),
              ("place", t("frame.time.lane_places"))]
-    y = axis_y + 26
+    y = axis_y + 44
     row_h = 15.0
     lane_bounds = []
     for kind, label in lanes:
@@ -233,8 +233,8 @@ def time_frame(data, t) -> dict:
         if not items:
             continue
         items.sort(key=lambda i: (data.nodes[i]["_marks"][0][0], data.nodes[i]["_marks"][-1][1], data.nodes[i]["n"].lower(), data.nodes[i]["id"]))
-        deco.append({"t": "text", "x": -WIDTH / 2, "y": y, "s": label, "a": "start", "z": 12, "w": 600})
-        top = y + 14
+        deco.append({"t": "text", "x": -WIDTH / 2, "y": y, "dy": -12, "s": label, "a": "start", "z": 12, "w": 600})
+        top = y
         rows_end: list[float] = []
         for i in items:
             ms = data.nodes[i]["_marks"]
@@ -256,14 +256,14 @@ def time_frame(data, t) -> dict:
         bottom = top + max(1, len(rows_end)) * row_h
         lane_bounds.append((label, y - 12, bottom))
         deco.append({"t": "line", "x1": -WIDTH / 2, "y1": bottom + 6, "x2": WIDTH / 2, "y2": bottom + 6, "o": 0.25})
-        y = bottom + 30
+        y = bottom + 44
     # generation band: people with a recorded tabaqa but no dated mark
     band = [i for i, nd in enumerate(data.nodes) if nd["k"] == "person" and not nd["_marks"] and nd.get("tb")]
     if band:
-        y += 10
-        deco.append({"t": "text", "x": -WIDTH / 2, "y": y, "s": t("frame.time.band_title"), "a": "start", "z": 13, "w": 600})
-        deco.append({"t": "text", "x": -WIDTH / 2, "y": y + 16, "s": t("frame.time.band_note"), "a": "start", "z": 11, "o": 0.8})
-        deco.append({"t": "line", "x1": -WIDTH / 2, "y1": y + 24, "x2": WIDTH / 2, "y2": y + 24, "o": 0.35})
+        y += 70
+        deco.append({"t": "text", "x": -WIDTH / 2, "y": y, "dy": -48, "s": t("frame.time.band_title"), "a": "start", "z": 13, "w": 600})
+        deco.append({"t": "text", "x": -WIDTH / 2, "y": y, "dy": -33, "s": t("frame.time.band_note"), "a": "start", "z": 11, "o": 0.8})
+        deco.append({"t": "line", "x1": -WIDTH / 2, "y1": y, "x2": WIDTH / 2, "y2": y, "dy": -26, "o": 0.35})
         order = {k: n for n, k in enumerate(TABAQA_ORDER)}
         keys = sorted({data.nodes[i].get("tbk") for i in band}, key=lambda k: (order.get(k, 99), k or ""))
         col_w = WIDTH / max(1, len(keys))
@@ -274,15 +274,15 @@ def time_frame(data, t) -> dict:
             members = sorted([i for i in band if data.nodes[i].get("tbk") == key], key=lambda i: (data.nodes[i]["n"].lower(), data.nodes[i]["id"]))
             x0 = -WIDTH / 2 + c * col_w
             label = data.nodes[members[0]]["tb"]
-            deco.append({"t": "text", "x": x0, "y": y + 44, "s": t("frame.time.band_column", label=label, n=len(members)), "a": "start", "z": 12})
+            deco.append({"t": "text", "x": x0, "y": y, "dy": -11, "s": t("frame.time.band_column", label=label, n=len(members)), "a": "start", "z": 12})
             for j, i in enumerate(members):
                 r, cc = divmod(j, per_row)
-                pos[i] = (x0 + cell / 2 + cc * cell, y + 62 + r * cell)
+                pos[i] = (x0 + cell / 2 + cc * cell, y + r * cell)
                 region[i] = "band"
             tallest = max(tallest, (len(members) + per_row - 1) // per_row)
-        y = y + 62 + tallest * cell + 20
+        y = y + (tallest - 1) * cell + 20
     rest = [i for i in range(len(data.nodes)) if i not in pos]
-    shelf(data, rest, y + 20, t("frame.time.shelf"), t, pos, deco, region)
+    shelf(data, rest, y, t("frame.time.shelf"), t, pos, deco, region)
     return {"pos": pos, "deco": deco, "region": region, "marks": marks,
             "axis": {"y0": y0, "y1": y1, "x0": -WIDTH / 2, "x1": WIDTH / 2}}
 
@@ -308,15 +308,15 @@ def geo_frame(data, t) -> dict:
             xa, ya = P(lon, lo_lat)
             xb, yb = P(lon, hi_lat)
             deco.append({"t": "line", "x1": xa, "y1": ya, "x2": xb, "y2": yb, "o": 0.18})
-            deco.append({"t": "text", "x": xa, "y": ya + 14, "s": t("frame.geo.lon", deg=lon), "a": "middle", "z": 10, "o": 0.6})
+            deco.append({"t": "text", "x": xa, "y": ya, "dy": 13, "s": t("frame.geo.lon", deg=lon), "a": "middle", "z": 10, "o": 0.6})
         for lat in range(lo_lat, hi_lat + 1):
             xa, ya = P(lo_lon, lat)
             xb, yb = P(hi_lon, lat)
             deco.append({"t": "line", "x1": xa, "y1": ya, "x2": xb, "y2": yb, "o": 0.18})
-            deco.append({"t": "text", "x": xa - 6, "y": ya + 4, "s": t("frame.geo.lat", deg=lat), "a": "end", "z": 10, "o": 0.6})
+            deco.append({"t": "text", "x": xa - 6, "y": ya, "dy": 4, "s": t("frame.geo.lat", deg=lat), "a": "end", "z": 10, "o": 0.6})
         top_y = P(lo_lon, hi_lat)[1]
-        deco.append({"t": "text", "x": P(lo_lon, hi_lat)[0], "y": top_y - 18, "s": t("frame.geo.title"), "a": "start", "z": 13, "w": 600})
-        deco.append({"t": "text", "x": P(lo_lon, hi_lat)[0], "y": top_y - 4, "s": t("frame.geo.note"), "a": "start", "z": 11, "o": 0.8})
+        deco.append({"t": "text", "x": P(lo_lon, hi_lat)[0], "y": top_y, "dy": -30, "s": t("frame.geo.title"), "a": "start", "z": 13, "w": 600})
+        deco.append({"t": "text", "x": P(lo_lon, hi_lat)[0], "y": top_y, "dy": -15, "s": t("frame.geo.note"), "a": "start", "z": 11, "o": 0.8})
         for i in sorted(located, key=lambda i: data.nodes[i]["id"]):
             lon, lat = data.nodes[i]["geo"][:2]
             pos[i] = P(lon, lat)
@@ -361,8 +361,8 @@ def stories_frame(data, t) -> dict:
         slots = len(stories) + gap * len(parts)
         slot = 0.0
         deco.append({"t": "circle", "x": 0, "y": 0, "r": R, "o": 0.18})
-        deco.append({"t": "text", "x": -WIDTH / 2, "y": -R - 70, "s": t("frame.stories.title"), "a": "start", "z": 13, "w": 600})
-        deco.append({"t": "text", "x": -WIDTH / 2, "y": -R - 54, "s": t("frame.stories.note"), "a": "start", "z": 11, "o": 0.8})
+        deco.append({"t": "text", "x": -WIDTH / 2, "y": -R - 50, "dy": -16, "s": t("frame.stories.title"), "a": "start", "z": 13, "w": 600})
+        deco.append({"t": "text", "x": -WIDTH / 2, "y": -R - 50, "dy": 0, "s": t("frame.stories.note"), "a": "start", "z": 11, "o": 0.8})
         for p, plabel, items in parts:
             start = slot
             for i in items:
@@ -372,7 +372,12 @@ def stories_frame(data, t) -> dict:
                 slot += 1
             mid = -math.pi / 2 + ((start + slot) / 2) / slots * 2 * math.pi
             lx, ly = (R + 48) * math.cos(mid), (R + 48) * math.sin(mid)
-            text = t("frame.stories.part", n=p, label=plabel) if plabel else t("frame.stories.part_plain", n=p if p is not None else "?")
+            if plabel and plabel.lower().startswith("part"):
+                text = plabel  # the recorded label already names the part
+            elif plabel:
+                text = t("frame.stories.part", n=p, label=plabel)
+            else:
+                text = t("frame.stories.part_plain", n=p if p is not None else "?")
             deco.append({"t": "text", "x": lx, "y": ly, "s": text, "a": "middle", "z": 12, "w": 600, "o": 0.9})
             slot += gap
         # nodes tied to stories: start at the mean of their stories, pulled inside the ring
@@ -439,9 +444,9 @@ def stories_frame(data, t) -> dict:
 def isnad_frame(data, t) -> dict:
     pos, deco, region = {}, [], {}
     y = -260.0
-    deco.append({"t": "text", "x": -WIDTH / 2, "y": y - 70, "s": t("frame.isnad.title"), "a": "start", "z": 13, "w": 600})
-    deco.append({"t": "text", "x": -WIDTH / 2, "y": y - 54, "s": t("frame.isnad.note", n=len(data.chains)), "a": "start", "z": 11, "o": 0.85})
-    deco.append({"t": "text", "x": -WIDTH / 2, "y": y - 40, "s": t("frame.isnad.grows"), "a": "start", "z": 11, "o": 0.85})
+    deco.append({"t": "text", "x": -WIDTH / 2, "y": y - 60, "dy": -34, "s": t("frame.isnad.title"), "a": "start", "z": 13, "w": 600})
+    deco.append({"t": "text", "x": -WIDTH / 2, "y": y - 60, "dy": -19, "s": t("frame.isnad.note", n=len(data.chains)), "a": "start", "z": 11, "o": 0.85})
+    deco.append({"t": "text", "x": -WIDTH / 2, "y": y - 60, "dy": -5, "s": t("frame.isnad.grows"), "a": "start", "z": 11, "o": 0.85})
     col = 0
     bottom = y
     for ch in data.chains:
@@ -455,9 +460,9 @@ def isnad_frame(data, t) -> dict:
                     seq.append(i)
         rep = data.reports[ch["rep"]] if ch.get("rep") is not None else None
         title = ch["label"] or t("frame.isnad.chain")
-        deco.append({"t": "text", "x": x, "y": y - 16, "s": title, "a": "middle", "z": 12, "w": 600})
+        deco.append({"t": "text", "x": x, "y": y, "dy": -18, "s": title, "a": "middle", "z": 12, "w": 600})
         if rep and rep.get("asc"):
-            deco.append({"t": "text", "x": x, "y": y - 2, "s": t("frame.isnad.ascription", value=rep["asc"]), "a": "middle", "z": 11, "o": 0.8})
+            deco.append({"t": "text", "x": x, "y": y, "dy": -4, "s": t("frame.isnad.ascription", value=rep["asc"]), "a": "middle", "z": 11, "o": 0.8})
         yy = y + 30
         for i in seq:
             if i in pos:
@@ -467,8 +472,8 @@ def isnad_frame(data, t) -> dict:
             yy += 62
         if ch["collector"] is not None and ch["collector"] not in pos:
             yy += 20
-            deco.append({"t": "text", "x": x + 16, "y": yy + 4, "s": t("frame.isnad.collector"), "a": "start", "z": 11, "o": 0.85})
-            deco.append({"t": "text", "x": x + 16, "y": yy + 18, "s": t("frame.isnad.no_line"), "a": "start", "z": 10, "o": 0.7})
+            deco.append({"t": "text", "x": x + 16, "y": yy, "dy": 4, "s": t("frame.isnad.collector"), "a": "start", "z": 11, "o": 0.85})
+            deco.append({"t": "text", "x": x + 16, "y": yy, "dy": 17, "s": t("frame.isnad.no_line"), "a": "start", "z": 10, "o": 0.7})
             pos[ch["collector"]] = (x, yy)
             region[ch["collector"]] = "chain"
             yy += 40
