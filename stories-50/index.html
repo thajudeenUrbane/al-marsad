@@ -1,0 +1,829 @@
+<title>50 Stories, Connected</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: the 50 stories sit on a dial read clockwise from the top; everyone they name is placed inside it,
+   pulled toward the stories they appear in. A reading panel sits beside the dial, and below it on a phone.
+   One deliberately dark look, shared with the project's other pages. */
+:root{
+  --bg:#0A0E11; --stage:#0C1216; --panel:#0F161C; --raise:#16212A;
+  --edge:#1E2A33; --edge-soft:#151E25;
+  --ink-hi:#EEF2EF; --ink:#C9D4D3; --ink-mid:#8D9C9E; --ink-dim:#66777E;
+  --node:#8FA1A3;
+  --p1:#B68F1B; --p2:#209993; --p3:#C35141; --p4:#8071C8;
+  --f-display:"Newsreader",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.55}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+:focus-visible{outline:2px solid var(--ink-hi);outline-offset:2px}
+
+/* ---------- header ---------- */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.7rem 2rem;padding:.85rem 1.25rem .8rem;border-bottom:1px solid var(--edge)}
+.top>div{min-width:0}
+.eyebrow{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);margin:0}
+.top h1{font-family:var(--f-display);font-weight:400;font-size:1.7rem;line-height:1.1;margin:.2rem 0 0;letter-spacing:-.01em;color:var(--ink-hi);text-wrap:balance}
+.top .dek{margin:.4rem 0 0;color:var(--ink-mid);max-width:46rem;font-size:.9rem}
+.stats{display:flex;flex-wrap:wrap;gap:.4rem;margin-left:auto}
+.stat{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;padding:.25rem .55rem;border:1px solid var(--edge);color:var(--ink-mid);white-space:nowrap;font-variant-numeric:tabular-nums}
+.stat b{color:var(--ink-hi);font-weight:500}
+.stat.warn{border-style:dashed;color:var(--ink)}
+
+/* ---------- main ---------- */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 25rem;grid-template-rows:auto minmax(0,1fr);
+  grid-template-areas:"stage tools" "stage panel";height:clamp(560px,calc(100dvh - 7rem),1150px);border-bottom:1px solid var(--edge)}
+.tools{grid-area:tools;display:flex;flex-direction:column;gap:.7rem;padding:.9rem 1.25rem .85rem;background:var(--panel);border-left:1px solid var(--edge);border-bottom:1px solid var(--edge);min-width:0}
+.search{position:relative}
+.search input{width:100%;background:var(--bg);border:1px solid var(--edge);padding:.45rem .65rem;font-size:.85rem;border-radius:2px}
+.search input::placeholder{color:var(--ink-dim)}
+.sugg{position:absolute;top:100%;left:0;right:0;z-index:6;background:var(--panel);border:1px solid var(--edge);list-style:none;margin:2px 0 0;padding:0;max-height:19rem;overflow-y:auto}
+.sugg button{display:flex;justify-content:space-between;align-items:baseline;gap:.75rem;width:100%;padding:.45rem .65rem;font-size:.84rem;color:var(--ink)}
+.sugg button.act,.sugg button:hover{background:var(--raise);color:var(--ink-hi)}
+.sugg .k{font-family:var(--f-mono);font-size:.66rem;color:var(--ink-dim);white-space:nowrap}
+.legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.25rem 1rem;font-size:.76rem;color:var(--ink-mid);margin:0;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:.4rem;min-width:0;line-height:1.35}
+.sw{width:9px;height:9px;border-radius:50%;flex:none}
+.dash{width:18px;height:0;border-top:1.5px dashed var(--ink-mid);flex:none}
+
+.stage{grid-area:stage;position:relative;min-width:0;min-height:0;overflow:hidden;background:radial-gradient(circle at 50% 50%,#111A20 0%,var(--stage) 52%,var(--bg) 100%)}
+#dial{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#dial.zoomed{touch-action:none;cursor:grab}
+#dial.dragging{cursor:grabbing}
+.zoom{position:absolute;right:12px;bottom:12px;display:flex;flex-direction:column;gap:4px}
+.zoom button{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--edge);background:rgba(15,22,28,.92);font-family:var(--f-mono);font-size:.95rem;color:var(--ink-mid)}
+.zoom button:hover{color:var(--ink-hi);border-color:var(--ink-dim)}
+.hint{position:absolute;left:12px;bottom:10px;margin:0;font-size:.72rem;color:var(--ink-dim);pointer-events:none;max-width:calc(100% - 70px)}
+.tip{position:absolute;z-index:4;pointer-events:none;background:rgba(15,22,28,.97);border:1px solid var(--edge);padding:.4rem .6rem;font-size:.76rem;color:var(--ink-mid);max-width:17rem;transform:translate(-50%,calc(-100% - 12px));white-space:normal}
+.tip b{display:block;font-family:var(--f-display);font-weight:500;font-size:.98rem;color:var(--ink-hi);line-height:1.25}
+
+/* ---------- svg ---------- */
+.edge{fill:none;stroke-width:.8;opacity:.22}
+.edge.later{stroke-dasharray:3 2.5}
+.node{cursor:pointer}
+.node .dot{fill:var(--node);stroke:var(--stage);stroke-width:1.5}
+.hit{fill:transparent;stroke:none}
+.selring{fill:none;stroke:var(--ink-hi);stroke-width:1.2;pointer-events:none}
+.lab{font-family:var(--f-body);font-size:11.5px;font-weight:500;fill:var(--ink);paint-order:stroke;stroke:var(--stage);stroke-width:3.2px;stroke-linejoin:round;pointer-events:none}
+.lab.hi{fill:var(--ink-hi);font-size:12.5px;font-weight:600}
+.story{cursor:pointer}
+.story .dot{stroke:var(--stage);stroke-width:1.5}
+.story text{font-family:var(--f-body);font-size:10.5px;fill:var(--ink-mid)}
+.story .num{font-family:var(--f-mono);font-size:9.5px;fill:var(--ink-dim)}
+.story:hover text,.story.hv text{fill:var(--ink-hi)}
+.rimline{fill:none;stroke-width:1.5;opacity:.5}
+.arcname{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;fill:var(--ink-dim)}
+#dial.narrow .arcname{display:none}
+
+#dial.hovering:not(.focus) .edge{opacity:.07}
+#dial.focus .edge{opacity:.045}
+#dial.focus .edge.on{opacity:.95;stroke-width:1.5}
+#dial .edge.hv{opacity:.9;stroke-width:1.4}
+#dial.focus .node .dot{opacity:.26}
+#dial.focus .node.co .dot{opacity:1}
+#dial.focus .node.on .dot{opacity:1;fill:var(--ink-hi)}
+#dial .node.hv .dot{opacity:1;fill:var(--ink-hi)}
+#dial.focus .story{opacity:.32}
+#dial.focus .story.on,#dial .story.hv{opacity:1}
+#dial.focus .story.on text{fill:var(--ink-hi)}
+
+/* ---------- panel ---------- */
+.panel{grid-area:panel;border-left:1px solid var(--edge);background:var(--panel);overflow-y:auto;min-width:0;min-height:0}
+.pin{padding:1.1rem 1.25rem 2.2rem;display:flex;flex-direction:column;gap:1.15rem}
+.pin h2{font-family:var(--f-display);font-weight:400;font-size:1.6rem;line-height:1.15;margin:.15rem 0 0;color:var(--ink-hi);text-wrap:balance}
+.pin h3{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);font-weight:500;margin:0 0 .55rem}
+.pin p{margin:0;color:var(--ink-mid);max-width:65ch}
+.meta{font-size:.82rem;color:var(--ink-mid);margin-top:.35rem}
+.meta b{color:var(--ink);font-weight:500}
+.headrow{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.clear{flex:none;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--edge);padding:.25rem .5rem}
+.clear:hover{color:var(--ink-hi)}
+.howto{display:flex;flex-direction:column;gap:.55rem;font-size:.86rem}
+.howto p{color:var(--ink-mid)}
+.howto b{color:var(--ink);font-weight:500}
+.toplist,.lines,.plist,.alist{list-style:none;margin:0;padding:0}
+.toplist button{display:grid;grid-template-columns:minmax(0,1fr) 6.5rem 1.4rem;align-items:center;gap:.7rem;width:100%;padding:.28rem 0;font-size:.85rem;color:var(--ink)}
+.toplist button:hover{color:var(--ink-hi)}
+.toplist .t{height:4px;background:var(--edge)}
+.toplist .f{height:100%;background:var(--node)}
+.toplist .c,.plist .num,.cochip .c{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-dim);font-variant-numeric:tabular-nums}
+.toplist .c{text-align:right}
+.picks{display:flex;flex-wrap:wrap;gap:.35rem}
+.chipbtn,.cochip{display:inline-flex;align-items:baseline;gap:.35rem;border:1px solid var(--edge);padding:.2rem .5rem;font-size:.78rem;color:var(--ink)}
+.chipbtn:hover,.cochip:hover{border-color:var(--ink-dim);color:var(--ink-hi)}
+.strip{display:flex;gap:1px}
+.strip .cell{flex:1 1 0;height:14px;background:var(--edge-soft);min-width:0}
+.strip .cell.pb{margin-left:4px}
+.strip button.cell:hover{outline:1px solid var(--ink-hi);outline-offset:0}
+.strip-k{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.62rem;color:var(--ink-dim);margin-top:.25rem}
+.plist li{display:grid;grid-template-columns:1.9rem minmax(0,1fr);gap:.1rem .55rem;padding:.6rem 0;border-top:1px solid var(--edge-soft)}
+.plist .num{padding-top:.1rem}
+.plist .st{display:flex;align-items:center;gap:.45rem;color:var(--ink-hi);font-weight:500;font-size:.88rem}
+.plist .st:hover{text-decoration:underline;text-underline-offset:3px}
+.plist .role,.lines li{font-size:.84rem;color:var(--ink-mid);line-height:1.5}
+.plist .role{grid-column:2}
+.plist .with{grid-column:2;font-size:.78rem;color:var(--ink-dim)}
+.tag{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mid);border:1px dashed var(--ink-dim);padding:.02rem .3rem;white-space:nowrap}
+.cochips{display:flex;flex-wrap:wrap;gap:.35rem}
+.more{font-family:var(--f-mono);font-size:.68rem;color:var(--ink-mid);text-decoration:underline;text-underline-offset:3px;margin-top:.5rem}
+.storytext p{color:var(--ink);font-size:.92rem;line-height:1.62;margin:0 0 .75rem}
+.storytext p:last-child{margin-bottom:0}
+.note{font-size:.8rem;color:var(--ink-mid);border-left:2px solid var(--edge);padding-left:.65rem}
+.lines{display:flex;flex-direction:column;gap:.6rem}
+.pname{color:var(--ink-hi);font-weight:500;border-bottom:1px dotted var(--ink-dim)}
+.pname:hover{border-bottom-color:var(--ink-hi)}
+.grp{color:var(--ink);font-style:italic}
+.pager{display:flex;justify-content:space-between;gap:.5rem}
+.pager button{border:1px solid var(--edge);padding:.35rem .6rem;font-size:.78rem;color:var(--ink-mid);max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pager button:hover{color:var(--ink-hi)}
+details summary{cursor:pointer;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid)}
+.alist{columns:2;column-gap:1rem;margin-top:.6rem}
+.alist li{break-inside:avoid}
+.alist button{font-size:.8rem;color:var(--ink-mid);padding:.12rem 0;text-align:left}
+.alist button:hover{color:var(--ink-hi)}
+
+/* ---------- notes ---------- */
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.1rem 2.2rem;padding:1.3rem 1.25rem 2.2rem;max-width:84rem;font-size:.8rem;color:var(--ink-mid)}
+.notes h4{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);font-weight:500;margin:0 0 .35rem}
+.notes p{margin:0}
+.notes b{color:var(--ink);font-weight:500}
+
+@media (max-width:860px){
+  .layout{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;grid-template-areas:"tools" "stage" "panel";height:auto}
+  .tools{border-left:0}
+  .stage{aspect-ratio:1/1.13;max-height:760px;width:100%}
+  .zoom{flex-direction:row;bottom:8px;right:8px}
+  .zoom button{width:30px;height:30px}
+  .panel{border-left:0;border-top:1px solid var(--edge);overflow:visible}
+  .top,.tools,.pin,.notes{padding-left:16px;padding-right:16px}
+  .hint{bottom:14px;left:16px;max-width:calc(100% - 130px)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .edge,.node .dot,.story{transition:opacity .16s ease}
+}
+</style>
+
+<header class="top">
+  <div>
+    <p class="eyebrow">al-Marṣad · a reading of one collection</p>
+    <h1>50 Stories, Connected</h1>
+    <p class="dek">Everyone named in the 50 stories of the Prophet ﷺ and his Companions, joined to each story they appear in. The stories run clockwise from the Cave of Hira at the top.</p>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<main class="layout">
+  <div class="tools">
+      <div class="search">
+        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Find a person or a story" aria-label="Find a person or a story" aria-controls="sugg" aria-autocomplete="list">
+        <ul class="sugg" id="sugg" role="listbox" hidden></ul>
+      </div>
+      <ul class="legend" id="legend"></ul>
+  </div>
+  <div class="stage" id="stage" role="region" aria-label="Story network">
+      <svg id="dial" role="img" aria-label="A dial of the 50 stories with every named person placed inside it and joined to their stories. The same links are listed in the panel."></svg>
+      <div class="tip" id="tip" hidden></div>
+      <p class="hint" id="hint">Click a person or a story. Scroll to zoom, drag to move.</p>
+      <div class="zoom">
+        <button type="button" id="zin" aria-label="Zoom in">+</button>
+        <button type="button" id="zout" aria-label="Zoom out">−</button>
+        <button type="button" id="zreset" aria-label="Reset the view">○</button>
+      </div>
+  </div>
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+</main>
+
+<section class="notes" id="notes"></section>
+
+<script>
+(() => {
+"use strict";
+const D = {"source":{"title":"50 Stories of the Prophet Muhammad ﷺ and His Companions","kind":"Claude Doc, exported as Markdown","rev":7,"exported":"2026-10-10","note":"Written from general knowledge of the classical sources, without live access to them. Names, numbers and attributions should be checked before teaching or publishing."},"parts":[{"title":"The Makkan Period","short":"Makkah","stories":[1,2,3,4,5,6,7,8,9,10,11,12,13]},{"title":"The Hijrah and Early Madinah","short":"Hijrah and early Madinah","stories":[14,15,16,17,18,19]},{"title":"The Expeditions and Battles","short":"Expeditions and battles","stories":[20,21,22,23,24,25,26,27,28,29,30,31]},{"title":"Character, Mercy and the Lives of the Companions","short":"Character and lives","stories":[32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]}],"stories":[{"n":1,"title":"The First Revelation in the Cave of Hira","short":"Cave of Hira","part":0,"paras":["At about forty years of age, the Prophet ﷺ used to retreat to the Cave of Hira on Jabal al-Nur to worship. There the angel Jibril came to him and commanded, \"Read!\" He replied, \"I am not a reader.\" After the angel pressed him three times, the first verses of Surah al-Alaq were revealed. He returned home trembling and said to Khadijah, \"Cover me, cover me.\"","Khadijah comforted him, saying Allah would never disgrace him because he kept family ties, helped the weak, honoured guests and supported people in hardship. She took him to her cousin Waraqah ibn Nawfal, a Christian scholar, who recognised the signs of prophethood and said his people would drive him out."],"lines":[{"head":[["p","khadijah-bint-khuwaylid"]],"role":"his wife; comforted him, affirmed his character, and became the first person to believe in him.","later":false},{"head":[["p","waraqah-ibn-nawfal"]],"role":"Khadijah's cousin who confirmed the revelation; he died soon after, and many scholars count him among the believers.","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"the main narrator of this hadith in Sahih al-Bukhari, as she heard it from the Prophet ﷺ.","later":false}],"note":null},{"n":2,"title":"The First Believers","short":"First believers","part":0,"paras":["After Khadijah, the first to accept Islam were Ali ibn Abi Talib, a boy living in the Prophet's household, Zayd ibn Harithah, his freed servant and adopted son, and Abu Bakr, his closest friend, who believed without hesitation. Abu Bakr then invited his own friends, and five of the ten promised Paradise entered Islam through him."],"lines":[{"head":[["p","khadijah-bint-khuwaylid"]],"role":"first of all believers.","later":false},{"head":[["p","abu-bakr-al-siddiq"]],"role":"first free adult man to believe; brought others to Islam.","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"first child to believe.","later":false},{"head":[["p","zayd-ibn-harithah"]],"role":"first freed slave to believe.","later":false},{"head":[["p","uthman-ibn-affan"]],"role":"accepted Islam through Abu Bakr's invitation.","later":false},{"head":[["p","al-zubayr-ibn-al-awwam"]],"role":"accepted Islam through Abu Bakr.","later":false},{"head":[["p","abd-al-rahman-ibn-awf"]],"role":"accepted Islam through Abu Bakr.","later":false},{"head":[["p","sad-ibn-abi-waqqas"]],"role":"accepted Islam through Abu Bakr.","later":false},{"head":[["p","talhah-ibn-ubaydillah"]],"role":"accepted Islam through Abu Bakr.","later":false},{"head":[["p","bilal-ibn-rabah"]],"role":"among the earliest to accept Islam.","later":false},{"head":[["p","umm-ayman"]],"role":"the Prophet's nurse from childhood, among the first believers in his household.","later":false}],"note":null},{"n":3,"title":"The Call from Mount Safa","short":"Mount Safa","part":0,"paras":["When Allah revealed \"And warn your nearest kin\" (26:214), the Prophet ﷺ climbed Mount Safa and called each clan of Quraysh by name. He asked, \"If I told you an army was behind this hill, would you believe me?\" They said, \"We have never known you to lie.\" He said, \"Then I am a warner to you of a severe punishment.\" His uncle Abu Lahab cursed him, and Surah al-Masad was revealed in reply."],"lines":[{"head":[["p","abdullah-ibn-abbas"]],"role":"narrator of the hadith in al-Bukhari and Muslim.","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"present at the related gathering of Banu Abd al-Muttalib, where he alone stood up in support of the Prophet ﷺ.","later":false},{"head":[["p","fatimah-bint-muhammad"],["t"," and "],["p","safiyyah-bint-abd-al-muttalib"]],"role":"addressed by name in the related warning: \"Save yourself from the Fire; I cannot avail you anything before Allah.\"","later":false}],"note":null},{"n":4,"title":"Bilal and \"Ahad, Ahad\"","short":"Bilal: Ahad","part":0,"paras":["Bilal was enslaved by Umayyah ibn Khalaf, who laid him on burning sand at midday with a heavy rock on his chest, demanding he reject Islam. Bilal only repeated, \"Ahad, Ahad\" (One, One). Abu Bakr bought him and set him free, and went on to free several other tortured believers."],"lines":[{"head":[["p","bilal-ibn-rabah"]],"role":"endured the torture; later the first mu'adhdhin of Islam.","later":false},{"head":[["p","abu-bakr-al-siddiq"]],"role":"bought and freed him.","later":false},{"head":[["p","amir-ibn-fuhayrah"]],"role":"another tortured slave freed by Abu Bakr.","later":false},{"head":[["p","zinnirah-al-rumiyyah"]],"role":"freed by Abu Bakr; she lost her sight under torture and Allah restored it.","later":false},{"head":[["g","Al-Nahdiyyah and her daughter"]],"role":"freed by Abu Bakr.","later":false},{"head":[["p","umm-ubays"],["t"," and "],["p","lubaynah"]],"role":"enslaved women freed by Abu Bakr.","later":false}],"note":null},{"n":5,"title":"The Family of Yasir","short":"Family of Yasir","part":0,"paras":["Yasir, his wife Sumayyah and their son Ammar were tortured by Banu Makhzum under Abu Jahl. Passing by, the Prophet ﷺ said, \"Patience, O family of Yasir, your promised meeting place is Paradise.\" Abu Jahl killed Sumayyah with a spear, making her the first martyr of Islam; Yasir also died under torture. When Ammar was forced to say words of disbelief, Allah revealed that one compelled while his heart is firm in faith is excused (16:106)."],"lines":[{"head":[["p","sumayyah-bint-khayyat"]],"role":"first martyr in Islam.","later":false},{"head":[["p","yasir-ibn-amir"]],"role":"martyred under torture.","later":false},{"head":[["p","ammar-ibn-yasir"]],"role":"survived; the verse of compulsion was revealed about him.","later":false}],"note":null},{"n":6,"title":"Abdullah ibn Mas'ud Recites at the Ka'bah","short":"Ibn Mas'ud recites","part":0,"paras":["The Companions wanted someone to recite the Qur'an aloud to Quraysh. Abdullah ibn Mas'ud, a small man with no powerful clan, volunteered. He stood at the Maqam and recited Surah al-Rahman until Quraysh beat him. He returned bruised and said he was ready to do it again the next day."],"lines":[{"head":[["p","abdullah-ibn-masud"]],"role":"first to recite the Qur'an publicly in Makkah after the Prophet ﷺ.","later":false},{"head":[],"role":"The early Companions gathered with him, who warned him he had no clan to protect him.","later":false}],"note":null},{"n":7,"title":"Hamzah Accepts Islam","short":"Hamzah's Islam","part":0,"paras":["Abu Jahl insulted and harmed the Prophet ﷺ near Safa. When Hamzah returned from hunting, a freedwoman told him what had happened. Furious, he went to Abu Jahl at the Ka'bah, struck him with his bow, and declared, \"Will you insult him when I follow his religion?\" He then embraced Islam fully, and Quraysh became more cautious."],"lines":[{"head":[["p","hamzah-ibn-abd-al-muttalib"]],"role":"the Prophet's uncle; \"Lion of Allah.\"","later":false}],"note":null},{"n":8,"title":"Umar ibn al-Khattab Accepts Islam","short":"Umar's Islam","part":0,"paras":["Umar set out with his sword to kill the Prophet ﷺ. Nu'aym ibn Abdullah told him his own sister had become Muslim. Umar burst into her house, where Khabbab was teaching her and her husband Surah Ta-Ha, and struck her. Seeing her blood and steadfastness, he asked to read the page. Moved, he went to Dar al-Arqam and accepted Islam. The Prophet ﷺ had prayed, \"O Allah, strengthen Islam with one of the two Umars.\" After this, Muslims prayed openly at the Ka'bah."],"lines":[{"head":[["p","umar-ibn-al-khattab"]],"role":"accepted Islam; later called al-Faruq.","later":false},{"head":[["p","fatimah-bint-al-khattab"]],"role":"his sister, whose firmness moved him.","later":false},{"head":[["p","said-ibn-zayd"]],"role":"her husband, one of the ten promised Paradise.","later":false},{"head":[["p","khabbab-ibn-al-aratt"]],"role":"was teaching them the Qur'an and hid in the house.","later":false},{"head":[["p","nuaym-ibn-abdullah-al-nahham"]],"role":"redirected Umar to his sister's house.","later":false},{"head":[["p","al-arqam-ibn-abi-al-arqam"]],"role":"owner of the house where the Muslims met.","later":false},{"head":[["p","hamzah-ibn-abd-al-muttalib"]],"role":"stood guard at the door when Umar arrived.","later":false}],"note":null},{"n":9,"title":"Ja'far Before the Negus of Abyssinia","short":"Abyssinia","part":0,"paras":["To escape persecution, a group of Muslims migrated to Abyssinia under a just Christian king. Quraysh sent Amr ibn al-As and Abdullah ibn Abi Rabi'ah with gifts to bring them back. Ja'far ibn Abi Talib spoke for the Muslims, describing the ignorance they had left and the truth they had found, then recited from Surah Maryam. The Negus wept and refused to hand them over."],"lines":[{"head":[["p","jafar-ibn-abi-talib"]],"role":"spokesman before the Negus.","later":false},{"head":[["p","umm-salamah"]],"role":"present; narrator of the account.","later":false},{"head":[["p","abu-salamah-ibn-abd-al-asad"]],"role":"her first husband, among the emigrants.","later":false},{"head":[["p","uthman-ibn-affan"],["t"," and "],["p","ruqayyah-bint-muhammad"]],"role":"among the first emigrants to Abyssinia.","later":false},{"head":[["p","asma-bint-umays"]],"role":"Ja'far's wife, among the emigrants.","later":false},{"head":[["p","al-zubayr-ibn-al-awwam"],["t",", "],["p","abdullah-ibn-masud"],["t",", "],["p","abd-al-rahman-ibn-awf"],["t",", "],["p","musab-ibn-umayr"],["t"," and "],["p","uthman-ibn-mazun"]],"role":"among the emigrants in the first or second migration.","later":false},{"head":[["p","al-najashi"]],"role":"the Negus; later accepted Islam, and the Prophet ﷺ prayed the funeral prayer in absentia for him.","later":false},{"head":[["p","amr-ibn-al-as"]],"role":"Quraysh's envoy <i>(accepted Islam later)<\/i>.","later":true},{"head":[["p","abdullah-ibn-abi-rabiah"]],"role":"the second envoy <i>(accepted Islam later)<\/i>.","later":true}],"note":null},{"n":10,"title":"The Boycott in Shi'b Abi Talib","short":"The boycott","part":0,"paras":["Quraysh hung a pact in the Ka'bah to boycott Banu Hashim and Banu al-Muttalib: no trade, no marriage. For about three years the Prophet ﷺ and his family were confined to a valley, surviving on leaves and scraps. Some sympathetic Qurayshis worked to end it, and the document was found eaten by termites except for the words \"In Your name, O Allah,\" just as the Prophet ﷺ had said."],"lines":[{"head":[["p","khadijah-bint-khuwaylid"]],"role":"endured the boycott and spent her wealth during it.","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"inside the valley with the Prophet ﷺ.","later":false},{"head":[["p","sad-ibn-abi-waqqas"]],"role":"reported that hunger drove him to soften and eat a dried piece of leather.","later":false},{"head":[["p","al-abbas-ibn-abd-al-muttalib"]],"role":"of Banu Hashim, confined with them <i>(accepted Islam later, by most accounts)<\/i>.","later":true},{"head":[["p","hakim-ibn-hizam"]],"role":"Khadijah's nephew, who smuggled food to her <i>(accepted Islam later)<\/i>.","later":true},{"head":[["p","zuhayr-ibn-abi-umayyah"]],"role":"helped tear up the pact <i>(accepted Islam later, according to some reports)<\/i>.","later":true}],"note":null},{"n":11,"title":"The Journey to Ta'if","short":"Ta'if","part":0,"paras":["After the deaths of Abu Talib and Khadijah in the Year of Sorrow, the Prophet ﷺ walked to Ta'if to invite Thaqif. Its leaders rejected him and set youths to stone him until his feet bled. Resting in a garden, he made his famous supplication. The angel of the mountains offered to crush the town, but he said, \"I hope Allah will bring from their descendants people who worship Him alone.\" A Christian servant named Addas brought him grapes and believed."],"lines":[{"head":[["p","zayd-ibn-harithah"]],"role":"accompanied him and shielded him from the stones, suffering head wounds.","later":false},{"head":[["p","addas"]],"role":"the servant from Nineveh who believed in him.","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"narrator of the hadith of the angel of the mountains.","later":false}],"note":null},{"n":12,"title":"Al-Isra wal-Mi'raj","short":"Isra and Mi'raj","part":0,"paras":["In one night the Prophet ﷺ was taken from Makkah to Jerusalem, where he led the prophets in prayer, then ascended through the heavens, where the five daily prayers were prescribed. When he told Quraysh, they mocked him and ran to Abu Bakr. Abu Bakr said, \"If he said it, it is true,\" earning the title al-Siddiq."],"lines":[{"head":[["p","abu-bakr-al-siddiq"]],"role":"affirmed the journey immediately.","later":false},{"head":[["p","umm-hani-bint-abi-talib"]],"role":"the Prophet ﷺ spent that night at her house, by many reports, and told her first.","later":false},{"head":[["p","anas-ibn-malik"],["t"," and "],["p","malik-ibn-sasaah"]],"role":"main narrators of the Mi'raj hadith.","later":false}],"note":null},{"n":13,"title":"The Pledges of Aqabah","short":"Aqabah pledges","part":0,"paras":["In the pilgrimage seasons, groups from Yathrib met the Prophet ﷺ at Aqabah. Twelve pledged in the first year, and he sent Mus'ab ibn Umayr back with them as teacher. Through Mus'ab, the chiefs Sa'd ibn Mu'adh and Usayd ibn Hudayr accepted Islam. The next year seventy-three men and two women pledged to protect him as they would their own families, opening the way to the Hijrah."],"lines":[{"head":[["p","musab-ibn-umayr"]],"role":"first envoy and teacher of Islam in Madinah.","later":false},{"head":[["p","asad-ibn-zurarah"]],"role":"hosted Mus'ab and led the first group.","later":false},{"head":[["p","sad-ibn-muadh"]],"role":"chief of Aws; accepted Islam through Mus'ab, and his whole clan followed.","later":false},{"head":[["p","usayd-ibn-hudayr"]],"role":"Aws leader; accepted Islam through Mus'ab.","later":false},{"head":[["p","al-bara-ibn-marur"]],"role":"first to pledge at the second Aqabah.","later":false},{"head":[["p","ubadah-ibn-al-samit"]],"role":"present at both pledges; narrator of their terms.","later":false},{"head":[["p","kab-ibn-malik"]],"role":"present at the second pledge and narrated it.","later":false},{"head":[["p","abdullah-ibn-amr-ibn-haram"]],"role":"Jabir's father, accepted Islam that night.","later":false},{"head":[["p","jabir-ibn-abdullah"]],"role":"present at the second pledge as a young man.","later":false},{"head":[["p","sad-ibn-ubadah"]],"role":"leader of Khazraj at the pledge.","later":false},{"head":[["p","abu-al-haytham-ibn-al-tayyihan"]],"role":"among the twelve leaders (nuqaba).","later":false},{"head":[["p","nusaybah-bint-kab"],["t"," and "],["p","asma-bint-amr"]],"role":"the two women who pledged.","later":false},{"head":[["p","al-abbas-ibn-abd-al-muttalib"]],"role":"accompanied the Prophet ﷺ to secure the terms <i>(accepted Islam later, by most accounts)<\/i>.","later":true}],"note":null},{"n":14,"title":"The Hijrah and the Cave of Thawr","short":"Hijrah and Thawr","part":1,"paras":["Quraysh plotted to kill the Prophet ﷺ in his bed. Ali slept in his place under his green cloak, and the Prophet ﷺ left with Abu Bakr for the Cave of Thawr. When the trackers stood at its mouth, Abu Bakr whispered his fear, and the Prophet ﷺ said, \"What do you think of two when Allah is the third?\" (9:40). After three days they set out for Madinah. Suraqah ibn Malik chased them for the bounty, but his horse's legs sank into the sand three times; he asked for safety and was promised the bracelets of Kisra."],"lines":[{"head":[["p","abu-bakr-al-siddiq"]],"role":"companion in the cave and on the journey (\"the second of two\").","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"slept in the Prophet's bed, then returned the people's trusts before following.","later":false},{"head":[["p","asma-bint-abi-bakr"]],"role":"carried food to the cave; tore her belt in two to tie the provisions, earning the name Dhat al-Nitaqayn.","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"narrated the account of the departure.","later":false},{"head":[["p","abdullah-ibn-abi-bakr"]],"role":"spent the nights in the cave and brought news of Quraysh.","later":false},{"head":[["p","amir-ibn-fuhayrah"]],"role":"grazed sheep over their tracks and supplied milk; travelled with them.","later":false},{"head":[["p","suraqah-ibn-malik"]],"role":"the pursuer, who later wore Kisra's bracelets in Umar's time <i>(accepted Islam later)<\/i>.","later":true},{"head":[["p","umm-mabad-al-khuzaiyyah"]],"role":"the woman whose dry goat gave milk when the Prophet ﷺ touched it; she gave the famous description of him <i>(accepted Islam later, by many reports)<\/i>.","later":true},{"head":[["p","buraydah-ibn-al-husayb"]],"role":"met them on the road with his tribe and accepted Islam.","later":false}],"note":"Abdullah ibn Urayqit, their hired guide, was not a Muslim at the time."},{"n":15,"title":"Arrival in Madinah and the Building of the Mosque","short":"Into Madinah","part":1,"paras":["The people of Madinah went out every morning to wait for the Prophet ﷺ. When he arrived, children sang, and every family wanted to host him. He let his camel walk freely, saying \"She is commanded.\" She knelt by a plot owned by two orphans, and he stayed at the nearby house of Abu Ayyub. The land was bought, and the Prophet ﷺ carried bricks alongside his Companions to build the mosque."],"lines":[{"head":[["p","abu-ayyub-al-ansari"]],"role":"hosted the Prophet ﷺ for months.","later":false},{"head":[["p","sahl-ibn-rafi"],["t"," and "],["p","suhayl-ibn-rafi"]],"role":"the two orphans who owned the land.","later":false},{"head":[["p","asad-ibn-zurarah"]],"role":"their guardian, who had prayed on the plot.","later":false},{"head":[["p","abu-bakr-al-siddiq"]],"role":"paid for the land, according to reports.","later":false},{"head":[["p","ammar-ibn-yasir"]],"role":"carried two bricks at a time; the Prophet ﷺ foretold, \"The transgressing party will kill him.\"","later":false},{"head":[["p","kulthum-ibn-al-hidm"]],"role":"hosted the Prophet ﷺ at Quba on arrival.","later":false},{"head":[["p","anas-ibn-malik"]],"role":"a boy who narrated the joyful arrival.","later":false},{"head":[["p","abdullah-ibn-salam"]],"role":"saw the Prophet's face and knew it was not the face of a liar (see story 19).","later":false}],"note":null},{"n":16,"title":"The Brotherhood of the Muhajirun and Ansar","short":"Brotherhood","part":1,"paras":["The Prophet ﷺ paired each emigrant from Makkah with a helper from Madinah as brothers. Sa'd ibn al-Rabi' offered Abd al-Rahman ibn Awf half his wealth. Abd al-Rahman thanked him and said, \"Just show me the way to the market.\" He traded and soon prospered."],"lines":[{"head":[["p","abd-al-rahman-ibn-awf"],["t"," and "],["p","sad-ibn-al-rabi"]],"role":"the famous pair.","later":false},{"head":[["p","salman-al-farisi"],["t"," and "],["p","abu-al-darda"]],"role":"brothers; Salman later advised him to balance worship with his family's rights.","later":false},{"head":[["p","abu-bakr-al-siddiq"],["t"," and "],["p","kharijah-ibn-zayd"]],"role":"paired as brothers.","later":false},{"head":[["p","umar-ibn-al-khattab"],["t"," and "],["p","itban-ibn-malik"]],"role":"paired as brothers.","later":false},{"head":[["p","abu-ubaydah-ibn-al-jarrah"],["t"," and "],["p","sad-ibn-muadh"]],"role":"paired as brothers.","later":false},{"head":[["p","ammar-ibn-yasir"],["t"," and "],["p","hudhayfah-ibn-al-yaman"]],"role":"paired as brothers, by some reports.","later":false},{"head":[["p","musab-ibn-umayr"],["t"," and "],["p","abu-ayyub-al-ansari"]],"role":"paired as brothers.","later":false},{"head":[["p","anas-ibn-malik"]],"role":"the brotherhood was declared in his family's house.","later":false}],"note":"The pairings listed follow Ibn Ishaq and Ibn Sa'd; some lists differ."},{"n":17,"title":"Salman al-Farisi's Search for Truth","short":"Salman's search","part":1,"paras":["Salman was born a Zoroastrian in Persia. Drawn to Christianity, he served a series of monks; the last told him a prophet would appear in a land of palms, who would accept gifts but not charity and carry the seal of prophethood between his shoulders. Sold into slavery in Madinah, he tested the Prophet ﷺ on all three signs and accepted Islam. The Prophet ﷺ helped him buy his freedom by planting 300 palm saplings with his own hands."],"lines":[{"head":[["p","salman-al-farisi"]],"role":"the seeker.","later":false},{"head":[["p","abdullah-ibn-abbas"]],"role":"narrated Salman's story as Salman told it.","later":false},{"head":[],"role":"The Companions who planted the palms with the Prophet ﷺ, and those who contributed gold for his ransom.","later":false}],"note":null},{"n":18,"title":"The First Adhan","short":"First adhan","part":1,"paras":["The Muslims discussed how to gather people for prayer: a bell, a horn or a fire. Abdullah ibn Zayd saw the words of the adhan in a dream. The Prophet ﷺ said, \"It is a true vision. Teach it to Bilal, for his voice is stronger.\" When Umar heard Bilal, he ran out saying he had seen the same dream."],"lines":[{"head":[["p","abdullah-ibn-zayd-ibn-abd-rabbih"]],"role":"saw the adhan in his dream.","later":false},{"head":[["p","bilal-ibn-rabah"]],"role":"the first to call it.","later":false},{"head":[["p","umar-ibn-al-khattab"]],"role":"had seen the same dream.","later":false},{"head":[["p","abdullah-ibn-umar"]],"role":"narrated the discussion about calling to prayer.","later":false},{"head":[["p","abdullah-ibn-umm-maktum"]],"role":"later also served as mu'adhdhin with Bilal.","later":false}],"note":null},{"n":19,"title":"Abdullah ibn Salam Accepts Islam","short":"Ibn Salam","part":1,"paras":["Abdullah ibn Salam, a leading Jewish scholar of Madinah, asked the Prophet ﷺ three questions only a prophet would know, and was satisfied. Before announcing his Islam, he hid while the Prophet ﷺ asked his community about him. They called him their best and son of their best. When he came out and declared his faith, they called him their worst."],"lines":[{"head":[["p","abdullah-ibn-salam"]],"role":"the scholar who believed; the Prophet ﷺ gave him glad tidings of Paradise.","later":false},{"head":[["p","anas-ibn-malik"]],"role":"narrated the account in Sahih al-Bukhari.","later":false},{"head":[["p","khalidah-bint-al-harith"]],"role":"his aunt, who accepted Islam with him, according to reports.","later":false}],"note":null},{"n":20,"title":"The Battle of Badr","short":"Badr","part":2,"paras":["In Ramadan of 2 AH, 313 Muslims with two horses faced about 1,000 Quraysh. Before battle, the Prophet ﷺ consulted his Companions, and both Muhajirun and Ansar pledged to follow him even into the sea. He spent the night in supplication until his cloak fell from his shoulders. Allah sent angels in support, and Quraysh were defeated, losing seventy dead including Abu Jahl."],"lines":[{"head":[["p","abu-bakr-al-siddiq"]],"role":"stayed with the Prophet ﷺ in his shelter and comforted him during his supplication.","later":false},{"head":[["p","umar-ibn-al-khattab"]],"role":"spoke in support before battle; narrated the Prophet's supplication.","later":false},{"head":[["p","al-miqdad-ibn-al-aswad"]],"role":"said, \"We will not say as the people of Musa said; we will fight on your right and your left.\"","later":false},{"head":[["p","sad-ibn-muadh"]],"role":"spoke for the Ansar; built the Prophet's shelter.","later":false},{"head":[["p","al-hubab-ibn-al-mundhir"]],"role":"advised camping at the last well.","later":false},{"head":[["p","hamzah-ibn-abd-al-muttalib"],["t",", "],["p","ali-ibn-abi-talib"],["t"," and "],["p","ubaydah-ibn-al-harith"]],"role":"fought the opening duels; Ubaydah was mortally wounded.","later":false},{"head":[["p","muadh-ibn-amr-ibn-al-jamuh"],["t"," and "],["p","muawwidh-ibn-afra"]],"role":"two young Ansar who struck down Abu Jahl.","later":false},{"head":[["p","abdullah-ibn-masud"]],"role":"found Abu Jahl dying and finished him.","later":false},{"head":[["p","bilal-ibn-rabah"]],"role":"confronted his former torturer Umayyah ibn Khalaf, who was killed.","later":false},{"head":[["p","umayr-ibn-al-humam"]],"role":"threw away his dates, saying the wait was too long, and fought until martyred.","later":false},{"head":[["p","harithah-ibn-suraqah"]],"role":"young martyr; the Prophet ﷺ told his mother he was in al-Firdaws.","later":false},{"head":[["p","sawad-ibn-ghaziyyah"]],"role":"see story 37.","later":false},{"head":[["p","talhah-ibn-ubaydillah"],["t"," and "],["p","said-ibn-zayd"]],"role":"sent to scout the caravan; counted among the people of Badr.","later":false},{"head":[["p","uthman-ibn-affan"]],"role":"stayed in Madinah by the Prophet's order to nurse Ruqayyah, who died; counted among the people of Badr.","later":false},{"head":[["p","abu-lubabah-ibn-abd-al-mundhir"]],"role":"left in charge of Madinah.","later":false},{"head":[["p","al-abbas-ibn-abd-al-muttalib"]],"role":"fought with Quraysh and was captured <i>(accepted Islam later)<\/i>.","later":true},{"head":[["p","abu-al-as-ibn-al-rabi"]],"role":"the Prophet's son-in-law, captured; Zaynab sent her mother's necklace as ransom <i>(accepted Islam later)<\/i>.","later":true}],"note":null},{"n":21,"title":"The Battle of Uhud","short":"Uhud","part":2,"paras":["In 3 AH, Quraysh returned with 3,000 men. The Prophet ﷺ placed fifty archers on a hill with orders never to leave. When the Muslims began winning, most archers left for the spoils. Khalid ibn al-Walid circled behind, and the Muslims were thrown into confusion. A rumour spread that the Prophet ﷺ had been killed. He was wounded in the face and his tooth broken, while a small band of Companions shielded him."],"lines":[{"head":[["p","hamzah-ibn-abd-al-muttalib"]],"role":"martyred by Wahshi's spear; called \"Master of the Martyrs.\"","later":false},{"head":[["p","musab-ibn-umayr"]],"role":"carried the flag until both hands were cut off, then martyred; his shroud was too short to cover him.","later":false},{"head":[["p","abdullah-ibn-jubayr"]],"role":"commander of the archers, who stayed at his post with a few and was martyred.","later":false},{"head":[["p","nusaybah-bint-kab"]],"role":"fought to defend the Prophet ﷺ and received many wounds.","later":false},{"head":[["p","talhah-ibn-ubaydillah"]],"role":"shielded the Prophet's face with his hand until it was paralysed.","later":false},{"head":[["p","sad-ibn-abi-waqqas"]],"role":"shot arrows as the Prophet ﷺ said, \"Shoot, may my father and mother be ransomed for you.\"","later":false},{"head":[["p","abu-dujanah"]],"role":"took the Prophet's sword \"with its right\" and used his back as a shield against arrows.","later":false},{"head":[["p","abu-ubaydah-ibn-al-jarrah"]],"role":"pulled the helmet rings from the Prophet's cheek with his teeth, losing two front teeth.","later":false},{"head":[["p","hanzalah-ibn-abi-amir"]],"role":"went out newly married without a ritual bath; washed by the angels after his martyrdom.","later":false},{"head":[["p","qatadah-ibn-al-numan"]],"role":"his eye came out; the Prophet ﷺ put it back, and it became his better eye.","later":false},{"head":[["p","abdullah-ibn-amr-ibn-haram"]],"role":"martyred; Allah spoke to him without a veil, as the Prophet ﷺ told his son Jabir.","later":false},{"head":[["p","amr-ibn-al-jamuh"]],"role":"though lame, insisted on fighting and was martyred.","later":false},{"head":[["p","anas-ibn-al-nadr"]],"role":"see story 22.","later":false},{"head":[["p","ali-ibn-abi-talib"],["t",", "],["p","abu-bakr-al-siddiq"],["t",", "],["p","umar-ibn-al-khattab"],["t"," and "],["p","al-zubayr-ibn-al-awwam"]],"role":"among those who stayed near the Prophet ﷺ.","later":false},{"head":[["p","fatimah-bint-muhammad"]],"role":"washed his wound and burnt a mat to stop the bleeding.","later":false},{"head":[["p","aishah-bint-abi-bakr"],["t"," and "],["p","umm-sulaym-bint-milhan"]],"role":"carried water to the wounded.","later":false},{"head":[["p","wahshi-ibn-harb"]],"role":"killed Hamzah <i>(accepted Islam later; see story 45)<\/i>.","later":true},{"head":[["p","khalid-ibn-al-walid"],["t"," and "],["p","ikrimah-ibn-abi-jahl"]],"role":"led the Quraysh cavalry <i>(both accepted Islam later)<\/i>.","later":true},{"head":[["p","abu-sufyan-ibn-harb"],["t"," and "],["p","hind-bint-utbah"]],"role":"led Quraysh <i>(both accepted Islam later)<\/i>.","later":true}],"note":null},{"n":22,"title":"Anas ibn al-Nadr: \"I Smell Paradise\"","short":"Anas ibn al-Nadr","part":2,"paras":["Anas ibn al-Nadr missed Badr and vowed that if Allah let him witness another battle, Allah would see what he would do. At Uhud, when others wavered, he said to Sa'd ibn Mu'adh, \"Paradise! By the Lord of the Ka'bah, I smell its scent beyond Uhud.\" He was found with more than eighty wounds, recognised only by his sister from his fingertips. The verse \"Among the believers are men who were true to their covenant with Allah\" (33:23) is linked to him."],"lines":[{"head":[["p","anas-ibn-al-nadr"]],"role":"the martyr.","later":false},{"head":[["p","sad-ibn-muadh"]],"role":"whom he addressed; Sa'd said, \"I could not do what he did.\"","later":false},{"head":[["p","al-rubayyi-bint-al-nadr"]],"role":"his sister, who identified him.","later":false},{"head":[["p","anas-ibn-malik"]],"role":"his nephew, narrator of the story.","later":false}],"note":null},{"n":23,"title":"The Battle of the Trench (al-Khandaq)","short":"The Trench","part":2,"paras":["In 5 AH, about 10,000 confederates marched on Madinah. On Salman's advice, the Muslims dug a trench across the open northern side in freezing cold and hunger. When a rock defeated them, the Prophet ﷺ struck it three times, and with each spark foretold the conquest of Syria, Persia and Yemen. After nearly a month, discord among the enemy and a fierce wind broke the siege."],"lines":[{"head":[["p","salman-al-farisi"]],"role":"proposed the trench; the Prophet ﷺ said, \"Salman is one of us, the People of the House.\"","later":false},{"head":[["p","jabir-ibn-abdullah"],["t"," and his wife "],["p","suhaylah-bint-masud"]],"role":"prepared a small goat and some barley that, by the Prophet's blessing, fed the whole army.","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"answered the challenge of the champion Amr ibn Abd Wudd and killed him.","later":false},{"head":[["p","nuaym-ibn-masud"]],"role":"a new Muslim who sowed distrust between Quraysh and Banu Qurayzah.","later":false},{"head":[["p","hudhayfah-ibn-al-yaman"]],"role":"crossed into the enemy camp on the coldest night to bring news.","later":false},{"head":[["p","al-zubayr-ibn-al-awwam"]],"role":"volunteered to scout; the Prophet ﷺ called him \"my disciple (hawari).\"","later":false},{"head":[["p","sad-ibn-muadh"]],"role":"struck by an arrow in his arm (see story 24).","later":false},{"head":[["p","safiyyah-bint-abd-al-muttalib"]],"role":"defended the women's fort against an enemy who approached it.","later":false},{"head":[["p","hassan-ibn-thabit"]],"role":"was in the women's fort with Safiyyah.","later":false},{"head":[["p","al-bara-ibn-azib"]],"role":"narrated the Prophet ﷺ carrying earth until dust covered his chest.","later":false},{"head":[["p","abu-sufyan-ibn-harb"],["t",", "],["p","khalid-ibn-al-walid"],["t"," and "],["p","ikrimah-ibn-abi-jahl"]],"role":"among the confederates <i>(all accepted Islam later)<\/i>.","later":true}],"note":null},{"n":24,"title":"The Death of Sa'd ibn Mu'adh","short":"Death of Sa'd","part":2,"paras":["Wounded at the Trench, Sa'd prayed that he would not die until his heart was at peace regarding Banu Qurayzah, who had broken their treaty in the Muslims' most dangerous hour. Their case was referred to his judgment, which the Prophet ﷺ said matched the judgment of Allah. His wound then reopened and he died. The Prophet ﷺ said, \"The Throne of the Most Merciful shook at the death of Sa'd ibn Mu'adh,\" and seventy thousand angels attended his funeral."],"lines":[{"head":[["p","sad-ibn-muadh"]],"role":"chief of Aws.","later":false},{"head":[["p","rufaydah-al-aslamiyyah"]],"role":"nursed him in her tent in the mosque, the first field hospital in Islam.","later":false},{"head":[["p","abu-lubabah-ibn-abd-al-mundhir"]],"role":"tied himself to a pillar of the mosque in repentance after a mistake during the siege until Allah accepted his repentance.","later":false},{"head":[["p","jabir-ibn-abdullah"]],"role":"narrated the hadith of the Throne shaking.","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"described Sa'd's condition and the Prophet's grief.","later":false},{"head":[["p","umm-sad"]],"role":"his mother, whom the Prophet ﷺ consoled.","later":false}],"note":null},{"n":25,"title":"The Treaty of Hudaybiyah","short":"Hudaybiyah","part":2,"paras":["In 6 AH, the Prophet ﷺ set out with about 1,400 Companions for Umrah but was stopped at Hudaybiyah. He sent Uthman to negotiate, and when a rumour said Uthman was killed, the Companions pledged under a tree to stand firm. Quraysh then sent Suhayl ibn Amr, and a truce was signed with terms that seemed harsh to the Muslims. Allah called it \"a clear victory\" in Surah al-Fath, and within two years Islam spread more than ever before."],"lines":[{"head":[["p","uthman-ibn-affan"]],"role":"the envoy; the Prophet ﷺ pledged on his behalf with his own hand.","later":false},{"head":[["g","All who pledged under the tree (Bay'at al-Ridwan)"]],"role":"Allah declared He was pleased with them (48:18).","later":false},{"head":[["p","salamah-ibn-al-akwa"]],"role":"pledged three times at the Prophet's request.","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"wrote the treaty; the Prophet ﷺ himself erased \"Messenger of Allah\" when Ali would not.","later":false},{"head":[["p","umar-ibn-al-khattab"]],"role":"questioned the terms in distress, later regretting it.","later":false},{"head":[["p","abu-bakr-al-siddiq"]],"role":"calmed Umar with the same answer the Prophet ﷺ had given.","later":false},{"head":[["p","umm-salamah"]],"role":"advised the Prophet ﷺ to shave his head first, after which all followed.","later":false},{"head":[["p","abu-jandal-ibn-suhayl"]],"role":"escaped to the Muslims in chains and was returned under the treaty.","later":false},{"head":[["p","al-mughirah-ibn-shubah"]],"role":"stood guard over the Prophet ﷺ with a sword.","later":false},{"head":[["p","abu-basir"]],"role":"later escaped and formed a group whose pressure led Quraysh to drop the return clause.","later":false},{"head":[["p","suhayl-ibn-amr"]],"role":"Quraysh's negotiator <i>(accepted Islam later)<\/i>.","later":true},{"head":[["p","urwah-ibn-masud-al-thaqafi"]],"role":"envoy who reported the Companions' love for the Prophet ﷺ <i>(accepted Islam later)<\/i>.","later":true},{"head":[["p","budayl-ibn-warqa-al-khuzai"]],"role":"carried messages between the sides <i>(accepted Islam later)<\/i>.","later":true}],"note":null},{"n":26,"title":"The Conquest of Khaybar","short":"Khaybar","part":2,"paras":["In 7 AH, the Muslims besieged the fortresses of Khaybar. After days of failed attempts, the Prophet ﷺ said, \"Tomorrow I will give the flag to a man who loves Allah and His Messenger and whom Allah and His Messenger love.\" Everyone hoped for it, but he called Ali, who had sore eyes. The Prophet ﷺ applied his saliva, the eyes were healed, and the fortress fell."],"lines":[{"head":[["p","ali-ibn-abi-talib"]],"role":"given the flag; led the conquest of the fort.","later":false},{"head":[["p","sahl-ibn-sad"]],"role":"narrated the hadith of the flag.","later":false},{"head":[["p","muhammad-ibn-maslamah"]],"role":"killed the champion Marhab according to some reports (others name Ali).","later":false},{"head":[["p","amir-ibn-al-akwa"]],"role":"recited poetry on the march; died when his own sword rebounded, and the Prophet ﷺ affirmed his double reward.","later":false},{"head":[["p","salamah-ibn-al-akwa"]],"role":"his nephew, who narrated it.","later":false},{"head":[["p","safiyyah-bint-huyayy"]],"role":"daughter of a Khaybar chief; married the Prophet ﷺ and became a Mother of the Believers.","later":false},{"head":[["p","jafar-ibn-abi-talib"]],"role":"returned from Abyssinia; the Prophet ﷺ said, \"I do not know which makes me happier, the conquest of Khaybar or the return of Ja'far.\"","later":false},{"head":[["p","abu-hurayrah"],["t"," and "],["p","abu-musa-al-ashari"]],"role":"arrived around this time and joined the Muslims.","later":false},{"head":[["p","bishr-ibn-al-bara-ibn-marur"]],"role":"died after eating from the poisoned sheep offered to the Prophet ﷺ.","later":false}],"note":null},{"n":27,"title":"The Battle of Mu'tah","short":"Mu'tah","part":2,"paras":["In 8 AH, 3,000 Muslims met a far larger Byzantine force. The Prophet ﷺ had named three commanders in turn: Zayd, then Ja'far, then Abdullah ibn Rawahah. All three were martyred. Khalid ibn al-Walid took the flag and withdrew the army skilfully. In Madinah, with tears in his eyes, the Prophet ﷺ announced each death before the news arrived, then said, \"A sword from the swords of Allah took the flag.\""],"lines":[{"head":[["p","zayd-ibn-harithah"]],"role":"first commander; martyred.","later":false},{"head":[["p","jafar-ibn-abi-talib"]],"role":"lost both hands holding the flag; given two wings in Paradise, hence \"al-Tayyar.\"","later":false},{"head":[["p","abdullah-ibn-rawahah"]],"role":"the poet; hesitated briefly, then advanced and was martyred.","later":false},{"head":[["p","thabit-ibn-aqram"]],"role":"picked up the fallen flag and handed it to Khalid.","later":false},{"head":[["p","khalid-ibn-al-walid"]],"role":"broke nine swords that day; named \"Sword of Allah.\"","later":false},{"head":[["p","abdullah-ibn-umar"]],"role":"counted over ninety wounds on Ja'far's front.","later":false},{"head":[["p","asma-bint-umays"]],"role":"Ja'far's wife, to whom the Prophet ﷺ brought the news.","later":false},{"head":[["p","abdullah-ibn-jafar"]],"role":"Ja'far's son, whom the Prophet ﷺ took in his care.","later":false}],"note":null},{"n":28,"title":"The Conquest of Makkah","short":"Makkah conquered","part":2,"paras":["When Quraysh's allies broke the Hudaybiyah truce, the Prophet ﷺ marched with 10,000 men in Ramadan of 8 AH. Makkah fell almost without fighting. He entered with his head bowed in humility, cleared 360 idols from around the Ka'bah reciting \"Truth has come and falsehood has vanished\" (17:81), and told his former persecutors, \"No blame on you today. Go, you are free.\""],"lines":[{"head":[["p","hatib-ibn-abi-baltaah"]],"role":"secretly wrote to Quraysh to protect his family; forgiven as a man of Badr.","later":false},{"head":[["p","ali-ibn-abi-talib"],["t",", "],["p","al-zubayr-ibn-al-awwam"],["t"," and "],["p","al-miqdad-ibn-al-aswad"]],"role":"sent to intercept Hatib's letter from a woman on the road.","later":false},{"head":[["p","umar-ibn-al-khattab"]],"role":"wanted to punish Hatib; told Allah may have forgiven the people of Badr.","later":false},{"head":[["p","al-abbas-ibn-abd-al-muttalib"]],"role":"brought Abu Sufyan to the Prophet ﷺ.","later":false},{"head":[["p","abu-sufyan-ibn-harb"]],"role":"accepted Islam; \"whoever enters Abu Sufyan's house is safe.\"","later":false},{"head":[["p","sad-ibn-ubadah"]],"role":"said \"Today is the day of slaughter\"; the flag was given to his son <b>Qays ibn Sa'd<\/b>.","later":false},{"head":[["p","khalid-ibn-al-walid"],["t",", "],["p","al-zubayr-ibn-al-awwam"],["t"," and "],["p","abu-ubaydah-ibn-al-jarrah"]],"role":"led columns into the city.","later":false},{"head":[["p","bilal-ibn-rabah"]],"role":"called the adhan from the roof of the Ka'bah.","later":false},{"head":[["p","uthman-ibn-talhah"]],"role":"the Prophet ﷺ returned the key of the Ka'bah to him, forever with his family.","later":false},{"head":[["p","abu-quhafah"]],"role":"Abu Bakr's elderly father; accepted Islam.","later":false},{"head":[["p","umm-hani-bint-abi-talib"]],"role":"gave protection to two relatives, and the Prophet ﷺ honoured it.","later":false},{"head":[["p","hind-bint-utbah"]],"role":"pledged allegiance among the women.","later":false},{"head":[["p","ikrimah-ibn-abi-jahl"],["t"," and "],["p","safwan-ibn-umayyah"]],"role":"fled, then returned and accepted Islam (see story 44).","later":false}],"note":null},{"n":29,"title":"The Battle of Hunayn","short":"Hunayn","part":2,"paras":["Weeks after the conquest, 12,000 Muslims met the Hawazin. Some were pleased by their numbers (9:25). Ambushed in a narrow valley, many fled, but the Prophet ﷺ rode forward saying, \"I am the Prophet, no lie; I am the son of Abd al-Muttalib.\" Al-Abbas called the Companions back, and they won. When the spoils went to new Muslims of Quraysh, some Ansar felt hurt, and the Prophet ﷺ told them, \"Are you not pleased that people go home with sheep and camels, and you go home with the Messenger of Allah?\" They wept until their beards were wet."],"lines":[{"head":[["p","al-abbas-ibn-abd-al-muttalib"]],"role":"called out, \"O people of the tree of Ridwan!\"","later":false},{"head":[["p","abu-sufyan-ibn-al-harith"]],"role":"the Prophet's cousin; held the reins of his mule.","later":false},{"head":[["p","abu-bakr-al-siddiq"],["t",", "],["p","umar-ibn-al-khattab"],["t",", "],["p","ali-ibn-abi-talib"],["t",", "],["p","al-fadl-ibn-abbas"],["t"," and "],["p","usamah-ibn-zayd"]],"role":"among the few who stood firm.","later":false},{"head":[["p","ayman-ibn-umm-ayman"]],"role":"stood firm and was martyred.","later":false},{"head":[["p","umm-sulaym-bint-milhan"]],"role":"carried a dagger to defend herself and the Prophet ﷺ.","later":false},{"head":[["p","al-bara-ibn-azib"]],"role":"narrated the Prophet's words during the retreat.","later":false},{"head":[["p","sad-ibn-ubadah"]],"role":"told the Prophet ﷺ of the Ansar's feelings and gathered them.","later":false},{"head":[["p","abu-said-al-khudri"]],"role":"narrated the speech to the Ansar.","later":false},{"head":[["p","al-shayma-bint-al-harith"]],"role":"his foster sister from Halimah, brought as a captive; he spread his cloak for her.","later":false},{"head":[["p","malik-ibn-awf-al-nasri"]],"role":"commander of Hawazin <i>(accepted Islam later)<\/i>.","later":true}],"note":null},{"n":30,"title":"The Expedition of Tabuk","short":"Tabuk","part":2,"paras":["In 9 AH, in severe heat and poverty, the Prophet ﷺ called for an expedition to Tabuk against Byzantium, known as the \"army of hardship.\" Companions gave all they could. Uthman equipped a large part of the army, and the Prophet ﷺ said, \"Nothing Uthman does after today will harm him.\" The army waited twenty days at Tabuk, no battle took place, and the tribes of the north made treaties."],"lines":[{"head":[["p","uthman-ibn-affan"]],"role":"gave hundreds of camels and 1,000 dinars.","later":false},{"head":[["p","abu-bakr-al-siddiq"]],"role":"gave all his wealth, leaving \"Allah and His Messenger\" for his family.","later":false},{"head":[["p","umar-ibn-al-khattab"]],"role":"gave half his wealth, hoping to surpass Abu Bakr.","later":false},{"head":[["p","abd-al-rahman-ibn-awf"]],"role":"gave a large sum.","later":false},{"head":[["p","abu-aqil-al-ansari"]],"role":"gave a small measure of dates earned by night labour; mocked by hypocrites, honoured by Allah (9:79).","later":false},{"head":[["g","Al-Bakka'un (the weepers)"]],"role":"poor Companions with no mounts who wept at being left behind (9:92).","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"left in charge of the household: \"Are you not pleased to be to me as Harun was to Musa?\"","later":false},{"head":[["p","abu-khaythamah"]],"role":"stayed at first, then rode alone to catch up.","later":false},{"head":[["p","abu-dharr-al-ghifari"]],"role":"walked when his camel failed; \"he walks alone, will die alone, and be raised alone.\"","later":false},{"head":[["p","kab-ibn-malik"],["t",", "],["p","murarah-ibn-al-rabi"],["t"," and "],["p","hilal-ibn-umayyah"]],"role":"stayed behind (story 31).","later":false}],"note":null},{"n":31,"title":"Ka'b ibn Malik and the Three Who Stayed Behind","short":"Ka'b stays behind","part":2,"paras":["Ka'b had no excuse for missing Tabuk and refused to invent one. The Prophet ﷺ ordered the Muslims not to speak to him or his two companions for fifty days. The king of Ghassan wrote inviting him over; Ka'b threw the letter into an oven. On the fiftieth morning, Allah revealed their forgiveness (9:118), and a man ran up the mountain shouting the good news."],"lines":[{"head":[["p","kab-ibn-malik"]],"role":"told the truth; narrated the whole story.","later":false},{"head":[["p","murarah-ibn-al-rabi"],["t"," and "],["p","hilal-ibn-umayyah"]],"role":"the two other men of Badr who stayed behind.","later":false},{"head":[["p","abu-qatadah-al-ansari"]],"role":"Ka'b's cousin and closest friend, who would not reply to him.","later":false},{"head":[["p","talhah-ibn-ubaydillah"]],"role":"rose and shook Ka'b's hand in the mosque; Ka'b never forgot it.","later":false},{"head":[["g","Hilal's wife"]],"role":"allowed to keep serving her elderly husband.","later":false},{"head":[["p","abdullah-ibn-kab"]],"role":"Ka'b's son, who narrated the story from him.","later":false},{"head":[["p","abu-bakr-al-siddiq"]],"role":"announced the good news from the mountain, according to some reports.","later":false}],"note":null},{"n":32,"title":"Uthman and the Well of Rumah","short":"Well of Rumah","part":3,"paras":["When the Muslims reached Madinah, sweet water was scarce, and the well of Rumah belonged to a man who sold its water at a high price. The Prophet ﷺ said, \"Whoever buys the well of Rumah and makes it free for the Muslims will have a better one in Paradise.\" Uthman bought it, first half then all, and made it a free endowment for everyone."],"lines":[{"head":[["p","uthman-ibn-affan"]],"role":"bought the well; reminded the people of it during the siege of his house years later.","later":false},{"head":[["g","The Muslims of Madinah"]],"role":"who drank from it freely.","later":false}],"note":null},{"n":33,"title":"The Slander Against Aishah (al-Ifk)","short":"Al-Ifk","part":3,"paras":["Returning from an expedition, Aishah left the camp to search for a lost necklace, and the army departed without her. Safwan ibn al-Mu'attal found her and brought her back, leading the camel on foot. Hypocrites spread a lie about her, and for a month Madinah was troubled. Then Allah revealed ten verses of Surah al-Nur declaring her innocence."],"lines":[{"head":[["p","aishah-bint-abi-bakr"]],"role":"declared innocent by revelation; narrated the full account.","later":false},{"head":[["p","safwan-ibn-al-muattal"]],"role":"the Companion who found her; also cleared.","later":false},{"head":[["p","abu-bakr-al-siddiq"],["t"," and "],["p","umm-ruman"]],"role":"her parents, who suffered with her.","later":false},{"head":[["p","barirah"]],"role":"her servant, who testified she knew only good of her.","later":false},{"head":[["p","zaynab-bint-jahsh"]],"role":"co-wife who, when asked, protected Aishah's honour.","later":false},{"head":[["p","ali-ibn-abi-talib"],["t"," and "],["p","usamah-ibn-zayd"]],"role":"consulted by the Prophet ﷺ.","later":false},{"head":[["p","umm-mistah"]],"role":"told Aishah of the rumours.","later":false},{"head":[["p","mistah-ibn-uthathah"],["t",", "],["p","hassan-ibn-thabit"],["t"," and "],["p","hamnah-bint-jahsh"]],"role":"repeated the slander and repented; Abu Bakr resumed supporting Mistah after verse 24:22.","later":false},{"head":[["p","sad-ibn-muadh"],["t"," and "],["p","sad-ibn-ubadah"]],"role":"argued in the mosque over how to deal with the slanderers.","later":false}],"note":null},{"n":34,"title":"Zayd ibn Harithah Chooses the Prophet ﷺ","short":"Zayd chooses","part":3,"paras":["Zayd was kidnapped as a child and sold in Makkah; Khadijah gave him to the Prophet ﷺ before prophethood. Years later his father and uncle found him and came to buy his freedom. The Prophet ﷺ let Zayd choose freely. Zayd chose to stay, saying he would choose no one over him. The Prophet ﷺ then declared him his son before Quraysh."],"lines":[{"head":[["p","zayd-ibn-harithah"]],"role":"the only Companion named in the Qur'an (33:37).","later":false},{"head":[["p","khadijah-bint-khuwaylid"]],"role":"gave Zayd to the Prophet ﷺ.","later":false},{"head":[["p","usamah-ibn-zayd"]],"role":"his son, \"the beloved son of the beloved.\"","later":false},{"head":[["p","umm-ayman"]],"role":"Zayd's later wife and Usamah's mother.","later":false}],"note":null},{"n":35,"title":"Abu Hurayrah and the Cup of Milk","short":"Cup of milk","part":3,"paras":["Abu Hurayrah lived in the mosque with the poor of al-Suffah. One day, faint with hunger, he sat on the road hoping someone would invite him. The Prophet ﷺ saw his face, brought him home and sent him to call all the people of al-Suffah to share a single cup of milk. Abu Hurayrah served everyone first, then the Prophet ﷺ told him, \"Drink,\" again and again, until he said, \"I can drink no more.\" Abu Hurayrah also wept that his mother refused Islam. The Prophet ﷺ prayed for her, and he returned home to find her accepting Islam."],"lines":[{"head":[["p","abu-hurayrah"]],"role":"the narrator; later the most prolific narrator of hadith.","later":false},{"head":[["p","umaymah-bint-subayh"]],"role":"his mother, who accepted Islam through the Prophet's prayer.","later":false},{"head":[["g","Ahl al-Suffah"]],"role":"the poor Companions of the mosque who shared the cup.","later":false},{"head":[["p","abu-bakr-al-siddiq"],["t"," and "],["p","umar-ibn-al-khattab"]],"role":"passed by first; Abu Hurayrah asked them about a verse hoping for food.","later":false}],"note":null},{"n":36,"title":"Abu Talhah and Umm Sulaym: Generosity and Patience","short":"Abu Talhah's home","part":3,"paras":["A hungry guest came to the Prophet ﷺ, and Abu Talhah took him home with only enough food for their children. Umm Sulaym put the children to sleep and dimmed the lamp so the guest would not see they were not eating. In the morning, the Prophet ﷺ said Allah had admired their deed, and verse 59:9 was revealed. When their young son later died, Umm Sulaym prepared her husband's meal before gently telling him, and the Prophet ﷺ prayed for blessing on their night. They were given a son, Abdullah, whose children all memorised the Qur'an."],"lines":[{"head":[["p","abu-talhah-al-ansari"]],"role":"the host.","later":false},{"head":[["p","umm-sulaym-bint-milhan"]],"role":"his wife; famous for her wisdom and patience. Her mahr was Abu Talhah's Islam.","later":false},{"head":[["p","abu-umayr"]],"role":"their young son who died; the Prophet ﷺ used to tease him about his pet bird.","later":false},{"head":[["p","abdullah-ibn-abi-talhah"]],"role":"the son born after.","later":false},{"head":[["p","anas-ibn-malik"]],"role":"Umm Sulaym's son, the narrator.","later":false},{"head":[["p","abu-hurayrah"]],"role":"narrated the hadith of the guest.","later":false}],"note":null},{"n":37,"title":"Sawad ibn Ghaziyyah at Badr","short":"Sawad at Badr","part":3,"paras":["As the Prophet ﷺ straightened the ranks at Badr with an arrow, he poked Sawad in the stomach. Sawad said, \"You have hurt me; let me take retribution.\" The Prophet ﷺ uncovered his stomach. Sawad embraced him and kissed it, saying, \"I wanted my last contact in this world to be my skin touching yours.\" The Prophet ﷺ prayed for him."],"lines":[{"head":[["p","sawad-ibn-ghaziyyah"]],"role":"the Companion of the ranks.","later":false},{"head":[["g","The army of Badr"]],"role":"witnessed it as the ranks were straightened.","later":false}],"note":null},{"n":38,"title":"Julaybib","short":"Julaybib","part":3,"paras":["Julaybib was a poor man of humble appearance with no family. The Prophet ﷺ himself asked an Ansari family for their daughter's hand on his behalf. The parents hesitated, but the daughter said, \"Will you reject the Messenger's request? Send me to him.\" Soon after, Julaybib was martyred in battle having killed seven. The Prophet ﷺ searched for him, laid him on his own arms, and said, \"He is from me and I am from him.\""],"lines":[{"head":[["p","julaybib"]],"role":"the martyr.","later":false},{"head":[["g","His Ansari wife and her parents"]],"role":"she is unnamed in the Sahih narration; the Prophet ﷺ prayed for abundant blessing on her.","later":false},{"head":[["p","abu-barzah-al-aslami"]],"role":"narrated the account in Sahih Muslim.","later":false}],"note":null},{"n":39,"title":"Mu'adh ibn Jabal Sent to Yemen","short":"Mu'adh to Yemen","part":3,"paras":["When sending Mu'adh to Yemen, the Prophet ﷺ asked how he would judge. Mu'adh said by the Book of Allah, then the Sunnah, then by his own reasoning. The Prophet ﷺ praised Allah. Another time he took Mu'adh's hand and said, \"O Mu'adh, by Allah, I love you,\" and taught him to say after every prayer, \"O Allah, help me to remember You, thank You and worship You well.\" Walking beside Mu'adh's mount as he left, he told him he might not see him again. Mu'adh wept."],"lines":[{"head":[["p","muadh-ibn-jabal"]],"role":"the scholar of halal and haram.","later":false},{"head":[["p","abu-musa-al-ashari"]],"role":"sent to Yemen at the same time: \"Make things easy, not difficult.\"","later":false}],"note":null},{"n":40,"title":"Abdullah ibn Umm Maktum and Surah Abasa","short":"Ibn Umm Maktum","part":3,"paras":["The Prophet ﷺ was inviting Quraysh leaders when the blind Companion Ibn Umm Maktum came asking to be taught. The Prophet ﷺ frowned and turned away, hoping to win the leaders. Allah revealed \"He frowned and turned away\" (80:1). Afterwards the Prophet ﷺ honoured him, saying, \"Welcome to the one about whom my Lord reproached me,\" and made him deputy in Madinah many times."],"lines":[{"head":[["p","abdullah-ibn-umm-maktum"]],"role":"the blind Companion; mu'adhdhin and deputy governor of Madinah.","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"narrated the occasion of revelation.","later":false}],"note":null},{"n":41,"title":"Usamah's Intercession and Justice for All","short":"Usamah intercedes","part":3,"paras":["A woman of the noble Makhzum clan committed theft. Quraysh, worried for their status, asked Usamah, the Prophet's beloved, to intercede. The Prophet ﷺ said, \"Do you intercede regarding a limit set by Allah?\" He stood and declared that earlier nations were destroyed because they spared the noble and punished the weak, adding, \"If Fatimah the daughter of Muhammad stole, I would cut her hand.\""],"lines":[{"head":[["p","usamah-ibn-zayd"]],"role":"the intercessor, who asked forgiveness.","later":false},{"head":[["p","fatimah-bint-al-aswad-al-makhzumiyyah"]],"role":"the woman; she repented and later lived righteously.","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"narrated the hadith and said the woman's repentance was sincere.","later":false},{"head":[["p","fatimah-bint-muhammad"]],"role":"named as the example in his words.","later":false}],"note":null},{"n":42,"title":"Abu Dharr Accepts Islam","short":"Abu Dharr","part":3,"paras":["Hearing of a prophet in Makkah, Abu Dharr of Ghifar sent his brother, then went himself. He sat in the mosque for days, afraid to ask. Ali noticed the stranger and quietly led him to the Prophet ﷺ, where he accepted Islam. Abu Dharr then shouted the testimony of faith at the Ka'bah and was beaten until al-Abbas warned Quraysh that Ghifar lay on their trade route. He returned home, and half his tribe accepted Islam."],"lines":[{"head":[["p","abu-dharr-al-ghifari"]],"role":"the seeker.","later":false},{"head":[["p","unays"]],"role":"his brother, who brought the first report.","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"hosted him and guided him to the Prophet ﷺ.","later":false},{"head":[["p","al-abbas-ibn-abd-al-muttalib"]],"role":"rescued him from the beating.","later":false},{"head":[["p","abdullah-ibn-abbas"]],"role":"narrated the story.","later":false},{"head":[["g","Tribes of Ghifar and Aslam"]],"role":"accepted Islam through him.","later":false}],"note":null},{"n":43,"title":"Al-Tufayl ibn Amr al-Dawsi","short":"Al-Tufayl","part":3,"paras":["Al-Tufayl, a poet and chief of Daws, was warned by Quraysh not to listen to the Prophet ﷺ, so he stuffed cotton in his ears. Then he thought, \"I am an intelligent man; I can tell good from bad.\" He listened, accepted Islam, and asked for a sign. A light shone on his whip as he returned. When his tribe was slow to respond, the Prophet ﷺ prayed, \"O Allah, guide Daws,\" and later eighty families came to Madinah."],"lines":[{"head":[["p","al-tufayl-ibn-amr-al-dawsi"]],"role":"the chief; later martyred at Yamamah.","later":false},{"head":[["p","abu-hurayrah"]],"role":"of Daws; accepted Islam through al-Tufayl.","later":false},{"head":[["g","Al-Tufayl's father and wife"]],"role":"accepted Islam when he returned.","later":false}],"note":null},{"n":44,"title":"Ikrimah ibn Abi Jahl's Return","short":"Ikrimah returns","part":3,"paras":["After the conquest of Makkah, Ikrimah, son of the Prophet's fiercest enemy, fled to Yemen. His wife Umm Hakim accepted Islam and secured a pardon for him. When he arrived, the Prophet ﷺ stood and greeted him warmly, and told his Companions not to insult Ikrimah's father in front of him, for insulting the dead hurts the living. Ikrimah became a devoted Muslim and was martyred at Yarmuk."],"lines":[{"head":[["p","ikrimah-ibn-abi-jahl"]],"role":"the one who returned.","later":false},{"head":[["p","umm-hakim-bint-al-harith"]],"role":"his wife, who brought him back.","later":false},{"head":[["p","safwan-ibn-umayyah"]],"role":"also fled and was pardoned through <b>Umayr ibn Wahb<\/b>.","later":false}],"note":null},{"n":45,"title":"Wahshi, the Killer of Hamzah","short":"Wahshi","part":3,"paras":["Wahshi, an Abyssinian slave, killed Hamzah at Uhud in return for his freedom. After the conquest of Makkah he feared for his life, then learned the Prophet ﷺ did not kill those who came to Islam. He came and accepted Islam. The Prophet ﷺ forgave him but asked, \"Can you keep your face away from me?\" Years later, Wahshi killed the false prophet Musaylimah at Yamamah with the same spear."],"lines":[{"head":[["p","wahshi-ibn-harb"]],"role":"accepted Islam and sought to atone.","later":false},{"head":[["p","hamzah-ibn-abd-al-muttalib"]],"role":"the beloved uncle he had killed.","later":false},{"head":[["p","jubayr-ibn-mutim"]],"role":"his master, who promised his freedom <i>(accepted Islam later)<\/i>.","later":true},{"head":[["p","hind-bint-utbah"]],"role":"urged him on at Uhud <i>(accepted Islam later)<\/i>.","later":true}],"note":null},{"n":46,"title":"Thumamah ibn Uthal","short":"Thumamah","part":3,"paras":["Thumamah, a chief of Yamamah, was captured by a Muslim cavalry unit and tied to a pillar of the mosque. For three days the Prophet ﷺ asked him how he was and treated him kindly, then freed him without ransom. Thumamah bathed, returned and accepted Islam, saying, \"No face on earth was more hateful to me than yours; now it is the most beloved.\" He then cut off grain from Yamamah to Makkah until Quraysh begged the Prophet ﷺ to intervene."],"lines":[{"head":[["p","thumamah-ibn-uthal"]],"role":"the chief.","later":false},{"head":[["p","muhammad-ibn-maslamah"]],"role":"led the cavalry unit that captured him, according to reports.","later":false},{"head":[["p","abu-hurayrah"]],"role":"narrated the story in al-Bukhari and Muslim.","later":false}],"note":null},{"n":47,"title":"The Delegation of Najran and the Mubahalah","short":"Mubahalah","part":3,"paras":["A Christian delegation from Najran came to discuss Isa (Jesus). When they would not accept the Qur'an's teaching, Allah commanded the Prophet ﷺ to invite them to a mutual invocation of Allah's curse on the liars (3:61). He came out with Ali, Fatimah, Hasan and Husayn. The delegation declined and made a peace treaty instead. They asked for a trustworthy man, and he sent Abu Ubaydah, \"the trustworthy one of this Ummah.\""],"lines":[{"head":[["p","ali-ibn-abi-talib"],["t",", "],["p","fatimah-bint-muhammad"],["t",", "],["p","al-hasan"],["t"," and "],["p","al-husayn"]],"role":"brought out for the Mubahalah.","later":false},{"head":[["p","abu-ubaydah-ibn-al-jarrah"]],"role":"sent with them as \"Amin al-Ummah.\"","later":false},{"head":[["p","sad-ibn-abi-waqqas"]],"role":"narrated the account in Sahih Muslim.","later":false},{"head":[["p","hudhayfah-ibn-al-yaman"]],"role":"narrated the hadith of the trustworthy man.","later":false}],"note":null},{"n":48,"title":"Ali and Fatimah: Marriage and the Gift of Tasbih","short":"Ali and Fatimah","part":3,"paras":["Ali married Fatimah with a simple mahr from the sale of his armour. Their home was humble. Fatimah's hands were blistered from the grinding stone, and Ali's chest ached from drawing water, so they asked the Prophet ﷺ for a servant from the captives. He came to them at night and said, \"Shall I tell you something better than a servant? When you go to bed, say SubhanAllah 33 times, Alhamdulillah 33 times and Allahu Akbar 34 times.\" Ali said he never left it afterwards."],"lines":[{"head":[["p","ali-ibn-abi-talib"]],"role":"narrated the hadith.","later":false},{"head":[["p","fatimah-bint-muhammad"]],"role":"\"leader of the women of Paradise.\"","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"Fatimah first came to her house and found the Prophet ﷺ absent.","later":false},{"head":[["p","uthman-ibn-affan"]],"role":"bought Ali's armour, according to some reports.","later":false},{"head":[["p","asma-bint-umays"],["t"," and "],["p","umm-ayman"]],"role":"helped prepare the wedding, according to reports.","later":false}],"note":null},{"n":49,"title":"The Farewell Pilgrimage","short":"Farewell Hajj","part":3,"paras":["In 10 AH, the Prophet ﷺ made his only Hajj with over 100,000 people. At Arafah he gave his great sermon: lives, wealth and honour are sacred; usury and blood feuds of ignorance are abolished; treat women well; hold to the Book of Allah. He asked, \"Have I conveyed?\" and they said, \"Yes,\" and he raised his finger to the sky: \"O Allah, bear witness.\" Then the verse was revealed: \"This day I have perfected your religion for you\" (5:3)."],"lines":[{"head":[["p","jabir-ibn-abdullah"]],"role":"narrated the longest, most detailed description of the Hajj.","later":false},{"head":[["p","rabiah-ibn-umayyah-ibn-khalaf"]],"role":"repeated the sermon loudly so the crowd could hear.","later":false},{"head":[["p","usamah-ibn-zayd"]],"role":"rode behind the Prophet ﷺ from Arafah to Muzdalifah.","later":false},{"head":[["p","al-fadl-ibn-abbas"]],"role":"rode behind him from Muzdalifah to Mina.","later":false},{"head":[["p","ali-ibn-abi-talib"]],"role":"came from Yemen and joined him with sacrificial animals.","later":false},{"head":[["p","aishah-bint-abi-bakr"]],"role":"her menstruation began; the Prophet ﷺ comforted her and she did Umrah after.","later":false},{"head":[["p","asma-bint-umays"]],"role":"gave birth to Muhammad ibn Abi Bakr at Dhul-Hulayfah.","later":false},{"head":[["p","umar-ibn-al-khattab"]],"role":"later confirmed the day and place verse 5:3 was revealed.","later":false},{"head":[["p","bilal-ibn-rabah"]],"role":"shaded the Prophet ﷺ with a cloth during the stoning, by some reports.","later":false},{"head":[["p","abu-bakr-al-siddiq"],["t",", "],["p","uthman-ibn-affan"],["t",", all of the Mothers of the Believers, and the great mass of Companions"]],"role":"performed Hajj with him.","later":false}],"note":null},{"n":50,"title":"The Final Illness and Passing of the Prophet ﷺ","short":"Final illness","part":3,"paras":["In Rabi' al-Awwal of 11 AH, the Prophet ﷺ fell ill and asked to be nursed in Aishah's house. When he could no longer lead the prayer, he said, \"Tell Abu Bakr to lead the people.\" On his last morning he lifted the curtain and smiled at the rows behind Abu Bakr. He died with his head on Aishah's chest, saying, \"With the highest companion.\" When Umar refused to believe it, Abu Bakr recited, \"Muhammad is but a messenger; messengers have passed away before him\" (3:144), and said, \"Whoever worshipped Muhammad, Muhammad has died; whoever worshipped Allah, Allah is alive and never dies.\""],"lines":[{"head":[["p","aishah-bint-abi-bakr"]],"role":"he died in her house, with his head on her chest.","later":false},{"head":[["p","abu-bakr-al-siddiq"]],"role":"led the prayers; gave the address that steadied the Ummah; became the first Caliph.","later":false},{"head":[["p","umar-ibn-al-khattab"]],"role":"overcome by grief, then accepted it when he heard the verse.","later":false},{"head":[["p","fatimah-bint-muhammad"]],"role":"he whispered she would be the first of his family to join him; she wept, then smiled.","later":false},{"head":[["p","abd-al-rahman-ibn-abi-bakr"]],"role":"brought the siwak the Prophet ﷺ used in his last moments.","later":false},{"head":[["p","ali-ibn-abi-talib"],["t",", "],["p","al-abbas-ibn-abd-al-muttalib"],["t",", "],["p","al-fadl-ibn-abbas"],["t"," and "],["p","qutham-ibn-abbas"],["t",", "],["p","usamah-ibn-zayd"],["t"," and "],["p","shuqran"]],"role":"washed his blessed body.","later":false},{"head":[["p","abu-talhah-al-ansari"]],"role":"dug his grave.","later":false},{"head":[["p","usamah-ibn-zayd"]],"role":"commander of the army he had ordered to Syria; Abu Bakr sent it after his death.","later":false},{"head":[["p","anas-ibn-malik"]],"role":"said, \"The day he came to Madinah everything shone; the day he died everything darkened.\"","later":false},{"head":[["p","bilal-ibn-rabah"]],"role":"could not finish the adhan for grief, and soon left Madinah.","later":false},{"head":[["p","umm-ayman"]],"role":"wept that revelation from heaven had ceased.","later":false},{"head":[["p","abdullah-ibn-abbas"]],"role":"narrated many details of the final days.","later":false}],"note":null}],"people":[{"id":"abd-al-rahman-ibn-abi-bakr","name":"Abd al-Rahman ibn Abi Bakr","short":"Abd al-Rahman ibn Abi Bakr","aka":[]},{"id":"abd-al-rahman-ibn-awf","name":"Abd al-Rahman ibn Awf","short":"Abd al-Rahman ibn Awf","aka":[]},{"id":"abdullah-ibn-abbas","name":"Abdullah ibn Abbas","short":"Ibn Abbas","aka":[]},{"id":"abdullah-ibn-abi-bakr","name":"Abdullah ibn Abi Bakr","short":"Abdullah ibn Abi Bakr","aka":[]},{"id":"abdullah-ibn-abi-rabiah","name":"Abdullah ibn Abi Rabi'ah","short":"Abdullah ibn Abi Rabi'ah","aka":[]},{"id":"abdullah-ibn-abi-talhah","name":"Abdullah ibn Abi Talhah","short":"Abdullah ibn Abi Talhah","aka":[]},{"id":"abdullah-ibn-amr-ibn-haram","name":"Abdullah ibn Amr ibn Haram","short":"Abdullah ibn Amr ibn Haram","aka":[]},{"id":"abdullah-ibn-jafar","name":"Abdullah ibn Ja'far","short":"Abdullah ibn Ja'far","aka":[]},{"id":"abdullah-ibn-jubayr","name":"Abdullah ibn Jubayr","short":"Abdullah ibn Jubayr","aka":[]},{"id":"abdullah-ibn-kab","name":"Abdullah ibn Ka'b","short":"Abdullah ibn Ka'b","aka":[]},{"id":"abdullah-ibn-masud","name":"Abdullah ibn Mas'ud","short":"Ibn Mas'ud","aka":[]},{"id":"abdullah-ibn-rawahah","name":"Abdullah ibn Rawahah","short":"Abdullah ibn Rawahah","aka":[]},{"id":"abdullah-ibn-salam","name":"Abdullah ibn Salam","short":"Abdullah ibn Salam","aka":[]},{"id":"abdullah-ibn-umar","name":"Abdullah ibn Umar","short":"Abdullah ibn Umar","aka":[]},{"id":"abdullah-ibn-umm-maktum","name":"Abdullah ibn Umm Maktum","short":"Abdullah ibn Umm Maktum","aka":[]},{"id":"abdullah-ibn-zayd-ibn-abd-rabbih","name":"Abdullah ibn Zayd ibn Abd Rabbih","short":"Abdullah ibn Zayd ibn Abd Rabbih","aka":[]},{"id":"abu-al-as-ibn-al-rabi","name":"Abu al-As ibn al-Rabi'","short":"Abu al-As ibn al-Rabi'","aka":[]},{"id":"abu-al-darda","name":"Abu al-Darda'","short":"Abu al-Darda'","aka":[]},{"id":"abu-al-haytham-ibn-al-tayyihan","name":"Abu al-Haytham ibn al-Tayyihan","short":"Abu al-Haytham ibn al-Tayyihan","aka":[]},{"id":"abu-aqil-al-ansari","name":"Abu Aqil al-Ansari","short":"Abu Aqil al-Ansari","aka":[]},{"id":"abu-ayyub-al-ansari","name":"Abu Ayyub al-Ansari","short":"Abu Ayyub al-Ansari","aka":["Khalid ibn Zayd"]},{"id":"abu-bakr-al-siddiq","name":"Abu Bakr al-Siddiq","short":"Abu Bakr","aka":[]},{"id":"abu-barzah-al-aslami","name":"Abu Barzah al-Aslami","short":"Abu Barzah al-Aslami","aka":[]},{"id":"abu-basir","name":"Abu Basir","short":"Abu Basir","aka":[]},{"id":"abu-dharr-al-ghifari","name":"Abu Dharr al-Ghifari","short":"Abu Dharr al-Ghifari","aka":["Jundub ibn Junadah"]},{"id":"abu-dujanah","name":"Abu Dujanah","short":"Abu Dujanah","aka":["Simak ibn Kharashah"]},{"id":"abu-hurayrah","name":"Abu Hurayrah","short":"Abu Hurayrah","aka":[]},{"id":"abu-jandal-ibn-suhayl","name":"Abu Jandal ibn Suhayl","short":"Abu Jandal ibn Suhayl","aka":[]},{"id":"abu-khaythamah","name":"Abu Khaythamah","short":"Abu Khaythamah","aka":[]},{"id":"abu-lubabah-ibn-abd-al-mundhir","name":"Abu Lubabah ibn Abd al-Mundhir","short":"Abu Lubabah ibn Abd al-Mundhir","aka":[]},{"id":"abu-musa-al-ashari","name":"Abu Musa al-Ash'ari","short":"Abu Musa al-Ash'ari","aka":[]},{"id":"abu-qatadah-al-ansari","name":"Abu Qatadah al-Ansari","short":"Abu Qatadah al-Ansari","aka":[]},{"id":"abu-quhafah","name":"Abu Quhafah","short":"Abu Quhafah","aka":[]},{"id":"abu-said-al-khudri","name":"Abu Sa'id al-Khudri","short":"Abu Sa'id al-Khudri","aka":[]},{"id":"abu-salamah-ibn-abd-al-asad","name":"Abu Salamah ibn Abd al-Asad","short":"Abu Salamah ibn Abd al-Asad","aka":[]},{"id":"abu-sufyan-ibn-al-harith","name":"Abu Sufyan ibn al-Harith","short":"Abu Sufyan ibn al-Harith","aka":[]},{"id":"abu-sufyan-ibn-harb","name":"Abu Sufyan ibn Harb","short":"Abu Sufyan","aka":[]},{"id":"abu-talhah-al-ansari","name":"Abu Talhah al-Ansari","short":"Abu Talhah","aka":["Zayd ibn Sahl"]},{"id":"abu-ubaydah-ibn-al-jarrah","name":"Abu Ubaydah ibn al-Jarrah","short":"Abu Ubaydah","aka":[]},{"id":"abu-umayr","name":"Abu Umayr","short":"Abu Umayr","aka":[]},{"id":"addas","name":"Addas","short":"Addas","aka":[]},{"id":"aishah-bint-abi-bakr","name":"Aishah bint Abi Bakr","short":"Aishah","aka":[]},{"id":"al-abbas-ibn-abd-al-muttalib","name":"Al-Abbas ibn Abd al-Muttalib","short":"Al-Abbas","aka":[]},{"id":"al-arqam-ibn-abi-al-arqam","name":"Al-Arqam ibn Abi al-Arqam","short":"Al-Arqam ibn Abi al-Arqam","aka":[]},{"id":"al-bara-ibn-marur","name":"Al-Bara ibn Ma'rur","short":"Al-Bara ibn Ma'rur","aka":[]},{"id":"al-bara-ibn-azib","name":"Al-Bara' ibn Azib","short":"Al-Bara' ibn Azib","aka":[]},{"id":"al-fadl-ibn-abbas","name":"Al-Fadl ibn Abbas","short":"Al-Fadl","aka":[]},{"id":"al-hasan","name":"Al-Hasan","short":"Al-Hasan","aka":[]},{"id":"al-hubab-ibn-al-mundhir","name":"Al-Hubab ibn al-Mundhir","short":"Al-Hubab ibn al-Mundhir","aka":[]},{"id":"al-husayn","name":"Al-Husayn","short":"Al-Husayn","aka":[]},{"id":"al-miqdad-ibn-al-aswad","name":"Al-Miqdad ibn al-Aswad","short":"Al-Miqdad ibn al-Aswad","aka":[]},{"id":"al-mughirah-ibn-shubah","name":"Al-Mughirah ibn Shu'bah","short":"Al-Mughirah ibn Shu'bah","aka":[]},{"id":"al-najashi","name":"Al-Najashi","short":"Al-Najashi","aka":["Ashamah ibn Abjar"]},{"id":"al-rubayyi-bint-al-nadr","name":"Al-Rubayyi' bint al-Nadr","short":"Al-Rubayyi' bint al-Nadr","aka":[]},{"id":"al-shayma-bint-al-harith","name":"Al-Shayma' bint al-Harith","short":"Al-Shayma' bint al-Harith","aka":[]},{"id":"al-tufayl-ibn-amr-al-dawsi","name":"Al-Tufayl ibn Amr al-Dawsi","short":"Al-Tufayl ibn Amr al-Dawsi","aka":[]},{"id":"al-zubayr-ibn-al-awwam","name":"Al-Zubayr ibn al-Awwam","short":"Al-Zubayr","aka":[]},{"id":"ali-ibn-abi-talib","name":"Ali ibn Abi Talib","short":"Ali","aka":[]},{"id":"amir-ibn-al-akwa","name":"Amir ibn al-Akwa'","short":"Amir ibn al-Akwa'","aka":[]},{"id":"amir-ibn-fuhayrah","name":"Amir ibn Fuhayrah","short":"Amir ibn Fuhayrah","aka":[]},{"id":"ammar-ibn-yasir","name":"Ammar ibn Yasir","short":"Ammar","aka":[]},{"id":"amr-ibn-al-as","name":"Amr ibn al-As","short":"Amr ibn al-As","aka":[]},{"id":"amr-ibn-al-jamuh","name":"Amr ibn al-Jamuh","short":"Amr ibn al-Jamuh","aka":[]},{"id":"anas-ibn-al-nadr","name":"Anas ibn al-Nadr","short":"Anas ibn al-Nadr","aka":[]},{"id":"anas-ibn-malik","name":"Anas ibn Malik","short":"Anas ibn Malik","aka":[]},{"id":"asad-ibn-zurarah","name":"As'ad ibn Zurarah","short":"As'ad ibn Zurarah","aka":[]},{"id":"asma-bint-abi-bakr","name":"Asma bint Abi Bakr","short":"Asma bint Abi Bakr","aka":[]},{"id":"asma-bint-amr","name":"Asma bint Amr","short":"Asma bint Amr","aka":["Umm Mani'"]},{"id":"asma-bint-umays","name":"Asma bint Umays","short":"Asma bint Umays","aka":[]},{"id":"ayman-ibn-umm-ayman","name":"Ayman ibn Umm Ayman","short":"Ayman ibn Umm Ayman","aka":[]},{"id":"barirah","name":"Barirah","short":"Barirah","aka":[]},{"id":"bilal-ibn-rabah","name":"Bilal ibn Rabah","short":"Bilal","aka":[]},{"id":"bishr-ibn-al-bara-ibn-marur","name":"Bishr ibn al-Bara' ibn Ma'rur","short":"Bishr ibn al-Bara' ibn Ma'rur","aka":[]},{"id":"budayl-ibn-warqa-al-khuzai","name":"Budayl ibn Warqa' al-Khuza'i","short":"Budayl ibn Warqa' al-Khuza'i","aka":[]},{"id":"buraydah-ibn-al-husayb","name":"Buraydah ibn al-Husayb","short":"Buraydah ibn al-Husayb","aka":[]},{"id":"fatimah-bint-al-aswad-al-makhzumiyyah","name":"Fatimah bint al-Aswad al-Makhzumiyyah","short":"Fatimah bint al-Aswad al-Makhzumiyyah","aka":[]},{"id":"fatimah-bint-al-khattab","name":"Fatimah bint al-Khattab","short":"Fatimah bint al-Khattab","aka":[]},{"id":"fatimah-bint-muhammad","name":"Fatimah bint Muhammad","short":"Fatimah","aka":[]},{"id":"hakim-ibn-hizam","name":"Hakim ibn Hizam","short":"Hakim ibn Hizam","aka":[]},{"id":"hamnah-bint-jahsh","name":"Hamnah bint Jahsh","short":"Hamnah bint Jahsh","aka":[]},{"id":"hamzah-ibn-abd-al-muttalib","name":"Hamzah ibn Abd al-Muttalib","short":"Hamzah","aka":[]},{"id":"hanzalah-ibn-abi-amir","name":"Hanzalah ibn Abi Amir","short":"Hanzalah ibn Abi Amir","aka":[]},{"id":"harithah-ibn-suraqah","name":"Harithah ibn Suraqah","short":"Harithah ibn Suraqah","aka":[]},{"id":"hassan-ibn-thabit","name":"Hassan ibn Thabit","short":"Hassan ibn Thabit","aka":[]},{"id":"hatib-ibn-abi-baltaah","name":"Hatib ibn Abi Balta'ah","short":"Hatib ibn Abi Balta'ah","aka":[]},{"id":"hilal-ibn-umayyah","name":"Hilal ibn Umayyah","short":"Hilal ibn Umayyah","aka":[]},{"id":"hind-bint-utbah","name":"Hind bint Utbah","short":"Hind","aka":[]},{"id":"hudhayfah-ibn-al-yaman","name":"Hudhayfah ibn al-Yaman","short":"Hudhayfah ibn al-Yaman","aka":[]},{"id":"ikrimah-ibn-abi-jahl","name":"Ikrimah ibn Abi Jahl","short":"Ikrimah","aka":[]},{"id":"itban-ibn-malik","name":"Itban ibn Malik","short":"Itban ibn Malik","aka":[]},{"id":"jafar-ibn-abi-talib","name":"Ja'far ibn Abi Talib","short":"Ja'far","aka":[]},{"id":"jabir-ibn-abdullah","name":"Jabir ibn Abdullah","short":"Jabir","aka":[]},{"id":"jubayr-ibn-mutim","name":"Jubayr ibn Mut'im","short":"Jubayr ibn Mut'im","aka":[]},{"id":"julaybib","name":"Julaybib","short":"Julaybib","aka":[]},{"id":"kab-ibn-malik","name":"Ka'b ibn Malik","short":"Ka'b ibn Malik","aka":[]},{"id":"khabbab-ibn-al-aratt","name":"Khabbab ibn al-Aratt","short":"Khabbab ibn al-Aratt","aka":[]},{"id":"khadijah-bint-khuwaylid","name":"Khadijah bint Khuwaylid","short":"Khadijah","aka":[]},{"id":"khalid-ibn-al-walid","name":"Khalid ibn al-Walid","short":"Khalid","aka":[]},{"id":"khalidah-bint-al-harith","name":"Khalidah bint al-Harith","short":"Khalidah bint al-Harith","aka":[]},{"id":"kharijah-ibn-zayd","name":"Kharijah ibn Zayd","short":"Kharijah ibn Zayd","aka":[]},{"id":"kulthum-ibn-al-hidm","name":"Kulthum ibn al-Hidm","short":"Kulthum ibn al-Hidm","aka":[]},{"id":"lubaynah","name":"Lubaynah","short":"Lubaynah","aka":[]},{"id":"malik-ibn-awf-al-nasri","name":"Malik ibn Awf al-Nasri","short":"Malik ibn Awf al-Nasri","aka":[]},{"id":"malik-ibn-sasaah","name":"Malik ibn Sa'sa'ah","short":"Malik ibn Sa'sa'ah","aka":[]},{"id":"mistah-ibn-uthathah","name":"Mistah ibn Uthathah","short":"Mistah ibn Uthathah","aka":[]},{"id":"muadh-ibn-amr-ibn-al-jamuh","name":"Mu'adh ibn Amr ibn al-Jamuh","short":"Mu'adh ibn Amr ibn al-Jamuh","aka":[]},{"id":"muadh-ibn-jabal","name":"Mu'adh ibn Jabal","short":"Mu'adh ibn Jabal","aka":[]},{"id":"muawwidh-ibn-afra","name":"Mu'awwidh ibn Afra'","short":"Mu'awwidh ibn Afra'","aka":[]},{"id":"muhammad-ibn-maslamah","name":"Muhammad ibn Maslamah","short":"Muhammad ibn Maslamah","aka":[]},{"id":"murarah-ibn-al-rabi","name":"Murarah ibn al-Rabi'","short":"Murarah ibn al-Rabi'","aka":[]},{"id":"musab-ibn-umayr","name":"Mus'ab ibn Umayr","short":"Mus'ab","aka":[]},{"id":"nuaym-ibn-abdullah-al-nahham","name":"Nu'aym ibn Abdullah al-Nahham","short":"Nu'aym ibn Abdullah al-Nahham","aka":[]},{"id":"nuaym-ibn-masud","name":"Nu'aym ibn Mas'ud","short":"Nu'aym ibn Mas'ud","aka":[]},{"id":"nusaybah-bint-kab","name":"Nusaybah bint Ka'b","short":"Nusaybah bint Ka'b","aka":["Umm Umarah"]},{"id":"qatadah-ibn-al-numan","name":"Qatadah ibn al-Nu'man","short":"Qatadah ibn al-Nu'man","aka":[]},{"id":"qutham-ibn-abbas","name":"Qutham ibn Abbas","short":"Qutham ibn Abbas","aka":[]},{"id":"rabiah-ibn-umayyah-ibn-khalaf","name":"Rabi'ah ibn Umayyah ibn Khalaf","short":"Rabi'ah ibn Umayyah ibn Khalaf","aka":[]},{"id":"rufaydah-al-aslamiyyah","name":"Rufaydah al-Aslamiyyah","short":"Rufaydah al-Aslamiyyah","aka":[]},{"id":"ruqayyah-bint-muhammad","name":"Ruqayyah bint Muhammad","short":"Ruqayyah bint Muhammad","aka":[]},{"id":"sad-ibn-abi-waqqas","name":"Sa'd ibn Abi Waqqas","short":"Sa'd ibn Abi Waqqas","aka":[]},{"id":"sad-ibn-al-rabi","name":"Sa'd ibn al-Rabi'","short":"Sa'd ibn al-Rabi'","aka":[]},{"id":"sad-ibn-muadh","name":"Sa'd ibn Mu'adh","short":"Sa'd ibn Mu'adh","aka":[]},{"id":"sad-ibn-ubadah","name":"Sa'd ibn Ubadah","short":"Sa'd ibn Ubadah","aka":[]},{"id":"said-ibn-zayd","name":"Sa'id ibn Zayd","short":"Sa'id ibn Zayd","aka":[]},{"id":"safiyyah-bint-abd-al-muttalib","name":"Safiyyah bint Abd al-Muttalib","short":"Safiyyah bint Abd al-Muttalib","aka":[]},{"id":"safiyyah-bint-huyayy","name":"Safiyyah bint Huyayy","short":"Safiyyah bint Huyayy","aka":[]},{"id":"safwan-ibn-al-muattal","name":"Safwan ibn al-Mu'attal","short":"Safwan ibn al-Mu'attal","aka":[]},{"id":"safwan-ibn-umayyah","name":"Safwan ibn Umayyah","short":"Safwan ibn Umayyah","aka":[]},{"id":"sahl-ibn-rafi","name":"Sahl ibn Rafi'","short":"Sahl ibn Rafi'","aka":[]},{"id":"sahl-ibn-sad","name":"Sahl ibn Sa'd","short":"Sahl ibn Sa'd","aka":[]},{"id":"salamah-ibn-al-akwa","name":"Salamah ibn al-Akwa'","short":"Salamah ibn al-Akwa'","aka":[]},{"id":"salman-al-farisi","name":"Salman al-Farisi","short":"Salman","aka":[]},{"id":"sawad-ibn-ghaziyyah","name":"Sawad ibn Ghaziyyah","short":"Sawad ibn Ghaziyyah","aka":[]},{"id":"shuqran","name":"Shuqran","short":"Shuqran","aka":[]},{"id":"suhayl-ibn-amr","name":"Suhayl ibn Amr","short":"Suhayl ibn Amr","aka":[]},{"id":"suhayl-ibn-rafi","name":"Suhayl ibn Rafi'","short":"Suhayl ibn Rafi'","aka":[]},{"id":"suhaylah-bint-masud","name":"Suhaylah bint Mas'ud","short":"Suhaylah bint Mas'ud","aka":[]},{"id":"sumayyah-bint-khayyat","name":"Sumayyah bint Khayyat","short":"Sumayyah bint Khayyat","aka":[]},{"id":"suraqah-ibn-malik","name":"Suraqah ibn Malik","short":"Suraqah ibn Malik","aka":[]},{"id":"talhah-ibn-ubaydillah","name":"Talhah ibn Ubaydillah","short":"Talhah","aka":[]},{"id":"thabit-ibn-aqram","name":"Thabit ibn Aqram","short":"Thabit ibn Aqram","aka":[]},{"id":"thumamah-ibn-uthal","name":"Thumamah ibn Uthal","short":"Thumamah ibn Uthal","aka":[]},{"id":"ubadah-ibn-al-samit","name":"Ubadah ibn al-Samit","short":"Ubadah ibn al-Samit","aka":[]},{"id":"ubaydah-ibn-al-harith","name":"Ubaydah ibn al-Harith","short":"Ubaydah ibn al-Harith","aka":[]},{"id":"umar-ibn-al-khattab","name":"Umar ibn al-Khattab","short":"Umar","aka":[]},{"id":"umaymah-bint-subayh","name":"Umaymah bint Subayh","short":"Umaymah bint Subayh","aka":[]},{"id":"umayr-ibn-al-humam","name":"Umayr ibn al-Humam","short":"Umayr ibn al-Humam","aka":[]},{"id":"umm-ayman","name":"Umm Ayman","short":"Umm Ayman","aka":["Barakah"]},{"id":"umm-hakim-bint-al-harith","name":"Umm Hakim bint al-Harith","short":"Umm Hakim bint al-Harith","aka":[]},{"id":"umm-hani-bint-abi-talib","name":"Umm Hani bint Abi Talib","short":"Umm Hani bint Abi Talib","aka":[]},{"id":"umm-mabad-al-khuzaiyyah","name":"Umm Ma'bad al-Khuza'iyyah","short":"Umm Ma'bad al-Khuza'iyyah","aka":[]},{"id":"umm-mistah","name":"Umm Mistah","short":"Umm Mistah","aka":[]},{"id":"umm-ruman","name":"Umm Ruman","short":"Umm Ruman","aka":[]},{"id":"umm-sad","name":"Umm Sa'd","short":"Umm Sa'd","aka":["Kabshah bint Rafi'"]},{"id":"umm-salamah","name":"Umm Salamah","short":"Umm Salamah","aka":["Hind bint Abi Umayyah"]},{"id":"umm-sulaym-bint-milhan","name":"Umm Sulaym bint Milhan","short":"Umm Sulaym","aka":[]},{"id":"umm-ubays","name":"Umm Ubays","short":"Umm Ubays","aka":[]},{"id":"unays","name":"Unays","short":"Unays","aka":[]},{"id":"urwah-ibn-masud-al-thaqafi","name":"Urwah ibn Mas'ud al-Thaqafi","short":"Urwah ibn Mas'ud al-Thaqafi","aka":[]},{"id":"usamah-ibn-zayd","name":"Usamah ibn Zayd","short":"Usamah","aka":[]},{"id":"usayd-ibn-hudayr","name":"Usayd ibn Hudayr","short":"Usayd ibn Hudayr","aka":[]},{"id":"uthman-ibn-affan","name":"Uthman ibn Affan","short":"Uthman","aka":[]},{"id":"uthman-ibn-mazun","name":"Uthman ibn Maz'un","short":"Uthman ibn Maz'un","aka":[]},{"id":"uthman-ibn-talhah","name":"Uthman ibn Talhah","short":"Uthman ibn Talhah","aka":[]},{"id":"wahshi-ibn-harb","name":"Wahshi ibn Harb","short":"Wahshi ibn Harb","aka":[]},{"id":"waraqah-ibn-nawfal","name":"Waraqah ibn Nawfal","short":"Waraqah ibn Nawfal","aka":[]},{"id":"yasir-ibn-amir","name":"Yasir ibn Amir","short":"Yasir ibn Amir","aka":[]},{"id":"zayd-ibn-harithah","name":"Zayd ibn Harithah","short":"Zayd","aka":[]},{"id":"zaynab-bint-jahsh","name":"Zaynab bint Jahsh","short":"Zaynab bint Jahsh","aka":[]},{"id":"zinnirah-al-rumiyyah","name":"Zinnirah al-Rumiyyah","short":"Zinnirah al-Rumiyyah","aka":[]},{"id":"zuhayr-ibn-abi-umayyah","name":"Zuhayr ibn Abi Umayyah","short":"Zuhayr ibn Abi Umayyah","aka":[]}],"merges":[["Abu Ayyub al-Ansari (Khalid ibn Zayd)","Abu Ayyub al-Ansari"],["Abu Bakr","Abu Bakr al-Siddiq"],["Abu Dharr al-Ghifari (Jundub ibn Junadah)","Abu Dharr al-Ghifari"],["Abu Dujanah (Simak ibn Kharashah)","Abu Dujanah"],["Abu Talhah al-Ansari (Zayd ibn Sahl)","Abu Talhah al-Ansari"],["Abu Ubaydah","Abu Ubaydah ibn al-Jarrah"],["Aishah","Aishah bint Abi Bakr"],["Al-Najashi (Ashamah ibn Abjar)","Al-Najashi"],["Ali","Ali ibn Abi Talib"],["Asma bint Amr (Umm Mani')","Asma bint Amr"],["Hamzah","Hamzah ibn Abd al-Muttalib"],["Nusaybah bint Ka'b (Umm Umarah)","Nusaybah bint Ka'b"],["Umar","Umar ibn al-Khattab"],["Umm Ayman (Barakah)","Umm Ayman"],["Umm Sa'd (Kabshah bint Rafi')","Umm Sa'd"],["Umm Salamah (Hind bint Abi Umayyah)","Umm Salamah"],["Umm Sulaym","Umm Sulaym bint Milhan"],["Uthman","Uthman ibn Affan"],["al-Abbas","Al-Abbas ibn Abd al-Muttalib"],["al-Fadl","Al-Fadl ibn Abbas"],["al-Miqdad","Al-Miqdad ibn al-Aswad"],["al-Zubayr","Al-Zubayr ibn al-Awwam"]],"splits":[["Sahl and Suhayl ibn Rafi'",["Sahl ibn Rafi'","Suhayl ibn Rafi'"]]],"groups":["Ahl al-Suffah","Al-Bakka'un (the weepers)","Al-Nahdiyyah and her daughter","Al-Tufayl's father and wife","All who pledged under the tree (Bay'at al-Ridwan)","Early Companions gathered with him","Hilal's wife","His Ansari wife and her parents","The army of Badr","The Companions who planted","The Muslims of Madinah","Tribes of Ghifar and Aslam"]};
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const svg = $("dial"), stage = $("stage"), panel = $("panel"), tip = $("tip");
+const cssv = getComputedStyle(document.documentElement);
+const PART_COL = ["--p1", "--p2", "--p3", "--p4"].map(v => cssv.getPropertyValue(v).trim());
+
+// ---------- index the data ----------
+const people = D.people, stories = D.stories, parts = D.parts;
+const byId = new Map(people.map(p => [p.id, p]));
+const byN = new Map(stories.map(s => [s.n, s]));
+people.forEach(p => { p.stories = []; p.roles = new Map(); p.edges = []; });
+stories.forEach(s => {
+  s.people = []; s.edges = [];
+  s.lines.forEach(line => {
+    const ids = line.head.filter(t => t[0] === "p").map(t => t[1]);
+    ids.forEach(pid => {
+      const p = byId.get(pid);
+      if (!s.people.includes(pid)) { s.people.push(pid); p.stories.push(s.n); }
+      if (!p.roles.has(s.n)) p.roles.set(s.n, []);
+      p.roles.get(s.n).push({ role: line.role, later: line.later, with: ids.filter(x => x !== pid) });
+    });
+  });
+});
+people.forEach(p => { p.count = p.stories.length; });
+const links = [];
+stories.forEach(s => s.people.forEach(pid => {
+  const p = byId.get(pid);
+  const l = { p, s, later: p.roles.get(s.n).some(r => r.later) };
+  links.push(l); p.edges.push(l); s.edges.push(l);
+}));
+const sharedWith = p => {
+  const m = new Map();
+  p.stories.forEach(n => byN.get(n).people.forEach(q => { if (q !== p.id) m.set(q, (m.get(q) || 0) + 1); }));
+  return [...m].map(([id, c]) => ({ q: byId.get(id), c }))
+    .sort((a, b) => b.c - a.c || b.q.count - a.q.count || a.q.name.localeCompare(b.q.name));
+};
+
+// ---------- the dial: story angles ----------
+const TOP_GAP = 2.4, PART_GAP = 1.0;
+const step = 2 * Math.PI / ((stories.length - 1) + PART_GAP * (parts.length - 1) + TOP_GAP);
+stories.forEach((s, i) => {
+  s.angle = -Math.PI / 2 + step * (TOP_GAP / 2 + i + PART_GAP * s.part);
+  s.ux = Math.cos(s.angle); s.uy = Math.sin(s.angle);
+});
+
+// ---------- layout: fixed seed, same picture every time ----------
+const NOMINAL = 300;
+const radiusPx = n => 3.4 + 1.5 * Math.sqrt(n);
+function rng(seed) {
+  return () => { seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+function hash(str) { let h = 2166136261; for (const c of str) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+(function layout() {
+  const P = people.map(p => {
+    let x = 0, y = 0;
+    p.stories.forEach(n => { const s = byN.get(n); x += s.ux; y += s.uy; });
+    const r = rng(hash(p.id));
+    return { p, x: x / p.count * .78 + (r() - .5) * .04, y: y / p.count * .78 + (r() - .5) * .04,
+             rad: radiusPx(p.count) / NOMINAL, A: p.stories.map(n => byN.get(n)) };
+  });
+  const REST = .17, BOUND = .84, PAD = 3.2 / NOMINAL, N = P.length;
+  for (let it = 0; it < 440; it++) {
+    const a = Math.max(.03, 1 - it / 360);
+    for (const q of P) {
+      let fx = 0, fy = 0;
+      for (const s of q.A) {
+        const dx = s.ux - q.x, dy = s.uy - q.y, d = Math.hypot(dx, dy) || 1e-6, f = (d - REST) / d;
+        fx += dx * f; fy += dy * f;
+      }
+      const k = .32 * a / q.A.length;
+      q.x += fx * k; q.y += fy * k;
+    }
+    for (let i = 0; i < N; i++) {
+      const A = P[i];
+      for (let j = i + 1; j < N; j++) {
+        const B = P[j], dx = B.x - A.x, dy = B.y - A.y, min = A.rad + B.rad + PAD, d2 = dx * dx + dy * dy;
+        if (d2 >= min * min) continue;
+        const d = Math.sqrt(d2) || 1e-6, push = (min - d) / d * .5;
+        const wa = B.p.count / (A.p.count + B.p.count), wb = 1 - wa;
+        A.x -= dx * push * wa; A.y -= dy * push * wa; B.x += dx * push * wb; B.y += dy * push * wb;
+      }
+    }
+    for (const q of P) { const r = Math.hypot(q.x, q.y); if (r > BOUND) { q.x *= BOUND / r; q.y *= BOUND / r; } }
+  }
+  P.forEach(q => { q.p.ux = q.x; q.p.uy = q.y; });
+})();
+
+// ---------- svg scaffolding ----------
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function set(e, attrs) { for (const k in attrs) e.setAttribute(k, attrs[k]); }
+const defs = el("defs", {}, svg);
+const gEdges = el("g", {}, svg), gRim = el("g", {}, svg), gNodes = el("g", {}, svg), gLabels = el("g", {}, svg);
+const selRing = el("circle", { class: "selring", r: 0 }, gNodes);
+links.forEach(l => { l.el = el("line", { class: "edge" + (l.later ? " later" : ""), stroke: PART_COL[l.s.part] }, gEdges); });
+parts.forEach((pt, i) => {
+  pt.line = el("path", { class: "rimline", stroke: PART_COL[i] }, gRim);
+  pt.path = el("path", { id: "arc" + i, fill: "none" }, defs);
+  const t = el("text", { class: "arcname" }, gRim);
+  pt.tp = el("textPath", { href: "#arc" + i, startOffset: "50%", "text-anchor": "middle" }, t);
+  const a = pt.stories[0], b = pt.stories[pt.stories.length - 1];
+  pt.tp.textContent = pt.short + " · " + (a === b ? a : a + "–" + b);
+});
+stories.forEach(s => {
+  s.g = el("g", { class: "story", "data-s": s.n }, gRim);
+  s.hit = el("circle", { class: "hit", r: 11 }, s.g);
+  s.dot = el("circle", { class: "dot", r: 4.2, fill: PART_COL[s.part] }, s.g);
+  s.txt = el("text", { "dominant-baseline": "central" }, s.g);
+  s.tNum = el("tspan", { class: "num" }, s.txt); s.tNum.textContent = s.n;
+  s.tTitle = el("tspan", {}, s.txt);
+});
+people.forEach(p => {
+  p.g = el("g", { class: "node", "data-p": p.id }, gNodes);
+  p.hit = el("circle", { class: "hit" }, p.g);
+  p.dot = el("circle", { class: "dot" }, p.g);
+  p.lab = el("text", { class: "lab", "dominant-baseline": "central" }, gLabels);
+  p.lab.style.display = "none";
+});
+gNodes.appendChild(selRing);
+
+// ---------- geometry ----------
+const mctx = document.createElement("canvas").getContext("2d");
+let W = 0, H = 0, R = 0, CX = 0, CY = 0, narrow = false;
+const view = { k: 1, x: 0, y: 0 };
+const X = u => CX + view.x + u * R * view.k;
+const Y = u => CY + view.y + u * R * view.k;
+const nodeR = p => radiusPx(p.count) * Math.min(1.5, Math.max(.62, R * view.k / NOMINAL));
+const deg = a => a * 180 / Math.PI;
+function rimSpace() {
+  mctx.font = '10.5px "IBM Plex Sans", Arial, sans-serif';
+  const t = Math.max(...stories.map(s => mctx.measureText("\u2002" + s.short).width));
+  mctx.font = '9.5px "IBM Plex Mono", monospace';
+  return 10 + mctx.measureText("50").width + t + 18;
+}
+function measure() {
+  const r = stage.getBoundingClientRect();
+  W = Math.max(1, r.width); H = Math.max(1, r.height);
+  narrow = W < 560;
+  R = Math.max(105, Math.min(W, H) / 2 - (narrow ? 24 : rimSpace()));
+  CX = W / 2;
+  CY = narrow && H > W + 20 ? W / 2 + 4 : H / 2;  // phone: dial at the top, controls in the strip below
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.classList.toggle("narrow", narrow);
+}
+function arcD(r, a0, a1, reverse) {
+  const x0 = X(0) + r * Math.cos(a0), y0 = Y(0) + r * Math.sin(a0), x1 = X(0) + r * Math.cos(a1), y1 = Y(0) + r * Math.sin(a1);
+  const large = (a1 - a0) > Math.PI ? 1 : 0;
+  return reverse ? `M${x1} ${y1}A${r} ${r} 0 ${large} 0 ${x0} ${y0}` : `M${x0} ${y0}A${r} ${r} 0 ${large} 1 ${x1} ${y1}`;
+}
+function place() {
+  const Rk = R * view.k;
+  links.forEach(l => {
+    const e = 1 - 5.5 / Rk;
+    set(l.el, { x1: X(l.p.ux), y1: Y(l.p.uy), x2: X(l.s.ux * e), y2: Y(l.s.uy * e) });
+  });
+  parts.forEach(pt => {
+    const a0 = byN.get(pt.stories[0]).angle - step * .45, a1 = byN.get(pt.stories[pt.stories.length - 1]).angle + step * .45;
+    pt.line.setAttribute("d", arcD(Rk, a0, a1, false));
+    const mid = (a0 + a1) / 2, rev = Math.sin(mid) > 0;
+    pt.path.setAttribute("d", arcD(rev ? Rk - 12 : Rk - 19, a0, a1, rev));
+  });
+  stories.forEach(s => {
+    const x = X(s.ux), y = Y(s.uy);
+    set(s.dot, { cx: x, cy: y }); set(s.hit, { cx: x, cy: y });
+    const lr = Rk + 10, lx = X(0) + lr * Math.cos(s.angle), ly = Y(0) + lr * Math.sin(s.angle);
+    const left = Math.cos(s.angle) < -1e-9;
+    set(s.txt, { x: lx, y: ly, "text-anchor": left ? "end" : "start",
+                 transform: `rotate(${deg(s.angle) + (left ? 180 : 0)} ${lx} ${ly})` });
+    s.tTitle.textContent = narrow ? "" : " " + s.short;
+  });
+  people.forEach(p => {
+    const x = X(p.ux), y = Y(p.uy), r = nodeR(p);
+    set(p.dot, { cx: x, cy: y, r }); set(p.hit, { cx: x, cy: y, r: r + 5 });
+    p.sx = x; p.sy = y; p.sr = r;
+  });
+  placeLabels();
+  placeRing();
+}
+
+// ---------- labels: greedy, no overlaps ----------
+function textW(s, hi) { mctx.font = `${hi ? 600 : 500} ${hi ? 12.5 : 11.5}px "IBM Plex Sans", Arial, sans-serif`; return mctx.measureText(s).width; }
+function placeLabels() {
+  people.forEach(p => { p.lab.style.display = "none"; p.lab.classList.remove("hi"); });
+  const want = [];
+  const sel = state.sel, hov = state.hover;
+  const forced = new Set();
+  if (sel && sel.t === "p") forced.add(sel.id);
+  if (hov && hov.t === "p") forced.add(hov.id);
+  let pool;
+  if (sel && sel.t === "p") pool = sharedWith(byId.get(sel.id)).map(x => x.q);
+  else if (sel && sel.t === "s") pool = byN.get(sel.n).people.map(id => byId.get(id)).sort((a, b) => b.count - a.count);
+  else {
+    const min = view.k >= 2.6 ? 1 : view.k >= 1.6 ? 2 : 4;
+    pool = people.filter(p => p.count >= min).sort((a, b) => b.count - a.count);
+  }
+  forced.forEach(id => want.push(byId.get(id)));
+  pool.forEach(p => { if (!forced.has(p.id)) want.push(p); });
+  const boxes = [], AIR = 2;
+  const dots = people.map(p => ({ p, x: p.sx - p.sr, y: p.sy - p.sr, w: p.sr * 2, h: p.sr * 2 }));
+  const over = (b, o) => b.x - AIR < o.x + o.w && b.x + b.w + AIR > o.x && b.y < o.y + o.h && b.y + b.h > o.y;
+  const hit = (b, self) => boxes.some(o => over(b, o)) || dots.some(o => o.p !== self && over(b, o));
+  const inView = b => b.x >= 2 && b.y >= 2 && b.x + b.w <= W - 2 && b.y + b.h <= H - 2;
+  for (const p of want) {
+    const hi = forced.has(p.id);
+    const text = hi ? p.name : p.short;
+    const w = textW(text, hi), h = hi ? 15 : 14, g = p.sr + 4;
+    const right = { x: p.sx + g, y: p.sy - h / 2, w, h, a: "start", tx: p.sx + g };
+    const left = { x: p.sx - g - w, y: p.sy - h / 2, w, h, a: "end", tx: p.sx - g };
+    const above = { x: p.sx - w / 2, y: p.sy - g - h, w, h, a: "middle", tx: p.sx, ty: p.sy - g - h / 2 };
+    const below = { x: p.sx - w / 2, y: p.sy + g, w, h, a: "middle", tx: p.sx, ty: p.sy + g + h / 2 };
+    const order = p.sx >= X(0) ? [right, left, above, below] : [left, right, above, below];
+    const free = b => inView(b) && !boxes.some(o => over(b, o));
+    const spot = order.find(b => inView(b) && !hit(b, p)) ||
+      ((hi || p.count >= 6) ? order.find(free) || (hi ? order[0] : null) : null);
+    if (!spot) continue;
+    boxes.push(spot);
+    p.lab.textContent = text;
+    set(p.lab, { x: spot.tx, y: spot.ty ?? p.sy, "text-anchor": spot.a });
+    p.lab.classList.toggle("hi", hi);
+    p.lab.style.display = "";
+  }
+}
+function placeRing() {
+  const s = state.sel;
+  if (s && s.t === "p") { const p = byId.get(s.id); set(selRing, { cx: p.sx, cy: p.sy, r: p.sr + 4 }); selRing.style.display = ""; }
+  else selRing.style.display = "none";
+}
+
+// ---------- state ----------
+const state = { sel: null, hover: null };
+function applyClasses() {
+  const sel = state.sel, hov = state.hover;
+  svg.classList.toggle("focus", !!sel);
+  svg.classList.toggle("hovering", !!hov);
+  links.forEach(l => l.el.classList.remove("on", "hv"));
+  people.forEach(p => p.g.classList.remove("on", "co", "hv"));
+  stories.forEach(s => s.g.classList.remove("on", "hv"));
+  if (sel && sel.t === "p") {
+    const p = byId.get(sel.id);
+    p.g.classList.add("on");
+    p.edges.forEach(l => { l.el.classList.add("on"); l.s.g.classList.add("on"); });
+    sharedWith(p).forEach(x => x.q.g.classList.add("co"));
+  } else if (sel && sel.t === "s") {
+    const s = byN.get(sel.n);
+    s.g.classList.add("on");
+    s.edges.forEach(l => { l.el.classList.add("on"); l.p.g.classList.add("co"); });
+  }
+  if (hov && hov.t === "p") {
+    const p = byId.get(hov.id);
+    p.g.classList.add("hv");
+    p.edges.forEach(l => { l.el.classList.add("hv"); l.s.g.classList.add("hv"); });
+  } else if (hov && hov.t === "s") {
+    const s = byN.get(hov.n);
+    s.g.classList.add("hv");
+    s.edges.forEach(l => { l.el.classList.add("hv"); l.p.g.classList.add("hv"); });
+  }
+  // lift the highlighted lines above the rest
+  links.forEach(l => { if (l.el.classList.contains("on") || l.el.classList.contains("hv")) gEdges.appendChild(l.el); });
+}
+function refresh() { applyClasses(); placeLabels(); placeRing(); }
+function select(sel, opts = {}) {
+  state.sel = sel;
+  refresh();
+  renderPanel();
+  if (!opts.keepScroll) panel.scrollTop = 0;
+  try {
+    const tok = !sel ? "" : sel.t === "p" ? sel.id : "s" + sel.n;
+    history.replaceState(null, "", tok ? "#" + tok : location.pathname + location.search);
+  } catch (e) { /* the frame may refuse; the page works without it */ }
+}
+const selectPerson = id => select({ t: "p", id });
+const selectStory = n => select({ t: "s", n });
+
+// ---------- panel ----------
+function h(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function personBtn(p, cls = "pname") { const b = h("button", cls, p.name); b.type = "button"; b.addEventListener("click", () => selectPerson(p.id)); return b; }
+function storyLabel(s) { return s.n + " · " + s.title; }
+function headRow(eyebrow, title) {
+  const row = h("div", "headrow"), box = h("div");
+  box.append(h("p", "eyebrow", eyebrow), h("h2", null, title));
+  const c = h("button", "clear", "Clear"); c.type = "button"; c.addEventListener("click", () => select(null));
+  row.append(box, c);
+  return { row, box };
+}
+function strip(p) {
+  const wrap = h("div"), st = h("div", "strip");
+  stories.forEach((s, i) => {
+    const on = p.stories.includes(s.n);
+    const c = h(on ? "button" : "span", "cell" + (i && s.part !== stories[i - 1].part ? " pb" : ""));
+    if (on) { c.type = "button"; c.style.background = PART_COL[s.part]; c.title = storyLabel(s); c.setAttribute("aria-label", storyLabel(s)); c.addEventListener("click", () => selectStory(s.n)); }
+    st.appendChild(c);
+  });
+  const k = h("div", "strip-k"); k.append(h("span", null, "1 Cave of Hira"), h("span", null, "50 Final illness"));
+  wrap.append(st, k);
+  return wrap;
+}
+function renderIntro() {
+  const f = document.createDocumentFragment();
+  const how = h("div", "howto");
+  how.innerHTML =
+    "<p class='eyebrow'>How to read it</p>" +
+    "<p><b>Each point is a person</b> named in the stories. <b>Each line</b> joins a person to a story they appear in, coloured by the part of the collection that story belongs to.</p>" +
+    "<p>Someone in only one story sits close to it on the rim. Someone who appears across many stories is pulled toward the middle.</p>" +
+    "<p><b>A dashed line</b> means the person had not yet accepted Islam at the time of that story.</p>" +
+    "<p><b>Circle size</b> counts how many of these 50 stories name the person. It is a count from this one collection, not a measure of rank or merit.</p>" +
+    "<p>The Prophet ﷺ is in every story, so he is not drawn as a separate point.</p>";
+  f.appendChild(how);
+
+  const top = h("div"); top.appendChild(h("h3", null, "Named in the most stories"));
+  const ul = h("ul", "toplist");
+  const ranked = people.slice().sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)).slice(0, 12);
+  const max = ranked[0].count;
+  ranked.forEach(p => {
+    const li = h("li"), b = h("button"); b.type = "button";
+    const t = h("span", "t"), fl = h("span", "f"); fl.style.display = "block"; fl.style.width = (p.count / max * 100) + "%"; t.appendChild(fl);
+    b.append(h("span", null, p.name), t, h("span", "c", p.count));
+    b.addEventListener("click", () => selectPerson(p.id));
+    li.appendChild(b); ul.appendChild(li);
+  });
+  top.appendChild(ul); f.appendChild(top);
+
+  const picks = h("div"); picks.appendChild(h("h3", null, "Or start with a story"));
+  const pk = h("div", "picks");
+  [2, 14, 16, 20, 25, 50].forEach(n => {
+    const s = byN.get(n), b = h("button", "chipbtn"); b.type = "button";
+    b.append(h("span", "c", n), document.createTextNode(s.short));
+    b.querySelector(".c").style.cssText = "font-family:var(--f-mono);font-size:.7rem;color:var(--ink-dim)";
+    b.addEventListener("click", () => selectStory(n)); pk.appendChild(b);
+  });
+  picks.appendChild(pk); f.appendChild(picks);
+
+  const det = h("details"); det.appendChild(h("summary", null, `All ${people.length} people, A to Z`));
+  const al = h("ul", "alist");
+  people.forEach(p => { const li = h("li"); li.appendChild(personBtn(p, "")); al.appendChild(li); });
+  det.appendChild(al); f.appendChild(det);
+  return f;
+}
+function renderPerson(p) {
+  const f = document.createDocumentFragment();
+  const { row, box } = headRow("Person", p.name);
+  if (p.aka.length) box.appendChild(h("p", "meta", "Also known as " + p.aka.join(", ")));
+  const nParts = new Set(p.stories.map(n => byN.get(n).part)).size;
+  const meta = h("p", "meta"); meta.innerHTML = `Named in <b>${p.count}</b> of the 50 stories, across <b>${nParts}</b> of the 4 parts.`;
+  box.appendChild(meta);
+  f.appendChild(row);
+  f.appendChild(strip(p));
+
+  const sec = h("div"); sec.appendChild(h("h3", null, p.count === 1 ? "Their story" : "Their stories, in order"));
+  const ol = h("ol", "plist");
+  p.stories.forEach(n => {
+    const s = byN.get(n), li = h("li");
+    li.appendChild(h("span", "num", n));
+    const b = h("button", "st"); b.type = "button";
+    const sw = h("span", "sw"); sw.style.background = PART_COL[s.part];
+    b.append(sw, document.createTextNode(s.title));
+    b.addEventListener("click", () => selectStory(n));
+    li.appendChild(b);
+    p.roles.get(n).forEach(r => {
+      const role = h("div", "role"); role.innerHTML = r.role; li.appendChild(role);
+      if (r.with.length) {
+        const w = h("div", "with"); w.appendChild(document.createTextNode("Listed with "));
+        r.with.forEach((id, i) => { if (i) w.appendChild(document.createTextNode(i === r.with.length - 1 ? " and " : ", ")); w.appendChild(personBtn(byId.get(id))); });
+        li.appendChild(w);
+      }
+    });
+    ol.appendChild(li);
+  });
+  sec.appendChild(ol); f.appendChild(sec);
+
+  const co = sharedWith(p);
+  if (co.length) {
+    const cs = h("div"); cs.appendChild(h("h3", null, `Shares a story with ${co.length} ${co.length === 1 ? "person" : "people"}`));
+    const wrap = h("div", "cochips");
+    const LIMIT = 30;
+    const draw = all => {
+      wrap.innerHTML = "";
+      (all ? co : co.slice(0, LIMIT)).forEach(({ q, c }) => {
+        const b = h("button", "cochip"); b.type = "button";
+        b.append(document.createTextNode(q.name), h("span", "c", c));
+        b.title = `${c} shared ${c === 1 ? "story" : "stories"}`;
+        b.addEventListener("click", () => selectPerson(q.id));
+        wrap.appendChild(b);
+      });
+    };
+    draw(false);
+    cs.appendChild(wrap);
+    if (co.length > LIMIT) {
+      const m = h("button", "more", `Show all ${co.length}`); m.type = "button";
+      m.addEventListener("click", () => { draw(true); m.remove(); });
+      cs.appendChild(m);
+    }
+    cs.appendChild(h("p", "meta", "The number is how many stories they share."));
+    f.appendChild(cs);
+  }
+  return f;
+}
+function renderStory(s) {
+  const f = document.createDocumentFragment();
+  const pt = parts[s.part];
+  const { row, box } = headRow(`Story ${s.n} · Part ${["One", "Two", "Three", "Four"][s.part]}: ${pt.title}`, s.title);
+  const meta = h("p", "meta"); meta.innerHTML = `Names <b>${s.people.length}</b> ${s.people.length === 1 ? "person" : "people"}.`;
+  box.appendChild(meta);
+  f.appendChild(row);
+  const txt = h("div", "storytext"); txt.innerHTML = s.paras.map(p => "<p>" + p + "</p>").join(""); f.appendChild(txt);
+  if (s.note) { const n = h("p", "note"); n.innerHTML = s.note; f.appendChild(n); }
+  const sec = h("div"); sec.appendChild(h("h3", null, "Companions connected to this story"));
+  const ul = h("ul", "lines");
+  s.lines.forEach(line => {
+    const li = h("li");
+    if (!line.head.length) { li.innerHTML = line.role; ul.appendChild(li); return; }
+    line.head.forEach(([k, v]) => {
+      if (k === "p") li.appendChild(personBtn(byId.get(v)));
+      else if (k === "g") li.appendChild(h("span", "grp", v));
+      else li.appendChild(document.createTextNode(v));
+    });
+    li.appendChild(document.createTextNode(" — "));
+    const r = h("span"); r.innerHTML = line.role; li.appendChild(r);
+    ul.appendChild(li);
+  });
+  sec.appendChild(ul); f.appendChild(sec);
+  const pg = h("div", "pager");
+  const prev = byN.get(s.n - 1), next = byN.get(s.n + 1);
+  const mk = (t, target) => { const b = h("button", null, t); b.type = "button"; if (target) b.addEventListener("click", () => selectStory(target.n)); else b.disabled = true, b.style.visibility = "hidden"; return b; };
+  pg.append(mk(prev ? "← " + prev.n + " " + prev.short : "", prev), mk(next ? next.n + " " + next.short + " →" : "", next));
+  f.appendChild(pg);
+  return f;
+}
+function renderPanel() {
+  panel.innerHTML = "";
+  const pin = h("div", "pin");
+  const sel = state.sel;
+  pin.appendChild(!sel ? renderIntro() : sel.t === "p" ? renderPerson(byId.get(sel.id)) : renderStory(byN.get(sel.n)));
+  panel.appendChild(pin);
+}
+
+// ---------- tooltip ----------
+function showTip(target, x, y) {
+  if (!target) { tip.hidden = true; return; }
+  if (target.t === "p") {
+    const p = byId.get(target.id);
+    tip.innerHTML = "";
+    tip.append(h("b", null, p.name), document.createTextNode(`In ${p.count} ${p.count === 1 ? "story" : "stories"}` + (p.aka.length ? ` · also ${p.aka.join(", ")}` : "")));
+  } else {
+    const s = byN.get(target.n);
+    tip.innerHTML = "";
+    tip.append(h("b", null, storyLabel(s)), document.createTextNode(`Names ${s.people.length} ${s.people.length === 1 ? "person" : "people"}`));
+  }
+  tip.hidden = false;
+  const tw = tip.offsetWidth;
+  tip.style.left = Math.min(W - tw / 2 - 6, Math.max(tw / 2 + 6, x)) + "px";
+  tip.style.top = Math.max(tip.offsetHeight + 16, y) + "px";
+}
+function targetOf(e) {
+  const n = e.target.closest && e.target.closest("[data-p],[data-s]");
+  if (!n) return null;
+  return n.dataset.p ? { t: "p", id: n.dataset.p } : { t: "s", n: +n.dataset.s };
+}
+const same = (a, b) => (!a && !b) || (a && b && a.t === b.t && a.id === b.id && a.n === b.n);
+
+// ---------- pointer: hover, click, drag, pinch, wheel ----------
+const ptrs = new Map();
+let drag = null, pinch = null;
+function local(e) { const r = svg.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+function zoomAt(k, px, py) {
+  k = Math.min(7, Math.max(1, k));
+  const ux = (px - CX - view.x) / (R * view.k), uy = (py - CY - view.y) / (R * view.k);
+  view.k = k;
+  view.x = px - CX - ux * R * k; view.y = py - CY - uy * R * k;
+  if (k === 1) { view.x = 0; view.y = 0; }
+  clampView();
+  svg.classList.toggle("zoomed", view.k > 1);
+  schedule();
+}
+function clampView() { const lim = R * view.k; view.x = Math.max(-lim, Math.min(lim, view.x)); view.y = Math.max(-lim, Math.min(lim, view.y)); }
+let raf = 0;
+function schedule() { if (!raf) raf = requestAnimationFrame(() => { raf = 0; place(); }); }
+
+svg.addEventListener("pointerdown", e => {
+  const p = local(e);
+  ptrs.set(e.pointerId, p);
+  if (ptrs.size === 1) drag = { x: p.x, y: p.y, vx: view.x, vy: view.y, moved: false, target: targetOf(e), pointerType: e.pointerType };
+  if (ptrs.size === 2) {
+    const [a, b] = [...ptrs.values()];
+    pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), k: view.k };
+    if (drag) drag.moved = true;
+  }
+});
+window.addEventListener("pointermove", e => {
+  if (ptrs.has(e.pointerId)) {
+    const p = local(e); ptrs.set(e.pointerId, p);
+    if (pinch && ptrs.size === 2) {
+      const [a, b] = [...ptrs.values()];
+      zoomAt(pinch.k * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d, (a.x + b.x) / 2, (a.y + b.y) / 2);
+      return;
+    }
+    if (drag) {
+      const dx = p.x - drag.x, dy = p.y - drag.y;
+      if (!drag.moved && Math.hypot(dx, dy) > 5) drag.moved = true;
+      if (drag.moved && view.k > 1) { view.x = drag.vx + dx; view.y = drag.vy + dy; clampView(); svg.classList.add("dragging"); tip.hidden = true; schedule(); }
+    }
+    return;
+  }
+  if (e.target === svg || svg.contains(e.target)) {
+    const t = e.pointerType === "mouse" ? targetOf(e) : null;
+    if (!same(t, state.hover)) { state.hover = t; refresh(); }
+    if (t) { const p = local(e); showTip(t, p.x, p.y); } else tip.hidden = true;
+  }
+});
+function endPointer(e) {
+  if (!ptrs.has(e.pointerId)) return;
+  ptrs.delete(e.pointerId);
+  if (ptrs.size < 2) pinch = null;
+  if (ptrs.size === 0 && drag) {
+    const d = drag; drag = null; svg.classList.remove("dragging");
+    if (!d.moved && e.type === "pointerup") {
+      const t = d.target;
+      if (!t) select(null);
+      else if (same(t, state.sel)) select(null);
+      else select(t);
+      if (d.pointerType !== "mouse") { state.hover = null; tip.hidden = true; refresh(); }
+      if (narrow && t) panel.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+    }
+  }
+}
+window.addEventListener("pointerup", endPointer);
+window.addEventListener("pointercancel", endPointer);
+svg.addEventListener("pointerleave", () => { if (!drag && state.hover) { state.hover = null; tip.hidden = true; refresh(); } });
+svg.addEventListener("wheel", e => {
+  e.preventDefault();
+  const p = local(e);
+  zoomAt(view.k * Math.exp(-e.deltaY * .0016), p.x, p.y);
+}, { passive: false });
+$("zin").addEventListener("click", () => zoomAt(view.k * 1.5, CX, CY));
+$("zout").addEventListener("click", () => zoomAt(view.k / 1.5, CX, CY));
+$("zreset").addEventListener("click", () => zoomAt(1, CX, CY));
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && document.activeElement !== $("q")) select(null);
+});
+
+// ---------- search ----------
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/['’ʿʾ`]/g, "")
+  .replace(/\bal-/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+const entries = [
+  ...people.map(p => ({ t: "p", id: p.id, label: p.name, k: `${p.count} ${p.count === 1 ? "story" : "stories"}`, key: norm([p.name, p.short, ...p.aka].join(" ")), w: p.count })),
+  ...stories.map(s => ({ t: "s", n: s.n, label: storyLabel(s), k: "story", key: norm(s.n + " " + s.title + " " + s.short), w: 0 })),
+];
+const q = $("q"), sugg = $("sugg");
+let hits = [], act = 0;
+function drawSugg() {
+  sugg.innerHTML = "";
+  hits.forEach((x, i) => {
+    const li = h("li"), b = h("button", i === act ? "act" : ""); b.type = "button";
+    b.setAttribute("role", "option"); b.setAttribute("aria-selected", i === act);
+    b.append(h("span", null, x.label), h("span", "k", x.k));
+    b.addEventListener("mousedown", ev => ev.preventDefault());
+    b.addEventListener("click", () => pick(x));
+    li.appendChild(b); sugg.appendChild(li);
+  });
+  sugg.hidden = !hits.length;
+}
+function pick(x) { q.value = ""; hits = []; drawSugg(); x.t === "p" ? selectPerson(x.id) : selectStory(x.n); }
+q.addEventListener("input", () => {
+  const v = norm(q.value);
+  if (!v) { hits = []; drawSugg(); return; }
+  const words = v.split(" ");
+  hits = entries.filter(x => words.every(w => x.key.split(" ").some(kw => kw.startsWith(w)) || (/^\d+$/.test(w) && x.t === "s" && String(x.n) === w)))
+    .sort((a, b) => (b.key.startsWith(v) - a.key.startsWith(v)) || (b.w - a.w) || a.label.localeCompare(b.label))
+    .slice(0, 10);
+  act = 0; drawSugg();
+});
+q.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown" && hits.length) { act = (act + 1) % hits.length; drawSugg(); e.preventDefault(); }
+  else if (e.key === "ArrowUp" && hits.length) { act = (act - 1 + hits.length) % hits.length; drawSugg(); e.preventDefault(); }
+  else if (e.key === "Enter" && hits[act]) { pick(hits[act]); e.preventDefault(); }
+  else if (e.key === "Escape") { q.value = ""; hits = []; drawSugg(); }
+});
+q.addEventListener("blur", () => setTimeout(() => { hits = []; drawSugg(); }, 120));
+
+// ---------- static furniture ----------
+(function furniture() {
+  const st = $("stats");
+  const groupsN = D.groups.length;
+  [["50", "stories"], [String(people.length), "people"], [String(links.length), "links"]].forEach(([b, t]) => {
+    const s = h("span", "stat"); s.append(h("b", null, b), document.createTextNode(" " + t)); st.appendChild(s);
+  });
+  st.appendChild(h("span", "stat warn", "Unverified"));
+
+  const lg = $("legend");
+  parts.forEach((pt, i) => {
+    const li = h("li"), sw = h("span", "sw"); sw.style.background = PART_COL[i];
+    const a = pt.stories[0], b = pt.stories[pt.stories.length - 1];
+    li.append(sw, document.createTextNode(`${pt.short} ${a}–${b}`)); lg.appendChild(li);
+  });
+  const li = h("li"); li.append(h("span", "dash"), document.createTextNode("not yet Muslim at the time")); lg.appendChild(li);
+
+  const merged = D.merges.length;
+  const notes = $("notes");
+  notes.innerHTML =
+    `<div><h4>Unverified</h4><p>${D.source.note} Nothing on this page has been reviewed by a scholar.</p></div>` +
+    `<div><h4>Where it comes from</h4><p>Every story, name and role here is read from <b>${D.source.title}</b>, the project maintainer's Claude Doc (revision ${D.source.rev}, ${new Date(D.source.exported + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}). Nothing was added by hand.</p></div>` +
+    `<div><h4>Same person, one point</h4><p>${merged} name forms were treated as the same person as a fuller form, for example <b>Abu Bakr</b> as <b>Abu Bakr al-Siddiq</b>, and ${D.splits.length === 1 ? "one entry naming two people was split in two" : D.splits.length + " entries naming two people were split"}. ${groupsN} groups, such as <b>Ahl al-Suffah</b>, are listed with their story but not drawn as points.</p></div>`;
+})();
+
+if (matchMedia("(pointer: coarse)").matches) $("hint").textContent = "Tap a person or a story. Pinch to zoom.";
+
+// ---------- go ----------
+function boot() {
+  measure(); place();
+  const tok = (location.hash || "").slice(1);
+  if (/^s\d+$/.test(tok) && byN.has(+tok.slice(1))) select({ t: "s", n: +tok.slice(1) });
+  else if (byId.has(tok)) select({ t: "p", id: tok });
+  else select(null);
+}
+boot();
+new ResizeObserver(() => { measure(); clampView(); place(); }).observe(stage);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measure(); place(); });
+})();
+</script>

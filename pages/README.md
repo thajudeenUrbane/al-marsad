@@ -11,6 +11,7 @@ The project's original published pages were found deleted on 9 October 2026 and 
 | One Event, All the Way Down (Hijrah demo) | https://claude.ai/artifact/F7J9jQ9jjumzQPH5nJNP3j | `demo/index.html`, built by `demo/build.py` |
 | Synthetic Capacity Test | https://claude.ai/artifact/BRWwrkeG6iUSX7PfNUDNC5 | `bench/capacity-test.html` |
 | The First Generation, with At Scale and The Wider Network inside it | https://claude.ai/artifact/MWrchAW32H8MdMM4KYSNDC | `generation-1/*.html`, built by `generation-1/build.py` |
+| 50 Stories, Connected | https://claude.ai/artifact/Fp5nL7pV4bux3KKuCkg5sf | `stories-50/index.html`, built by `stories-50/build.py` (published 10 October 2026) |
 
 ## Notes
 

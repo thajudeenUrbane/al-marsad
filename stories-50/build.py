@@ -1,0 +1,292 @@
+#!/usr/bin/env python3
+"""
+Build the 50 Stories network from its source text: a derived projection,
+not a copy. Like demo/build.py and generation-1/build.py, nothing in the
+rendered page is typed in by hand; it is all parsed from the source.
+
+The source is a Markdown export of the maintainer's Claude Doc
+"50 Stories of the Prophet Muhammad ﷺ and His Companions" (rev 7,
+exported 10 October 2026), kept at source/50-stories.md. That doc was
+written from general knowledge without live access to the sources, so
+every story and every link here is unverified.
+
+The only judgement applied here is which name strings refer to the same
+person (ALIASES), which bold names are groups rather than one person
+(GROUPS) and which name strings hold two people (SPLITS). Those three
+tables are the whole of it; review them before trusting a merge.
+
+    python3 stories-50/build.py
+"""
+
+import html
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+SOURCE = ROOT / "source" / "50-stories.md"
+TEMPLATE = ROOT / "index.template.html"
+OUT = ROOT / "index.html"
+DATA_OUT = ROOT / "data.json"
+MARKER = "/*__STORIES_DATA__*/"
+
+# Shorter forms the doc uses for a person it names in full elsewhere.
+# A parenthesised second name, e.g. "Umm Ayman (Barakah)", is split off
+# as an also-known-as before this lookup, so those need no entry.
+ALIASES = {
+    "Abu Bakr": "Abu Bakr al-Siddiq",
+    "Aishah": "Aishah bint Abi Bakr",
+    "Ali": "Ali ibn Abi Talib",
+    "Umar": "Umar ibn al-Khattab",
+    "Uthman": "Uthman ibn Affan",
+    "Hamzah": "Hamzah ibn Abd al-Muttalib",
+    "al-Zubayr": "Al-Zubayr ibn al-Awwam",
+    "al-Abbas": "Al-Abbas ibn Abd al-Muttalib",
+    "al-Fadl": "Al-Fadl ibn Abbas",
+    "al-Fadl ibn Abbas": "Al-Fadl ibn Abbas",
+    "al-Miqdad": "Al-Miqdad ibn al-Aswad",
+    "Abu Ubaydah": "Abu Ubaydah ibn al-Jarrah",
+    "Umm Sulaym": "Umm Sulaym bint Milhan",
+}
+
+# Bold text that names a group or an unnamed person, not one named person.
+# These are listed with their story but are not drawn as points.
+GROUPS = {
+    "Ahl al-Suffah",
+    "Al-Bakka'un (the weepers)",
+    "All who pledged under the tree (Bay'at al-Ridwan)",
+    "Al-Nahdiyyah and her daughter",
+    "Al-Tufayl's father and wife",
+    "Hilal's wife",
+    "His Ansari wife and her parents",
+    "The Muslims of Madinah",
+    "The army of Badr",
+    "Tribes of Ghifar and Aslam",
+    "early Companions gathered with him",
+    "The Companions who planted",
+}
+
+# Bold text that names two people at once.
+SPLITS = {
+    "Sahl and Suhayl ibn Rafi'": ["Sahl ibn Rafi'", "Suhayl ibn Rafi'"],
+}
+
+# Label used on the dial for people who appear often. Everyone else is
+# labelled with their full name.
+SHORT = {
+    "Abu Bakr al-Siddiq": "Abu Bakr",
+    "Ali ibn Abi Talib": "Ali",
+    "Umar ibn al-Khattab": "Umar",
+    "Uthman ibn Affan": "Uthman",
+    "Aishah bint Abi Bakr": "Aishah",
+    "Bilal ibn Rabah": "Bilal",
+    "Al-Abbas ibn Abd al-Muttalib": "Al-Abbas",
+    "Usamah ibn Zayd": "Usamah",
+    "Fatimah bint Muhammad": "Fatimah",
+    "Khadijah bint Khuwaylid": "Khadijah",
+    "Al-Zubayr ibn al-Awwam": "Al-Zubayr",
+    "Hamzah ibn Abd al-Muttalib": "Hamzah",
+    "Ja'far ibn Abi Talib": "Ja'far",
+    "Talhah ibn Ubaydillah": "Talhah",
+    "Abdullah ibn Abbas": "Ibn Abbas",
+    "Abu Ubaydah ibn al-Jarrah": "Abu Ubaydah",
+    "Abu Talhah al-Ansari": "Abu Talhah",
+    "Abu Sufyan ibn Harb": "Abu Sufyan",
+    "Hind bint Utbah": "Hind",
+    "Abdullah ibn Mas'ud": "Ibn Mas'ud",
+    "Ammar ibn Yasir": "Ammar",
+    "Salman al-Farisi": "Salman",
+    "Khalid ibn al-Walid": "Khalid",
+    "Ikrimah ibn Abi Jahl": "Ikrimah",
+    "Mus'ab ibn Umayr": "Mus'ab",
+    "Jabir ibn Abdullah": "Jabir",
+    "Umm Sulaym bint Milhan": "Umm Sulaym",
+    "Al-Fadl ibn Abbas": "Al-Fadl",
+    "Zayd ibn Harithah": "Zayd",
+}
+
+# Dial labels for the 50 stories, in order. Full titles come from the source.
+STORY_SHORT = [
+    "Cave of Hira", "First believers", "Mount Safa", "Bilal: Ahad", "Family of Yasir",
+    "Ibn Mas'ud recites", "Hamzah's Islam", "Umar's Islam", "Abyssinia", "The boycott",
+    "Ta'if", "Isra and Mi'raj", "Aqabah pledges", "Hijrah and Thawr", "Into Madinah",
+    "Brotherhood", "Salman's search", "First adhan", "Ibn Salam", "Badr",
+    "Uhud", "Anas ibn al-Nadr", "The Trench", "Death of Sa'd", "Hudaybiyah",
+    "Khaybar", "Mu'tah", "Makkah conquered", "Hunayn", "Tabuk",
+    "Ka'b stays behind", "Well of Rumah", "Al-Ifk", "Zayd chooses", "Cup of milk",
+    "Abu Talhah's home", "Sawad at Badr", "Julaybib", "Mu'adh to Yemen", "Ibn Umm Maktum",
+    "Usamah intercedes", "Abu Dharr", "Al-Tufayl", "Ikrimah returns", "Wahshi",
+    "Thumamah", "Mubahalah", "Ali and Fatimah", "Farewell Hajj", "Final illness",
+]
+
+# Dial labels for the four parts.
+PART_SHORT = ["Makkah", "Hijrah and early Madinah", "Expeditions and battles", "Character and lives"]
+
+LIST_HEADING = "**Companions connected to this story**"
+
+
+def inline(md):
+    """Escape, then render the doc's two inline marks: **bold** and *italic*."""
+    s = html.escape(md, quote=False)
+    s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
+    s = re.sub(r"\*(.+?)\*", r"<i>\1</i>", s)
+    return s
+
+
+def slug(name):
+    s = name.lower().replace("'", "").replace("’", "")
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
+def capital(name):
+    return name[:1].upper() + name[1:]
+
+
+class People:
+    def __init__(self):
+        self.by_id = {}
+        self.merges = {}  # as written -> canonical, for the report
+        self.groups = set()
+
+    def resolve(self, raw):
+        """Bold name as written -> list of person ids (empty for a group)."""
+        if raw in GROUPS:
+            return None
+        if raw in SPLITS:
+            return [self._add(n, None, raw) for n in SPLITS[raw]]
+        aka = None
+        m = re.match(r"^(.*?)\s*\(([^)]+)\)$", raw)
+        if m:
+            raw_name, aka = m.group(1), m.group(2)
+        else:
+            raw_name = raw
+        name = capital(ALIASES.get(raw_name, raw_name))
+        return [self._add(name, aka, raw)]
+
+    def _add(self, name, aka, raw):
+        pid = slug(name)
+        p = self.by_id.setdefault(pid, {"id": pid, "name": name, "short": SHORT.get(name, name), "aka": []})
+        if aka and aka not in p["aka"]:
+            p["aka"].append(aka)
+        if raw.lower() != name.lower() and raw not in SPLITS:
+            self.merges[raw] = name
+        return pid
+
+
+def parse_line(item, people):
+    """One '- ' bullet -> {'head': tokens, 'role': html, 'later': bool}."""
+    head, sep, role = item.partition(" — ")
+    if not sep:
+        # Two bullets have no dash: the bold part is a group, the rest its role.
+        # Shown as written, as one line of text.
+        label = re.search(r"\*\*(.+?)\*\*", item).group(1)
+        people.groups.add(capital(label))
+        return {"head": [], "role": inline(item.replace("**", "")), "later": False}
+    tokens = []
+    for piece in re.split(r"(\*\*.+?\*\*)", head):
+        if not piece:
+            continue
+        if piece.startswith("**"):
+            raw = piece[2:-2]
+            ids = people.resolve(raw)
+            if ids is None:
+                people.groups.add(raw)
+                tokens.append(["g", raw])
+            else:
+                for i, pid in enumerate(ids):
+                    if i:
+                        tokens.append(["t", " and "])
+                    tokens.append(["p", pid])
+        elif piece.strip():
+            tokens.append(["t", piece])
+    return {"head": tokens, "role": inline(role), "later": "accepted Islam later" in role}
+
+
+def parse(text):
+    people = People()
+    parts, stories = [], []
+    story, mode = None, None
+    for line in text.splitlines():
+        if line.startswith("## Part "):
+            title = line[3:].split(": ", 1)[1]
+            parts.append({"title": title, "short": PART_SHORT[len(parts)], "stories": []})
+            story = None
+            continue
+        if line.startswith("## "):
+            story = None
+            continue
+        m = re.match(r"^### (\d+)\. (.+)$", line)
+        if m:
+            n = int(m.group(1))
+            story = {"n": n, "title": m.group(2), "short": STORY_SHORT[n - 1],
+                     "part": len(parts) - 1, "paras": [], "lines": [], "note": None}
+            parts[-1]["stories"].append(n)
+            stories.append(story)
+            mode = "text"
+            continue
+        if story is None or not line.strip():
+            continue
+        if line.strip() == LIST_HEADING:
+            mode = "list"
+        elif mode == "list" and line.startswith("- "):
+            story["lines"].append(parse_line(line[2:], people))
+        elif mode == "list":
+            story["note"] = inline(line)
+        else:
+            story["paras"].append(inline(line))
+    return parts, stories, people
+
+
+def main():
+    text = SOURCE.read_text(encoding="utf-8")
+    parts, stories, people = parse(text)
+
+    assert len(stories) == 50 and [s["n"] for s in stories] == list(range(1, 51)), "expected stories 1-50 in order"
+    assert len(STORY_SHORT) == 50
+
+    links = {}
+    for s in stories:
+        for line in s["lines"]:
+            for kind, val in line["head"]:
+                if kind == "p":
+                    links.setdefault((val, s["n"]), []).append(line["later"])
+    used = {pid for pid, _ in links}
+    unused = set(people.by_id) - used
+    assert not unused, f"people with no story: {unused}"
+
+    data = {
+        "source": {
+            "title": "50 Stories of the Prophet Muhammad ﷺ and His Companions",
+            "kind": "Claude Doc, exported as Markdown",
+            "rev": 7,
+            "exported": "2026-10-10",
+            "note": "Written from general knowledge of the classical sources, without live access to them. "
+                    "Names, numbers and attributions should be checked before teaching or publishing.",
+        },
+        "parts": parts,
+        "stories": stories,
+        "people": sorted(people.by_id.values(), key=lambda p: p["name"].lower()),
+        "merges": sorted([raw, name] for raw, name in people.merges.items()),
+        "splits": sorted([raw, names] for raw, names in SPLITS.items()),
+        "groups": sorted(people.groups, key=str.lower),
+    }
+    DATA_OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    page = TEMPLATE.read_text(encoding="utf-8")
+    assert MARKER in page, f"{MARKER} not found in template"
+    OUT.write_text(page.replace(MARKER, payload), encoding="utf-8")
+
+    groups = data["groups"]
+    print(f"stories: {len(stories)} in {len(parts)} parts")
+    print(f"people:  {len(people.by_id)} named, {len(links)} person-story links "
+          f"({sum(1 for v in links.values() if all(v))} marked 'accepted Islam later')")
+    print(f"merged:  {len(people.merges)} name forms")
+    for raw, name in sorted(people.merges.items()):
+        print(f"           {raw}  ->  {name}")
+    print(f"groups:  {len(groups)} listed with their story, not drawn: {', '.join(groups)}")
+    print(f"wrote:   {DATA_OUT.relative_to(ROOT.parent)}, {OUT.relative_to(ROOT.parent)}")
+
+
+if __name__ == "__main__":
+    main()
