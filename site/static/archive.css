@@ -1,0 +1,15 @@
+/* The note and the licence footer added to each copied prototype (site/experiments.py).
+   Colours are set explicitly: the prototypes paint their own dark page. Logical properties only. */
+.archive-note {
+  position: relative; z-index: 1000; margin: 0; padding-block: 0.6rem; padding-inline: 1rem;
+  background: #fff4d6; color: #1d1d1b; border-block-end: 3px solid #b58105;
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+}
+.archive-note p { margin: 0; }
+.archive-note a { color: #0f4c75; }
+.archive-footer {
+  margin: 0; padding-block: 1rem; padding-inline: 1rem; background: #0a0e11; color: #8d9c9e;
+  font: 13px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+}
+.archive-footer p { margin: 0; }
+.archive-footer a { color: inherit; }

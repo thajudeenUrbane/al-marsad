@@ -1,10 +1,15 @@
 <section class="home">
 <h1>[[home.title]]</h1>
 <p class="lead">[[home.lead]]</p>
-<section class="explore" aria-labelledby="explore-h">
-<h2 id="explore-h">[[home.explore_heading]]</h2>
-<p class="explore-lead">$explore</p>
-<p class="story-door">$story_door</p>
+<nav class="doors" aria-label="[[home.doors_label]]">
+<ul class="door-list">
+$doors
+</ul>
+</nav>
+<section class="hub" aria-labelledby="hub-h">
+<h2 id="hub-h">[[hub.heading]]</h2>
+<p>[[hub.lead]]</p>
+$hub
 </section>
 <section class="verified" aria-labelledby="verified-h">
 <h2 id="verified-h">[[home.status_heading]]</h2>
@@ -19,5 +24,6 @@ $status
 </ol>
 <p>$names_note</p>
 <p>$glossary_note</p>
+<p>[[home.plain_note]]</p>
 </section>
 </section>

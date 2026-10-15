@@ -1,5 +1,5 @@
 {
- "_note": "Definitions are quoted word for word from the repository (source field); tests check each quote against its source. Terms in 'needed' have no definition in the repo docs yet.",
+ "_note": "Definitions are quoted word for word from the repository (source field); tests check each quote against its source. Terms in 'needed' have no definition in the repo docs yet. A 'plain' wording (for the plain-words switch) is likewise taken from the file named in 'plain_source', where the repository pairs it with the term; tests check it.",
  "defined": [
   {
    "term": "Isnād",
@@ -23,7 +23,9 @@
    "term": "Ṭabaqāt / ṭabaqa",
    "definition": "Generational stratification: a temporal layering scheme for a population",
    "source": "docs/00-vision.md §2, lines 17-24 (table: classical apparatus and what it is, architecturally)",
-   "arabic": "طبقات"
+   "arabic": "طبقات",
+   "plain": "generation",
+   "plain_source": "docs/00-vision.md §2 (the table of the classical apparatus: Ṭabaqāt, “Generational stratification”)"
   },
   {
    "term": "Liqāʾ / muʿāṣara",
@@ -69,7 +71,9 @@
    "term": "Nasab",
    "definition": "Ordered patronymic chain",
    "source": "docs/02-knowledge-architecture.md §7.4 (table of name properties, mrs:nasab)",
-   "forms": []
+   "forms": [],
+   "plain": "patronymic chain",
+   "plain_source": "docs/02-knowledge-architecture.md §7.4 (mrs:nasab, “Ordered patronymic chain”)"
   }
  ],
  "needed": [
@@ -85,7 +89,9 @@
   },
   {
    "term": "Ridda",
-   "forms": []
+   "forms": [],
+   "plain": "apostasy",
+   "plain_source": "ontology/corpus/seed-incidents.ttl (the event label “The Ridda ('apostasy') wars”)"
   },
   {
    "term": "Muhajirun",
@@ -113,7 +119,9 @@
   },
   {
    "term": "Khandaq",
-   "forms": []
+   "forms": [],
+   "plain": "the Trench",
+   "plain_source": "ontology/corpus/generation-1.ttl (the event label “Battle of the Trench (Khandaq)”)"
   },
   {
    "term": "Qur'an",
