@@ -10,6 +10,7 @@
 @prefix grp: <https://w3id.org/marsad/id/group/> .
 @prefix as: <https://w3id.org/marsad/id/assertion/> .
 @prefix tmp: <https://w3id.org/marsad/id/temporal/> .
+@prefix plc: <https://w3id.org/marsad/id/place/> .
 
 mrs:relclass_kinship a skos:Concept ; skos:prefLabel "kinship"@en .
 mrs:relclass_participation a skos:Concept ; skos:prefLabel "participation and occurrence"@en .
@@ -18,6 +19,9 @@ mrs:rel_participated_in skos:prefLabel "participated in"@en ; mrs:relationClass 
 mrs:rel_absent_from skos:prefLabel "absent from"@en ; mrs:relationClass mrs:relclass_participation .
 mrs:rel_father_of skos:prefLabel "father of"@en ; mrs:relationClass mrs:relclass_kinship .
 mrs:rel_member_of skos:prefLabel "member of"@en ; mrs:relationClass mrs:relclass_social_political .
+mrs:relclass_spatial a skos:Concept ; skos:prefLabel "spatial and mobility"@en .
+mrs:rel_migrated_to skos:prefLabel "migrated to"@en ; mrs:relationClass mrs:relclass_spatial .
+plc:TestTown000000000000a a mrs:Place ; rdfs:label "Test town" .
 mrs:role_participant skos:prefLabel "participant"@en .
 mrs:as_proposed skos:prefLabel "proposed"@en .
 mrs:tb_sahabi skos:prefLabel "ṣaḥābī"@en .
@@ -56,7 +60,7 @@ tmp:TestTemporal00000001 a mrs:TemporalExtent ; mrs:nativeValue "17 Ramaḍān 2
     mrs:earliestStart "0624-03-13T00:00:00+00:00"^^xsd:dateTime ; mrs:latestEnd "0624-03-13T23:59:59+00:00"^^xsd:dateTime .
 
 ev:TestMigration0000000b a mrs:Event ; rdfs:label "Test migration" ;
-    mrs:eventTemporalExtent tmp:TestTemporal00000002 ;
+    mrs:eventTemporalExtent tmp:TestTemporal00000002 ; mrs:eventPlace plc:TestTown000000000000a ;
     mrs:hasParticipation [ mrs:participant per:TestAlpha00000000000a ; mrs:participantRole mrs:role_participant ] ,
                          [ mrs:participant per:TestTheta00000000000h ; mrs:participantRole mrs:role_participant ] .
 tmp:TestTemporal00000002 a mrs:TemporalExtent ; mrs:nativeValue "622 CE" ; mrs:calendar mrs:cal_gregorian ;
@@ -91,4 +95,7 @@ as:TestAssert000000000003 a mrs:Assertion ; mrs:assertionSubject per:TestAlpha00
     mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .
 as:TestAssert000000000004 a mrs:Assertion ; mrs:assertionSubject per:TestTheta00000000000h ;
     mrs:predicate mrs:rel_member_of ; mrs:assertionObject grp:TestTribe00000000000t ;
+    mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .
+as:TestAssert000000000005 a mrs:Assertion ; mrs:assertionSubject per:TestBeta000000000000b ;
+    mrs:predicate mrs:rel_migrated_to ; mrs:assertionObject plc:TestTown000000000000a ;
     mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .

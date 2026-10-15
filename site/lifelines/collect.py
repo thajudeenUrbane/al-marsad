@@ -42,6 +42,7 @@ MEMBER_OF = "rel_member_of"
 # Ibn Hishām lifeline relations (slice 4)
 REL_AGE_AT, REL_BORN_DURING, REL_DIED_DURING, REL_DATED = "rel_age_at", "rel_born_during", "rel_died_during", "rel_dated"
 KINSHIP_CLASS = "relclass_kinship"
+SPATIAL_CLASS = "relclass_spatial"
 PARENT_OF = ("rel_father_of", "rel_mother_of")          # subject is the parent
 CHILD_OF = ("rel_child_of",)                            # subject is the child
 SPOUSE_OF = ("rel_spouse_of", "rel_divorced_from")
@@ -112,6 +113,7 @@ class Event:
     disputed: bool
     agents: list[str]
     parts: list[dict] = field(default_factory=list)   # {person, how, status, citation, ai}
+    places: list[str] = field(default_factory=list)  # place IRIs the event is recorded at
 
 
 class Collector:
@@ -124,6 +126,8 @@ class Collector:
         self.events: dict[str, Event] = {}
         self.ties: dict[str, set[str]] = {}
         self.kin_ties: list[dict] = []
+        self.place_links: list[dict] = []      # person -> place claims with no date (shown in words)
+        self.residences: list[dict] = []       # person -> place affiliations with a placed extent
         self.external_label = external_label
         self.ages: list[AgeClaim] = []
         self._load_people()
@@ -369,7 +373,7 @@ class Collector:
                 self.events[e.iri] = Event(
                     iri=e.iri, pid=e.pid, kind=kind, name=e.name, lo=lo, hi=hi, text=text, notes=notes,
                     disputed=any(x.get("disputed") or x.get("basis") == "disputed" for x in dates),
-                    agents=[a.label for a in e.agents])
+                    agents=[a.label for a in e.agents], places=list(e.data.get("places") or []))
         # participation nodes (no status of their own)
         seen = set()
         for ev_iri, ev in self.events.items():
@@ -515,10 +519,24 @@ class Collector:
                 if rc is not None and _local(rc) == KINSHIP_CLASS:
                     parent[find(subj)] = find(obj)
                     self.kin_ties.append(self._kin_tie(a, pred, subj, obj))
+            if (rc is not None and _local(rc) == SPATIAL_CLASS and subj in self.people
+                    and obj in self.site.entities and self.site.entities[obj].kind == "place"):
+                self.place_links.append({"person": subj, "place": obj, "label": self.site.vocab(pred) or _local(pred),
+                                         "status": self.site.vkey(g.value(a, MRS.assertionStatus), "as_")})
             if _local(pred) == MEMBER_OF and subj in self.people and obj in groups:
                 name = groups[obj].name
                 if name not in self.people[subj].tribes:
                     self.people[subj].tribes.append(name)
+        for person in self.people.values():
+            for aff in g.objects(URIRef(person.iri), MRS.placeAffiliation):
+                place = g.value(aff, MRS.affiliatedPlace)
+                ext = self.site.extent(g.value(aff, MRS.affiliationExtent))
+                if place is None or not ext or not ext.get("earliest") or not ext.get("latest"):
+                    continue
+                self.residences.append({"person": person.iri, "place": str(place),
+                                        "lo": cal.jdn_from_iso_bound(ext["earliest"]), "hi": cal.jdn_from_iso_bound(ext["latest"]),
+                                        "label": self.site.vocab(g.value(aff, MRS.affiliationType)) or "",
+                                        "text": display.format_extent(ext, self.t)["text"] or ""})
         comps: dict[str, list[str]] = {}
         for iri in list(parent):
             comps.setdefault(find(iri), []).append(iri)

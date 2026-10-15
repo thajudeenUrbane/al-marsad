@@ -158,7 +158,7 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
                 pl[key] = lives.placement(lf, ev.lo, ev.hi)
         return pl
 
-    out_events, undrawn_events = [], 0
+    out_events, undrawn_events, ev_iri = [], 0, []
     ages_by_event: dict[str, list] = {}
     for a in c.ages:
         ages_by_event.setdefault(a.event, []).append(a)
@@ -187,9 +187,45 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
             if ev.parts:
                 undrawn_events += 1
             continue
+        ev_iri.append(ev.iri)
         out_events.append({"id": ev.pid, "n": ev.name, "kd": ev.kind, "u": link(ev.kind, ev),
                            "lo": ev.lo, "hi": ev.hi, "t": ev.text, "nt": ev.notes, "dis": ev.disputed,
                            "ag": ev.agents, "ps": ps, "oth": others})
+    # places: presences come only from dated events with a recorded place that the person took part
+    # in, and from place affiliations with a dated extent; nothing between them is assumed
+    place_index: dict[str, int] = {}
+    places_out: list[dict] = []
+
+    def place_of(iri: str) -> int:
+        if iri not in place_index:
+            ent = site.entities.get(iri)
+            place_index[iri] = len(places_out)
+            places_out.append({"n": ent.name if ent else site.label_of(iri), "u": link("place", ent) if ent else None})
+        return place_index[iri]
+
+    presences: dict[int, list] = {}
+    for ei, ev_out in enumerate(out_events):
+        ev = c.events[ev_iri[ei]]
+        if ev.lo is None or not ev.places:
+            continue
+        for ps in ev_out["ps"]:
+            if ps["kd"] == "age":
+                continue                                  # an age given at an event is not presence there
+            for pl_iri in ev.places:
+                row = [place_of(pl_iri), ev.lo, ev.hi, ei]
+                if row not in presences.setdefault(ps["p"], []):
+                    presences[ps["p"]].append(row)
+    for r in c.residences:
+        if r["person"] in index:
+            presences.setdefault(index[r["person"]], []).append([place_of(r["place"]), r["lo"], r["hi"], -1, r["label"], r["text"]])
+    undated_places: dict[int, list] = {}
+    for link_ in c.place_links:
+        if link_["person"] in index:
+            undated_places.setdefault(index[link_["person"]], []).append(
+                [place_of(link_["place"]), link_["label"], link_["status"]])
+    for i, p_out in enumerate(out_people):
+        p_out["pp"] = sorted(presences.get(i, []), key=lambda r: (r[1], r[0]))
+        p_out["pu"] = undated_places.get(i, [])
     kin_ties: dict[tuple, dict] = {}
     for tie in c.kin_ties:
         if tie["a"] not in index or tie["b"] not in index:
@@ -229,6 +265,7 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
     data = {
         "people": out_people, "events": out_events, "undated": undated,
         "kt": [kin_ties[k] for k in sorted(kin_ties)],
+        "places": places_out,
         "kin": {str(k): v for k, v in kin_labels.items()},
         "unitDays": {"lunar": cal.LUNAR_YEAR_DAYS, "solar": cal.SOLAR_YEAR_DAYS},
         "axis": axis, "sources": sources,
@@ -332,10 +369,11 @@ def legend_html(t: T) -> str:
         "gap": '<svg width="56" height="28" aria-hidden="true"><line x1="28" y1="2" x2="28" y2="26" class="lg-conn"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-halo"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-line"></line></svg>',
         "given": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line><path d="M22.5 7 L28 1.5 L33.5 7 L28 12.5 Z" class="lg-given"></path></svg>',
         "tie": '<svg width="56" height="28" aria-hidden="true"><path d="M16 4 H10 V24 H16" class="lg-tie"></path><line x1="7" y1="12" x2="13" y2="12" class="lg-tie-mark"></line><line x1="7" y1="15" x2="13" y2="15" class="lg-tie-mark"></line><line x1="18" y1="4" x2="54" y2="4" class="lg-line"></line><line x1="18" y1="24" x2="54" y2="24" class="lg-line"></line></svg>',
+        "place": '<svg width="56" height="28" aria-hidden="true"><line x1="2" y1="22" x2="54" y2="22" class="lg-line"></line><path d="M22 22 V6 H34 V22" class="lg-exc"></path></svg>',
         "review": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line rv"></line></svg>',
     }
     rows = "".join(f'<li>{sw[k]}<span>{esc(t("legend." + k))}</span></li>' for k in
-                   ("line", "range", "open", "conn", "node", "given", "gap", "tie", "review"))
+                   ("line", "range", "open", "conn", "node", "given", "gap", "tie", "place", "review"))
     return (f'<ul class="legend">{rows}</ul>'
             f'<p class="note">{esc(t("legend.hue"))}</p>'
             f'<p class="note">{esc(t("legend.calendar"))}</p>'
@@ -402,7 +440,8 @@ def render(data: dict, t: T, home: str | None) -> str:
 <section class="controls" aria-label="{attr(t("controls.label"))}" hidden>
 <fieldset class="seg"><legend>{esc(t("controls.align"))}</legend>
 <label><input type="radio" name="align" value="date" checked> {esc(t("controls.by_date"))}</label>
-<label><input type="radio" name="align" value="age"> {esc(t("controls.by_age"))}</label></fieldset>
+<label><input type="radio" name="align" value="age"> {esc(t("controls.by_age"))}</label>
+<label><input type="radio" name="align" value="place"> {esc(t("controls.by_place"))}</label></fieldset>
 <fieldset class="seg"><legend>{esc(t("controls.units"))}</legend>
 <label><input type="radio" name="units" value="lunar" checked> {esc(t("controls.lunar"))}</label>
 <label><input type="radio" name="units" value="solar"> {esc(t("controls.solar"))}</label></fieldset>

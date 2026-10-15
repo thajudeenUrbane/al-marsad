@@ -237,6 +237,14 @@ class Fixture(unittest.TestCase):
         gamma = next(ps for e in self.data["events"] for ps in e["ps"] if self.data["people"][ps["p"]]["n"] == "Test person Gamma")
         self.assertNotIn("lunar", gamma["pl"]["b"])                       # no birth, no age
 
+    def test_places_come_only_from_dated_event_places(self):
+        town = [pl["n"] for pl in self.data["places"]].index("Test town")
+        mig = [e["n"] for e in self.data["events"]].index("Test migration")
+        alpha, beta = self.by_name["Test person Alpha"], self.by_name["Test person Beta"]
+        self.assertEqual(alpha["pp"], [[town, J(622, 1, 1), J(622, 12, 31), mig]])   # the event's own range
+        self.assertEqual(beta["pp"], [])                                             # did not take part
+        self.assertEqual(beta["pu"], [[town, "migrated to", "proposed"]])            # undated: listed, not drawn
+
     def test_kinship_ties_keep_direction_status_and_source(self):
         names = [p["n"] for p in self.data["people"]]
         ties = [(names[k["a"]], names[k["b"]], k["kd"]) for k in self.data["kt"]]

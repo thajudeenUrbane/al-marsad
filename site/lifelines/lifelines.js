@@ -40,7 +40,7 @@
   controls.hidden = false;
   stage.hidden = false;
 
-  var P = D.people, E = D.events, KT = D.kt || [];
+  var P = D.people, E = D.events, KT = D.kt || [], PL = D.places || [];
   var hasTribes = P.some(function (p) { return p.tr && p.tr.length; });
   var hasKin = P.some(function (p) { return p.kin >= 0; });
   var hasTabaqa = P.some(function (p) { return p.tb; });
@@ -56,7 +56,7 @@
   // ------------------------------------------------------------ state <-> URL
   function readHash() {
     var q = new URLSearchParams(location.hash.replace(/^#/, ""));
-    if (q.get("align") === "age") { state.align = "age"; }
+    if (q.get("align") === "age" || q.get("align") === "place") { state.align = q.get("align"); }
     if (q.get("units") === "solar") { state.units = "solar"; }
     if (["birth", "tabaqa", "kin", "tribe"].indexOf(q.get("order")) >= 0) { state.order = q.get("order"); }
     if (q.get("f")) { state.filter = q.get("f"); }
@@ -69,6 +69,7 @@
     if (yn >= 1 && yn <= 120) { state.yn = yn; }
     m = state.align === "age" ? 1 : 0;
   }
+  var _alignChecked = null;
   function writeHash() {
     var q = new URLSearchParams();
     Object.keys(DEFAULTS).forEach(function (k) {
@@ -492,6 +493,7 @@
   }
 
   function draw() {
+    if (state.align === "place") { drawPlace(); return; }
     var width = Math.max(mix(L.wD, L.wA), scroller.clientWidth - namesWidth() - 2);
     var parts = [];
     parts.push('<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
@@ -696,6 +698,87 @@
     restoreFocus(focusKey);
   }
 
+  // ------------------------------------------------------------ by place (M6)
+  // Lanes: one per place with a dated presence, in order of the earliest one, then a neutral lane
+  // "place not recorded". A presence is a dated event with a recorded place that the person took
+  // part in (or a dated place affiliation): the line steps perpendicularly into that lane for the
+  // event's date range (some moment within it) and back. Nothing between presences is assumed.
+  var TR = 5, LANE_HEAD = 22, LANE_PAD = 10, LANE_GAP = 14;
+  function placeLayout() {
+    var ids = L.ids.filter(function (i) { return !life(P[i]).ages_only; });
+    var lanes = {}, order = [];
+    ids.forEach(function (i) {
+      (P[i].pp || []).forEach(function (r) {
+        if (!lanes[r[0]]) { lanes[r[0]] = { pl: r[0], first: r[1], ids: [] }; order.push(r[0]); }
+        lanes[r[0]].first = Math.min(lanes[r[0]].first, r[1]);
+        if (lanes[r[0]].ids.indexOf(i) < 0) { lanes[r[0]].ids.push(i); }
+      });
+    });
+    var list = order.map(function (k) { return lanes[k]; }).sort(function (a, b) {
+      return a.first - b.first || (PL[a.pl].n < PL[b.pl].n ? -1 : 1);
+    });
+    list.push({ pl: -1, ids: ids.slice() });
+    var y = 10, slot = {};
+    list.forEach(function (ln) {
+      ln.ids.sort(cmp);
+      ln.top = y;
+      ln.h = LANE_HEAD + Math.max(1, ln.ids.length) * TR + LANE_PAD;
+      slot[ln.pl] = {};
+      ln.ids.forEach(function (i, k) { slot[ln.pl][i] = ln.top + LANE_HEAD + k * TR; });
+      y += ln.h + LANE_GAP;
+    });
+    L.place = { lanes: list, slot: slot, height: y + 10, ids: ids };
+  }
+  function drawPlace() {
+    m = 0;
+    placeLayout();
+    var Q = L.place, width = Math.max(L.wD, scroller.clientWidth - namesWidth() - 2), parts = [];
+    parts.push('<defs><linearGradient id="fadeL" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="fade-0"/><stop offset="1" class="fade-1"/></linearGradient>' +
+      '<linearGradient id="fadeR" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="fade-1"/><stop offset="1" class="fade-0"/></linearGradient></defs>');
+    var savedH = L.height;
+    L.height = Q.height;
+    parts.push(gridSVG(width));
+    L.height = savedH;
+    Q.lanes.forEach(function (ln) {
+      parts.push('<rect class="lane' + (ln.pl < 0 ? " lane-none" : "") + '" x="0" y="' + ln.top + '" width="' + width.toFixed(0) + '" height="' + ln.h + '"/>');
+    });
+    var out = [];
+    Q.ids.forEach(function (i) {
+      var p = P[i], lf = life(p), y0 = Q.slot[-1][i];
+      var x0 = lf.b ? xD(lf.b[0]) : xD(lf.s), x1 = lf.d ? xD(lf.d[1]) : xD(lf.e);
+      var g = ['<g class="pl pp' + (isReviewOnly(p) ? " rv" : "") + '" data-p="' + i + '"><title>' + h(p.n) + "</title>"];
+      g.push('<line class="pseg" x1="' + x0.toFixed(1) + '" y1="' + y0 + '" x2="' + Math.max(x1, x0 + 2).toFixed(1) + '" y2="' + y0 + '"/>');
+      if (lf.open_start) { g.push('<rect x="' + (x0 - FADE).toFixed(1) + '" y="' + (y0 - 0.8) + '" width="' + FADE + '" height="1.6" fill="url(#fadeL)"/>'); }
+      if (lf.open_end) { g.push('<rect x="' + x1.toFixed(1) + '" y="' + (y0 - 0.8) + '" width="' + FADE + '" height="1.6" fill="url(#fadeR)"/>'); }
+      (p.pp || []).forEach(function (r) {
+        var ya = Q.slot[r[0]][i], a = xD(r[1]), b = Math.max(xD(r[2]), a + 3);
+        var tip = p.n + " · " + PL[r[0]].n + " · " + (r[3] >= 0 ? E[r[3]].n + " (" + E[r[3]].t + ")" : (r[5] || ""));
+        var evAttr = r[3] >= 0 ? ' data-ev="' + r[3] + '"' : "";
+        g.push('<path class="step" d="M' + a.toFixed(1) + " " + y0 + " V" + ya + " M" + b.toFixed(1) + " " + ya + " V" + y0 + '"/>');
+        g.push('<line class="' + (r[3] >= 0 ? "exc" : "res") + '" x1="' + a.toFixed(1) + '" y1="' + ya + '" x2="' + b.toFixed(1) + '" y2="' + ya + '"' +
+          evAttr + "><title>" + h(tip) + "</title></line>");
+      });
+      g.push('<line class="lhit" x1="' + x0.toFixed(1) + '" y1="' + y0 + '" x2="' + Math.max(x1, x0 + 2).toFixed(1) + '" y2="' + y0 + '" style="stroke-width:6"/>');
+      g.push("</g>");
+      out.push(g.join(""));
+    });
+    parts.push('<g class="lines">' + out.join("") + "</g>");
+    var svg = '<svg class="plot m-place" xmlns="' + NS + '" width="' + width.toFixed(0) + '" height="' + Q.height +
+      '" role="group" aria-label="' + h(t("js.place_aria")) + '">' + parts.join("") + "</svg>";
+    var names = Q.lanes.map(function (ln) {
+      var label = ln.pl < 0 ? t("js.lane_none", { n: ln.ids.length }) : t("js.lane", { name: PL[ln.pl].n, n: ln.ids.length });
+      return '<li class="gh lane-name" style="block-size:' + (ln.h + LANE_GAP) + 'px;align-items:flex-start;padding-block-start:4px"><span>' + hx(label) + "</span></li>";
+    }).join("");
+    var sx = scroller.scrollLeft, sy = scroller.scrollTop;
+    scroller.innerHTML = '<div class="ax-row" style="inline-size:' + (width + namesWidth()).toFixed(0) + 'px"><div class="corner"><span>' +
+      h(t("js.axis_ce")) + "</span><span>" + h(t("js.axis_ah")) + "</span></div>" + axisSVG(width) +
+      '</div><div class="body-row" style="inline-size:' + (width + namesWidth()).toFixed(0) + 'px"><ol class="names" aria-label="' +
+      h(t("js.lanes_aria")) + '">' + names + "</ol>" + svg + "</div>";
+    scroller.scrollLeft = sx;
+    scroller.scrollTop = sy;
+    applySelection();
+  }
+
   function focusedKey() {
     var a = document.activeElement;
     if (!a || !scroller.contains(a)) { return null; }
@@ -785,6 +868,16 @@
       out.push("<dt>" + h(t("js.other_candidates")) + "</dt><dd>" + p.oc.map(function (q) {
         return /^Q\d+$/.test(q) ? '<a href="https://www.wikidata.org/wiki/' + q + '">' + q + "</a>" : h(q);
       }).join(", ") + "</dd>");
+    }
+    if ((p.pp || []).length || (p.pu || []).length) {
+      out.push("<dt>" + h(t("js.places_dated")) + "</dt><dd>" + ((p.pp || []).length ? (p.pp || []).map(function (r) {
+        return hx(PL[r[0]].n) + " — " + (r[3] >= 0 ? hx(E[r[3]].n) + " (" + hx(E[r[3]].t) + ")" : hx((r[4] || "") + " " + (r[5] || "")));
+      }).join("<br>") : h(t("js.none_short"))) + "</dd>");
+      if ((p.pu || []).length) {
+        out.push("<dt>" + h(t("js.places_undated")) + "</dt><dd>" + p.pu.map(function (r) {
+          return hx(r[1]) + " " + hx(PL[r[0]].n) + " · " + h(statusText(r[2]));
+        }).join("<br>") + "</dd>");
+      }
     }
     out.push("</dl>");
     var evs = [];
@@ -966,7 +1059,12 @@
       txt += " · " + t(L.ref.type === "e" ? "js.filter_desc_event" : "js.filter_desc_person", { name: nm });
     }
     if (L.M) { txt += " · " + t("js.orient_moment", { label: L.M.label }); }
-    txt += " · " + t(state.align === "age" ? "js.mode_age" : "js.mode_date", { unit: t("units." + state.units) });
+    if (state.align === "place") {
+      var withPlace = L.ids.filter(function (i) { return (P[i].pp || []).length; }).length;
+      txt += " · " + t("js.mode_place", { n: withPlace });
+    } else {
+      txt += " · " + t(state.align === "age" ? "js.mode_age" : "js.mode_date", { unit: t("units." + state.units) });
+    }
     countEl.textContent = txt;
     document.querySelector('[data-act="clear-filter"]').hidden = !state.filter;
   }
@@ -1101,7 +1199,15 @@
   });
   controls.addEventListener("change", function (e) {
     var el = e.target;
-    if (el.name === "align") { state.align = el.value; writeHash(); orient(); morphTo(el.value === "age" ? 1 : 0); return; }
+    if (el.name === "align") {
+      var was = state.align;
+      state.align = el.value;
+      writeHash();
+      orient();
+      if (el.value === "place" || was === "place") { m = el.value === "age" ? 1 : 0; layout(); draw(); syncTable(); return; }
+      morphTo(el.value === "age" ? 1 : 0);
+      return;
+    }
     if (el.name === "units") { state.units = el.value; refresh(true); return; }
     if (el.name === "order") { state.order = el.value; refresh(true); return; }
     if (el.name === "review") { state.review = el.checked; refresh(false); return; }

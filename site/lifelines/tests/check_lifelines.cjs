@@ -112,6 +112,16 @@ async function open(browser, url, vp, touch) {
   await page.locator('label:has(input[name="align"][value="date"])').click();
   await page.waitForTimeout(900);
   check(await page.locator("svg.plot.m-age").count() === 0, "back to By date");
+  await page.locator('label:has(input[name="align"][value="place"])').click();
+  await page.waitForTimeout(150);
+  const withPlace = data.people.filter((p) => p.v.b && !p.v.b.ages_only && (p.pp || []).length).length;
+  check(await page.locator("svg.plot.m-place").count() === 1, "By place draws place lanes");
+  check(await page.locator("svg.plot.m-place .lane-none").count() === 1, "By place keeps a 'place not recorded' lane");
+  check(await page.locator("svg.plot.m-place g.pp").count() === data.people.filter((p) => p.v.b && !p.v.b.ages_only).length,
+    "By place: every dated line is in the neutral lane");
+  check(await page.locator("svg.plot.m-place .exc, svg.plot.m-place .res").count() >= withPlace, `By place: a step into a lane for each dated presence (${withPlace} people)`);
+  await page.locator('label:has(input[name="align"][value="date"])').click();
+  await page.waitForTimeout(150);
   for (const v of ["tabaqa", "kin", "birth"]) {
     await page.selectOption('select[name="order"]', v);
     await page.waitForTimeout(100);
