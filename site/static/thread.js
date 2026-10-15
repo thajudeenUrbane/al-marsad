@@ -324,8 +324,10 @@
       close(false);
     }
   });
-  var initial = fromHash();
-  if (initial) {
-    load().then(function () { start(byKey[initial.key], "replace"); }, failed);
+  function openFromHash() {
+    var wanted = fromHash();
+    if (wanted) load().then(function () { start(byKey[wanted.key], "replace"); }, failed);
   }
+  window.addEventListener("hashchange", openFromHash);   // a #thread address typed or linked on this page
+  openFromHash();
 })();
