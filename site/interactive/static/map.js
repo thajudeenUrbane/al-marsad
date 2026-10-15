@@ -201,6 +201,7 @@
     /* keyboard focus selects; a pointer selects on its first click or tap and opens the page on
        the second (a click also focuses the link, so focus from a pointer is ignored) */
     var pointer = false;
+    document.addEventListener("keydown", function () { pointer = false; }, true);
     function wire(a, id) {
       a.addEventListener("pointerdown", function () { pointer = true; });
       a.addEventListener("focus", function () { if (!pointer) select(id); });

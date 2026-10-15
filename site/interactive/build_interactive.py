@@ -308,17 +308,20 @@ def timeline_page(site: Site, S: Strings, P: Pieces, R: Renderer, tl: dict) -> t
 def focus_index(site: Site, items: list[dict], spans: list[dict], tl: dict, kinds) -> list[dict]:
     """Who and where the drawn items link to, with how many linked items are not placed."""
     placed_entities = {s["entity"].iri for s in spans if s["role"] == "event"}
+    by_id = {extract.entity_id(e): e for e in site.entities.values()}
+    at_place: dict[str, set] = {}
+    for y in site.by_kind["event"] + site.by_kind["story"]:
+        for p in y.data.get("places") or []:
+            at_place.setdefault(p, set()).add(y.iri)
     by = {}
     for it in items:
         for x in set(it["linked"]) | set(it["places"]):
             by.setdefault(x, []).append(it["id"])
     out = []
     for x, ids in by.items():
-        kind, pid = x.split("/", 1)
-        if kind not in kinds:
-            continue
-        e = next((y for y in site.by_kind[kind] if y.pid == pid), None)
-        if e is None:
+        kind = x.split("/", 1)[0]
+        e = by_id.get(x)
+        if kind not in kinds or e is None:
             continue
         linked_events = set()
         for c in site.claims.get(e.iri, []):
@@ -327,8 +330,7 @@ def focus_index(site: Site, items: list[dict], spans: list[dict], tl: dict, kind
             if oe is not None and oe.kind in ("event", "story"):
                 linked_events.add(oe.iri)
         if kind == "place":
-            linked_events |= {y.iri for y in site.by_kind["event"] + site.by_kind["story"]
-                              if e.iri in (y.data.get("places") or [])}
+            linked_events |= at_place.get(e.iri, set())
         unplaced = len([i for i in linked_events if i not in placed_entities])
         out.append({"id": x, "kind": kind, "name": e.name, "items": sorted(set(ids)), "unplaced": unplaced})
     order = {k: i for i, k in enumerate(kinds)}
@@ -620,16 +622,16 @@ def map_page(site: Site, S: Strings, P: Pieces, R: Renderer, tl: dict, tl_items:
 
 
 def map_focus(site: Site, marks: list[dict]) -> list[dict]:
+    by_id = {extract.entity_id(e): e for e in site.entities.values()}
     by: dict[str, set] = {}
     for m in marks:
         for x in m["linked"]:
             by.setdefault(x, set()).add(m["id"])
     out = []
     for x, ids in by.items():
-        kind, pid = x.split("/", 1)
-        e = next((y for y in site.by_kind[kind] if y.pid == pid), None)
+        e = by_id.get(x)
         if e is not None:
-            out.append({"id": x, "kind": kind, "name": e.name, "items": sorted(ids)})
+            out.append({"id": x, "kind": e.kind, "name": e.name, "items": sorted(ids)})
     order = {"person": 0, "group": 1}
     out.sort(key=lambda f: (order.get(f["kind"], 9), display.sort_key(f["name"]), f["id"]))
     return out
