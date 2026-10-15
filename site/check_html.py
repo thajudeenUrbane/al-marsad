@@ -18,6 +18,14 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import experiments  # noqa: E402
+
+# The copied prototypes (experiments/<folder>/, site/experiments.py) keep their own
+# structure: they are checked for well-formed tags, lang, title, unique ids, working links
+# and the licence footer, but not for the reader pages' layout rules below.
+LAYOUT_RULES = ("expected one <h1>", "heading level jumps", "landmark", "the first link must be a skip link")
+
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param",
         "source", "track", "wbr"}
 LICENCE_HOSTS = ("LICENSING.md", "creativecommons.org/licenses/by-sa/4.0", "gnu.org/licenses/agpl-3.0")
@@ -159,6 +167,8 @@ def check_page(root: Path, path: Path, all_ids: dict[str, set[str]]) -> list[str
     for needle in LICENCE_HOSTS:
         if not any(needle in h for h in p.footer_hrefs):
             errs.append(f"the footer has no licence link to {needle}")
+    if experiments.is_copy(rel):
+        errs = [e for e in errs if not any(r in e for r in LAYOUT_RULES)]
     return [f"{rel}: {e}" for e in errs]
 
 

@@ -278,6 +278,8 @@ class BuiltSearch(unittest.TestCase):
             if rel == "search/index.html":
                 self.assertNotIn('class="site-search"', src)
                 continue
+            if rel.startswith("experiments/") and rel != "experiments/index.html":
+                continue   # the copied prototypes keep their own pages (site/experiments.py)
             depth = rel.count("/")
             self.assertIn(f'<form class="site-search" role="search" action="{"../" * depth}search/" method="get">', src, rel)
 
@@ -286,7 +288,7 @@ class BuiltSearch(unittest.TestCase):
         self.assertEqual(problems, [])
         total = {rel: t for t, rel, _, _ in results}["search/index.html"]
         parts = [self.out / "search" / "index.html", self.out / "assets" / "site.css",
-                 self.out / "assets" / "search.js", self.out / "search.json"]
+                 self.out / "assets" / "search.js", self.out / "search.json", self.out / "assets" / "enhance.js"]
         self.assertEqual(total, sum(p.stat().st_size for p in parts))
         self.assertLess(total, check_budget.LIMIT)
 

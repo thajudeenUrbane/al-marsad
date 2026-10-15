@@ -58,9 +58,10 @@ class Glossary:
         self.entries: dict[str, dict] = {}
         for e in data["defined"]:
             self._add(e["term"], extra=e.get("forms", []), definition=e["definition"],
-                      arabic=e.get("arabic"), source=e["source"])
+                      arabic=e.get("arabic"), source=e["source"], plain=e.get("plain"),
+                      plain_source=e.get("plain_source"))
         for e in data.get("needed", []):
-            self._add(e["term"], extra=e.get("forms", []))
+            self._add(e["term"], extra=e.get("forms", []), plain=e.get("plain"), plain_source=e.get("plain_source"))
         for label in vocabulary_labels:
             for term in candidate_terms(label):
                 if not self._matches_existing(term):
@@ -89,13 +90,20 @@ class Glossary:
         alts = set(self._alts(term, []))
         return any(alts & set(e["alts"]) for e in self.entries.values())
 
-    def _add(self, term, extra=(), definition=None, arabic=None, source=None):
+    def _add(self, term, extra=(), definition=None, arabic=None, source=None, plain=None, plain_source=None):
         alts = self._alts(term, list(extra))
         key = slug(alts[0])
         if key in self.entries:
             return
+        if bool(plain) != bool(plain_source):
+            raise ValueError(f"glossary term {term!r}: a plain wording needs its source, and a source its wording")
         self.entries[key] = {"key": key, "term": term, "alts": alts, "definition": definition,
-                             "arabic": arabic, "source": source}
+                             "arabic": arabic, "source": source, "plain": plain, "plain_source": plain_source}
+
+    def plain_for(self, key: str) -> str | None:
+        """The plain wording recorded for a term (for the plain-words switch), or None."""
+        e = self.entries.get(key)
+        return e["plain"] if e else None
 
     def listed(self) -> tuple[list[dict], list[dict]]:
         """(defined, needed) entries that occur in graph labels or were linked on a page."""

@@ -312,14 +312,38 @@ def mark_arabic(escaped: str) -> str:
     return out.replace(PBUH_SIGN, f'<span class="pbuh" lang="ar" dir="rtl">{PBUH_SIGN}</span>')
 
 
-def link_terms(text: str, matchers, href_for, linked: set | None = None, once: bool = False) -> tuple[str, set]:
+# Plain words (maintainer answer B11): an on/off switch, JavaScript only, for readers who
+# want plain English instead of Arabic terms. The pages are complete and unchanged without
+# it. link_terms marks two things for it, and the switch (static/enhance.js) acts only on
+# these marks:
+#   - a term in brackets right after the words it names, "Generation (ṭabaqa)" or "the
+#     Trench (al-Khandaq)": the brackets are wrapped in <span class="t-gloss">, which plain
+#     words hides, since the plain words are already there;
+#   - any other term whose glossary entry records a plain wording (with its source, like a
+#     definition) gets data-plain="..." with that wording, which plain words shows instead.
+#     A term joined to another word (al-Khandaq, Isra wal-Mi'raj) or already followed by
+#     its gloss in brackets is left as written, so no sentence is broken.
+_GLOSS_OPEN = re.compile(r"\s\((?:[Aa]l-)?$")
+_JOINED_BEFORE = "-'’ʼʿʾ"
+
+
+def plain_form(wording: str, original: str) -> str:
+    """The plain wording, capitalised when the term it replaces is."""
+    if original[:1].isupper() and wording[:1].islower():
+        return wording[0].upper() + wording[1:]
+    return wording
+
+
+def link_terms(text: str, matchers, href_for, linked: set | None = None, once: bool = False,
+               plain_for=None) -> tuple[str, set]:
     """Escape `text` and wrap glossary terms in links. Returns (html, keys_linked_here).
 
     `matchers`: list of (compiled regex on FOLDED text, term_key), longest first.
     `href_for(term_key)` gives the glossary URL. Terms are matched on the folded
     text, so 'sahabi' finds 'ṣaḥābī', and the original characters are wrapped.
     With once=True a term already in `linked` (the page's set) is not linked again;
-    the set is updated in place.
+    the set is updated in place. `plain_for(term_key)` gives the plain wording the
+    glossary records for a term, or None (see "Plain words" above).
     """
     folded, idx = fold_with_map(text)
     text = unicodedata.normalize("NFC", text)
@@ -334,18 +358,39 @@ def link_terms(text: str, matchers, href_for, linked: set | None = None, once: b
                 taken[i] = True
             spans.append((idx[m.start()], idx[m.end() - 1] + 1, key))
     spans.sort()
+    esc = lambda s: mark_arabic(html.escape(s, quote=False))
     out, pos = [], 0
     for a, b, key in spans:
-        if once and linked is not None and key in linked:
+        if a < pos:
             continue
-        out.append(mark_arabic(html.escape(text[pos:a], quote=False)))
-        out.append(f'<a class="term" href="{html.escape(href_for(key))}">'
-                   f'{mark_arabic(html.escape(text[a:b], quote=False))}</a>')
-        pos = b
-        here.add(key)
-        if once and linked is not None:
-            linked.add(key)
-    out.append(mark_arabic(html.escape(text[pos:], quote=False)))
+        linking = not (once and linked is not None and key in linked)
+        g = _GLOSS_OPEN.search(text, pos, a) if text[b:b + 1] == ")" else None
+        gloss = g is not None and g.end() == a and re.search(r"\w", text[:g.start()]) is not None
+        wording = None if gloss or plain_for is None else plain_for(key)
+        joined = a > 0 and text[a - 1] in _JOINED_BEFORE
+        if wording and (joined or re.match(r"\s*\(", text[b:])):
+            wording = None
+        if not linking and not gloss and not wording:
+            continue
+        attr = f' data-plain="{html.escape(plain_form(wording, text[a:b]))}"' if wording else ""
+        if linking:
+            term = f'<a class="term" href="{html.escape(href_for(key))}"{attr}>{esc(text[a:b])}</a>'
+            here.add(key)
+            if once and linked is not None:
+                linked.add(key)
+        elif attr:
+            term = f'<span class="term-text"{attr}>{esc(text[a:b])}</span>'
+        else:
+            term = esc(text[a:b])
+        if gloss:
+            out.append(esc(text[pos:g.start()]))
+            out.append(f'<span class="t-gloss">{esc(text[g.start():a])}{term})</span>')
+            pos = b + 1
+        else:
+            out.append(esc(text[pos:a]))
+            out.append(term)
+            pos = b
+    out.append(esc(text[pos:]))
     return "".join(out), here
 
 

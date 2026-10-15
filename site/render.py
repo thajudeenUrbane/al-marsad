@@ -10,8 +10,11 @@ from pathlib import Path
 from string import Template
 
 import display
+import experiments
+import hub
 from glossary import Glossary
 from model import KINDS, Claim, Entity, Lit, Site
+from thread import FOCUS_KINDS
 
 NAV = (("people", "person"), ("events", "event"), ("places", "place"),
        ("groups", "group"), ("stories", "story"))
@@ -64,11 +67,13 @@ class Ctx:
 
 
 class Renderer:
-    def __init__(self, site: Site, glossary: Glossary, i18n: I18n, templates: str | Path):
+    def __init__(self, site: Site, glossary: Glossary, i18n: I18n, templates: str | Path,
+                 external: dict[str, list[dict]] | None = None):
         self.site, self.glossary, self.i = site, glossary, i18n
         self.tpl_dir = Path(templates)
         self._tpl: dict[str, str] = {}
         self.t = i18n.t
+        self.external = external or {}   # possible matches elsewhere (site/external.py), by IRI
 
     # ------------------------------------------------------------------ templates
     def tpl(self, name: str, **vars) -> str:
@@ -91,7 +96,8 @@ class Renderer:
         if not verbatim:
             s = display.honour(s)
         out, keys = display.link_terms(s, self.glossary.matchers,
-                                       lambda k: f"{ctx.base}glossary/#term-{k}", ctx.seen, once)
+                                       lambda k: f"{ctx.base}glossary/#term-{k}", ctx.seen, once,
+                                       plain_for=self.glossary.plain_for)
         self.glossary.used |= keys
         return out
 
@@ -165,8 +171,12 @@ class Renderer:
                         description=self.attr(description), base=ctx.base, body_class=body_class,
                         nav="\n".join(nav), breadcrumb=breadcrumb, body=body,
                         search_box=self.tpl("search_box", base=ctx.base) if search_box else "",
-                        scripts=scripts,
-                        url_licensing=URL_LICENSING, url_cc_by_sa=URL_CC_BY_SA, url_agpl=URL_AGPL)
+                        scripts=scripts, footer=self.footer_html())
+
+    def footer_html(self, footer_class: str = "site-footer") -> str:
+        """The licence footer: every page ends with it, the prototype copies too."""
+        return self.tpl("footer", footer_class=footer_class, url_licensing=URL_LICENSING,
+                        url_cc_by_sa=URL_CC_BY_SA, url_agpl=URL_AGPL)
 
     def page_title(self, name: str) -> str:
         return f'{name} {self.t("title.sep")} {self.t("site.name")}'
@@ -261,7 +271,7 @@ class Renderer:
             first = False
             lis = "\n".join(self.claim_li(ctx, c, e.iri) for c in items)
             out.append(f'<section class="claims" id="s-{key}" aria-labelledby="h-{key}">'
-                       f'<h2 id="h-{key}">{h}</h2>{legend}<ul class="claim-list">\n{lis}\n</ul></section>')
+                       f'<h3 id="h-{key}">{h}</h3>{legend}<ul class="claim-list">\n{lis}\n</ul></section>')
         return "\n".join(out), counts
 
     def counts_row(self, counts: dict[str, int], kind: str) -> str:
@@ -295,7 +305,7 @@ class Renderer:
                     pos = f'<ul class="positions">{"".join(pl)}</ul>'
                 lis.append(f'<li><p class="question">{q}</p><p class="claim-meta">{" &middot; ".join(meta)}</p>{pos}</li>')
             out.append(f'<section class="disputes" id="s-disputes" aria-labelledby="h-disputes">'
-                       f'<h2 id="h-disputes">{html.escape(self.t("section.disputes"))}</h2><ul>{"".join(lis)}</ul></section>')
+                       f'<h3 id="h-disputes">{html.escape(self.t("section.disputes"))}</h3><ul>{"".join(lis)}</ul></section>')
         gaps = e.data.get("gaps") or []
         if gaps:
             lis = []
@@ -305,7 +315,7 @@ class Renderer:
                          if g["cause"] else "")
                 lis.append(f"<li>{desc}{cause}</li>")
             out.append(f'<section class="gaps" id="s-gaps" aria-labelledby="h-gaps">'
-                       f'<h2 id="h-gaps">{html.escape(self.t("section.gaps"))}</h2><ul>{"".join(lis)}</ul></section>')
+                       f'<h3 id="h-gaps">{html.escape(self.t("section.gaps"))}</h3><ul>{"".join(lis)}</ul></section>')
         return "\n".join(out)
 
     # ------------------------------------------------------------------ facts (top of page)
@@ -477,9 +487,48 @@ class Renderer:
         if claim_iris:
             lis = "".join(f'<li><code class="iri">{html.escape(i, quote=False)}</code></li>' for i in claim_iris)
             out.append(f'<h4>{html.escape(self.t("details.claim_iris"))}</h4><ul class="plain iri-list">{lis}</ul>')
-        return "\n".join(out)
+        out.append(self.external_matches(e))
+        return "\n".join(p for p in out if p)
+
+    def external_matches(self, e: Entity) -> str:
+        """Possible matches in other databases (site/external.py): each one a proposal shown
+        with the status its row records, never a statement that it is the same person."""
+        rows = self.external.get(e.iri)
+        if not rows:
+            return ""
+        lis = []
+        for r in rows:
+            system = display.t_opt(self.t, f"external.system.{r['system']}", r["system"])
+            name = html.escape(self.t("external.id", system=system, id=r["external_id"]), quote=False)
+            if r["url"]:
+                name = f'<a href="{self.attr(r["url"])}" rel="external noreferrer">{name}</a>'
+            bits = [name]
+            if r["external_label"]:
+                bits.append(self.esc(self.t("external.label", value=r["external_label"])))
+            if r["status"] == "proposed":
+                word = self.t("external.proposed")
+            else:
+                word = self.t("status.label", value=display.t_opt(self.t, f"status.{r['status']}", r["status"] or self.t("status.none")))
+            bits.append(f'<span class="status status-{self.attr(r["status"] or "none")}">{html.escape(word)}</span>')
+            notes = []
+            if r["evidence"]:
+                notes.append(self.t("external.evidence", value=r["evidence"]))
+            if r["confidence"]:
+                notes.append(self.t("external.confidence", value=r["confidence"]))
+            if notes:
+                bits.append(f'<span class="note">{self.esc(" ".join(notes))}</span>')
+            lis.append(f'<li>{" ".join(bits)}</li>')
+        return (f'<h3>{html.escape(self.t("external.heading"))}</h3><p class="note">{html.escape(self.t("external.lead"))}</p>'
+                f'<ul class="plain external-list">{"".join(lis)}</ul>')
 
     # ------------------------------------------------------------------ entity page
+    def thread_root(self, ctx: Ctx, e: Entity) -> str:
+        """The "follow the thread" switch: hidden, and so absent, without JavaScript;
+        static/thread.js shows it and draws the thread from thread.json."""
+        if e.kind not in FOCUS_KINDS:
+            return ""
+        return self.tpl("thread_root", base=ctx.base, focus=f"{e.kind}/{e.pid}")
+
     def entity_page(self, e: Entity) -> str:
         ctx = Ctx(f"{e.kind}/{e.pid}/")
         sections, counts = self.sections(ctx, e)
@@ -502,7 +551,7 @@ class Renderer:
             facts = self.facts(ctx, e, counts)
         h1 = self.name_h1(e) + self.honorific_html(e)
         type_label = self.t(f"type.{e.subtype or e.kind}")
-        body_parts = [sections]
+        story_html = ""
         if e.kind == "story":
             prose = e.data.get("prose")
             if prose:
@@ -513,21 +562,28 @@ class Renderer:
             story_html = (f'<section class="story-text" aria-labelledby="h-story">'
                           f'<h2 id="h-story">{html.escape(self.t("story.text_heading"))}</h2>'
                           f'<div class="prose">{inner}</div></section>')
-            body_parts = [story_html, sections]
-        body_parts.append(self.open_questions(ctx, e))
+        evidence = "\n".join(p for p in (sections, self.open_questions(ctx, e)) if p)
+        # The evidence: one anchor (#evidence) that the Study and Research doors link to, so
+        # those readers land on the claims first while Discover readers start at the top.
+        lead_key = "evidence.lead" if evidence else "evidence.none"
+        evidence_lead = self.i.th(lead_key, name=self.esc(e.name))
         desc = self.t("meta.entity", type=type_label, coverage=display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage or ""))
+        thread = self.thread_root(ctx, e)
         content = self.tpl("entity", kind=e.kind, extra_class=extra, type_label=html.escape(type_label), h1=h1,
-                           banner=banner, coverage=self.coverage_text(e), facts=facts,
-                           sections="\n".join(p for p in body_parts if p), details=self.details(ctx, e))
+                           banner=banner, coverage=self.coverage_text(e), facts=facts, thread=thread,
+                           story=story_html, evidence_lead=evidence_lead, sections=evidence,
+                           details=self.details(ctx, e))
         kind_dir = e.kind
         return self.shell(ctx, self.page_title(e.name), content,
                           body_class=f"page-entity kind-{e.kind}" + (" is-prophet" if e.prophet else ""),
                           current=KIND_NAV[e.kind],
                           crumbs=[(self.t(f"nav.{KIND_NAV[e.kind]}"), f"{kind_dir}/"), (e.name, None)],
-                          description=desc)
+                          description=desc,
+                          scripts=f'<script src="{ctx.base}assets/thread.js" defer></script>' if thread else "")
 
     # ------------------------------------------------------------------ index pages
-    def index_row(self, ctx: Ctx, e: Entity, numbered: bool = False) -> str:
+    def index_row(self, ctx: Ctx, e: Entity, numbered: bool = False, anchor: str = "") -> str:
+        """One line of an A-Z list. anchor="evidence" opens the page at its evidence."""
         meta = []
         d = e.data
         if e.kind == "event":
@@ -544,7 +600,8 @@ class Renderer:
         ar = self.arabic_names(e.arabic)
         m = f' <span class="meta">{" &middot; ".join(meta)}</span>' if meta else ""
         value = f' value="{e.data["number"]}"' if numbered and e.data.get("number") is not None else ""
-        return (f'<li{value}><a href="{ctx.base}{e.kind}/{e.pid}/">{self.esc(e.name)}</a>{ar}{m} '
+        frag = f"#{anchor}" if anchor else ""
+        return (f'<li{value}><a href="{ctx.base}{e.kind}/{e.pid}/{frag}">{self.esc(e.name)}</a>{ar}{m} '
                 f'<span class="cov"><span class="sr-only">{html.escape(self.t("coverage.sr"))} </span>{html.escape(cov)}</span></li>')
 
     def coverage_summary(self, ents: list[Entity]) -> str:
@@ -619,15 +676,9 @@ class Renderer:
         return "".join(out)
 
     # ------------------------------------------------------------------ home
-    def home_page(self) -> str:
-        ctx = Ctx("")
+    def checked_html(self) -> str:
+        """How far the record has been checked, in numbers read from the graph."""
         s = self.site
-        def link(kind: str) -> str:
-            n = len(s.by_kind[kind])
-            return f'<a href="{ctx.base}{kind}/">{html.escape(self.i.tn("home.count." + kind, n))}</a>'
-        explore = self.i.th("home.explore", people=link("person"), events=link("event"),
-                            places=link("place"), groups=link("group"))
-        story_door = self.i.th("home.story_door", stories=link("story"))
         sc, cc = s.status_counts(), s.coverage_counts()
         total = sum(sc.values())
         parts = [self.i.th("home.status_claims", total=total,
@@ -640,12 +691,231 @@ class Renderer:
         status = "".join(f"<p>{p}</p>" for p in parts)
         if not sc.get("accepted") and not cc.get("reviewed") and not cc.get("verified"):
             status += f'<p><strong>{html.escape(self.t("home.status_none"))}</strong></p>'
+        return status
+
+    def view_link(self, ctx: Ctx, folder: str) -> str:
+        return f'<a href="{ctx.base}{folder}/">{html.escape(self.t(f"hub.view.{folder}.name"))}</a>'
+
+    def door_views(self, ctx: Ctx, door: str, views: list[str]) -> str:
+        """The views built for one door (site/hub.py), as a short list; empty if none is built."""
+        mine = [v for v in views if hub.door_of(v) == door]
+        if not mine:
+            return ""
+        lis = "".join(f'<li>{self.view_link(ctx, v)} <span class="note">{html.escape(self.t(f"hub.view.{v}.desc"))}</span></li>'
+                      for v in mine)
+        return f'<ul class="door-more">{lis}</ul>'
+
+    def doors_html(self, ctx: Ctx, views: list[str]) -> str:
+        """The three doors (maintainer answer R4). Discover leads to the stories, read story
+        first; Study and Research lead to pages whose links open each record at #evidence
+        (R9: the evidence first). One page per record either way."""
+        s = self.site
+        stories = s.stories_in_order()
+        go = {
+            "discover": [(f"{ctx.base}story/", self.i.tn("door.discover.go", len(stories)))],
+            "study": [(f"{ctx.base}study/", self.t("door.study.go"))],
+            "research": [(f"{ctx.base}research/", self.t("door.research.go"))],
+        }
+        if stories:
+            go["discover"].append((f"{ctx.base}story/{stories[0].pid}/", self.t("door.discover.first", name=stories[0].name)))
+        out = []
+        for door in hub.DOORS:
+            links = "".join(f'<li><a href="{href}">{self.esc(text)}</a></li>' for href, text in go[door])
+            out.append(f'<li class="door door-{door}" id="door-{door}"><h2>{html.escape(self.t(f"door.{door}.title"))}</h2>'
+                       f'<p>{html.escape(self.t(f"door.{door}.lead"))}</p><ul class="door-go">{links}</ul>'
+                       f'{self.door_views(ctx, door, views)}</li>')
+        return "\n".join(out)
+
+    def hub_html(self, ctx: Ctx, views: list[str]) -> str:
+        """Every view of the graph: the reader pages, the door pages, each view another
+        builder has written into site/dist (only those that exist), and the prototypes."""
+        s = self.site
+        reader = [f'<a href="{ctx.base}{kind}/">{html.escape(self.i.tn("home.count." + kind, len(s.by_kind[kind])))}</a>'
+                  for _, kind in NAV]
+        reader += [f'<a href="{ctx.base}search/">{html.escape(self.t("search.title"))}</a>',
+                   f'<a href="{ctx.base}glossary/">{html.escape(self.t("nav.glossary"))}</a>']
+        sep = ' <span class="sep" aria-hidden="true">&middot;</span> '
+        items = [f'<li><span class="hub-name">{html.escape(self.t("hub.reader.name"))}</span> '
+                 f'<span class="hub-desc">{html.escape(self.t("hub.reader.desc"))}</span>'
+                 f'<span class="hub-links">{sep.join(reader)}</span></li>']
+        for folder in ("study", "research"):
+            items.append(f'<li><a class="hub-name" href="{ctx.base}{folder}/">{html.escape(self.t(f"hub.{folder}.name"))}</a> '
+                         f'<span class="hub-desc">{html.escape(self.t(f"hub.{folder}.desc"))}</span></li>')
+        for v in views:
+            items.append(f'<li><a class="hub-name" href="{ctx.base}{v}/">{html.escape(self.t(f"hub.view.{v}.name"))}</a> '
+                         f'<span class="hub-desc">{html.escape(self.t(f"hub.view.{v}.desc"))}</span></li>')
+        items.append(f'<li><a class="hub-name" href="{ctx.base}{experiments.FOLDER}/">{html.escape(self.t("experiments.title"))}</a> '
+                     f'<span class="hub-desc">{html.escape(self.t("hub.experiments.desc"))}</span></li>')
+        return f'<ul class="hub-list" data-views="{self.attr(" ".join(views))}">' + "\n".join(items) + "</ul>"
+
+    def home_page(self, views: list[str] | None = None) -> str:
+        """The home page: three doors, then the hub. `views`: the view folders found in
+        site/dist (site/hub.py); the hub links only those."""
+        ctx = Ctx("")
+        views = views or []
         names_note = html.escape(self.t("home.names_note"))
         glossary_note = self.i.th("home.glossary_note", glossary=f'<a href="{ctx.base}glossary/">{html.escape(self.t("nav.glossary"))}</a>')
-        content = self.tpl("home", explore=explore, story_door=story_door, status=status,
-                           names_note=names_note, glossary_note=glossary_note)
+        content = self.tpl("home", doors=self.doors_html(ctx, views), hub=self.hub_html(ctx, views),
+                           status=self.checked_html(), names_note=names_note, glossary_note=glossary_note)
         return self.shell(ctx, self.t("site.name") + f' {self.t("title.sep")} ' + self.t("home.title_suffix"), content,
                           body_class="page-home", current="home", crumbs=[], description=self.t("home.lead"))
+
+    # ------------------------------------------------------------------ door pages
+    def door_page(self, door: str, views: list[str], toc: list[tuple[str, str]], body: str) -> str:
+        ctx = Ctx(f"{door}/")
+        title = self.t(f"door.{door}.title")
+        toc_html = "".join(f'<li><a href="#{a}">{html.escape(text)}</a></li>' for a, text in toc)
+        more = self.door_views(ctx, door, views)
+        views_html = (f'<p class="door-views-lead">{html.escape(self.t("door.views_lead"))}</p>{more}') if more else ""
+        content = self.tpl("door", door=door, h1=html.escape(title), lead=html.escape(self.t(f"door.{door}.page_lead")),
+                           views=views_html, toc=toc_html, body=body)
+        return self.shell(ctx, self.page_title(title), content, body_class=f"page-door door-{door}",
+                          current=None, crumbs=[(title, None)], description=self.t(f"door.{door}.page_lead"))
+
+    def evidence_href(self, ctx: Ctx, e: Entity, anchor: str = "evidence") -> str:
+        return f"{ctx.base}{e.kind}/{e.pid}/#{anchor}"
+
+    def timeline_rows(self, ctx: Ctx) -> tuple[list[str], list[str]]:
+        """Events in time order by the earliest recorded day; the date shown is the recorded
+        one. Events with no recorded day are returned apart, never placed."""
+        dated, undated = [], []
+        for e in self.site.by_kind["event"]:
+            days = sorted(x["earliest"][:10] for x in e.data.get("dates", []) if x.get("earliest"))
+            ends = sorted(x["latest"][:10] for x in e.data.get("dates", []) if x.get("latest"))
+            when = self.short_date(e.data.get("dates", []))
+            place = ", ".join(f'<a href="{self.evidence_href(ctx, p)}">{self.esc(p.name)}</a>'
+                              for p in (self.site.entity(i) for i in e.data.get("places") or []) if p)
+            cov = display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage or self.t("common.not_recorded"))
+            row = (f'<a href="{self.evidence_href(ctx, e)}">{self.esc(e.name)}</a>'
+                   + (f' <span class="meta">{place}</span>' if place else "")
+                   + f' <span class="cov"><span class="sr-only">{html.escape(self.t("coverage.sr"))} </span>{html.escape(cov)}</span>')
+            if days and when:
+                dated.append(((days[0], ends[0] if ends else "", display.sort_key(e.name), e.pid),
+                              f'<li><span class="when">{self.esc(when)}</span> {row}</li>'))
+            else:
+                undated.append(f"<li>{row}</li>")
+        return [r for _, r in sorted(dated)], undated
+
+    def study_page(self, views: list[str]) -> str:
+        """Study: people, groups and events in time order; every link opens the record's page
+        at its evidence (#evidence)."""
+        ctx = Ctx("study/")
+        s = self.site
+        dated, undated = self.timeline_rows(ctx)
+        events = (f'<section id="study-events" aria-labelledby="study-events-h"><h2 id="study-events-h">{html.escape(self.t("study.events"))}</h2>'
+                  f'<p class="note">{html.escape(self.t("study.events_note"))}</p>'
+                  f'<ol class="index-list timeline-list">\n' + "\n".join(dated) + "\n</ol>")
+        if undated:
+            events += (f'<h3>{html.escape(self.t("study.undated"))}</h3><ul class="index-list">\n' + "\n".join(undated) + "\n</ul>")
+        events += "</section>"
+        row = lambda c, e: self.index_row(c, e, anchor="evidence")
+        people = (f'<section id="study-people" aria-labelledby="study-people-h"><h2 id="study-people-h">{html.escape(self.t("nav.people"))}</h2>'
+                  + self.az_nav(s.by_kind["person"], "study-p") + self.az_sections(ctx, s.by_kind["person"], "study-p", level=3, row=row)
+                  + "</section>")
+        groups = (f'<section id="study-groups" aria-labelledby="study-groups-h"><h2 id="study-groups-h">{html.escape(self.t("nav.groups"))}</h2>'
+                  f'<ul class="index-list">\n' + "\n".join(row(ctx, e) for e in s.by_kind["group"]) + "\n</ul></section>")
+        toc = [("study-events", self.t("study.events")), ("study-people", self.t("nav.people")),
+               ("study-groups", self.t("nav.groups"))]
+        return self.door_page("study", views, toc, events + people + groups)
+
+    def sources_html(self) -> str:
+        """Who recorded the claims and which works they cite, counted from the graph."""
+        claims = {id(c): c for cs in self.site.claims.values() for c in cs}.values()
+        by_agent: dict[tuple[str, bool], int] = {}
+        by_work: dict[str, list] = {}
+        for c in claims:
+            for a in c.agents:
+                by_agent[(a.label, a.software)] = by_agent.get((a.label, a.software), 0) + 1
+            story = self.site.entity(c.story) if c.story else None
+            work = story.data.get("work") if story else None
+            if work and work.get("label"):
+                by_work.setdefault(work["label"], [0, work.get("ai")])[0] += 1
+        soft = f' <span class="note">({html.escape(self.t("details.software"))})</span>'
+        agents = "".join(f'<li>{self.esc(label)}{soft if software else ""}: {html.escape(self.i.tn("research.claims", n))}</li>'
+                         for (label, software), n in sorted(by_agent.items(), key=lambda x: (-x[1], x[0][0])))
+        works = "".join(f'<li>{self.esc(display.name_display(label))}: {html.escape(self.i.tn("research.claims", n))}'
+                        + (f' <span class="note">{html.escape(self.t("claims.ai_note"))}</span>' if ai else "") + "</li>"
+                        for label, (n, ai) in sorted(by_work.items()))
+        out = (f'<h3>{html.escape(self.t("research.recorded_by"))}</h3><ul class="plain">{agents}</ul>')
+        if works:
+            out += f'<h3>{html.escape(self.t("research.works"))}</h3><ul class="plain">{works}</ul>'
+        return out
+
+    def questions_html(self, ctx: Ctx) -> str:
+        """Records with open questions (disputes) or recorded gaps, linked at those sections."""
+        out = []
+        for key, anchor, heading in (("disputes", "s-disputes", "section.disputes"), ("gaps", "s-gaps", "section.gaps")):
+            ents = [e for k in KINDS for e in self.site.by_kind[k] if e.data.get(key)]
+            if not ents:
+                continue
+            lis = "".join(f'<li><a href="{self.evidence_href(ctx, e, anchor)}">{self.esc(e.name)}</a> '
+                          f'<span class="meta">{html.escape(self.t(f"type.{e.subtype or e.kind}"))}</span></li>' for e in ents)
+            out.append(f'<h3>{html.escape(self.t(heading))}</h3><ul class="plain">{lis}</ul>')
+        return "".join(out) or f'<p class="not-recorded">{html.escape(self.t("research.no_questions"))}</p>'
+
+    def downloads_html(self, ctx: Ctx, downloads: list[tuple[str, str, int]]) -> str:
+        """`downloads`: (key, path in site/dist, bytes) for each data file build.py copied."""
+        lis = []
+        for key, rel, size in downloads:
+            kb = html.escape(self.t("research.size_kb", n=max(1, round(size / 1000))))
+            lis.append(f'<li><a href="{ctx.base}{rel}">{html.escape(self.t(f"research.download.{key}"))}</a> '
+                       f'<span class="note">({kb})</span> {html.escape(self.t(f"research.download.{key}.note"))}</li>')
+        lis.append(f'<li>{html.escape(self.t("research.entity_ttl"))}</li>')
+        lis.append(f'<li>{html.escape(self.t("research.iris"))}</li>')
+        return f'<ul class="plain downloads">{"".join(lis)}</ul><p class="note">{html.escape(self.t("research.licence"))}</p>'
+
+    def record_row(self, ctx: Ctx, e: Entity) -> str:
+        n = len(self.site.claims.get(e.iri, []))
+        cov = display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage or self.t("common.not_recorded"))
+        return (f'<li><a href="{self.evidence_href(ctx, e)}">{self.esc(e.name)}</a> '
+                f'<span class="meta">{html.escape(self.i.tn("research.claims", n))}</span> '
+                f'<a class="ttl" href="{ctx.base}{e.kind}/{e.pid}/entity.ttl">{html.escape(self.t("details.turtle"))}</a>'
+                f' <span class="cov"><span class="sr-only">{html.escape(self.t("coverage.sr"))} </span>{html.escape(cov)}</span></li>')
+
+    def research_page(self, views: list[str], downloads: list[tuple[str, str, int]]) -> str:
+        """Research: sources and data, and every record linked at its evidence (#evidence)."""
+        ctx = Ctx("research/")
+        s = self.site
+        records = "".join(f'<h3 id="research-{kind}">{html.escape(self.t(f"nav.{nav}"))}</h3>'
+                          f'<ul class="index-list">\n' + "\n".join(self.record_row(ctx, e) for e in s.by_kind[kind]) + "\n</ul>"
+                          for nav, kind in NAV)
+        parts = [
+            ("research-status", "home.status_heading", self.checked_html()),
+            ("research-sources", "research.sources", f'<p>{html.escape(self.t("research.sources_lead"))}</p>' + self.sources_html()),
+            ("research-questions", "research.questions", self.questions_html(ctx)),
+            ("research-data", "research.data", self.downloads_html(ctx, downloads)),
+            ("research-records", "research.records", f'<p class="note">{html.escape(self.t("research.records_note"))}</p>' + records),
+        ]
+        body = "".join(f'<section id="{a}" aria-labelledby="{a}-h"><h2 id="{a}-h">{html.escape(self.t(k))}</h2>{inner}</section>'
+                       for a, k, inner in parts)
+        toc = [(a, self.t(k)) for a, k, _ in parts]
+        return self.door_page("research", views, toc, body)
+
+    # ------------------------------------------------------------------ earlier prototypes
+    @staticmethod
+    def proto_key(stem: str, page: str) -> str:
+        return f"experiments.{stem}" if page == "index.html" else f"experiments.{stem}.{page[:-5].replace('-', '_')}"
+
+    def experiments_page(self) -> str:
+        ctx = Ctx(f"{experiments.FOLDER}/")
+        items = []
+        for folder, _, pages, stem in experiments.PROTOTYPES:
+            subs = []
+            for page in pages[1:]:
+                key = self.proto_key(stem, page)
+                subs.append(f'<li><a href="{folder}/{page}">{html.escape(self.t(key + ".name"))}</a> '
+                            f'<span class="note">{html.escape(self.t(key + ".desc"))}</span></li>')
+            key = self.proto_key(stem, pages[0])
+            items.append(f'<li><h2><a href="{folder}/">{html.escape(self.t(key + ".name"))}</a></h2>'
+                         f'<p>{self.esc(self.t(key + ".desc"))}</p>'
+                         + (f'<ul class="plain">{"".join(subs)}</ul>' if subs else "") + "</li>")
+        content = self.tpl("experiments", items="\n".join(items))
+        return self.shell(ctx, self.page_title(self.t("experiments.title")), content, body_class="page-experiments",
+                          current=None, crumbs=[(self.t("experiments.title"), None)], description=self.t("experiments.lead"))
+
+    def archive_note(self, folder: str, base: str) -> str:
+        """The note at the top of each copied prototype page."""
+        return self.tpl("archive_note", back=f"{base}{experiments.FOLDER}/", home=base)
 
     # ------------------------------------------------------------------ search
     def search_row(self, ctx: Ctx, e: Entity) -> str:
@@ -703,14 +973,19 @@ class Renderer:
         ctx = Ctx("glossary/")
         defined, needed = self.glossary.listed()
         dl = []
+        def plain(e: dict) -> str:
+            if not e.get("plain"):
+                return ""
+            return (f'<p class="note plain-wording">{self.esc(self.t("glossary.plain", value=e["plain"]))} '
+                    f'{html.escape(self.t("glossary.source", value=e["plain_source"]))}</p>')
         for e in defined:
             ar = f' <span class="name-ar" lang="ar" dir="rtl">{html.escape(e["arabic"], quote=False)}</span>' if e.get("arabic") else ""
             dl.append(f'<dt id="term-{self.attr(e["key"])}">{self.esc(e["term"])}{ar}</dt>'
                       f'<dd><p>{self.esc(e["definition"])}</p>'
-                      f'<p class="note">{html.escape(self.t("glossary.source", value=e["source"]))}</p></dd>')
+                      f'<p class="note">{html.escape(self.t("glossary.source", value=e["source"]))}</p>{plain(e)}</dd>')
         defined_html = f'<dl class="glossary-list">{"".join(dl)}</dl>' if dl else f'<p>{html.escape(self.t("glossary.none_defined"))}</p>'
         lis = "".join(f'<li id="term-{self.attr(e["key"])}">{self.esc(e["term"])} '
-                      f'<span class="note">({html.escape(self.t("glossary.needed_tag"))})</span></li>' for e in needed)
+                      f'<span class="note">({html.escape(self.t("glossary.needed_tag"))})</span>{plain(e)}</li>' for e in needed)
         needed_html = f'<ul class="glossary-needed">{lis}</ul>'
         content = self.tpl("glossary", defined=defined_html, needed=needed_html)
         return self.shell(ctx, self.page_title(self.t("nav.glossary")), content, body_class="page-glossary",
