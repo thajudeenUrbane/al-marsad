@@ -160,11 +160,14 @@ class LearnRenderer:
         return self.join_or(quoted)
 
     def join_or(self, items: list[str]) -> str:
+        return self.join(items, "or")
+
+    def join(self, items: list[str], word: str) -> str:
         if len(items) == 1:
             return items[0]
         if len(items) == 2:
-            return self.t("learn.list.two_or", a=items[0], b=items[1])
-        return self.t("learn.list.many_or", head=self.t("learn.list.sep").join(items[:-1]), last=items[-1])
+            return self.t(f"learn.list.two_{word}", a=items[0], b=items[1])
+        return self.t(f"learn.list.many_{word}", head=self.t("learn.list.sep").join(items[:-1]), last=items[-1])
 
     def status_counts(self, claims: list[Claim]) -> tuple[str, int]:
         """('7 proposed, 1 accepted', number of claims) for assertions; links without a status counted apart."""
@@ -230,7 +233,7 @@ class LearnRenderer:
         return text
 
     def rule_follow(self, rule: dict, key: str) -> str:
-        links = self.join_or([self.t(f"learn.follow.{f}") for f in rule["follow"]])
+        links = self.join([self.t(f"learn.follow.{f}") for f in rule["follow"]], "and")
         return self.s.tn(key, rule["max_links"], links=links)
 
     def term_label(self, curie: str) -> str:

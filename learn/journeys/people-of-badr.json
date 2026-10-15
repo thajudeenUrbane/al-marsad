@@ -9,7 +9,7 @@
     "type": "people",
     "events": {
       "named": {"kinds": ["event", "story"], "words": ["Badr"]},
-      "follow": ["part_of"],
+      "follow": ["parts"],
       "max_links": 1
     },
     "participation": {

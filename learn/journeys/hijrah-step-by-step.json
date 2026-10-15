@@ -8,7 +8,7 @@
   "select": {
     "type": "events",
     "named": {"kinds": ["event", "story"], "words": ["Hijra", "Hijrah"]},
-    "follow": ["part_of", "date_anchor", "event_claim"],
+    "follow": ["parts", "date_anchors"],
     "max_links": 2
   },
   "order": "recorded"

@@ -53,6 +53,7 @@ def family_keys() -> set:
     keys |= {f"learn.order_note.{k}" for k in ("part", "recorded", "unrecorded")}
     keys |= {f"learn.order.{o}" for orders in J.ORDERS.values() for o in orders}
     keys |= {f"learn.follow.{f}" for f in J.FOLLOW}
+    keys |= {f"learn.list.{n}_{w}" for n in ("two", "many") for w in ("or", "and")}
     keys |= {"learn.kinds.event", "learn.kinds.story", "learn.kinds.event_story"}
     keys |= {f"learn.legend.{t}" for t in J.STEP_TYPES}
     keys |= {f"learn.door.{d}" for d in J.DOORS}
@@ -76,7 +77,11 @@ def literal_keys() -> set:
     found = set()
     namespaces = {k.split(".")[0] for k in list(EN) + list(SITE_EN)}
     for path in PY_FILES:
-        for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        inner = {id(v) for n in ast.walk(tree) if isinstance(n, ast.JoinedStr) for v in n.values}
+        for node in ast.walk(tree):
+            if id(node) in inner:
+                continue  # a fragment of an f-string builds a key family, listed in family_keys()
             if (isinstance(node, ast.Constant) and isinstance(node.value, str) and KEY.match(node.value)
                     and node.value.split(".")[0] in namespaces
                     and not re.search(r"\.(json|html|css|py|ttl|cjs|js)$", node.value)):

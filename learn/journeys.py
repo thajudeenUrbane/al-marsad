@@ -8,9 +8,10 @@ rule is printed in plain words on the journey's page, so a reviewer approves the
 not a hand-made list.
 
 Three step types:
-  events   events and stories whose recorded name contains a word, plus events the
-           record links to them (part-of claims, before/after links on recorded
-           dates, other event-to-event claims), up to `max_links` links away.
+  events   events and stories whose recorded name contains a word, plus the events
+           the record links to them in the directions the rule names (their parts,
+           their wholes, the events their own dates are placed against, other
+           event-to-event claims), up to `max_links` links away.
            Order "recorded": recorded dates and before/after links decide; where the
            record says nothing, dated steps first, then story order, then name.
   people   people with a recorded participation in the events chosen as above.
@@ -49,7 +50,7 @@ CLAIM_AFTER = {MRS.rel_followed}
 
 STEP_TYPES = ("events", "people", "stories")
 EVENT_KINDS = ("event", "story")
-FOLLOW = ("part_of", "date_anchor", "event_claim")
+FOLLOW = ("parts", "wholes", "date_anchors", "event_claims")   # see Links
 ORDERS = {"events": ("recorded",), "people": ("prophet_first_then_name", "name"), "stories": ("story",)}
 DOORS = ("study", "discover")          # study: evidence first; discover: story first (R9)
 APPROVERS = ("maintainer", "review_board")
@@ -89,10 +90,13 @@ def _named(d: dict, where: str):
 def _event_rule(d: dict, where: str):
     _keys(d, {"named", "follow", "max_links"}, {"named", "follow", "max_links"}, where)
     _named(d["named"], f"{where}.named")
-    if any(f not in FOLLOW for f in d["follow"]):
-        raise RuleError(f"{where}: follow must be some of {FOLLOW}")
-    if not isinstance(d["max_links"], int) or not 0 <= d["max_links"] <= 3:
+    follow = d["follow"]
+    if not isinstance(follow, list) or any(f not in FOLLOW for f in follow) or len(set(follow)) != len(follow):
+        raise RuleError(f"{where}: follow must be a list of distinct directions from {FOLLOW}")
+    if not isinstance(d["max_links"], int) or isinstance(d["max_links"], bool) or not 0 <= d["max_links"] <= 3:
         raise RuleError(f"{where}: max_links must be an integer from 0 to 3")
+    if bool(follow) != bool(d["max_links"]):
+        raise RuleError(f"{where}: give both directions to follow and max_links above 0, or neither")
 
 
 def term(curie: str, where: str) -> URIRef:
@@ -262,14 +266,22 @@ def _iso_key(s: str) -> tuple:
 
 # --------------------------------------------------------------------------- event links
 class Links:
-    """Every recorded link between two event or story entities, both directions."""
+    """Every recorded link between two event or story entities.
+
+    Each link can be walked in a named direction, and a rule says which directions to
+    follow (FOLLOW): from a whole to its "parts", from a part to its "wholes", from an
+    event to the events its own recorded date is placed against ("date_anchors"), and
+    either way along any other event-to-event claim ("event_claims"). A date anchor is
+    never walked backwards: that a later event is dated "after the Hijra" does not make
+    it a step of the Hijra.
+    """
 
     def __init__(self, site: Site):
         self.site = site
         g = site.g
         self.events = {e.iri for k in EVENT_KINDS for e in site.by_kind[k]}
-        self.adj: dict[str, list[tuple[str, str, Reason]]] = {}     # iri -> [(other, follow, reason shown on other)]
-        self.about: dict[str, list[tuple[str, str, Reason]]] = {}   # iri -> [(other, follow, reason shown on iri)]
+        self.adj: dict[str, list[tuple[str, str, Reason]]] = {}     # iri -> [(other, direction, reason shown on other)]
+        self.about: dict[str, list[tuple[str, Reason]]] = {}        # iri -> [(other, reason shown on iri)]
         self.order: list[tuple[str, str, str]] = []                  # (before, after, kind)
         self.whole_of: dict[str, set[str]] = {}                      # part -> wholes
         # part-of claims and other event-to-event claims
@@ -286,7 +298,7 @@ class Links:
             if pred == MRS.rel_part_of:
                 self._part(c.subject, c.object, [c])
             else:
-                self._add(c.subject, c.object, "event_claim",
+                self._add(c.subject, c.object, "event_claims", "event_claims",
                           Reason("event_claim", other=c.subject, label=c.predicate, claims=[c]),
                           Reason("event_claim", other=c.object, label=c.predicate, claims=[c]))
                 if pred in CLAIM_BEFORE:
@@ -296,13 +308,14 @@ class Links:
         # plain part-of triples (no status of their own)
         for s, o in sorted(g.subject_objects(CRM.P9i_forms_part_of), key=lambda t: (str(t[0]), str(t[1]))):
             s, o = str(s), str(o)
-            if s in self.events and o in self.events and s != o:
-                if not any(b == o and f == "part_of" for b, f, _ in self.adj.get(s, [])):
-                    self._part(s, o, [])
+            if s in self.events and o in self.events and s != o and o not in self.whole_of.get(s, set()):
+                self._part(s, o, [])
         # relative date anchors recorded on an event's date
         for ev in sorted(self.events):
             for te in sorted(g.objects(URIRef(ev), MRS.eventTemporalExtent), key=str):
-                for ra in sorted(g.objects(te, MRS.relativeAnchor), key=lambda n: (str(g.value(n, MRS.anchorTarget)), str(g.value(n, MRS.allenRelation)))):
+                anchors = sorted(g.objects(te, MRS.relativeAnchor),
+                                 key=lambda n: (str(g.value(n, MRS.anchorTarget)), str(g.value(n, MRS.allenRelation))))
+                for ra in anchors:
                     target = g.value(ra, MRS.anchorTarget)
                     rel = g.value(ra, MRS.allenRelation)
                     if target is None or str(target) not in self.events or str(target) == ev:
@@ -317,8 +330,8 @@ class Links:
                         kind_ev, kind_t = "date_before", "dated_before_this"
                     else:
                         kind_ev, kind_t = "date_related", "dated_related_this"
-                    # the reason shown on t names ev, and the reason shown on ev names t
-                    self._add(ev, t, "date_anchor",
+                    # walked only from ev (whose date it is) to t, never back
+                    self._add(ev, t, "date_anchors", None,
                               Reason(kind_t, other=ev, claims=claims),
                               Reason(kind_ev, other=t, claims=claims))
 
@@ -326,19 +339,22 @@ class Links:
         """The site's Claim objects for the given assertion nodes, in a stable order."""
         return [self.by_node[n] for n in sorted({str(x) for x in nodes}) if n in self.by_node]
 
-    def _add(self, a: str, b: str, follow: str, reason_for_b_about_a: Reason, reason_for_a_about_b: Reason):
-        """adj[a] holds (b, follow, the reason shown on b, which names a); about[b] holds
-        the same reason as (a, follow, reason)."""
-        self.adj.setdefault(a, []).append((b, follow, reason_for_b_about_a))
-        self.adj.setdefault(b, []).append((a, follow, reason_for_a_about_b))
-        self.about.setdefault(b, []).append((a, follow, reason_for_b_about_a))
-        self.about.setdefault(a, []).append((b, follow, reason_for_a_about_b))
+    def _add(self, a: str, b: str, a_to_b: str | None, b_to_a: str | None,
+             reason_on_b: Reason, reason_on_a: Reason):
+        """Record a link. adj[a] lets a rule walk from a to b in direction a_to_b (and
+        adj[b] back, if b_to_a is set); about[x] lists every link of x, for display."""
+        if a_to_b:
+            self.adj.setdefault(a, []).append((b, a_to_b, reason_on_b))
+        if b_to_a:
+            self.adj.setdefault(b, []).append((a, b_to_a, reason_on_a))
+        self.about.setdefault(b, []).append((a, reason_on_b))
+        self.about.setdefault(a, []).append((b, reason_on_a))
 
     def _part(self, part: str, whole: str, claims: list[Claim]):
         self.whole_of.setdefault(part, set()).add(whole)
-        self._add(part, whole, "part_of",
-                  Reason("has_part", other=part, claims=claims),     # on the whole: it has this part
-                  Reason("part_of", other=whole, claims=claims))     # on the part: it is part of the whole
+        self._add(part, whole, "wholes", "parts",
+                  Reason("has_part", other=part, claims=claims),     # shown on the whole: it has this part
+                  Reason("part_of", other=whole, claims=claims))     # shown on the part: it is part of the whole
 
 
 def select_events(site: Site, links: Links, rule: dict) -> tuple[dict[str, int], dict[str, list[Reason]]]:
@@ -356,8 +372,8 @@ def select_events(site: Site, links: Links, rule: dict) -> tuple[dict[str, int],
     for depth in range(1, rule["max_links"] + 1):
         nxt = []
         for iri in frontier:
-            for other, follow, reason in links.adj.get(iri, []):
-                if follow not in rule["follow"] or other == iri:
+            for other, direction, reason in links.adj.get(iri, []):
+                if direction not in rule["follow"] or other == iri:
                     continue
                 if other not in hop:
                     hop[other] = depth
@@ -487,8 +503,8 @@ def build_events(site: Site, links: Links, spec: dict) -> Journey:
     for i in order:
         st = Step(entity=site.entity(i), reasons=reasons[i], hop=hop[i])
         st.order_note, st.order_ref = notes[i]
-        for other, follow, r in links.about.get(i, []):
-            if other in sel and follow in rule["follow"] and r not in st.reasons and r not in st.links:
+        for other, r in links.about.get(i, []):
+            if other in sel and r not in st.reasons and r not in st.links:
                 st.links.append(r)
         pos = {x: n for n, x in enumerate(order)}
         st.links.sort(key=lambda r: (pos.get(r.other, 10**6), r.kind))

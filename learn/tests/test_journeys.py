@@ -29,7 +29,7 @@ GRAPH = ROOT / "build" / "graph.ttl"
 SPECS = sorted((LEARN / "journeys").glob("*.json"))
 
 
-def events_spec(words, follow=("part_of", "date_anchor", "event_claim"), max_links=2, kinds=("event", "story")):
+def events_spec(words, follow=("parts", "date_anchors"), max_links=2, kinds=("event", "story")):
     return {"slug": "fixture-events", "status": "draft", "approved_by": [], "title": "journey.hijrah.title",
             "lead": "journey.hijrah.lead", "door": "study",
             "select": {"type": "events", "named": {"kinds": list(kinds), "words": list(words)},
@@ -73,6 +73,9 @@ class RuleFiles(unittest.TestCase):
         s["approved_by"] = [{"who": "maintainer", "date": "2026-10-15"}]; bad.append(("only one approval", s))
         s = copy.deepcopy(good); s["select"]["named"]["words"] = ["5rTyU9mN"]; bad.append(("an ID-like word", s))
         s = copy.deepcopy(good); s["select"]["max_links"] = 9; bad.append(("too many links", s))
+        s = copy.deepcopy(good); s["select"]["follow"] = ["part_of"]; bad.append(("unknown direction", s))
+        s = copy.deepcopy(good); s["select"]["follow"] = []; bad.append(("links but no direction", s))
+        s = copy.deepcopy(good); s["select"]["max_links"] = 0; bad.append(("directions but no links", s))
         s = copy.deepcopy(good); s["order"] = "story"; bad.append(("wrong order for the type", s))
         s = copy.deepcopy(good); s["title"] = "The Hijrah"; bad.append(("title is not an i18n key", s))
         s = copy.deepcopy(good); s["door"] = "elsewhere"; bad.append(("unknown door", s))
@@ -144,10 +147,49 @@ class EventJourneys(unittest.TestCase):
         self.assertTrue(self.journey.mixes_stories_and_events)
 
     def test_fewer_links_choose_fewer_steps(self):
-        j0 = J.build(self.site, J.validate(events_spec(["Rihla"], max_links=0)))
+        j0 = J.build(self.site, J.validate(events_spec(["Rihla"], follow=[], max_links=0)))
         self.assertEqual({s.iri for s in j0.steps}, {self.whole, self.story})
-        j1 = J.build(self.site, J.validate(events_spec(["Rihla"], follow=["part_of"], max_links=3)))
+        j1 = J.build(self.site, J.validate(events_spec(["Rihla"], follow=["parts"], max_links=3)))
         self.assertEqual({s.iri for s in j1.steps}, {self.whole, self.leave, self.rest, self.story})
+
+    def test_date_anchors_are_walked_only_from_the_dated_event(self):
+        fx = Fx()
+        named = fx.event("fxNamed", "The Rihla")
+        later = fx.event("fxLater", "A later event", anchors=[("after", named, None)])   # dated after the Rihla
+        before = fx.event("fxBefore", "An earlier event")
+        fx.event("fxNamed2", "The Rihla, second record", anchors=[("after", before, None)])
+        j = J.build(site_of(fx), J.validate(events_spec(["Rihla"])))
+        got = {s.iri for s in j.steps}
+        self.assertNotIn(later, got)     # being dated after a step does not make an event a step
+        self.assertIn(before, got)       # a step's own date placed after it does
+        self.assertEqual(j.steps[0].iri, before)
+
+    def test_wholes_and_their_other_parts_only_when_the_rule_asks(self):
+        fx = Fx()
+        named = fx.event("fxNamed", "The Rihla")
+        whole = fx.event("fxWholeBig", "A larger whole")
+        sibling = fx.event("fxSibling", "Another part of the whole")
+        fx.claim(named, "rel_part_of", whole, ("proposed",))
+        fx.claim(sibling, "rel_part_of", whole, ("proposed",))
+        site = site_of(fx)
+        only_parts = J.build(site, J.validate(events_spec(["Rihla"], follow=["parts"])))
+        self.assertEqual({s.iri for s in only_parts.steps}, {named})
+        wholes = J.build(site, J.validate(events_spec(["Rihla"], follow=["wholes"])))
+        self.assertEqual({s.iri for s in wholes.steps}, {named, whole})
+        both = J.build(site, J.validate(events_spec(["Rihla"], follow=["wholes", "parts"])))
+        self.assertEqual({s.iri for s in both.steps}, {named, whole, sibling})
+
+    def test_other_event_claims_link_both_ways_and_can_order(self):
+        fx = Fx()
+        named = fx.event("fxNamed", "The Rihla")
+        nxt = fx.event("fxNext", "What came next")
+        fx.claim(named, "rel_preceded", nxt, ("proposed",))
+        site = site_of(fx)
+        self.assertEqual({s.iri for s in J.build(site, J.validate(events_spec(["Rihla"]))).steps}, {named})
+        j = J.build(site, J.validate(events_spec(["Rihla"], follow=["event_claims"], max_links=1)))
+        self.assertEqual([s.iri for s in j.steps], [named, nxt])
+        self.assertEqual(j.steps[1].order_note, "recorded")
+        self.assertEqual([c.status for c in j.steps[1].reasons[0].claims], ["proposed"])
 
     def test_dates_order_steps_the_record_does_not_link(self):
         fx = Fx()
@@ -197,7 +239,7 @@ class PeopleAndStoryJourneys(unittest.TestCase):
 
     def people_spec(self, **over):
         sel = {"type": "people",
-               "events": {"named": {"kinds": ["event", "story"], "words": ["Fixtureplace"]}, "follow": ["part_of"],
+               "events": {"named": {"kinds": ["event", "story"], "words": ["Fixtureplace"]}, "follow": ["parts"],
                           "max_links": 1},
                "participation": {"records": True, "claims": ["mrs:rel_participated_in", "mrs:rel_led"]},
                "also_show": ["mrs:rel_absent_from"], "set_apart": ["mrsv:q_later"]}
