@@ -1,0 +1,23 @@
+{
+  "slug": "people-of-badr",
+  "status": "draft",
+  "approved_by": [],
+  "title": "journey.badr.title",
+  "lead": "journey.badr.lead",
+  "door": "study",
+  "select": {
+    "type": "people",
+    "events": {
+      "named": {"kinds": ["event", "story"], "words": ["Badr"]},
+      "follow": ["parts"],
+      "max_links": 1
+    },
+    "participation": {
+      "records": true,
+      "claims": ["mrs:rel_participated_in", "mrs:rel_led", "mrs:rel_present_at", "mrs:rel_witnessed"]
+    },
+    "also_show": ["mrs:rel_absent_from"],
+    "set_apart": ["mrsv:q_accepted_islam_later"]
+  },
+  "order": "prophet_first_then_name"
+}

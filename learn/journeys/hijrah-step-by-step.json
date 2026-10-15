@@ -1,0 +1,15 @@
+{
+  "slug": "hijrah-step-by-step",
+  "status": "draft",
+  "approved_by": [],
+  "title": "journey.hijrah.title",
+  "lead": "journey.hijrah.lead",
+  "door": "study",
+  "select": {
+    "type": "events",
+    "named": {"kinds": ["event", "story"], "words": ["Hijra", "Hijrah"]},
+    "follow": ["parts", "date_anchors"],
+    "max_links": 2
+  },
+  "order": "recorded"
+}

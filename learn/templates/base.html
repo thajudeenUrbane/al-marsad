@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="$lang" dir="$dir">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$title</title>
+<meta name="description" content="$description">
+<link rel="stylesheet" href="${base}assets/site.css">
+<link rel="stylesheet" href="${base}learn/assets/learn.css">
+$scripts
+</head>
+<body class="$body_class">
+<a class="skip-link" href="#main">[[nav.skip]]</a>
+<header class="site-header">
+<a class="home-link" href="${base}">[[site.name]]</a>
+<nav class="site-nav" aria-label="[[nav.sections]]">
+<ul>
+$nav
+</ul>
+</nav>
+</header>
+<main id="main" tabindex="-1">
+$breadcrumb
+$body
+</main>
+<footer class="site-footer">
+<p class="licence"><a href="$url_licensing">[[footer.text_data]]</a> <a href="$url_cc_by_sa">[[footer.cc_by_sa]]</a>[[footer.sep]]<a href="$url_licensing">[[footer.code]]</a> <a href="$url_agpl">[[footer.agpl]]</a>[[footer.sep]]<a href="$url_licensing">[[footer.ids]]</a>[[footer.dash]]<a href="$url_licensing">[[footer.contributors]]</a></p>
+</footer>
+</body>
+</html>
