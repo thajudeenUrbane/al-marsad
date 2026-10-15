@@ -244,6 +244,45 @@ mrs:rel_responded_to a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
 
 
 #################################################################
+#  LIFE DATES AND AGES
+#
+#  Added in slice 4 (15 October 2026) for the lifelines view: what a
+#  source says about when someone was born or died, when an event
+#  happened, and how old someone was at an event. The value is kept on
+#  the Assertion exactly as the source gives it (mrs:ageAsWritten,
+#  mrs:ageYearsAsGiven, mrs:dateAsWritten in marsad.ttl), never
+#  computed and never converted. Classical ages are usually counted in
+#  lunar years; a basis is recorded only where the source states one.
+#  Turning these into TemporalExtents with corners is a later step and
+#  a scholar's decision (docs/02 §7.1).
+#################################################################
+
+mrs:rel_born_during a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "born during"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false ;
+    skos:note """Subject (a person) was born during the object, an event or a named period
+        by which the source dates the birth (for example the Year of the Elephant). Any
+        fuller date the source gives is kept verbatim in mrs:dateAsWritten."""@en .
+mrs:rel_died_during a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "died during"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false ;
+    skos:note """Subject (a person) died during the object, the event in which the source
+        says the person died or was killed (for example a battle). Any fuller date the
+        source gives is kept verbatim in mrs:dateAsWritten."""@en .
+mrs:rel_age_at a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "age at"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false ;
+    skos:note """Subject (a person) was the age the source states at the object, an event:
+        another person's birth or death, a battle, a marriage, the subject's own death. The
+        age is on the Assertion: mrs:ageAsWritten (verbatim, required) and, where the source
+        gives a number, mrs:ageYearsAsGiven (one value per alternative it gives: 'seven or
+        eight' is 7 and 8). Never computed; never converted between lunar and solar years."""@en .
+mrs:rel_dated a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "dated"@en ; mrs:relationClass mrs:relclass_participation ; mrs:symmetric false ;
+    skos:note """Subject (an event) is dated by the source to the object, which is a literal:
+        the time expression exactly as written (a weekday, a day of a month, a year named
+        after an event, 'three years before the emigration'), never normalised or converted.
+        Unlike the other relations, its object is not an entity."""@en .
+
+
+#################################################################
 #  TEXTUAL AND EVIDENTIARY
 #################################################################
 

@@ -1,0 +1,56 @@
+{
+  "witness": {
+    "version_uri": "0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1",
+    "file_name": "0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1.completed",
+    "commit": "2cfdc8cf1b89abfd15463d1c429fbb822aa5d9a5",
+    "raw_url": "https://raw.githubusercontent.com/OpenITI/0225AH/2cfdc8cf1b89abfd15463d1c429fbb822aa5d9a5/data/0213IbnHisham/0213IbnHisham.SiraNabawiyya/0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1.completed",
+    "sha256": "8e0d274c7bf5433d0c160aceca7e446f545be02a054035239b2dd349b5c399cd",
+    "licence_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "licence_note": "OpenITI releases its corpus under CC BY-NC-SA 4.0 (release 2025.1.9, Zenodo doi:10.5281/zenodo.17767721, and the primary-version release, doi:10.5281/zenodo.18613982). The GitHub repository OpenITI/0225AH carries no licence file of its own. The text comes from al-Maktaba al-Shamila (book 23833), which has no open licence. NonCommercial is not compatible with al-Marsad's CC BY-SA 4.0, so the text is not redistributed here: only pointers into it.",
+    "extent": "1,537,073 Unicode code points (2,654,027 bytes, UTF-8, LF line endings, 26,205 lines); 930 OpenITI milestones; page markers vol. 1, p. 1 to vol. 2, p. 671",
+    "label": "OpenITI digital text 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1 (the file at commit 2cfdc8cf of github.com/OpenITI/0225AH, 23 March 2026)",
+    "comment": "The OpenITI primary version of Ibn Hisham's Sira: the release metadata of OpenITI 2025.1.9 lists it with status 'pri', 278,907 tokens and 1,090,736 characters (OpenITI's counts), tagged PRIMARY_VERSION, CLEANED_VERSION and COMPLETED. Its version metadata names Mathew Barber as annotator and records that footnote markers and paratext were removed in the OpenITI clean operation of 2023, and a collation against http://www.worldcat.org/oclc/295009190. The file's own header gives the author's death as 213 AH (OpenITI's author record: '0213-XXX-XX or 0218-RA2-13'). Five other OpenITI versions of the same book exist (JK000797, Masaha003361Vols, ShamAY0034440, Shamela0007450, Shia003667Vols); none was used."
+  },
+  "work": {
+    "label": "The Sira of Ibn Ishaq (the work itself, known through its recensions)",
+    "comment": "Ibn Ishaq's biography of the Prophet (peace and blessings be upon him) as an abstract work (docs/02 §8.9). It survives here through Ibn Hisham's recension, which also contains Ibn Hisham's own additions, each marked in the text by 'qala Ibn Hisham'.",
+    "creator": {
+      "kind": "person",
+      "name": "Ibn Isḥāq (Muḥammad b. Isḥāq)"
+    }
+  },
+  "recension": {
+    "label": "Ibn Hisham's recension: al-Sira al-Nabawiyya",
+    "title_ar": "السيرة النبوية لابن هشام",
+    "openiti_book_uri": "0213IbnHisham.SiraNabawiyya",
+    "creator": {
+      "kind": "person",
+      "name": "Ibn Hishām (ʿAbd al-Malik b. Hishām)"
+    },
+    "comment": "The source chosen by the maintainer (decision E32). The Arabic title is the one in the OpenITI file's metadata (020.BookTITLE). OpenITI's URI dates the author 213 AH; the author's death is also given as 218 AH (OpenITI author record: '0213-XXX-XX or 0218-RA2-13'). Which is right is not decided here."
+  },
+  "edition": {
+    "label": "al-Sira al-Nabawiyya li-Ibn Hisham, ed. Mustafa al-Saqqa, Ibrahim al-Abyari and Abd al-Hafiz Shalabi, 2nd edition, 1375 AH / 1955 CE (PROVISIONAL)",
+    "as_in_openiti_metadata": "مصطفى السقا وإبراهيم الأبياري وعبد الحفيظ الشلبي ؛ الثانية، 1375هـ - 1955 م ؛ شركة مكتبة ومطبعة مصطفى البابي الحلبي وأولاده بمصر",
+    "comment": "PROVISIONAL (maintainer decision E33: the scholars will specify the edition of record). This is the base edition the OpenITI file names in its metadata (040.EdEDITOR, 041.EdNUMBER and 043.EdPUBLISHER, quoted in dct:bibliographicCitation, the three fields joined by semicolons). Volume and page numbers cited in this corpus are this edition's as the OpenITI file marks them (PageV01P158 = vol. 1, p. 158; OpenITI puts each marker at the end of its page). They have not been checked against a printed copy."
+  },
+  "source_date": {
+    "label": "Composition of Ibn Hisham's recension: before its author's death",
+    "native_value": "before the death of Ibn Hisham, given as 213 AH or 13 Rabi' II 218 AH (OpenITI author record: '0213-XXX-XX or 0218-RA2-13')",
+    "latest_end": "0834-01-15T23:59:59Z",
+    "conversion_method": "tabular Islamic calendar, civil epoch (1 Muharram 1 AH = 16 July 622, Julian), 30-year cycle with leap years 2, 5, 7, 10, 13, 16, 18, 21, 24, 26, 29; the last day of 218 AH as a Julian-calendar date, as elsewhere in this corpus; an upper bound only",
+    "conversion_uncertainty_days": 3
+  },
+  "agent_comment": "A generic software agent: the AI-assisted extraction pass of slice 4, run on 15 October 2026, which read passages of Ibn Hisham's Sira in the OpenITI text and proposed reports, chains and claims with their exact spans. Every claim it made is proposed and unreviewed; its English glosses are machine-written and are not translations. Which system ran the pass is deliberately not recorded in the repository.",
+  "activity_label": "AI extraction pass (slice 4), 15 October 2026: Ibn Hisham, al-Sira al-Nabawiyya (OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1)",
+  "matn_notice": "[Arabic text not reproduced: the source text is licensed CC BY-NC-SA 4.0, which this corpus (CC BY-SA 4.0) cannot carry. The report is located by its passage (mrs:locatedIn): its citation gives the page, OpenITI milestone, lines and characters. `python ingest/ibn_hisham.py fetch` downloads the text and `review` shows it beside each claim.]",
+  "ids": {
+    "work": "wrk:1LoxHa4Pplj2ORVpBZBoSB",
+    "recension": "rcn:wlpfqT7yP5YmEeefkp1hWP",
+    "edition": "edn:6CwScPtgRXqj6bTHCD1VnE",
+    "witness": "wit:cK15aTQy0aIt4HggLXQnS9",
+    "agent": "agt:tcCkInIropKEmSqn1NHNv0",
+    "activity": "act:oxNGDz9lLFz8d9WV2jbxoU",
+    "source_date": "tmp:YezEHJYOELI5ffHCKk0cVq"
+  }
+}

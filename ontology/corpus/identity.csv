@@ -313,3 +313,45 @@ group,grp:tmEKoedj6gPGRA2tJMwCIh,The army of Badr,,grp:qN33FiiGwZHfs7d8JlMFoL,Th
 group,grp:EAL9Y0Ay5vFW6SBGbLCg89,The Companions who planted,,grp:bV9k6KIJRizQJhtCozbG7K,The Companions who planted,stories-50,needs-review,"stories-50 group, not a person. Maintainer decision 6 (15 Oct 2026): prefix grp: = https://w3id.org/marsad/id/group/, class mrs:Group (subclass of crm:E74_Group, already in marsad.ttl). Not yet in any Turtle file; stays needs-review (ID minted in slice 1a by hash, not random; not renamed)"
 group,grp:WXzuHPl0f23AbzZTdQWxcv,The Muslims of Madinah,,grp:wcPxOoyJlHilsCu6HbkCnd,The Muslims of Madinah,stories-50,needs-review,"stories-50 group, not a person. Maintainer decision 6 (15 Oct 2026): prefix grp: = https://w3id.org/marsad/id/group/, class mrs:Group (subclass of crm:E74_Group, already in marsad.ttl). Not yet in any Turtle file; stays needs-review (ID minted in slice 1a by hash, not random; not renamed)"
 group,grp:Dbp0a2lEfdvmLVGIYZdDKz,Tribes of Ghifar and Aslam,,grp:OPGM3h4VfCsaK6AY3ccpXl,Tribes of Ghifar and Aslam,stories-50,needs-review,"stories-50 group, not a person. Maintainer decision 6 (15 Oct 2026): prefix grp: = https://w3id.org/marsad/id/group/, class mrs:Group (subclass of crm:E74_Group, already in marsad.ttl). Not yet in any Turtle file; stays needs-review (ID minted in slice 1a by hash, not random; not renamed)"
+person,per:RckkGEOATPbtKagmgiiEGI,ʿAbdullāh b. ʿAbd al-Muṭṭalib,عبد الله بن عبد المطلب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:FXAgBvKSXfer9S0187ByXU,Āmina bint Wahb,آمنة بنت وهب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:6ITkJfCT41qTtYGfkfApgX,ʿAbd al-Muṭṭalib b. Hāshim,عبد المطلب بن هاشم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:HaKW1h1Of06iWdA0B984cN,Qays b. Makhrama,قيس بن مخرمة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:iQm0BXg0F8Orcv7LKUPVpU,Ibn Isḥāq (Muḥammad b. Isḥāq),ابن إسحاق,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:Q6abR00ptJG2t8oqLFK2DM,Ibn Hishām (ʿAbd al-Malik b. Hishām),عبد الملك بن هشام,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:3ZpyNEoAtpsJUALv7krXIF,Ziyād b. ʿAbdullāh al-Bakkāʾī,زياد بن عبد الله البكائي,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ZjxoSzFIygQHFtOy3MTkmg,ʿAbdullāh b. Abī Bakr b. Muḥammad b. ʿAmr b. Ḥazm,عبد الله بن أبي بكر بن محمد بن عمرو بن حزم,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion). NOT the 'Abdullah b. Abi Bakr' already in this table (the son of Abu Bakr al-Siddiq): this one's nasab runs b. Muhammad b. 'Amr b. Hazm
+person,per:6OndKyhLbSHiPJ2FWNrjOZ,Abū Jaʿfar Muḥammad b. ʿAlī b. Ḥusayn,أبو جعفر محمد بن علي بن حسين,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:BaxWytwNXxYuZEtJfCS9Gi,Yaḥyā b. ʿAbbād b. ʿAbdullāh b. al-Zubayr,يحيى بن عباد بن عبد الله بن الزبير,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:KrJjQmtZ1Kcg5PjZQxH48Q,ʿAbbād b. ʿAbdullāh b. al-Zubayr,عباد,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:eS2ui9UEx00LW1iIfc9UEe,ʿAbdullāh b. Kaʿb b. Mālik,عبد الله بن كعب بن مالك,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:jKkKclHRAKqcSnabuKemCZ,ʿUtba b. Rabīʿa,عتبة بن ربيعة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:QBrtRNOW5fc5wZNNuvYZTp,ʿUmayr b. Abī Waqqāṣ,عمير بن أبي وقاص,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:l85OgxdZnXf0HEjcvErdfx,Dhū al-Shimālayn b. ʿAbd ʿAmr,ذو الشمالين ابن عبد عمرو,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:Gu23VflZ6BijRLkbYttaJD,ʿĀqil b. al-Bukayr,عاقل بن البكير,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:wsvyTnBKBBu9WVO9kfQGBd,"Mihjaʿ, mawlā of ʿUmar b. al-Khaṭṭāb",مهجع,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:QCd9tCP8TCGfGWMWHjJVvb,Ṣafwān b. Bayḍāʾ,صفوان بن بيضاء,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:ezMirtw1UJmuRR9qg2yIMO,Saʿd b. Khaythama,سعد بن خيثمة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:vPphNkldTFmEbIpQ3arMeP,Mubashshir b. ʿAbd al-Mundhir,مبشر بن عبد المنذر بن زنبر,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:hagpH9ij28AZO8aFX6zq6E,Yazīd b. al-Ḥārith (Ibn Fusḥum),يزيد بن الحارث,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:MkqqEgyHUfszpRF3qJBcBi,Rāfiʿ b. al-Muʿallā,رافع بن المعلى,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:7GU5QQcuQDeFhwLFrA1Yhe,ʿAwf b. al-Ḥārith (son of ʿAfrāʾ),عوف,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:X7c6HVfMSWH0v3lA9uNbKq,Umm Ḥabība bint Abī Sufyān,أم حبيبة بنت أبي سفيان بن حرب,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:iSGKHiSh3I85U6bp9Q5xwT,Maymūna bint al-Ḥārith,ميمونة بنت الحارث بن حزن,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+person,per:OsryCWEFGa4AFD8m9igTxF,Juwayriya bint al-Ḥārith,جويرية بنت الحارث بن أبي ضرار,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:iqg0cojNqRtK9NhdtPXC3C,al-Abwāʾ,الأبواء,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+place,plc:JxKeRTllakjUAQB8pcFZcA,al-Ṣafrāʾ,الصفراء,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:sYqZqv1Vz2exLADHbYzUs7,The Year of the Elephant (ʿām al-fīl),عام الفيل,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:PUAnqQfgokFzQW9dlDTNlo,Birth of the Prophet Muḥammad ﷺ,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:gKZk9PCCO198FcGtSoJCFO,"Death of ʿAbdullāh b. ʿAbd al-Muṭṭalib, the Prophet's father",,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:Y617zBnt4gWoJ8tgQterjH,Death of Āmina bint Wahb,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:vWnnhqq23OO3vT8UDw4hnv,Death of ʿAbd al-Muṭṭalib b. Hāshim,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:jxMQ9rMZ3fM2HF20HlZJVh,The War of al-Fijār,حرب الفجار,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:4cJKBXkhbtJGe6yQGICtZz,Marriage of the Prophet ﷺ and Khadīja bint Khuwaylid,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:sA0UOfmKsdzNLm5lR97aB2,The rebuilding of the Kaʿba by Quraysh,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:8WBguiESx6GwBL3CDIVmgm,Death of Khadīja bint Khuwaylid,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:tOlJyml39W34J7hX8tq1kE,Death of Abū Ṭālib,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:TgndynNHEEcsztJA7iVT3x,The expedition of Muʾta,غزوة مؤتة,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not identified with the 50 Stories story-unit event 'The Battle of Mu'tah' (aligning the two is a scholar's decision)
+event,ev:GGk9JXKlvnlTZ11XbuATDJ,Death of Jaʿfar b. Abī Ṭālib,,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:D0lhalJN5ephmJYufYlICL,Marriage of the Prophet ﷺ and ʿĀʾisha bint Abī Bakr (at Makkah),,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
+event,ev:eDHHzBGLgKlXqSgZkNI5MJ,ʿĀʾisha bint Abī Bakr joins the Prophet's household (at al-Madīna),,,,ibn-hisham,needs-review,minted in slice 4 (Ibn Hisham ingestion); not matched to any existing row
