@@ -1,0 +1,5 @@
+# Private and generated files of the review tool (slice 3a). Never commit them:
+# the roster holds reviewers' names; inbox files may carry a sender's name.
+/roster.csv
+/inbox/
+/dist/

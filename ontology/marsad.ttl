@@ -242,6 +242,56 @@ mrs:evaluationDate a owl:ObjectProperty ; rdfs:domain mrs:Evaluation ; rdfs:rang
 mrs:Tradition a owl:Class ;
     rdfs:comment "The interpretive lens (D7). Grades are meaningless without one. Which traditions the corpus represents is a governance decision."@en .
 
+mrs:declaredDefault a owl:DatatypeProperty ; rdfs:domain mrs:Tradition ; rdfs:range xsd:boolean ;
+    rdfs:comment "True on the one tradition the system uses by default (slice 3a). A declared default is stated openly and never presented as neutral (docs/06 §2.3). Shapes: at most one; no tradition is labelled neutral."@en .
+
+# REVIEW DECISIONS (slice 3a). The scholars' review platform records each
+# decision here; docs/handover/slice-3a.md has the workflow and the decision
+# file format. A review decision is NOT an mrs:Evaluation (see below).
+mrs:ReviewDecision a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment , prov:Activity ;
+    rdfs:label "Review decision"@en ;
+    rdfs:comment """One reviewer's decision about one proposed claim (an
+        mrs:Assertion) or one identity question: accept, reject or needs
+        discussion, with the checks performed, a note, the date and, where
+        given, the real source the reviewer cites. It is the ONLY route by
+        which a claim's status moves (docs/06 §3, docs/13 D2): software
+        records the decision and applies it, and never makes it.
+        NOT an mrs:Evaluation. An Evaluation is a grading recorded in a work,
+        at a cited Passage, within a tradition. A review decision is an act on
+        this platform and has no Passage of its own; none is ever faked.
+        The reviewer is identified by an opaque agent ID only. Names are kept
+        in the maintainer's private roster, outside this repository
+        (maintainer answers round 2, R3); public pages credit the review
+        board."""@en .
+
+mrs:reviewedBy a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasAssociatedWith ;
+    rdfs:domain mrs:ReviewDecision ; rdfs:range prov:Person ;
+    rdfs:comment "The human reviewer who made the decision, by opaque ID. Never a software agent."@en .
+mrs:reviewTarget a owl:ObjectProperty ; rdfs:subPropertyOf crm:P140_assigned_attribute_to ;
+    rdfs:domain mrs:ReviewDecision ;
+    rdfs:comment "What was decided: an mrs:Assertion, or, for an identity question, the entity whose identity row was reviewed."@en .
+mrs:reviewOutcome a owl:ObjectProperty ; rdfs:domain mrs:ReviewDecision ; rdfs:range mrs:ReviewOutcome .
+mrs:checkPerformed a owl:ObjectProperty ; rdfs:domain mrs:ReviewDecision ; rdfs:range mrs:ReviewCheck ;
+    rdfs:comment "Each of the four checks the reviewer says they made. Zero to four values; a check not ticked is not recorded."@en .
+mrs:reviewNote a owl:DatatypeProperty ; rdfs:domain mrs:ReviewDecision ; rdfs:range xsd:string ;
+    rdfs:comment "The reviewer's note, verbatim. Required for needs discussion: the board needs the reason."@en .
+mrs:reviewDate a owl:DatatypeProperty ; rdfs:domain mrs:ReviewDecision ; rdfs:range xsd:date ;
+    rdfs:comment "The day the reviewer made the decision, as their decision file states it. Never filled in by software."@en .
+mrs:sourceCitation a owl:DatatypeProperty ; rdfs:domain mrs:ReviewDecision ; rdfs:range xsd:string ;
+    rdfs:comment "The real source the reviewer cites (work and location, e.g. volume and page), verbatim as given. Required to accept a claim that rests on no real source in the graph, as every 50 Stories link does. Never generated, never invented."@en .
+mrs:statusBefore a owl:ObjectProperty ; rdfs:domain mrs:ReviewDecision ; rdfs:range mrs:AssertionStatus ;
+    rdfs:comment "The claim's status when the decision was applied. With statusAfter, every status change is logged, attributed and reversible (docs/06 §10, red line 8)."@en .
+mrs:statusAfter a owl:ObjectProperty ; rdfs:subPropertyOf crm:P141_assigned ;
+    rdfs:domain mrs:ReviewDecision ; rdfs:range mrs:AssertionStatus ;
+    rdfs:comment "The status the decision gave the claim: accept -> accepted, reject -> rejected, needs discussion -> under review."@en .
+mrs:identityQuestion a owl:ObjectProperty ; rdfs:domain mrs:ReviewDecision ; rdfs:range mrs:IdentityRelation ;
+    rdfs:comment "For an identity question: the relation the reviewer was asked to confirm (same as). Accept confirms it, reject denies it. Nothing is merged or split by software (I11)."@en .
+
+mrs:ReviewLog a owl:Class ;
+    rdfs:label "Review log"@en ;
+    rdfs:comment "Marks the file that holds the review decisions (ontology/corpus/reviews.ttl). A graph that contains it is checked for RD4: every reviewed status is backed by a human decision."@en .
+
 mrs:IdentityAssertion a owl:Class ;
     rdfs:subClassOf crm:E13_Attribute_Assignment ;
     rdfs:comment """'These names denote the same person' / 'these are distinct',
@@ -491,6 +541,34 @@ mrs:as_under_review a mrs:AssertionStatus ; skos:prefLabel "under review"@en .
 mrs:as_accepted a mrs:AssertionStatus ; skos:prefLabel "accepted"@en .
 mrs:as_rejected a mrs:AssertionStatus ; skos:prefLabel "rejected"@en .
 mrs:as_superseded a mrs:AssertionStatus ; skos:prefLabel "superseded"@en .
+
+mrs:ReviewOutcome a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:ro_accept a mrs:ReviewOutcome ; skos:prefLabel "accept"@en ;
+    skos:note "Sets the claim's status to accepted."@en .
+mrs:ro_reject a mrs:ReviewOutcome ; skos:prefLabel "reject"@en ;
+    skos:note "Sets the claim's status to rejected."@en .
+mrs:ro_needs_discussion a mrs:ReviewOutcome ; skos:prefLabel "needs discussion"@en ;
+    skos:note "Sets the claim's status to under review and refers it to the review board."@en .
+
+mrs:ReviewCheck a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:comment "The four things a reviewer checks (maintainer, 15 October 2026)."@en .
+mrs:rc_report_in_source a mrs:ReviewCheck ; skos:prefLabel "the report exists in the source"@en .
+mrs:rc_chain_sound a mrs:ReviewCheck ; skos:prefLabel "the chain is sound"@en .
+mrs:rc_summary_fair a mrs:ReviewCheck ; skos:prefLabel "the summary is fair"@en .
+mrs:rc_identity a mrs:ReviewCheck ; skos:prefLabel "who is who"@en .
+
+# The first review board's lens: the system's declared default (slice 3a).
+mrs:tradition_first_board a mrs:Tradition ;
+    rdfs:label "The first review board's lens (declared default)"@en ;
+    skos:prefLabel "Sunni, across the four madhhabs, coordinated initially by Shāfiʿī scholars"@en ;
+    mrs:declaredDefault true ;
+    rdfs:comment """The lens of the first review board and the system's DECLARED
+        DEFAULT. The maintainer (15 October 2026): "One board first (Sunni,
+        across the four madhhabs, coordinated initially by Shāfiʿī scholars);
+        others later." This narrows docs/06 §9 principle 1 (a cross-tradition
+        board) for the first release and is stated publicly as a declared
+        default. It is one lens among several, not a neutral view: no
+        tradition in this corpus is presented as neutral (docs/06 §2.3)."""@en .
 
 mrs:CheckResult a owl:Class ; rdfs:subClassOf skos:Concept .
 mrs:chk_plausible a mrs:CheckResult ; skos:prefLabel "plausible"@en .

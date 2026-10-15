@@ -494,3 +494,161 @@ mrs:CoverageGapShape a sh:NodeShape ;
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:severity sh:Violation ;
         sh:message "A coverage gap MUST state its cause. 'Not yet ingested' and 'no source survives' are radically different statements, and users read a gap in the database as a gap in history." ] .
+
+
+#################################################################
+#  REVIEW DECISIONS (slice 3a) — only a named human moves a claim.
+#
+#  A review decision is an act on this platform, not a grading
+#  recorded in a work: EvaluationShape (I3) does not apply to it and
+#  no Passage is ever faked for it. RD4 and RD5 look at the claim a
+#  decision targets, so they bite in the unified graph
+#  (ontology/build_graph.py); a single file validated on its own
+#  cannot see the other side and is not failed for it.
+#################################################################
+
+mrs:ReviewDecisionShape a sh:NodeShape ;
+    sh:targetClass mrs:ReviewDecision ;
+
+    # a decision either moves a claim's status or answers an identity question
+    sh:xone (
+        [ sh:property [ sh:path mrs:statusBefore ; sh:minCount 1 ] , [ sh:path mrs:statusAfter ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path mrs:identityQuestion ; sh:minCount 1 ] ]
+    ) ;
+    sh:severity sh:Violation ;
+    sh:message "RD2: A review decision either moves a claim's status (statusBefore and statusAfter) or answers an identity question (identityQuestion): exactly one of the two." ;
+
+    sh:property [
+        sh:path mrs:reviewedBy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class prov:Person ;
+        sh:not [ sh:class prov:SoftwareAgent ] ;
+        sh:severity sh:Violation ;
+        sh:message "RD1: A review decision MUST be made by exactly one human reviewer (prov:Person, never a software agent), named by an opaque ID. Software never moves a claim's status." ] ;
+
+    sh:property [
+        sh:path mrs:reviewTarget ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:severity sh:Violation ;
+        sh:message "RD2: A review decision MUST have exactly one target: the claim, or the identity row's entity, it decides." ] ;
+
+    sh:property [
+        sh:path mrs:reviewOutcome ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( mrs:ro_accept mrs:ro_reject mrs:ro_needs_discussion ) ;
+        sh:severity sh:Violation ;
+        sh:message "RD2: A review decision MUST have exactly one outcome: accept, reject or needs discussion." ] ;
+
+    sh:property [
+        sh:path mrs:checkPerformed ;
+        sh:in ( mrs:rc_report_in_source mrs:rc_chain_sound mrs:rc_summary_fair mrs:rc_identity ) ;
+        sh:severity sh:Violation ;
+        sh:message "A check performed MUST be one of the four: the report exists in the source, the chain is sound, the summary is fair, who is who." ] ;
+
+    sh:property [ sh:path mrs:reviewDate ;     sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:date ;   sh:severity sh:Violation ;
+                  sh:message "A review decision MUST carry the day the reviewer made it, as they gave it." ] ;
+    sh:property [ sh:path mrs:reviewNote ;     sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:sourceCitation ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ; sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path mrs:tradition ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class mrs:Tradition ;
+        sh:severity sh:Violation ;
+        sh:message "A review decision MUST name the lens it was made in (today the first board's declared default). No decision is presented as neutral." ] ;
+
+    sh:property [ sh:path mrs:statusBefore ; sh:maxCount 1 ;
+                  sh:in ( mrs:as_proposed mrs:as_under_review mrs:as_accepted mrs:as_rejected mrs:as_superseded ) ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:statusAfter ;  sh:maxCount 1 ;
+                  sh:in ( mrs:as_accepted mrs:as_rejected mrs:as_under_review ) ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:identityQuestion ; sh:maxCount 1 ;
+                  sh:in ( mrs:ir_same_as mrs:ir_distinct_from ) ; sh:severity sh:Violation ] ;
+
+    # RD3 — the status set is the one the outcome names
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "RD3: The status a decision sets MUST follow from its outcome: accept -> accepted, reject -> rejected, needs discussion -> under review." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this mrs:reviewOutcome ?outcome ; mrs:statusAfter ?value .
+                FILTER (!( (?outcome = mrs:ro_accept && ?value = mrs:as_accepted)
+                        || (?outcome = mrs:ro_reject && ?value = mrs:as_rejected)
+                        || (?outcome = mrs:ro_needs_discussion && ?value = mrs:as_under_review) ))
+            }
+        """ ] ;
+
+    # RD5 — no acceptance without a real source
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "RD5: No acceptance without a real source. Accepting a claim that rests on no Report (only a nonReportBasis, as every 50 Stories link does) MUST record the real source the reviewer cites (mrs:sourceCitation: work and location). Never invent one." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:reviewOutcome mrs:ro_accept ; mrs:reviewTarget ?claim .
+                ?claim a mrs:Assertion .
+                FILTER NOT EXISTS { ?claim mrs:fromReport ?report }
+                FILTER NOT EXISTS { $this mrs:sourceCitation ?citation }
+            }
+        """ ] ;
+
+    # RD6 — the board needs the reason
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "RD6: A needs-discussion decision MUST carry the reviewer's note: it goes to the review board, which needs the reason." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mrs:reviewOutcome mrs:ro_needs_discussion .
+                FILTER NOT EXISTS { $this mrs:reviewNote ?note }
+            }
+        """ ] .
+
+# RD4 — a reviewed status is always backed by a human decision. Checked
+# only in a graph that holds the review log (mrs:ReviewLog, in
+# ontology/corpus/reviews.ttl), i.e. the unified graph: a corpus file
+# validated alone cannot see the decisions about its claims.
+mrs:ReviewedStatusShape a sh:NodeShape ;
+    sh:targetClass mrs:Assertion ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "RD4: Only a named human moves a claim. An Assertion that is accepted, rejected or under review MUST be the target of a review decision by a human reviewer that set exactly that status. Software never changes a status on its own." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs"  ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ,
+                                 [ sh:prefix "prov" ; sh:namespace "http://www.w3.org/ns/prov#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                ?log a mrs:ReviewLog .
+                $this mrs:assertionStatus ?value .
+                FILTER (?value IN (mrs:as_accepted, mrs:as_rejected, mrs:as_under_review))
+                FILTER NOT EXISTS {
+                    ?decision a mrs:ReviewDecision ;
+                        mrs:reviewTarget $this ;
+                        mrs:statusAfter ?value ;
+                        mrs:reviewedBy ?reviewer .
+                    ?reviewer a prov:Person .
+                }
+            }
+        """ ] .
+
+# One declared default lens, and no lens that calls itself neutral (docs/06 §2.3).
+mrs:TraditionShape a sh:NodeShape ;
+    sh:targetClass mrs:Tradition ;
+    sh:property [ sh:path mrs:declaredDefault ; sh:maxCount 1 ; sh:datatype xsd:boolean ; sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path [ sh:alternativePath ( skos:prefLabel <http://www.w3.org/2000/01/rdf-schema#label> ) ] ;
+        sh:not [ sh:pattern "neutral" ; sh:flags "i" ] ;
+        sh:severity sh:Violation ;
+        sh:message "A tradition MUST NOT be labelled neutral. The system has a declared default lens, stated openly; no lens is the neutral view (docs/06 §2.3)." ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "At most one tradition may be the declared default." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this mrs:declaredDefault true .
+                ?value mrs:declaredDefault true .
+                FILTER (?value != $this)
+            }
+        """ ] .
