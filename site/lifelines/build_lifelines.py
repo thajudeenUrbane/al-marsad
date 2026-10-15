@@ -190,6 +190,17 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
         out_events.append({"id": ev.pid, "n": ev.name, "kd": ev.kind, "u": link(ev.kind, ev),
                            "lo": ev.lo, "hi": ev.hi, "t": ev.text, "nt": ev.notes, "dis": ev.disputed,
                            "ag": ev.agents, "ps": ps, "oth": others})
+    kin_ties: dict[tuple, dict] = {}
+    for tie in c.kin_ties:
+        if tie["a"] not in index or tie["b"] not in index:
+            continue
+        a, b = index[tie["a"]], index[tie["b"]]
+        if tie["kd"] != "parent" and a > b:
+            a, b = b, a                                   # symmetric ties: one bracket per pair
+        key = (a, b, tie["kd"])
+        kin_ties.setdefault(key, {"a": a, "b": b, "kd": tie["kd"], "cl": []})["cl"].append({
+            "lab": tie["label"], "st": tie["status"], "cit": tie["citation"], "wk": tie["work"],
+            "ai": tie["ai"], "bs": tie["basis"], "ag": tie["agents"]})
     undated = [{"n": p.name, "u": link("person", p),
                 "why": "ambiguous" if p.ambiguous else "unplaced" if p.claims else "none"}
                for p in people if p.iri not in index]
@@ -217,6 +228,7 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
     }
     data = {
         "people": out_people, "events": out_events, "undated": undated,
+        "kt": [kin_ties[k] for k in sorted(kin_ties)],
         "kin": {str(k): v for k, v in kin_labels.items()},
         "unitDays": {"lunar": cal.LUNAR_YEAR_DAYS, "solar": cal.SOLAR_YEAR_DAYS},
         "axis": axis, "sources": sources,
@@ -319,10 +331,11 @@ def legend_html(t: T) -> str:
         "node": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line><circle cx="28" cy="7" r="4.5" class="lg-node"></circle></svg>',
         "gap": '<svg width="56" height="28" aria-hidden="true"><line x1="28" y1="2" x2="28" y2="26" class="lg-conn"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-halo"></line><line x1="2" y1="14" x2="54" y2="14" class="lg-line"></line></svg>',
         "given": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line"></line><path d="M22.5 7 L28 1.5 L33.5 7 L28 12.5 Z" class="lg-given"></path></svg>',
+        "tie": '<svg width="56" height="28" aria-hidden="true"><path d="M16 4 H10 V24 H16" class="lg-tie"></path><line x1="7" y1="12" x2="13" y2="12" class="lg-tie-mark"></line><line x1="7" y1="15" x2="13" y2="15" class="lg-tie-mark"></line><line x1="18" y1="4" x2="54" y2="4" class="lg-line"></line><line x1="18" y1="24" x2="54" y2="24" class="lg-line"></line></svg>',
         "review": '<svg width="56" height="14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" class="lg-line rv"></line></svg>',
     }
     rows = "".join(f'<li>{sw[k]}<span>{esc(t("legend." + k))}</span></li>' for k in
-                   ("line", "range", "open", "conn", "node", "given", "gap", "review"))
+                   ("line", "range", "open", "conn", "node", "given", "gap", "tie", "review"))
     return (f'<ul class="legend">{rows}</ul>'
             f'<p class="note">{esc(t("legend.hue"))}</p>'
             f'<p class="note">{esc(t("legend.calendar"))}</p>'

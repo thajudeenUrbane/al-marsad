@@ -42,6 +42,10 @@ MEMBER_OF = "rel_member_of"
 # Ibn Hishām lifeline relations (slice 4)
 REL_AGE_AT, REL_BORN_DURING, REL_DIED_DURING, REL_DATED = "rel_age_at", "rel_born_during", "rel_died_during", "rel_dated"
 KINSHIP_CLASS = "relclass_kinship"
+PARENT_OF = ("rel_father_of", "rel_mother_of")          # subject is the parent
+CHILD_OF = ("rel_child_of",)                            # subject is the child
+SPOUSE_OF = ("rel_spouse_of", "rel_divorced_from")
+SIBLING_OF = ("rel_sibling_of",)
 
 # Wikidata calendar models (vocabulary, not entity IDs of this project)
 WD_JULIAN = ("Q1985786", "julian")
@@ -119,6 +123,7 @@ class Collector:
         self.people: dict[str, Person] = {}
         self.events: dict[str, Event] = {}
         self.ties: dict[str, set[str]] = {}
+        self.kin_ties: list[dict] = []
         self.external_label = external_label
         self.ages: list[AgeClaim] = []
         self._load_people()
@@ -470,6 +475,22 @@ class Collector:
                                   sources="; ".join(dict.fromkeys(c.source["label"] for c in cs))))
 
     # ------------------------------------------------------------ kinship, membership, ties
+    def _kin_tie(self, a, pred, subj: str, obj: str) -> dict:
+        """One recorded kinship claim. For parent ties 'a' is the parent, 'b' the child."""
+        g, local = self.g, _local(pred)
+        a_iri, b_iri = (obj, subj) if local in CHILD_OF else (subj, obj)
+        passage = g.value(a, PROV.wasDerivedFrom)
+        pinfo = self.site.passage_info(passage) if passage is not None else {}
+        wi = (pinfo or {}).get("work")
+        basis = g.value(a, MRS.nonReportBasis)
+        return {"a": a_iri, "b": b_iri, "kd": _tie_kind(local),
+                "label": self.site.vocab(pred) or local,
+                "status": self.site.vkey(g.value(a, MRS.assertionStatus), "as_"),
+                "citation": (pinfo or {}).get("citation"), "work": (wi or {}).get("label"),
+                "ai": bool(wi and wi["ai"]), "basis": str(basis) if basis is not None else None,
+                "agents": [ag.label for ag in self.site.agents_of(a)]}
+
+
     def _load_kinship_and_membership(self):
         g = self.g
         parent: dict[str, str] = {}
@@ -493,6 +514,7 @@ class Collector:
                 self.ties.setdefault(obj, set()).add(subj)
                 if rc is not None and _local(rc) == KINSHIP_CLASS:
                     parent[find(subj)] = find(obj)
+                    self.kin_ties.append(self._kin_tie(a, pred, subj, obj))
             if _local(pred) == MEMBER_OF and subj in self.people and obj in groups:
                 name = groups[obj].name
                 if name not in self.people[subj].tribes:
@@ -503,6 +525,16 @@ class Collector:
         for i, root in enumerate(sorted(comps, key=lambda r: min(self.people[m].sort for m in comps[r]))):
             for m in comps[root]:
                 self.people[m].kin = i
+
+
+def _tie_kind(local: str) -> str:
+    if local in PARENT_OF or local in CHILD_OF:
+        return "parent"
+    if local in SPOUSE_OF:
+        return "spouse"
+    if local in SIBLING_OF:
+        return "sibling"
+    return "kin"
 
 
 def site_vocab(site, node):

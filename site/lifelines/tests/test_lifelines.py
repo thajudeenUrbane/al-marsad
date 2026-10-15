@@ -237,6 +237,13 @@ class Fixture(unittest.TestCase):
         gamma = next(ps for e in self.data["events"] for ps in e["ps"] if self.data["people"][ps["p"]]["n"] == "Test person Gamma")
         self.assertNotIn("lunar", gamma["pl"]["b"])                       # no birth, no age
 
+    def test_kinship_ties_keep_direction_status_and_source(self):
+        names = [p["n"] for p in self.data["people"]]
+        ties = [(names[k["a"]], names[k["b"]], k["kd"]) for k in self.data["kt"]]
+        self.assertEqual(ties, [("Test person Alpha", "Test person Beta", "parent")])   # the parent first
+        claim = self.data["kt"][0]["cl"][0]
+        self.assertEqual((claim["lab"], claim["st"], claim["bs"]), ("father of", "proposed", "test"))
+
     def test_grouping_data_comes_from_recorded_claims(self):
         self.assertGreaterEqual(self.by_name["Test person Alpha"]["kin"], 0)
         self.assertEqual(self.by_name["Test person Alpha"]["kin"], self.by_name["Test person Beta"]["kin"])

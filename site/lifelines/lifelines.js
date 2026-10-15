@@ -40,7 +40,7 @@
   controls.hidden = false;
   stage.hidden = false;
 
-  var P = D.people, E = D.events;
+  var P = D.people, E = D.events, KT = D.kt || [];
   var hasTribes = P.some(function (p) { return p.tr && p.tr.length; });
   var hasKin = P.some(function (p) { return p.kin >= 0; });
   var hasTabaqa = P.some(function (p) { return p.tb; });
@@ -222,6 +222,15 @@
     }
     var g = {};
     ids.forEach(function (i) { var k = key(P[i]); (g[k] = g[k] || []).push(i); });
+    if (state.order === "kin") {
+      Object.keys(g).forEach(function (k) { if (k) { g[k] = familyOrder(g[k]); } });
+      return Object.keys(g).sort(function (a, b) {
+        if ((a === "") !== (b === "")) { return a === "" ? 1 : -1; }
+        var ma = Math.min.apply(null, g[a].map(function (i) { return startKey(P[i]); }));
+        var mb = Math.min.apply(null, g[b].map(function (i) { return startKey(P[i]); }));
+        return ma !== mb ? (ma < mb ? -1 : 1) : (a < b ? -1 : 1);
+      }).map(function (k) { return { label: label(k), ids: k ? g[k] : g[k].sort(cmp), family: !!k }; });
+    }
     var keys = Object.keys(g).sort(function (a, b) {
       if ((a === "") !== (b === "")) { return a === "" ? 1 : -1; }
       var ma = Math.min.apply(null, g[a].map(function (i) { return startKey(P[i]); }));
@@ -229,6 +238,30 @@
       return ma !== mb ? (ma < mb ? -1 : 1) : (a < b ? -1 : 1);
     });
     return keys.map(function (k) { return { label: label(k), ids: g[k].sort(cmp) }; });
+  }
+
+  // a family's rows: each person, then their spouses, then their children (each in turn), by birth
+  function familyOrder(ids) {
+    var inG = {}, kids = {}, spouses = {}, hasParent = {}, out = [], seen = {};
+    ids.forEach(function (i) { inG[i] = true; });
+    KT.forEach(function (tie) {
+      if (!inG[tie.a] || !inG[tie.b]) { return; }
+      if (tie.kd === "parent") { (kids[tie.a] = kids[tie.a] || []).push(tie.b); hasParent[tie.b] = true; }
+      if (tie.kd === "spouse") { (spouses[tie.a] = spouses[tie.a] || []).push(tie.b); (spouses[tie.b] = spouses[tie.b] || []).push(tie.a); }
+    });
+    function visit(i) {
+      if (seen[i]) { return; }
+      seen[i] = true;
+      out.push(i);
+      var sp = (spouses[i] || []).filter(function (j) { return !seen[j] && !hasParent[j]; }).sort(cmp);
+      sp.forEach(function (j) { seen[j] = true; out.push(j); });
+      var ch = [];
+      [i].concat(sp).forEach(function (x) { (kids[x] || []).forEach(function (c) { if (ch.indexOf(c) < 0) { ch.push(c); } }); });
+      ch.sort(cmp).forEach(visit);
+    }
+    ids.filter(function (i) { return !hasParent[i]; }).sort(cmp).forEach(visit);
+    ids.slice().sort(cmp).forEach(visit);
+    return out;
   }
 
   // ------------------------------------------------------------ layout
@@ -256,6 +289,23 @@
       g.ids.forEach(function (i) { rowOf[i] = rows.length; rows.push({ p: i, y: y, h: ROW }); y += ROW; });
     });
     var height = y + 16;
+    // kinship ties are undated: they go in a gutter beside the time axis, never on it
+    var brackets = [], lanes = [];
+    if (state.order === "kin") {
+      KT.forEach(function (tie, ti) {
+        if (rowOf[tie.a] === undefined || rowOf[tie.b] === undefined) { return; }
+        var r0 = Math.min(rowOf[tie.a], rowOf[tie.b]), r1 = Math.max(rowOf[tie.a], rowOf[tie.b]);
+        brackets.push({ ti: ti, r0: r0, r1: r1 });
+      });
+      brackets.sort(function (a, b) { return (a.r1 - a.r0) - (b.r1 - b.r0) || a.r0 - b.r0; });
+      brackets.forEach(function (bk) {
+        var lane = 0;
+        while (lanes[lane] && lanes[lane].some(function (o) { return !(o.r1 < bk.r0 || o.r0 > bk.r1); })) { lane++; }
+        (lanes[lane] = lanes[lane] || []).push(bk);
+        bk.lane = lane;
+      });
+    }
+    var gut = brackets.length ? 14 + lanes.length * 11 : 0;
     // date domain
     var lo = Infinity, hi = -Infinity;
     ids.forEach(function (i) {
@@ -293,23 +343,23 @@
         if (ps.ag && ps.ag.length) { amax = Math.max(amax, ps.ag[ps.ag.length - 1]); }
       });
     });
-    var avail = Math.max(240, scroller.clientWidth - namesWidth() - 2);
+    var avail = Math.max(240, scroller.clientWidth - namesWidth() - 2 - gut);
     var yearDays = D.unitDays.solar;
     var spanY = (hi - lo) / yearDays + 2 * (FADE + PAD) / 6;
     var kD = Math.max(5, (avail - 2 * PAD - 2 * FADE) / Math.max(10, (hi - lo) / yearDays)) * state.zoom / yearDays;
     var kA = Math.max(3.2, (avail - 2 * PAD - FADE) / Math.max(10, amax)) * state.zoom / D.unitDays[u];
-    var wD = 2 * PAD + 2 * FADE + (hi - lo) * kD;
-    var wA = 2 * PAD + FADE + amax * D.unitDays[u] * kA + 24;
+    var wD = gut + 2 * PAD + 2 * FADE + (hi - lo) * kD;
+    var wA = gut + 2 * PAD + FADE + amax * D.unitDays[u] * kA + 24;
     L = { ids: ids, rows: rows, rowOf: rowOf, height: height, lo: lo, hi: hi, kD: kD, kA: kA, wD: wD, wA: wA,
-          evs: evs, ref: ref, units: u, amax: amax, spanY: spanY, M: M };
+          evs: evs, ref: ref, units: u, amax: amax, spanY: spanY, M: M, brackets: brackets, gut: gut };
     return L;
   }
   function namesWidth() {
     var v = getComputedStyle(document.documentElement).getPropertyValue("--namew");
     return parseFloat(v) || 210;
   }
-  function xD(j) { return PAD + FADE + (j - L.lo) * L.kD; }
-  function xA(years) { return PAD + years * D.unitDays[L.units] * L.kA; }
+  function xD(j) { return L.gut + PAD + FADE + (j - L.lo) * L.kD; }
+  function xA(years) { return L.gut + PAD + years * D.unitDays[L.units] * L.kA; }
   function mix(a, b) { return a + (b - a) * m; }
   function rowY(i) { var r = L.rows[L.rowOf[i]]; return r.y + ROW / 2; }
 
@@ -445,7 +495,7 @@
     var width = Math.max(mix(L.wD, L.wA), scroller.clientWidth - namesWidth() - 2);
     var parts = [];
     parts.push('<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
-      '<rect width="6" height="6" fill="#f0a95a" fill-opacity="0.14"/><line x1="0" y1="0" x2="0" y2="6" stroke="#f0a95a" stroke-opacity="0.55" stroke-width="2"/></pattern>' +
+      '<rect width="6" height="6" fill="#f0a95a" fill-opacity="0.07"/><line x1="0" y1="0" x2="0" y2="6" stroke="#f0a95a" stroke-opacity="0.38" stroke-width="1.6"/></pattern>' +
       '<linearGradient id="fadeL" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="fade-0"/><stop offset="1" class="fade-1"/></linearGradient>' +
       '<linearGradient id="fadeR" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="fade-1"/><stop offset="1" class="fade-0"/></linearGradient></defs>');
     parts.push(gridSVG(width));
@@ -474,6 +524,26 @@
       });
     }
     parts.push('<g class="conns">' + conns.join("") + "</g>");
+    if (L.brackets.length) {
+      var tb = ['<text class="tiehead" x="4" y="12">' + h(t("js.ties_head")) + "</text>"];
+      L.brackets.forEach(function (bk) {
+        var tie = KT[bk.ti], x = L.gut - 8 - bk.lane * 11;
+        var ya = rowY(tie.a), yb = rowY(tie.b), y0 = Math.min(ya, yb), y1 = Math.max(ya, yb), ym = (y0 + y1) / 2;
+        var mark = "";
+        if (tie.kd === "spouse") {
+          mark = '<line class="tiemark" x1="' + (x - 3) + '" y1="' + (ym - 1.5) + '" x2="' + (x + 3) + '" y2="' + (ym - 1.5) + '"/>' +
+                 '<line class="tiemark" x1="' + (x - 3) + '" y1="' + (ym + 1.5) + '" x2="' + (x + 3) + '" y2="' + (ym + 1.5) + '"/>';
+        } else if (tie.kd === "parent") {
+          var dir = yb > ya ? 1 : -1;
+          mark = '<path class="tiemark" d="M' + (x - 3) + " " + (yb - 6 * dir) + " L" + x + " " + (yb - 2 * dir) + " L" + (x + 3) + " " + (yb - 6 * dir) + '"/>';
+        }
+        var aria = t("js.tie_aria", { a: P[tie.a].n, rel: tie.cl[0].lab, b: P[tie.b].n });
+        tb.push('<g class="tie tie-' + tie.kd + '" data-tie="' + bk.ti + '" tabindex="0" role="button" aria-label="' + h(aria) + '">' +
+          '<path class="tiepath" d="M' + (x + 5) + " " + y0 + " H" + x + " V" + y1 + " H" + (x + 5) + '"/>' + mark +
+          '<rect class="tiehit" x="' + (x - 5) + '" y="' + y0 + '" width="12" height="' + Math.max(8, y1 - y0) + '"/></g>');
+      });
+      parts.push('<g class="ties">' + tb.join("") + "</g>");
+    }
     // lines (halo first: it opens a visible gap wherever a line crosses a connector it is not part of)
     var lines = [];
     var geoms = [];
@@ -629,13 +699,15 @@
   function focusedKey() {
     var a = document.activeElement;
     if (!a || !scroller.contains(a)) { return null; }
+    if (a.dataset.tie !== undefined) { return { tie: a.dataset.tie }; }
     if (a.dataset.ev !== undefined) { return { ev: a.dataset.ev }; }
     if (a.dataset.p !== undefined) { return { p: a.dataset.p }; }
     return null;
   }
   function restoreFocus(k) {
     if (!k) { return; }
-    var el = k.ev !== undefined ? scroller.querySelector('g.ev[data-ev="' + k.ev + '"]') : scroller.querySelector('.names button[data-p="' + k.p + '"]');
+    var el = k.tie !== undefined ? scroller.querySelector('g.tie[data-tie="' + k.tie + '"]') :
+      k.ev !== undefined ? scroller.querySelector('g.ev[data-ev="' + k.ev + '"]') : scroller.querySelector('.names button[data-p="' + k.p + '"]');
     if (el) { el.focus({ preventScroll: true }); }
   }
 
@@ -648,6 +720,11 @@
     if (!sel) { return; }
     if (sel.type === "e") {
       scroller.querySelectorAll('[data-ev="' + sel.i + '"]').forEach(function (el) { el.classList.add("sel"); });
+    } else if (sel.type === "t") {
+      scroller.querySelectorAll('[data-tie="' + sel.i + '"]').forEach(function (el) { el.classList.add("sel"); });
+      [KT[sel.i].a, KT[sel.i].b].forEach(function (i) {
+        scroller.querySelectorAll('.pl[data-p="' + i + '"], .names button[data-p="' + i + '"]').forEach(function (el) { el.classList.add("sel"); });
+      });
     } else {
       scroller.querySelectorAll('.pl[data-p="' + sel.i + '"], .names button[data-p="' + sel.i + '"]').forEach(function (el) { el.classList.add("sel"); });
     }
@@ -834,6 +911,22 @@
     return true;
   }
 
+  function tieDetails(ti, focus) {
+    var tie = KT[ti];
+    var out = ['<h2 id="ll-details-h">' + hx(t("js.tie_h", { a: P[tie.a].n, rel: tie.cl[0].lab, b: P[tie.b].n })) + "</h2>"];
+    out.push('<p class="meta">' + h(t("js.tie_undated")) + "</p><ul>");
+    tie.cl.forEach(function (c) {
+      var src = c.cit ? hx(c.cit) + (c.wk ? " · " + hx(c.wk) : "") : (c.bs ? hx(t("js.tie_basis", { value: c.bs })) : "");
+      if (c.ag && c.ag.length) { src += (src ? " · " : "") + hx(t("js.tie_recorded_by", { agents: c.ag.join(", ") })); }
+      out.push("<li>" + hx(c.lab) + " · " + h(statusText(c.st)) + (c.ai ? " · " + h(t("js.ai_source")) : "") +
+        '<div class="meta">' + src + "</div></li>");
+    });
+    out.push("</ul><p>" + [tie.a, tie.b].map(function (i) {
+      return '<button type="button" class="lk" data-goto-p="' + i + '">' + hx(P[i].n) + "</button>";
+    }).join(" · ") + "</p>");
+    showDetails(out.join(""), focus);
+  }
+
   function select(s, focus) {
     sel = s;
     applySelection();
@@ -841,7 +934,7 @@
       if (!momentDetails(false)) { details.hidden = true; }
       return;
     }
-    if (s.type === "e") { eventDetails(s.i, focus); } else { personDetails(s.i, focus); }
+    if (s.type === "e") { eventDetails(s.i, focus); } else if (s.type === "t") { tieDetails(s.i, focus); } else { personDetails(s.i, focus); }
     requestAnimationFrame(function () { reveal(s); });
   }
 
@@ -967,9 +1060,10 @@
 
   // ------------------------------------------------------------ events
   scroller.addEventListener("click", function (e) {
-    var el = e.target.closest("[data-ev],[data-p]");
+    var el = e.target.closest("[data-ev],[data-p],[data-tie]");
     if (!el || !scroller.contains(el)) { return; }
-    if (el.dataset.ev !== undefined) { select({ type: "e", i: +el.dataset.ev }, false); }
+    if (el.dataset.tie !== undefined) { select({ type: "t", i: +el.dataset.tie }, false); }
+    else if (el.dataset.ev !== undefined) { select({ type: "e", i: +el.dataset.ev }, false); }
     else { select({ type: "p", i: +el.dataset.p }, false); }
   });
   scroller.addEventListener("keydown", function (e) {
@@ -977,6 +1071,9 @@
     if ((e.key === "Enter" || e.key === " ") && el.matches && el.matches("g.ev")) {
       e.preventDefault();
       select({ type: "e", i: +el.dataset.ev }, true);
+    } else if ((e.key === "Enter" || e.key === " ") && el.matches && el.matches("g.tie")) {
+      e.preventDefault();
+      select({ type: "t", i: +el.dataset.tie }, true);
     } else if (e.key === "+" || e.key === "=") { setZoom(state.zoom * 1.25); }
     else if (e.key === "-") { setZoom(state.zoom / 1.25); }
   });

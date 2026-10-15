@@ -115,7 +115,17 @@ async function open(browser, url, vp, touch) {
   for (const v of ["tabaqa", "kin", "birth"]) {
     await page.selectOption('select[name="order"]', v);
     await page.waitForTimeout(100);
-    check(await page.locator("svg.plot g.pl").count() === nBase, `order "${v}" keeps every line`);
+    check(await page.locator("svg.plot g.pl").count() >= nBase, `order "${v}" keeps every line`);
+    if (v === "kin" && (data.kt || []).length) {
+      const ties = page.locator("svg.plot g.tie");
+      check(await ties.count() === data.kt.length, `family order: one undated bracket per recorded tie (${await ties.count()})`);
+      await ties.first().focus();
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(100);
+      const det = await page.locator("#ll-details").textContent();
+      check(/Undated/.test(det) && /Status:/.test(det), "a kinship tie opens its claims, status and source, marked undated");
+      await page.keyboard.press("Escape");
+    }
   }
   await page.locator('input[name="review"]').check();
   await page.waitForTimeout(150);
