@@ -1,0 +1,13 @@
+{
+  "slug": "first-believers",
+  "status": "draft",
+  "approved_by": [],
+  "title": "journey.first_believers.title",
+  "lead": "journey.first_believers.lead",
+  "door": "discover",
+  "select": {
+    "type": "stories",
+    "part": {"words": ["Makkan"]}
+  },
+  "order": "story"
+}
