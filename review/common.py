@@ -329,6 +329,37 @@ class Tree:
         return next((r for r in self.identity if expand(r["canonical_id"]) == iri), None)
 
 
+def drift(tree: Tree) -> tuple[list, list]:
+    """Do the corpus statuses agree with reviews.ttl?
+
+    Returns (restorable, problems). restorable: [(assertion, current, expected)] where the
+    claim is back at its pre-review status (a regenerated file) and its last decision says
+    otherwise; import_decisions.py --reapply restores these. problems: anything else."""
+    restorable, problems = [], []
+    by_target = tree.decisions_by_target()
+    for target, ds in sorted(by_target.items(), key=lambda kv: str(kv[0])):
+        claim = [d for d in ds if d.status_after]
+        if not claim:
+            if tree.identity_row(target) is None:
+                problems.append(f"identity decision on {curie(target)}, which has no identity row")
+            continue
+        if (target, RDF.type, MRS.Assertion) not in tree.graph:
+            problems.append(f"decision on {curie(target)}, which is no longer a claim in the corpus")
+            continue
+        expected, current = claim[-1].status_after, tree.status(target)
+        if current == expected:
+            continue
+        if current == claim[0].status_before:
+            restorable.append((target, current, expected))
+        else:
+            problems.append(f"{curie(target)} is {current}, but its last decision ({claim[-1].day}) set {expected}")
+    for a in tree.assertions():
+        st = tree.status(a)
+        if st in ("accepted", "rejected", "under_review") and not any(d.status_after == st for d in by_target.get(a, [])):
+            problems.append(f"{curie(a)} is {st} with no review decision that set it (RD4)")
+    return restorable, problems
+
+
 # ---------------------------------------------------------------------------
 # Identity rows: which needs-review flags are ID bookkeeping, not identity questions
 # ---------------------------------------------------------------------------

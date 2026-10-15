@@ -202,6 +202,11 @@ def main(argv=None) -> int:
     ap.add_argument("--list-excluded", action="store_true", help="print the identity rows left out and why")
     args = ap.parse_args(argv)
     tree = c.Tree(args.ontology)
+    restorable, problems = c.drift(tree)
+    if restorable or problems:
+        print(f"error: {len(restorable) + len(problems)} claim status(es) disagree with reviews.ttl; a queue built now "
+              "could send decided claims back to the scholars. Run review/import_decisions.py --check, then --reapply.")
+        return 1
     queue = build(tree, {v.strip() for v in args.identity_confidence.split(",") if v.strip()}, max(1, args.max_batch))
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(queue, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

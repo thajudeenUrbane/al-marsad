@@ -187,6 +187,15 @@ class Importer:
     def decide(self, reviewer, raw) -> str:
         d = parse_decision(raw)
         target, facets = self.resolve(d["kind"], d["target"])
+        new = c.Decision(iri=None, target=target, reviewer=reviewer, outcome=d["outcome"], checks=d["checks"],
+                         note=d["note"], citation=d["citation"], day=d["day"].isoformat(), tradition=self.tradition,
+                         question=None if d["kind"] == "claim" else "same_as")
+        prior = self.by_key.get((reviewer, target))
+        if prior is not None:  # before the other checks, so a re-import stays a no-op whatever changed since
+            if prior.content() == new.content():
+                return "already imported"
+            raise Refused(f"this reviewer already decided {c.curie(target)} on {prior.day} ({prior.outcome}); "
+                          "a change goes through the maintainer")
         self.authorize(reviewer, d["kind"], d["day"], facets, target)
         for key in ("note", "citation"):
             why = d[key] and c.private_data_in(d[key], self.names)
@@ -194,26 +203,14 @@ class Importer:
                 raise Refused(f"the {key} contains {why}; names and contact details must not enter the public record")
         if d["outcome"] == "needs_discussion" and not d["note"]:
             raise Refused("needs discussion must carry a note: the review board needs the reason")
-        new = c.Decision(iri=None, target=target, reviewer=reviewer, outcome=d["outcome"], checks=d["checks"],
-                         note=d["note"], citation=d["citation"], day=d["day"].isoformat(), tradition=self.tradition)
         if d["kind"] == "claim":
             if d["outcome"] == "accept" and not d["citation"] and not self.tree.has_real_source(target):
                 basis = "an AI-generated document" if self.tree.ai_basis(target) else "no source passage"
                 raise Refused(f"accept refused: {c.curie(target)} rests on {basis}, with no real source in the graph. "
                               "Accepting it needs the real source the reviewer checked (work and location, "
                               "e.g. volume and page). Never invent one.")
-            new.status_before = self.status[target]
-            new.status_after = c.OUTCOME_STATUS[d["outcome"]]
-        else:
-            new.question = "same_as"
-        prior = self.by_key.get((reviewer, target))
-        if prior is not None:
-            if prior.content() == new.content():
-                return "already imported"
-            raise Refused(f"this reviewer already decided {c.curie(target)} on {prior.day} ({prior.outcome}); "
-                          "a change goes through the maintainer")
-        if d["kind"] == "claim":
-            before, after = new.status_before, new.status_after
+            before = new.status_before = self.status[target]
+            after = new.status_after = c.OUTCOME_STATUS[d["outcome"]]
             if before not in ("proposed", after):
                 last = [x for x in self.existing + self.new if x.target == target]
                 who = f" (decided {last[-1].day} by {c.curie(last[-1].reviewer)})" if last else ""
@@ -341,33 +338,6 @@ def plan_edits(tree: c.Tree, changes: list) -> dict:
 # --check and --reapply
 # ---------------------------------------------------------------------------
 
-def drift(tree: c.Tree) -> tuple[list, list]:
-    """(restorable [(assertion, current, expected)], problems [str])"""
-    restorable, problems = [], []
-    by_target = tree.decisions_by_target()
-    for target, ds in sorted(by_target.items(), key=lambda kv: str(kv[0])):
-        claim = [d for d in ds if d.status_after]
-        if not claim:
-            if tree.identity_row(target) is None:
-                problems.append(f"identity decision on {c.curie(target)}, which has no identity row")
-            continue
-        if (target, c.RDF.type, c.MRS.Assertion) not in tree.graph:
-            problems.append(f"decision on {c.curie(target)}, which is no longer a claim in the corpus")
-            continue
-        expected, current = claim[-1].status_after, tree.status(target)
-        if current == expected:
-            continue
-        if current == claim[0].status_before:
-            restorable.append((target, current, expected))
-        else:
-            problems.append(f"{c.curie(target)} is {current}, but its last decision ({claim[-1].day}) set {expected}")
-    for a in tree.assertions():
-        st = tree.status(a)
-        if st in ("accepted", "rejected", "under_review") and not any(d.status_after == st for d in by_target.get(a, [])):
-            problems.append(f"{c.curie(a)} is {st} with no review decision that set it (RD4)")
-    return restorable, problems
-
-
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("files", nargs="*", type=Path, help="decision files (default: every *.json in review/inbox/)")
@@ -381,7 +351,7 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     tree = c.Tree(args.ontology)
-    restorable, problems = drift(tree)
+    restorable, problems = c.drift(tree)
     for a, cur, exp in restorable:
         print(f"out of step: {c.curie(a)} is {cur}; reviews.ttl says {exp}")
     for p in problems:
