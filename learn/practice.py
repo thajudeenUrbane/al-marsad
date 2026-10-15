@@ -38,7 +38,8 @@ ACCEPTED = MRS.as_accepted
 
 # Claims that put a person or group at an event, in the order questions are made.
 PARTICIPATION = (MRS.rel_participated_in, MRS.rel_led, MRS.rel_present_at, MRS.rel_witnessed)
-# An accepted claim of this kind for the same person and event cancels the pair.
+# A claim of this kind for the same person and event, unless rejected or superseded,
+# takes the person out of every answer about that event (see contested_pairs).
 CONTRARY = (MRS.rel_absent_from,)
 WHO_TYPES = {MRS.Person, MRS.Group, MRS.Tribe, MRS.Clan, MRS.Family}
 EVENT_TYPES = {MRS.Event, MRS.Journey}

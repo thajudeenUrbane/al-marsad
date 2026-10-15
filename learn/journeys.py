@@ -55,6 +55,7 @@ ORDERS = {"events": ("recorded",), "people": ("prophet_first_then_name", "name")
 DOORS = ("study", "discover")          # study: evidence first; discover: story first (R9)
 APPROVERS = ("maintainer", "review_board")
 SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+RESERVED_SLUGS = ("assets", "practice")   # folders of site/dist/learn/ that are not journeys
 KEY = re.compile(r"^[a-z_]+(?:\.[a-z0-9_]+)+$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -112,8 +113,8 @@ def validate(spec: dict, stem: str | None = None) -> dict:
     _keys(spec, {"slug", "status", "approved_by", "title", "lead", "door", "select", "order"},
           {"slug", "status", "approved_by", "title", "lead", "door", "select", "order"}, "journey")
     slug = spec["slug"]
-    if not isinstance(slug, str) or not SLUG.match(slug):
-        raise RuleError(f"slug {slug!r} must be lower-case words joined by hyphens")
+    if not isinstance(slug, str) or not SLUG.match(slug) or slug in RESERVED_SLUGS:
+        raise RuleError(f"slug {slug!r} must be lower-case words joined by hyphens, and not {RESERVED_SLUGS}")
     if stem is not None and stem != slug:
         raise RuleError(f"{slug}: the file must be named {slug}.json")
     for k in ("title", "lead"):
@@ -145,8 +146,9 @@ def validate(spec: dict, stem: str | None = None) -> dict:
         _event_rule(sel["events"], f"{slug}.select.events")
         p = sel["participation"]
         _keys(p, {"records", "claims"}, {"records", "claims"}, f"{slug}.select.participation")
-        if not isinstance(p["records"], bool) or not isinstance(p["claims"], list):
-            raise RuleError(f"{slug}.select.participation: records is true/false, claims a list")
+        if not isinstance(p["records"], bool) or not all(isinstance(x, list) for x in
+                                                        (p["claims"], sel["also_show"], sel["set_apart"])):
+            raise RuleError(f"{slug}.select: records is true/false; claims, also_show and set_apart are lists")
         for c in p["claims"] + sel["also_show"] + sel["set_apart"]:
             term(c, f"{slug}.select")
         if not p["records"] and not p["claims"]:
@@ -499,6 +501,7 @@ def build_events(site: Site, links: Links, spec: dict) -> Journey:
     chosen = sorted(hop)
     order, notes, conflict = _order_events(site, links, chosen)
     sel = set(chosen)
+    pos = {x: n for n, x in enumerate(order)}
     steps = []
     for i in order:
         st = Step(entity=site.entity(i), reasons=reasons[i], hop=hop[i])
@@ -506,7 +509,6 @@ def build_events(site: Site, links: Links, spec: dict) -> Journey:
         for other, r in links.about.get(i, []):
             if other in sel and r not in st.reasons and r not in st.links:
                 st.links.append(r)
-        pos = {x: n for n, x in enumerate(order)}
         st.links.sort(key=lambda r: (pos.get(r.other, 10**6), r.kind))
         steps.append(st)
     kinds = {s.entity.kind for s in steps}
@@ -544,7 +546,8 @@ def build_people(site: Site, links: Links, spec: dict) -> Journey:
     anchor_pos = {a: n for n, a in enumerate(anchors)}
 
     def rec_key(c: Claim):
-        return (anchor_pos.get(c.object, 10**6), c.kind != "participation", c.predicate, c.node or "")
+        return (anchor_pos.get(c.object, 10**6), c.kind != "participation", c.predicate,
+                c.role.text if c.role else "", c.node or "")
 
     steps, set_apart = [], []
     for iri, recs in records.items():
@@ -569,15 +572,12 @@ def build_people(site: Site, links: Links, spec: dict) -> Journey:
 
 def build_stories(site: Site, spec: dict) -> Journey:
     words = spec["select"]["part"]["words"]
-    parts: dict[str, str] = {}
+    parts: set[str] = set()
     chosen = []
     for e in site.stories_in_order():
         label = e.data.get("part_label")
-        if not label:
-            continue
-        toks = tokens(label)
-        if any(w.lower() in toks for w in words):
-            parts.setdefault(label, label)
+        if label and any(w.lower() in tokens(label) for w in words):
+            parts.add(label)
             chosen.append(e)
     steps = []
     for e in chosen:

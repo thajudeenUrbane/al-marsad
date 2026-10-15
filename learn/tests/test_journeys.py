@@ -79,6 +79,7 @@ class RuleFiles(unittest.TestCase):
         s = copy.deepcopy(good); s["order"] = "story"; bad.append(("wrong order for the type", s))
         s = copy.deepcopy(good); s["title"] = "The Hijrah"; bad.append(("title is not an i18n key", s))
         s = copy.deepcopy(good); s["door"] = "elsewhere"; bad.append(("unknown door", s))
+        s = copy.deepcopy(good); s["slug"] = "practice"; bad.append(("a slug that is a learn folder", s))
         for why, spec in bad:
             with self.subTest(why):
                 with self.assertRaises(J.RuleError):
