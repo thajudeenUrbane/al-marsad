@@ -8,3 +8,6 @@ __pycache__/
 # Secrets and local settings
 .env*
 .claude/settings.local.json
+
+# Local Python env
+.venv/
