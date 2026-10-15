@@ -1,0 +1,94 @@
+# A small, wholly fictional graph for the Lifelines tests. Every person and event here is
+# invented test data ("Test person ..."); nothing describes anyone real.
+@prefix mrs: <https://w3id.org/marsad/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix per: <https://w3id.org/marsad/id/person/> .
+@prefix ev: <https://w3id.org/marsad/id/event/> .
+@prefix grp: <https://w3id.org/marsad/id/group/> .
+@prefix as: <https://w3id.org/marsad/id/assertion/> .
+@prefix tmp: <https://w3id.org/marsad/id/temporal/> .
+
+mrs:relclass_kinship a skos:Concept ; skos:prefLabel "kinship"@en .
+mrs:relclass_participation a skos:Concept ; skos:prefLabel "participation and occurrence"@en .
+mrs:relclass_social_political a skos:Concept ; skos:prefLabel "social and political"@en .
+mrs:rel_participated_in skos:prefLabel "participated in"@en ; mrs:relationClass mrs:relclass_participation .
+mrs:rel_absent_from skos:prefLabel "absent from"@en ; mrs:relationClass mrs:relclass_participation .
+mrs:rel_father_of skos:prefLabel "father of"@en ; mrs:relationClass mrs:relclass_kinship .
+mrs:rel_member_of skos:prefLabel "member of"@en ; mrs:relationClass mrs:relclass_social_political .
+mrs:role_participant skos:prefLabel "participant"@en .
+mrs:as_proposed skos:prefLabel "proposed"@en .
+mrs:tb_sahabi skos:prefLabel "ṣaḥābī"@en .
+<https://w3id.org/marsad/id/agent/TestAgent000000000000a> rdfs:label "Test recording pass" .
+
+per:TestAlpha00000000000a a mrs:Person ; rdfs:label "Test person Alpha" ; mrs:tabaqa mrs:tb_sahabi ;
+    mrs:createdBy <https://w3id.org/marsad/id/agent/TestAgent000000000000a> .
+per:TestBeta000000000000b a mrs:Person ; rdfs:label "Test person Beta" ; mrs:tabaqa mrs:tb_sahabi .
+per:TestGamma00000000000c a mrs:Person ; rdfs:label "Test person Gamma" ;
+    mrs:createdBy <https://w3id.org/marsad/id/agent/TestAgent000000000000a> ;
+    mrs:death [ a mrs:Death ; mrs:eventTemporalExtent [ a mrs:TemporalExtent ;
+        mrs:nativeValue "7 Shawwāl 3 AH" ; mrs:calendar mrs:cal_hijri ; mrs:precision mrs:pr_day ;
+        mrs:temporalBasis mrs:tbas_attested ; mrs:conversionMethod "tabular-islamic-civil" ;
+        mrs:conversionUncertaintyDays 1 ;
+        mrs:earliestStart "0625-03-23T00:00:00+00:00"^^xsd:dateTime ;
+        mrs:latestEnd "0625-03-23T23:59:59+00:00"^^xsd:dateTime ] ] .
+per:TestDelta00000000000d a mrs:Person ; rdfs:label "Test person Delta" .
+per:TestEpsilon000000000e a mrs:Person ; rdfs:label "Test person Epsilon" .
+per:TestZeta000000000000f a mrs:Person ; rdfs:label "Test person Zeta" .
+per:TestEta0000000000000g a mrs:Person ; rdfs:label "Test person Eta" .
+per:TestTheta00000000000h a mrs:Person ; rdfs:label "Test person Theta" .
+per:TestIota000000000000i a mrs:Person ; rdfs:label "Test person Iota" ;
+    mrs:death [ a mrs:Death ; mrs:eventTemporalExtent [ a mrs:TemporalExtent ;
+        mrs:nativeValue "shortly after the test battle" ; mrs:calendar mrs:cal_hijri ; mrs:precision mrs:pr_period ;
+        mrs:temporalBasis mrs:tbas_attested ; mrs:relativeAnchor [ a mrs:RelativeAnchor ] ] ] .
+
+grp:TestTribe00000000000t a mrs:Tribe ; rdfs:label "Test tribe" .
+
+ev:TestBattle0000000000a a mrs:Event ; rdfs:label "Test battle" ;
+    mrs:eventTemporalExtent tmp:TestTemporal00000001 ;
+    mrs:hasParticipation [ mrs:participant per:TestAlpha00000000000a ; mrs:participantRole mrs:role_participant ] ,
+                         [ mrs:participant per:TestGamma00000000000c ; mrs:participantRole mrs:role_participant ] ,
+                         [ mrs:participant per:TestEta0000000000000g ; mrs:participantRole mrs:role_participant ] .
+tmp:TestTemporal00000001 a mrs:TemporalExtent ; mrs:nativeValue "17 Ramaḍān 2 AH" ; mrs:calendar mrs:cal_hijri ;
+    mrs:precision mrs:pr_day ; mrs:temporalBasis mrs:tbas_attested ;
+    mrs:earliestStart "0624-03-13T00:00:00+00:00"^^xsd:dateTime ; mrs:latestEnd "0624-03-13T23:59:59+00:00"^^xsd:dateTime .
+
+ev:TestMigration0000000b a mrs:Event ; rdfs:label "Test migration" ;
+    mrs:eventTemporalExtent tmp:TestTemporal00000002 ;
+    mrs:hasParticipation [ mrs:participant per:TestAlpha00000000000a ; mrs:participantRole mrs:role_participant ] ,
+                         [ mrs:participant per:TestTheta00000000000h ; mrs:participantRole mrs:role_participant ] .
+tmp:TestTemporal00000002 a mrs:TemporalExtent ; mrs:nativeValue "622 CE" ; mrs:calendar mrs:cal_gregorian ;
+    mrs:precision mrs:pr_year ; mrs:temporalBasis mrs:tbas_conventional ;
+    mrs:earliestStart "0622-01-01T00:00:00+00:00"^^xsd:dateTime ; mrs:latestEnd "0622-12-31T23:59:59+00:00"^^xsd:dateTime .
+
+ev:TestEarly00000000000c a mrs:Event ; rdfs:label "Test early event" ;
+    mrs:eventTemporalExtent tmp:TestTemporal00000003 ;
+    mrs:hasParticipation [ mrs:participant per:TestAlpha00000000000a ; mrs:participantRole mrs:role_participant ] .
+tmp:TestTemporal00000003 a mrs:TemporalExtent ; mrs:nativeValue "c. 560 CE" ; mrs:calendar mrs:cal_gregorian ;
+    mrs:precision mrs:pr_year ; mrs:temporalBasis mrs:tbas_conventional ;
+    mrs:earliestStart "0560-01-01T00:00:00+00:00"^^xsd:dateTime ; mrs:latestEnd "0560-12-31T23:59:59+00:00"^^xsd:dateTime .
+
+ev:TestUndated000000000d a mrs:Event ; rdfs:label "Test undated event" ;
+    mrs:hasParticipation [ mrs:participant per:TestAlpha00000000000a ; mrs:participantRole mrs:role_participant ] ,
+                         [ mrs:participant per:TestBeta000000000000b ; mrs:participantRole mrs:role_participant ] .
+
+ev:TestRelative00000000e a mrs:Event ; rdfs:label "Test relative event" ;
+    mrs:eventTemporalExtent [ a mrs:TemporalExtent ; mrs:nativeValue "three nights" ; mrs:calendar mrs:cal_hijri ;
+        mrs:precision mrs:pr_day ; mrs:temporalBasis mrs:tbas_attested ; mrs:relativeAnchor [ a mrs:RelativeAnchor ] ] ;
+    mrs:hasParticipation [ mrs:participant per:TestAlpha00000000000a ; mrs:participantRole mrs:role_participant ] ,
+                         [ mrs:participant per:TestBeta000000000000b ; mrs:participantRole mrs:role_participant ] .
+
+as:TestAssert000000000001 a mrs:Assertion ; mrs:assertionSubject per:TestBeta000000000000b ;
+    mrs:predicate mrs:rel_participated_in ; mrs:assertionObject ev:TestBattle0000000000a ;
+    mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .
+as:TestAssert000000000002 a mrs:Assertion ; mrs:assertionSubject per:TestDelta00000000000d ;
+    mrs:predicate mrs:rel_absent_from ; mrs:assertionObject ev:TestBattle0000000000a ;
+    mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .
+as:TestAssert000000000003 a mrs:Assertion ; mrs:assertionSubject per:TestAlpha00000000000a ;
+    mrs:predicate mrs:rel_father_of ; mrs:assertionObject per:TestBeta000000000000b ;
+    mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .
+as:TestAssert000000000004 a mrs:Assertion ; mrs:assertionSubject per:TestTheta00000000000h ;
+    mrs:predicate mrs:rel_member_of ; mrs:assertionObject grp:TestTribe00000000000t ;
+    mrs:assertionStatus mrs:as_proposed ; mrs:nonReportBasis "test" .

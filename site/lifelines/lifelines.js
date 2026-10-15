@@ -387,6 +387,9 @@
       lines.push(s.join(""));
     });
     parts.push('<g class="lines">' + lines.join("") + "</g>");
+    if (m > 0.01 && L.ids.length && !L.ids.some(function (i) { return life(P[i]).b; })) {
+      parts.push('<text class="rowlbl" x="' + (PAD + 4) + '" y="' + (L.height - 6) + '" opacity="' + m.toFixed(3) + '">' + h(t("js.none_by_age")) + "</text>");
+    }
     // nodes: only where a connector meets a participant's line
     var nodes = [], labels = [], lastLbl = {};
     var all = [];
@@ -511,6 +514,11 @@
     if (p.tb) { out.push("<dt>" + h(t("js.tabaqa")) + "</dt><dd>" + hx(p.tb) + "</dd>"); }
     if (p.kin >= 0) { out.push("<dt>" + h(t("js.kin")) + "</dt><dd>" + hx(D.kin[String(p.kin)]) + "</dd>"); }
     if (p.tr && p.tr.length) { out.push("<dt>" + h(t("js.tribe")) + "</dt><dd>" + hx(p.tr.join(", ")) + "</dd>"); }
+    if (p.oc && p.oc.length) {
+      out.push("<dt>" + h(t("js.other_candidates")) + "</dt><dd>" + p.oc.map(function (q) {
+        return /^Q\d+$/.test(q) ? '<a href="https://www.wikidata.org/wiki/' + q + '">' + q + "</a>" : h(q);
+      }).join(", ") + "</dd>");
+    }
     out.push("</dl>");
     var evs = [];
     E.forEach(function (e, ei) {
@@ -532,17 +540,24 @@
     if (e.nt.length) { out.push('<p class="meta">' + e.nt.map(hx).join("<br>") + "</p>"); }
     out.push('<p class="meta">' + h(t("js.event_source", { agents: e.ag.join(", ") || t("js.unknown") })) + "</p>");
     if (e.dis) { out.push('<p class="meta">' + h(t("date.disputed")) + "</p>"); }
-    var rows = e.ps.map(function (ps) {
-      var p = P[ps.p];
-      var shown = L && L.rowOf[ps.p] !== undefined;
-      var cit = ps.cit ? " · " + hx(ps.cit) : "";
-      var ai = ps.ai ? " · " + h(t("js.ai_source")) : "";
-      return "<li><button type=\"button\" class=\"lk\" data-goto-p=\"" + ps.p + "\">" + hx(p.n) + "</button>" +
-        (shown ? "" : ' <span class="tag">' + h(t("js.not_shown")) + "</span>") +
-        '<div class="meta">' + h(ageText(placementOf(ps))) + "</div>" +
-        '<div class="meta">' + hx(ps.how) + " · " + h(statusText(ps.st)) + cit + ai + "</div></li>";
+    var order = [], byP = {};
+    e.ps.forEach(function (ps) {
+      if (!byP[ps.p]) { byP[ps.p] = []; order.push(ps.p); }
+      byP[ps.p].push(ps);
     });
-    out.push("<h3>" + h(t("js.took_part", { n: e.ps.length })) + "</h3><ul>" + rows.join("") + "</ul>");
+    var rows = order.map(function (pi) {
+      var p = P[pi], first = byP[pi][0];
+      var shown = L && L.rowOf[pi] !== undefined;
+      var claims = byP[pi].map(function (ps) {
+        var cit = ps.cit ? " · " + hx(ps.cit) : "";
+        var ai = ps.ai ? " · " + h(t("js.ai_source")) : "";
+        return '<div class="meta">' + hx(ps.how) + " · " + h(statusText(ps.st)) + cit + ai + "</div>";
+      }).join("");
+      return "<li><button type=\"button\" class=\"lk\" data-goto-p=\"" + pi + "\">" + hx(p.n) + "</button>" +
+        (shown ? "" : ' <span class="tag">' + h(t("js.not_shown")) + "</span>") +
+        '<div class="meta">' + h(ageText(placementOf(first))) + "</div>" + claims + "</li>";
+    });
+    out.push("<h3>" + h(t("js.took_part", { n: order.length })) + "</h3><ul>" + rows.join("") + "</ul>");
     if (e.oth.length) {
       out.push("<h3>" + h(t("js.also_no_dates", { n: e.oth.length })) + "</h3><ul>" +
         e.oth.map(function (o) { return "<li>" + (o.u ? '<a href="' + h(o.u) + '">' + hx(o.n) + "</a>" : hx(o.n)) + "</li>"; }).join("") + "</ul>");
@@ -556,6 +571,26 @@
     applySelection();
     if (!s) { details.hidden = true; return; }
     if (s.type === "e") { eventDetails(s.i, focus); } else { personDetails(s.i, focus); }
+    requestAnimationFrame(function () { reveal(s); });
+  }
+
+  // keep the selected connector or line in view (the details panel narrows the chart)
+  function reveal(s) {
+    if (!L || !s) { return; }
+    var x, y;
+    if (s.type === "e") {
+      var ev = L.evs.filter(function (v) { return v.i === s.i; })[0];
+      if (!ev) { return; }
+      x = Math.min.apply(null, ev.on.map(function (ps) { return nodeX(ev, ps)[0]; }));
+      y = Math.min.apply(null, ev.on.map(function (ps) { return rowY(ps.p); }));
+    } else {
+      if (L.rowOf[s.i] === undefined) { return; }
+      x = personGeom(s.i).min;
+      y = rowY(s.i);
+    }
+    var viewW = scroller.clientWidth - namesWidth(), viewH = scroller.clientHeight - AXH;
+    if (x < scroller.scrollLeft + 8 || x > scroller.scrollLeft + viewW - 40) { scroller.scrollLeft = Math.max(0, x - viewW / 3); }
+    if (y < scroller.scrollTop + 8 || y > scroller.scrollTop + viewH - 20) { scroller.scrollTop = Math.max(0, y - viewH / 3); }
   }
 
   // ------------------------------------------------------------ orientation, table sync

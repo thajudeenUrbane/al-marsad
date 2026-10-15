@@ -61,6 +61,7 @@
 
   "undated.h": "No dates recorded yet ({n} people)",
   "undated.intro": "These people are in the graph, but no birth or death date with a source has been recorded or matched for them yet, so they have no line. They are not left out for any other reason.",
+  "undated.ambiguous": "several Wikidata candidates, none clearly the same person",
   "undated.unplaced": "a date is recorded only in words, so it cannot be placed",
 
   "sources.h": "Where the dates come from",
@@ -89,6 +90,11 @@
   "src.unknown_agent": "an unrecorded source",
   "src.wikidata": "Wikidata {qid}",
   "src.wikidata_detail": "{confidence} · {file}",
+  "src.wikidata_rank": "Wikidata rank: {rank}",
+  "src.wikidata_qualifier": "Recorded with it on Wikidata: {value}",
+  "src.wikidata_note": "Note: {value}",
+  "src.other_candidates": "Other Wikidata candidates, not used (they need review): {qids}",
+  "src.ambiguous": "Several Wikidata candidates and none clearly the same person: no date is drawn from them",
   "src.wikidata_value": "Wikidata value {value} (precision: {precision}; calendar: {calendar})",
   "match.exact": "exact match (proposed)",
   "match.probable": "probable match (proposed)",
@@ -130,6 +136,7 @@
   "date.not_placed": "Not placed on the axis: no absolute date range is recorded",
   "date.not_placed_precision": "Not placed on the axis: the precision is coarser than a century, or not stated",
   "date.not_placed_calendar": "Not placed on the axis: the calendar is not stated",
+  "date.qualifier_range": "The range includes the earliest/latest date recorded with the value on Wikidata ({value})",
   "date.from_gregorian": "Converted from the proleptic Gregorian value recorded in Wikidata",
   "date.several_ranges": "Several date ranges are recorded; the connector spans all of them",
   "date.month.1": "January",
@@ -207,5 +214,7 @@
   "js.filter_desc_person": "around {name}: direct recorded ties and shared events",
   "js.mode_date": "by date; ages in {unit}",
   "js.mode_age": "by age (birth = 0), in {unit}",
+  "js.other_candidates": "Other Wikidata candidates, not used (they need review)",
+  "js.none_by_age": "Nobody shown here has a recorded birth date yet, so no line can be aligned by age. Switch back to By date.",
   "js.order_tribe_none": "By tribe (none recorded yet)"
 }

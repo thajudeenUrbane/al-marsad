@@ -41,7 +41,6 @@ KINSHIP_CLASS = "relclass_kinship"
 WD_JULIAN = ("Q1985786", "julian")
 WD_GREGORIAN = ("Q1985727", "gregorian")
 USABLE_MATCH = ("exact", "probable")
-REVIEW_MATCH = ("needs-review", "needs_review", "needsreview")
 
 
 def _local(iri) -> str:
@@ -76,6 +75,8 @@ class Person:
     claims: list[DateClaim] = field(default_factory=list)
     kin: int | None = None
     tribes: list[str] = field(default_factory=list)
+    other_candidates: list[str] = field(default_factory=list)   # Wikidata items not used (need review)
+    ambiguous: bool = False         # several candidate items, none usable: nothing drawn from them
 
 
 @dataclass
@@ -163,19 +164,25 @@ class Collector:
 
     _ALIASES = {
         "id": ("canonical_id", "id", "entity", "entity_id"),
-        "qid": ("qid", "wikidata", "wikidata_id", "external_id", "wikidata_qid", "item"),
-        "kind": ("kind", "date_kind", "birth_death", "property", "event", "field", "which", "type", "date_type"),
+        "qid": ("external_id", "qid", "wikidata", "wikidata_id", "wikidata_qid", "item"),
+        "kind": ("property", "kind", "date_kind", "birth_death", "event", "field", "which", "type", "date_type"),
         "value": ("value", "date", "time", "time_value", "date_value"),
         "precision": ("precision", "wikidata_precision", "date_precision"),
         "calendar": ("calendar_model", "calendar", "calendarmodel", "calendar_model_qid"),
         "confidence": ("match_confidence", "confidence", "match"),
         "status": ("status",),
-        "label": ("external_label", "label", "wikidata_label"),
-        "earliest": ("earliest", "earliest_date"),
-        "latest": ("latest", "latest_date"),
+        "rank": ("rank",),
+        "qualifiers": ("qualifiers",),
+        "note": ("note", "notes"),
     }
+    _QUAL_TIME = re.compile(r"^(P1319|P1326)\b[^:]*:\s*([+-]?\d{1,6}-\d\d-\d\dT\S*)\s*\((\w+),\s*(\w+)\)")
 
     def _load_external(self, text: str):
+        """Rows of external-dates.csv (slice 5). Per person, only one Wikidata item is used:
+        the exact match, else a single probable one. Statements of that item that differ
+        are all kept (drawn as their union). Needs-review candidates are used only for a
+        person with no exact or probable match, and only when there is a single one;
+        several candidates are never mixed, since they may be different people."""
         rows = list(csv.reader(io.StringIO(text)))
         if not rows:
             return
@@ -186,57 +193,85 @@ class Collector:
                 if n in header:
                     col[key] = header.index(n)
                     break
-        missing = [k for k in ("id", "qid", "kind", "value", "precision") if k not in col]
+        missing = [k for k in ("id", "qid", "kind", "value", "precision", "calendar", "confidence") if k not in col]
         if missing:
             self.warnings.append(f"external dates: columns not found {missing}; file not used")
             return
         by_pid = {p.pid: p for p in self.people.values()}
-        used = 0
+        recs: dict[str, list[dict]] = {}
         for row in rows[1:]:
-            if not row or len(row) < len(header):
+            if not row:
                 continue
-            get = lambda k: (row[col[k]].strip() if k in col and col[k] < len(row) else "")
+            get = lambda k, row=row: (row[col[k]].strip() if k in col and col[k] < len(row) else "")
             cid = self.renames.get(get("id"), get("id"))
-            pid = cid.split(":", 1)[-1]
-            person = by_pid.get(pid)
-            if person is None:
-                continue
+            person = by_pid.get(cid.split(":", 1)[-1])
             kind = get("kind").lower()
             kind = "birth" if ("birth" in kind or kind == "p569") else "death" if ("death" in kind or kind == "p570") else None
-            if kind is None:
+            conf = get("confidence").lower().replace("_", "-")
+            if person is None or kind is None or conf not in USABLE_MATCH + ("needs-review",):
                 continue
-            conf = get("confidence").lower()
-            if conf not in USABLE_MATCH and conf not in REVIEW_MATCH:
-                continue                     # unknown confidence: not shown at all
-            claim = self._wikidata_claim(kind, get, conf)
-            if claim:
-                person.claims.append(claim)
-                used += 1
+            recs.setdefault(person.iri, []).append({k: get(k) for k in col} | {"kind": kind, "conf": conf})
+        used = 0
+        for iri, rs in recs.items():
+            person = self.people[iri]
+            qids = lambda c: sorted({r["qid"] for r in rs if r["conf"] == c})
+            exact, probable, review = qids("exact"), qids("probable"), qids("needs-review")
+            if len(exact) == 1:
+                chosen, is_review = exact, False
+            elif not exact and len(probable) == 1:
+                chosen, is_review = probable, False
+            else:
+                review = sorted(set(review) | set(exact) | set(probable))
+                chosen, is_review = (review, True) if len(review) == 1 else ([], True)
+            for r in rs:
+                if r["qid"] in chosen:
+                    claim = self._wikidata_claim(r, is_review)
+                    if claim:
+                        person.claims.append(claim)
+                        used += 1
+            others = sorted({r["qid"] for r in rs} - set(chosen))
+            if others:
+                person.other_candidates = others
+                if not chosen:
+                    person.ambiguous = True
         self.external_used = used
 
-    def _wikidata_claim(self, kind: str, get, conf: str) -> DateClaim | None:
-        value, prec_raw = get("value"), get("precision").lower()
+    def _range_of(self, value: str, precision: str | None, calendar: str | None) -> tuple[int, int] | None:
         ymd = cal.parse_iso(value)
-        if not ymd:
+        if not ymd or not precision or not calendar or ymd[0] <= 0:
             return None
-        if prec_raw.isdigit():
-            precision = cal.WIKIDATA_PRECISION.get(int(prec_raw))
-        else:
-            precision = prec_raw if prec_raw in cal.PRECISIONS else None
-        calraw = get("calendar")
+        return cal.range_for(*ymd, precision, calendar)
+
+    def _wikidata_claim(self, r: dict, review: bool) -> DateClaim | None:
+        value, prec_raw = r["value"], r["precision"].lower()
+        precision = (cal.WIKIDATA_PRECISION.get(int(prec_raw)) if prec_raw.isdigit()
+                     else prec_raw if prec_raw in cal.PRECISIONS else None)
+        calraw = r["calendar"]
         calendar = ("gregorian" if any(k.lower() in calraw.lower() for k in WD_GREGORIAN)
                     else "julian" if any(k.lower() in calraw.lower() for k in WD_JULIAN) else None)
-        y, m, d = ymd
         notes: list[str] = []
-        rng = None
-        if precision and calendar and y > 0:
-            rng = cal.range_for(y, m, d, precision, calendar)
+        rng = self._range_of(value, precision, calendar)
         if rng is None:
             notes.append(self.t("date.not_placed_precision" if calendar else "date.not_placed_calendar"))
-        lo, hi = (rng if rng else (None, None))
-        qid = get("qid")
-        qid = qid.rsplit("/", 1)[-1]
-        status = get("status") or "proposed"
+        # earliest / latest date qualifiers widen the range; never narrow it. Day- or month-precise
+        # qualifier values come from the query service, which may give a Julian date converted to
+        # the Gregorian calendar, so both readings are covered.
+        quals = [q.strip() for q in r.get("qualifiers", "").split(" | ") if q.strip()]
+        for q in quals:
+            m = self._QUAL_TIME.match(q)
+            if not m or rng is None:
+                continue
+            qprec = m.group(3).lower()
+            qcal = "gregorian" if "greg" in m.group(4).lower() else "julian"
+            cands = [self._range_of(m.group(2), qprec, qcal)]
+            if qprec in ("day", "month"):
+                cands.append(self._range_of(m.group(2), qprec, "gregorian" if qcal == "julian" else "julian"))
+            cands = [c for c in cands if c]
+            if cands:
+                rng = (min([rng[0]] + [c[0] for c in cands]), max([rng[1]] + [c[1] for c in cands]))
+                notes.append(self.t("date.qualifier_range", value=q))
+        lo, hi = rng if rng else (None, None)
+        qid = r["qid"].rsplit("/", 1)[-1]
         text = self._ce_text(lo, hi, precision) if lo is not None else value
         if lo is not None:
             notes.append(self.t("date.hijri_computed",
@@ -246,13 +281,20 @@ class Collector:
         notes.append(self.t("src.wikidata_value", value=value,
                             precision=self.t(f"precision.{precision}") if precision else prec_raw or "?",
                             calendar=self.t(f"calendar.{calendar}") if calendar else (calraw or "?")))
-        review = conf not in USABLE_MATCH
+        if r.get("rank"):
+            notes.append(self.t("src.wikidata_rank", rank=r["rank"]))
+        for q in quals:
+            if not self._QUAL_TIME.match(q):
+                notes.append(self.t("src.wikidata_qualifier", value=q))
+        if r.get("note"):
+            notes.append(self.t("src.wikidata_note", value=r["note"]))
+        conf = "needs_review" if review else r["conf"]
         src = {"type": "wikidata", "label": self.t("src.wikidata", qid=qid),
                "href": f"https://www.wikidata.org/wiki/{qid}" if re.fullmatch(r"Q\d+", qid) else None,
-               "detail": self.t("src.wikidata_detail", confidence=self.t(f"match.{'needs_review' if review else conf}"),
+               "detail": self.t("src.wikidata_detail", confidence=self.t(f"match.{conf}"),
                                 file=self.external_label or ""),
-               "status": status}
-        return DateClaim(kind=kind, lo=lo, hi=hi, precision=precision, text=text, notes=notes,
+               "status": r.get("status") or "proposed"}
+        return DateClaim(kind=r["kind"], lo=lo, hi=hi, precision=precision, text=text, notes=notes,
                          source=src, review=review)
 
     def _ce_text(self, lo: int, hi: int, precision: str | None) -> str:

@@ -107,7 +107,8 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
         out_people.append({
             "id": p.pid, "n": p.name, "u": f"{reader_base}person/{p.pid}/" if reader_base is not None else None,
             "pr": p.prophet, "tb": p.tabaqa or "", "kin": p.kin if p.kin is not None else -1,
-            "tr": p.tribes, "c": [claim_json(cl) for cl in p.claims], "v": v, "ties": ties})
+            "tr": p.tribes, "c": [claim_json(cl) for cl in p.claims], "v": v, "ties": ties,
+            "oc": p.other_candidates})
     out_events, undrawn_events = [], 0
     for ev in sorted(c.events.values(), key=lambda e: (e.lo if e.lo is not None else 10**9, display.sort_key(e.name))):
         if ev.lo is None:
@@ -137,7 +138,7 @@ def build_data(site, t: T, external: tuple[str | None, str | None], reader_base:
                            "lo": ev.lo, "hi": ev.hi, "t": ev.text, "nt": ev.notes, "dis": ev.disputed,
                            "ag": ev.agents, "ps": ps, "oth": others})
     undated = [{"n": p.name, "u": f"{reader_base}person/{p.pid}/" if reader_base is not None else None,
-                "why": "unplaced" if p.claims else "none"}
+                "why": "ambiguous" if p.ambiguous else "unplaced" if p.claims else "none"}
                for p in people if p.iri not in index]
     # axis helpers: year starts for both calendars across the drawn domain (computed here,
     # so the page does no calendar arithmetic of its own)
@@ -247,7 +248,7 @@ def undated_html(data: dict, t: T) -> str:
     items = []
     for u in data["undated"]:
         name = f'<a href="{attr(u["u"])}">{esc(u["n"])}</a>' if u["u"] else esc(u["n"])
-        why = f' <small>({esc(t("undated.unplaced"))})</small>' if u["why"] == "unplaced" else ""
+        why = (f' <small>({esc(t("undated." + u["why"]))})</small>' if u["why"] in ("unplaced", "ambiguous") else "")
         items.append(f"<li>{name}{why}</li>")
     return f'<ul class="undated">{"".join(items)}</ul>'
 
