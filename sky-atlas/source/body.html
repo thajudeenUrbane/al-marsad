@@ -1,0 +1,188 @@
+<body>
+<a class="skip" href="#main" data-i18n="page.skip">Skip to the sky</a>
+<header class="masthead">
+  <div class="brand">
+    <p class="site"><a href="../" data-i18n="page.site">al-Marṣad</a></p>
+    <h1 data-i18n="page.h1">The Sky</h1>
+  </div>
+  <fieldset class="lens">
+    <legend data-i18n="lens.legend">Lens</legend>
+    <span class="seg">
+      <input type="radio" name="lens" id="lens-discover" value="discover"><label for="lens-discover" data-i18n="lens.discover">Discover</label>
+      <input type="radio" name="lens" id="lens-study" value="study" checked><label for="lens-study" data-i18n="lens.study">Study</label>
+      <input type="radio" name="lens" id="lens-research" value="research"><label for="lens-research" data-i18n="lens.research">Research</label>
+    </span>
+  </fieldset>
+  <form id="obs-search-form" class="search" role="search">
+    <label for="obs-search" class="sr-only" data-i18n="search.label">Find a person, event, place, story or group</label>
+    <input id="obs-search" type="search" list="obs-names" placeholder="Find a name… (press / )" data-i18n-ph="search.placeholder" autocomplete="off">
+    <button type="submit" class="btn" data-i18n="search.go">Find</button>
+  </form>
+  <nav class="tools" aria-label="View tools" data-i18n-aria="nav.tools">
+    <button type="button" id="obs-back" class="btn" disabled data-i18n="nav.back">Back</button>
+    <button type="button" id="obs-home" class="btn" data-i18n="nav.home">Home</button>
+    <button type="button" id="obs-trace" class="btn" data-i18n="nav.trace">Trace a thread</button>
+    <button type="button" id="lang-switch" class="btn lang-btn" lang="ar" data-i18n="x.lang.switch" data-i18n-title="x.lang.switch_help" title="Read this page in Arabic">العربية</button>
+  </nav>
+</header>
+<p class="banner" role="note"><span data-i18n="banner.text">Everything here is a proposal. Every claim in the graph is “proposed” and none has been reviewed by a scholar yet. The Sky draws every mark sharp, so the status is on every row of the panel and in the legend instead of a texture. Folded detail is one tap away, never removed.</span></p>
+<p class="banner lang-note" id="lang-note" role="note" hidden data-i18n="x.lang.note"></p>
+<p class="here"><span class="sr-only" data-i18n="here.label">You are here: </span><span id="obs-here"></span> · <span id="obs-scale"></span></p>
+<main id="main" class="layout">
+  <div class="stage-wrap" id="obs-stage-wrap">
+    <div class="viewbar">
+      <div class="frames" role="group" aria-label="View (morph frame)" data-i18n-aria="frames.label">
+        <button type="button" id="frame-network" aria-pressed="true" data-i18n="frame.network">Sky</button>
+        <button type="button" id="frame-time" aria-pressed="false" data-i18n="frame.time">Time</button>
+        <button type="button" id="frame-geo" aria-pressed="false" data-i18n="frame.geo">Geography</button>
+        <button type="button" id="frame-stories" aria-pressed="false" data-i18n="frame.stories">Stories</button>
+        <button type="button" id="frame-isnad" aria-pressed="false" data-i18n="frame.isnad">Transmission</button>
+        <button type="button" id="frame-globe" class="globe-btn" aria-pressed="false" data-i18n="x.frame.globe">Globe</button>
+      </div>
+      <div class="morph">
+        <label for="obs-morph" data-i18n="morph.label">Blend between views</label>
+        <input id="obs-morph" type="range" min="0" max="4" step="0.01" value="0">
+      </div>
+    </div>
+    <div class="skybar">
+      <div class="views" role="group" aria-label="Viewpoint" data-i18n-aria="sky.views.label">
+        <button type="button" class="btn" data-sky-view="face" data-i18n="sky.view.face">Face on</button>
+        <button type="button" class="btn" data-sky-view="angle" data-i18n="sky.view.angle">Angled</button>
+        <button type="button" class="btn" data-sky-view="edge" data-i18n="sky.view.edge">Edge on</button>
+        <button type="button" class="btn" data-sky-view="below" data-i18n="sky.view.below">From below</button>
+      </div>
+      <div class="views" role="group" aria-label="Sky options" data-i18n-aria="sky.options.label">
+        <button type="button" class="btn" id="sky-play" aria-pressed="false">Play history</button>
+        <button type="button" class="btn" id="sky-orbit" aria-pressed="false" data-i18n="sky.orbit">Orbit</button>
+        <button type="button" class="btn" id="sky-generation" aria-pressed="true" data-i18n="sky.generation">Light by generation</button>
+        <button type="button" class="btn" id="sky-chain" aria-pressed="false" data-i18n="x.sky.chain">Light by chain distance</button>
+        <button type="button" class="btn" id="sky-names" aria-pressed="true" data-i18n="sky.names">Names</button>
+        <button type="button" class="btn" id="sky-scenery" aria-pressed="true" data-i18n="sky.scenery">Distant stars</button>
+        <button type="button" class="btn" id="sky-cluster" aria-pressed="false" data-i18n="x.sky.cluster">Group nearby stars</button>
+        <button type="button" class="btn" id="sky-gpu" aria-pressed="false" data-i18n="x.sky.gpu">Faster drawing (GPU)</button>
+      </div>
+    </div>
+    <div class="stage">
+      <canvas id="sky-gl" hidden aria-hidden="true"></canvas>
+      <canvas id="obs-canvas" tabindex="0" role="img" aria-describedby="obs-textalt-title" aria-label="The Sky"></canvas>
+      <p id="sky-perf" class="perf" hidden aria-live="off"></p>
+      <div id="journey-bar" class="journey-bar" role="group" hidden>
+        <div class="jb-text"><p class="jb-title" id="jb-title"></p><p class="jb-stop muted" id="jb-stop"></p></div>
+        <div class="jb-actions">
+          <button type="button" class="btn" id="jb-prev" data-i18n="x.journey.prev">Previous</button>
+          <button type="button" class="btn" id="jb-play" aria-pressed="false" data-i18n="x.journey.play">Play</button>
+          <button type="button" class="btn primary" id="jb-next" data-i18n="x.journey.next">Next</button>
+          <button type="button" class="btn" id="jb-end" data-i18n="x.journey.end">End journey</button>
+        </div>
+      </div>
+      <noscript><p class="nojs">This view needs JavaScript. Every person, event, place and story is also on the reader pages, which work without it: <a href="../">Reader pages</a></p></noscript>
+    </div>
+    <div class="controls">
+      <p class="muted morph-note" data-i18n="morph.note">Drag to morph: the same marks move between the Sky and the flat Time, Geography, Stories and Transmission views, which lie in one plane inside it. Positions are worked out in advance and never re-solved.</p>
+      <fieldset class="scrub">
+        <legend data-i18n="scrub.legend">Period (scrub)</legend>
+        <label class="check"><input type="checkbox" id="scrub-on"> <span data-i18n="scrub.on">Limit to a period</span></label>
+        <div class="scrub-row"><label for="scrub-from" data-i18n="scrub.from">From</label><input type="range" id="scrub-from"><output id="scrub-from-out" for="scrub-from"></output></div>
+        <div class="scrub-row"><label for="scrub-to" data-i18n="scrub.to">To</label><input type="range" id="scrub-to"><output id="scrub-to-out" for="scrub-to"></output></div>
+        <p class="muted" data-i18n="scrub.note">Dated items outside the period dim. Items with no recorded date are drawn hollow and are never dimmed or placed by guesswork.</p>
+      </fieldset>
+      <div class="vantage">
+        <label for="obs-preset" data-i18n="presets.label">Vantage point</label>
+        <select id="obs-preset"><option value="" data-i18n="presets.none">None (the whole graph)</option></select>
+      </div>
+      <fieldset class="scrub journeys">
+        <legend data-i18n="x.journeys.legend">Guided journeys</legend>
+        <div class="jrow">
+          <label for="journey-pick" class="sr-only" data-i18n="x.journeys.pick">Choose a journey</label>
+          <select id="journey-pick"></select>
+          <button type="button" class="btn primary" id="journey-start" data-i18n="x.journeys.start">Start</button>
+        </div>
+        <p class="muted" data-i18n="x.journeys.note">The camera flies stop by stop; the stars of the journey stay lit.</p>
+      </fieldset>
+      <fieldset class="scrub scale">
+        <legend data-i18n="x.scale.legend">Many stars (test load)</legend>
+        <div class="jrow">
+          <label for="scale-pick" data-i18n="x.scale.label">Add test stars</label>
+          <select id="scale-pick">
+            <option value="0" data-i18n="x.scale.none">None</option>
+            <option value="2000">2,000</option>
+            <option value="10000">10,000</option>
+            <option value="50000">50,000</option>
+          </select>
+        </div>
+        <p class="muted" data-i18n="x.scale.note">Test stars are synthetic points in the generation shells. They are not records.</p>
+      </fieldset>
+      <p class="keys muted" data-i18n="keys.help">Keys: arrows turn · Shift + arrows move · + and − zoom · 0 fits · Enter focuses the mark at the centre · Esc steps back · / finds a name.</p>
+    </div>
+    <details class="legend" open>
+      <summary><h2 class="legend-title" data-i18n="legend.title">Legend: what every mark means</h2></summary>
+      <div class="legend-grid">
+        <section>
+          <h3 data-i18n="legend.types">Colour and shape: type only</h3>
+          <p class="muted" data-i18n="legend.types_note">Press a type to hide or show it.</p>
+          <ul id="legend-types" class="plain"></ul>
+        </section>
+        <section>
+          <h3 data-i18n="legend.lines">Line style: kind of relationship</h3>
+          <ul id="legend-lines" class="plain"></ul>
+        </section>
+        <section>
+          <h3 data-i18n="sky.legend.light">Light: generation, and nothing else</h3>
+          <ul class="plain gen">
+            <li><span class="gl gl-light" aria-hidden="true"></span> <span data-i18n="sky.legend.prophet">The Prophet ﷺ: the light at the centre, the source of the light, not one mark among many</span></li>
+            <li><span class="gl gl-sahabi" aria-hidden="true"></span> <span data-i18n="sky.legend.gen.sahabi">Companion (ṣaḥābī): brightest and coolest, nearest the light</span></li>
+            <li><span class="gl gl-tabii" aria-hidden="true"></span> <span data-i18n="sky.legend.gen.tabii">Successor (tābiʿī): warmer and dimmer, further out</span></li>
+            <li><span class="gl gl-tabi_al_tabiin" aria-hidden="true"></span> <span data-i18n="sky.legend.gen.tabi_al_tabiin">Successor of the Successors: warmer and dimmer still</span></li>
+            <li><span class="gl gl-none" aria-hidden="true"></span> <span data-i18n="sky.legend.gen.none">Generation not recorded: plain, with no halo; placed by its links only</span></li>
+          </ul>
+          <p class="muted small" data-i18n="sky.legend.light_note">Brightness and warmth show the recorded generation (ṭabaqa) only: never importance, never how many links a person has. Switch it off with “Light by generation”.</p>
+        </section>
+        <section>
+          <h3 data-i18n="x.legend.chain">Chain distance (when switched on)</h3>
+          <ul class="plain gen">
+            <li><span class="gl gl-sahabi" aria-hidden="true"></span> <span data-i18n="x.legend.chain.near">First narrator, nearest the Prophet ﷺ: brightest and coolest</span></li>
+            <li><span class="chain-ramp" aria-hidden="true"></span> <span data-i18n="x.legend.chain.far">Further down the chain: warmer and dimmer, one step at a time</span></li>
+            <li><span class="gl gl-none" aria-hidden="true"></span> <span data-i18n="x.legend.chain.none">In no recorded chain: plain, with no halo</span></li>
+          </ul>
+          <p class="muted small" id="legend-chain-note"></p>
+        </section>
+        <section>
+          <h3 data-i18n="sky.legend.rules">What else the Sky shows, and does not</h3>
+          <ul class="plain small">
+            <li data-i18n="sky.legend.review">Not yet reviewed: every claim today. Each row of the panel carries its status label.</li>
+            <li data-i18n="legend.size">Size: off. No mark is sized by any measure, so nothing reads as rank.</li>
+            <li data-i18n="sky.legend.position">Position: in the Sky, distance from the light is the recorded generation; everything else sits by its recorded links. In the flat views, the view&#x27;s own axis. Dimmed marks are outside the focus, thread or period; hollow marks have no recorded date.</li>
+            <li data-i18n="legend.motion">Motion: only when you turn, zoom, flick or change the view, or press Play history or Orbit. Nothing drifts on its own.</li>
+            <li data-i18n="sky.legend.sharp">Every edge is sharp: nothing is blurred, so every star can be told apart and touched.</li>
+            <li data-i18n="sky.legend.far">The faint pinpoints far behind are scenery, not records. Switch them off with “Distant stars”.</li>
+            <li data-i18n="legend.basemap">Geography has no basemap yet: only a grid of degrees and the places whose coordinates are recorded.</li>
+          </ul>
+        </section>
+        <section>
+          <h3 data-i18n="x.legend.more">Groups, absence, journeys and the globe</h3>
+          <ul class="plain small marks-more">
+            <li><span class="mk mk-cluster" aria-hidden="true">12</span> <span data-i18n="x.legend.cluster"></span></li>
+            <li><span class="mk mk-absent" aria-hidden="true"></span> <span data-i18n="x.legend.absent"></span></li>
+            <li><span class="mk mk-trail" aria-hidden="true">1</span> <span data-i18n="x.legend.trail"></span></li>
+            <li><span class="mk mk-test" aria-hidden="true"></span> <span data-i18n="x.legend.test"></span></li>
+            <li><span class="mk mk-globe" aria-hidden="true"></span> <span data-i18n="x.legend.globe"></span></li>
+          </ul>
+        </section>
+      </div>
+    </details>
+    <section id="obs-textalt" class="textalt" aria-labelledby="obs-textalt-title">
+      <h2 id="obs-textalt-title" data-i18n="textalt.title">Text view of this picture</h2>
+      <div id="obs-textalt-body"><p data-i18n="textalt.loading">The text view is written from the current view once the page has loaded.</p></div>
+    </section>
+  </div>
+  <aside id="obs-panel" class="panel" data-open="false" aria-label="Details">
+    <div class="sheet-bar"><span class="grip" aria-hidden="true"></span><button type="button" id="obs-close" class="btn" data-i18n="panel.close">Close</button></div>
+    <div id="obs-panel-body"></div>
+  </aside>
+</main>
+<p id="obs-announce" class="sr-only" aria-live="polite"></p>
+<datalist id="obs-names"></datalist>
+<footer class="foot">
+  <p data-i18n="footer.built">Built from the unified graph, like the Observatory, which shows the same records flat. The reader pages carry them without JavaScript.</p>
+  <p class="licence"><a href="https://github.com/thajudeenUrbane/al-marsad/blob/main/LICENSING.md" data-i18n="footer.text_data">Text and data:</a> <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · <a href="https://github.com/thajudeenUrbane/al-marsad/blob/main/LICENSING.md" data-i18n="footer.code">Code:</a> <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a> · <a href="https://github.com/thajudeenUrbane/al-marsad/blob/main/LICENSING.md" data-i18n="footer.ids">IDs: CC0</a> — <a href="https://github.com/thajudeenUrbane/al-marsad/blob/main/LICENSING.md" data-i18n="footer.contributors">al-Marṣad contributors</a></p>
+</footer>
