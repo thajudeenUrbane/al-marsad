@@ -54,7 +54,8 @@ Expect duplicates (one person under several IDs) far more often than wrong merge
 **Checks.**
 - `ingest/ibn_hisham.py check all` passes. The slice 4 file is unchanged.
 - `identity_audit.py --check` covers the new file.
-- SHACL on the full file takes most of an hour, so `check_all.sh` skips it unless `CHECK_FULL_SIRA=1`. The same builder writes `ibn-hisham.ttl`, which is validated on every run.
+- `validate.py ontology/corpus-full/ibn-hisham-full.ttl` **conforms**, with no violations, run on 16 October 2026; it took 30 minutes. Because of that, `check_all.sh` skips it unless `CHECK_FULL_SIRA=1`. The same builder writes `ibn-hisham.ttl`, which is validated on every run.
+- `scripts/check_all.sh` passes: 44 steps passed, and the one skipped step is the slow validation above.
 
 **For the maintainer.**
 1. The same licence question as slice 4 applies: names and short date expressions only are committed.
