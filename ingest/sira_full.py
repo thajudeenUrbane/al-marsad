@@ -7,6 +7,8 @@ Full-book pass over Ibn Hisham's al-Sira al-Nabawiyya: every section of the text
     .venv/bin/python ingest/sira_full.py status      # which chunks have output, and how much
     .venv/bin/python ingest/sira_full.py assemble    # resolve entities across chunks, mint IDs, write the committed
                                                      # ingest/claims/ibn-hisham-full-*.jsonl and identity.csv rows
+    .venv/bin/python ingest/sira_full.py suspects    # father_of claims whose span does not read "son b. father" with
+                                                     # the two names as recorded: a review list, first to check
 
 ingest/ibn_hisham.py (slice 4) builds the Turtle; it reads these files beside its own.
 
@@ -436,7 +438,7 @@ def existing_index() -> dict:
     rows, _ = ih.load_identity()
     idx = defaultdict(set)
     for r in rows:
-        if r["kind"] != "person":
+        if r["kind"] != "person" or "full-book pass" in r["note"]:  # this pass's own rows are not "existing"
             continue
         for n in [r["preferred_name_en"]] + [x for x in r["stories50_names"].split(";") if x]:
             k = base_name(n)
@@ -509,7 +511,18 @@ def cmd_groups(text):
         print(c, k)
 
 
+ARABIC = re.compile("[\u0600-\u06FF]")
+ARABIC_RUN = re.compile(r"[\"'“”‘’(]*[\u0600-\u06FF][\u0600-\u06FF\s،؛.:-]*[\"'“”‘’)]*")
+
+
+def relation_labels() -> dict:
+    text = ih.RELATIONS.read_text(encoding="utf-8")
+    return {m.group(1): m.group(2) for m in
+            re.finditer(r'^mrs:(rel_\w+) a mrs:RelationType ;.*?skos:prefLabel "([^"]+)"@en', text, re.M | re.S)}
+
+
 def write_outputs(text, secs, n_chunks, groups, resolutions):
+    rel_labels = relation_labels()
     src = json.loads(ih.SOURCE.read_text(encoding="utf-8"))
     mint = Minter()
     id_rows, _ = ih.load_identity()
@@ -536,7 +549,7 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
         final_members[final(k)].extend(v)
 
     # ---- one record per new entity; names must be unique per kind in identity.csv
-    used_names = {(r["kind"], r["preferred_name_en"]) for r in id_rows}
+    used_names = {(r["kind"], r["preferred_name_en"]) for r in id_rows if "full-book pass" not in r["note"]}
     ent_name = {}  # final key -> preferred_name_en
     new_entities = []
     for key in sorted(final_members, key=lambda k: (k[1], k[2])):
@@ -616,7 +629,8 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
         cid = prior.get((kind, e["name"])) or mint(ih.KIND_PREFIX[kind])
         e["id"] = cid
         row = {"kind": kind, "name": e["name"]}
-        notes = sorted({r.get("note", "") for _, r in e["members"] if r.get("note")})
+        notes = sorted({re.sub(r"\s+", " ", ARABIC_RUN.sub("", r.get("note", ""))).replace("()", "").strip(" ;,")
+                        for _, r in e["members"] if r.get("note")} - {""})
         if notes:
             row["comment"] = "; ".join(notes)[:300]
         if e["attested"]:
@@ -641,7 +655,8 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
     shared_names = {}
     by_kn = defaultdict(list)
     for r in id_rows:
-        by_kn[(r["kind"], r["preferred_name_en"])].append(r["canonical_id"])
+        if "full-book pass" not in r["note"]:
+            by_kn[(r["kind"], r["preferred_name_en"])].append(r["canonical_id"])
     for k, v in by_kn.items():
         if len(v) > 1:
             shared_names[k] = v[0]
@@ -685,9 +700,14 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
             seen.add(dedupe)
             pid = passages[sec]["id"]
             k = (pid, r["p"], span[0], span[1], json.dumps(subj, sort_keys=True), json.dumps(obj, sort_keys=True))
+            gloss = r["gloss"].strip()
+            if ARABIC.search(gloss):  # glosses never quote the text: say it in English from the claim itself
+                label = rel_labels.get(r["p"], r["p"])
+                gloss = (f"{subj['name']} {label} {obj['name']}, as the span states." if "name" in obj
+                         else f"{subj['name']}: {label} by the time expression in the span.")
             c = {"id": prev_claims.get(k) or mint("ast"), "passage": pid, "predicate": r["p"],
                  "subject": subj, "object": obj, "span": span,
-                 "span_sha256": ih.sha256_text(raw[span[0]:span[1]]), "gloss": r["gloss"].strip()}
+                 "span_sha256": ih.sha256_text(raw[span[0]:span[1]]), "gloss": gloss}
             if r.get("q"):
                 c["qualifiers"] = sorted(set(r["q"]))
             if r["p"] == "rel_age_at":
@@ -708,8 +728,15 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
 
     # identity.csv: drop this pass's earlier rows, append the current ones at the end
     keep = [r for r in id_rows if "full-book pass" not in r["note"]]
-    for r in keep:  # rows referenced by this pass: source_files gains ibn-hisham
-        if (r["kind"], r["preferred_name_en"]) in {(k[1], k[2]) for k in final_members if k[0] == "existing"}:
+    referenced = set()  # existing rows the Turtle will use: those a claim names
+    for c in claims:
+        for ref in (c["subject"], c["object"]):
+            if "kind" not in ref:
+                continue
+            ids_ = by_kn.get((ref["kind"], ref["name"]), [])
+            referenced.add(ref.get("id") or (ids_[0] if len(ids_) == 1 else None))
+    for r in keep:  # rows referenced by this pass: source_files gains ibn-hisham-full
+        if r["canonical_id"] in referenced:
             sf = [x for x in r["source_files"].split(";") if x]
             if "ibn-hisham-full" not in sf:
                 r["source_files"] = ";".join(sf + ["ibn-hisham-full"])
@@ -724,9 +751,53 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
           f"{sum(1 for k in final_members if k[0] == 'existing')} existing entities referenced")
 
 
+SUSPECTS = ih.CLAIMS_DIR / "ibn-hisham-full-suspects.tsv"
+
+
+def cmd_suspects(text):
+    """A father_of claim whose span reads "A b. B" where B is not the start of the father's recorded Arabic
+    name or A does not match the son's is listed for review. Most hits are alternative names the text itself
+    uses (Shayba for 'Abd al-Muttalib); some are extraction errors. The list holds IDs and English names only."""
+    id_rows, _ = ih.load_identity()
+    by_kn = defaultdict(list)
+    for r in id_rows:
+        by_kn[(r["kind"], r["preferred_name_en"])].append(r)
+
+    def ar(ref):
+        rs = by_kn.get((ref["kind"], ref["name"]), [])
+        rs = [r for r in rs if not ref.get("id") or r["canonical_id"] == ref["id"]]
+        return norm_ar(rs[0]["name_ar"]) if len(rs) == 1 else ""
+
+    def first(a):
+        return re.split(r" (?:بن|بنت) ", a)[0]
+
+    passages = {p["id"]: p for p in ih.read_jsonl(F_PASSAGES)}
+    out = ["claim\tpassage\tfather (subject)\tchild (object)\twhy"]
+    n = 0
+    for c in ih.read_jsonl(F_CLAIMS):
+        if c["predicate"] != "rel_father_of":
+            continue
+        p = passages[c["passage"]]
+        q = norm_ar(ih.clean(text.s[p["start"]:p["end"]][c["span"][0]:c["span"][1]]))
+        m = re.fullmatch(r"(?:و)?(\S+(?: \S+)?) (?:بن|بنت) (\S+(?: \S+)?)", q)
+        sa, oa = ar(c["subject"]), ar(c["object"])
+        if not m or not sa or not oa:
+            continue
+        son, father = m.group(1), m.group(2)
+        fs, fo = first(sa), first(oa)
+        ok_f = father.startswith(fs) or fs.startswith(father.split()[0])
+        ok_s = son.endswith(fo) or fo.startswith(son.split()[-1]) or son.split()[-1] in fo
+        if not (ok_f and ok_s):
+            why = "the span's father name is not the subject's" if not ok_f else "the span's son name is not the object's"
+            out.append(f"{c['id']}\t{c['passage']}\t{c['subject']['name']}\t{c['object']['name']}\t{why}")
+            n += 1
+    SUSPECTS.write_text("\n".join(out) + "\n", encoding="utf-8")
+    print(f"wrote {SUSPECTS.relative_to(ROOT)}: {n} father_of claims to check first")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("command", choices=["chunks", "verify", "status", "assemble", "groups"])
+    ap.add_argument("command", choices=["chunks", "verify", "status", "assemble", "groups", "suspects"])
     ap.add_argument("args", nargs="*")
     a = ap.parse_args()
     src = json.loads(ih.SOURCE.read_text(encoding="utf-8"))
@@ -741,6 +812,8 @@ def main():
         cmd_assemble(text)
     elif a.command == "groups":
         cmd_groups(text)
+    elif a.command == "suspects":
+        cmd_suspects(text)
     return 0
 
 
