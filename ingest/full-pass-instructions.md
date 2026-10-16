@@ -50,7 +50,9 @@ Write the file in parts if it is long (Write the first part, then append with Ba
 
 ### Notes from the pilot chunk
 
-- Emigrants to Madinah: `rel_migrated_to` Madinah (the existing place). Emigrants to Abyssinia: `rel_participated_in` "The emigration to Abyssinia" and `rel_migrated_to` Abyssinia.
+- Madinah is `"existing":"al-Madīna"`, Makkah `"existing":"Makkah"`, Abyssinia `"existing":"al-Habasha (Aksum)"`, Syria `"existing":"al-Sham"`, Ṭāʾif `"existing":"al-Ta'if"`.
+- A person who is NAMED is always a person record, even with no claim (e.g. Ibn ʿAbbās named after an unnamed link, a person a poem addresses): the aim is every named person in the book.
+- Emigrants to Madinah: `rel_migrated_to` Madinah. Emigrants to Abyssinia: `rel_participated_in` "The emigration to Abyssinia" and `rel_migrated_to` Abyssinia.
 - Lodging lists ("نزل فلان على فلان"): `rel_sheltered` host → guest; quote the words naming the guest and the host if they are close together.
 - A bare ancestor name (ʿAmr, Kaʿb ...) in one lineage is not the same person as the same bare name in another lineage unless the text shows it: keep them apart, with a note "father of X".
 - Helper scripts, if you write any, go in `ingest/cache/full/work/` (create it), never elsewhere in the repository.
