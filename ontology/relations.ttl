@@ -90,6 +90,9 @@ mrs:rel_fought_alongside a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
     skos:prefLabel "fought alongside"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
 mrs:rel_fought_against a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
     skos:prefLabel "fought against"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric true .
+mrs:rel_killed a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
+    skos:prefLabel "killed"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false ;
+    skos:note "The subject killed the object, as a report states it (often in battle). Reports on who killed whom often differ; each is its own claim."@en .
 mrs:rel_captured a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;
     skos:prefLabel "captured"@en ; mrs:relationClass mrs:relclass_social_political ; mrs:symmetric false .
 mrs:rel_manumitted a mrs:RelationType ; skos:inScheme mrs:RelationScheme ;

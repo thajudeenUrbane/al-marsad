@@ -66,6 +66,10 @@ SOURCE = CLAIMS_DIR / "ibn-hisham-source.json"
 PASSAGES = CLAIMS_DIR / "ibn-hisham-passages.jsonl"
 ENTITIES = CLAIMS_DIR / "ibn-hisham-entities.jsonl"
 CLAIMS = CLAIMS_DIR / "ibn-hisham.jsonl"
+# the full-book pass (ingest/sira_full.py): read beside the files above, written into the same Turtle
+FULL_PASSAGES = CLAIMS_DIR / "ibn-hisham-full-passages.jsonl"
+FULL_ENTITIES = CLAIMS_DIR / "ibn-hisham-full-entities.jsonl"
+FULL_CLAIMS = CLAIMS_DIR / "ibn-hisham-full.jsonl"
 IDENTITY = ROOT / "ontology" / "corpus" / "identity.csv"
 RENAMES = ROOT / "ontology" / "corpus" / "id-renames.csv"
 RELATIONS = ROOT / "ontology" / "relations.ttl"
@@ -265,6 +269,11 @@ def read_jsonl(path: Path) -> list[dict]:
     return rows
 
 
+def read_all(*paths: Path) -> list[dict]:
+    """The slice 4 file and its full-book-pass counterpart (if present), in that order."""
+    return [r for p in paths if p.exists() for r in read_jsonl(p)]
+
+
 def load_identity():
     with IDENTITY.open(encoding="utf-8", newline="") as fh:
         rows = list(csv.DictReader(fh))
@@ -439,9 +448,9 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
     agent = ids["agent"]
     stamp = lambda: [(p, o.replace("{agent}", agent)) for p, o in audit()]  # noqa: E731
 
-    passages = read_jsonl(PASSAGES)
-    entities = read_jsonl(ENTITIES)
-    claims = read_jsonl(CLAIMS)
+    passages = read_all(PASSAGES, FULL_PASSAGES)
+    entities = read_all(ENTITIES, FULL_ENTITIES)
+    claims = read_all(CLAIMS, FULL_CLAIMS)
     s = text.s
 
     # ---- passages: offsets, checksums, citations
@@ -806,9 +815,9 @@ def review(src: dict, text: Text):
     names = {}
     for r in resolve.rows:
         names[r["canonical_id"]] = r["preferred_name_en"]
-    passages = {p["id"]: p for p in read_jsonl(PASSAGES)}
+    passages = {p["id"]: p for p in read_all(PASSAGES, FULL_PASSAGES)}
     rows = []
-    for n, c in enumerate(read_jsonl(CLAIMS), 1):
+    for n, c in enumerate(read_all(CLAIMS, FULL_CLAIMS), 1):
         p = passages[c["passage"]]
         raw = text.s[p["start"]:p["end"]]
         a, b = c["span"]
@@ -839,7 +848,7 @@ def review(src: dict, text: Text):
 
 
 def locate(src: dict, text: Text, passage_id: str, phrase: str):
-    p = {x["id"]: x for x in read_jsonl(PASSAGES)}.get(passage_id)
+    p = {x["id"]: x for x in read_all(PASSAGES, FULL_PASSAGES)}.get(passage_id)
     if p is None:
         sys.exit(f"unknown passage {passage_id}")
     raw = text.s[p["start"]:p["end"]]
