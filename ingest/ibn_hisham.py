@@ -299,6 +299,8 @@ class Resolver:
         if kind not in KIND_PREFIX or not name:
             sys.exit(f"{where}: bad entity reference {ref}")
         ids = self.by_name.get((kind, name), [])
+        if len(ids) != 1 and ref.get("id") in ids:  # a name two rows share: the reference names its row
+            ids = [ref["id"]]
         if len(ids) != 1:
             sys.exit(f"{where}: {kind} {name!r} is in {len(ids)} identity.csv rows (need exactly 1)")
         cid = ids[0]

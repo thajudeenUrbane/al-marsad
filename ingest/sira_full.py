@@ -384,22 +384,111 @@ def cmd_assemble(text):
     write_outputs(text, secs, n_chunks, groups, resolutions)
 
 
-def entity_key(r: dict) -> tuple:
-    if r.get("existing"):
-        return ("existing", r["t"], r["existing"])
-    if r.get("same_as"):
-        return ("key", r["t"], norm_en(r["same_as"]))
-    return ("key", r["t"], norm_en(r["name"]))
+GEN_SPLIT = re.compile(r" b\. | bint ")
+KUNYA = re.compile(r"^(abu|umm|ibn|b\.) ")
+
+
+def base_name(name: str) -> str:
+    """The name without descriptors: '(father of X)', ', mawla of Y', and so on."""
+    name = re.sub(r"\(.*?\)", "", name)
+    name = name.split(",")[0]
+    return norm_en(name)
+
+
+def gens(key: str) -> list[str]:
+    return [g.strip() for g in GEN_SPLIT.split(" " + key + " ") if g.strip()]
+
+
+def lineage_keys(rows: list[dict]) -> dict:
+    """local person id -> lineage key: the person's name, carried up the father line that the
+    chunk's own claims give (rel_father_of, not marked as an alternative), to three generations."""
+    persons = {r["id"]: r for r in rows if r.get("t") == "person"}
+    father = {}
+    for r in rows:
+        if r.get("t") == "claim" and r.get("p") == "rel_father_of" and "text_alternative" not in r.get("q", []):
+            if r.get("o") in persons and r.get("s") in persons:
+                father.setdefault(r["o"], r["s"])
+    out = {}
+    for i, r in persons.items():
+        g = gens(base_name(r["name"]))
+        cur, seen = i, {i}
+        while len(g) < 3:
+            f = father.get(cur)
+            if f is None or f in seen:
+                break
+            seen.add(f)
+            fg = gens(base_name(persons[f]["name"]))
+            if not fg or fg[0] != (g[-1] if g else None):
+                if len(g) == 1 or not fg:
+                    g = g + fg[:1] if fg else g
+                else:
+                    break
+            if len(fg) > 1:
+                g = g + fg[1:]
+            cur = f
+        out[i] = " b. ".join(g[:3])
+    return out
+
+
+def existing_index() -> dict:
+    """normalised names (preferred and stories-50 forms) of existing people -> preferred_name_en,
+    for names of at least two generations that point to exactly one row."""
+    rows, _ = ih.load_identity()
+    idx = defaultdict(set)
+    for r in rows:
+        if r["kind"] != "person":
+            continue
+        for n in [r["preferred_name_en"]] + [x for x in r["stories50_names"].split(";") if x]:
+            k = base_name(n)
+            if len(gens(k)) >= 2:
+                idx[" b. ".join(gens(k)[:3])].add(r["preferred_name_en"])
+    return {k: next(iter(v)) for k, v in idx.items() if len(v) == 1}
+
+
+def mergeable(key: str) -> bool:
+    """A key is safe to share across chunks if it has a father in it, or is a kunya / 'Ibn X' form."""
+    return len(gens(key)) >= 2 or bool(KUNYA.match(key))
 
 
 def build_groups(n_chunks: int) -> dict:
-    """(chunk, local id) -> group key. Same kind and same normalised English name (with the
-    lineage the extraction wrote into it) is one entity; nothing else is merged."""
+    """(chunk, local id) -> group key.
+
+    Across chunks, two people are one when their lineage keys are the same and the key is
+    mergeable (has a father, or is a kunya); a bare single name (Ka'b, 'Amr) is never merged
+    across chunks. A two-generation key that exactly one three-generation key extends is merged
+    into it; a lineage key equal to an existing person's name (two generations or more, one
+    row) is that person. Places and events: same kind and same normalised name."""
+    ex = existing_index()
     g = {}
     for n in range(1, n_chunks + 1):
-        for r in read_out(n):
-            if r.get("t") in ("person", "place", "event"):
-                g[(n, r["id"])] = entity_key(r)
+        rows = read_out(n)
+        lin = lineage_keys(rows)
+        for r in rows:
+            t = r.get("t")
+            if t not in ("person", "place", "event"):
+                continue
+            if r.get("existing"):
+                g[(n, r["id"])] = ("existing", t, r["existing"])
+            elif t != "person":
+                g[(n, r["id"])] = ("key", t, base_name(r["name"]))
+            else:
+                k = lin[r["id"]]
+                g[(n, r["id"])] = ("key", "person", k) if mergeable(k) else ("local", "person", f"{n}:{r['id']}:{k}")
+    # two-generation keys extended by exactly one three-generation key
+    three = defaultdict(set)
+    for v in g.values():
+        if v[0] == "key" and v[1] == "person" and len(gens(v[2])) == 3:
+            three[" b. ".join(gens(v[2])[:2])].add(v[2])
+    for loc, v in g.items():
+        if v[0] == "key" and v[1] == "person" and len(gens(v[2])) == 2 and len(three.get(v[2], ())) == 1:
+            g[loc] = ("key", "person", next(iter(three[v[2]])))
+    # existing people by name
+    for loc, v in g.items():
+        if v[0] == "key" and v[1] == "person":
+            k2 = " b. ".join(gens(v[2])[:2])
+            name = ex.get(v[2]) or (ex.get(k2) if len(gens(v[2])) == 2 else None)
+            if name:
+                g[loc] = ("existing", "person", name)
     return g
 
 
@@ -407,12 +496,17 @@ def cmd_groups(text):
     """A review list of names that might be one person and were kept apart (for a resolution pass)."""
     secs = load_sections()
     n_chunks = max(s["chunk"] for s in secs.values())
-    by_key = defaultdict(list)
-    for n in range(1, n_chunks + 1):
-        for r in read_out(n):
-            if r.get("t") in ("person", "place", "event") and not r.get("existing"):
-                by_key[entity_key(r)].append((n, r))
-    print(json.dumps({"groups": len(by_key)}, ensure_ascii=False))
+    g = build_groups(n_chunks)
+    kinds = defaultdict(set)
+    for v in g.values():
+        kinds[(v[0], v[1])].add(v)
+    print({f"{a}/{b}": len(x) for (a, b), x in sorted(kinds.items())}, f"{len(g)} records")
+    sizes = defaultdict(int)
+    for v in g.values():
+        if v[0] == "key" and v[1] == "person":
+            sizes[v[2]] += 1
+    for k, c in sorted(sizes.items(), key=lambda kv: -kv[1])[:40]:
+        print(c, k)
 
 
 def write_outputs(text, secs, n_chunks, groups, resolutions):
@@ -542,6 +636,16 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
                             "note": "minted in the full-book pass (Ibn Hisham ingestion); not matched to any "
                                     "existing row"})
 
+    # ---- existing names that two identity.csv rows share: a reference also names its row (the
+    # first row with that name, in table order), since the name alone does not resolve
+    shared_names = {}
+    by_kn = defaultdict(list)
+    for r in id_rows:
+        by_kn[(r["kind"], r["preferred_name_en"])].append(r["canonical_id"])
+    for k, v in by_kn.items():
+        if len(v) > 1:
+            shared_names[k] = v[0]
+
     # ---- claims
     prev_claims = {}
     if F_CLAIMS.exists():
@@ -563,7 +667,10 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
 
             def ref(lid):
                 ent = local[lid]
-                return {"kind": ent["t"], "name": ent_name[final(groups[(n, lid)])]}
+                r_ = {"kind": ent["t"], "name": ent_name[final(groups[(n, lid)])]}
+                if (r_["kind"], r_["name"]) in shared_names:
+                    r_["id"] = shared_names[(r_["kind"], r_["name"])]
+                return r_
 
             subj = ref(r["s"])
             if SHAPE[r["p"]][1] == "literal":
