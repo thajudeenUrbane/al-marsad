@@ -631,7 +631,7 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
         ent_rows.append(row)
         ar = norm_ws(ih.clean(e["attested"][1]["ar"])) if e["attested"] else ""
         new_id_rows.append({"kind": kind, "canonical_id": cid, "preferred_name_en": e["name"], "name_ar": ar,
-                            "variant_ids": "", "stories50_names": "", "source_files": "ibn-hisham",
+                            "variant_ids": "", "stories50_names": "", "source_files": "ibn-hisham-full",
                             "confidence": "needs-review",
                             "note": "minted in the full-book pass (Ibn Hisham ingestion); not matched to any "
                                     "existing row"})
@@ -711,8 +711,8 @@ def write_outputs(text, secs, n_chunks, groups, resolutions):
     for r in keep:  # rows referenced by this pass: source_files gains ibn-hisham
         if (r["kind"], r["preferred_name_en"]) in {(k[1], k[2]) for k in final_members if k[0] == "existing"}:
             sf = [x for x in r["source_files"].split(";") if x]
-            if "ibn-hisham" not in sf:
-                r["source_files"] = ";".join(sf + ["ibn-hisham"])
+            if "ibn-hisham-full" not in sf:
+                r["source_files"] = ";".join(sf + ["ibn-hisham-full"])
     with ih.IDENTITY.open(encoding="utf-8", newline="") as fh:
         fields = csv.DictReader(fh).fieldnames
     with ih.IDENTITY.open("w", encoding="utf-8", newline="") as fh:

@@ -4,7 +4,8 @@ Slice 4: AI-assisted ingestion of Ibn Hisham's al-Sira al-Nabawiyya (OpenITI) in
 
     .venv/bin/python ingest/ibn_hisham.py fetch     # download the pinned OpenITI text into ingest/cache/ and check its SHA-256
     .venv/bin/python ingest/ibn_hisham.py build     # write ontology/corpus/ibn-hisham.ttl (needs the cached text)
-    .venv/bin/python ingest/ibn_hisham.py check     # exit 1 if the committed Turtle differs from what build would write
+    .venv/bin/python ingest/ibn_hisham.py build full   # the full-book pass: ontology/corpus-full/ibn-hisham-full.ttl
+    .venv/bin/python ingest/ibn_hisham.py check all    # exit 1 if a committed Turtle differs from what build would write
     .venv/bin/python ingest/ibn_hisham.py review    # write ingest/cache/review.html: every claim beside its Arabic span
     .venv/bin/python ingest/ibn_hisham.py locate PASSAGE "Arabic words"   # offsets of a phrase in a passage
 
@@ -70,6 +71,19 @@ CLAIMS = CLAIMS_DIR / "ibn-hisham.jsonl"
 FULL_PASSAGES = CLAIMS_DIR / "ibn-hisham-full-passages.jsonl"
 FULL_ENTITIES = CLAIMS_DIR / "ibn-hisham-full-entities.jsonl"
 FULL_CLAIMS = CLAIMS_DIR / "ibn-hisham-full.jsonl"
+# its Turtle sits outside ontology/corpus/ on purpose: build_graph.py and the site read every file
+# in corpus/, and this one (the whole book) is a separate, opt-in layer until it is reviewed
+FULL_OUT = ROOT / "ontology" / "corpus-full" / "ibn-hisham-full.ttl"
+
+PASSES = {
+    "slice4": {"files": (PASSAGES, ENTITIES, CLAIMS), "out": ROOT / "ontology" / "corpus" / "ibn-hisham.ttl", "agent": "agent", "activity": "activity",
+               "recorded": "2026-10-15T00:00:00Z", "agent_label": "AI extraction pass (slice 4)",
+               "agent_comment": "agent_comment", "activity_label": "activity_label"},
+    "full": {"files": (FULL_PASSAGES, FULL_ENTITIES, FULL_CLAIMS), "out": FULL_OUT, "agent": "full_agent",
+             "activity": "full_activity", "recorded": "2026-10-16T00:00:00Z",
+             "agent_label": "AI extraction pass (full book)",
+             "agent_comment": "full_agent_comment", "activity_label": "full_activity_label"},
+}
 IDENTITY = ROOT / "ontology" / "corpus" / "identity.csv"
 RENAMES = ROOT / "ontology" / "corpus" / "id-renames.csv"
 RELATIONS = ROOT / "ontology" / "relations.ttl"
@@ -355,9 +369,9 @@ def bnode(types: list[str], props: list[tuple[str, str]], indent: int = 8) -> st
     return "[ " + (" ;\n" + pad + "  ").join(inner) + " ]"
 
 
-def audit(stamp=True) -> list[tuple[str, str]]:
+def audit(stamp=True, recorded=RECORDED) -> list[tuple[str, str]]:
     props = [("mrs:coverageState", "mrs:cs_stub"), ("mrs:createdBy", "{agent}"),
-             ("mrs:recordedAt", lit(RECORDED, dt="xsd:dateTime"))]
+             ("mrs:recordedAt", lit(recorded, dt="xsd:dateTime"))]
     return props if stamp else []
 
 
@@ -437,7 +451,27 @@ HEADER = """#################################################################
 """
 
 
-def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
+FULL_HEADER_NOTE = """#################################################################
+#
+#  FULL-BOOK PASS (ingest/sira_full.py). This file covers the WHOLE
+#  text, section by section (a section is the text between two of
+#  the edition's headings; each section with a claim is one Passage
+#  and one Report). The claims were proposed chunk by chunk by the
+#  software agent "AI extraction pass (full book)" on 16 October 2026
+#  following ingest/full-pass-instructions.md, and every quoted span
+#  was checked against the text before it was turned into offsets.
+#  People were matched across chunks by name and father line only
+#  (see sira_full.py build_groups): expect duplicates (one person
+#  under two IDs) more often than merges. Everything here is
+#  needs-review. Kept outside ontology/corpus/ so that the reviewed
+#  graph and the site are not changed by it.
+#
+#################################################################
+"""
+
+
+def build_ttl(src: dict, text: Text, which: str = "slice4") -> tuple[str, dict]:
+    cfg = PASSES[which]
     rel_types = relation_types()
     resolve = Resolver()
     renamed = set()
@@ -447,12 +481,12 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
     ids = src["ids"]
     for k, v in ids.items():
         check_id(v, f"source ids.{k}")
-    agent = ids["agent"]
-    stamp = lambda: [(p, o.replace("{agent}", agent)) for p, o in audit()]  # noqa: E731
+    agent = ids[cfg["agent"]]
+    activity = ids[cfg["activity"]]
+    recorded = cfg["recorded"]
+    stamp = lambda: [(p, o.replace("{agent}", agent)) for p, o in audit(recorded=recorded)]  # noqa: E731
 
-    passages = read_all(PASSAGES, FULL_PASSAGES)
-    entities = read_all(ENTITIES, FULL_ENTITIES)
-    claims = read_all(CLAIMS, FULL_CLAIMS)
+    passages, entities, claims = (read_all(f) for f in cfg["files"])
     s = text.s
 
     # ---- passages: offsets, checksums, citations
@@ -548,7 +582,7 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
             for x in (ln["_from"], ln["_to"]):
                 chain_people.setdefault(x, p)
 
-    emitted = set(ids.values()) | {p["id"] for p in passages} | {p["report"] for p in passages} | seen_claims
+    emitted = {ids[k] for k in ("work", "recension", "edition", "witness", "source_date")} | {agent, activity} | {p["id"] for p in passages} | {p["report"] for p in passages} | seen_claims
     emitted |= {p["chain"]["id"] for p in passages if p.get("chain")}
     emitted |= {cid for _, cid, _ in new_ents}
     stale = sorted(i for i in emitted if i in renamed)
@@ -560,15 +594,20 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
     out.append("")
     out += [f"@prefix {p}: <https://w3id.org/marsad/id/{seg}/> ." for p, seg in ID_PREFIXES]
     out.append("")
-    out.append(HEADER.format(version_uri=w["version_uri"], commit_short=w["commit"][:8], sha_short=w["sha256"][:16]))
+    header = HEADER.format(version_uri=w["version_uri"], commit_short=w["commit"][:8], sha_short=w["sha256"][:16])
+    if which == "full":
+        header = (header.replace("AI-assisted extraction (slice 4)", "AI-assisted extraction (full book)")
+                  .replace('"AI extraction pass\n#  (slice 4)" on 15 October 2026', '"AI extraction pass\n#  (full book)" on 16 October 2026')
+                  .replace("ingest/claims/*.jsonl", "ingest/claims/ibn-hisham-full*") + "\n" + FULL_HEADER_NOTE)
+    out.append(header)
 
     # ---- agent and activity
     out.append(block(agent, ["prov:SoftwareAgent"], [
-        ("rdfs:label", lit("AI extraction pass (slice 4)", "en")),
-        ("rdfs:comment", lit(src["agent_comment"], "en"))]))
-    out.append(block(ids["activity"], ["prov:Activity"], [
-        ("rdfs:label", lit(src["activity_label"], "en")),
-        ("prov:startedAtTime", lit(RECORDED, dt="xsd:dateTime")),
+        ("rdfs:label", lit(cfg["agent_label"], "en")),
+        ("rdfs:comment", lit(src[cfg["agent_comment"]], "en"))]))
+    out.append(block(activity, ["prov:Activity"], [
+        ("rdfs:label", lit(src[cfg["activity_label"]], "en")),
+        ("prov:startedAtTime", lit(recorded, dt="xsd:dateTime")),
         ("prov:used", ids["witness"]),
         ("prov:qualifiedAssociation", bnode(["prov:Association"], [
             ("prov:agent", agent), ("prov:hadRole", "mrs:role_extractor")]))],
@@ -797,7 +836,7 @@ def build_ttl(src: dict, text: Text) -> tuple[str, dict]:
                           ("oa:hasSource", p["id"]),
                           ("oa:hasSelector", bnode(["oa:TextPositionSelector"], [
                               ("oa:start", str(c["span"][0])), ("oa:end", str(c["span"][1]))], indent=12))])),
-                      ("prov:wasGeneratedBy", ids["activity"])]
+                      ("prov:wasGeneratedBy", activity)]
             out.append(block(c["id"], ["mrs:Assertion", "oa:Annotation"], props + stamp()))
             counts[c["predicate"]] = counts.get(c["predicate"], 0) + 1
 
@@ -880,20 +919,31 @@ def main():
     if a.command == "locate":
         locate(src, text, *a.args)
         return 0
-    ttl, stats = build_ttl(src, text)
-    if a.command == "check":
-        if not OUT.exists() or OUT.read_text(encoding="utf-8") != ttl:
-            print(f"{OUT.relative_to(ROOT)} is out of date: run `ingest/ibn_hisham.py build`")
-            return 1
-        print(f"{OUT.relative_to(ROOT)} is up to date ({stats['claims']} claims)")
-        return 0
-    OUT.write_text(ttl, encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)}: {stats['passages']} reports, {stats['claims']} claims, "
-          f"{sum(stats['new_entities'].values())} new entities {stats['new_entities']}, "
-          f"{stats['existing_entities']} existing entities referenced")
-    for k, v in sorted(stats["by_predicate"].items(), key=lambda kv: (-kv[1], kv[0])):
-        print(f"  {v:4d}  {k}")
-    return 0
+    status = 0
+    for which in (["slice4", "full"] if a.args[:1] == ["all"] else [a.args[0] if a.args else "slice4"]):
+        if which not in PASSES:
+            sys.exit(f"unknown pass {which!r}: slice4, full or all")
+        cfg = PASSES[which]
+        if which == "full" and not cfg["files"][0].exists():
+            print("no full-book pass files: nothing to build")
+            continue
+        out = cfg["out"]
+        ttl, stats = build_ttl(src, text, which)
+        if a.command == "check":
+            if not out.exists() or out.read_text(encoding="utf-8") != ttl:
+                print(f"{out.relative_to(ROOT)} is out of date: run `ingest/ibn_hisham.py build {which}`")
+                status = 1
+            else:
+                print(f"{out.relative_to(ROOT)} is up to date ({stats['claims']} claims)")
+            continue
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(ttl, encoding="utf-8")
+        print(f"wrote {out.relative_to(ROOT)}: {stats['passages']} reports, {stats['claims']} claims, "
+              f"{sum(stats['new_entities'].values())} new entities {stats['new_entities']}, "
+              f"{stats['existing_entities']} existing entities referenced")
+        for k, v in sorted(stats["by_predicate"].items(), key=lambda kv: (-kv[1], kv[0])):
+            print(f"  {v:4d}  {k}")
+    return status
 
 
 if __name__ == "__main__":
