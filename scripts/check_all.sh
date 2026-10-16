@@ -95,9 +95,9 @@ if off:
 EOF
 
 # --- helpers used by the steps -----------------------------------------------
-ISLANDS=(demo generation-1 stories-50)
+ISLANDS=(demo generation-1 stories-50 sira-network)
 
-# The three earlier prototypes commit their built pages: a fresh build must leave them unchanged.
+# The earlier prototypes and the Sira network page commit their built pages: a fresh build must leave them unchanged.
 islands_current() {
   local new
   git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { echo "not a git checkout"; return 1; }
@@ -154,9 +154,18 @@ step "ontology: stories-50.ttl is current"         "$PY" ontology/tools/stories5
 for f in ontology/corpus/*.ttl ontology/examples/*.ttl; do
   step "ontology: validate $f"                     "$PY" ontology/validate.py "$f"
 done
+# The full-book Ibn Hisham pass (ontology/corpus-full/) is about 500,000 triples: SHACL takes most of an
+# hour, so it runs only when asked (CHECK_FULL_SIRA=1). ingest/ibn_hisham.py writes it with the same code
+# as ontology/corpus/ibn-hisham.ttl, which is validated above on every run.
+if [ "${CHECK_FULL_SIRA:-0}" = 1 ]; then
+  step "ontology: validate ontology/corpus-full/ibn-hisham-full.ttl" "$PY" ontology/validate.py ontology/corpus-full/ibn-hisham-full.ttl
+else
+  skip "ontology: validate ontology/corpus-full/ibn-hisham-full.ttl" "slow: set CHECK_FULL_SIRA=1"
+fi
 step "prototypes: build demo"                      "$PY" demo/build.py
 step "prototypes: build generation-1"              "$PY" generation-1/build.py
 step "prototypes: build stories-50"                "$PY" stories-50/build.py
+step "prototypes: build sira-network"              "$PY" sira-network/build.py
 step "prototypes: outputs committed and current"   islands_current
 if step "site: build"                              "$PY" site/build.py; then
   # Module builders write into site/dist after site/build.py (which empties it), so the

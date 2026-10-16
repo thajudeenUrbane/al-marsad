@@ -761,7 +761,8 @@ def build_ttl(src: dict, text: Text, which: str = "slice4") -> tuple[str, dict]:
                      f"vol. {pg1[0]}, p. {pg1[1]} \u2013 vol. {pg2[0]}, p. {pg2[1]}")
         else:
             pages = "page not marked"
-        miles = f"ms{ms1:03d}" if ms1 == ms2 else f"ms{ms1:03d}\u2013ms{ms2:03d}"
+        mf = lambda m: f"ms{m:03d}" if m is not None else "after the last milestone"  # noqa: E731
+        miles = mf(ms1) if ms1 == ms2 else f"{mf(ms1)}\u2013{mf(ms2)}"
         lines = f"line {first_line}" if first_line == last_line else f"lines {first_line}\u2013{last_line}"
         # Short on purpose: the citation is shown beside every claim, and a page that carries hundreds
         # of them must stay inside its size budget. The full edition, the OpenITI version, the

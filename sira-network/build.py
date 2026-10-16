@@ -29,6 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CLAIMS_DIR = ROOT / "ingest" / "claims"
 PASSAGES = CLAIMS_DIR / "ibn-hisham-full-passages.jsonl"
 CLAIMS = CLAIMS_DIR / "ibn-hisham-full.jsonl"
+ENTITIES = CLAIMS_DIR / "ibn-hisham-full-entities.jsonl"
 IDENTITY = ROOT / "ontology" / "corpus" / "identity.csv"
 TTL = ROOT / "ontology" / "corpus-full" / "ibn-hisham-full.ttl"
 RELATIONS = ROOT / "ontology" / "relations.ttl"
@@ -130,6 +131,8 @@ def main():
             continue
         o = node(c["object"])
         edges.append([s, pred_index[c["predicate"]], o, pidx[c["passage"]], q])
+    for e in read_jsonl(ENTITIES):  # every named person, place and event, with or without a relation
+        node({"kind": e["kind"], "name": e["name"]})
     order = sorted(range(len(nodes)), key=lambda i: fold(nodes[i][1]))
     data = {
         "nodes": nodes,

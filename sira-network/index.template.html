@@ -217,8 +217,8 @@ footer { color: var(--muted); font-size: .85rem; margin: 24px auto 32px; }
   }
 
   function draw(c, ids, nb) {
-    var NS = "http://www.w3.org/2000/svg", W = 760, H = ids.length > 36 ? 760 : 560, cx = W / 2, cy = H / 2;
-    var R = Math.min(W, H) / 2 - 110;
+    var NS = "http://www.w3.org/2000/svg", W = 820, H = ids.length > 24 ? 820 : 620, cx = W / 2, cy = H / 2;
+    var R = Math.min(W, H) / 2 - 175;
     var svg = document.createElementNS(NS, "svg");
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
     svg.setAttribute("role", "img");
@@ -234,9 +234,11 @@ footer { color: var(--muted); font-size: .85rem; margin: 24px auto 32px; }
       var shape = N[o][0] === 0 ? mk("circle", { cx: x, cy: y, r: 6 }) : mk("rect", { x: x - 6, y: y - 6, width: 12, height: 12, transform: N[o][0] === 2 ? "rotate(45 " + x + " " + y + ")" : "" });
       shape.setAttribute("fill", "var(--node)"); shape.setAttribute("stroke", col); shape.setAttribute("stroke-width", "2");
       g.appendChild(shape);
-      var right = Math.cos(a) >= 0, label = N[o][1];
-      if (label.length > 30) label = label.slice(0, 29) + "…";
-      var t = mk("text", { x: x + (right ? 10 : -10), y: y + 4, "text-anchor": right ? "start" : "end" });
+      var right = Math.cos(a) >= 0, label = N[o][1], deg = a * 180 / Math.PI;
+      if (label.length > 28) label = label.slice(0, 27) + "…";
+      // radial labels: along the spoke, turned upright on the left half
+      var t = mk("text", { x: x + (right ? 10 : -10), y: y + 4, "text-anchor": right ? "start" : "end",
+        transform: "rotate(" + (right ? deg : deg + 180) + " " + x + " " + y + ")" });
       t.textContent = label;
       g.appendChild(t);
       var tip = mk("title", {}); tip.textContent = N[o][1] + (N[o][2] ? " — " + N[o][2] : "") + " (" + nb[o].edges.map(function (ei) { return P[E[ei][1]][1]; }).join(", ") + ")";
@@ -247,7 +249,7 @@ footer { color: var(--muted); font-size: .85rem; margin: 24px auto 32px; }
       gn.appendChild(g);
     });
     gn.appendChild(mk("circle", { cx: cx, cy: cy, r: 10, fill: "var(--center)" }));
-    var ct = mk("text", { x: cx, y: cy + 28, "text-anchor": "middle", class: "center" });
+    var ct = mk("text", { x: cx, y: cy + 28, "text-anchor": "middle", class: "center", "paint-order": "stroke", stroke: "var(--panel)", "stroke-width": "5" });
     ct.textContent = N[c][1];
     gn.appendChild(ct);
     return svg;
