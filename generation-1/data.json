@@ -797,12 +797,12 @@
       "basis": "Abu Bakr was Abd al-Rahman's father. Standard tradition."
     },
     {
-      "predicate": "father of",
+      "predicate": "mother of",
       "subject": "https://w3id.org/marsad/id/person/laOMIYgqaQ5Iw6DmtiCNkY",
       "subjectLabel": "Khadīja bint Khuwaylid",
       "object": "https://w3id.org/marsad/id/person/6eCGwhJPqffwRQDnFPYoqa",
       "objectLabel": "Fāṭima bint Muḥammad",
-      "basis": "Khadija was Fatima's mother — modelled here with rel_father_of's inverse in mind; ⟨scholar⟩ a mrs:rel_mother_of instance would be the precise relation and is not yet in the registry as of v0.1 (see docs/02 §14 for known gaps). Recorded via rel_father_of as the nearest existing term pending that fix."
+      "basis": "Khadija was Fatima's mother. First recorded with rel_father_of, the nearest term before the registry had rel_mother_of; corrected to rel_mother_of in slice 11a (17 October 2026), a modelling fix (docs/CHANGELOG-data.md). ⟨scholar⟩"
     },
     {
       "predicate": "spouse of",

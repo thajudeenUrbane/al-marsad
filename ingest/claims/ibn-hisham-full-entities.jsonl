@@ -7877,3 +7877,9 @@
 {"kind": "place", "name": "Yanbuʿ (valley)", "attested": {"passage": "psg:nkW9jO30s4RycAA2Cb1wqy", "span": [596, 600]}, "place_type": "valley"}
 {"kind": "place", "name": "Yemen", "attested": {"passage": "psg:K8HYpUkG0kbCADrCtFafbS", "span": [220, 225]}, "place_type": "region"}
 {"kind": "place", "name": "Zamzam", "attested": {"passage": "psg:tdVwikPdBcpfkjCx1Ul343", "span": [50, 54]}, "place_type": "well"}
+{"kind": "event", "name": "The brotherhood of the Muhājirūn and the Anṣār (al-muʾākhāt)"}
+{"kind": "event", "name": "The delegation of the Christians of Najrān"}
+{"kind": "event", "name": "The first believers (Ibn Isḥāq's first eight)"}
+{"kind": "event", "name": "The affair of the slander (al-ifk)"}
+{"kind": "event", "name": "The first call to prayer (adhān)"}
+{"kind": "event", "name": "A pledge of al-ʿAqaba (which one, the text does not say)"}

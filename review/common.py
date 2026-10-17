@@ -372,6 +372,8 @@ def drift(tree: Tree) -> tuple[list, list]:
 # (slice 1a merged two IDs on one label: on its own that gives 'probable'), and "info"
 # (explains something, asks nothing). Any other part is a real question: unknown notes
 # are never dropped.
+# Maintainer P9 (round 3): the 50 Stories groups' flag becomes this question for scholars.
+REAL_GROUP_NOTE = "question for scholars: is this a real tribe, clan or group the sources name, or only a description?"
 NOTE_KINDS = [
     (re.compile(r"^IRI nearly identical to "), "id", "slice-1a ID collision (fixed by the slice 1d re-mint)"),
     (re.compile(r"stays needs-review only for the ID collision"), "id", "flag kept only for the ID collision"),

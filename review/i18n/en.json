@@ -119,6 +119,7 @@
   "identity.question.event": "Are these records one event?",
   "identity.question.group": "Are these records one group?",
   "identity.question.other": "Are these records one and the same?",
+  "identity.question.real_group": "Is this a real tribe, clan or group that the sources name, or only a description of some people?",
   "identity.variants": "Records merged into it: {value}",
   "identity.names50": "Names in the 50 Stories: {value}",
   "identity.files": "Files: {value}",

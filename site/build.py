@@ -50,7 +50,8 @@ from thread import build_thread  # noqa: E402
 STATIC = ("site.css", "search.js", "enhance.js", "thread.js", "archive.css")
 # data files offered for download on the Research page: (key, source, path in site/dist)
 DOWNLOADS = (("graph", None, "data/graph.ttl"),
-             ("external_ids", external.CSV_PATH, "data/external-ids.csv"))
+             ("external_ids", external.CSV_PATH, "data/external-ids.csv"),
+             ("external_ids_althurayya", external.CSV_PATH_ALTHURAYYA, "data/external-ids-althurayya.csv"))
 
 
 def search_names(e: Entity) -> list[str]:

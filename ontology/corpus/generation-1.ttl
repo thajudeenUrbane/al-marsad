@@ -715,9 +715,9 @@ ast:XFjEpWL4BOvR4mzddccsoD a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
 
 ast:I8GdgF5ORWDvd8uMQstIrG a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;
     mrs:createdBy agt:C7VpyqaTGtImKPBS8frhTf ; mrs:recordedAt "2026-09-12T00:00:00Z"^^xsd:dateTime ;
-    mrs:predicate mrs:rel_father_of ; mrs:assertionSubject per:laOMIYgqaQ5Iw6DmtiCNkY ;
+    mrs:predicate mrs:rel_mother_of ; mrs:assertionSubject per:laOMIYgqaQ5Iw6DmtiCNkY ;
     mrs:assertionObject per:6eCGwhJPqffwRQDnFPYoqa ; mrs:assertionStatus mrs:as_proposed ;
-    mrs:nonReportBasis "Khadija was Fatima's mother — modelled here with rel_father_of's inverse in mind; ⟨scholar⟩ a mrs:rel_mother_of instance would be the precise relation and is not yet in the registry as of v0.1 (see docs/02 §14 for known gaps). Recorded via rel_father_of as the nearest existing term pending that fix."@en ;
+    mrs:nonReportBasis "Khadija was Fatima's mother. First recorded with rel_father_of, the nearest term before the registry had rel_mother_of; corrected to rel_mother_of in slice 11a (17 October 2026), a modelling fix (docs/CHANGELOG-data.md). ⟨scholar⟩"@en ;
     prov:wasGeneratedBy act:fuU3s9la4uBpODztXJBrdJ .
 
 ast:ZP8xcILZh5aAAW6Ply7Gh5 a mrs:Assertion ; mrs:coverageState mrs:cs_stub ;

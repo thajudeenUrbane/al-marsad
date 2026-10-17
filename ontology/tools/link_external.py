@@ -9,6 +9,7 @@ Propose external-identifier candidates for the people, places and works in the g
 
 Reads ontology/corpus/identity.csv and the Turtle files build_graph.py loads. Writes, in ontology/corpus/:
   external-ids.csv          one row per candidate (CC0, like every table mapping our IDs to external IDs)
+  external-ids-althurayya.csv  the al-Thurayya candidates, kept apart under al-Thurayya's CC BY 4.0
   external-coordinates.csv  the coordinates each place candidate carries, for the map, with their source
   external-dates.csv        birth and death statements of every person candidate on Wikidata, for the
                             lifelines view: value exactly as given, precision, calendar model, rank, qualifiers
@@ -105,6 +106,8 @@ ROOT = ONT.parent
 IDENTITY = ONT / "corpus" / "identity.csv"
 DATA = sorted((ONT / "corpus").glob("*.ttl")) + sorted((ONT / "examples").glob("*.ttl"))
 OUT_IDS = ONT / "corpus" / "external-ids.csv"
+# al-Thurayya's rows keep its licence (CC BY 4.0), so they live in their own credited file (maintainer S6)
+OUT_IDS_TH = ONT / "corpus" / "external-ids-althurayya.csv"
 OUT_COORDS = ONT / "corpus" / "external-coordinates.csv"
 CACHE = ROOT / "build" / "cache" / "link_external"
 
@@ -1477,7 +1480,9 @@ def main():
     except CacheMiss as e:
         print(f"error: not in the cache (run without --offline/--check to fetch): {e}", file=sys.stderr)
         return 2
-    outputs = [(OUT_IDS, to_csv(ID_HEADER, rows)), (OUT_COORDS, to_csv(COORD_HEADER, coords)),
+    outputs = [(OUT_IDS, to_csv(ID_HEADER, [r for r in rows if r[2] != "althurayya"])),
+               (OUT_IDS_TH, to_csv(ID_HEADER, [r for r in rows if r[2] == "althurayya"])),
+               (OUT_COORDS, to_csv(COORD_HEADER, coords)),
                (OUT_DATES, to_csv(DATE_HEADER, dates))]
     if args.check:
         stale = [p.name for p, text in outputs if not p.exists() or p.read_text(encoding="utf-8") != text]

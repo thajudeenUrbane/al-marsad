@@ -175,7 +175,7 @@ def identity_batches(tree: c.Tree, levels: set, size: int) -> tuple[list, list]:
             "id": row["canonical_id"],
             "kind": "identity",
             "entity": row["kind"],
-            "question": "same_as",
+            "question": "real_group" if c.REAL_GROUP_NOTE in row.get("note", "") else "same_as",
             "name": row["preferred_name_en"],
             "name_ar": row.get("name_ar") or None,
             "variant_ids": [v for v in row.get("variant_ids", "").split(";") if v],

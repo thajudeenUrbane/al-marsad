@@ -20,6 +20,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CSV_PATH = ROOT / "ontology" / "corpus" / "external-ids.csv"
+# al-Thurayya's candidates, kept in their own file under al-Thurayya's licence (CC BY 4.0)
+CSV_PATH_ALTHURAYYA = ROOT / "ontology" / "corpus" / "external-ids-althurayya.csv"
 ID_BASE = "https://w3id.org/marsad/id/"
 COLUMNS = ("canonical_id", "kind", "system", "external_id", "external_label", "evidence", "confidence", "status")
 PREFIX_SEGMENT = {"per": "person", "plc": "place", "ev": "event", "grp": "group"}
@@ -51,7 +53,18 @@ def load(path: Path | None = None, known: set[str] | None = None) -> dict[str, l
     """{entity IRI: [row, ...]}, rows sorted by system, the tool's confidence, then ID.
     `known`: IRIs that have a page; rows for anything else are left out. A file that
     lacks one of COLUMNS is a build error, so a format change cannot pass silently."""
-    path = CSV_PATH if path is None else Path(path)
+    if path is None:
+        out: dict[str, list[dict]] = {}
+        for p in (CSV_PATH, CSV_PATH_ALTHURAYYA):
+            for iri, rows in load(p, known).items():
+                for r in rows:
+                    if r not in out.setdefault(iri, []):
+                        out[iri].append(r)
+        for rows in out.values():
+            rows.sort(key=lambda r: (_rank(SYSTEM_ORDER, r["system"]), r["system"],
+                                     _rank(CONFIDENCE_ORDER, r["confidence"]), r["external_id"]))
+        return out
+    path = Path(path)
     if not path.is_file():
         return {}
     with path.open(encoding="utf-8", newline="") as f:
