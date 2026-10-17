@@ -74,6 +74,8 @@ FULL_CLAIMS = CLAIMS_DIR / "ibn-hisham-full.jsonl"
 # its Turtle sits outside ontology/corpus/ on purpose: build_graph.py and the site read every file
 # in corpus/, and this one (the whole book) is a separate, opt-in layer until it is reviewed
 FULL_OUT = ROOT / "ontology" / "corpus" / "ibn-hisham-full.ttl"
+# slice 11a (ingest/sira_derive.py): voice, formulas, doubted poems and sides, read again from the same text
+FULL_DERIVED = CLAIMS_DIR / "ibn-hisham-full-derived.jsonl"
 
 PASSES = {
     "slice4": {"files": (PASSAGES, ENTITIES, CLAIMS), "out": ROOT / "ontology" / "corpus" / "ibn-hisham.ttl", "agent": "agent", "activity": "activity",
@@ -130,7 +132,13 @@ QUALIFIERS = {
     "editorial_brackets": ("rests on words in round brackets",
                            "The words the claim rests on are in round brackets in the edition, which marks "
                            "words the editors supplied. Check them against the edition and its manuscripts."),
+    "poem_doubted_in_passage": ("a poem in this passage is doubted by Ibn Hish\u0101m",
+                                "In this passage Ibn Hish\u0101m notes that most authorities on poetry deny a poem's "
+                                "attribution (\u201c\u0648\u0623\u0643\u062b\u0631 \u0623\u0647\u0644 "
+                                "\u0627\u0644\u0639\u0644\u0645 \u0628\u0627\u0644\u0634\u0639\u0631 "
+                                "\u064a\u0646\u0643\u0631\u2026\u201d). Check whether this claim rests on that poem."),
 }
+VOICES = {"ibn_ishaq": "mrs:voice_ibn_ishaq", "ibn_hisham": "mrs:voice_ibn_hisham"}
 
 # ---------------------------------------------------------------- the text
 
@@ -485,9 +493,19 @@ def build_ttl(src: dict, text: Text, which: str = "slice4") -> tuple[str, dict]:
     activity = ids[cfg["activity"]]
     recorded = cfg["recorded"]
     stamp = lambda: [(p, o.replace("{agent}", agent)) for p, o in audit(recorded=recorded)]  # noqa: E731
+    dstamp = lambda: [(p, o.replace("{agent}", ids["derive_agent"]))  # noqa: E731
+                      for p, o in audit(recorded="2026-10-17T00:00:00Z")]
 
     passages, entities, claims = (read_all(f) for f in cfg["files"])
     s = text.s
+    annots = {}
+    derived = which == "full" and FULL_DERIVED.exists()
+    if derived:
+        for r in read_jsonl(FULL_DERIVED):
+            if r["t"] == "annot":
+                annots[r["claim"]] = r
+            elif r["t"] == "side":
+                claims.append(dict(r, _side=True))
 
     # ---- passages: offsets, checksums, citations
     psg_by_id = {}
@@ -559,6 +577,28 @@ def build_ttl(src: dict, text: Text, which: str = "slice4") -> tuple[str, dict]:
             sys.exit(f"{where}: an age claim needs its age as written")
         if c["predicate"] == "rel_dated" and "literal_spans" not in obj:
             sys.exit(f"{where}: a dated claim's object is the time expression as written")
+        if c.get("_side"):
+            c["_event"] = resolve({"kind": "event", "name": c["event"]}, where)
+            lo = c["list_opening"]
+            op = psg_by_id.get(lo["passage"])
+            if op is None or sha256_text(s[op["start"]:op["end"]][lo["span"][0]:lo["span"][1]]) != lo["span_sha256"]:
+                sys.exit(f"{where}: its list opening does not match the text")
+        an = annots.get(c["id"], {})
+        for q in an.get("qualifiers", []):
+            if q not in QUALIFIERS:
+                sys.exit(f"{where}: unknown qualifier {q}")
+            c.setdefault("qualifiers", [])
+            if q not in c["qualifiers"]:
+                c["qualifiers"] = c["qualifiers"] + [q]
+        if "formula" in an:
+            fa, fb = an["formula"]["span"]
+            if sha256_text(raw[fa:fb]) != an["formula"]["span_sha256"]:
+                sys.exit(f"{where}: its formula does not match the text")
+            if an["formula"]["mode"] not in MODES:
+                sys.exit(f"{where}: unknown mode {an['formula']['mode']}")
+        if an.get("voice") and an["voice"] not in VOICES:
+            sys.exit(f"{where}: unknown voice {an['voice']}")
+        c["_annot"] = an
         for x in (c["_subject"], c["_object"]):
             if x.startswith("ev:"):
                 referred.setdefault(x, set()).add(c["passage"])
@@ -612,6 +652,18 @@ def build_ttl(src: dict, text: Text, which: str = "slice4") -> tuple[str, dict]:
         ("prov:qualifiedAssociation", bnode(["prov:Association"], [
             ("prov:agent", agent), ("prov:hadRole", "mrs:role_extractor")]))],
         comment="The extraction run. NO adjudicator association: nothing below has been reviewed."))
+    if derived:
+        out.append(block(ids["derive_agent"], ["prov:SoftwareAgent"], [
+            ("rdfs:label", lit("Rule-based derivation (slice 11a)", "en")),
+            ("rdfs:comment", lit(src["derive_agent_comment"], "en"))]))
+        out.append(block(ids["derive_activity"], ["prov:Activity"], [
+            ("rdfs:label", lit(src["derive_activity_label"], "en")),
+            ("prov:startedAtTime", lit("2026-10-17T00:00:00Z", dt="xsd:dateTime")),
+            ("prov:used", ids["witness"]),
+            ("prov:used", activity),
+            ("prov:qualifiedAssociation", bnode(["prov:Association"], [
+                ("prov:agent", ids["derive_agent"]), ("prov:hadRole", "mrs:role_extractor")]))],
+            comment="Voice, formulas, doubted poems and sides at battles, by rule from the text. NO adjudicator association."))
 
     # ---- work, recension, edition, witness
     ibn_ishaq = resolve(src["work"]["creator"], "work creator")
@@ -830,15 +882,30 @@ def build_ttl(src: dict, text: Text, which: str = "slice4") -> tuple[str, dict]:
                       ("mrs:fromReport", p["report"])]
             for q in c.get("qualifiers", []):
                 props.append(("mrs:qualifier", f"mrsv:q_{q}"))
-            props += [("rdfs:comment", lit("AI gloss (proposed; machine-written, not reviewed, not a translation): "
-                                           + c["gloss"], "en")),
-                      ("prov:wasDerivedFrom", p["id"]),
+            an = c.get("_annot", {})
+            if an.get("voice"):
+                props.append(("mrs:voice", VOICES[an["voice"]]))
+                if an.get("voice_basis") == "carried":
+                    props.append(("mrs:voiceCarried", "true"))
+            if "formula" in an:
+                fa, fb = an["formula"]["span"]
+                props += [("mrs:narrationFormula", lit(as_written(raw, [[fa, fb]]), "ar")),
+                          ("mrs:narrationMode", f"mrs:tm_{an['formula']['mode']}")]
+            if c.get("_side"):
+                props += [("mrs:atEvent", c["_event"]),
+                          ("rdfs:comment", lit("Derived by rule (slice 11a; proposed, not reviewed): " + c["gloss"], "en"))]
+                if c["list_opening"]["passage"] != p["id"]:
+                    props.append(("prov:wasDerivedFrom", c["list_opening"]["passage"]))
+            else:
+                props.append(("rdfs:comment", lit("AI gloss (proposed; machine-written, not reviewed, not a translation): "
+                                                  + c["gloss"], "en")))
+            props += [("prov:wasDerivedFrom", p["id"]),
                       ("oa:hasTarget", bnode(["oa:SpecificResource"], [
                           ("oa:hasSource", p["id"]),
                           ("oa:hasSelector", bnode(["oa:TextPositionSelector"], [
                               ("oa:start", str(c["span"][0])), ("oa:end", str(c["span"][1]))], indent=12))])),
-                      ("prov:wasGeneratedBy", activity)]
-            out.append(block(c["id"], ["mrs:Assertion", "oa:Annotation"], props + stamp()))
+                      ("prov:wasGeneratedBy", ids["derive_activity"] if c.get("_side") else activity)]
+            out.append(block(c["id"], ["mrs:Assertion", "oa:Annotation"], props + (dstamp() if c.get("_side") else stamp())))
             counts[c["predicate"]] = counts.get(c["predicate"], 0) + 1
 
     ttl = "\n".join(out)

@@ -53,8 +53,12 @@
     "activity": "act:oxNGDz9lLFz8d9WV2jbxoU",
     "source_date": "tmp:YezEHJYOELI5ffHCKk0cVq",
     "full_agent": "agt:pya7rwwWyZ4ybSHDDQrNQv",
-    "full_activity": "act:j2oTQ1eGGaqoDxhoJeUpC5"
+    "full_activity": "act:j2oTQ1eGGaqoDxhoJeUpC5",
+    "derive_agent": "agt:wqhxFpnC5O6BK1rbkyptD3",
+    "derive_activity": "act:8jrjMXqoqJiVjg3jXskpwL"
   },
   "full_agent_comment": "A generic software agent: the AI-assisted full-book extraction pass, run on 16 October 2026, which read every section of Ibn Hisham's Sira in the OpenITI text, chunk by chunk, and proposed the people, places, events and relations the text states, each with the exact span it rests on (ingest/full-pass-instructions.md). Not a person and not an adjudicator: nothing it proposed has been reviewed.",
-  "full_activity_label": "AI extraction pass (full book), 16 October 2026: Ibn Hisham, al-Sira al-Nabawiyya (OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1), every section"
+  "full_activity_label": "AI extraction pass (full book), 16 October 2026: Ibn Hisham, al-Sira al-Nabawiyya (OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1), every section",
+  "derive_agent_comment": "Rule-based reading of the same text (ingest/sira_derive.py, slice 11a), not an AI pass: who is speaking where a claim's words stand (Ibn Isḥāq or Ibn Hishām), the transmission formula of each narration, Ibn Hishām's doubts about poems, and which side a person was on at Badr and Uḥud according to the list Ibn Isḥāq gives them in. Every addition rests on words the text gives, at offsets the full-book pass committed.",
+  "derive_activity_label": "Rule-based derivation from the full-book pass (slice 11a), 17 October 2026"
 }
