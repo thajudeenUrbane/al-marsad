@@ -173,7 +173,7 @@ class ReviewPages(unittest.TestCase):
                 used |= {node.value, f"{node.value}.one", f"{node.value}.other"} & set(strings) or {node.value}
         families = {"check.": self.queue["checks"], "decision.": list(c.OUTCOMES), "status.": list(c.OUTCOME_STATUS.values()) + ["proposed", "superseded"],
                     "index.section.": bp.KINDS, "index.lead.": bp.KINDS, "batch.title.": bp.KINDS,
-                    "identity.question.": list(bp.ENTITY_KINDS) + ["other"]}
+                    "identity.question.": list(bp.ENTITY_KINDS) + ["other", "real_group"]}
         for prefix, values in families.items():
             used |= {prefix + v for v in values}
         return used

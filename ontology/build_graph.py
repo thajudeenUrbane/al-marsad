@@ -60,6 +60,9 @@ SHAPES = ONT / "shapes.ttl"
 DATA = sorted((ONT / "corpus").glob("*.ttl")) + sorted((ONT / "examples").glob("*.ttl"))
 OUT = ROOT / "build" / "graph.ttl"
 OUT_ALL = ROOT / "build" / "graph-all.ttl"
+MRS = Namespace("https://w3id.org/marsad/core#")
+PLC = Namespace("https://w3id.org/marsad/id/place/")
+BASE = "https://w3id.org/marsad/id/"
 # Data files left out of build/graph.ttl (the pages' graph) for now, and the size above which a
 # file counts as large: both in ontology/shacl_check.py, which the review importer shares.
 ON_HOLD_FROM_PAGES = shacl_check.ON_HOLD_FROM_PAGES
