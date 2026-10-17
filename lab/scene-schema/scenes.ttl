@@ -1,0 +1,240 @@
+@prefix mrs:   <https://w3id.org/marsad/core#> .
+@prefix crm:   <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+
+#################################################################
+#  al-Marṣad scene layer — LAB DRAFT, not yet part of ontology/
+#
+#  Extends:      ontology/marsad.ttl (same mrs: namespace on purpose,
+#                so migration is a cut-and-paste, not a rename)
+#  Constraints:  lab/scene-schema/scene-shapes.ttl
+#  Example:      lab/scene-schema/examples/hijrah-cave.ttl
+#
+#  Design stance: a Scene AUTHORS NOTHING. Every word a learner reads
+#  and every figure drawn resolves to a claim (mrs:Assertion) or to a
+#  Moment, and a Moment resolves to a Passage span. Moments are
+#  proposed like claims and move only by a human review decision.
+#  Same OWL-Lite stance as the core: real constraints live in SHACL.
+#################################################################
+
+<https://w3id.org/marsad/scene> a owl:Ontology ;
+    dct:title "al-Marṣad Scene Layer (lab draft)"@en ;
+    owl:versionInfo "0.0.1-lab" ;
+    owl:imports <https://w3id.org/marsad/core> ;
+    dct:modified "2026-10-17"^^xsd:date .
+
+#################################################################
+#  MOMENT — an ordered narrative beat inside one Report
+#################################################################
+
+mrs:Moment a owl:Class ;
+    rdfs:subClassOf mrs:Entity , crm:E13_Attribute_Assignment ;
+    rdfs:label "Moment"@en ;
+    rdfs:comment """One narrative beat as a Report tells it: who, doing what
+        kind of thing, where, with what time cue, in which place in the
+        telling. Reified and status-bearing exactly like an mrs:Assertion:
+        software may PROPOSE a Moment, never assert one. Its status moves
+        only by an mrs:ReviewDecision (docs/06 §3). A Moment is not an
+        Event: an Event is reconstructed across Reports; a Moment belongs
+        to one telling, and two tellings give two Moments."""@en .
+
+mrs:momentOf a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:Report ;
+    rdfs:comment "The one Report whose telling this beat belongs to."@en .
+mrs:anchoredIn a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:Passage ;
+    rdfs:comment "The Passage the span is counted in. Same offsets as a claim's oa:TextPositionSelector."@en .
+mrs:spanStart a owl:DatatypeProperty ; rdfs:domain mrs:Moment ; rdfs:range xsd:nonNegativeInteger .
+mrs:spanEnd   a owl:DatatypeProperty ; rdfs:domain mrs:Moment ; rdfs:range xsd:nonNegativeInteger .
+mrs:spanSha256 a owl:DatatypeProperty ; rdfs:domain mrs:Moment ; rdfs:range xsd:string ;
+    rdfs:comment "Hash of the span text, as the claim files carry it, so a re-segmented edition is detected rather than silently drifting."@en .
+mrs:sequenceIndex a owl:DatatypeProperty ; rdfs:domain mrs:Moment ; rdfs:range xsd:positiveInteger ;
+    rdfs:comment "Order of the beat WITHIN ITS REPORT, as told. Narrative order, not chronological order: a flashback keeps its place in the telling."@en .
+mrs:momentActor a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:Person ;
+    rdfs:comment "A person the span makes an actor of this beat. Zero is allowed (\"it was said\")."@en .
+mrs:actionType a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:ActionType .
+mrs:momentPlace a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:Place .
+mrs:timeCue a owl:DatatypeProperty ; rdfs:domain mrs:Moment ; rdfs:range rdf:langString ;
+    rdfs:comment "The time expression as the span gives it ('three nights', 'at dawn'). Verbatim Arabic when copied by a reviewer; an English gloss is marked @en and is never normalised to a date."@en .
+mrs:hedge a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:Hedge ;
+    rdfs:comment "How firmly the TELLING puts it (stated, 'it is claimed', 'God knows best'). The source's hedge, not our grading."@en .
+mrs:hedgeAsWritten a owl:DatatypeProperty ; rdfs:domain mrs:Moment ; rdfs:range rdf:langString .
+mrs:momentStatus a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:AssertionStatus ;
+    rdfs:comment "Same vocabulary and same route as mrs:assertionStatus: proposed until a human decides."@en .
+mrs:momentEvidence a owl:ObjectProperty ; rdfs:domain mrs:Moment ; rdfs:range mrs:Assertion ;
+    rdfs:comment "Claims extracted from the same span that this beat restates. Optional: a beat may carry an action no relation type captures."@en .
+mrs:momentGloss a owl:DatatypeProperty ; rdfs:domain mrs:Moment ; rdfs:range rdf:langString ;
+    rdfs:comment "Machine or editor gloss of the beat. Not a translation; shown only with its status."@en .
+
+#################################################################
+#  SCENE — the reviewable unit a learner sees
+#################################################################
+
+mrs:Scene a owl:Class ;
+    rdfs:subClassOf mrs:Entity , crm:E73_Information_Object ;
+    rdfs:label "Scene"@en ;
+    rdfs:comment """A place, a time window, an ordered run of beats (Moments
+        and claims), the people drawn, a camera, questions and sound. It is
+        a VIEW over the graph, versioned and approved as a whole; it holds
+        no fact of its own. The build compiles each publishable Scene into
+        a scene pack."""@en .
+
+mrs:sceneVersion a owl:DatatypeProperty ; rdfs:domain mrs:Scene ; rdfs:range xsd:string ;
+    rdfs:comment "Content hash or semver of the scene as reviewed. An approval names the version it approved; editing the scene voids it."@en .
+mrs:scenePlace a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:Place .
+mrs:placeCertainty a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:PlaceCertainty ;
+    rdfs:comment "How sure the scene may be about where it stands. A place with no geometry MUST be pc_unlocated; the renderer then draws no map pin and no terrain fly-in."@en .
+mrs:sceneTime a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:TemporalExtent ;
+    rdfs:comment "The window the scene covers. Four-corner, never a bare date (core model)."@en .
+mrs:publicationState a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:PublicationState .
+
+mrs:SceneBeat a owl:Class ;
+    rdfs:comment "One ordered step of a Scene: exactly one Moment or one claim."@en .
+mrs:hasBeat a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:SceneBeat .
+mrs:beatIndex a owl:DatatypeProperty ; rdfs:domain mrs:SceneBeat ; rdfs:range xsd:positiveInteger ;
+    rdfs:comment "Order within the Scene. May differ from a Moment's sequenceIndex when a scene interleaves two tellings."@en .
+mrs:beatMoment a owl:ObjectProperty ; rdfs:domain mrs:SceneBeat ; rdfs:range mrs:Moment .
+mrs:beatClaim  a owl:ObjectProperty ; rdfs:domain mrs:SceneBeat ; rdfs:range mrs:Assertion .
+
+# Text. There is no plain-literal text slot on a Scene: every string a
+# learner reads is a SceneText that names what it rests on.
+mrs:SceneText a owl:Class ;
+    rdfs:comment "A string shown to learners plus the claims or Moments it restates. Text that resolves to nothing cannot be expressed."@en .
+mrs:textValue a owl:DatatypeProperty ; rdfs:domain mrs:SceneText ; rdfs:range rdf:langString .
+mrs:resolvesTo a owl:ObjectProperty ; rdfs:domain mrs:SceneText ;
+    rdfs:comment "An mrs:Assertion or mrs:Moment of the same Scene."@en .
+mrs:sceneTitle    a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:SceneText .
+mrs:sceneCaption  a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:SceneText .
+mrs:narrationLine a owl:ObjectProperty ; rdfs:domain mrs:SceneBeat ; rdfs:range mrs:SceneText .
+
+# People drawn.
+mrs:SceneFigure a owl:Class ;
+    rdfs:comment "One person as the scene draws them, with a draw role. Not a portrait: no figure has a face, a body or a voice."@en .
+mrs:hasFigure a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:SceneFigure .
+mrs:depicts a owl:ObjectProperty ; rdfs:domain mrs:SceneFigure ; rdfs:range mrs:Person .
+mrs:drawRole a owl:ObjectProperty ; rdfs:domain mrs:SceneFigure ; rdfs:range mrs:DrawRole .
+mrs:figureEvidence a owl:ObjectProperty ; rdfs:domain mrs:SceneFigure ;
+    rdfs:comment "The claim(s) or Moment(s) that put this person in this scene. Presence is evidenced, never assumed."@en .
+mrs:depictionConstraint a owl:ObjectProperty ; rdfs:domain mrs:Person ; rdfs:range mrs:DepictionConstraint ;
+    rdfs:comment "A standing rule on how a person may be drawn anywhere. Set once on the person by the maintainer, never per scene."@en .
+
+# Camera.
+mrs:CameraPose a owl:Class ;
+    rdfs:comment "Where the viewer stands. Relative to a target by default; absolute coordinates only where the place is located."@en .
+mrs:camera a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:CameraPose .
+mrs:cameraTarget a owl:ObjectProperty ; rdfs:domain mrs:CameraPose .
+mrs:headingDeg a owl:DatatypeProperty ; rdfs:domain mrs:CameraPose ; rdfs:range xsd:decimal .
+mrs:pitchDeg   a owl:DatatypeProperty ; rdfs:domain mrs:CameraPose ; rdfs:range xsd:decimal .
+mrs:rangeM     a owl:DatatypeProperty ; rdfs:domain mrs:CameraPose ; rdfs:range xsd:decimal .
+mrs:cameraLon  a owl:DatatypeProperty ; rdfs:domain mrs:CameraPose ; rdfs:range xsd:decimal .
+mrs:cameraLat  a owl:DatatypeProperty ; rdfs:domain mrs:CameraPose ; rdfs:range xsd:decimal .
+
+# Questions.
+mrs:SceneQuestion a owl:Class ;
+    rdfs:comment "A check for understanding. Its prompt is a SceneText; each option, right or wrong, names the claim that decides it."@en .
+mrs:hasQuestion a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:SceneQuestion .
+mrs:questionPrompt a owl:ObjectProperty ; rdfs:domain mrs:SceneQuestion ; rdfs:range mrs:SceneText .
+mrs:QuestionOption a owl:Class .
+mrs:hasOption a owl:ObjectProperty ; rdfs:domain mrs:SceneQuestion ; rdfs:range mrs:QuestionOption .
+mrs:optionText a owl:DatatypeProperty ; rdfs:domain mrs:QuestionOption ; rdfs:range rdf:langString .
+mrs:isAnswer a owl:DatatypeProperty ; rdfs:domain mrs:QuestionOption ; rdfs:range xsd:boolean .
+mrs:optionEvidence a owl:ObjectProperty ; rdfs:domain mrs:QuestionOption ; rdfs:range mrs:Assertion ;
+    rdfs:comment "For the answer: the claim that makes it right. For a distractor: the claim that makes it wrong. A distractor no claim refutes is an opinion, and is not allowed."@en .
+
+# Sound.
+mrs:SoundCue a owl:Class ;
+    rdfs:comment "Ambient sound or an effect tied to a beat. No human voice is ever synthesised for any person."@en .
+mrs:hasSoundCue a owl:ObjectProperty ; rdfs:domain mrs:Scene ; rdfs:range mrs:SoundCue .
+mrs:cueKind a owl:ObjectProperty ; rdfs:domain mrs:SoundCue ; rdfs:range mrs:SoundKind .
+mrs:cueAtBeat a owl:ObjectProperty ; rdfs:domain mrs:SoundCue ; rdfs:range mrs:SceneBeat .
+mrs:cueAsset a owl:DatatypeProperty ; rdfs:domain mrs:SoundCue ; rdfs:range xsd:string .
+
+#################################################################
+#  APPROVAL — an act by a human, reusing the review-decision pattern
+#################################################################
+
+mrs:ApprovalAct a owl:Class ;
+    rdfs:subClassOf mrs:ReviewDecision ;
+    rdfs:label "Approval act"@en ;
+    rdfs:comment """A human reviewer's decision that one VERSION of a Scene
+        (or Journey) may be shown. Reuses mrs:reviewedBy, mrs:reviewTarget,
+        mrs:reviewOutcome and mrs:reviewDate. Approving a scene is not
+        accepting its claims: each claim and Moment keeps its own decision.
+        Never an mrs:Evaluation and never made by software."""@en .
+mrs:approvedVersion a owl:DatatypeProperty ; rdfs:domain mrs:ApprovalAct ; rdfs:range xsd:string ;
+    rdfs:comment "The mrs:sceneVersion the reviewer saw. A mismatch means the approval is stale."@en .
+mrs:approvalScope a owl:ObjectProperty ; rdfs:domain mrs:ApprovalAct ; rdfs:range mrs:ApprovalScope ;
+    rdfs:comment "What the reviewer vouched for: the sourcing, the depiction, or the questions."@en .
+
+#################################################################
+#  JOURNEY — an ordered run of Scenes
+#################################################################
+
+mrs:Journey a owl:Class ;
+    rdfs:subClassOf mrs:Entity , crm:E73_Information_Object ;
+    rdfs:label "Journey"@en ;
+    rdfs:comment "Ordered Scenes a learner walks through. Adds order and nothing else; it can only be publishable when every Scene in it is."@en .
+mrs:JourneyStep a owl:Class .
+mrs:hasStep a owl:ObjectProperty ; rdfs:domain mrs:Journey ; rdfs:range mrs:JourneyStep .
+mrs:stepIndex a owl:DatatypeProperty ; rdfs:domain mrs:JourneyStep ; rdfs:range xsd:positiveInteger .
+mrs:stepScene a owl:ObjectProperty ; rdfs:domain mrs:JourneyStep ; rdfs:range mrs:Scene .
+
+#################################################################
+#  CONTROLLED VOCABULARIES (scene layer)
+#################################################################
+
+mrs:PlaceCertainty a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:comment "Extends mrs:LocationConfidence with the state a renderer most needs to know: unlocated."@en .
+mrs:pc_certain     a mrs:PlaceCertainty ; skos:prefLabel "certain"@en ; skos:closeMatch mrs:lc_certain .
+mrs:pc_probable    a mrs:PlaceCertainty ; skos:prefLabel "probable"@en ; skos:closeMatch mrs:lc_probable .
+mrs:pc_approximate a mrs:PlaceCertainty ; skos:prefLabel "approximate"@en ; skos:closeMatch mrs:lc_approximate .
+mrs:pc_disputed    a mrs:PlaceCertainty ; skos:prefLabel "disputed"@en ; skos:closeMatch mrs:lc_disputed ;
+    skos:note "Two or more located candidates; the scene shows all, privileging none."@en .
+mrs:pc_unlocated   a mrs:PlaceCertainty ; skos:prefLabel "unlocated"@en ;
+    skos:note "No geometry in the graph. The scene is drawn without map position, terrain or absolute camera."@en .
+
+mrs:DrawRole a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:dr_light  a mrs:DrawRole ; skos:prefLabel "light"@en ;
+    skos:note "Reserved for the Prophet ﷺ: a light only, never a node, figure, silhouette or voice. No other person may take it."@en .
+mrs:dr_person a mrs:DrawRole ; skos:prefLabel "person"@en ;
+    skos:note "A faceless marker that may move and act as the evidenced Moments say."@en .
+mrs:dr_stone  a mrs:DrawRole ; skos:prefLabel "stone"@en ;
+    skos:note "Named as present, with no side and no action drawn: an inert marker."@en .
+
+mrs:DepictionConstraint a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:dc_light_only a mrs:DepictionConstraint ; skos:prefLabel "light only"@en .
+
+mrs:ActionType a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:comment "Coarse kinds of action, enough to choose an animation. Starter list; scholars extend it."@en .
+mrs:at_arrive  a mrs:ActionType ; skos:prefLabel "arrive / enter"@en .
+mrs:at_stay    a mrs:ActionType ; skos:prefLabel "stay / remain"@en .
+mrs:at_depart  a mrs:ActionType ; skos:prefLabel "depart"@en .
+mrs:at_travel  a mrs:ActionType ; skos:prefLabel "travel / ride"@en .
+mrs:at_bring   a mrs:ActionType ; skos:prefLabel "bring / supply"@en .
+mrs:at_attend  a mrs:ActionType ; skos:prefLabel "be present / attend"@en .
+mrs:at_speak   a mrs:ActionType ; skos:prefLabel "speak"@en .
+
+mrs:Hedge a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:hd_stated   a mrs:Hedge ; skos:prefLabel "stated"@en .
+mrs:hd_reported a mrs:Hedge ; skos:prefLabel "reported ('it is said', 'they claim')"@en .
+mrs:hd_uncertain a mrs:Hedge ; skos:prefLabel "uncertain ('God knows best')"@en .
+
+mrs:PublicationState a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:ps_draft       a mrs:PublicationState ; skos:prefLabel "draft"@en .
+mrs:ps_in_review   a mrs:PublicationState ; skos:prefLabel "in review"@en .
+mrs:ps_publishable a mrs:PublicationState ; skos:prefLabel "publishable"@en .
+mrs:ps_withdrawn   a mrs:PublicationState ; skos:prefLabel "withdrawn"@en .
+
+mrs:SoundKind a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:sk_ambient a mrs:SoundKind ; skos:prefLabel "ambient (wind, night, desert)"@en .
+mrs:sk_effect  a mrs:SoundKind ; skos:prefLabel "effect (footfall, camel)"@en .
+mrs:sk_silence a mrs:SoundKind ; skos:prefLabel "silence"@en .
+
+mrs:ApprovalScope a owl:Class ; rdfs:subClassOf skos:Concept .
+mrs:ap_sourcing  a mrs:ApprovalScope ; skos:prefLabel "sourcing"@en .
+mrs:ap_depiction a mrs:ApprovalScope ; skos:prefLabel "depiction"@en .
+mrs:ap_questions a mrs:ApprovalScope ; skos:prefLabel "questions"@en .

@@ -1,0 +1,2440 @@
+{
+ "source": "lab/hijrah-night/index.html (claims of ingest/claims/ibn-hisham-full.jsonl)",
+ "halves": {
+  "Half 1": {
+   "chapters": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "titles": [
+    "The ones who went ahead",
+    "Three remain in Makkah",
+    "The council at Dār al-Nadwa",
+    "The night of leaving",
+    "Three days in the cave"
+   ],
+   "claims_shown": [
+    "ast:kjwbdqXCoKI6J3QKRKPQzf",
+    "ast:T6nJBi2auDGqDYD8XLFXE1",
+    "ast:MRTypWLPRJ3i09WBw9ueWe",
+    "ast:dFgjTqbSzEQF38NBjXKZiy",
+    "ast:BLhqjsmzDy0daXuXaqtZ0g",
+    "ast:mcTb3hPPcSkMLBkZmweWlv",
+    "ast:CwunpgWWayQpEs0RDfT3JM",
+    "ast:VDaG2WMipOiiqjLKn2MUnE",
+    "ast:QnOM2LBlK6TozYA26ch56L",
+    "ast:8snlQZo0O4otjWQKOcNK5m",
+    "ast:KHIy85kwuny2HtR5mSLw04",
+    "ast:BhyUtrjjN2W0qRIRVRrl0p",
+    "ast:H4jOJ1LN2WPEINdNsgXtE2",
+    "ast:WwymzeRUwXQd9OEJidHfca",
+    "ast:lbq8fvTC67CUWoyIht9uhf",
+    "ast:tcDC4kf5dZb5k9uFzsD8sf",
+    "ast:IlUwfsIXERoyKkMMm988Be",
+    "ast:15uBuvju2zopQUqmZjR0PC",
+    "ast:KOLqG8rQw61ZAYXCqEFrW7",
+    "ast:UmNPVuRqPLvszXZyUgfe0s",
+    "ast:ztfxpveQrsFyMi681WSkCQ",
+    "ast:7WwHAhDNfxihTQ70T3EoD6",
+    "ast:Hci98ndUTGzJdMu5lFFnFY",
+    "ast:YcD0wDyHr883rQ7yQ2hCHS",
+    "ast:arXbx2OoJNGD52rjyBmczi",
+    "ast:lCqyZS7BvBiFCHBpl14Hzk",
+    "ast:7qXKaegpL771pfamHSzQb9",
+    "ast:EPie7h03xypxpGhUhXHGMd",
+    "ast:LmP5WUFpRsNG5P735HytIj",
+    "ast:M1gs47ceaG4cfit5t4NMiW",
+    "ast:MaPeFPA7b25al3wXG83FJl",
+    "ast:P9gaI9CMfLNCrjUodRoLqC",
+    "ast:XubZkMMZM1Xv5tU3PaDCPE",
+    "ast:cHZhFmHUKPrkpvCaD7bdfk",
+    "ast:dK90DOfgI0KZgMjyaSv51v",
+    "ast:haAZZdgAmdRf2tufZMhvFB",
+    "ast:htJ0eSmhaYrzqYZlhkIwH8",
+    "ast:khjXtB5fapF2e7pkmuRKaD",
+    "ast:pP2wifT3H2a8pXf5fcLdE8",
+    "ast:xATGPX5yQfQU2L5Cz4tfVW",
+    "ast:S2ygn5hoF0TW2uIRCBDhLT",
+    "ast:fGSNOgO8VdnHtCairNLzNH",
+    "ast:X73nwDswKc793hnosazLQk",
+    "ast:r0HC1zL5203ADm31fLBJvP",
+    "ast:3rsIBX6nzpQFoWuHKPYQXI",
+    "ast:f1nnJFfpKv8PLjjR2gkyZe",
+    "ast:3BFHbBGNFyYmMEZcuu3hiH",
+    "ast:PYDXZGDEgeqeCwzG4OjRAO",
+    "ast:U9aYGV41uNROmORCX4cRf1",
+    "ast:V0ZHNIfujJTXAjACONpFWm",
+    "ast:V5CyAaqjnLR5xmJGjIKbOk",
+    "ast:ivgmZ2sHufJQpucA4uHqYA",
+    "ast:kkVzw3yKQzsKHD830CmUEP",
+    "ast:vn84Fwc7fk8gp9pAbbdzhJ",
+    "ast:m88gt7Cgoiu5Q5dOOXIcPy",
+    "ast:YLDp8p9BVsn4F6OCW8e2Zo",
+    "ast:uPYDdT2xrLA7Z5JhK4fxdK",
+    "ast:VByw6X8cIZmrWD2AhgZCPF",
+    "ast:emBCc3C0cVFwkXnQR7Ortg",
+    "ast:9LXpoJhljRm7t43QVS00is",
+    "ast:7gm1Gb2I2lcphw9NBMzhB0",
+    "ast:olCyYxSOe7VQ2BVnajoysy",
+    "ast:BCGNNF2H7EZzAjoNh57Hvc",
+    "ast:4YSp0VthD8QSY7lBgKJAHw",
+    "ast:UxXCXNZxdqMBEGQ38bhf1o",
+    "ast:rYjgAPrCHgj3vuCPrf8ioL",
+    "ast:cBC8wKir8oWBPYEpCkHprj",
+    "ast:WhZLC5rCNx1K9qHOTOmUhA",
+    "ast:X12VUApDya9T7swGW4fUUV",
+    "ast:NdvEcdipFeKOYpjnBKrWFQ",
+    "ast:bu97qIKkHnk6uPt1N1YYj7",
+    "ast:tTawKB1Tp9o7dzeJQOHugF",
+    "ast:3hXYFyXj3qX3ShAmhonpwX",
+    "ast:uLxrwWek9nxD2Udu5K3kN7",
+    "ast:wKrHfhlCcl2hQY8oYMrFzV",
+    "ast:YomNXp9vZ7aGfCe9ANLoy1",
+    "ast:c9Ux52uF2LqkrdDOSPjc1r",
+    "ast:T42RGp7POeCECDTly41cgu",
+    "ast:XciCEVL4QjdnZpBZyh6v4b",
+    "ast:Xk2LohG7anhBesXCsffX5m",
+    "ast:Y6lsg2AHIggH1K5V2vUMgI",
+    "ast:nsP6sLRBuaZxJdARDc2YWg",
+    "ast:TNBRuYmxLcqizjFSQTek7r",
+    "ast:UFMx4IDFydENLqp1q8bOvt",
+    "ast:dCzTS4HMZyUcgho72jPX6A",
+    "ast:OA85uD8B0Fp08sV56N4I3j",
+    "ast:7dPeFs16qbkTvLQpSNRVYX",
+    "ast:5o2bGWNVIBDpccPHxJXvJE",
+    "ast:YVGi953IN8gtSRwA3WEaU2",
+    "ast:z9sy2bARGTqrljcK5ZN5nS",
+    "ast:2JuwZ4ezQo96lLd5YGO7b4",
+    "ast:QCPotOMiQOjF6tUzpYOBYM",
+    "ast:6XjDxqzfjTc7tDUzfAkUzc",
+    "ast:vWULkJOi5BsLzCzVdj4jD7",
+    "ast:d9K0zu8ZKAB4uoOLImTxnU",
+    "ast:HeTJWlAkiH35vt9XQkG6tq",
+    "ast:noMXejHfgJgo1QYtGbnSNI",
+    "ast:HXFwg3MiqWRURmIfbcz2dl",
+    "ast:qKz89Htdl0aB8mOmwkQgqu",
+    "ast:8DgREoOeHRlF0mvSWGGo7z",
+    "ast:z3MZdtEoCUkLC21X0nIUWo",
+    "ast:cEc47x4wIPhQgomoaY3wd9",
+    "ast:lhoYd8K9rCBLbLi09d3U19",
+    "ast:OwRF5wxgpEqyWeOrQ6bgcl",
+    "ast:NCrkBsSWXKSHTRMpz5uPR1",
+    "ast:Progzny8grjMLG1JuTl7fH",
+    "ast:s9ZAnKdk3dmrfVfW9UIZQL",
+    "ast:nseD7EvjhPvYLuzGAy7wKg",
+    "ast:p8vmbJo9j0Yo8VC0SJRbyW",
+    "ast:pdYj0NS5JInESfvcseoouU",
+    "ast:te43gOuPkJqguikJz6ECq0",
+    "ast:SsLPaycha06FYdEh8BCc0r",
+    "ast:yfRdz2fyzKftq8UVeGnrM1",
+    "ast:unx7iHs2fbdHWjnWgILZEd",
+    "ast:pQRY1S2N3sT312maECxoXl",
+    "ast:99mW7DOoNiB4SmrWpWrFuG",
+    "ast:AAS0tCu6jI7bZyjqMfgiIl",
+    "ast:D5qVlpwIvn7KzqhmOMDqV7",
+    "ast:lM6AxHs48IUAngvfJxWncH",
+    "ast:WXXRb724XPTWxrKvTvh6Br",
+    "ast:sHzMWo97JEwxVwceEYL4HJ",
+    "ast:voQxX2H1pHs7kVQATZeMBH",
+    "ast:oquZBbfIT9Qk9G42o69mR4",
+    "ast:swGptHJSuhhHOxH2FrjuUb",
+    "ast:4ARYXtCOGdM3ep8npuXz4M",
+    "ast:RHJWnT2K1BwZUZwSprNJ7R",
+    "ast:kVXdhIdMMxQ95HXWQij2A7",
+    "ast:zc2qxNS7UlVRIWMInr1lwK",
+    "ast:faPf6e9bCjtAifp7SqjUUi",
+    "ast:pMVcDll5S1xqikEMdSHjbE",
+    "ast:At1DaAD02dIUa8qCn7Xnoi",
+    "ast:HzMGf26sShC2xBqMsFwmr1",
+    "ast:xSweU4PD4xvz2o8zC1Wu6q",
+    "ast:n4E8uMmAbCf24bvdoaoLj2",
+    "ast:5XbJgVMOxjhiwA0L2aZxEd",
+    "ast:Cgrdb4lGD51KQ6gMG26q92",
+    "ast:nXOMVvz9J309OnLXNhvrns",
+    "ast:Nd71jsOhXn6XDQhY7XqZIL",
+    "ast:ewXEpGUlA0fkQrRQffOsUO",
+    "ast:Ao3wZL3el8Oode70VvrIrj",
+    "ast:TvBef4tpthIrod7nHYv8Th",
+    "ast:aD3l6PzeG6lL6etof3mv5L",
+    "ast:rub3qN1y1tj7AVlKXEVgwW",
+    "ast:7G3tsG8dgkClynZGKClzGU",
+    "ast:KIff6Y31LGIxekoBiKfYm0",
+    "ast:E2QQmJzHKAie2mEvy3rZDx",
+    "ast:XRTJKwxuvEGyUeAX5zE7uO",
+    "ast:ufkxBWGKz7daXlxcEq80oO",
+    "ast:kPI4PtlbMXcLm2a4ljjdQo",
+    "ast:mzTMEqwbKwDXFGrLL8op9v",
+    "ast:8cnBBUa2LgoTlBqwCL8aNA",
+    "ast:kRD9n2tVZFxVqve3hzFVXI",
+    "ast:IA4M5LJk92D21Fbcg6dEdg",
+    "ast:U38udn0JxuSNsmQg1Eo9lC",
+    "ast:0KBzsAvILPo9ZWzKkINGXb",
+    "ast:eECtBl25uh21oj51Pgvptt",
+    "ast:lXPXZ8gSz5kkxNDyCK6Pcv",
+    "ast:7TyCCrIUe9VIu4sGNkmEM8",
+    "ast:DeFkhI6560eQAe4aq6KZyf",
+    "ast:1Qf7QmLbmtht0KMFs3Gzks",
+    "ast:BwhMa352nYog0oKpb5bTrI",
+    "ast:tTkTvfLoRp8YzY7PjTP8uu",
+    "ast:lrSLGAc759W9iMQFpPYrAU",
+    "ast:qYST9EyD6NglIzXVyW5gXt",
+    "ast:p0lKWf9IozfrQmE66BPfTg",
+    "ast:RPcmH3t1i0FxGGHKNTb7kR",
+    "ast:rV5yHhbzoaq2kWRWQHPbPo",
+    "ast:3wsueyab9x2xbaWXl93ylp",
+    "ast:puxbT9ceC4iDk3qDwdC5nS",
+    "ast:mEDRFU08A0ODmzyqKX4TS1",
+    "ast:Ku29uUjCoc2YiWavQAoiqH",
+    "ast:hssBT9Am3nt6hBgb8EbuCr",
+    "ast:isPsRg1YOUEvzldH8NryPF",
+    "ast:qy3MRBCecSjNaSEditbqOo",
+    "ast:AOj28mOcFqoCWMvwUj5vi0",
+    "ast:UT9qJQwaFkHFB2R50zO2NM",
+    "ast:aVw5vFagTH9YzzuRhdtncB",
+    "ast:EP5EzagKJ2oUTlnxLlEIYR",
+    "ast:8F2YOKmiUUTRqw2LaYt98t",
+    "ast:RDc7RJgnv4SDLXZPDLImGj",
+    "ast:4JxGxPaw93hj6DayBVDtYw",
+    "ast:Le3Zuf9TMVnPOsDZiRUg6R",
+    "ast:9kE8yuKvoS20B0qoftsbdH",
+    "ast:VdmDvXeFCEQGashSq5yIyZ",
+    "ast:7ddnffj0J9b7T6pEGzL4cM",
+    "ast:354QUFHTBUVRKY38QZ53B6",
+    "ast:YVBsqxfYsRwcLi1oOFO6t8",
+    "ast:xCz2l8lTo7yoKV9uyo3huY",
+    "ast:5pKmYmgIzzD7uRzQUN2sly",
+    "ast:ZHeBJABwhPato8D55uFX7p",
+    "ast:66iIoNArls0BAvmDNlFVfW",
+    "ast:RHEvxyXf20wWj6YGkkVzf3",
+    "ast:MOYKr8ogOMRE4qIqE9UgZp",
+    "ast:jm11qU287nhA6LFApuBGdz",
+    "ast:6ndHd4ntl8arZemEOEHPes",
+    "ast:2EYxfzZnG0s3clAmFBxx1i",
+    "ast:DMX9Grbc2YrQSdojTH5kWG",
+    "ast:17xu90UOTorsnGruEK4F2o",
+    "ast:fKQEgwvakH32fJcvGdC0R9",
+    "ast:WnYerbOWsOjwOqS0TGQWXr",
+    "ast:ZJH4teqAD7Di9wYT1EaT3w",
+    "ast:JPcQ9DIxP3UgY0gKFrqLWS",
+    "ast:BFYYcDvOwptKTm7CKvBPUd",
+    "ast:MZAIew5fMF3Cvn9BpxUC1a",
+    "ast:9fzWgxalAjRjSOm3Wx2dug"
+   ]
+  },
+  "Half 2": {
+   "chapters": [
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "titles": [
+    "Four set out",
+    "Surāqa's pursuit",
+    "The road north",
+    "Arrival at Qubāʾ",
+    "The first Friday"
+   ],
+   "claims_shown": [
+    "ast:2i1FLoK1ARriE7mZ8kyea4",
+    "ast:9ssx1jA1l5DbBQnpgt2FM8",
+    "ast:oNtLNNaheRDf3jMYHihmgY",
+    "ast:rHw811J7qCLkkLDERwkfdN",
+    "ast:G7eaAHCWgNqT9eSngAyiOE",
+    "ast:msqypRocLj3nz6c8SvJZlO",
+    "ast:b9Gckz1Ph4rmH804cDCTBo",
+    "ast:r3Or1LbeVjREDtcnCuD7ZY",
+    "ast:cWOM0z6WsEahAACj3YjZLW",
+    "ast:ZjrTN2QGxCdScuu1sCCYHZ",
+    "ast:Vnwmws4NFoyCgm4xTjMKNj",
+    "ast:5HatsIwBTuJ4d2rEATBvtF",
+    "ast:cl4MeYuyuTb5Yrreyh7XKi",
+    "ast:hsX2DPWRQu6TrgaD5ITPku",
+    "ast:ssBnka10BDDfNT7mwJAwfM",
+    "ast:LNA0P9rBG97vyNh48ZSY3V",
+    "ast:vHVtejKzDwTKYgOBEyW108",
+    "ast:IVD0aEwJSjQi8MXmV2uV8Y",
+    "ast:SLSmw1VElTndJ5keuyMlIT",
+    "ast:uEJ7caijW8WaVetVfDguKP",
+    "ast:FBjSd88Sy3qeBrqqI5J8yQ",
+    "ast:BQZcYhec5JYJJKXGQP6qcl",
+    "ast:yEUHwmyr063KyfWFALEQVR",
+    "ast:PjD7mdAnfWCWqN2q9nzyKJ",
+    "ast:aQPMnxkPltZsvENh5B06nm",
+    "ast:SIiGuM9Qj4Wu46RCKlVsYD",
+    "ast:7QgBnwuPFHU6q9u1aVBQm6",
+    "ast:Ws4JIr7C2rv8lGgB6vXirs",
+    "ast:iIewgcaYfvL4qJBaF13Q1a",
+    "ast:5KOcP6ve3zmyGW9hpEwVZe",
+    "ast:wwqWrGDbLjYME23Ij1RVhy",
+    "ast:oWm7u9aBSoJdF7KbYcKoC9",
+    "ast:5pcfKmRHhkQFXb3kveJ2aF",
+    "ast:z3pAOlTiZrKYOZalY95eMR",
+    "ast:8srufwMIjKKhHHiE0n9xNi",
+    "ast:bTbXbhhRKjZW7aGlgr1YVE",
+    "ast:taKvB9n2csfVf0Cmowhj2O",
+    "ast:LXKNOte61zM9E0syMivdFW",
+    "ast:2qyLmRbs6zYxMgY0smkTlG",
+    "ast:F4oQqDyQ88EXHAdn9AzKvc",
+    "ast:3MDCMSogcYPDBhO5dEl0ms",
+    "ast:B5JHvIRgo1Bul4BnKsSPtp",
+    "ast:nEZY4Aau7tIpXg9f9B83WI",
+    "ast:47AE0plGFzdTqOl7DAHOK8",
+    "ast:z6745ULXbJonXlf06Q1RTn",
+    "ast:BoHbB7uh4WDWVleTuKefgP",
+    "ast:MeID4RRgSMdgvdunrzRQaA",
+    "ast:Qk8vvidQQGbKprzcW1eyzX",
+    "ast:A8b0nqH0DuU9JcqnqXhsXz",
+    "ast:sNolLZkwmJrybUlv6cGoZ1",
+    "ast:Q4vGoLSW5JoIUyy17YOCVD",
+    "ast:RHcGkYSQLUjStS6c6wTRFa",
+    "ast:WhsgfRqofiKzDGXeps4ydN",
+    "ast:IzAxrwaRHlC4gcKbzZJpZl",
+    "ast:GZ86G98xAxlVRRzqBy1fMB",
+    "ast:46xbStnoWanahfpVlVtFo7",
+    "ast:4G58GLzZ2EWtMYXc7iLjSs",
+    "ast:bdTrkjeeH2wZhZU3KMIFEH",
+    "ast:DF7Ey0UTM5RfpHp4UXb31R",
+    "ast:IcJi6EKkTDPiOQeZvUQaVz",
+    "ast:bm3mLSoaZsrYRs25NjHAa1",
+    "ast:7cJZoxetja0ipY4OgjLafT",
+    "ast:UurakSjyUc7kAkdWwBjKEi",
+    "ast:t0dBYqH9b3O8pZYVaVN1fL",
+    "ast:bBOPHbe3TnymgMe7FOzEqD",
+    "ast:7GoI1j4eLBTFpwBkD80FS8",
+    "ast:ewZih9O32kA7MAeDIQUyso",
+    "ast:1WngkBw0ps0EmkANBGLX28",
+    "ast:TKdDYfuC0Zj9a2yVWlKsWL",
+    "ast:6FWbWYIW0Wa4JtXKkGMQzK",
+    "ast:QGf6rQfl98moxk7zvDijZF",
+    "ast:vz9aBwJPOBNwuyiMr1HWVt"
+   ]
+  }
+ },
+ "forms": {
+  "A": {
+   "core_items": 20,
+   "core_points": {
+    "Half 1": 13,
+    "Half 2": 13
+   },
+   "cued_recall_points": {
+    "Half 1": 6,
+    "Half 2": 5
+   },
+   "items": [
+    {
+     "id": "A-FR1",
+     "half": 1,
+     "kind": "free_recall",
+     "scoring": "idea units; see SCORING.md",
+     "claim_ids": [
+      "ast:kjwbdqXCoKI6J3QKRKPQzf",
+      "ast:T6nJBi2auDGqDYD8XLFXE1",
+      "ast:MRTypWLPRJ3i09WBw9ueWe",
+      "ast:dFgjTqbSzEQF38NBjXKZiy",
+      "ast:BLhqjsmzDy0daXuXaqtZ0g",
+      "ast:mcTb3hPPcSkMLBkZmweWlv",
+      "ast:CwunpgWWayQpEs0RDfT3JM",
+      "ast:VDaG2WMipOiiqjLKn2MUnE",
+      "ast:QnOM2LBlK6TozYA26ch56L",
+      "ast:8snlQZo0O4otjWQKOcNK5m",
+      "ast:KHIy85kwuny2HtR5mSLw04",
+      "ast:BhyUtrjjN2W0qRIRVRrl0p",
+      "ast:H4jOJ1LN2WPEINdNsgXtE2",
+      "ast:WwymzeRUwXQd9OEJidHfca",
+      "ast:lbq8fvTC67CUWoyIht9uhf",
+      "ast:tcDC4kf5dZb5k9uFzsD8sf",
+      "ast:IlUwfsIXERoyKkMMm988Be",
+      "ast:15uBuvju2zopQUqmZjR0PC",
+      "ast:KOLqG8rQw61ZAYXCqEFrW7",
+      "ast:UmNPVuRqPLvszXZyUgfe0s",
+      "ast:ztfxpveQrsFyMi681WSkCQ",
+      "ast:7WwHAhDNfxihTQ70T3EoD6",
+      "ast:Hci98ndUTGzJdMu5lFFnFY",
+      "ast:YcD0wDyHr883rQ7yQ2hCHS",
+      "ast:arXbx2OoJNGD52rjyBmczi",
+      "ast:lCqyZS7BvBiFCHBpl14Hzk",
+      "ast:7qXKaegpL771pfamHSzQb9",
+      "ast:EPie7h03xypxpGhUhXHGMd",
+      "ast:LmP5WUFpRsNG5P735HytIj",
+      "ast:M1gs47ceaG4cfit5t4NMiW",
+      "ast:MaPeFPA7b25al3wXG83FJl",
+      "ast:P9gaI9CMfLNCrjUodRoLqC",
+      "ast:XubZkMMZM1Xv5tU3PaDCPE",
+      "ast:cHZhFmHUKPrkpvCaD7bdfk",
+      "ast:dK90DOfgI0KZgMjyaSv51v",
+      "ast:haAZZdgAmdRf2tufZMhvFB",
+      "ast:htJ0eSmhaYrzqYZlhkIwH8",
+      "ast:khjXtB5fapF2e7pkmuRKaD",
+      "ast:pP2wifT3H2a8pXf5fcLdE8",
+      "ast:xATGPX5yQfQU2L5Cz4tfVW",
+      "ast:S2ygn5hoF0TW2uIRCBDhLT",
+      "ast:fGSNOgO8VdnHtCairNLzNH",
+      "ast:X73nwDswKc793hnosazLQk",
+      "ast:r0HC1zL5203ADm31fLBJvP",
+      "ast:3rsIBX6nzpQFoWuHKPYQXI",
+      "ast:f1nnJFfpKv8PLjjR2gkyZe",
+      "ast:3BFHbBGNFyYmMEZcuu3hiH",
+      "ast:PYDXZGDEgeqeCwzG4OjRAO",
+      "ast:U9aYGV41uNROmORCX4cRf1",
+      "ast:V0ZHNIfujJTXAjACONpFWm",
+      "ast:V5CyAaqjnLR5xmJGjIKbOk",
+      "ast:ivgmZ2sHufJQpucA4uHqYA",
+      "ast:kkVzw3yKQzsKHD830CmUEP",
+      "ast:vn84Fwc7fk8gp9pAbbdzhJ",
+      "ast:m88gt7Cgoiu5Q5dOOXIcPy",
+      "ast:YLDp8p9BVsn4F6OCW8e2Zo",
+      "ast:uPYDdT2xrLA7Z5JhK4fxdK",
+      "ast:VByw6X8cIZmrWD2AhgZCPF",
+      "ast:emBCc3C0cVFwkXnQR7Ortg",
+      "ast:9LXpoJhljRm7t43QVS00is",
+      "ast:7gm1Gb2I2lcphw9NBMzhB0",
+      "ast:olCyYxSOe7VQ2BVnajoysy",
+      "ast:BCGNNF2H7EZzAjoNh57Hvc",
+      "ast:4YSp0VthD8QSY7lBgKJAHw",
+      "ast:UxXCXNZxdqMBEGQ38bhf1o",
+      "ast:rYjgAPrCHgj3vuCPrf8ioL",
+      "ast:cBC8wKir8oWBPYEpCkHprj",
+      "ast:WhZLC5rCNx1K9qHOTOmUhA",
+      "ast:X12VUApDya9T7swGW4fUUV",
+      "ast:NdvEcdipFeKOYpjnBKrWFQ",
+      "ast:bu97qIKkHnk6uPt1N1YYj7",
+      "ast:tTawKB1Tp9o7dzeJQOHugF",
+      "ast:3hXYFyXj3qX3ShAmhonpwX",
+      "ast:uLxrwWek9nxD2Udu5K3kN7",
+      "ast:wKrHfhlCcl2hQY8oYMrFzV",
+      "ast:YomNXp9vZ7aGfCe9ANLoy1",
+      "ast:c9Ux52uF2LqkrdDOSPjc1r",
+      "ast:T42RGp7POeCECDTly41cgu",
+      "ast:XciCEVL4QjdnZpBZyh6v4b",
+      "ast:Xk2LohG7anhBesXCsffX5m",
+      "ast:Y6lsg2AHIggH1K5V2vUMgI",
+      "ast:nsP6sLRBuaZxJdARDc2YWg",
+      "ast:TNBRuYmxLcqizjFSQTek7r",
+      "ast:UFMx4IDFydENLqp1q8bOvt",
+      "ast:dCzTS4HMZyUcgho72jPX6A",
+      "ast:OA85uD8B0Fp08sV56N4I3j",
+      "ast:7dPeFs16qbkTvLQpSNRVYX",
+      "ast:5o2bGWNVIBDpccPHxJXvJE",
+      "ast:YVGi953IN8gtSRwA3WEaU2",
+      "ast:z9sy2bARGTqrljcK5ZN5nS",
+      "ast:2JuwZ4ezQo96lLd5YGO7b4",
+      "ast:QCPotOMiQOjF6tUzpYOBYM",
+      "ast:6XjDxqzfjTc7tDUzfAkUzc",
+      "ast:vWULkJOi5BsLzCzVdj4jD7",
+      "ast:d9K0zu8ZKAB4uoOLImTxnU",
+      "ast:HeTJWlAkiH35vt9XQkG6tq",
+      "ast:noMXejHfgJgo1QYtGbnSNI",
+      "ast:HXFwg3MiqWRURmIfbcz2dl",
+      "ast:qKz89Htdl0aB8mOmwkQgqu",
+      "ast:8DgREoOeHRlF0mvSWGGo7z",
+      "ast:z3MZdtEoCUkLC21X0nIUWo",
+      "ast:cEc47x4wIPhQgomoaY3wd9",
+      "ast:lhoYd8K9rCBLbLi09d3U19",
+      "ast:OwRF5wxgpEqyWeOrQ6bgcl",
+      "ast:NCrkBsSWXKSHTRMpz5uPR1",
+      "ast:Progzny8grjMLG1JuTl7fH",
+      "ast:s9ZAnKdk3dmrfVfW9UIZQL",
+      "ast:nseD7EvjhPvYLuzGAy7wKg",
+      "ast:p8vmbJo9j0Yo8VC0SJRbyW",
+      "ast:pdYj0NS5JInESfvcseoouU",
+      "ast:te43gOuPkJqguikJz6ECq0",
+      "ast:SsLPaycha06FYdEh8BCc0r",
+      "ast:yfRdz2fyzKftq8UVeGnrM1",
+      "ast:unx7iHs2fbdHWjnWgILZEd",
+      "ast:pQRY1S2N3sT312maECxoXl",
+      "ast:99mW7DOoNiB4SmrWpWrFuG",
+      "ast:AAS0tCu6jI7bZyjqMfgiIl",
+      "ast:D5qVlpwIvn7KzqhmOMDqV7",
+      "ast:lM6AxHs48IUAngvfJxWncH",
+      "ast:WXXRb724XPTWxrKvTvh6Br",
+      "ast:sHzMWo97JEwxVwceEYL4HJ",
+      "ast:voQxX2H1pHs7kVQATZeMBH",
+      "ast:oquZBbfIT9Qk9G42o69mR4",
+      "ast:swGptHJSuhhHOxH2FrjuUb",
+      "ast:4ARYXtCOGdM3ep8npuXz4M",
+      "ast:RHJWnT2K1BwZUZwSprNJ7R",
+      "ast:kVXdhIdMMxQ95HXWQij2A7",
+      "ast:zc2qxNS7UlVRIWMInr1lwK",
+      "ast:faPf6e9bCjtAifp7SqjUUi",
+      "ast:pMVcDll5S1xqikEMdSHjbE",
+      "ast:At1DaAD02dIUa8qCn7Xnoi",
+      "ast:HzMGf26sShC2xBqMsFwmr1",
+      "ast:xSweU4PD4xvz2o8zC1Wu6q",
+      "ast:n4E8uMmAbCf24bvdoaoLj2",
+      "ast:5XbJgVMOxjhiwA0L2aZxEd",
+      "ast:Cgrdb4lGD51KQ6gMG26q92",
+      "ast:nXOMVvz9J309OnLXNhvrns",
+      "ast:Nd71jsOhXn6XDQhY7XqZIL",
+      "ast:ewXEpGUlA0fkQrRQffOsUO",
+      "ast:Ao3wZL3el8Oode70VvrIrj",
+      "ast:TvBef4tpthIrod7nHYv8Th",
+      "ast:aD3l6PzeG6lL6etof3mv5L",
+      "ast:rub3qN1y1tj7AVlKXEVgwW",
+      "ast:7G3tsG8dgkClynZGKClzGU",
+      "ast:KIff6Y31LGIxekoBiKfYm0",
+      "ast:E2QQmJzHKAie2mEvy3rZDx",
+      "ast:XRTJKwxuvEGyUeAX5zE7uO",
+      "ast:ufkxBWGKz7daXlxcEq80oO",
+      "ast:kPI4PtlbMXcLm2a4ljjdQo",
+      "ast:mzTMEqwbKwDXFGrLL8op9v",
+      "ast:8cnBBUa2LgoTlBqwCL8aNA",
+      "ast:kRD9n2tVZFxVqve3hzFVXI",
+      "ast:IA4M5LJk92D21Fbcg6dEdg",
+      "ast:U38udn0JxuSNsmQg1Eo9lC",
+      "ast:0KBzsAvILPo9ZWzKkINGXb",
+      "ast:eECtBl25uh21oj51Pgvptt",
+      "ast:lXPXZ8gSz5kkxNDyCK6Pcv",
+      "ast:7TyCCrIUe9VIu4sGNkmEM8",
+      "ast:DeFkhI6560eQAe4aq6KZyf",
+      "ast:1Qf7QmLbmtht0KMFs3Gzks",
+      "ast:BwhMa352nYog0oKpb5bTrI",
+      "ast:tTkTvfLoRp8YzY7PjTP8uu",
+      "ast:lrSLGAc759W9iMQFpPYrAU",
+      "ast:qYST9EyD6NglIzXVyW5gXt",
+      "ast:p0lKWf9IozfrQmE66BPfTg",
+      "ast:RPcmH3t1i0FxGGHKNTb7kR",
+      "ast:rV5yHhbzoaq2kWRWQHPbPo",
+      "ast:3wsueyab9x2xbaWXl93ylp",
+      "ast:puxbT9ceC4iDk3qDwdC5nS",
+      "ast:mEDRFU08A0ODmzyqKX4TS1",
+      "ast:Ku29uUjCoc2YiWavQAoiqH",
+      "ast:hssBT9Am3nt6hBgb8EbuCr",
+      "ast:isPsRg1YOUEvzldH8NryPF",
+      "ast:qy3MRBCecSjNaSEditbqOo",
+      "ast:AOj28mOcFqoCWMvwUj5vi0",
+      "ast:UT9qJQwaFkHFB2R50zO2NM",
+      "ast:aVw5vFagTH9YzzuRhdtncB",
+      "ast:EP5EzagKJ2oUTlnxLlEIYR",
+      "ast:8F2YOKmiUUTRqw2LaYt98t",
+      "ast:RDc7RJgnv4SDLXZPDLImGj",
+      "ast:4JxGxPaw93hj6DayBVDtYw",
+      "ast:Le3Zuf9TMVnPOsDZiRUg6R",
+      "ast:9kE8yuKvoS20B0qoftsbdH",
+      "ast:VdmDvXeFCEQGashSq5yIyZ",
+      "ast:7ddnffj0J9b7T6pEGzL4cM",
+      "ast:354QUFHTBUVRKY38QZ53B6",
+      "ast:YVBsqxfYsRwcLi1oOFO6t8",
+      "ast:xCz2l8lTo7yoKV9uyo3huY",
+      "ast:5pKmYmgIzzD7uRzQUN2sly",
+      "ast:ZHeBJABwhPato8D55uFX7p",
+      "ast:66iIoNArls0BAvmDNlFVfW",
+      "ast:RHEvxyXf20wWj6YGkkVzf3",
+      "ast:MOYKr8ogOMRE4qIqE9UgZp",
+      "ast:jm11qU287nhA6LFApuBGdz",
+      "ast:6ndHd4ntl8arZemEOEHPes",
+      "ast:2EYxfzZnG0s3clAmFBxx1i",
+      "ast:DMX9Grbc2YrQSdojTH5kWG",
+      "ast:17xu90UOTorsnGruEK4F2o",
+      "ast:fKQEgwvakH32fJcvGdC0R9",
+      "ast:WnYerbOWsOjwOqS0TGQWXr",
+      "ast:ZJH4teqAD7Di9wYT1EaT3w",
+      "ast:JPcQ9DIxP3UgY0gKFrqLWS",
+      "ast:BFYYcDvOwptKTm7CKvBPUd",
+      "ast:MZAIew5fMF3Cvn9BpxUC1a",
+      "ast:9fzWgxalAjRjSOm3Wx2dug"
+     ]
+    },
+    {
+     "id": "A-FR2",
+     "half": 2,
+     "kind": "free_recall",
+     "scoring": "idea units; see SCORING.md",
+     "claim_ids": [
+      "ast:2i1FLoK1ARriE7mZ8kyea4",
+      "ast:9ssx1jA1l5DbBQnpgt2FM8",
+      "ast:oNtLNNaheRDf3jMYHihmgY",
+      "ast:rHw811J7qCLkkLDERwkfdN",
+      "ast:G7eaAHCWgNqT9eSngAyiOE",
+      "ast:msqypRocLj3nz6c8SvJZlO",
+      "ast:b9Gckz1Ph4rmH804cDCTBo",
+      "ast:r3Or1LbeVjREDtcnCuD7ZY",
+      "ast:cWOM0z6WsEahAACj3YjZLW",
+      "ast:ZjrTN2QGxCdScuu1sCCYHZ",
+      "ast:Vnwmws4NFoyCgm4xTjMKNj",
+      "ast:5HatsIwBTuJ4d2rEATBvtF",
+      "ast:cl4MeYuyuTb5Yrreyh7XKi",
+      "ast:hsX2DPWRQu6TrgaD5ITPku",
+      "ast:ssBnka10BDDfNT7mwJAwfM",
+      "ast:LNA0P9rBG97vyNh48ZSY3V",
+      "ast:vHVtejKzDwTKYgOBEyW108",
+      "ast:IVD0aEwJSjQi8MXmV2uV8Y",
+      "ast:SLSmw1VElTndJ5keuyMlIT",
+      "ast:uEJ7caijW8WaVetVfDguKP",
+      "ast:FBjSd88Sy3qeBrqqI5J8yQ",
+      "ast:BQZcYhec5JYJJKXGQP6qcl",
+      "ast:yEUHwmyr063KyfWFALEQVR",
+      "ast:PjD7mdAnfWCWqN2q9nzyKJ",
+      "ast:aQPMnxkPltZsvENh5B06nm",
+      "ast:SIiGuM9Qj4Wu46RCKlVsYD",
+      "ast:7QgBnwuPFHU6q9u1aVBQm6",
+      "ast:Ws4JIr7C2rv8lGgB6vXirs",
+      "ast:iIewgcaYfvL4qJBaF13Q1a",
+      "ast:5KOcP6ve3zmyGW9hpEwVZe",
+      "ast:wwqWrGDbLjYME23Ij1RVhy",
+      "ast:oWm7u9aBSoJdF7KbYcKoC9",
+      "ast:5pcfKmRHhkQFXb3kveJ2aF",
+      "ast:z3pAOlTiZrKYOZalY95eMR",
+      "ast:8srufwMIjKKhHHiE0n9xNi",
+      "ast:bTbXbhhRKjZW7aGlgr1YVE",
+      "ast:taKvB9n2csfVf0Cmowhj2O",
+      "ast:LXKNOte61zM9E0syMivdFW",
+      "ast:2qyLmRbs6zYxMgY0smkTlG",
+      "ast:F4oQqDyQ88EXHAdn9AzKvc",
+      "ast:3MDCMSogcYPDBhO5dEl0ms",
+      "ast:B5JHvIRgo1Bul4BnKsSPtp",
+      "ast:nEZY4Aau7tIpXg9f9B83WI",
+      "ast:47AE0plGFzdTqOl7DAHOK8",
+      "ast:z6745ULXbJonXlf06Q1RTn",
+      "ast:BoHbB7uh4WDWVleTuKefgP",
+      "ast:MeID4RRgSMdgvdunrzRQaA",
+      "ast:Qk8vvidQQGbKprzcW1eyzX",
+      "ast:A8b0nqH0DuU9JcqnqXhsXz",
+      "ast:sNolLZkwmJrybUlv6cGoZ1",
+      "ast:Q4vGoLSW5JoIUyy17YOCVD",
+      "ast:RHcGkYSQLUjStS6c6wTRFa",
+      "ast:WhsgfRqofiKzDGXeps4ydN",
+      "ast:IzAxrwaRHlC4gcKbzZJpZl",
+      "ast:GZ86G98xAxlVRRzqBy1fMB",
+      "ast:46xbStnoWanahfpVlVtFo7",
+      "ast:4G58GLzZ2EWtMYXc7iLjSs",
+      "ast:bdTrkjeeH2wZhZU3KMIFEH",
+      "ast:DF7Ey0UTM5RfpHp4UXb31R",
+      "ast:IcJi6EKkTDPiOQeZvUQaVz",
+      "ast:bm3mLSoaZsrYRs25NjHAa1",
+      "ast:7cJZoxetja0ipY4OgjLafT",
+      "ast:UurakSjyUc7kAkdWwBjKEi",
+      "ast:t0dBYqH9b3O8pZYVaVN1fL",
+      "ast:bBOPHbe3TnymgMe7FOzEqD",
+      "ast:7GoI1j4eLBTFpwBkD80FS8",
+      "ast:ewZih9O32kA7MAeDIQUyso",
+      "ast:1WngkBw0ps0EmkANBGLX28",
+      "ast:TKdDYfuC0Zj9a2yVWlKsWL",
+      "ast:6FWbWYIW0Wa4JtXKkGMQzK",
+      "ast:QGf6rQfl98moxk7zvDijZF",
+      "ast:vz9aBwJPOBNwuyiMr1HWVt"
+     ]
+    },
+    {
+     "id": "A01",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "Who was the first emigrant to reach Madinah after Abū Salama?",
+     "claim_ids": [
+      "ast:QnOM2LBlK6TozYA26ch56L"
+     ],
+     "sections": [
+      "S0661"
+     ],
+     "citations": [
+      "vol. 1, pp. 470–472; OpenITI ms291–ms292, lines 8103–8129"
+     ],
+     "evidence": [
+      "ʿĀmir b. Rabīʿa was the first emigrant to reach Madinah after Abū Salama."
+     ],
+     "answer": [
+      "ʿĀmir b. Rabīʿa"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A02",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "Two companions stayed behind in Makkah with the Prophet ﷺ. Name them.",
+     "claim_ids": [
+      "ast:BwhMa352nYog0oKpb5bTrI",
+      "ast:tTkTvfLoRp8YzY7PjTP8uu"
+     ],
+     "sections": [
+      "S0678"
+     ],
+     "citations": [
+      "vol. 1, p. 480; OpenITI ms298, lines 8287–8292"
+     ],
+     "evidence": [
+      "Abū Bakr stayed behind with the Prophet in Makkah.",
+      "ʿAlī stayed behind with the Prophet in Makkah."
+     ],
+     "answer": [
+      "Abū Bakr al-Ṣiddīq",
+      "ʿAlī b. Abī Ṭālib"
+     ],
+     "points": 2
+    },
+    {
+     "id": "A03",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "In which building did Quraysh gather to talk about the Prophet ﷺ?",
+     "claim_ids": [
+      "ast:p0lKWf9IozfrQmE66BPfTg"
+     ],
+     "sections": [
+      "S0679"
+     ],
+     "citations": [
+      "vol. 1, pp. 480–482; OpenITI ms298–ms300, lines 8294–8341"
+     ],
+     "evidence": [
+      "Quraysh gathered in Dār al-Nadwa to deliberate about the Prophet."
+     ],
+     "answer": [
+      "Dār al-Nadwa"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A04",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "How long did the Prophet ﷺ stay in the cave with Abū Bakr?",
+     "claim_ids": [
+      "ast:ZJH4teqAD7Di9wYT1EaT3w"
+     ],
+     "sections": [
+      "S0686"
+     ],
+     "citations": [
+      "vol. 1, p. 486; OpenITI ms303–ms304, lines 8427–8437"
+     ],
+     "evidence": [
+      "The Prophet stayed three days in the cave with Abū Bakr."
+     ],
+     "answer": [
+      "three days"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A05",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "Where did Umm Salama go every morning to sit and weep?",
+     "claim_ids": [
+      "ast:dFgjTqbSzEQF38NBjXKZiy"
+     ],
+     "sections": [
+      "S0660"
+     ],
+     "citations": [
+      "vol. 1, pp. 468–470; OpenITI ms290–ms291, lines 8064–8101"
+     ],
+     "evidence": [
+      "Umm Salama went out every morning to sit weeping at al-Abṭaḥ."
+     ],
+     "answer": [
+      "al-Abṭaḥ"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A06",
+     "half": 1,
+     "kind": "multiple_choice",
+     "question": "At Qubāʾ, ʿAbdullāh b. Jaḥsh stayed as a guest with…",
+     "claim_ids": [
+      "ast:r0HC1zL5203ADm31fLBJvP",
+      "ast:vn84Fwc7fk8gp9pAbbdzhJ",
+      "ast:H4jOJ1LN2WPEINdNsgXtE2",
+      "ast:MaPeFPA7b25al3wXG83FJl"
+     ],
+     "sections": [
+      "S0661"
+     ],
+     "citations": [
+      "vol. 1, pp. 470–472; OpenITI ms291–ms292, lines 8103–8129"
+     ],
+     "evidence": [
+      "ʿAbd Allāh b. Jaḥsh lodged with Mubashshir b. ʿAbd al-Mundhir at Qubāʾ."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "Khubayb b. Isāf",
+       "claim_id": "ast:r0HC1zL5203ADm31fLBJvP",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "ʿAbdullāh b. Salama",
+       "claim_id": "ast:vn84Fwc7fk8gp9pAbbdzhJ",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "Mubashshir b. ʿAbd al-Mundhir",
+       "claim_id": "ast:H4jOJ1LN2WPEINdNsgXtE2",
+       "correct": true
+      },
+      {
+       "letter": "d",
+       "text": "Rifāʿa b. ʿAbd al-Mundhir",
+       "claim_id": "ast:MaPeFPA7b25al3wXG83FJl",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "c"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A07",
+     "half": 1,
+     "kind": "multiple_choice",
+     "question": "ʿUmar and ʿAyyāsh met in the morning at an agreed place. Which place?",
+     "claim_ids": [
+      "ast:dFgjTqbSzEQF38NBjXKZiy",
+      "ast:r0HC1zL5203ADm31fLBJvP",
+      "ast:arXbx2OoJNGD52rjyBmczi",
+      "ast:BLhqjsmzDy0daXuXaqtZ0g"
+     ],
+     "sections": [
+      "S0665"
+     ],
+     "citations": [
+      "vol. 1, p. 474; OpenITI ms294, lines 8169–8175"
+     ],
+     "evidence": [
+      "ʿUmar was at al-Tanāḍib in the morning, the agreed meeting place."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "al-Abṭaḥ",
+       "claim_id": "ast:dFgjTqbSzEQF38NBjXKZiy",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "al-Sunḥ",
+       "claim_id": "ast:r0HC1zL5203ADm31fLBJvP",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "al-Tanāḍib",
+       "claim_id": "ast:arXbx2OoJNGD52rjyBmczi",
+       "correct": true
+      },
+      {
+       "letter": "d",
+       "text": "al-Tanʿīm",
+       "claim_id": "ast:BLhqjsmzDy0daXuXaqtZ0g",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "c"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A08",
+     "half": 1,
+     "kind": "multiple_choice",
+     "question": "Who is named among the men gathered at the Prophet's door on the night of leaving?",
+     "claim_ids": [
+      "ast:Hci98ndUTGzJdMu5lFFnFY",
+      "ast:BwhMa352nYog0oKpb5bTrI",
+      "ast:ZHeBJABwhPato8D55uFX7p",
+      "ast:WnYerbOWsOjwOqS0TGQWXr"
+     ],
+     "sections": [
+      "S0680"
+     ],
+     "citations": [
+      "vol. 1, pp. 482–484; OpenITI ms300–ms301, lines 8343–8368"
+     ],
+     "evidence": [
+      "Abū Jahl was among those gathered at the Prophet's door."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "ʿUmar b. al-Khaṭṭāb",
+       "claim_id": "ast:Hci98ndUTGzJdMu5lFFnFY",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "Abū Bakr al-Ṣiddīq",
+       "claim_id": "ast:BwhMa352nYog0oKpb5bTrI",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "Abū Jahl b. Hishām",
+       "claim_id": "ast:ZHeBJABwhPato8D55uFX7p",
+       "correct": true
+      },
+      {
+       "letter": "d",
+       "text": "Amir b. Fuhayra",
+       "claim_id": "ast:WnYerbOWsOjwOqS0TGQWXr",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "c"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A09",
+     "half": 1,
+     "kind": "ordering",
+     "question": "Put these emigrants in the order the text says they reached Madinah.",
+     "claim_ids": [
+      "ast:T6nJBi2auDGqDYD8XLFXE1",
+      "ast:QnOM2LBlK6TozYA26ch56L",
+      "ast:KHIy85kwuny2HtR5mSLw04"
+     ],
+     "sections": [
+      "S0660",
+      "S0661"
+     ],
+     "citations": [
+      "vol. 1, pp. 468–470; OpenITI ms290–ms291, lines 8064–8101",
+      "vol. 1, pp. 470–472; OpenITI ms291–ms292, lines 8103–8129"
+     ],
+     "evidence": [
+      "Abū Salama emigrated to Madinah a year before the pledge of the people of ʿAqaba; he was the first Makhzūmī emigrant there.",
+      "ʿĀmir b. Rabīʿa was the first emigrant to reach Madinah after Abū Salama.",
+      "ʿAbd Allāh b. Jaḥsh came to Madinah next, with his family and his brother."
+     ],
+     "shown": [
+      "ʿAbdullāh b. Jaḥsh",
+      "ʿĀmir b. Rabīʿa",
+      "Abu Salama b. Abd al-Asad"
+     ],
+     "answer": [
+      "Abu Salama b. Abd al-Asad",
+      "ʿĀmir b. Rabīʿa",
+      "ʿAbdullāh b. Jaḥsh"
+     ],
+     "points": 2,
+     "scoring": "1 point per adjacent pair in the right order (max n-1); see SCORING.md"
+    },
+    {
+     "id": "A10",
+     "half": 1,
+     "kind": "two_reports",
+     "question": "With whom did Ṭalḥa b. ʿUbaydullāh stay when he reached Madinah? Write everything the text records.",
+     "claim_ids": [
+      "ast:fGSNOgO8VdnHtCairNLzNH",
+      "ast:3rsIBX6nzpQFoWuHKPYQXI"
+     ],
+     "sections": [
+      "S0670"
+     ],
+     "citations": [
+      "vol. 1, pp. 477–478; OpenITI ms296, lines 8241–8249"
+     ],
+     "evidence": [
+      "Ṭalḥa lodged with Khubayb b. Isāf at al-Sunḥ.",
+      "Another report says Ṭalḥa lodged with Asʿad b. Zurāra."
+     ],
+     "answer": [
+      "Khubayb b. Isāf",
+      "As'ad ibn Zurarah"
+     ],
+     "points": 2,
+     "scoring": "2 = both names, or one name plus saying there is another report; 1 = one name only; 0 = neither"
+    },
+    {
+     "id": "A11",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "Four set out on the journey. Who was the fourth, their guide?",
+     "claim_ids": [
+      "ast:msqypRocLj3nz6c8SvJZlO"
+     ],
+     "sections": [
+      "S0691"
+     ],
+     "citations": [
+      "vol. 1, pp. 487–488; OpenITI ms305, lines 8468–8475"
+     ],
+     "evidence": [
+      "ʿAbd Allāh b. Urayqiṭ was the fourth, their guide."
+     ],
+     "answer": [
+      "ʿAbd Allāh b. Urayqiṭ"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A12",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "What did the Prophet ﷺ write for Surāqa?",
+     "claim_ids": [
+      "ast:ssBnka10BDDfNT7mwJAwfM"
+     ],
+     "sections": [
+      "S0694"
+     ],
+     "citations": [
+      "vol. 1, pp. 490–491; OpenITI ms307, lines 8513–8526"
+     ],
+     "evidence": [
+      "The Prophet wrote a document for Surāqa."
+     ],
+     "answer": [
+      "document"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A13",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "On what day of the week and in which month does the text date the arrival at Qubāʾ?",
+     "claim_ids": [
+      "ast:LXKNOte61zM9E0syMivdFW"
+     ],
+     "sections": [
+      "S0696"
+     ],
+     "citations": [
+      "vol. 1, pp. 491–492; OpenITI ms307–ms308, lines 8530–8551"
+     ],
+     "evidence": [
+      "The arrival at Quba is dated the 12th of Rabīʿ al-awwal, a Monday."
+     ],
+     "answer": [
+      "Rabīʿ al-awwal, a Monday"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A14",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "Where did the Prophet ﷺ pray the Friday prayer?",
+     "claim_ids": [
+      "ast:vz9aBwJPOBNwuyiMr1HWVt"
+     ],
+     "sections": [
+      "S0703"
+     ],
+     "citations": [
+      "vol. 1, p. 494; OpenITI ms310, lines 8604–8607"
+     ],
+     "evidence": [
+      "He prayed the Friday prayer in the mosque in the valley of Rānūnāʾ."
+     ],
+     "answer": [
+      "valley of Rānūnāʾ"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A15",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "How long did ʿAlī stay in Makkah?",
+     "claim_ids": [
+      "ast:47AE0plGFzdTqOl7DAHOK8"
+     ],
+     "sections": [
+      "S0700"
+     ],
+     "citations": [
+      "vol. 1, p. 493; OpenITI ms309–ms310, lines 8583–8585"
+     ],
+     "evidence": [
+      "ʿAlī stayed in Makkah three nights and days."
+     ],
+     "answer": [
+      "three nights and days"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A16",
+     "half": 2,
+     "kind": "multiple_choice",
+     "question": "Where did Surāqa later meet the Prophet ﷺ?",
+     "claim_ids": [
+      "ast:vz9aBwJPOBNwuyiMr1HWVt",
+      "ast:B5JHvIRgo1Bul4BnKsSPtp",
+      "ast:wwqWrGDbLjYME23Ij1RVhy",
+      "ast:LNA0P9rBG97vyNh48ZSY3V"
+     ],
+     "sections": [
+      "S0694"
+     ],
+     "citations": [
+      "vol. 1, pp. 490–491; OpenITI ms307, lines 8513–8526"
+     ],
+     "evidence": [
+      "Surāqa met the Prophet at al-Jiʿrāna."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "Wādī Rānūnāʾ",
+       "claim_id": "ast:vz9aBwJPOBNwuyiMr1HWVt",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "al-Sunḥ",
+       "claim_id": "ast:B5JHvIRgo1Bul4BnKsSPtp",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "Qudayd",
+       "claim_id": "ast:wwqWrGDbLjYME23Ij1RVhy",
+       "correct": false
+      },
+      {
+       "letter": "d",
+       "text": "al-Jiʿrāna",
+       "claim_id": "ast:LNA0P9rBG97vyNh48ZSY3V",
+       "correct": true
+      }
+     ],
+     "answer": [
+      "d"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A17",
+     "half": 2,
+     "kind": "multiple_choice",
+     "question": "Which of these was one of the four who travelled?",
+     "claim_ids": [
+      "ast:47AE0plGFzdTqOl7DAHOK8",
+      "ast:rHw811J7qCLkkLDERwkfdN",
+      "ast:2qyLmRbs6zYxMgY0smkTlG",
+      "ast:3MDCMSogcYPDBhO5dEl0ms"
+     ],
+     "sections": [
+      "S0691"
+     ],
+     "citations": [
+      "vol. 1, pp. 487–488; OpenITI ms305, lines 8468–8475"
+     ],
+     "evidence": [
+      "ʿĀmir b. Fuhayra was one of the four who travelled."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "ʿAlī b. Abī Ṭālib",
+       "claim_id": "ast:47AE0plGFzdTqOl7DAHOK8",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "Amir b. Fuhayra",
+       "claim_id": "ast:rHw811J7qCLkkLDERwkfdN",
+       "correct": true
+      },
+      {
+       "letter": "c",
+       "text": "Kulthum ibn al-Hidm",
+       "claim_id": "ast:2qyLmRbs6zYxMgY0smkTlG",
+       "correct": false
+      },
+      {
+       "letter": "d",
+       "text": "Khubayb b. Isāf",
+       "claim_id": "ast:3MDCMSogcYPDBhO5dEl0ms",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "b"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A18",
+     "half": 2,
+     "kind": "multiple_choice",
+     "question": "Where did Abū Bakr stay when they reached Madinah?",
+     "claim_ids": [
+      "ast:B5JHvIRgo1Bul4BnKsSPtp",
+      "ast:LNA0P9rBG97vyNh48ZSY3V",
+      "ast:vz9aBwJPOBNwuyiMr1HWVt",
+      "ast:BoHbB7uh4WDWVleTuKefgP"
+     ],
+     "sections": [
+      "S0699"
+     ],
+     "citations": [
+      "vol. 1, p. 493; OpenITI ms309, lines 8579–8581"
+     ],
+     "evidence": [
+      "Abū Bakr lodged at al-Sunḥ."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "al-Sunḥ",
+       "claim_id": "ast:B5JHvIRgo1Bul4BnKsSPtp",
+       "correct": true
+      },
+      {
+       "letter": "b",
+       "text": "al-Jiʿrāna",
+       "claim_id": "ast:LNA0P9rBG97vyNh48ZSY3V",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "Wādī Rānūnāʾ",
+       "claim_id": "ast:vz9aBwJPOBNwuyiMr1HWVt",
+       "correct": false
+      },
+      {
+       "letter": "d",
+       "text": "al-ʿIrāq",
+       "claim_id": "ast:BoHbB7uh4WDWVleTuKefgP",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "a"
+     ],
+     "points": 1
+    },
+    {
+     "id": "A19",
+     "half": 2,
+     "kind": "ordering",
+     "question": "Put these stops on the road north in the order Ibn Hishām gives them.",
+     "claim_ids": [
+      "ast:iIewgcaYfvL4qJBaF13Q1a",
+      "ast:wwqWrGDbLjYME23Ij1RVhy",
+      "ast:5pcfKmRHhkQFXb3kveJ2aF",
+      "ast:8srufwMIjKKhHHiE0n9xNi"
+     ],
+     "sections": [
+      "S0696"
+     ],
+     "citations": [
+      "vol. 1, pp. 491–492; OpenITI ms307–ms308, lines 8530–8551"
+     ],
+     "evidence": [
+      "The route he was taken by met the road below ʿUsfān.",
+      "He passed Qudayd.",
+      "He was taken through the valley of Dhū Kashr.",
+      "He descended to al-ʿArj."
+     ],
+     "shown": [
+      "ʿUsfān",
+      "al-ʿArj",
+      "Qudayd",
+      "Dhū Kashr"
+     ],
+     "answer": [
+      "ʿUsfān",
+      "Qudayd",
+      "Dhū Kashr",
+      "al-ʿArj"
+     ],
+     "points": 3,
+     "scoring": "1 point per adjacent pair in the right order (max n-1); see SCORING.md"
+    },
+    {
+     "id": "A20",
+     "half": 2,
+     "kind": "two_reports",
+     "question": "With whom did the Prophet ﷺ stay at Qubāʾ? Write everything the text records.",
+     "claim_ids": [
+      "ast:2qyLmRbs6zYxMgY0smkTlG",
+      "ast:F4oQqDyQ88EXHAdn9AzKvc"
+     ],
+     "sections": [
+      "S0698"
+     ],
+     "citations": [
+      "vol. 1, p. 493; OpenITI ms309, lines 8570–8577"
+     ],
+     "evidence": [
+      "The Prophet lodged with Kulthūm b. Hidm, as they report.",
+      "Alternatively it is said he lodged with Saʿd b. Khaythama."
+     ],
+     "answer": [
+      "Kulthum ibn al-Hidm",
+      "Saʿd b. Khaythama"
+     ],
+     "points": 2,
+     "scoring": "2 = both names, or one name plus saying there is another report; 1 = one name only; 0 = neither"
+    },
+    {
+     "id": "A-SRC1",
+     "half": 1,
+     "kind": "source_awareness",
+     "question": "How do we know that Umm Salama went out every morning to weep at al-Abṭaḥ? Who first told it?",
+     "claim_ids": [
+      "ast:dFgjTqbSzEQF38NBjXKZiy"
+     ],
+     "sections": [
+      "S0660"
+     ],
+     "citations": [
+      "vol. 1, pp. 468–470; OpenITI ms290–ms291, lines 8064–8101"
+     ],
+     "chain_shown": [
+      "Ibn Isḥāq (Muḥammad b. Isḥāq)",
+      "Isḥāq b. Yasār",
+      "Salama b. ʿAbdullāh b. ʿUmar b. Abī Salama",
+      "Umm Salama bint Abī Umayya"
+     ],
+     "eyewitness": "Umm Salama bint Abī Umayya",
+     "points": 3,
+     "scoring": "1 names the book or its author (Ibn Hishām / Ibn Isḥāq / the Sīra); 1 says it was passed on by named people (a chain of narrators); 1 names the person at the end of the chain"
+    },
+    {
+     "id": "A-SRC2",
+     "half": 2,
+     "kind": "source_awareness",
+     "question": "How do we know about Surāqa's pursuit? Who first told the story?",
+     "claim_ids": [
+      "ast:ssBnka10BDDfNT7mwJAwfM"
+     ],
+     "sections": [
+      "S0693"
+     ],
+     "citations": [
+      "vol. 1, pp. 490–491; OpenITI ms307, lines 8513–8526"
+     ],
+     "chain_shown": [
+      "Ibn Isḥāq (Muḥammad b. Isḥāq)",
+      "al-Zuhrī",
+      "ʿAbd al-Raḥmān b. Mālik",
+      "Mālik (father of ʿAbd al-Raḥmān)",
+      "Suraqah ibn Malik"
+     ],
+     "eyewitness": "Suraqah ibn Malik",
+     "points": 3,
+     "scoring": "1 names the book or its author (Ibn Hishām / Ibn Isḥāq / the Sīra); 1 says it was passed on by named people (a chain of narrators); 1 names the person at the end of the chain"
+    },
+    {
+     "id": "A-H1",
+     "half": null,
+     "kind": "honesty_cue",
+     "cue": "dashed stops",
+     "question": "On the road north, some stops were drawn with a dashed outline, or marked “no reviewed location yet”. What does that tell you?",
+     "answer": "The place is named in the text, but nobody has yet checked where it is, so it is not drawn on the map.",
+     "points": 2,
+     "scoring": "2 = says the text names the place AND its location is not known/checked/reviewed; 1 = says only that it is uncertain, or only that it is not on the map; 0 = otherwise"
+    },
+    {
+     "id": "A-H2",
+     "half": null,
+     "kind": "honesty_cue",
+     "cue": "two reports",
+     "question": "Sometimes the text gives two different reports about the same thing. What should a careful reader do?",
+     "answer": "Keep both reports, notice that the sources differ, and not pretend that only one is certain.",
+     "points": 2,
+     "scoring": "2 = keeps both / says the sources differ and we should not pick one without evidence; 1 = notices there are two, but says to choose one (or to ignore one); 0 = otherwise"
+    },
+    {
+     "id": "A-H3",
+     "half": null,
+     "kind": "honesty_cue",
+     "cue": "AI-extracted",
+     "question": "Every sentence was marked “proposed (AI-extracted, not yet reviewed)”. What does that mean for how much you trust it?",
+     "answer": "A computer program pulled the sentence out of the Arabic book and a scholar has not checked it yet, so it may contain mistakes; you can check it against the book and page given.",
+     "points": 2,
+     "scoring": "2 = AI/computer made it from the book AND not yet checked by a scholar, so it could be wrong / should be checked; 1 = only one of the two ideas; 0 = otherwise"
+    }
+   ]
+  },
+  "B": {
+   "core_items": 20,
+   "core_points": {
+    "Half 1": 13,
+    "Half 2": 13
+   },
+   "cued_recall_points": {
+    "Half 1": 5,
+    "Half 2": 5
+   },
+   "items": [
+    {
+     "id": "B-FR1",
+     "half": 1,
+     "kind": "free_recall",
+     "scoring": "idea units; see SCORING.md",
+     "claim_ids": [
+      "ast:kjwbdqXCoKI6J3QKRKPQzf",
+      "ast:T6nJBi2auDGqDYD8XLFXE1",
+      "ast:MRTypWLPRJ3i09WBw9ueWe",
+      "ast:dFgjTqbSzEQF38NBjXKZiy",
+      "ast:BLhqjsmzDy0daXuXaqtZ0g",
+      "ast:mcTb3hPPcSkMLBkZmweWlv",
+      "ast:CwunpgWWayQpEs0RDfT3JM",
+      "ast:VDaG2WMipOiiqjLKn2MUnE",
+      "ast:QnOM2LBlK6TozYA26ch56L",
+      "ast:8snlQZo0O4otjWQKOcNK5m",
+      "ast:KHIy85kwuny2HtR5mSLw04",
+      "ast:BhyUtrjjN2W0qRIRVRrl0p",
+      "ast:H4jOJ1LN2WPEINdNsgXtE2",
+      "ast:WwymzeRUwXQd9OEJidHfca",
+      "ast:lbq8fvTC67CUWoyIht9uhf",
+      "ast:tcDC4kf5dZb5k9uFzsD8sf",
+      "ast:IlUwfsIXERoyKkMMm988Be",
+      "ast:15uBuvju2zopQUqmZjR0PC",
+      "ast:KOLqG8rQw61ZAYXCqEFrW7",
+      "ast:UmNPVuRqPLvszXZyUgfe0s",
+      "ast:ztfxpveQrsFyMi681WSkCQ",
+      "ast:7WwHAhDNfxihTQ70T3EoD6",
+      "ast:Hci98ndUTGzJdMu5lFFnFY",
+      "ast:YcD0wDyHr883rQ7yQ2hCHS",
+      "ast:arXbx2OoJNGD52rjyBmczi",
+      "ast:lCqyZS7BvBiFCHBpl14Hzk",
+      "ast:7qXKaegpL771pfamHSzQb9",
+      "ast:EPie7h03xypxpGhUhXHGMd",
+      "ast:LmP5WUFpRsNG5P735HytIj",
+      "ast:M1gs47ceaG4cfit5t4NMiW",
+      "ast:MaPeFPA7b25al3wXG83FJl",
+      "ast:P9gaI9CMfLNCrjUodRoLqC",
+      "ast:XubZkMMZM1Xv5tU3PaDCPE",
+      "ast:cHZhFmHUKPrkpvCaD7bdfk",
+      "ast:dK90DOfgI0KZgMjyaSv51v",
+      "ast:haAZZdgAmdRf2tufZMhvFB",
+      "ast:htJ0eSmhaYrzqYZlhkIwH8",
+      "ast:khjXtB5fapF2e7pkmuRKaD",
+      "ast:pP2wifT3H2a8pXf5fcLdE8",
+      "ast:xATGPX5yQfQU2L5Cz4tfVW",
+      "ast:S2ygn5hoF0TW2uIRCBDhLT",
+      "ast:fGSNOgO8VdnHtCairNLzNH",
+      "ast:X73nwDswKc793hnosazLQk",
+      "ast:r0HC1zL5203ADm31fLBJvP",
+      "ast:3rsIBX6nzpQFoWuHKPYQXI",
+      "ast:f1nnJFfpKv8PLjjR2gkyZe",
+      "ast:3BFHbBGNFyYmMEZcuu3hiH",
+      "ast:PYDXZGDEgeqeCwzG4OjRAO",
+      "ast:U9aYGV41uNROmORCX4cRf1",
+      "ast:V0ZHNIfujJTXAjACONpFWm",
+      "ast:V5CyAaqjnLR5xmJGjIKbOk",
+      "ast:ivgmZ2sHufJQpucA4uHqYA",
+      "ast:kkVzw3yKQzsKHD830CmUEP",
+      "ast:vn84Fwc7fk8gp9pAbbdzhJ",
+      "ast:m88gt7Cgoiu5Q5dOOXIcPy",
+      "ast:YLDp8p9BVsn4F6OCW8e2Zo",
+      "ast:uPYDdT2xrLA7Z5JhK4fxdK",
+      "ast:VByw6X8cIZmrWD2AhgZCPF",
+      "ast:emBCc3C0cVFwkXnQR7Ortg",
+      "ast:9LXpoJhljRm7t43QVS00is",
+      "ast:7gm1Gb2I2lcphw9NBMzhB0",
+      "ast:olCyYxSOe7VQ2BVnajoysy",
+      "ast:BCGNNF2H7EZzAjoNh57Hvc",
+      "ast:4YSp0VthD8QSY7lBgKJAHw",
+      "ast:UxXCXNZxdqMBEGQ38bhf1o",
+      "ast:rYjgAPrCHgj3vuCPrf8ioL",
+      "ast:cBC8wKir8oWBPYEpCkHprj",
+      "ast:WhZLC5rCNx1K9qHOTOmUhA",
+      "ast:X12VUApDya9T7swGW4fUUV",
+      "ast:NdvEcdipFeKOYpjnBKrWFQ",
+      "ast:bu97qIKkHnk6uPt1N1YYj7",
+      "ast:tTawKB1Tp9o7dzeJQOHugF",
+      "ast:3hXYFyXj3qX3ShAmhonpwX",
+      "ast:uLxrwWek9nxD2Udu5K3kN7",
+      "ast:wKrHfhlCcl2hQY8oYMrFzV",
+      "ast:YomNXp9vZ7aGfCe9ANLoy1",
+      "ast:c9Ux52uF2LqkrdDOSPjc1r",
+      "ast:T42RGp7POeCECDTly41cgu",
+      "ast:XciCEVL4QjdnZpBZyh6v4b",
+      "ast:Xk2LohG7anhBesXCsffX5m",
+      "ast:Y6lsg2AHIggH1K5V2vUMgI",
+      "ast:nsP6sLRBuaZxJdARDc2YWg",
+      "ast:TNBRuYmxLcqizjFSQTek7r",
+      "ast:UFMx4IDFydENLqp1q8bOvt",
+      "ast:dCzTS4HMZyUcgho72jPX6A",
+      "ast:OA85uD8B0Fp08sV56N4I3j",
+      "ast:7dPeFs16qbkTvLQpSNRVYX",
+      "ast:5o2bGWNVIBDpccPHxJXvJE",
+      "ast:YVGi953IN8gtSRwA3WEaU2",
+      "ast:z9sy2bARGTqrljcK5ZN5nS",
+      "ast:2JuwZ4ezQo96lLd5YGO7b4",
+      "ast:QCPotOMiQOjF6tUzpYOBYM",
+      "ast:6XjDxqzfjTc7tDUzfAkUzc",
+      "ast:vWULkJOi5BsLzCzVdj4jD7",
+      "ast:d9K0zu8ZKAB4uoOLImTxnU",
+      "ast:HeTJWlAkiH35vt9XQkG6tq",
+      "ast:noMXejHfgJgo1QYtGbnSNI",
+      "ast:HXFwg3MiqWRURmIfbcz2dl",
+      "ast:qKz89Htdl0aB8mOmwkQgqu",
+      "ast:8DgREoOeHRlF0mvSWGGo7z",
+      "ast:z3MZdtEoCUkLC21X0nIUWo",
+      "ast:cEc47x4wIPhQgomoaY3wd9",
+      "ast:lhoYd8K9rCBLbLi09d3U19",
+      "ast:OwRF5wxgpEqyWeOrQ6bgcl",
+      "ast:NCrkBsSWXKSHTRMpz5uPR1",
+      "ast:Progzny8grjMLG1JuTl7fH",
+      "ast:s9ZAnKdk3dmrfVfW9UIZQL",
+      "ast:nseD7EvjhPvYLuzGAy7wKg",
+      "ast:p8vmbJo9j0Yo8VC0SJRbyW",
+      "ast:pdYj0NS5JInESfvcseoouU",
+      "ast:te43gOuPkJqguikJz6ECq0",
+      "ast:SsLPaycha06FYdEh8BCc0r",
+      "ast:yfRdz2fyzKftq8UVeGnrM1",
+      "ast:unx7iHs2fbdHWjnWgILZEd",
+      "ast:pQRY1S2N3sT312maECxoXl",
+      "ast:99mW7DOoNiB4SmrWpWrFuG",
+      "ast:AAS0tCu6jI7bZyjqMfgiIl",
+      "ast:D5qVlpwIvn7KzqhmOMDqV7",
+      "ast:lM6AxHs48IUAngvfJxWncH",
+      "ast:WXXRb724XPTWxrKvTvh6Br",
+      "ast:sHzMWo97JEwxVwceEYL4HJ",
+      "ast:voQxX2H1pHs7kVQATZeMBH",
+      "ast:oquZBbfIT9Qk9G42o69mR4",
+      "ast:swGptHJSuhhHOxH2FrjuUb",
+      "ast:4ARYXtCOGdM3ep8npuXz4M",
+      "ast:RHJWnT2K1BwZUZwSprNJ7R",
+      "ast:kVXdhIdMMxQ95HXWQij2A7",
+      "ast:zc2qxNS7UlVRIWMInr1lwK",
+      "ast:faPf6e9bCjtAifp7SqjUUi",
+      "ast:pMVcDll5S1xqikEMdSHjbE",
+      "ast:At1DaAD02dIUa8qCn7Xnoi",
+      "ast:HzMGf26sShC2xBqMsFwmr1",
+      "ast:xSweU4PD4xvz2o8zC1Wu6q",
+      "ast:n4E8uMmAbCf24bvdoaoLj2",
+      "ast:5XbJgVMOxjhiwA0L2aZxEd",
+      "ast:Cgrdb4lGD51KQ6gMG26q92",
+      "ast:nXOMVvz9J309OnLXNhvrns",
+      "ast:Nd71jsOhXn6XDQhY7XqZIL",
+      "ast:ewXEpGUlA0fkQrRQffOsUO",
+      "ast:Ao3wZL3el8Oode70VvrIrj",
+      "ast:TvBef4tpthIrod7nHYv8Th",
+      "ast:aD3l6PzeG6lL6etof3mv5L",
+      "ast:rub3qN1y1tj7AVlKXEVgwW",
+      "ast:7G3tsG8dgkClynZGKClzGU",
+      "ast:KIff6Y31LGIxekoBiKfYm0",
+      "ast:E2QQmJzHKAie2mEvy3rZDx",
+      "ast:XRTJKwxuvEGyUeAX5zE7uO",
+      "ast:ufkxBWGKz7daXlxcEq80oO",
+      "ast:kPI4PtlbMXcLm2a4ljjdQo",
+      "ast:mzTMEqwbKwDXFGrLL8op9v",
+      "ast:8cnBBUa2LgoTlBqwCL8aNA",
+      "ast:kRD9n2tVZFxVqve3hzFVXI",
+      "ast:IA4M5LJk92D21Fbcg6dEdg",
+      "ast:U38udn0JxuSNsmQg1Eo9lC",
+      "ast:0KBzsAvILPo9ZWzKkINGXb",
+      "ast:eECtBl25uh21oj51Pgvptt",
+      "ast:lXPXZ8gSz5kkxNDyCK6Pcv",
+      "ast:7TyCCrIUe9VIu4sGNkmEM8",
+      "ast:DeFkhI6560eQAe4aq6KZyf",
+      "ast:1Qf7QmLbmtht0KMFs3Gzks",
+      "ast:BwhMa352nYog0oKpb5bTrI",
+      "ast:tTkTvfLoRp8YzY7PjTP8uu",
+      "ast:lrSLGAc759W9iMQFpPYrAU",
+      "ast:qYST9EyD6NglIzXVyW5gXt",
+      "ast:p0lKWf9IozfrQmE66BPfTg",
+      "ast:RPcmH3t1i0FxGGHKNTb7kR",
+      "ast:rV5yHhbzoaq2kWRWQHPbPo",
+      "ast:3wsueyab9x2xbaWXl93ylp",
+      "ast:puxbT9ceC4iDk3qDwdC5nS",
+      "ast:mEDRFU08A0ODmzyqKX4TS1",
+      "ast:Ku29uUjCoc2YiWavQAoiqH",
+      "ast:hssBT9Am3nt6hBgb8EbuCr",
+      "ast:isPsRg1YOUEvzldH8NryPF",
+      "ast:qy3MRBCecSjNaSEditbqOo",
+      "ast:AOj28mOcFqoCWMvwUj5vi0",
+      "ast:UT9qJQwaFkHFB2R50zO2NM",
+      "ast:aVw5vFagTH9YzzuRhdtncB",
+      "ast:EP5EzagKJ2oUTlnxLlEIYR",
+      "ast:8F2YOKmiUUTRqw2LaYt98t",
+      "ast:RDc7RJgnv4SDLXZPDLImGj",
+      "ast:4JxGxPaw93hj6DayBVDtYw",
+      "ast:Le3Zuf9TMVnPOsDZiRUg6R",
+      "ast:9kE8yuKvoS20B0qoftsbdH",
+      "ast:VdmDvXeFCEQGashSq5yIyZ",
+      "ast:7ddnffj0J9b7T6pEGzL4cM",
+      "ast:354QUFHTBUVRKY38QZ53B6",
+      "ast:YVBsqxfYsRwcLi1oOFO6t8",
+      "ast:xCz2l8lTo7yoKV9uyo3huY",
+      "ast:5pKmYmgIzzD7uRzQUN2sly",
+      "ast:ZHeBJABwhPato8D55uFX7p",
+      "ast:66iIoNArls0BAvmDNlFVfW",
+      "ast:RHEvxyXf20wWj6YGkkVzf3",
+      "ast:MOYKr8ogOMRE4qIqE9UgZp",
+      "ast:jm11qU287nhA6LFApuBGdz",
+      "ast:6ndHd4ntl8arZemEOEHPes",
+      "ast:2EYxfzZnG0s3clAmFBxx1i",
+      "ast:DMX9Grbc2YrQSdojTH5kWG",
+      "ast:17xu90UOTorsnGruEK4F2o",
+      "ast:fKQEgwvakH32fJcvGdC0R9",
+      "ast:WnYerbOWsOjwOqS0TGQWXr",
+      "ast:ZJH4teqAD7Di9wYT1EaT3w",
+      "ast:JPcQ9DIxP3UgY0gKFrqLWS",
+      "ast:BFYYcDvOwptKTm7CKvBPUd",
+      "ast:MZAIew5fMF3Cvn9BpxUC1a",
+      "ast:9fzWgxalAjRjSOm3Wx2dug"
+     ]
+    },
+    {
+     "id": "B-FR2",
+     "half": 2,
+     "kind": "free_recall",
+     "scoring": "idea units; see SCORING.md",
+     "claim_ids": [
+      "ast:2i1FLoK1ARriE7mZ8kyea4",
+      "ast:9ssx1jA1l5DbBQnpgt2FM8",
+      "ast:oNtLNNaheRDf3jMYHihmgY",
+      "ast:rHw811J7qCLkkLDERwkfdN",
+      "ast:G7eaAHCWgNqT9eSngAyiOE",
+      "ast:msqypRocLj3nz6c8SvJZlO",
+      "ast:b9Gckz1Ph4rmH804cDCTBo",
+      "ast:r3Or1LbeVjREDtcnCuD7ZY",
+      "ast:cWOM0z6WsEahAACj3YjZLW",
+      "ast:ZjrTN2QGxCdScuu1sCCYHZ",
+      "ast:Vnwmws4NFoyCgm4xTjMKNj",
+      "ast:5HatsIwBTuJ4d2rEATBvtF",
+      "ast:cl4MeYuyuTb5Yrreyh7XKi",
+      "ast:hsX2DPWRQu6TrgaD5ITPku",
+      "ast:ssBnka10BDDfNT7mwJAwfM",
+      "ast:LNA0P9rBG97vyNh48ZSY3V",
+      "ast:vHVtejKzDwTKYgOBEyW108",
+      "ast:IVD0aEwJSjQi8MXmV2uV8Y",
+      "ast:SLSmw1VElTndJ5keuyMlIT",
+      "ast:uEJ7caijW8WaVetVfDguKP",
+      "ast:FBjSd88Sy3qeBrqqI5J8yQ",
+      "ast:BQZcYhec5JYJJKXGQP6qcl",
+      "ast:yEUHwmyr063KyfWFALEQVR",
+      "ast:PjD7mdAnfWCWqN2q9nzyKJ",
+      "ast:aQPMnxkPltZsvENh5B06nm",
+      "ast:SIiGuM9Qj4Wu46RCKlVsYD",
+      "ast:7QgBnwuPFHU6q9u1aVBQm6",
+      "ast:Ws4JIr7C2rv8lGgB6vXirs",
+      "ast:iIewgcaYfvL4qJBaF13Q1a",
+      "ast:5KOcP6ve3zmyGW9hpEwVZe",
+      "ast:wwqWrGDbLjYME23Ij1RVhy",
+      "ast:oWm7u9aBSoJdF7KbYcKoC9",
+      "ast:5pcfKmRHhkQFXb3kveJ2aF",
+      "ast:z3pAOlTiZrKYOZalY95eMR",
+      "ast:8srufwMIjKKhHHiE0n9xNi",
+      "ast:bTbXbhhRKjZW7aGlgr1YVE",
+      "ast:taKvB9n2csfVf0Cmowhj2O",
+      "ast:LXKNOte61zM9E0syMivdFW",
+      "ast:2qyLmRbs6zYxMgY0smkTlG",
+      "ast:F4oQqDyQ88EXHAdn9AzKvc",
+      "ast:3MDCMSogcYPDBhO5dEl0ms",
+      "ast:B5JHvIRgo1Bul4BnKsSPtp",
+      "ast:nEZY4Aau7tIpXg9f9B83WI",
+      "ast:47AE0plGFzdTqOl7DAHOK8",
+      "ast:z6745ULXbJonXlf06Q1RTn",
+      "ast:BoHbB7uh4WDWVleTuKefgP",
+      "ast:MeID4RRgSMdgvdunrzRQaA",
+      "ast:Qk8vvidQQGbKprzcW1eyzX",
+      "ast:A8b0nqH0DuU9JcqnqXhsXz",
+      "ast:sNolLZkwmJrybUlv6cGoZ1",
+      "ast:Q4vGoLSW5JoIUyy17YOCVD",
+      "ast:RHcGkYSQLUjStS6c6wTRFa",
+      "ast:WhsgfRqofiKzDGXeps4ydN",
+      "ast:IzAxrwaRHlC4gcKbzZJpZl",
+      "ast:GZ86G98xAxlVRRzqBy1fMB",
+      "ast:46xbStnoWanahfpVlVtFo7",
+      "ast:4G58GLzZ2EWtMYXc7iLjSs",
+      "ast:bdTrkjeeH2wZhZU3KMIFEH",
+      "ast:DF7Ey0UTM5RfpHp4UXb31R",
+      "ast:IcJi6EKkTDPiOQeZvUQaVz",
+      "ast:bm3mLSoaZsrYRs25NjHAa1",
+      "ast:7cJZoxetja0ipY4OgjLafT",
+      "ast:UurakSjyUc7kAkdWwBjKEi",
+      "ast:t0dBYqH9b3O8pZYVaVN1fL",
+      "ast:bBOPHbe3TnymgMe7FOzEqD",
+      "ast:7GoI1j4eLBTFpwBkD80FS8",
+      "ast:ewZih9O32kA7MAeDIQUyso",
+      "ast:1WngkBw0ps0EmkANBGLX28",
+      "ast:TKdDYfuC0Zj9a2yVWlKsWL",
+      "ast:6FWbWYIW0Wa4JtXKkGMQzK",
+      "ast:QGf6rQfl98moxk7zvDijZF",
+      "ast:vz9aBwJPOBNwuyiMr1HWVt"
+     ]
+    },
+    {
+     "id": "B01",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "Who was the first emigrant of his clan (Makhzūm) to reach Madinah, a year before the pledge of ʿAqaba?",
+     "claim_ids": [
+      "ast:T6nJBi2auDGqDYD8XLFXE1"
+     ],
+     "sections": [
+      "S0660"
+     ],
+     "citations": [
+      "vol. 1, pp. 468–470; OpenITI ms290–ms291, lines 8064–8101"
+     ],
+     "evidence": [
+      "Abū Salama emigrated to Madinah a year before the pledge of the people of ʿAqaba; he was the first Makhzūmī emigrant there."
+     ],
+     "answer": [
+      "Abu Salama b. Abd al-Asad"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B02",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "Who escorted Umm Salama until he brought her to Madinah?",
+     "claim_ids": [
+      "ast:mcTb3hPPcSkMLBkZmweWlv"
+     ],
+     "sections": [
+      "S0660"
+     ],
+     "citations": [
+      "vol. 1, pp. 468–470; OpenITI ms290–ms291, lines 8064–8101"
+     ],
+     "evidence": [
+      "ʿUthmān b. Ṭalḥa escorted Umm Salama until he brought her to Madinah."
+     ],
+     "answer": [
+      "ʿUthmān b. Ṭalḥa"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B03",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "What was the name of the cave where the Prophet ﷺ and Abū Bakr sheltered?",
+     "claim_ids": [
+      "ast:fKQEgwvakH32fJcvGdC0R9"
+     ],
+     "sections": [
+      "S0685"
+     ],
+     "citations": [
+      "vol. 1, pp. 485–486; OpenITI ms303, lines 8415–8425"
+     ],
+     "evidence": [
+      "The Prophet and Abū Bakr entered the cave at Thawr, a mountain below Makkah."
+     ],
+     "answer": [
+      "Ghār Thawr"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B04",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "ʿĀmir b. Fuhayra was the client (mawlā) of whom?",
+     "claim_ids": [
+      "ast:WnYerbOWsOjwOqS0TGQWXr"
+     ],
+     "sections": [
+      "S0685"
+     ],
+     "citations": [
+      "vol. 1, pp. 485–486; OpenITI ms303, lines 8415–8425"
+     ],
+     "evidence": [
+      "ʿĀmir b. Fuhayra is Abū Bakr's client (mawlā)."
+     ],
+     "answer": [
+      "Abū Bakr al-Ṣiddīq"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B05",
+     "half": 1,
+     "kind": "cued_recall",
+     "question": "From which land had Abū Salama come back to the Prophet ﷺ in Makkah?",
+     "claim_ids": [
+      "ast:MRTypWLPRJ3i09WBw9ueWe"
+     ],
+     "sections": [
+      "S0660"
+     ],
+     "citations": [
+      "vol. 1, pp. 468–470; OpenITI ms290–ms291, lines 8064–8101"
+     ],
+     "evidence": [
+      "Abū Salama had come back to the Prophet in Makkah from Abyssinia."
+     ],
+     "answer": [
+      "al-Habasha (Aksum)"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B06",
+     "half": 1,
+     "kind": "multiple_choice",
+     "question": "At Qubāʾ, ʿUmar b. al-Khaṭṭāb stayed as a guest with…",
+     "claim_ids": [
+      "ast:vn84Fwc7fk8gp9pAbbdzhJ",
+      "ast:IlUwfsIXERoyKkMMm988Be",
+      "ast:r0HC1zL5203ADm31fLBJvP",
+      "ast:M1gs47ceaG4cfit5t4NMiW"
+     ],
+     "sections": [
+      "S0669"
+     ],
+     "citations": [
+      "vol. 1, pp. 476–477; OpenITI ms296, lines 8227–8239"
+     ],
+     "evidence": [
+      "ʿUmar b. al-Khaṭṭāb is listed among those who lodged with Rifāʿa b. ʿAbd al-Mundhir at Qubāʾ."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "ʿAbdullāh b. Salama",
+       "claim_id": "ast:vn84Fwc7fk8gp9pAbbdzhJ",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "Mubashshir b. ʿAbd al-Mundhir",
+       "claim_id": "ast:IlUwfsIXERoyKkMMm988Be",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "Khubayb b. Isāf",
+       "claim_id": "ast:r0HC1zL5203ADm31fLBJvP",
+       "correct": false
+      },
+      {
+       "letter": "d",
+       "text": "Rifāʿa b. ʿAbd al-Mundhir",
+       "claim_id": "ast:M1gs47ceaG4cfit5t4NMiW",
+       "correct": true
+      }
+     ],
+     "answer": [
+      "d"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B07",
+     "half": 1,
+     "kind": "multiple_choice",
+     "question": "Where did Khubayb b. Isāf live?",
+     "claim_ids": [
+      "ast:arXbx2OoJNGD52rjyBmczi",
+      "ast:BLhqjsmzDy0daXuXaqtZ0g",
+      "ast:r0HC1zL5203ADm31fLBJvP",
+      "ast:dFgjTqbSzEQF38NBjXKZiy"
+     ],
+     "sections": [
+      "S0670"
+     ],
+     "citations": [
+      "vol. 1, pp. 477–478; OpenITI ms296, lines 8241–8249"
+     ],
+     "evidence": [
+      "Khubayb b. Isāf lived at al-Sunḥ."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "al-Tanāḍib",
+       "claim_id": "ast:arXbx2OoJNGD52rjyBmczi",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "al-Tanʿīm",
+       "claim_id": "ast:BLhqjsmzDy0daXuXaqtZ0g",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "al-Sunḥ",
+       "claim_id": "ast:r0HC1zL5203ADm31fLBJvP",
+       "correct": true
+      },
+      {
+       "letter": "d",
+       "text": "al-Abṭaḥ",
+       "claim_id": "ast:dFgjTqbSzEQF38NBjXKZiy",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "c"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B08",
+     "half": 1,
+     "kind": "multiple_choice",
+     "question": "Who is named among the nobles of Quraysh at the council in Dār al-Nadwa?",
+     "claim_ids": [
+      "ast:IlUwfsIXERoyKkMMm988Be",
+      "ast:tTkTvfLoRp8YzY7PjTP8uu",
+      "ast:RPcmH3t1i0FxGGHKNTb7kR",
+      "ast:T6nJBi2auDGqDYD8XLFXE1"
+     ],
+     "sections": [
+      "S0679"
+     ],
+     "citations": [
+      "vol. 1, pp. 480–482; OpenITI ms298–ms300, lines 8294–8341"
+     ],
+     "evidence": [
+      "Named among the nobles of Quraysh who gathered at Dār al-Nadwa."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "Mubashshir b. ʿAbd al-Mundhir",
+       "claim_id": "ast:IlUwfsIXERoyKkMMm988Be",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "ʿAlī b. Abī Ṭālib",
+       "claim_id": "ast:tTkTvfLoRp8YzY7PjTP8uu",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "ʿUtba b. Rabīʿa",
+       "claim_id": "ast:RPcmH3t1i0FxGGHKNTb7kR",
+       "correct": true
+      },
+      {
+       "letter": "d",
+       "text": "Abu Salama b. Abd al-Asad",
+       "claim_id": "ast:T6nJBi2auDGqDYD8XLFXE1",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "c"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B09",
+     "half": 1,
+     "kind": "ordering",
+     "question": "Put these moments in the order the text tells them.",
+     "claim_ids": [
+      "ast:1Qf7QmLbmtht0KMFs3Gzks",
+      "ast:p0lKWf9IozfrQmE66BPfTg",
+      "ast:ZHeBJABwhPato8D55uFX7p",
+      "ast:fKQEgwvakH32fJcvGdC0R9"
+     ],
+     "sections": [
+      "S0678",
+      "S0679",
+      "S0680",
+      "S0685"
+     ],
+     "citations": [
+      "vol. 1, p. 480; OpenITI ms298, lines 8287–8292",
+      "vol. 1, pp. 480–482; OpenITI ms298–ms300, lines 8294–8341",
+      "vol. 1, pp. 482–484; OpenITI ms300–ms301, lines 8343–8368",
+      "vol. 1, pp. 485–486; OpenITI ms303, lines 8415–8425"
+     ],
+     "evidence": [
+      "The Prophet stayed on in Makkah after his emigrant companions.",
+      "Quraysh gathered in Dār al-Nadwa to deliberate about the Prophet.",
+      "Abū Jahl was among those gathered at the Prophet's door.",
+      "The Prophet and Abū Bakr entered the cave at Thawr, a mountain below Makkah."
+     ],
+     "shown": [
+      "Quraysh gathered in Dār al-Nadwa to deliberate about the Prophet.",
+      "The Prophet and Abū Bakr entered the cave at Thawr, a mountain below Makkah.",
+      "Abū Jahl was among those gathered at the Prophet's door.",
+      "The Prophet stayed on in Makkah after his emigrant companions."
+     ],
+     "answer": [
+      "The Prophet stayed on in Makkah after his emigrant companions.",
+      "Quraysh gathered in Dār al-Nadwa to deliberate about the Prophet.",
+      "Abū Jahl was among those gathered at the Prophet's door.",
+      "The Prophet and Abū Bakr entered the cave at Thawr, a mountain below Makkah."
+     ],
+     "points": 3,
+     "scoring": "1 point per adjacent pair in the right order (max n-1); see SCORING.md"
+    },
+    {
+     "id": "B10",
+     "half": 1,
+     "kind": "two_reports",
+     "question": "The text gives more than one report about where Ṭalḥa b. ʿUbaydullāh stayed in Madinah. What are they?",
+     "claim_ids": [
+      "ast:fGSNOgO8VdnHtCairNLzNH",
+      "ast:3rsIBX6nzpQFoWuHKPYQXI"
+     ],
+     "sections": [
+      "S0670"
+     ],
+     "citations": [
+      "vol. 1, pp. 477–478; OpenITI ms296, lines 8241–8249"
+     ],
+     "evidence": [
+      "Ṭalḥa lodged with Khubayb b. Isāf at al-Sunḥ.",
+      "Another report says Ṭalḥa lodged with Asʿad b. Zurāra."
+     ],
+     "answer": [
+      "Khubayb b. Isāf",
+      "As'ad ibn Zurarah"
+     ],
+     "points": 2,
+     "scoring": "2 = both names, or one name plus saying there is another report; 1 = one name only; 0 = neither"
+    },
+    {
+     "id": "B11",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "Among which clan did the Prophet ﷺ arrive at Qubāʾ?",
+     "claim_ids": [
+      "ast:bTbXbhhRKjZW7aGlgr1YVE"
+     ],
+     "sections": [
+      "S0696"
+     ],
+     "citations": [
+      "vol. 1, pp. 491–492; OpenITI ms307–ms308, lines 8530–8551"
+     ],
+     "evidence": [
+      "He arrived at Quba among Banū ʿAmr b. ʿAwf."
+     ],
+     "answer": [
+      "Banū ʿAmr b. ʿAwf"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B12",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "With whom did ʿAlī stay at Qubāʾ?",
+     "claim_ids": [
+      "ast:z6745ULXbJonXlf06Q1RTn"
+     ],
+     "sections": [
+      "S0700"
+     ],
+     "citations": [
+      "vol. 1, p. 493; OpenITI ms309–ms310, lines 8583–8585"
+     ],
+     "evidence": [
+      "ʿAlī lodged with Kulthūm b. Hidm."
+     ],
+     "answer": [
+      "Kulthum ibn al-Hidm"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B13",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "Where did Sahl b. Ḥunayf die?",
+     "claim_ids": [
+      "ast:BoHbB7uh4WDWVleTuKefgP"
+     ],
+     "sections": [
+      "S0701"
+     ],
+     "citations": [
+      "vol. 1, pp. 493–494; OpenITI ms310, lines 8587–8598"
+     ],
+     "evidence": [
+      "Sahl died in Iraq, with ʿAlī."
+     ],
+     "answer": [
+      "al-ʿIrāq"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B14",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "Who was the guide who took the Prophet ﷺ and his companion out on the road north?",
+     "claim_ids": [
+      "ast:Ws4JIr7C2rv8lGgB6vXirs"
+     ],
+     "sections": [
+      "S0696"
+     ],
+     "citations": [
+      "vol. 1, pp. 491–492; OpenITI ms307–ms308, lines 8530–8551"
+     ],
+     "evidence": [
+      "ʿAbdullāh b. Arqaṭ was the guide who took the Prophet and his companion out."
+     ],
+     "answer": [
+      "ʿAbdullāh b. Arqaṭ"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B15",
+     "half": 2,
+     "kind": "cued_recall",
+     "question": "From the verses, which city did they understand to be the Prophet's destination?",
+     "claim_ids": [
+      "ast:2i1FLoK1ARriE7mZ8kyea4"
+     ],
+     "sections": [
+      "S0691"
+     ],
+     "citations": [
+      "vol. 1, pp. 487–488; OpenITI ms305, lines 8468–8475"
+     ],
+     "evidence": [
+      "They understood from the verses that the Prophet's destination was al-Madīna."
+     ],
+     "answer": [
+      "al-Madīna"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B16",
+     "half": 2,
+     "kind": "multiple_choice",
+     "question": "Where did the Prophet ﷺ stay among Banū ʿAmr b. ʿAwf before the first Friday?",
+     "claim_ids": [
+      "ast:B5JHvIRgo1Bul4BnKsSPtp",
+      "ast:QGf6rQfl98moxk7zvDijZF",
+      "ast:iIewgcaYfvL4qJBaF13Q1a",
+      "ast:LNA0P9rBG97vyNh48ZSY3V"
+     ],
+     "sections": [
+      "S0702"
+     ],
+     "citations": [
+      "vol. 1, p. 494; OpenITI ms310, lines 8600–8602"
+     ],
+     "evidence": [
+      "The Prophet stayed at Quba among Banū ʿAmr b. ʿAwf."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "al-Sunḥ",
+       "claim_id": "ast:B5JHvIRgo1Bul4BnKsSPtp",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "Quba'",
+       "claim_id": "ast:QGf6rQfl98moxk7zvDijZF",
+       "correct": true
+      },
+      {
+       "letter": "c",
+       "text": "ʿUsfān",
+       "claim_id": "ast:iIewgcaYfvL4qJBaF13Q1a",
+       "correct": false
+      },
+      {
+       "letter": "d",
+       "text": "al-Jiʿrāna",
+       "claim_id": "ast:LNA0P9rBG97vyNh48ZSY3V",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "b"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B17",
+     "half": 2,
+     "kind": "multiple_choice",
+     "question": "Which of these places did the Prophet ﷺ pass on the road north?",
+     "claim_ids": [
+      "ast:BoHbB7uh4WDWVleTuKefgP",
+      "ast:LNA0P9rBG97vyNh48ZSY3V",
+      "ast:B5JHvIRgo1Bul4BnKsSPtp",
+      "ast:wwqWrGDbLjYME23Ij1RVhy"
+     ],
+     "sections": [
+      "S0696"
+     ],
+     "citations": [
+      "vol. 1, pp. 491–492; OpenITI ms307–ms308, lines 8530–8551"
+     ],
+     "evidence": [
+      "He passed Qudayd."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "al-ʿIrāq",
+       "claim_id": "ast:BoHbB7uh4WDWVleTuKefgP",
+       "correct": false
+      },
+      {
+       "letter": "b",
+       "text": "al-Jiʿrāna",
+       "claim_id": "ast:LNA0P9rBG97vyNh48ZSY3V",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "al-Sunḥ",
+       "claim_id": "ast:B5JHvIRgo1Bul4BnKsSPtp",
+       "correct": false
+      },
+      {
+       "letter": "d",
+       "text": "Qudayd",
+       "claim_id": "ast:wwqWrGDbLjYME23Ij1RVhy",
+       "correct": true
+      }
+     ],
+     "answer": [
+      "d"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B18",
+     "half": 2,
+     "kind": "multiple_choice",
+     "question": "Who stayed in Makkah three nights and days after the Prophet ﷺ left?",
+     "claim_ids": [
+      "ast:47AE0plGFzdTqOl7DAHOK8",
+      "ast:B5JHvIRgo1Bul4BnKsSPtp",
+      "ast:LNA0P9rBG97vyNh48ZSY3V",
+      "ast:rHw811J7qCLkkLDERwkfdN"
+     ],
+     "sections": [
+      "S0700"
+     ],
+     "citations": [
+      "vol. 1, p. 493; OpenITI ms309–ms310, lines 8583–8585"
+     ],
+     "evidence": [
+      "ʿAlī stayed in Makkah three nights and days."
+     ],
+     "options": [
+      {
+       "letter": "a",
+       "text": "ʿAlī b. Abī Ṭālib",
+       "claim_id": "ast:47AE0plGFzdTqOl7DAHOK8",
+       "correct": true
+      },
+      {
+       "letter": "b",
+       "text": "Abū Bakr al-Ṣiddīq",
+       "claim_id": "ast:B5JHvIRgo1Bul4BnKsSPtp",
+       "correct": false
+      },
+      {
+       "letter": "c",
+       "text": "Suraqah ibn Malik",
+       "claim_id": "ast:LNA0P9rBG97vyNh48ZSY3V",
+       "correct": false
+      },
+      {
+       "letter": "d",
+       "text": "Amir b. Fuhayra",
+       "claim_id": "ast:rHw811J7qCLkkLDERwkfdN",
+       "correct": false
+      }
+     ],
+     "answer": [
+      "a"
+     ],
+     "points": 1
+    },
+    {
+     "id": "B19",
+     "half": 2,
+     "kind": "ordering",
+     "question": "Put these stops on the road north in the order Ibn Hishām gives them.",
+     "claim_ids": [
+      "ast:5KOcP6ve3zmyGW9hpEwVZe",
+      "ast:oWm7u9aBSoJdF7KbYcKoC9",
+      "ast:z3pAOlTiZrKYOZalY95eMR",
+      "ast:8srufwMIjKKhHHiE0n9xNi"
+     ],
+     "sections": [
+      "S0696"
+     ],
+     "citations": [
+      "vol. 1, pp. 491–492; OpenITI ms307–ms308, lines 8530–8551"
+     ],
+     "evidence": [
+      "He was taken by the lower part of Amaj.",
+      "He was taken through the Marjiḥ of Dhū al-Ghaḍwayn.",
+      "He was taken by Dhū Salam.",
+      "He descended to al-ʿArj."
+     ],
+     "shown": [
+      "al-ʿArj",
+      "Amaj",
+      "Dhū Salam",
+      "Marjiḥ of Dhū al-Ghaḍwayn"
+     ],
+     "answer": [
+      "Amaj",
+      "Marjiḥ of Dhū al-Ghaḍwayn",
+      "Dhū Salam",
+      "al-ʿArj"
+     ],
+     "points": 3,
+     "scoring": "1 point per adjacent pair in the right order (max n-1); see SCORING.md"
+    },
+    {
+     "id": "B20",
+     "half": 2,
+     "kind": "two_reports",
+     "question": "With whom did Abū Bakr stay when they reached Madinah? Write everything the text records.",
+     "claim_ids": [
+      "ast:3MDCMSogcYPDBhO5dEl0ms",
+      "ast:nEZY4Aau7tIpXg9f9B83WI"
+     ],
+     "sections": [
+      "S0699"
+     ],
+     "citations": [
+      "vol. 1, p. 493; OpenITI ms309, lines 8579–8581"
+     ],
+     "evidence": [
+      "Abū Bakr lodged with Khubayb b. Isāf.",
+      "Another report says his lodging was with Kharija b. Zayd."
+     ],
+     "answer": [
+      "Khubayb b. Isāf",
+      "Kharija b. Zayd b. Abī Zuhayr"
+     ],
+     "points": 2,
+     "scoring": "2 = both names, or one name plus saying there is another report; 1 = one name only; 0 = neither"
+    },
+    {
+     "id": "B-SRC1",
+     "half": 1,
+     "kind": "source_awareness",
+     "question": "How do we know that Quraysh met in Dār al-Nadwa? Whose report does the text pass on?",
+     "claim_ids": [
+      "ast:p0lKWf9IozfrQmE66BPfTg"
+     ],
+     "sections": [
+      "S0679"
+     ],
+     "citations": [
+      "vol. 1, pp. 480–482; OpenITI ms298–ms300, lines 8294–8341"
+     ],
+     "chain_shown": [
+      "ʿAbd Allāh b. Abī Najīḥ",
+      "Mujāhid b. Jabr",
+      "Abdullah ibn Abbas"
+     ],
+     "eyewitness": "Abdullah ibn Abbas",
+     "points": 3,
+     "scoring": "1 names the book or its author (Ibn Hishām / Ibn Isḥāq / the Sīra); 1 says it was passed on by named people (a chain of narrators); 1 names the person at the end of the chain"
+    },
+    {
+     "id": "B-SRC2",
+     "half": 2,
+     "kind": "source_awareness",
+     "question": "How do we know who the four travellers were? Who first told it?",
+     "claim_ids": [
+      "ast:msqypRocLj3nz6c8SvJZlO"
+     ],
+     "sections": [
+      "S0692"
+     ],
+     "citations": [
+      "vol. 1, pp. 487–488; OpenITI ms305, lines 8468–8475"
+     ],
+     "chain_shown": [
+      "Ibn Isḥāq (Muḥammad b. Isḥāq)",
+      "Yaḥyā b. ʿAbbād b. ʿAbdullāh b. al-Zubayr",
+      "ʿAbbād b. ʿAbdullāh b. al-Zubayr",
+      "Asmāʾ bint Abī Bakr"
+     ],
+     "eyewitness": "Asmāʾ bint Abī Bakr",
+     "points": 3,
+     "scoring": "1 names the book or its author (Ibn Hishām / Ibn Isḥāq / the Sīra); 1 says it was passed on by named people (a chain of narrators); 1 names the person at the end of the chain"
+    },
+    {
+     "id": "B-H1",
+     "half": null,
+     "kind": "honesty_cue",
+     "cue": "dashed stops",
+     "question": "On the road north, some stops were drawn with a dashed outline, or marked “no reviewed location yet”. What does that tell you?",
+     "answer": "The place is named in the text, but nobody has yet checked where it is, so it is not drawn on the map.",
+     "points": 2,
+     "scoring": "2 = says the text names the place AND its location is not known/checked/reviewed; 1 = says only that it is uncertain, or only that it is not on the map; 0 = otherwise"
+    },
+    {
+     "id": "B-H2",
+     "half": null,
+     "kind": "honesty_cue",
+     "cue": "two reports",
+     "question": "Sometimes the text gives two different reports about the same thing. What should a careful reader do?",
+     "answer": "Keep both reports, notice that the sources differ, and not pretend that only one is certain.",
+     "points": 2,
+     "scoring": "2 = keeps both / says the sources differ and we should not pick one without evidence; 1 = notices there are two, but says to choose one (or to ignore one); 0 = otherwise"
+    },
+    {
+     "id": "B-H3",
+     "half": null,
+     "kind": "honesty_cue",
+     "cue": "AI-extracted",
+     "question": "Every sentence was marked “proposed (AI-extracted, not yet reviewed)”. What does that mean for how much you trust it?",
+     "answer": "A computer program pulled the sentence out of the Arabic book and a scholar has not checked it yet, so it may contain mistakes; you can check it against the book and page given.",
+     "points": 2,
+     "scoring": "2 = AI/computer made it from the book AND not yet checked by a scholar, so it could be wrong / should be checked; 1 = only one of the two ideas; 0 = otherwise"
+    }
+   ]
+  }
+ },
+ "honesty": [
+  {
+   "id": "H1",
+   "cue": "dashed stops",
+   "q": "On the road north, some stops were drawn with a dashed outline, or marked “no reviewed location yet”. What does that tell you?",
+   "answer": "The place is named in the text, but nobody has yet checked where it is, so it is not drawn on the map.",
+   "full": "says the text names the place AND its location is not known/checked/reviewed",
+   "part": "says only that it is uncertain, or only that it is not on the map"
+  },
+  {
+   "id": "H2",
+   "cue": "two reports",
+   "q": "Sometimes the text gives two different reports about the same thing. What should a careful reader do?",
+   "answer": "Keep both reports, notice that the sources differ, and not pretend that only one is certain.",
+   "full": "keeps both / says the sources differ and we should not pick one without evidence",
+   "part": "notices there are two, but says to choose one (or to ignore one)"
+  },
+  {
+   "id": "H3",
+   "cue": "AI-extracted",
+   "q": "Every sentence was marked “proposed (AI-extracted, not yet reviewed)”. What does that mean for how much you trust it?",
+   "answer": "A computer program pulled the sentence out of the Arabic book and a scholar has not checked it yet, so it may contain mistakes; you can check it against the book and page given.",
+   "full": "AI/computer made it from the book AND not yet checked by a scholar, so it could be wrong / should be checked",
+   "part": "only one of the two ideas"
+  }
+ ],
+ "shared_target_claims": [
+  "ast:3rsIBX6nzpQFoWuHKPYQXI",
+  "ast:47AE0plGFzdTqOl7DAHOK8",
+  "ast:8srufwMIjKKhHHiE0n9xNi",
+  "ast:T6nJBi2auDGqDYD8XLFXE1",
+  "ast:ZHeBJABwhPato8D55uFX7p",
+  "ast:fGSNOgO8VdnHtCairNLzNH",
+  "ast:p0lKWf9IozfrQmE66BPfTg",
+  "ast:wwqWrGDbLjYME23Ij1RVhy"
+ ],
+ "note": "Ṭalḥa's two reports (S0670) are the only two-report passage in Half 1, so that item is an anchor shared by both forms. Other target claims are disjoint between forms except those listed in shared_target_claims (al-ʿArj closes both route orderings; a few Half 2 facts recur because Half 2 has few claims)."
+}

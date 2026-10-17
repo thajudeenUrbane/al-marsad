@@ -49,7 +49,7 @@ All values are CSS custom properties; the prototype `lab/hijrah-night/template.h
 | `--ok` | `#95d5ac` | "reviewed" status chip only |
 | `--focus` | `#ffffff` | 2 px focus ring, all interactive marks |
 
-Contrast: `--ink` on `--night` is 15.6:1; `--muted` on `--night` is 7.4:1; `--faint` (6.5:1 is too low for body text below 14 px) is used for labels ≥ 14 px only.
+Contrast on `--night` (computed, WCAG 2.x): `--ink` 15.8:1; `--muted` 7.7:1; `--stone` outline 4.9:1; `--faint` 4.1:1, so `--faint` is for large text (≥ 24 px, or ≥ 18.7 px bold), non-text marks and decoration only, never body text.
 
 ### 2.2 Generation by brightness (T4)
 
@@ -125,7 +125,7 @@ For each mark: **what it is**, **visual spec**, **may encode**, **may not encode
 
 ### 3.3 Stones (opponents, X1)
 
-- **Spec:** irregular dark heptagon, `--stone-fill` body, 1 px `--stone` outline, no halo, no glow, does not receive `--light-dim`. Stones do not twinkle or breathe. Not red, not black-on-black (must remain legible: 3:1 against `--night`).
+- **Spec:** irregular dark heptagon, `--stone-fill` body, 1 px `--stone` outline, no halo, no glow, does not receive `--light-dim`. Stones do not twinkle or breathe. Not red, not black-on-black: the body (`--stone-fill`) is near the ground by design, so the outline carries legibility (4.9:1 against `--night`, above the 3:1 non-text minimum).
 - **May encode:** a recorded, sourced claim that the person opposed or fought against the Prophet ﷺ (`rel_opposed`, `rel_fought_against`, with `atEvent` where known), in the time window the claim covers.
 - **May not encode:** a judgement on the person's final state (which belongs to Allah); ethnicity, tribe, or family as such; "evil". A stone is "in opposition, at this time, according to these sources" and its panel says that.
 - **Transformation:** when the time cursor passes a **recorded acceptance of Islam** (dated assertion with source), the stone becomes a light over `--t-transform`: outline fades, a light rises from within, halo grows to the person's generation. The panel shows the date, the source and the review status. Reverse scrubbing reverses it.

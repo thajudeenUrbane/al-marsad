@@ -216,6 +216,14 @@ def load_wikidata(places):
                 forms.add(v)
                 if " " not in v and not v.startswith("ال"):
                     forms.add("ال" + v)
+        for a in pl["ar"]:  # raw spellings too: Wikidata labels keep ة, أ, إ
+            r = AR_MARKS.sub("", a).strip()
+            raw = {r, r[1:] if r.startswith("بال") else r, r[:-1] if r.endswith("ا") and len(r) > 3 else r}
+            for x in list(raw):
+                raw |= {x.replace("ه", "ة") if x.endswith("ه") else x}
+                if not x.startswith("ال") and " " not in x:
+                    raw.add("ال" + x)
+            forms |= raw
     rows = []
     forms = sorted(forms)
     for i in range(0, len(forms), 120):

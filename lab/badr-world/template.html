@@ -1,4 +1,4 @@
-<title>Hijrah Night</title>
+<title>Badr World</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,6 +88,9 @@ ul.claims .g { display: block; }
 .pp i { width: 8px; height: 8px; border-radius: 50%; background: var(--person); box-shadow: 0 0 8px var(--person); }
 .pp.prophet i { background: var(--light); box-shadow: 0 0 10px var(--light); }
 .pp.prophet { color: var(--light); }
+.pp.against i { background: #0b0c10; border: 1px solid #555a66; box-shadow: none; }
+.pp.neutral i { background: #6b6e78; box-shadow: none; }
+.lbl.stone.dark { opacity: .8; }
 .pp.stone i { background: #2a2c34; box-shadow: inset 0 0 0 1px var(--stone); }
 .pp.stone { color: var(--muted); }
 .chainbox { display: grid; gap: 0; margin: 6px 0 4px; }
@@ -170,12 +173,12 @@ details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
 @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
 </style>
 
-<canvas id="world" aria-label="A night view of the Ḥijāz terrain between Makkah and Madinah. The reading panel describes everything shown."></canvas>
+<canvas id="world" aria-label="A night view of the Ḥijāz terrain between Madinah and Badr. The reading panel describes everything shown."></canvas>
 <div id="labels" aria-hidden="true"></div>
 <div id="loading">Raising the terrain…</div>
 
 <header class="top">
-  <div class="brand"><b>Hijrah Night</b><span>al-Marṣad lab · prototype 1</span></div>
+  <div class="brand"><b>Badr</b><span>al-Marṣad lab · prototype 2</span></div>
   <div class="seg" role="group" aria-label="Depth">
     <button type="button" data-depth="discover" aria-pressed="true">Discover</button>
     <button type="button" data-depth="study" aria-pressed="false">Study</button>
@@ -197,7 +200,7 @@ details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
 </aside>
 
 <nav id="ribbon" aria-label="Places on the route">
-  <div class="cap">The route as Ibn Hishām lists it. Dashed stops are named in the text but have no reviewed location yet, so nothing is drawn for them.</div>
+  <div class="cap">The road to Badr as Ibn Hishām lists it. Dashed stages are named in the text but have no gazetteer point, so nothing is drawn for them.</div>
   <ol id="stops"></ol>
 </nav>
 <div id="toast" role="status"></div>
@@ -205,11 +208,11 @@ details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
 <div id="intro">
   <div class="card">
     <div class="ar">الهجرة</div>
-    <h2>Hijrah Night</h2>
-    <p>Walk the Hijrah over the real land of the Ḥijāz, from Makkah to Madinah, at night. The Prophet ﷺ is shown only as a light. Everyone else is a smaller light, and nobody is drawn as a figure.</p>
+    <h2>Badr</h2>
+    <p>Walk the expedition of Badr over the real land of the Ḥijāz, from Madinah to the wells of Badr and back, at night. The Prophet ﷺ is shown only as a light, never a figure. Those the text places with him are smaller lights; those it places against him are dark stones; anyone without a recorded side stays a grey stone.</p>
     <p>Every line you read about the past comes from Ibn Hishām's <i>Sīra</i>, with its volume and page. Sometimes you will be asked to guess before you read, because trying to remember first is how memory works. When the text disagrees with itself, you will see both reports.</p>
     <p class="fine">A lab prototype. Claims were extracted from the Arabic text by AI and have not yet been reviewed by scholars. Drag to look around, scroll or pinch to zoom, and double-click the land to move there.</p>
-    <div class="row"><button type="button" class="btn primary" id="begin">Begin the journey</button><button type="button" class="btn" id="introAbout">How this works</button></div>
+    <div class="row"><button type="button" class="btn primary" id="begin">Begin</button><button type="button" class="btn" id="introAbout">How this works</button></div>
   </div>
 </div>
 
@@ -221,11 +224,11 @@ details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
       <li><b>Written by the editor</b>: chapter titles, which sections each chapter draws on, where the camera looks, and the questions. None of these assert anything.</li>
       <li><b>Answers come from claims.</b> When you are wrong, the reason shown is another claim, for example that the text records ʿUmar emigrating earlier.</li>
       <li><b>Places</b> are drawn only where a gazetteer gives a point: al-Thurayya (CC BY 4.0) and Wikidata (CC0). No path is drawn between stops, because the text gives their order, not the road.</li>
-      <li><b>People</b> are lights. The Prophet ﷺ is the warm light, never a figure. Those named at the council are drawn as grey stones, neither stars nor light; whether and when each later accepted Islam is not drawn until recorded claims and the scholars decide.</li>
-      <li><b>Your sky</b> is kept only in this browser. Each person you meet becomes a star; each chapter becomes a constellation. Star positions are decorative, not astronomical.</li>
+      <li><b>People.</b> The Prophet ﷺ is the warm light, never a figure, and no one is depicted. A side is drawn only from a recorded side claim: Ibn Isḥāq's list of the Muslims present at Badr makes a small light; his lists of the idolaters slain or captured make a dark stone, never a star. Anyone without a recorded side stays a grey stone. Whether and when anyone later accepted Islam is not drawn.</li>
+      <li><b>Your sky</b> is kept only in this browser. Each person the text places with the Prophet ﷺ becomes a star; each chapter becomes a constellation. Star positions are decorative, not astronomical.</li>
       <li><b>Depths</b>: Discover shows the story; Study adds chains of narration, family links and the sections used; Research adds claim IDs and character spans.</li>
     </ul>
-    <p class="fine">Terrain: AWS Terrain Tiles (Mapzen), from SRTM, GMTED and ETOPO1, at about 1 km per cell, heights × 3. Built by lab/hijrah-night/build.py from committed files: <span id="aboutCounts"></span>.</p>
+    <p class="fine">Terrain: AWS Terrain Tiles (Mapzen), from SRTM, GMTED and ETOPO1, at about 1 km per cell, heights × 3. Built by lab/badr-world/build.py from committed files: <span id="aboutCounts"></span>.</p>
     <div class="row"><button type="button" class="btn primary" id="aboutClose">Close</button></div>
   </div>
 </div>
@@ -240,8 +243,8 @@ const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (s, el = document) => el.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const store = {
-  get(k, d) { try { const v = localStorage.getItem("hijrah-night:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem("hijrah-night:" + k, JSON.stringify(v)); } catch (e) {} }
+  get(k, d) { try { const v = localStorage.getItem("badr-world:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("badr-world:" + k, JSON.stringify(v)); } catch (e) {} }
 };
 
 /* ---------- geography ---------- */
@@ -467,10 +470,12 @@ function personLight(pos, name, k = 1, opacity = 1) {
   if (name) addLabel(pos, esc(name));
   return s;
 }
-function stone(pos, name) {
-  const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshLambertMaterial({ color: 0x24262e, emissive: 0x111218 }));
+function stone(pos, name, dark = false) {
+  const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), dark
+    ? new THREE.MeshLambertMaterial({ color: 0x0b0c10, emissive: 0x050507 })
+    : new THREE.MeshLambertMaterial({ color: 0x6b6e78, emissive: 0x1c1d22 }));
   m.position.copy(pos); m.userData.stone = 1; chapterGroup.add(m);
-  addLabel(pos, esc(name), "stone");
+  if (name) addLabel(pos, esc(name), dark ? "stone dark" : "stone");
 }
 
 let routeTimer = null;
@@ -501,7 +506,11 @@ function drawChapter(ch, idx) {
     ringAround(center, near.length, d * 0.08, 2).forEach((p, i) => personLight(p, near[i].name));
     ringAround(center, ch.hosts.length, d * 0.2, 0.2).forEach((p, i) => { personLight(p, null, 1.1); addLabel(p, esc(ch.hosts[i].host) + " <small>· host</small>", "host"); });
   } else if (ch.id !== "road") {
-    ringAround(center, others.length, d * 0.1 + others.length * d * 0.004, 2.2).forEach((p, i) => personLight(p, others[i].name));
+    const by = r => others.filter(p => p.role === r);
+    const W_ = by("with"), A_ = by("against"), N_ = by("neutral");
+    ringAround(center, W_.length, d * 0.08 + W_.length * d * 0.003, 2.2).forEach((p, i) => personLight(p, W_[i].name));
+    ringAround(center, A_.length, d * 0.2 + A_.length * d * 0.003, 0.4).forEach((p, i) => stone(p, A_[i].name, true));
+    ringAround(center, N_.length, d * 0.32 + N_.length * d * 0.002, 1.1).forEach((p, i) => stone(p, N_[i].name, false));
   }
   if (ch.council.length) ringAround(center, ch.council.length, d * 0.18, 0.3).forEach((p, i) => stone(p, ch.council[i]));
   if (ch.where) addLabel(ground(goal.target, 0.5), esc(ch.where), "note");
@@ -521,7 +530,7 @@ function drawChapter(ch, idx) {
 
 function playRoute(d) {
   const placed = D.route.filter(r => r.placed);
-  const seq = D.route.slice(1, -1); // Thawr … Qubāʾ
+  const seq = D.route; // al-Madīna … Badr
   let i = 0;
   const show = () => {
     const r = seq[i]; ribbonHere(null, r.key);
@@ -539,7 +548,7 @@ D.route.forEach(r => {
   const li = document.createElement("li"), b = document.createElement("button");
   b.type = "button"; b.className = r.placed ? "placed" : "unplaced"; b.dataset.key = r.key;
   b.innerHTML = `<i></i>${esc(r.name)}`;
-  b.title = r.placed ? D.places[r.key].src : "Named by Ibn Hishām (section 696). No reviewed location yet, so nothing is drawn.";
+  b.title = r.placed ? D.places[r.key].src : "Named by Ibn Hishām (sections 913 to 918). No gazetteer point, so nothing is drawn.";
   b.addEventListener("click", () => { if (!r.placed) { toast(`${r.name}: no reviewed location yet`); return; } const pl = D.places[r.key]; skyOff(); flyTo({ target: P(pl.lon, pl.lat), dist: 12, pitch: 0.6, heading: cam.heading }, 1800); });
   li.appendChild(b); stopsEl.appendChild(li);
 });
@@ -554,7 +563,7 @@ const PROPHET = "The Prophet Muḥammad ﷺ";
 let met = store.get("met", {}); delete met[PROPHET];         // name -> chapter id
 let answers = store.get("answers", {}); // chapter:kind -> {ok, at}
 function meet(ch) {
-  const names = [...ch.people.filter(p => p.role !== "prophet").map(p => p.name), ...ch.hosts.flatMap(h => [h.host, ...h.guests]).filter(Boolean)];
+  const names = ch.people.filter(p => p.role === "with").map(p => p.name); // only those the text places with him become stars
   let n = 0; for (const nm of names) if (nm !== PROPHET && !met[nm]) { met[nm] = ch.id; n++; }
   store.set("met", met); $("#skyCount").textContent = Object.keys(met).length;
   if (n) toast(`${n} new ${n === 1 ? "star" : "stars"} in your sky`);
@@ -588,7 +597,7 @@ function quizHtml(kind, qz, ch) {
 function orderHtml(o, ch) {
   const shuffled = o.stops.map((s, i) => ({ s, i })).sort((a, b) => ((a.i * 7 + 3) % o.stops.length) - ((b.i * 7 + 3) % o.stops.length));
   return `<div class="quiz" data-kind="order"><div class="eyebrow">Remember</div><p class="q">${esc(o.q)}</p>
-    <p class="where">Tap the places in order. The places themselves are claims of section 696.</p>
+    <p class="where">Tap the places in order. The places themselves are claims of section 914.</p>
     <div class="ordering">${shuffled.map(x => `<button type="button" class="opt" data-i="${x.i}"><span class="slot">·</span>${esc(x.s.o)}</button>`).join("")}</div>
     <div class="row"><button type="button" class="btn" data-act="reset">Start again</button></div><div class="res" hidden></div></div>`;
 }
@@ -596,7 +605,7 @@ function render() {
   const ch = D.chapters[cur]; store.set("chapter", cur);
   const veiled = ch.predict && !revealed[ch.id];
   const sec = ch.sections.map(s => `<div><span class="cite">${esc(s.key)} · ${esc(s.cite)}</span><br>${esc(s.label)} <span class="where"><i>(section heading written by AI)</i></span></div>`).join("");
-  const place = ch.light && ch.light !== "route" ? D.places[ch.light].name : ch.light === "route" ? "From Thawr to Qubāʾ" : "Not placed";
+  const place = ch.light && ch.light !== "route" ? D.places[ch.light].name : ch.light === "route" ? "From Madinah to Badr" : "Not placed";
   pane.innerHTML = `
     <div class="eyebrow">Chapter ${cur + 1} of ${D.chapters.length}</div>
     <h1 class="ch">${esc(ch.title)}</h1>
@@ -606,7 +615,8 @@ function render() {
       ${ch.people.length || ch.council.length ? `<h2 class="sub">In this chapter</h2><div class="people">
         ${ch.people.filter(p => !ch.hosts.some(h => h.host === p.name)).map(p => `<span class="pp ${p.role}"><i></i>${esc(p.name)}</span>`).join("")}
         ${ch.council.map(n => `<span class="pp stone"><i></i>${esc(n)}</span>`).join("")}</div>
-        ${ch.council.length ? '<p class="where">Grey stones: named as present. No side is drawn for anyone here until recorded claims and the scholars decide it.</p>' : ""}` : ""}
+        ${ch.people.some(p => p.role === "against" || p.role === "neutral") ? '<p class="where">Small lights: listed with the Prophet ﷺ at Badr. Dark stones: listed among the idolaters slain or captured at Badr. Grey stones: no side recorded, so none is drawn.</p>' : ""}` : ""}
+      ${ch.sides && ch.sides.length ? `<details class="study"><summary>Sides recorded for people here (${ch.sides.length})</summary><ul class="claims">${ch.sides.map(c => claimLi(c)).join("")}</ul></details>` : ""}
       ${ch.hosts.length ? `<h2 class="sub">Who gave lodging <small>${ch.id === "ahead" ? "at Qubāʾ and al-Sunḥ" : ""}</small></h2><div class="hostlist">${ch.hosts.map(h => `<div><b>${esc(h.host || "No host recorded")}</b> <span>· ${h.guests.map(esc).join(", ")}</span></div>`).join("")}</div>` : ""}
       <h2 class="sub">Recorded in the text <small>${ch.story.length} claims</small></h2>
       <ul class="claims">${ch.story.map(c => claimLi(c)).join("")}</ul>

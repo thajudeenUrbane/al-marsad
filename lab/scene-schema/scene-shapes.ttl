@@ -1,0 +1,322 @@
+@prefix mrs:  <https://w3id.org/marsad/core#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+#################################################################
+#  al-Marṣad scene-layer SHACL — LAB DRAFT
+#
+#  The standing rules for Scenes, Moments and Journeys (lab/scene-schema
+#  /README.md). Rule IDs are SC1..SC9; they become I-numbers on migration.
+#  Severity convention as ontology/shapes.ttl:
+#    sh:Violation — non-negotiable;  sh:Warning — needs a human decision
+#################################################################
+
+<https://w3id.org/marsad/scene-shapes> a owl:Ontology ;
+    sh:declare [ sh:prefix "mrs"  ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ,
+               [ sh:prefix "prov" ; sh:namespace "http://www.w3.org/ns/prov#"^^xsd:anyURI ] .
+
+
+#################################################################
+#  SC1 — Every Scene text field resolves to claims or Moments of
+#  the same Scene. No plain-literal text slot exists on a Scene.
+#################################################################
+
+mrs:SceneTextShape a sh:NodeShape ;
+    sh:targetClass mrs:SceneText ;
+    sh:property [ sh:path mrs:textValue ; sh:minCount 1 ; sh:datatype rdf:langString ; sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path mrs:resolvesTo ; sh:minCount 1 ;
+        sh:or ( [ sh:class mrs:Assertion ] [ sh:class mrs:Moment ] ) ;
+        sh:severity sh:Violation ;
+        sh:message "SC1: Scene text MUST resolve to at least one claim (mrs:Assertion) or Moment. Text that rests on nothing is authorship, not a view." ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC1: Scene text resolves to {?r}, which is not a beat (or a beat's evidence) of the Scene that shows it." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?r WHERE {
+              ?scene (mrs:sceneTitle|mrs:sceneCaption|mrs:hasBeat/mrs:narrationLine|mrs:hasQuestion/mrs:questionPrompt) $this .
+              $this mrs:resolvesTo ?r .
+              FILTER NOT EXISTS {
+                ?scene mrs:hasBeat ?b .
+                ?b (mrs:beatClaim|mrs:beatMoment|mrs:beatMoment/mrs:momentEvidence) ?r . }
+            }""" ] .
+
+mrs:SceneShape a sh:NodeShape ;
+    sh:targetClass mrs:Scene ;
+    sh:property [ sh:path mrs:sceneTitle ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class mrs:SceneText ;
+                  sh:severity sh:Violation ; sh:message "SC1: a Scene title is a SceneText, never a bare string." ] ;
+    sh:property [ sh:path mrs:sceneCaption ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class mrs:SceneText ;
+                  sh:severity sh:Violation ; sh:message "SC1: a Scene caption is a SceneText, never a bare string." ] ;
+    sh:property [ sh:path mrs:sceneVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:publicationState ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:PublicationState ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:scenePlace ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Place ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:placeCertainty ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( mrs:pc_certain mrs:pc_probable mrs:pc_approximate mrs:pc_disputed mrs:pc_unlocated ) ;
+                  sh:severity sh:Violation ; sh:message "A Scene MUST state exactly one place certainty." ] ;
+    sh:property [ sh:path mrs:sceneTime ; sh:maxCount 1 ; sh:class mrs:TemporalExtent ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:hasBeat ; sh:minCount 1 ; sh:class mrs:SceneBeat ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:hasFigure ; sh:class mrs:SceneFigure ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:camera ; sh:maxCount 1 ; sh:class mrs:CameraPose ; sh:severity sh:Violation ] ;
+
+    # Beat order is total.
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "Two beats of this Scene share beatIndex {?i}. Beat order MUST be total." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?i WHERE {
+              $this mrs:hasBeat ?b1 , ?b2 . FILTER (?b1 != ?b2)
+              ?b1 mrs:beatIndex ?i . ?b2 mrs:beatIndex ?i . }""" ] ;
+
+    # SC5 — a place with no coordinates MUST be declared unlocated.
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC5: the Scene's place {?p} has no geometry in the graph, so placeCertainty MUST be mrs:pc_unlocated (found {?c})." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?p ?c WHERE {
+              $this mrs:scenePlace ?p ; mrs:placeCertainty ?c .
+              FILTER (?c != mrs:pc_unlocated)
+              FILTER NOT EXISTS { ?p mrs:geometryState/mrs:geometry ?g . } }""" ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC5: an unlocated Scene MUST NOT carry an absolute camera position; use a relative pose (target, heading, pitch, range)." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+              $this mrs:placeCertainty mrs:pc_unlocated ; mrs:camera ?cam .
+              ?cam (mrs:cameraLon|mrs:cameraLat) ?x . }""" ] ;
+    .
+
+mrs:SceneUnlocatedWarningShape a sh:NodeShape ;
+    sh:targetClass mrs:Scene ;
+    sh:severity sh:Warning ;     # severity sits on the shape: SPARQL constraints inherit it
+    sh:sparql [
+        sh:message "SC5: the Scene is declared unlocated but its place {?p} has geometry. Check which is stale." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?p WHERE {
+              $this mrs:placeCertainty mrs:pc_unlocated ; mrs:scenePlace ?p .
+              ?p mrs:geometryState/mrs:geometry ?g . }""" ] .
+
+mrs:ScenePublishableShape a sh:NodeShape ;
+    sh:targetClass mrs:Scene ;
+    # SC3 — publishable only if every claim is accepted ...
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC3: a publishable Scene uses claim {?a}, whose status is {?st}. Every claim a Scene shows or relies on MUST be accepted." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT DISTINCT $this ?a ?st WHERE {
+              $this mrs:publicationState mrs:ps_publishable .
+              { $this mrs:hasBeat/mrs:beatClaim ?a }
+              UNION { $this mrs:hasBeat/mrs:beatMoment/mrs:momentEvidence ?a }
+              UNION { $this mrs:hasFigure/mrs:figureEvidence ?a }
+              UNION { $this mrs:hasQuestion/mrs:hasOption/mrs:optionEvidence ?a }
+              UNION { $this (mrs:sceneTitle|mrs:sceneCaption|mrs:hasBeat/mrs:narrationLine|mrs:hasQuestion/mrs:questionPrompt)/mrs:resolvesTo ?a }
+              ?a a mrs:Assertion .
+              OPTIONAL { ?a mrs:assertionStatus ?st0 }
+              BIND (COALESCE(?st0, "none") AS ?st)
+              FILTER (?st != mrs:as_accepted) }""" ] ;
+    # ... and every Moment is accepted ...
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC3: a publishable Scene uses Moment {?m}, whose status is {?st}. Every Moment MUST be accepted." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT DISTINCT $this ?m ?st WHERE {
+              $this mrs:publicationState mrs:ps_publishable .
+              { $this mrs:hasBeat/mrs:beatMoment ?m } UNION { $this mrs:hasFigure/mrs:figureEvidence ?m . ?m a mrs:Moment }
+              OPTIONAL { ?m mrs:momentStatus ?st0 }
+              BIND (COALESCE(?st0, "none") AS ?st)
+              FILTER (?st != mrs:as_accepted) }""" ] ;
+    # ... and a human approved THIS version.
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC3: a publishable Scene MUST have an mrs:ApprovalAct (outcome accept, by a human reviewer, dated) for its current sceneVersion." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+              $this mrs:publicationState mrs:ps_publishable ; mrs:sceneVersion ?v .
+              FILTER NOT EXISTS {
+                ?ap a mrs:ApprovalAct ; mrs:reviewTarget $this ; mrs:reviewOutcome mrs:ro_accept ;
+                    mrs:approvedVersion ?v ; mrs:reviewDate ?d ; mrs:reviewedBy ?who .
+                ?who a prov:Person . } }""" ] .
+
+mrs:SceneBeatShape a sh:NodeShape ;
+    sh:targetClass mrs:SceneBeat ;
+    sh:property [ sh:path mrs:beatIndex ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:positiveInteger ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:narrationLine ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class mrs:SceneText ; sh:severity sh:Violation ;
+                  sh:message "SC1: a narration line is a SceneText, never a bare string." ] ;
+    sh:xone (
+        [ sh:property [ sh:path mrs:beatMoment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Moment ] ;
+          sh:property [ sh:path mrs:beatClaim ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path mrs:beatClaim ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Assertion ] ;
+          sh:property [ sh:path mrs:beatMoment ; sh:maxCount 0 ] ] ) ;
+    sh:message "A SceneBeat carries exactly one Moment or exactly one claim." .
+
+
+#################################################################
+#  SC2 — Every question option, answer or distractor, has an
+#  evidence claim. Exactly one option is the answer.
+#################################################################
+
+mrs:SceneQuestionShape a sh:NodeShape ;
+    sh:targetClass mrs:SceneQuestion ;
+    sh:property [ sh:path mrs:questionPrompt ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:SceneText ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:hasOption ; sh:minCount 2 ; sh:class mrs:QuestionOption ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path ( mrs:hasOption mrs:isAnswer ) ; sh:qualifiedValueShape [ sh:hasValue true ] ;
+                  sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ; sh:severity sh:Violation ;
+                  sh:message "SC2: a question has exactly one answer." ] .
+
+mrs:QuestionOptionShape a sh:NodeShape ;
+    sh:targetClass mrs:QuestionOption ;
+    sh:property [ sh:path mrs:optionText ; sh:minCount 1 ; sh:datatype rdf:langString ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:isAnswer ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:optionEvidence ; sh:minCount 1 ; sh:class mrs:Assertion ; sh:severity sh:Violation ;
+                  sh:message "SC2: every option MUST name the claim that decides it: for the answer, the claim that makes it right; for a distractor, the claim that makes it wrong." ] .
+
+
+#################################################################
+#  SC4 — The Prophet ﷺ is drawn only as light; light is his alone.
+#  Belt and braces: the depiction flag on the person, AND his IRI.
+#################################################################
+
+mrs:SceneFigureShape a sh:NodeShape ;
+    sh:targetClass mrs:SceneFigure ;
+    sh:property [ sh:path mrs:depicts ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Person ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:drawRole ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( mrs:dr_light mrs:dr_person mrs:dr_stone ) ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:figureEvidence ; sh:minCount 1 ;
+                  sh:or ( [ sh:class mrs:Assertion ] [ sh:class mrs:Moment ] ) ; sh:severity sh:Violation ;
+                  sh:message "A person drawn in a scene MUST be put there by a claim or Moment." ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC4: the Prophet ﷺ may only be drawn with role mrs:dr_light (found {?r}). Never a node, figure or stone." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?r WHERE {
+              $this mrs:depicts ?p ; mrs:drawRole ?r .
+              { ?p mrs:depictionConstraint mrs:dc_light_only }
+              UNION { FILTER (?p = <https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai>) }
+              FILTER (?r != mrs:dr_light) }""" ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC4: mrs:dr_light is reserved for the Prophet ﷺ; {?p} may not be drawn as light." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?p WHERE {
+              $this mrs:depicts ?p ; mrs:drawRole mrs:dr_light .
+              FILTER NOT EXISTS { ?p mrs:depictionConstraint mrs:dc_light_only }
+              FILTER (?p != <https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai>) }""" ] .
+
+mrs:ProphetDepictionShape a sh:NodeShape ;
+    sh:targetNode <https://w3id.org/marsad/id/person/Vc74FSoBSMY4TBSEwjPyai> ;
+    sh:property [ sh:path mrs:depictionConstraint ; sh:hasValue mrs:dc_light_only ; sh:severity sh:Warning ;
+                  sh:message "SC4: the Prophet's person record should carry mrs:depictionConstraint mrs:dc_light_only, so the rule does not depend on one IRI." ] .
+
+
+#################################################################
+#  SC6 — Moments: anchored, ordered, status-bearing, never asserted
+#  by software. A status other than proposed needs a human decision.
+#################################################################
+
+mrs:MomentShape a sh:NodeShape ;
+    sh:targetClass mrs:Moment ;
+    sh:property [ sh:path mrs:momentOf ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Report ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:anchoredIn ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Passage ; sh:severity sh:Violation ;
+                  sh:message "SC6: a Moment MUST be anchored to a Passage span." ] ;
+    sh:property [ sh:path mrs:spanStart ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:nonNegativeInteger ;
+                  sh:lessThan mrs:spanEnd ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:spanEnd ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:nonNegativeInteger ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:sequenceIndex ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:positiveInteger ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:actionType ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:ActionType ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:hedge ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Hedge ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:momentStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:AssertionStatus ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:momentEvidence ; sh:class mrs:Assertion ; sh:severity sh:Violation ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC6: Moment status is {?st} but no human mrs:ReviewDecision gives it that status. Software proposes; only a reviewer moves a status." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?st WHERE {
+              $this mrs:momentStatus ?st . FILTER (?st != mrs:as_proposed)
+              FILTER NOT EXISTS {
+                ?d mrs:reviewTarget $this ; mrs:statusAfter ?st ; mrs:reviewedBy ?who .
+                ?who a prov:Person . } }""" ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC6: Moment evidence {?a} is not drawn from the Moment's own passage." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?a WHERE {
+              $this mrs:momentEvidence ?a ; mrs:momentOf ?r .
+              ?a mrs:fromReport ?r2 . FILTER (?r2 != ?r) }""" ] .
+
+
+#################################################################
+#  SC7 — Approval is a dated act by a human, for one version.
+#################################################################
+
+mrs:ApprovalActShape a sh:NodeShape ;
+    sh:targetClass mrs:ApprovalAct ;
+    sh:property [ sh:path mrs:reviewedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Person ; sh:severity sh:Violation ;
+                  sh:message "SC7: an approval is made by a human reviewer (prov:Person), never by software." ] ;
+    sh:property [ sh:path mrs:reviewTarget ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:or ( [ sh:class mrs:Scene ] [ sh:class mrs:Journey ] ) ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:reviewOutcome ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:reviewDate ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:date ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:approvedVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ] .
+
+mrs:ApprovalStaleShape a sh:NodeShape ;
+    sh:targetClass mrs:ApprovalAct ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        sh:message "SC7: this approval is for version {?av} but the target is now at {?v}; it is stale." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?av ?v WHERE {
+              $this mrs:approvedVersion ?av ; mrs:reviewTarget ?t . ?t mrs:sceneVersion ?v .
+              FILTER (STR(?av) != STR(?v)) }""" ] .
+
+
+#################################################################
+#  SC8 — Sound: ambient and effects only; no voice is synthesised.
+#  SC9 — Journeys: ordered; publishable only if every Scene is.
+#################################################################
+
+mrs:SoundCueShape a sh:NodeShape ;
+    sh:targetClass mrs:SoundCue ;
+    sh:property [ sh:path mrs:cueKind ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( mrs:sk_ambient mrs:sk_effect mrs:sk_silence ) ; sh:severity sh:Violation ;
+                  sh:message "SC8: a sound cue is ambient, an effect, or silence. No person's voice is ever produced." ] ;
+    sh:property [ sh:path mrs:cueAtBeat ; sh:maxCount 1 ; sh:class mrs:SceneBeat ; sh:severity sh:Violation ] .
+
+mrs:JourneyShape a sh:NodeShape ;
+    sh:targetClass mrs:Journey ;
+    sh:property [ sh:path mrs:hasStep ; sh:minCount 1 ; sh:class mrs:JourneyStep ; sh:severity sh:Violation ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC9: a publishable Journey includes Scene {?s}, which is not publishable." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?s WHERE {
+              $this mrs:publicationState mrs:ps_publishable ; mrs:hasStep/mrs:stepScene ?s .
+              FILTER NOT EXISTS { ?s mrs:publicationState mrs:ps_publishable } }""" ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "SC9: two steps of this Journey share stepIndex {?i}." ;
+        sh:prefixes <https://w3id.org/marsad/scene-shapes> ;
+        sh:select """
+            SELECT $this ?i WHERE {
+              $this mrs:hasStep ?a , ?b . FILTER (?a != ?b)
+              ?a mrs:stepIndex ?i . ?b mrs:stepIndex ?i . }""" ] .
+
+mrs:JourneyStepShape a sh:NodeShape ;
+    sh:targetClass mrs:JourneyStep ;
+    sh:property [ sh:path mrs:stepIndex ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:positiveInteger ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:stepScene ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mrs:Scene ; sh:severity sh:Violation ] .
