@@ -1,0 +1,2744 @@
+{
+  "act": 1,
+  "title": "Makkah under pressure",
+  "subtitle": "From the public call to the return from al-Ṭāʾif: how Makkah became a city the Prophet ﷺ could no longer live in",
+  "span": "c. 613–620 CE",
+  "units": [
+    {
+      "id": "a01-u01",
+      "title": "The call made public",
+      "kicker": "The message leaves the private circle",
+      "when": {
+        "label": "c. 613 CE, about three years after the first revelation",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "kaaba"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "kaaba",
+        "dist": 1.5,
+        "pitch": 35,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Ṭālib",
+          "role": "person"
+        },
+        {
+          "name": "the leading men of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq reports that men and women entered Islam in groups until it was talked about across Makkah. Then Allah commanded the Prophet ﷺ to proclaim openly what had come to him and to call people to it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0367"
+            }
+          ]
+        },
+        {
+          "text": "He puts three years between the start of the mission and this command, but only with the hedge 'as it reached me'.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0367"
+            }
+          ],
+          "note": "Ibn Isḥāq hedges the three-year interval (fīmā balaghanī); no chain is given."
+        },
+        {
+          "text": "The verses Ibn Isḥāq gives for the command include the order to proclaim what he was commanded and to warn his nearest kin.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "15:94"
+            },
+            {
+              "type": "quran",
+              "ref": "26:214"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0367"
+            }
+          ]
+        },
+        {
+          "text": "Al-Bukhārī's report from Ibn ʿAbbās says that when the verse on warning the nearest kin came, the Prophet ﷺ climbed al-Ṣafā and called out to the clans of Quraysh, and Abū Lahab answered him with a curse.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 4770",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports, with the hedge 'as it reached me', that his people did not turn away from him until he spoke of their gods and found fault with them. After that they united in hostility, apart from the few Muslims, who kept themselves hidden.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0370"
+            }
+          ]
+        },
+        {
+          "text": "His uncle Abū Ṭālib took his side, protected him and stood in front of him, and would not hand him over.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0370"
+            }
+          ]
+        },
+        {
+          "text": "Leading men of Quraysh went to Abū Ṭālib to complain, among them ʿUtba and Shayba, sons of Rabīʿa, Abū Sufyān b. Ḥarb, Abū al-Bakhtarī, Abū Jahl, al-Walīd b. al-Mughīra and al-ʿĀṣ b. Wāʾil.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0370"
+            }
+          ]
+        },
+        {
+          "text": "When Abū Ṭālib asked him not to load him with more than he could bear, the Prophet ﷺ replied that even if they put the sun in his right hand and the moon in his left he would not give up the matter until Allah made it prevail or he perished in it. Abū Ṭālib then told him to go and say what he wished, for he would never hand him over.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0373"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "15:94",
+          "gist": "The Prophet is told to declare openly what he has been commanded and to turn away from those who set up partners with Allah.",
+          "context": "Ibn Isḥāq cites it as the command that ended the private phase of the call (S0367).",
+          "grade": "supported"
+        },
+        {
+          "ref": "26:214",
+          "gist": "He is told to warn his own closest relatives first.",
+          "context": "Cited by Ibn Isḥāq (S0367); al-Bukhārī 4770 ties it to the call from al-Ṣafā.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Ṭālib b. ʿAbd al-Muṭṭalib",
+          "who": "The Prophet's paternal uncle, head of Banū Hāshim",
+          "here": "Refused to hand his nephew over"
+        },
+        {
+          "name": "Abū Lahab",
+          "who": "Another paternal uncle",
+          "here": "Answered the call at al-Ṣafā with a curse"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look around the valley",
+          "camera": {
+            "target": "kaaba",
+            "dist": 4,
+            "pitch": 45,
+            "heading": 120
+          },
+          "reveal": {
+            "text": "The Kaʿba stands in the bed of a narrow valley closed in by bare, rocky hills, so the town's open space was small and everyone met around the sanctuary.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "According to Ibn Isḥāq, what turned Quraysh from indifference to open hostility?",
+        "options": [
+          {
+            "text": "He spoke of their gods and found fault with them",
+            "why": "Ibn Isḥāq says they did not turn away from him until he did this.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0370"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "He claimed leadership of Makkah",
+            "why": "No source here says this; the complaint was about their gods and their fathers' religion.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0370"
+              }
+            ]
+          },
+          {
+            "text": "He left Makkah for another town",
+            "why": "He stayed; Abū Ṭālib protected him in Makkah.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0370"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Once the call was public, everything depended on the protection of one uncle. That single thread of protection is what the rest of this act tests.",
+      "sections": [
+        "S0367",
+        "S0370",
+        "S0373"
+      ]
+    },
+    {
+      "id": "a01-u02",
+      "title": "Hands on him at the Ḥijr",
+      "kicker": "Hostility at the sanctuary and at home",
+      "when": {
+        "label": "The middle Makkan years (before 619 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "kaaba",
+        "note": "The Ḥijr, beside the Kaʿba"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "kaaba",
+        "dist": 0.9,
+        "pitch": 40,
+        "heading": 140
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "the nobles of Quraysh in the Ḥijr",
+          "role": "group-stone"
+        },
+        {
+          "name": "ʿUqba b. Abī Muʿayṭ",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Asked about the worst he saw Quraysh do to the Prophet ﷺ, ʿAbd Allāh b. ʿAmr b. al-ʿĀṣ described their nobles gathered in the Ḥijr, complaining that he had mocked their judgement, insulted their fathers, faulted their religion, split their community and reviled their gods.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0391"
+            }
+          ]
+        },
+        {
+          "text": "As the Prophet ﷺ passed them three times while circling the House, they made remarks at him. At the third pass he stopped and spoke to them, and they fell silent.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0391"
+            }
+          ]
+        },
+        {
+          "text": "The next day they surrounded him together and one of them seized him by the folds of his cloak. Abū Bakr stood between them, weeping, and asked whether they would kill a man for saying 'My Lord is Allah'.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0391"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3856",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī's version the attacker was ʿUqba b. Abī Muʿayṭ, who twisted a garment around the Prophet's ﷺ neck while he prayed in the Ḥijr.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3856",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Another report in al-Bukhārī says that while the Prophet ﷺ was prostrating at the Kaʿba, ʿUqba b. Abī Muʿayṭ, urged on by a group of Quraysh, laid the afterbirth of a slaughtered camel on his back, and his daughter Fāṭima came and removed it.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 240",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq names the neighbours who harassed him at his house: Abū Lahab, al-Ḥakam b. Abī al-ʿĀṣ, ʿUqba b. Abī Muʿayṭ, ʿAdī b. Ḥamrāʾ al-Thaqafī and Ibn al-Aṣdāʾ al-Hudhalī.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0582"
+            }
+          ]
+        },
+        {
+          "text": "He reports, with the hedge 'as was mentioned to me', that one of them threw a sheep's womb on him while he prayed and another threw it into his cooking pot, so that he set up a stone to screen himself when praying.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0582"
+            }
+          ],
+          "note": "Hedged by Ibn Isḥāq (fīmā dhukira lī); no chain."
+        },
+        {
+          "text": "Through ʿUrwa b. al-Zubayr he adds that the Prophet ﷺ would carry the filth out on a stick, stand at his door, ask the clan of ʿAbd Manāf what sort of neighbourliness this was, and throw it into the road.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0582"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "40:28",
+          "gist": "A believing man of Pharaoh's people asks them whether they would kill a man only because he says his Lord is Allah, when he has brought them clear signs.",
+          "context": "Abū Bakr's words at the Ḥijr are the words of this verse; al-Bukhārī 3856 has him say them.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAbd Allāh b. ʿAmr b. al-ʿĀṣ",
+          "who": "Companion, son of ʿAmr b. al-ʿĀṣ",
+          "here": "The witness of the Ḥijr incident"
+        },
+        {
+          "name": "Fāṭima",
+          "who": "The Prophet's daughter",
+          "here": "Removed the filth from his back"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Find the Ḥijr",
+          "camera": {
+            "target": "kaaba",
+            "dist": 0.8,
+            "pitch": 60,
+            "heading": 315
+          },
+          "reveal": {
+            "text": "The Ḥijr is the curved, open enclosure on the north-west side of the Kaʿba, where people sat in the shade of the House.",
+            "grade": "reconstruction",
+            "basis": "site plan of the Kaʿba"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Quraysh have surrounded him in the Ḥijr and one has grabbed his cloak. Who steps in?",
+        "options": [
+          {
+            "text": "Abū Bakr",
+            "why": "Both Ibn Isḥāq and al-Bukhārī say Abū Bakr pushed in and spoke the words of 40:28.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0391"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3856",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "Abū Ṭālib",
+            "why": "Abū Ṭālib protected him through his clan, but he is not named in this incident.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0391"
+              }
+            ]
+          },
+          {
+            "text": "Ḥamza",
+            "why": "Ḥamza is not named in either account of this incident.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0391"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Even under Abū Ṭālib's protection, the Prophet ﷺ could be mobbed at the sanctuary and insulted in his own home. The protection kept him alive; it did not keep him safe.",
+      "sections": [
+        "S0391",
+        "S0582"
+      ]
+    },
+    {
+      "id": "a01-u03",
+      "title": "The weak in the noon heat",
+      "kicker": "Those with no clan to shield them",
+      "when": {
+        "label": "Early Makkan years (c. 613–615 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah",
+        "note": "The valley floor (baṭḥāʾ) of Makkah"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "makkah",
+        "dist": 2.5,
+        "pitch": 30,
+        "heading": 60
+      },
+      "lights": [
+        {
+          "name": "Bilāl b. Rabāḥ",
+          "role": "person"
+        },
+        {
+          "name": "Umayya b. Khalaf",
+          "role": "stone"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "the family of Yāsir",
+          "role": "group"
+        },
+        {
+          "name": "Banū Makhzūm",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Bilāl b. Rabāḥ was a slave born among Banū Jumaḥ. When the noon heat was at its height Umayya b. Khalaf would take him out, lay him on his back on the stony valley floor of Makkah and have a great rock placed on his chest.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0427"
+            }
+          ]
+        },
+        {
+          "text": "Umayya told him it would go on until he died or rejected Muḥammad and worshipped al-Lāt and al-ʿUzzā. Bilāl kept repeating 'One, One' (aḥad, aḥad).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0427"
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr, whose house was among Banū Jumaḥ, gave Umayya a stronger slave of his own in exchange for Bilāl and freed him. Ibn Isḥāq lists six others he freed for their Islam, among them ʿĀmir b. Fuhayra and Zinnīra.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0427"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0428"
+            }
+          ]
+        },
+        {
+          "text": "Banū Makhzūm took ʿAmmār b. Yāsir out with his father and mother, a household of Muslims, and tormented them on the scorching ground. They killed his mother, who refused to give up Islam.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0430"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports, with the hedge 'as it reached me', that the Prophet ﷺ passed them and told the family of Yāsir to be patient, for their promised meeting place was Paradise.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0430"
+            }
+          ],
+          "note": "Hedged by Ibn Isḥāq (fīmā balaghanī); no chain."
+        },
+        {
+          "text": "Saʿīd b. Jubayr asked Ibn ʿAbbās whether the torture was bad enough to excuse giving up the religion. He said yes: some were beaten, starved and kept thirsty until they could not sit upright, and then said whatever their tormentors demanded.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0432"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Feel the valley floor at noon",
+          "camera": {
+            "target": "makkah",
+            "dist": 1.2,
+            "pitch": 70,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Makkah's valley floor is gravel and sand between bare rock hills. In the hot months, temperatures in the middle of the day often pass 40 °C and the ground is hotter still.",
+            "grade": "reconstruction",
+            "basis": "climate data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Ibn ʿAbbās said some believers gave in under torture. What does that tell you about the pressure on those without a protector?",
+        "options": [
+          {
+            "text": "Faith alone could not stop the beatings; only protection or escape could",
+            "why": "Abū Bakr's purchases and the later move to Abyssinia were the two ways out the sources describe.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0427"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0432"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0434"
+              }
+            ]
+          },
+          {
+            "text": "The clan system protected only those who belonged to a strong clan",
+            "why": "Slaves like Bilāl and clients like Yāsir's family had no one to stand in front of them.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0427"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0430"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Abū Ṭālib could shield his nephew, but nobody shielded the slaves and the clientless. Their suffering is the first reason a place of refuge was needed.",
+      "sections": [
+        "S0427",
+        "S0428",
+        "S0430",
+        "S0432"
+      ]
+    },
+    {
+      "id": "a01-u04",
+      "title": "A land of truthfulness",
+      "kicker": "The first emigration",
+      "when": {
+        "label": "Rajab, fifth year of the mission (c. 615 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~habasha",
+        "note": "The kingdom of Abyssinia (Aksum), across the Red Sea; not drawn on this map"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": [
+          39.0,
+          19.5
+        ],
+        "dist": 450,
+        "pitch": 35,
+        "heading": 210
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the emigrants to Abyssinia",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "makkah",
+        "~habasha"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says that when the Prophet ﷺ saw what his companions suffered, while he himself was kept safe by his standing with Allah and with Abū Ṭālib, and that he could not protect them, he told them to go to Abyssinia.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0434"
+            }
+          ]
+        },
+        {
+          "text": "He described it as a land with a king under whom no one is wronged, a land of truthfulness, where they could stay until Allah gave them a way out.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0434"
+            }
+          ]
+        },
+        {
+          "text": "They left for fear of being forced from their religion, fleeing to Allah with their faith. Ibn Isḥāq calls this the first emigration in Islam.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0434"
+            }
+          ]
+        },
+        {
+          "text": "Among the first to go were ʿUthmān b. ʿAffān with his wife Ruqayya, the Prophet's ﷺ daughter; Abū Ḥudhayfa b. ʿUtba with Sahla bint Suhayl; al-Zubayr b. al-ʿAwwām; Muṣʿab b. ʿUmayr; ʿAbd al-Raḥmān b. ʿAwf; Abū Salama with Umm Salama; and ʿUthmān b. Maẓʿūn.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0435"
+            }
+          ]
+        },
+        {
+          "text": "Jaʿfar b. Abī Ṭālib, the Prophet's ﷺ cousin, went with his wife, and their son ʿAbd Allāh was born in Abyssinia.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0436"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq counts all who reached Abyssinia, not counting their children, as eighty-three men, if ʿAmmār b. Yāsir was among them, which he doubts.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0456"
+            }
+          ],
+          "note": "Ibn Isḥāq himself is unsure whether ʿAmmār went; the total depends on it."
+        },
+        {
+          "text": "Ibn Saʿd dates the first departure to Rajab of the fifth year of the mission.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr",
+              "note": "Account of the first emigration to Abyssinia",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "To reach Abyssinia from Makkah the emigrants had to reach the Red Sea coast, roughly 70 km to the west, and cross by boat to the African shore.",
+          "grade": "reconstruction",
+          "basis": "approximate map distance; the port is not in the gazetteer"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿUthmān b. ʿAffān and Ruqayya",
+          "who": "Companion of Banū Umayya and the Prophet's daughter",
+          "here": "Named first among the emigrants"
+        },
+        {
+          "name": "Jaʿfar b. Abī Ṭālib",
+          "who": "The Prophet's cousin, brother of ʿAlī",
+          "here": "Emigrated with his wife"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look west across the sea",
+          "camera": {
+            "target": [
+              38.5,
+              18.0
+            ],
+            "dist": 500,
+            "pitch": 25,
+            "heading": 230
+          },
+          "reveal": {
+            "text": "The Red Sea separates the Ḥijāz from the African coast; at this latitude it is roughly 300 km wide.",
+            "grade": "reconstruction",
+            "basis": "map measurement at about 18–21° N"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "His companions are being tortured and he cannot stop it. Where does the Prophet ﷺ tell them to go?",
+        "options": [
+          {
+            "text": "Abyssinia, to a just king",
+            "why": "Ibn Isḥāq gives his words about a king under whom no one is wronged.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0434"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "Yathrib",
+            "why": "Yathrib comes later, after the pledges at al-ʿAqaba; it was not yet an option.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0434"
+              }
+            ]
+          },
+          {
+            "text": "al-Ṭāʾif",
+            "why": "The approach to al-Ṭāʾif came years later, and he went himself.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0587"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The first emigration was a hijra in all but destination: leaving home and kin to keep one's religion. It showed that refuge outside Makkah was possible.",
+      "sections": [
+        "S0434",
+        "S0435",
+        "S0436",
+        "S0456"
+      ]
+    },
+    {
+      "id": "a01-u05",
+      "title": "Before the Najāshī",
+      "kicker": "Quraysh pursue the emigrants",
+      "when": {
+        "label": "Soon after the emigration (c. 615–616 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~habasha",
+        "note": "The Najāshī's court; site not located on this map"
+      },
+      "sky": "day",
+      "camera": {
+        "target": [
+          39.5,
+          16.5
+        ],
+        "dist": 400,
+        "pitch": 30,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "Jaʿfar b. Abī Ṭālib",
+          "role": "person"
+        },
+        {
+          "name": "Umm Salama",
+          "role": "person"
+        },
+        {
+          "name": "the Najāshī",
+          "role": "person"
+        },
+        {
+          "name": "the emigrants",
+          "role": "group"
+        },
+        {
+          "name": "ʿAmr b. al-ʿĀṣ and ʿAbd Allāh b. Abī Rabīʿa",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "When Quraysh saw that the emigrants had found safety and a settled home, they sent two hardy men, ʿAbd Allāh b. Abī Rabīʿa and ʿAmr b. al-ʿĀṣ, with gifts for the Najāshī and his generals, to have them handed back.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0459"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq's account of what followed is told by Umm Salama, who was among the emigrants.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0461"
+            }
+          ]
+        },
+        {
+          "text": "Summoned by the king, the emigrants agreed among themselves to say only what they knew and what their Prophet ﷺ had commanded, whatever the outcome.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0462"
+            }
+          ]
+        },
+        {
+          "text": "Jaʿfar spoke for them. He said they had worshipped idols, eaten carrion, cut family ties, wronged their neighbours and let the strong devour the weak, until a messenger from among them, whose lineage and honesty they knew, called them to worship Allah alone, to speak truthfully, keep trusts and honour kinship.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0462"
+            }
+          ]
+        },
+        {
+          "text": "He told the king that their own people had tortured them to force them back to idols, and that when they were overpowered and hemmed in they chose his land and his protection, hoping not to be wronged there.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0462"
+            }
+          ]
+        },
+        {
+          "text": "Asked for something of the revelation, Jaʿfar recited the opening of Sūrat Maryam. Umm Salama says the Najāshī and his bishops wept, and the king refused to hand the emigrants over.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0462"
+            },
+            {
+              "type": "quran",
+              "ref": "19:1"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "19:1",
+          "gist": "Sūrat Maryam opens with Zakariyyā's prayer for a son and goes on to tell of Maryam and the birth of ʿĪsā.",
+          "context": "Umm Salama's report in Ibn Isḥāq says Jaʿfar recited its opening before the Najāshī (S0462).",
+          "grade": "supported"
+        }
+      ],
+      "people": [
+        {
+          "name": "Umm Salama bint Abī Umayya",
+          "who": "Emigrant with her husband Abū Salama; later a wife of the Prophet",
+          "here": "The narrator of the scene"
+        },
+        {
+          "name": "ʿAmr b. al-ʿĀṣ",
+          "who": "Envoy of Quraysh, later a Companion",
+          "here": "Came to have the emigrants returned"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Hear what Jaʿfar said they fled from",
+          "camera": {
+            "target": "makkah",
+            "dist": 300,
+            "pitch": 30,
+            "heading": 190
+          },
+          "reveal": {
+            "text": "Jaʿfar's own words name the reason for leaving: their people tortured them, pressed them and came between them and their religion.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0462"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did Jaʿfar recite when the Najāshī asked to hear the revelation?",
+        "options": [
+          {
+            "text": "The opening of Sūrat Maryam",
+            "why": "Umm Salama's account says so.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0462"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "Sūrat al-Fātiḥa",
+            "why": "Not in the account.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0462"
+              }
+            ]
+          },
+          {
+            "text": "Sūrat Yūsuf",
+            "why": "Not in the account.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0462"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Quraysh's reach extended across the sea, but a just ruler outside their power could refuse them. Protection, not distance, was what made a refuge.",
+      "sections": [
+        "S0459",
+        "S0461",
+        "S0462"
+      ]
+    },
+    {
+      "id": "a01-u06",
+      "title": "Only under someone's protection",
+      "kicker": "Returning emigrants and Abū Bakr's attempt to leave",
+      "when": {
+        "label": "c. 615–617 CE",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "makkah",
+        "dist": 6,
+        "pitch": 30,
+        "heading": 330
+      },
+      "lights": [
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "Ibn al-Daghina",
+          "role": "person"
+        },
+        {
+          "name": "returning emigrants",
+          "role": "group"
+        },
+        {
+          "name": "men of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Word reached the emigrants in Abyssinia that the people of Makkah had become Muslim, and some set out for home. Near Makkah they learned the report was false.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0493"
+            }
+          ]
+        },
+        {
+          "text": "None of them entered except under a protector's guarantee (jiwār) or in hiding. Ibn Isḥāq counts thirty-three men who came back from Abyssinia to Makkah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0493"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0505"
+            }
+          ]
+        },
+        {
+          "text": "ʿUthmān b. Maẓʿūn entered under the protection of al-Walīd b. al-Mughīra, and Abū Salama under that of his maternal uncle Abū Ṭālib.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0505"
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr, when Makkah had become narrow for him and he was harmed there, asked the Prophet ﷺ for permission to emigrate and set out. After a day or two on the road he met Ibn al-Daghina, chief of the Aḥābīsh.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0508"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn al-Daghina said a man who supported his kin, helped in misfortune and did good should not be driven out. He brought Abū Bakr back and announced to Quraysh that he was under his protection.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0509"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr prayed at a place of prayer by his door and wept as he recited. Women, children and slaves stopped to watch, and Quraysh complained that he would turn them.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0510"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Told to worship only inside his house, Abū Bakr gave the protection back, saying he was content with the protection of Allah. Soon after, a man of Quraysh threw dust on his head on his way to the Kaʿba.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0510"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Ibn al-Daghina",
+          "who": "Chief of the Aḥābīsh, the allied tribes below Makkah",
+          "here": "Brought Abū Bakr back under his protection"
+        },
+        {
+          "name": "ʿUthmān b. Maẓʿūn",
+          "who": "Early emigrant of Banū Jumaḥ",
+          "here": "Re-entered Makkah under al-Walīd's protection"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Where Abū Bakr was turned back",
+          "camera": {
+            "target": "makkah",
+            "dist": 60,
+            "pitch": 30,
+            "heading": 200
+          },
+          "reveal": {
+            "text": "In al-Bukhārī's version Abū Bakr had reached Bark al-Ghimād when Ibn al-Daghina met him. The place is not securely located, so it is not drawn.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Why did Quraysh object to Abū Bakr praying by his door?",
+        "options": [
+          {
+            "text": "They feared their women, children and weaker folk would be drawn in",
+            "why": "That is the complaint they took to Ibn al-Daghina.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0510"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "He was blocking the road",
+            "why": "The sources give no such complaint.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0510"
+              }
+            ]
+          },
+          {
+            "text": "He prayed facing away from the Kaʿba",
+            "why": "The sources give no such complaint.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0510"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "By now a Muslim could live in Makkah only on a non-Muslim's guarantee, and even the most respected of them had tried to leave. Makkah was becoming a city one could enter but not live in.",
+      "sections": [
+        "S0493",
+        "S0505",
+        "S0508",
+        "S0509",
+        "S0510"
+      ]
+    },
+    {
+      "id": "a01-u07",
+      "title": "The document in the Kaʿba",
+      "kicker": "Quraysh boycott Banū Hāshim and Banū al-Muṭṭalib",
+      "when": {
+        "label": "c. 616–619 CE",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "~shib_abi_talib",
+        "note": "The ravine of Abū Ṭālib in Makkah; exact site not established"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "kaaba",
+        "dist": 2,
+        "pitch": 40,
+        "heading": 80
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Ṭālib",
+          "role": "person"
+        },
+        {
+          "name": "Banū Hāshim and Banū al-Muṭṭalib",
+          "role": "group"
+        },
+        {
+          "name": "Abū Lahab",
+          "role": "stone"
+        },
+        {
+          "name": "Quraysh party to the pact",
+          "role": "group-stone"
+        }
+      ],
+      "route": [
+        "kaaba",
+        "~shib_abi_talib"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq gives the background: the companions had found safety in Abyssinia, the Najāshī had protected them, ʿUmar had become Muslim and stood with Ḥamza beside the Prophet ﷺ, and Islam was spreading among the tribes.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0475"
+            }
+          ]
+        },
+        {
+          "text": "Quraysh agreed in writing against Banū Hāshim and Banū al-Muṭṭalib: no one would marry their women or give women to them in marriage, sell them anything or buy anything from them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0475"
+            }
+          ]
+        },
+        {
+          "text": "They hung the sheet inside the Kaʿba to bind themselves the more firmly.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0475"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq names the scribe as Manṣūr b. ʿIkrima of Banū ʿAbd al-Dār; Ibn Hishām adds, with 'it is said', that it was al-Naḍr b. al-Ḥārith.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0475"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0517"
+            }
+          ],
+          "note": "Ibn Isḥāq and Ibn Hishām name different scribes."
+        },
+        {
+          "text": "The two clans gathered with Abū Ṭālib in his ravine (shiʿb). Of Banū Hāshim only Abū Lahab left them and sided with Quraysh.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0475"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports that Abū Lahab met Hind bint ʿUtba and asked whether he had not stood by al-Lāt and al-ʿUzzā; she thanked him for it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0476"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Saʿd dates the start of the boycott to Muḥarram of the seventh year of the mission; later writers usually give its length as two or three years.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr",
+              "note": "Account of the ṣaḥīfa and the shiʿb",
+              "verify": true
+            }
+          ],
+          "note": "Ibn Isḥāq's text here gives no length; other sources differ between two and three years."
+        }
+      ],
+      "quran": [
+        {
+          "ref": "111:1",
+          "gist": "Abū Lahab's efforts, and Abū Lahab himself, are ruined.",
+          "context": "Ibn Isḥāq ties it to Abū Lahab's mockery of the promise of the hereafter (S0476); al-Bukhārī 4770 ties it to his curse at al-Ṣafā. The occasion is disputed; that it concerns Abū Lahab is not.",
+          "grade": "disputed"
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Lahab (ʿAbd al-ʿUzzā b. ʿAbd al-Muṭṭalib)",
+          "who": "The Prophet's uncle",
+          "here": "The one Hāshimite who joined the boycott"
+        },
+        {
+          "name": "Manṣūr b. ʿIkrima",
+          "who": "Of Banū ʿAbd al-Dār",
+          "here": "Named by Ibn Isḥāq as the scribe"
+        }
+      ],
+      "discover": [
+        {
+          "label": "See the side valleys",
+          "camera": {
+            "target": "makkah",
+            "dist": 5,
+            "pitch": 50,
+            "heading": 60
+          },
+          "reveal": {
+            "text": "Makkah's shiʿāb are narrow side valleys that run up from the main valley into the hills. A clan could be shut into one with a single entrance.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Quraysh have sealed the boycott. Which member of the Prophet's ﷺ own clan goes over to them?",
+        "options": [
+          {
+            "text": "Abū Lahab",
+            "why": "Ibn Isḥāq says he alone of Banū Hāshim left and backed Quraysh.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0475"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "al-ʿAbbās",
+            "why": "Not named as leaving.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0475"
+              }
+            ]
+          },
+          {
+            "text": "Abū Ṭālib",
+            "why": "He led the clans into his ravine.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0475"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The boycott turned the quarrel from individuals to whole clans: the Prophet's ﷺ kin were cut off from trade and marriage for refusing to give him up.",
+      "sections": [
+        "S0475",
+        "S0476",
+        "S0517"
+      ]
+    },
+    {
+      "id": "a01-u08",
+      "title": "Camels in the night",
+      "kicker": "Five men undo the pact",
+      "when": {
+        "label": "End of the boycott (c. 619 CE)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "~hajun",
+        "note": "Khaṭm al-Ḥajūn, in upper Makkah; exact spot not established"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 3,
+        "pitch": 35,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "Hishām b. ʿAmr",
+          "role": "person"
+        },
+        {
+          "name": "Zuhayr b. Abī Umayya",
+          "role": "person"
+        },
+        {
+          "name": "al-Muṭʿim b. ʿAdī",
+          "role": "person"
+        },
+        {
+          "name": "Abū al-Bakhtarī",
+          "role": "person"
+        },
+        {
+          "name": "Zamʿa b. al-Aswad",
+          "role": "person"
+        },
+        {
+          "name": "Abū Jahl",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "~hajun",
+        "kaaba"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq reports, with the hedge 'as it reached me', that Hishām b. ʿAmr would lead a camel loaded with food to the mouth of the ravine at night, slip off its halter and drive it in to the besieged clans, and later did the same with cloth.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0511"
+            }
+          ],
+          "note": "Hedged by Ibn Isḥāq (fīmā balaghanī)."
+        },
+        {
+          "text": "Hishām asked Zuhayr b. Abī Umayya, whose mother was ʿĀtika bint ʿAbd al-Muṭṭalib, whether he could eat, dress and marry while his mother's kin could neither buy nor sell. Zuhayr said he was only one man; Hishām said he had found a second, himself.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0512"
+            }
+          ]
+        },
+        {
+          "text": "They won over al-Muṭʿim b. ʿAdī, then Abū al-Bakhtarī and Zamʿa b. al-Aswad. The five met at night at Khaṭm al-Ḥajūn in upper Makkah and swore to see the document torn up.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0513"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0514"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0515"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0516"
+            }
+          ]
+        },
+        {
+          "text": "In the morning Zuhayr circled the Kaʿba seven times and asked the people of Makkah whether they should eat and dress while Banū Hāshim perished, unable to trade.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0516"
+            }
+          ]
+        },
+        {
+          "text": "Abū Jahl objected; Zamʿa, Abū al-Bakhtarī, al-Muṭʿim and Hishām each disowned the document. Abū Jahl said it had been settled by night somewhere else.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0516"
+            }
+          ]
+        },
+        {
+          "text": "When al-Muṭʿim went to tear it up, he found termites had eaten it, except the words 'In Your name, O Allah'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0516"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām adds, from 'some people of knowledge', that the Prophet ﷺ had told Abū Ṭālib that the termites had left only the name of Allah, and that Abū Ṭālib put this to Quraysh as a test, which only hardened them.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0518"
+            }
+          ],
+          "note": "Unnamed authorities; it also differs from Ibn Isḥāq on what was left of the sheet."
+        }
+      ],
+      "people": [
+        {
+          "name": "Hishām b. ʿAmr",
+          "who": "Of Banū ʿĀmir b. Luʾayy, related to Banū Hāshim through his mother's side",
+          "here": "Fed the clans and organised the five"
+        },
+        {
+          "name": "al-Muṭʿim b. ʿAdī",
+          "who": "Chief of Banū Nawfal; did not become Muslim",
+          "here": "One of the five; found the document eaten"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look to upper Makkah",
+          "camera": {
+            "target": "makkah",
+            "dist": 4,
+            "pitch": 30,
+            "heading": 10
+          },
+          "reveal": {
+            "text": "Ibn Isḥāq places Khaṭm al-Ḥajūn, where the five met, in the upper part of Makkah.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0516"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Who found that termites had eaten the document?",
+        "options": [
+          {
+            "text": "al-Muṭʿim b. ʿAdī",
+            "why": "He went to tear it up and found it eaten.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0516"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "Abū Jahl",
+            "why": "He defended the document.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0516"
+              }
+            ]
+          },
+          {
+            "text": "Abū Ṭālib",
+            "why": "He was sitting at the side of the Mosque in Ibn Isḥāq's account.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0516"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The boycott ended through kinship and conscience among non-Muslims, not through any change of heart in Quraysh as a whole. Remember al-Muṭʿim's name.",
+      "sections": [
+        "S0511",
+        "S0512",
+        "S0513",
+        "S0514",
+        "S0515",
+        "S0516",
+        "S0518"
+      ]
+    },
+    {
+      "id": "a01-u09",
+      "title": "At Abū Ṭālib's bedside",
+      "kicker": "A last offer from Quraysh",
+      "when": {
+        "label": "c. 619 CE, three years before the Hijra",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "makkah",
+        "dist": 1.8,
+        "pitch": 35,
+        "heading": 250
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Ṭālib",
+          "role": "person"
+        },
+        {
+          "name": "al-ʿAbbās",
+          "role": "person"
+        },
+        {
+          "name": "the nobles of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "When Abū Ṭālib fell ill, Quraysh said among themselves that Ḥamza and ʿUmar had become Muslim and Muḥammad's cause had spread through all their clans, so they should secure terms through Abū Ṭālib.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0584"
+            }
+          ]
+        },
+        {
+          "text": "Through Ibn ʿAbbās, Ibn Isḥāq names those who came: ʿUtba and Shayba, sons of Rabīʿa, Abū Jahl, Umayya b. Khalaf and Abū Sufyān. They proposed that he leave them their religion and they would leave him his.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0584"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ asked them for a single word by which they would rule the Arabs and the non-Arabs would follow them: to say there is no god but Allah and give up what they worshipped besides Him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0584"
+            }
+          ]
+        },
+        {
+          "text": "They clapped their hands, asked whether he would make the gods one God, and left resolved to keep the religion of their fathers. Ibn Isḥāq says the opening of Sūrat Ṣād was revealed about them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0584"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0586"
+            },
+            {
+              "type": "quran",
+              "ref": "38:5"
+            }
+          ]
+        },
+        {
+          "text": "In Ibn Isḥāq's version Abū Ṭālib said he would have said the word were it not that Quraysh would think he said it from fear of death. As he was dying al-ʿAbbās saw his lips moving and said he had said it; the Prophet ﷺ answered, 'I did not hear it.'",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0585"
+            }
+          ],
+          "note": "The chain includes an unnamed member of al-ʿAbbās's family, and al-Bukhārī's report gives a different ending."
+        },
+        {
+          "text": "In al-Bukhārī's report from al-Musayyab b. Ḥazn, the Prophet ﷺ urged him at his death with Abū Jahl and ʿAbd Allāh b. Abī Umayya present. They asked whether he would leave the religion of ʿAbd al-Muṭṭalib, and his last words were that he held to it.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3884",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "In the same report the Prophet ﷺ said he would ask forgiveness for him unless he was forbidden, and verses were then revealed on not seeking forgiveness for idolaters and on Allah alone guiding whom He wills.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3884",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "quran",
+              "ref": "9:113"
+            },
+            {
+              "type": "quran",
+              "ref": "28:56"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "38:5",
+          "gist": "The unbelievers express astonishment that he has made the many gods into one God.",
+          "context": "Ibn Isḥāq says the opening of Sūrat Ṣād came down about the delegation at Abū Ṭālib's bedside (S0586).",
+          "grade": "supported"
+        },
+        {
+          "ref": "28:56",
+          "gist": "The Prophet cannot guide whomever he loves; it is Allah who guides whom He wills.",
+          "context": "Al-Bukhārī 3884 links it to Abū Ṭālib's death.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "al-ʿAbbās b. ʿAbd al-Muṭṭalib",
+          "who": "The Prophet's uncle, not yet Muslim",
+          "here": "Claimed to hear Abū Ṭālib's last words, in Ibn Isḥāq's version"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Ibn Isḥāq and al-Bukhārī tell the end of Abū Ṭālib differently. Which account carries more weight, and why?",
+        "options": [
+          {
+            "text": "Al-Bukhārī's, because its chain is fully named and rigorously checked",
+            "why": "Ibn Isḥāq's chain contains an unnamed link; al-Bukhārī's is graded ṣaḥīḥ.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0585"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3884",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "Both agree on what matters for this story: the protector was dying",
+            "why": "Either way, the shield around the Prophet ﷺ was about to be lost.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0583"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0585"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Abū Ṭālib protected his nephew for years without accepting his message. With his death the clan's protection, not the message, was what came to an end.",
+      "sections": [
+        "S0584",
+        "S0585",
+        "S0586"
+      ]
+    },
+    {
+      "id": "a01-u10",
+      "title": "Two losses in one year",
+      "kicker": "The deaths of Khadīja and Abū Ṭālib, the 'Year of Sorrow' of later writers",
+      "when": {
+        "label": "c. 619 CE, three years before the Hijra",
+        "grade": "established"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "kaaba",
+        "dist": 1.5,
+        "pitch": 30,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Khadīja bint Khuwaylid",
+          "role": "person"
+        },
+        {
+          "name": "Abū Ṭālib",
+          "role": "person"
+        },
+        {
+          "name": "one of the Prophet's daughters",
+          "role": "person"
+        },
+        {
+          "name": "a lout of Quraysh",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says Khadīja bint Khuwaylid and Abū Ṭālib died in the same year, and that misfortunes then came one after another upon the Prophet ﷺ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            }
+          ]
+        },
+        {
+          "text": "He describes Khadīja as a true support to him in Islam, someone to whom he would confide his troubles.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            }
+          ]
+        },
+        {
+          "text": "He describes Abū Ṭālib as his support and stronghold, his defence and helper against his own people.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            }
+          ]
+        },
+        {
+          "text": "Both Ibn Isḥāq and a report from ʿUrwa in al-Bukhārī place Khadīja's death three years before the Prophet ﷺ left for Madina.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3896",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Al-Bukhārī reports that Jibrīl told the Prophet ﷺ to greet Khadīja with peace from her Lord and to give her news of a house in Paradise made of hollow pearl, with no noise and no toil.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3820",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0337"
+            }
+          ]
+        },
+        {
+          "text": "After Abū Ṭālib died, Quraysh did to the Prophet ﷺ harm they had not hoped to do while his uncle lived, until a lout of Quraysh blocked his way and threw dust on his head.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0587"
+            }
+          ]
+        },
+        {
+          "text": "Through ʿUrwa b. al-Zubayr, Ibn Isḥāq reports that he went home with the dust still on his head, and one of his daughters washed it off, weeping.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            }
+          ]
+        },
+        {
+          "text": "He told her not to weep, for Allah would protect her father.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            }
+          ]
+        },
+        {
+          "text": "In the same report he said that Quraysh had done nothing to him that he hated until Abū Ṭālib died.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0583"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Khadīja bint Khuwaylid",
+          "who": "The Prophet's wife and the first to believe in him",
+          "here": "Died about three years before the Hijra"
+        },
+        {
+          "name": "Abū Ṭālib",
+          "who": "His uncle and protector",
+          "here": "Died in the same year"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Measure Makkah",
+          "camera": {
+            "target": "makkah",
+            "dist": 8,
+            "pitch": 55,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Seventh-century Makkah filled a valley only a few kilometres long; in so small a town there was no avoiding one's opponents.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did the Prophet ﷺ say to his daughter as she washed the dust away?",
+        "options": [
+          {
+            "text": "Do not weep, for Allah will protect your father",
+            "why": "Reported by ʿUrwa through Ibn Isḥāq.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0583"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "We must leave Makkah tonight",
+            "why": "No such words are reported.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0583"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "One loss took his closest companion at home, the other his protection in public. His own words mark the turning point: Makkah without Abū Ṭālib was a different city.",
+      "sections": [
+        "S0583",
+        "S0337",
+        "S0587"
+      ]
+    },
+    {
+      "id": "a01-u11",
+      "title": "Alone to al-Ṭāʾif",
+      "kicker": "Seeking support from Thaqīf",
+      "when": {
+        "label": "Shawwāl, tenth year of the mission (619 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "taif"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "taif",
+        "dist": 10,
+        "pitch": 30,
+        "heading": 110
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿAbd Yālīl, Masʿūd and Ḥabīb, sons of ʿAmr",
+          "role": "assembly"
+        }
+      ],
+      "route": [
+        "makkah",
+        "taif"
+      ],
+      "statements": [
+        {
+          "text": "With the harm increasing, the Prophet ﷺ went to al-Ṭāʾif seeking help and protection from Thaqīf against his own people, and hoping they would accept what he brought from Allah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0587"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq says he went alone; Ibn Saʿd reports that Zayd b. Ḥāritha went with him.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0587"
+            },
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr",
+              "note": "Account of the journey to al-Ṭāʾif",
+              "verify": true
+            }
+          ],
+          "note": "The sources differ on whether Zayd b. Ḥāritha accompanied him."
+        },
+        {
+          "text": "Ibn Saʿd dates the journey to Shawwāl of the tenth year of the mission.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr",
+              "note": "Account of the journey to al-Ṭāʾif",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "He went to three brothers who were then the chiefs of Thaqīf: ʿAbd Yālīl, Masʿūd and Ḥabīb, sons of ʿAmr b. ʿUmayr. One of them had a wife of Quraysh from Banū Jumaḥ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0588"
+            }
+          ]
+        },
+        {
+          "text": "He called them to Allah and asked them to stand with him against those of his people who opposed him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0588"
+            }
+          ]
+        },
+        {
+          "text": "All three refused. One said he would tear the covering of the Kaʿba if Allah had sent him; another asked whether Allah could find no one else to send; the third said he would never speak to him at all.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0588"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports, with the hedge 'as was mentioned to me', that he asked them to keep the matter to themselves, not wanting his people to hear of it and be emboldened against him.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0588"
+            }
+          ],
+          "note": "Hedged by Ibn Isḥāq (fīmā dhukira lī)."
+        },
+        {
+          "text": "Al-Ṭāʾif lies about 64 km in a straight line east-south-east of Makkah, on a plateau well over a thousand metres higher, reached by climbing the escarpment.",
+          "grade": "reconstruction",
+          "basis": "computed distance between gazetteer points; terrain data"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAbd Yālīl b. ʿAmr",
+          "who": "One of the three chiefs of Thaqīf",
+          "here": "Refused him"
+        },
+        {
+          "name": "Zayd b. Ḥāritha",
+          "who": "The Prophet's freed slave and adopted son",
+          "here": "Named as his companion by Ibn Saʿd, not by Ibn Isḥāq"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look from Makkah toward al-Ṭāʾif",
+          "camera": {
+            "target": "makkah",
+            "dist": 70,
+            "pitch": 20,
+            "heading": 110
+          },
+          "reveal": {
+            "text": "Between the two towns the land rises from the low Makkan valleys to the cooler highland where al-Ṭāʾif sits among orchards and vineyards.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did the Prophet ﷺ ask of the chiefs of Thaqīf?",
+        "options": [
+          {
+            "text": "Acceptance of his message and protection against his own people",
+            "why": "Ibn Isḥāq says he sought nuṣra and protection from Thaqīf.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0587"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0588"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "A place for the Muslims of Abyssinia to settle",
+            "why": "Not in the account.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0588"
+              }
+            ]
+          },
+          {
+            "text": "A trade alliance against Quraysh",
+            "why": "Not in the account.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0588"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "This was the first time the Prophet ﷺ himself sought a protector outside Makkah. The question 'who will shelter us?' had become the question of his mission.",
+      "sections": [
+        "S0587",
+        "S0588"
+      ]
+    },
+    {
+      "id": "a01-u12",
+      "title": "In the shade of a vine",
+      "kicker": "Driven out; ʿAddās of Nineveh",
+      "when": {
+        "label": "During the visit to al-Ṭāʾif (619 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "taif",
+        "note": "A walled garden of ʿUtba and Shayba, sons of Rabīʿa"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "taif",
+        "dist": 3,
+        "pitch": 35,
+        "heading": 290
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿAddās",
+          "role": "person"
+        },
+        {
+          "name": "ʿUtba and Shayba, sons of Rabīʿa",
+          "role": "stone"
+        },
+        {
+          "name": "the louts and slaves of al-Ṭāʾif",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Thaqīf set their louts and slaves on him, cursing and shouting, until a crowd gathered and drove him into a walled garden of ʿUtba and Shayba, sons of Rabīʿa, who were inside.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0588"
+            }
+          ]
+        },
+        {
+          "text": "He sat in the shade of a grapevine while the two sons of Rabīʿa watched.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0588"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports, with the hedge 'as was mentioned to me', a prayer he made there: complaining to Allah of his weakness, his lack of means and his lowliness before people, asking to whom Allah would hand him over, and saying that if Allah was not angry with him, he did not mind.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0589"
+            }
+          ],
+          "note": "Ibn Isḥāq gives no chain (fīmā dhukira lī); the other versions of this prayer are judged weak by some ḥadīth critics."
+        },
+        {
+          "text": "Moved by kinship, the sons of Rabīʿa sent their Christian slave ʿAddās with a bunch of grapes on a plate.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0590"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ said 'In the name of Allah' before eating. ʿAddās remarked that people of this land did not say that, and said he was a Christian from Nineveh.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0590"
+            }
+          ]
+        },
+        {
+          "text": "When the Prophet ﷺ called Nineveh the town of the righteous man Yūnus b. Mattā, and said Yūnus was his brother, a prophet as he was, ʿAddās bent over him and kissed his head, hands and feet.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0590"
+            }
+          ]
+        },
+        {
+          "text": "The brothers warned ʿAddās not to let the man turn him from his religion; ʿAddās answered that nothing on earth was better than this man.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0590"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha reports that when she asked whether he had faced a day harder than Uḥud, the Prophet ﷺ spoke of the day he presented himself to Ibn ʿAbd Yālīl and was refused. He walked on, distressed, and came to himself only at Qarn al-Thaʿālib, where the angel of the mountains offered to crush them between the two mountains; he answered that he hoped their descendants would worship Allah alone.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3231",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 1795",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAddās",
+          "who": "Christian slave of the sons of Rabīʿa, from Nineveh",
+          "here": "Brought the grapes and kissed the Prophet's head, hands and feet"
+        },
+        {
+          "name": "Ibn ʿAbd Yālīl b. ʿAbd Kulāl",
+          "who": "The chief named in al-Bukhārī's report",
+          "here": "Ibn Isḥāq names the chiefs as sons of ʿAmr b. ʿUmayr; the naming differs between the sources"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Follow the road back",
+          "camera": {
+            "target": "taif",
+            "dist": 40,
+            "pitch": 25,
+            "heading": 300
+          },
+          "reveal": {
+            "text": "Qarn al-Thaʿālib, where he came to himself, lay on his way back toward Makkah. Later commentators identify it with Qarn al-Manāzil, the mīqāt for the people of Najd; it is not drawn here.",
+            "grade": "disputed",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3231",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ],
+            "note": "The identification with Qarn al-Manāzil is by later commentators, not in the ḥadīth itself."
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "A stranger in a hostile town is offered grapes by a Christian slave. What will the slave learn from him?",
+        "options": [
+          {
+            "text": "That he knows of Yūnus b. Mattā of Nineveh and calls him a brother prophet",
+            "why": "That is the exchange Ibn Isḥāq records.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0590"
+              }
+            ],
+            "ok": true
+          },
+          {
+            "text": "That the sons of Rabīʿa will protect him",
+            "why": "They did not; they warned ʿAddās against him.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0590"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The worst day of rejection held a single welcome, from a slave far from home. In his own telling the Prophet ﷺ chose hope for Thaqīf's descendants over revenge.",
+      "sections": [
+        "S0588",
+        "S0589",
+        "S0590"
+      ]
+    },
+    {
+      "id": "a01-u13",
+      "title": "Night prayer at Nakhla",
+      "kicker": "On the road back to Makkah",
+      "when": {
+        "label": "Returning from al-Ṭāʾif (619 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~nakhla",
+        "note": "Nakhla, a valley between al-Ṭāʾif and Makkah; not drawn on this map"
+      },
+      "sky": "night",
+      "camera": {
+        "target": [
+          40.1,
+          21.35
+        ],
+        "dist": 60,
+        "pitch": 30,
+        "heading": 290
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        }
+      ],
+      "route": [
+        "taif",
+        "~nakhla",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "Having given up hope of any good from Thaqīf, the Prophet ﷺ turned back toward Makkah. At Nakhla he rose in the depth of the night to pray.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0591"
+            }
+          ]
+        },
+        {
+          "text": "The Qurʾān tells of a band of jinn who listened to the Qurʾān and went back to their people as warners, having believed.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "46:29-31"
+            },
+            {
+              "type": "quran",
+              "ref": "72:1"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq places that listening on this night at Nakhla, after al-Ṭāʾif.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0591"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 4921",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ],
+          "note": "A report from Ibn ʿAbbās in al-Bukhārī places the jinn's listening at Nakhla during a dawn prayer, with companions, on the way to the market of ʿUkāẓ, not on the return from al-Ṭāʾif."
+        },
+        {
+          "text": "Ibn Isḥāq says, with the hedge 'as was mentioned to me', that they were seven jinn of Naṣībīn.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0591"
+            }
+          ],
+          "note": "Hedged by Ibn Isḥāq (fīmā dhukira lī)."
+        },
+        {
+          "text": "He says Allah then told the Prophet ﷺ their story in Sūrat al-Aḥqāf and in Sūrat al-Jinn.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0591"
+            }
+          ]
+        },
+        {
+          "text": "Away from any town, the night sky over the Ḥijāz hills is very dark and the air cools quickly after sunset.",
+          "grade": "reconstruction",
+          "basis": "climate and terrain data"
+        }
+      ],
+      "quran": [
+        {
+          "ref": "46:29",
+          "gist": "A group of jinn was turned toward the Prophet to hear the Qurʾān; they told one another to listen in silence, then went back to warn their people.",
+          "context": "Ibn Isḥāq quotes it for the night at Nakhla (S0591); the occasion is disputed.",
+          "grade": "disputed"
+        },
+        {
+          "ref": "72:1",
+          "gist": "The Prophet is told to say it has been revealed to him that a band of jinn listened and found the recitation wondrous.",
+          "context": "Cited by Ibn Isḥāq with 46:29 (S0591).",
+          "grade": "disputed"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Rejected by Thaqīf, the Prophet ﷺ prays alone at night and the Qurʾān tells of listeners he could not see. What does the placing of this story after al-Ṭāʾif suggest?",
+        "options": [
+          {
+            "text": "That rejection by people did not mean the message had no hearers",
+            "why": "This is the reading Ibn Isḥāq's arrangement invites; note that al-Bukhārī places the event differently.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0591"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 4921",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Whatever its exact date, Ibn Isḥāq set this story at the low point of the journey. It moves the story from what the Prophet ﷺ lost to what he still had.",
+      "sections": [
+        "S0591"
+      ]
+    },
+    {
+      "id": "a01-u14",
+      "title": "Entering Makkah under al-Muṭʿim",
+      "kicker": "A protector who was not a Muslim",
+      "when": {
+        "label": "Return from al-Ṭāʾif (619 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "hira"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "hira",
+        "dist": 3,
+        "pitch": 30,
+        "heading": 220
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "al-Muṭʿim b. ʿAdī and his sons",
+          "role": "group"
+        },
+        {
+          "name": "al-Akhnas b. Sharīq",
+          "role": "stone"
+        },
+        {
+          "name": "Suhayl b. ʿAmr",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "~nakhla",
+        "hira",
+        "kaaba"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Hishām explains a line in Ḥassān b. Thābit's elegy for al-Muṭʿim, 'you gave protection to the Messenger of Allah', with this account; he gives no chain for it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0520"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0521"
+            }
+          ]
+        },
+        {
+          "text": "When the people of al-Ṭāʾif refused him, the Prophet ﷺ went to Ḥirāʾ and sent to al-Akhnas b. Sharīq asking for protection. Al-Akhnas declined, saying he was a confederate and a confederate cannot grant protection.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0521"
+            }
+          ]
+        },
+        {
+          "text": "He then sent to Suhayl b. ʿAmr, who declined, saying Banū ʿĀmir do not give protection against Banū Kaʿb.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0521"
+            }
+          ]
+        },
+        {
+          "text": "Al-Muṭʿim b. ʿAdī agreed. He and his household armed themselves, went to the Mosque, and sent word for the Prophet ﷺ to enter.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0521"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ entered, circled the House, prayed there and went home.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0521"
+            }
+          ]
+        },
+        {
+          "text": "Al-Bukhārī reports that after Badr the Prophet ﷺ said that if al-Muṭʿim b. ʿAdī were alive and had spoken to him about the captives, he would have let them go for his sake.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3139",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ḥirāʾ is about 5 km north-east of the Kaʿba in a straight line, close enough to send messages into the town.",
+          "grade": "reconstruction",
+          "basis": "computed distance between gazetteer points"
+        }
+      ],
+      "people": [
+        {
+          "name": "al-Muṭʿim b. ʿAdī",
+          "who": "Chief of Banū Nawfal, one of the five who ended the boycott; died before Badr without becoming Muslim",
+          "here": "Took the Prophet under his protection"
+        },
+        {
+          "name": "Ḥassān b. Thābit",
+          "who": "Poet of the Anṣār",
+          "here": "His elegy for al-Muṭʿim preserves the memory"
+        }
+      ],
+      "discover": [
+        {
+          "label": "From Ḥirāʾ to the Kaʿba",
+          "camera": {
+            "target": "kaaba",
+            "dist": 8,
+            "pitch": 30,
+            "heading": 220
+          },
+          "reveal": {
+            "text": "The armed escort went to the Mosque first and only then sent word for him to come in.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0521"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "The Prophet ﷺ could re-enter his own city only on the guarantee of a non-Muslim chief, after two others refused. What does this say about his position in Makkah by 619?",
+        "options": [
+          {
+            "text": "He had no standing of his own left in Makkah; he lived there on another man's word",
+            "why": "Two refusals and an armed escort show how exposed he was.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0521"
+              }
+            ]
+          },
+          {
+            "text": "Makkah could no longer be the base for the call; a new home with real protection was needed",
+            "why": "The next act turns to the tribes at the pilgrimage seasons in search of exactly that.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0521"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0592"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "This is where the act ends: the Prophet ﷺ in his birthplace on borrowed protection. Every later step, from the tribes at the fairs to Yathrib, is a search for a people who would protect him as their own.",
+      "sections": [
+        "S0520",
+        "S0521"
+      ]
+    }
+  ]
+}

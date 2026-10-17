@@ -1,0 +1,1808 @@
+{
+  "act": 7,
+  "title": "Three nights in the cave",
+  "subtitle": "A mountain south of Makkah, a household that kept the secret, and a search that came to the mouth of the cave",
+  "span": "three nights, end of Ṣafar – start of Rabīʿ al-Awwal, year 1",
+  "units": [
+    {
+      "id": "a07-u01",
+      "title": "South, not north",
+      "kicker": "The first night · leaving the town",
+      "when": {
+        "label": "Night 1 · last days of Ṣafar, year 1 of the Hijra (622 CE; the exact date is debated)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "thawr",
+        "note": "Ghār Thawr, the cave near the top of Jabal Thawr"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 40,
+        "pitch": 55,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "thawr"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says that once the Prophet ﷺ had resolved to leave, he and Abū Bakr made for a cave in Thawr, which he describes as a mountain in the lower part of Makkah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha's long account of the Hijra in al-Bukhārī also names the cave in the mountain of Thawr as their first stop.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "Neither source gives a reason for choosing Thawr. Any explanation of the choice is an inference, not a report.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "On the gazetteer points, Ghār Thawr lies about 5.6 km from the Kaʿba, on a bearing of roughly 154°, that is, south-south-east.",
+          "grade": "reconstruction",
+          "basis": "computed distance and bearing between gazetteer points (places.csv: kaaba, thawr)"
+        },
+        {
+          "text": "al-Madīna lies about 340 km from Makkah on a bearing of roughly 356°, almost due north. Thawr is on the opposite side of the town from the way to Yathrib.",
+          "grade": "reconstruction",
+          "basis": "computed distance and bearing between gazetteer points (places.csv: makkah, madina, thawr)"
+        },
+        {
+          "text": "If the traditional dating to the last days of Ṣafar is right, the moon was near the end of its cycle: a thin late crescent before dawn, or none, and dark nights.",
+          "grade": "reconstruction",
+          "basis": "lunar calendar: the last days of a lunar month fall at or just before new moon"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Turn the map: where is Yathrib?",
+          "camera": {
+            "target": "madina",
+            "dist": 400,
+            "pitch": 60,
+            "heading": 356
+          },
+          "reveal": {
+            "text": "From Thawr the straight line to al-Madīna runs about 346 km almost due north, back past Makkah. The first steps of the journey went the other way.",
+            "grade": "reconstruction",
+            "basis": "computed distance and bearing between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "The destination is Yathrib, far to the north. In which direction does the first hiding place lie from Makkah?",
+        "options": [
+          {
+            "text": "South, in the lower part of Makkah",
+            "ok": true,
+            "why": "Ibn Isḥāq calls Thawr a mountain in the lower part of Makkah; the gazetteer puts it south-south-east of the Kaʿba.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0685"
+              }
+            ]
+          },
+          {
+            "text": "North, on the road to Yathrib",
+            "ok": false,
+            "why": "Thawr is on the opposite side of Makkah from the northern road."
+          },
+          {
+            "text": "East, at Ḥirāʾ",
+            "ok": false,
+            "why": "The sources name Thawr, not Ḥirāʾ, for the Hijra."
+          }
+        ]
+      },
+      "matters": "The journey north begins by going south. The sources record the fact without the reason, and the map lets us see why it has struck readers ever since.",
+      "sections": [
+        "S0685"
+      ]
+    },
+    {
+      "id": "a07-u02",
+      "title": "The climb in the dark",
+      "kicker": "The first night · the mountain",
+      "when": {
+        "label": "Night 1",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "thawr",
+        "dist": 6,
+        "pitch": 30,
+        "heading": 150
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "thawr"
+      ],
+      "statements": [
+        {
+          "text": "In the report Ibn Hishām gives from al-Ḥasan al-Baṣrī, the Prophet ﷺ and Abū Bakr reached the cave by night.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ],
+          "note": "Ibn Hishām heard it from unnamed 'people of knowledge', and al-Ḥasan was not a witness: the chain is incomplete (mursal)."
+        },
+        {
+          "text": "Jabal Thawr is a steep, rocky granite mountain that rises several hundred metres above the valleys at its foot; the cave lies high on it.",
+          "grade": "reconstruction",
+          "basis": "terrain data around the Ghār Thawr gazetteer point"
+        },
+        {
+          "text": "The climb is on bare rock and loose stone with no shade, a hard ascent on foot even by day.",
+          "grade": "reconstruction",
+          "basis": "terrain data and the present-day path to the cave"
+        },
+        {
+          "text": "From the town to the foot of the mountain is a walk of roughly 6 km by the valleys, more than the 5.6 km straight line.",
+          "grade": "reconstruction",
+          "basis": "computed straight-line distance between gazetteer points, plus the winding of the valleys"
+        },
+        {
+          "text": "The sources do not describe the climb itself: no path, no stops, no words on the way up.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "See the mountain whole",
+          "camera": {
+            "target": "thawr",
+            "dist": 3,
+            "pitch": 18,
+            "heading": 160
+          },
+          "reveal": {
+            "text": "The cave is a cleft in the rock near the summit ridge, not a hollow at the mountain's foot.",
+            "grade": "reconstruction",
+            "basis": "terrain data and the present-day site"
+          }
+        }
+      ],
+      "matters": "The silence of the sources is part of the lesson: we can measure the mountain, but we are not told what was said or felt on it.",
+      "sections": [
+        "S0685"
+      ]
+    },
+    {
+      "id": "a07-u03",
+      "title": "Abū Bakr goes in first",
+      "kicker": "The first night · the mouth of the cave",
+      "when": {
+        "label": "Night 1",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "thawr",
+        "dist": 0.8,
+        "pitch": 22,
+        "heading": 210
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Hishām reports from al-Ḥasan al-Baṣrī that Abū Bakr entered the cave before the Prophet ﷺ.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ],
+          "note": "Mursal report: Ibn Hishām names no informant ('some people of knowledge'), and al-Ḥasan was born decades after the event."
+        },
+        {
+          "text": "In that report Abū Bakr felt his way around the cave to see whether a beast of prey or a snake was inside.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ],
+          "note": "Same mursal chain through al-Ḥasan al-Baṣrī."
+        },
+        {
+          "text": "The report gives the reason in its own words: he was shielding the Messenger of Allah ﷺ with his own person.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ],
+          "note": "The motive is stated by the narrator, al-Ḥasan, not by an eyewitness."
+        },
+        {
+          "text": "Ibn Isḥāq's own narrative, just before it, says only that they came to the cave and entered it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "Later works expand the scene, with Abū Bakr stopping holes in the rock with his cloth and being stung; those additions are not in Ibn Hishām.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Bayhaqī, Dalāʾil al-Nubuwwa (Hijra chapters)",
+              "note": "Later and weakly transmitted expansions",
+              "verify": true
+            }
+          ],
+          "note": "Late popular tradition with weak chains; not in Ibn Isḥāq, Ibn Hishām or the ṣaḥīḥ collections."
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "How strong is the report that Abū Bakr checked the cave first?",
+        "options": [
+          {
+            "text": "A report Ibn Hishām took from unnamed scholars, going back to al-Ḥasan al-Baṣrī, who was not there",
+            "ok": true,
+            "why": "Ibn Hishām introduces it with 'some people of knowledge told me that al-Ḥasan said'.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0685"
+              }
+            ]
+          },
+          {
+            "text": "An eyewitness account from Abū Bakr in al-Bukhārī",
+            "ok": false,
+            "why": "al-Bukhārī's cave reports from Abū Bakr concern the trackers, not the first entry."
+          },
+          {
+            "text": "A verse of the Qurʾān",
+            "ok": false,
+            "why": "Qurʾān 9:40 mentions the cave and the two, not who entered first."
+          }
+        ]
+      },
+      "matters": "A beautiful detail can still be weakly carried. Holding it as 'reported' rather than 'known' honours both the story and the truth.",
+      "sections": [
+        "S0685"
+      ]
+    },
+    {
+      "id": "a07-u04",
+      "title": "A household with three tasks",
+      "kicker": "The plan for the nights",
+      "when": {
+        "label": "Before and during the three nights",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 8,
+        "pitch": 40,
+        "heading": 154
+      },
+      "lights": [
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Abī Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "thawr"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says Abū Bakr instructed his son ʿAbd Allāh to listen by day to what people said about the two of them and to bring the day's news when evening came.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "He told his freedman ʿĀmir b. Fuhayra to graze his sheep by day and drive them to the cave in the evening.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ bint Abī Bakr brought them, each evening, food suited to their needs.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports, with the hedge 'as far as I have learned', that no one knew of the departure except ʿAlī b. Abī Ṭālib, Abū Bakr and Abū Bakr's family.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0684"
+            }
+          ],
+          "note": "Ibn Isḥāq marks this with 'fīmā balaghanī' (as far as I have learned)."
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAbd Allāh b. Abī Bakr",
+          "who": "Abū Bakr's son",
+          "here": "The listener in Makkah, bringing the news"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "who": "Abū Bakr's freedman (mawlā)",
+          "here": "The shepherd: milk, and sheep over the tracks"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "who": "Abū Bakr's daughter, ʿĀʾisha's sister",
+          "here": "Brought food"
+        }
+      ],
+      "matters": "News, food and cover were each in different hands, so no one carried the whole secret alone. The Hijra is often told as the journey of two; for three nights it depended on a family and a freedman.",
+      "sections": [
+        "S0684",
+        "S0685"
+      ]
+    },
+    {
+      "id": "a07-u05",
+      "title": "Makkah wakes to an empty house",
+      "kicker": "Day 1 · the town",
+      "when": {
+        "label": "Day 1",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 3,
+        "pitch": 45,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "the men of Quraysh",
+          "role": "group-stone"
+        },
+        {
+          "name": "Abū Jahl",
+          "role": "stone"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq reports from Asmāʾ, through someone he does not name, that after the two had left, a party of Quraysh came to Abū Bakr's door, Abū Jahl among them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "They asked her where her father was. She answered that she did not know.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "In the same report Abū Jahl struck her on the cheek so hard that her earring was thrown off. Then the party left.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ adds that for three nights the family did not know which way the Prophet ﷺ had gone.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "That last line sits uneasily with the report that Asmāʾ carried food to the cave; the two accounts come by different chains, and the sources do not reconcile them.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ],
+          "note": "S0689 reaches Asmāʾ through an unnamed informant ('I was told'); S0685 has her bringing food each evening. Some read 'we did not know' as the household's public word, but no source says so."
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Asmāʾ is asked directly where her father is. What does the record tell us, and what does it leave out?",
+        "options": [
+          {
+            "text": "It records her answer and the blow; it does not record what she felt.",
+            "why": "Ibn Isḥāq gives her words and Abū Jahl's act only.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0689"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The search began at a door with a young woman standing in it. The cost of the secret fell first on those who stayed behind.",
+      "sections": [
+        "S0689"
+      ]
+    },
+    {
+      "id": "a07-u06",
+      "title": "A price on two heads",
+      "kicker": "Day 1 · the reward",
+      "when": {
+        "label": "The days in the cave",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "dar_nadwa",
+        "note": "Where Quraysh met; the sources do not say where the reward was announced"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 25,
+        "pitch": 50,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "the leaders of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says that when Quraysh found the Prophet ﷺ gone, they set a hundred she-camels for whoever would bring him back to them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "Surāqa b. Mālik, in his own account in al-Bukhārī, says the messengers of Quraysh came to his people offering the blood-money of each of the two, the Prophet ﷺ and Abū Bakr, to whoever killed or captured either.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The full blood-money for a free man was customarily a hundred camels, so the two reports agree in substance: a hundred camels, offered for each man.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The offer went out beyond Makkah to the tribes along the roads: Surāqa heard it among the Banū Mudlij, his clan.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "According to Surāqa's report in al-Bukhārī, what did Quraysh offer?",
+        "options": [
+          {
+            "text": "The blood-money of each of the two, for killing or capturing either",
+            "ok": true,
+            "why": "Surāqa says the messengers of Quraysh offered the diya of each of them.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3906",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "A hundred camels only for Abū Bakr",
+            "ok": false,
+            "why": "Ibn Isḥāq ties the hundred to the Prophet ﷺ; Surāqa says the offer covered both."
+          },
+          {
+            "text": "Nothing; they only sent trackers",
+            "ok": false,
+            "why": "Both Ibn Isḥāq and al-Bukhārī record a reward."
+          }
+        ]
+      },
+      "matters": "A reward that reached the roads turned every shepherd and traveller into a possible informer. Surāqa's report confirms it from the other side: someone who heard the offer and set out to win it.",
+      "sections": [
+        "S0686"
+      ]
+    },
+    {
+      "id": "a07-u07",
+      "title": "ʿAbd Allāh listens in the town",
+      "kicker": "Days 1–3 · the news",
+      "when": {
+        "label": "Each day of the three",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "kaaba",
+        "dist": 1.5,
+        "pitch": 40,
+        "heading": 334
+      },
+      "lights": [
+        {
+          "name": "ʿAbd Allāh b. Abī Bakr",
+          "role": "person"
+        },
+        {
+          "name": "the men of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "route": [
+        "thawr",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says ʿAbd Allāh b. Abī Bakr spent the day among Quraysh, hearing what they plotted and said about the Prophet ﷺ and Abū Bakr.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "In ʿĀʾisha's account he spent the nights with them in the cave and left before dawn, so that by morning he was among Quraysh as though he had slept in Makkah.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha describes him as a sharp, quick-witted young man, and says he heard every plan made against the two and kept it until he brought it to them at nightfall.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The two accounts agree on the core: ʿAbd Allāh was in Makkah by day and at the cave by night, carrying the news between them.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The round trip of about 11 km in a straight line, with a steep climb at one end, was walked twice in every twenty-four hours.",
+          "grade": "reconstruction",
+          "basis": "computed distance between gazetteer points (makkah–thawr, 5.7 km each way)"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look from Thawr toward Makkah",
+          "camera": {
+            "target": "makkah",
+            "dist": 9,
+            "pitch": 15,
+            "heading": 334
+          },
+          "reveal": {
+            "text": "From the cave the town lies about 5.7 km away, to the north-north-west.",
+            "grade": "reconstruction",
+            "basis": "computed distance and bearing between gazetteer points"
+          }
+        }
+      ],
+      "matters": "Being seen in the town each morning was itself the cover: a son of Abū Bakr who was always present could not be the one carrying messages.",
+      "sections": [
+        "S0686"
+      ]
+    },
+    {
+      "id": "a07-u08",
+      "title": "Sheep over the footprints",
+      "kicker": "Each night and before dawn · the tracks",
+      "when": {
+        "label": "Each of the three nights",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "thawr",
+        "dist": 2,
+        "pitch": 25,
+        "heading": 334
+      },
+      "lights": [
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Abī Bakr",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "thawr",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says ʿĀmir b. Fuhayra grazed Abū Bakr's flock among the shepherds of Makkah by day.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "In the evening he brought the sheep to the cave; the two milked them and slaughtered.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "When ʿAbd Allāh set off from the cave back to Makkah, ʿĀmir followed his trail with the sheep until it was wiped out.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "In ʿĀʾisha's account ʿĀmir brought the flock after part of the night had passed, the two spent the night on fresh milk, and he drove the sheep off in the last darkness before dawn, on each of the three nights.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "ʿAbd Allāh leaves footprints between the cave and the town every night. How is the trail hidden?",
+        "options": [
+          {
+            "text": "ʿĀmir drives the sheep along it until it is wiped out",
+            "ok": true,
+            "why": "Ibn Isḥāq says ʿĀmir followed ʿAbd Allāh's trail with the sheep to efface it.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0686"
+              }
+            ]
+          },
+          {
+            "text": "ʿAbd Allāh walks only on bare rock",
+            "ok": false,
+            "why": "No source says this."
+          },
+          {
+            "text": "Asmāʾ sweeps it with a branch",
+            "ok": false,
+            "why": "No source says this."
+          }
+        ]
+      },
+      "matters": "The most ordinary sight in the hills, a flock among other flocks, did three jobs at once: milk, cover over the tracks, and a reason to be there.",
+      "sections": [
+        "S0686"
+      ]
+    },
+    {
+      "id": "a07-u09",
+      "title": "Food in the evening",
+      "kicker": "Each evening · Asmāʾ",
+      "when": {
+        "label": "The evenings in the cave",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "thawr",
+        "dist": 5,
+        "pitch": 30,
+        "heading": 154
+      },
+      "lights": [
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "thawr"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says Asmāʾ came to the two in the evening with food that would sustain them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha's account in al-Bukhārī speaks of the provisions she and Asmāʾ prepared at home, put in a leather bag, before the two left; it does not mention nightly trips by Asmāʾ.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The two accounts complement more than they conflict: provisions packed at home, and in Ibn Isḥāq's version food brought during the stay.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "In late summer the heat of the Makkan valleys stays in the rock after sunset; the climb at dusk is still hot.",
+          "grade": "reconstruction",
+          "basis": "climate: the traditional dating falls in September 622 CE"
+        }
+      ],
+      "people": [
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "who": "Abū Bakr's daughter; later the mother of ʿAbd Allāh b. al-Zubayr",
+          "here": "Brought food in the evenings"
+        }
+      ],
+      "matters": "Ibn Isḥāq keeps a young woman on the mountain path every evening. It is easy to forget her in the drama of the cave.",
+      "sections": [
+        "S0685"
+      ]
+    },
+    {
+      "id": "a07-u10",
+      "title": "Feet at the mouth of the cave",
+      "kicker": "In the cave · the search arrives",
+      "when": {
+        "label": "During the three days (the day is not stated)",
+        "grade": "established"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "thawr",
+        "dist": 0.8,
+        "pitch": 15,
+        "heading": 334
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "the trackers of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Abū Bakr himself reports that while in the cave he saw the feet of the pursuers above them.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "Muslim 2381",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3653",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "He said to the Prophet ﷺ: if one of them looked down beneath his feet, he would see us.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3653",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 2381",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ answered: \"What do you think, Abū Bakr, of two whose third is Allah?\"",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3653",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 2381",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The same exchange is repeated in al-Bukhārī's commentary on Sūrat al-Tawba, under 9:40.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 4663",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The report does not say how the trackers found the mountain or why they turned back. Popular accounts fill that gap; the ṣaḥīḥ report does not.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3653",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The cave mouth is low and narrow; someone standing on the rock outside would be within a few metres of anyone inside.",
+          "grade": "reconstruction",
+          "basis": "the present-day cave site"
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Abū Bakr says, \"If one of them looked beneath his feet, he would see us.\" What does the Prophet ﷺ answer?",
+        "options": [
+          {
+            "text": "\"What do you think of two whose third is Allah?\"",
+            "ok": true,
+            "why": "Narrated from Abū Bakr in al-Bukhārī and Muslim.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3653",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "\"Let us leave the cave at once.\"",
+            "ok": false,
+            "why": "No report has them leave before the three nights were over."
+          },
+          {
+            "text": "He says nothing.",
+            "ok": false,
+            "why": "His answer is recorded in both ṣaḥīḥ collections."
+          }
+        ]
+      },
+      "matters": "This is the one moment in the cave narrated by someone who was inside it. Its fear is Abū Bakr's own word, not a storyteller's.",
+      "sections": []
+    },
+    {
+      "id": "a07-u11",
+      "title": "The second of two",
+      "kicker": "The Qurʾān remembers the cave",
+      "when": {
+        "label": "The cave; the verse was revealed later, in Sūrat al-Tawba",
+        "grade": "established"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "thawr",
+        "dist": 12,
+        "pitch": 35,
+        "heading": 334
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Qurʾān 9:40 recalls that God helped His Messenger when the unbelievers drove him out, the second of two, when the two were in the cave.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "9:40"
+            }
+          ]
+        },
+        {
+          "text": "The verse quotes him saying to his companion: do not grieve, God is with us.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "9:40"
+            }
+          ]
+        },
+        {
+          "text": "It says God sent down His tranquillity (sakīna) upon him and supported him with forces they did not see.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "9:40"
+            }
+          ]
+        },
+        {
+          "text": "The companion in the cave is identified as Abū Bakr by the ṣaḥīḥ reports of the cave, which al-Bukhārī places under this verse.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 4663",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "quran",
+              "ref": "9:40"
+            }
+          ]
+        },
+        {
+          "text": "Sūrat al-Tawba was revealed years later in Madinah; the verse looks back on the cave to rebuke those who held back from a later campaign.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Ṭabarī, Jāmiʿ al-Bayān, on 9:38–40",
+              "note": "Context of the Tabūk expedition",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "9:40",
+          "gist": "If you do not help the Prophet, God already helped him when he was driven out as one of two in the cave, telling his companion not to grieve because God was with them; God sent calm upon him and supported him with unseen forces.",
+          "context": "The only Qurʾānic verse that names the cave of the Hijra; established by the Qurʾān itself, with the companion identified in al-Bukhārī.",
+          "grade": "established"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Pull back over the whole valley",
+          "camera": {
+            "target": "thawr",
+            "dist": 60,
+            "pitch": 60,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "At this scale the cave cannot be seen at all: one cleft on one peak among the ridges south of Makkah.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Qurʾān 9:40 calls the Prophet ﷺ 'the second of two'. Why might the verse count them, rather than name them?",
+        "options": [
+          {
+            "text": "Open reflection: the verse stresses how few they were when God's help came.",
+            "why": "The verse sets 'the second of two' against the unbelievers who drove him out.",
+            "sources": [
+              {
+                "type": "quran",
+                "ref": "9:40"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The words the Prophet ﷺ spoke in the cave are kept twice: in Abū Bakr's report, and in the Qurʾān.",
+      "sections": []
+    },
+    {
+      "id": "a07-u12",
+      "title": "The spider and the doves",
+      "kicker": "A famous detail, weakly carried",
+      "when": {
+        "label": "Told of the search at the cave",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "thawr",
+        "dist": 1,
+        "pitch": 20,
+        "heading": 150
+      },
+      "lights": [
+        {
+          "name": "the pursuers of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "A report attributed to Ibn ʿAbbās in the Musnad of Aḥmad says the pursuers climbed the mountain, saw a spider's web over the entrance, and said that if anyone had gone in, the web would not be there.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Aḥmad b. Ḥanbal, al-Musnad, Musnad Ibn ʿAbbās (the Hijra report)",
+              "note": "Chain through ʿUthmān al-Jazarī, whom many critics weaken; some later scholars (e.g. Ibn Kathīr) judged it acceptable",
+              "verify": true
+            }
+          ],
+          "note": "The chain's key narrator is disputed; most ḥadīth critics do not accept it as sound."
+        },
+        {
+          "text": "Reports of two wild doves nesting at the mouth of the cave, and of a tree growing over it, come in al-Bazzār and al-Ṭabarānī through narrators the critics count weak or unknown.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Bazzār, al-Musnad; al-Ṭabarānī (Hijra reports via ʿAwn b. ʿAmr from Abū Muṣʿab al-Makkī)",
+              "note": "ʿAwn b. ʿAmr is weak and Abū Muṣʿab unknown",
+              "verify": true
+            }
+          ],
+          "note": "Weak chain; not found in the early sīra of Ibn Isḥāq or in the ṣaḥīḥ collections."
+        },
+        {
+          "text": "Neither the spider nor the doves appear in Ibn Isḥāq's account as transmitted by Ibn Hishām.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "Neither appears in the cave reports of al-Bukhārī or Muslim, which give only Abū Bakr's words and the Prophet's ﷺ reply.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3653",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 2381",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The details became widely known through later sīra works and popular retelling, and some exegetes linked them to 'forces you did not see' in 9:40. That link is interpretation; the verse names no forces.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "9:40"
+            },
+            {
+              "type": "other",
+              "ref": "Later sīra and tafsīr literature",
+              "verify": true
+            }
+          ],
+          "note": "An interpretive connection, not a report; the verse itself does not mention a spider or birds."
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Where does the spider's web at the cave come from?",
+        "options": [
+          {
+            "text": "Reports outside the ṣaḥīḥ collections whose chains are disputed or weak",
+            "ok": true,
+            "why": "The web is reported in the Musnad of Aḥmad through a disputed narrator, and the doves through weaker chains.",
+            "sources": [
+              {
+                "type": "other",
+                "ref": "Aḥmad b. Ḥanbal, al-Musnad, Musnad Ibn ʿAbbās",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "Qurʾān 9:40",
+            "ok": false,
+            "why": "The verse speaks of unseen forces but names no spider."
+          },
+          {
+            "text": "Ibn Isḥāq's account in Ibn Hishām",
+            "ok": false,
+            "why": "It is not in Ibn Hishām's text of the cave."
+          }
+        ]
+      },
+      "matters": "The web is the best-known image of the Hijra and one of its least secure. The established account needs no web to make the point of 9:40.",
+      "sections": [
+        "S0685",
+        "S0686"
+      ]
+    },
+    {
+      "id": "a07-u13",
+      "title": "The third night: the hired guide",
+      "kicker": "After the third night · the camels",
+      "when": {
+        "label": "Morning after the third night",
+        "grade": "established"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "thawr",
+        "dist": 2.5,
+        "pitch": 28,
+        "heading": 334
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the guide",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says that when the three nights had passed and people's interest in the two had died down, the man they had hired came to them with their two camels and a camel of his own.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "In ʿĀʾisha's account the guide was a man of the Banū al-Dīl, a skilled pathfinder who still followed the religion of Quraysh; they trusted him with their mounts and set the meeting at the cave of Thawr after three nights.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "She says he came with the mounts on the morning of the third night.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq names him ʿAbd Allāh b. Arqaṭ, of the Banū al-Dīl b. Bakr, with a mother from the Banū Sahm, and says he was a polytheist.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            }
+          ],
+          "note": "Other reports give his name as ʿAbd Allāh b. Urayqiṭ; the form of the name differs between sources."
+        },
+        {
+          "text": "The three nights were planned, not improvised: the meeting was fixed before they left Makkah and kept to the day.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀmir b. Fuhayra went with them, and the guide took them by the coastal road.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "The two have been hidden for three nights. Who brings the camels?",
+        "options": [
+          {
+            "text": "A hired guide who was not a Muslim",
+            "ok": true,
+            "why": "Both Ibn Isḥāq and ʿĀʾisha's account say the guide was still of the religion of Quraysh, yet trusted with the mounts.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0683"
+              }
+            ]
+          },
+          {
+            "text": "ʿAlī b. Abī Ṭālib",
+            "ok": false,
+            "why": "ʿAlī stayed in Makkah to return the deposits."
+          },
+          {
+            "text": "ʿAbd Allāh b. Abī Bakr",
+            "ok": false,
+            "why": "His role was the news, not the mounts."
+          }
+        ]
+      },
+      "matters": "The safety of the Prophet ﷺ rested, at this point, on the word of a paid pagan guide, and the word was kept.",
+      "sections": [
+        "S0683",
+        "S0686"
+      ]
+    },
+    {
+      "id": "a07-u14",
+      "title": "Dhāt al-Niṭāqayn",
+      "kicker": "Departure · the bag without a strap",
+      "when": {
+        "label": "The departure (the setting differs between the sources)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "thawr",
+        "dist": 0.9,
+        "pitch": 25,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says Asmāʾ came with their travelling food but had forgotten to give the bag a strap; when they set off and she went to hang it, there was none, so she undid her waistband (niṭāq) and tied it with that.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "For this, Ibn Isḥāq says, she was called Dhāt al-Niṭāq, 'she of the waistband'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0687"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām adds that he heard from more than one scholar the form Dhāt al-Niṭāqayn, 'she of the two waistbands': she split it in two, hung the bag with one half and wore the other.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0687"
+            }
+          ],
+          "note": "Ibn Isḥāq gives the singular name; Ibn Hishām the dual, from unnamed scholars."
+        },
+        {
+          "text": "ʿĀʾisha's account in al-Bukhārī has Asmāʾ cut a piece of her waistband to tie the mouth of the bag and gives the name Dhāt al-Niṭāqayn.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ's own report in al-Bukhārī places the scene in Abū Bakr's house as the food was prepared, with her father telling her to split the waistband.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 2979",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ],
+          "note": "The setting differs: Ibn Isḥāq puts it at the cave on departure; the ṣaḥīḥ reports put it at the house before leaving. The act itself is established."
+        },
+        {
+          "text": "All the sources agree on the act: Asmāʾ gave her own waistband to carry the food of the journey.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Ibn Isḥāq and Ibn Hishām give Asmāʾ two forms of her name. What is the difference?",
+        "options": [
+          {
+            "text": "Ibn Isḥāq: one waistband (al-Niṭāq); Ibn Hishām: two (al-Niṭāqayn), because she split it",
+            "ok": true,
+            "why": "Ibn Hishām adds the dual form from 'more than one scholar' and explains the split.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0687"
+              }
+            ]
+          },
+          {
+            "text": "There is no difference",
+            "ok": false,
+            "why": "The text records both forms."
+          },
+          {
+            "text": "The name refers to her two sisters",
+            "ok": false,
+            "why": "Both forms refer to the waistband."
+          }
+        ]
+      },
+      "matters": "A name earned in a moment of improvisation outlived everyone who saw it. The sources disagree about where it happened, not about what she did.",
+      "sections": [
+        "S0686",
+        "S0687"
+      ]
+    },
+    {
+      "id": "a07-u15",
+      "title": "\"At the price\"",
+      "kicker": "Departure · the better camel",
+      "when": {
+        "label": "Leaving Thawr, start of Rabīʿ al-Awwal, year 1 (date approximate)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "thawr",
+        "dist": 4,
+        "pitch": 35,
+        "heading": 300
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the guide",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "thawr",
+        "~coastal_road"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says that when Abū Bakr brought the two mounts to the Prophet ﷺ, he offered him the better of them and said: ride, may my father and mother be your ransom.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ said he would not ride a camel that was not his own.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "When Abū Bakr said it was his, the Prophet ﷺ asked what he had paid for it and took it at that price.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha's account places this exchange earlier, at Abū Bakr's house on the day the Hijra was announced; Ibn Isḥāq places it at the cave.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ],
+          "note": "Same exchange, different setting in the two accounts."
+        },
+        {
+          "text": "Abū Bakr took his freedman ʿĀmir b. Fuhayra up behind him, to serve them on the road.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "The road ahead",
+          "camera": {
+            "target": "makkah",
+            "dist": 250,
+            "pitch": 65,
+            "heading": 330
+          },
+          "reveal": {
+            "text": "Leaving Thawr, the party must first pass west of Makkah before the coast road can carry them north; the gazetteer can show the end points, not the track they took.",
+            "grade": "reconstruction",
+            "basis": "gazetteer points; the exact route is not located"
+          }
+        }
+      ],
+      "matters": "Even in flight, with a price on his head, the Prophet ﷺ would not take the camel as a gift. The Hijra was to be his own.",
+      "sections": [
+        "S0688"
+      ]
+    }
+  ]
+}

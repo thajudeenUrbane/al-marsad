@@ -53,7 +53,7 @@ Cite a ḥadīth number only if you are confident of it; otherwise give collecti
 Rules:
 - `place.key`, `camera.target`, `route[]`, `discover[].camera.target` use keys from `data/places.csv`, or `[lon, lat]` only for a wide view with no claim of location, or an **unlocated** key of the form `"~name"` (e.g. `"~amaj"`), which is shown dashed and never drawn on the map. Never invent coordinates.
 - `camera.dist` in km: 0.8–3 close, 4–15 local, 30–120 region, 200–500 overview. `pitch` 10–80 degrees, `heading` 0–360.
-- `lights`: role `prophet` (the light, never a figure; only the Prophet ﷺ), `person`, `group` (a gathering of believers), `stone` (named, side not drawn), `group-stone` (a hostile group, e.g. the watchers). No depiction of anyone, ever.
+- `lights`: role `prophet` (the light, never a figure; only the Prophet ﷺ), `person`, `group` (a gathering of believers), `stone` (named, side not drawn), `group-stone` (a group acting against the Prophet ﷺ in this moment, e.g. the watchers, trackers, pursuers), `assembly` (a tribe, clan or crowd named without a side: neutral grey). Never draw a whole tribe or community dark for context, and never an individual: named people with no recorded side are `stone`. No depiction of anyone, ever.
 - 4–9 statements per unit, each 1–3 plain sentences. No statement repeats another unit's. Each unit must add something new.
 - At least one `discover` per unit where it adds value; a `question` in about half the units (mix predict, recall, reflect; options must be grounded).
 - `sections`: every Ibn Hishām section the unit rests on.

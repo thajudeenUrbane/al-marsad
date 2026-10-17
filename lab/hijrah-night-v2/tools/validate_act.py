@@ -7,7 +7,7 @@ ROOT = HERE.parents[1]
 KEYS = {r["key"] for r in csv.DictReader(open(HERE / "data/places.csv", encoding="utf-8"))}
 SECS = {json.loads(l)["key"] for l in open(ROOT / "ingest/claims/ibn-hisham-full-passages.jsonl", encoding="utf-8")}
 GRADES = {"established", "supported", "disputed", "reconstruction"}
-ROLES = {"prophet", "person", "group", "stone", "group-stone"}
+ROLES = {"prophet", "person", "group", "stone", "group-stone", "assembly"}
 SKY = {"night", "dawn", "day", "midday", "dusk"}
 ARABIC = re.compile(r"[؀-ۿ]{2,}(?:\s+[؀-ۿ]{2,}){6,}")  # 7+ Arabic words in a row = running text
 def loc(v, where, errs):
