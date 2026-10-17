@@ -71,6 +71,15 @@ python3 stories-50/serve.py    # http://localhost:8751
 
 The page is generated, never edited by hand. The only judgement `build.py` applies is in three short tables at its top: which shorter names are the same person as a fuller form (22 merges, such as "Abu Bakr" into "Abu Bakr al-Siddiq"), which bold names are groups rather than one person (12, such as Ahl al-Suffah, listed with their story but not drawn), and one entry that names two people. Review those tables before trusting a merge. Everything is unverified: the doc says it was written from general knowledge without access to the sources, and none of it is in the ontology yet.
 
+## The Sky Atlas — the whole graph as a guided sky
+
+```bash
+.venv/bin/python ontology/build_graph.py   # the joined graph, build/graph-all.ttl
+.venv/bin/python atlas/build.py            # atlas/index.html, one self-contained page
+```
+
+**[`atlas/index.html`](atlas/index.html)** draws all of it at once: 8,373 people, events, places, stories and groups and 15,961 proposed claims, the full Ibn Hishām layer included. The Prophet ﷺ is the light at the centre, never a mark; events lie on a spiral in the order Ibn Hishām's text tells them; five views (Sky, Book, Time, Map, Lineage) morph into one another. Guided tours fly the camera through every event in the text's order, every dated event, the learning journeys, the ten, the 50 Stories and more, and any record can start a tour of its own. Three depths (Discover, Study, Research), recall cards that never mark an answer wrong, traced connections with each step's source, a logbook of milestones, search in English and Arabic, and an Arabic interface. See [atlas/README.md](atlas/README.md) and [docs/handover/sky-atlas-new.md](docs/handover/sky-atlas-new.md).
+
 ## The capacity test
 
 A separate, deliberately unmistakable artifact answering one engineering question: does the rendering approach hold at real isnād scale?

@@ -95,7 +95,7 @@ if off:
 EOF
 
 # --- helpers used by the steps -----------------------------------------------
-ISLANDS=(demo generation-1 stories-50 sira-network)
+ISLANDS=(demo generation-1 stories-50 sira-network atlas)
 
 # The earlier prototypes and the Sira network page commit their built pages: a fresh build must leave them unchanged.
 islands_current() {
@@ -166,6 +166,9 @@ step "prototypes: build demo"                      "$PY" demo/build.py
 step "prototypes: build generation-1"              "$PY" generation-1/build.py
 step "prototypes: build stories-50"                "$PY" stories-50/build.py
 step "prototypes: build sira-network"              "$PY" sira-network/build.py
+step "prototypes: build the Sky Atlas"             "$PY" atlas/build.py
+step "atlas: tests"                                "$PY" -m unittest discover -s atlas/tests
+step "atlas: page (desktop and 390 px)"            browser_check atlas/check.cjs
 step "prototypes: outputs committed and current"   islands_current
 if step "site: build"                              "$PY" site/build.py; then
   # Module builders write into site/dist after site/build.py (which empties it), so the
