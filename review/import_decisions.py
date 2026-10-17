@@ -271,18 +271,23 @@ def minting(tree: c.Tree, roster: dict):
 
 def shacl(tree: c.Tree, texts: dict, whole: bool):
     shapes = Graph().parse(tree.ontology / "shapes.ttl", format="turtle")
-    g = Graph()
-    g += tree.vocab
-    files = texts if whole else {tree.reviews_path: texts[tree.reviews_path]}
-    for text in files.values():
-        g.parse(data=text, format="turtle")
-    if whole:  # the same merge decisions build_graph.py applies
-        bg = tree.ontology / "build_graph.py"
-        bg = bg if bg.exists() else c.ONTOLOGY / "build_graph.py"
-        for s, p, drop, keep, _ in getattr(load_module("build_graph", bg), "MERGE_DECISIONS", []):
-            if (s, p, drop) in g and (s, p, keep) in g:
-                g.remove((s, p, drop))
-    conforms, _, report = validate(g, shacl_graph=shapes, advanced=True, allow_warnings=True)
+    if not whole:
+        g = Graph()
+        g += tree.vocab
+        g.parse(data=texts[tree.reviews_path], format="turtle")
+        conforms, _, report = validate(g, shacl_graph=shapes, advanced=True, allow_warnings=True)
+        return conforms, report
+    # the whole graph, checked as build_graph.py checks it (ontology/shacl_check.py): each large file
+    # through its cached verdict, the rest where files meet, with the same merge decisions
+    bg = tree.ontology / "build_graph.py"
+    bg = bg if bg.exists() else c.ONTOLOGY / "build_graph.py"
+    sc = load_module("shacl_check", bg.parent / "shacl_check.py")
+    merges = getattr(load_module("build_graph", bg), "MERGE_DECISIONS", [])
+    parsed = {Path(f).name: Graph().parse(data=t, format="turtle") for f, t in texts.items()}
+    # a cached verdict belongs to the file as it is on disk: only offered where the text here is that file
+    paths = {Path(f).name: Path(f) for f, t in texts.items()
+             if Path(f).is_file() and Path(f).read_text(encoding="utf-8") == t}
+    conforms, report, _, _ = sc.check_joined(parsed, tree.vocab, merges, run_large=False, paths=paths)
     return conforms, report
 
 

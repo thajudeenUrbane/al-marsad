@@ -119,6 +119,15 @@ class Decision:
                 "status_before": self.status_before, "status_after": self.status_after}
 
 
+def on_hold_from_pages() -> set:
+    """Data files the reader pages and the review queue leave out for now (slice 11a)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("shacl_check", ONTOLOGY / "shacl_check.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return set(mod.ON_HOLD_FROM_PAGES)
+
+
 class Tree:
     """One ontology directory, parsed: the vocabulary, every data file and the tables."""
 

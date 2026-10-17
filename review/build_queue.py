@@ -6,7 +6,8 @@ Build the scholars' review queue (slice 3a). Reads the graph; changes nothing in
     .venv/bin/python review/build_queue.py --list-excluded      # also print the identity rows left out, and why
     .venv/bin/python review/build_queue.py --identity-confidence needs-review,probable
 
-Claims queue: every Assertion whose status is `proposed`, one review unit per claim,
+Claims queue: every Assertion whose status is `proposed` (except in the files the reader
+pages hold back for now, ontology/shacl_check.py ON_HOLD_FROM_PAGES), one review unit per claim,
 each claim in exactly one batch, batched in this order:
   1. by story: claims derived from a narrative passage (the 50 Stories), one batch per
      story, in the work's own order;
@@ -102,7 +103,9 @@ def split(batch: dict, units: list, size: int) -> list[dict]:
 def claim_batches(tree: c.Tree, size: int) -> tuple[list, dict]:
     g = tree.graph
     earlier = tree.decisions_by_target()
-    proposed = [a for a in tree.assertions() if tree.status(a) == "proposed"]
+    # the files the pages hold back (ontology/shacl_check.py) are held back here too, until slice 11b
+    held = {Path(n).stem for n in c.on_hold_from_pages()}
+    proposed = [a for a in tree.assertions() if tree.status(a) == "proposed" and tree.source_of(a) not in held]
     stories, persons, files, passages = {}, {}, {}, {}
     for a in proposed:
         story = tree.story_of(a)
