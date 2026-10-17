@@ -88,7 +88,7 @@ class Strings(unittest.TestCase):
         en = json.loads((ATLAS / "i18n" / "en.json").read_text(encoding="utf-8"))
         ar = json.loads((ATLAS / "i18n" / "ar.json").read_text(encoding="utf-8"))
         self.assertEqual(sorted(set(en) - set(ar)), [])
-        src = (ATLAS / "static" / "atlas.js").read_text(encoding="utf-8") + (ATLAS / "static" / "template.html").read_text(encoding="utf-8")
+        src = "".join(f.read_text(encoding="utf-8") for f in sorted((ATLAS / "static" / "app").glob("*.js"))) + (ATLAS / "static" / "template.html").read_text(encoding="utf-8")
         used = set(re.findall(r'\bt\("([a-z0-9_.\-]+)"', src)) | set(re.findall(r"\{\{t:([a-z0-9_.]+)\}\}", src))
         used |= set(re.findall(r'data-i18n(?:-ph|-aria)?="([a-z0-9_.]+)"', src))
         missing = sorted(k for k in used if k not in en and not k.endswith("."))
@@ -105,7 +105,7 @@ class StandingRules(unittest.TestCase):
         with (ROOT / "ontology" / "corpus" / "identity.csv").open(encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 ids.add(row["canonical_id"].split(":", 1)[-1])
-        for f in sorted((ATLAS / "static").iterdir()):
+        for f in sorted(p for p in (ATLAS / "static").rglob("*") if p.is_file()):
             text = f.read_text(encoding="utf-8")
             found = [t for t in re.findall(r"[A-Za-z0-9]{20,24}", text) if t in ids]
             self.assertEqual(found, [], f.name)

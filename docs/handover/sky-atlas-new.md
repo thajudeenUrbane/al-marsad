@@ -25,4 +25,14 @@
 
 **Checks.** `atlas/tests` (11 tests), `atlas/check.cjs` (Playwright, desktop and 390 × 844: welcome, tour, search, record, study depth, lineage, trace, every view, every drawer tab, Arabic, no sideways scroll, no page error, no external request; all pass), the committed page matches a fresh build (byte-identical across hash seeds). All three are steps in `scripts/check_all.sh`.
 
+## Round 2 (17 October 2026): every earlier feature, and more
+
+Asked for by the maintainer: "Add all the features into new sky atlas. Don't miss anything", plus suggestions. Every one of the 31 features the earlier Sky Atlas had and this page lacked is now in it: the Stories, Transmission and Globe views (with arcs that grow with history), the blend slider, viewpoints, the five vantage points, Back and Home, flick inertia, the view in the address (a link-safe code, plus copy and open), links to the reader pages and Ask (when built with `--reader-base` / `--ask-url`), Play history, the period scrub, hollow undated marks, date ranges as bars and the generation band, shelves in every view, light by chain distance, the generation-light switch, distant stars, grouping, the test load with the GPU switch and speed readout (a Canvas 2D renderer now covers browsers without WebGL), absence on the sky, the full tour trail, tap feedback, the evidence summary, the ladder for an item and for a line, the panel's way back, why each journey stop was chosen, the full trace tool (several ranked threads, swap, copy link), the text view of the picture, the Arabic draft note and the `0` key. Generation shells stay out on purpose (T4).
+
+New, suggested in the session: read aloud (the device's voice), compare two records, nine quests, entries that share a written name (shown, never merged; an Index filter), copy a citation or a list, classroom mode, a star chart that becomes *My tour*, and larger text.
+
+Decisions to confirm: chain distance counts the 11 recorded chains and every `narrated_from` / `transmitted_to` claim (181 people), not only the chains; "same written name" sets aside text in brackets; quests and milestones count the learner's own exploring and never rank a person; a shared event in Compare is labelled as a fact about each person, not a recorded meeting.
+
+Checks: `atlas/check.cjs` now walks every feature at desktop and 390 × 844 (all pass, no page error, no external request); the page script is split into `static/app/01-core.js` … `08-main.js`, joined by the build.
+
 **Published.** As an Artifact (private until shared); the link is in `pages/README.md`.

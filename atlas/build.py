@@ -138,9 +138,61 @@ def load_journeys(site: Site, index: dict[str, int], log) -> list[dict]:
         steps = [index[s.iri] for s in j.steps if s.iri in index]
         apart = [index[s.iri] for s in j.set_apart if s.iri in index]
         anchors = [index[a] for a in j.anchors if a in index]
+        why = []  # per step: the rule's own reasons, then the records that chose it
+        for st in j.steps:
+            if st.iri not in index:
+                continue
+            rs = [[r.kind, index.get(r.other, -1) if r.other else -1, r.word or r.label or ""] for r in st.reasons]
+            for c in st.records[:3]:
+                o = c.object if c.subject == st.iri else c.subject
+                rs.append(["record", index.get(o, -1), c.predicate if not c.predicate_is_key else c.predicate.split(".")[-1].replace("_", " ")])
+            why.append(rs)
         out.append({"key": spec["slug"], "title": strings.get(spec["title"], spec["slug"]),
                     "lead": strings.get(spec["lead"], ""), "type": spec["select"]["type"],
-                    "status": spec["status"], "steps": steps, "apart": apart, "anchors": anchors})
+                    "status": spec["status"], "steps": steps, "apart": apart, "anchors": anchors, "why": why})
+    return out
+
+
+def load_presets(data: ObsData, lists: list[dict], light: int, log) -> list[dict]:
+    """The five vantage points of the earlier Sky (site/observatory/build_observatory.py
+    find_presets), found in this graph. Where the full layer repeats a name (several
+    people called Abu Bakr), the person comes from the lists file, never from an ID."""
+    import build_observatory as bo
+    out = []
+    nodes = data.nodes
+    nb = lambda i, classes=None: bo.neighbours(data, i, classes=classes)
+    ab = [m for L in lists if L["key"] == "rashidun" for m in L["m"][:1]]
+    hij = bo.find(data, ("event", "story"), r"\bhijra|\bthawr\b")
+    if ab and hij:
+        a = ab[0]
+        hl = {a, *hij}
+        near = nb(a)
+        for h in hij:
+            hl |= {x for x in nb(h) if x in near or nodes[x]["k"] == "place"}
+        out.append({"key": "hijrah_abubakr", "focus": a, "hl": sorted(hl), "view": "sky"})
+    else:
+        log("preset hijrah_abubakr skipped")
+    badr = bo.find(data, ("event", "story", "group", "place"), r"\bbadr\b")
+    battle = [i for i in badr if nodes[i]["k"] == "event"]
+    if battle:
+        hl = set(badr)
+        for b in badr:
+            hl |= {x for x in nb(b) if nodes[x]["k"] in ("person", "group")}
+        battle.sort(key=lambda i: -len(nb(i)))
+        out.append({"key": "badr", "focus": battle[0], "hl": sorted(hl), "view": "sky"})
+    fb = bo.find(data, ("story", "event", "group"), r"\bfirst believers\b")
+    if fb:
+        out.append({"key": "first_believers", "focus": fb[0], "hl": sorted({fb[0], *nb(fb[0])}), "view": "stories"})
+    fam = nb(light, classes=("kinship",))
+    if fam:
+        out.append({"key": "family", "focus": light, "hl": sorted({light, *fam}), "view": "sky", "cls": ["kinship"]})
+    hl = set()
+    for ch in data.chains:
+        hl |= {x for ln in ch["links"] for x in ln[:2]}
+        if ch["collector"] is not None:
+            hl.add(ch["collector"])
+    if hl:
+        out.append({"key": "chain", "focus": None, "hl": sorted(hl), "view": "chains"})
     return out
 
 
@@ -172,7 +224,8 @@ def table(values: list) -> tuple[list, dict]:
     return order, ix
 
 
-def payload(data: ObsData, site: Site, log) -> dict:
+def payload(data: ObsData, site: Site, log, links: dict | None = None) -> dict:
+    links = links or {}
     nodes, claims = data.nodes, data.claims
     n = len(nodes)
     light = [i for i, nd in enumerate(nodes) if nd["k"] == "person" and nd["_ent"].prophet]
@@ -261,8 +314,8 @@ def payload(data: ObsData, site: Site, log) -> dict:
         if nd.get("tbk") in tbks:
             S.put(i, "tb", tbks.index(nd["tbk"]))
         S.put(i, "tr", nd.get("tr"))
-        S.put(i, "d", [[a, b, t] for a, b, t, _n in nd.get("d", [])])
-        S.put(i, "death", [[a, b, t] for a, b, t, _n in nd.get("death", [])])
+        S.put(i, "d", [[a, b, t] + ([nn] if nn else []) for a, b, t, nn in nd.get("d", [])])
+        S.put(i, "death", [[a, b, t] + ([nn] if nn else []) for a, b, t, nn in nd.get("death", [])])
         S.put(i, "geo", nd.get("geo"))
         S.put(i, "pt", nd.get("pt"))
         S.put(i, "no", nd.get("no"))
@@ -276,6 +329,7 @@ def payload(data: ObsData, site: Site, log) -> dict:
         S.put(i, "ms", first_ms.get(i))
         S.put(i, "mt", tell_ms.get(i))
         S.put(i, "yr", nd["_marks"][0][0] if nd["_marks"] else None)
+        S.put(i, "yr2", max(m[1] for m in nd["_marks"]) if nd["_marks"] else None)
         S.put(i, "pl", nd["_places"][0] if nd["_places"] else None)
         S.put(i, "other", sorted(set(e.other_names or []) - {nd["n"]})[:6] if getattr(e, "other_names", None) else None)
         flags = (1 if i in opp else 0) | (2 if i in turned else 0) | (4 if i in background else 0)
@@ -284,6 +338,7 @@ def payload(data: ObsData, site: Site, log) -> dict:
         "k": [kinds.index(nd["k"]) for nd in nodes],
         "n": [nd["n"] for nd in nodes],
         "id": [nd["id"] for nd in nodes],
+        **({"u": [nd["u"] for nd in nodes]} if links.get("reader") else {}),
         "cv": [cov_ix[nd["cov"] or ""] for nd in nodes],
         **S.sparse(),
     }
@@ -297,6 +352,7 @@ def payload(data: ObsData, site: Site, log) -> dict:
     index = {nd["_iri"]: i for i, nd in enumerate(nodes)}
     lists = load_lists(nodes)
     journeys = load_journeys(site, index, log)
+    presets = load_presets(data, lists, light, log)
     counts = data.counts()
     counts["opponents"] = len(opp)
     counts["turned"] = len(turned & opp)
@@ -307,7 +363,8 @@ def payload(data: ObsData, site: Site, log) -> dict:
         "quals": quals, "citp": [p for p, _ in sorted(prefixes.items(), key=lambda kv: kv[1])],
         "gloss_prefix": GLOSS_PREFIX, "sources": data.sources, "strings": data.strings,
         "counts": counts, "ms_max": max(first_ms.values()) if first_ms else 0,
-        "ecliptic": sky["ecliptic"], "lists": lists, "journeys": journeys,
+        "ecliptic": sky["ecliptic"], "lists": lists, "journeys": journeys, "presets": presets,
+        "fingerprint": data.fingerprint(), "reader": links.get("reader"), "ask": links.get("ask"),
     }
     return {"meta": meta, "nodes": nd_out, "claims": cl, "reports": reports, "chains": chains,
             "pos": sky["pos"]}
@@ -316,7 +373,10 @@ def payload(data: ObsData, site: Site, log) -> dict:
 def render(pl: dict, artifact: bool) -> str:
     tpl = (STATIC / "template.html").read_text(encoding="utf-8")
     css = (STATIC / "atlas.css").read_text(encoding="utf-8")
-    js = "\n".join((STATIC / f).read_text(encoding="utf-8") for f in ("gl.js", "atlas.js"))
+    # the renderer, then the page's parts joined in order inside one function scope
+    parts = sorted((STATIC / "app").glob("[0-9][0-9]-*.js"))
+    js = (STATIC / "gl.js").read_text(encoding="utf-8") + "\n(function () {\n" + \
+        "\n".join(f.read_text(encoding="utf-8") for f in parts) + "\n})();\n"
     if "</script" in js.lower() or "</style" in css.lower():
         raise ValueError("inline script or style would close its own tag")
     en = json.loads((HERE / "i18n" / "en.json").read_text(encoding="utf-8"))
@@ -351,6 +411,8 @@ def main(argv=None) -> int:
     ap.add_argument("--graph", default=str(GRAPH))
     ap.add_argument("--out", default=str(OUT))
     ap.add_argument("--artifact", default=None, help="also write the page without its document skeleton here")
+    ap.add_argument("--reader-base", default=None, help="URL of the reader pages; each record then links to its page")
+    ap.add_argument("--ask-url", default=None, help="URL of the Ask page; the bar then links to it")
     a = ap.parse_args(argv)
     graph = Path(a.graph)
     if not graph.exists():
@@ -360,7 +422,7 @@ def main(argv=None) -> int:
     t = Translator(json.loads((SITE / "observatory" / "i18n" / "en.json").read_text(encoding="utf-8")))
     site = Site(graph)
     data = ObsData(site, t)
-    pl = payload(data, site, notes.append)
+    pl = payload(data, site, notes.append, {"reader": a.reader_base, "ask": a.ask_url})
     page = render(pl, artifact=False)
     if len(page.encode("utf-8")) > SIZE_LIMIT:
         raise SystemExit(f"page is {len(page.encode()):,} bytes, over {SIZE_LIMIT:,}")
@@ -372,6 +434,7 @@ def main(argv=None) -> int:
     print(f"  opponents {c['opponents']}, of whom turned {c['turned']}; lineage-only {c['background']:,}; "
           f"named in Ibn Hisham's text {c['in_text']:,}")
     print(f"  journeys: {', '.join(f'{j['key']} ({len(j['steps'])})' for j in pl['meta']['journeys']) or 'none'}")
+    print(f"  vantage points: {', '.join(p['key'] for p in pl['meta']['presets'])}; corpus fingerprint {pl['meta']['fingerprint']}")
     for note in notes:
         print("  " + note)
     if a.artifact:
