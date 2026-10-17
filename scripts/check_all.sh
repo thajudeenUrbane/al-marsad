@@ -151,17 +151,17 @@ actions_pinned() {
 step "ontology: build the graph (must conform)"    "$PY" ontology/build_graph.py
 step "ontology: identity table"                    "$PY" ontology/tools/identity_audit.py --check
 step "ontology: stories-50.ttl is current"         "$PY" ontology/tools/stories50_to_ttl.py --check
+# Each data file on its own. The full-book Ibn Hisham pass (ontology/corpus/ibn-hisham-full.ttl, about
+# 500,000 triples) takes about half an hour, so it runs only when asked (CHECK_FULL_SIRA=1); the graph
+# build above already checks it wherever it meets the other files, and a verdict, once computed, is
+# cached by checksum (build/cache/shacl/), so re-runs on an unchanged file are instant.
 for f in ontology/corpus/*.ttl ontology/examples/*.ttl; do
+  if [ "$f" = ontology/corpus/ibn-hisham-full.ttl ] && [ "${CHECK_FULL_SIRA:-0}" != 1 ]; then
+    skip "ontology: validate $f"                   "slow: set CHECK_FULL_SIRA=1"
+    continue
+  fi
   step "ontology: validate $f"                     "$PY" ontology/validate.py "$f"
 done
-# The full-book Ibn Hisham pass (ontology/corpus-full/) is about 500,000 triples: SHACL takes most of an
-# hour, so it runs only when asked (CHECK_FULL_SIRA=1). ingest/ibn_hisham.py writes it with the same code
-# as ontology/corpus/ibn-hisham.ttl, which is validated above on every run.
-if [ "${CHECK_FULL_SIRA:-0}" = 1 ]; then
-  step "ontology: validate ontology/corpus-full/ibn-hisham-full.ttl" "$PY" ontology/validate.py ontology/corpus-full/ibn-hisham-full.ttl
-else
-  skip "ontology: validate ontology/corpus-full/ibn-hisham-full.ttl" "slow: set CHECK_FULL_SIRA=1"
-fi
 step "prototypes: build demo"                      "$PY" demo/build.py
 step "prototypes: build generation-1"              "$PY" generation-1/build.py
 step "prototypes: build stories-50"                "$PY" stories-50/build.py

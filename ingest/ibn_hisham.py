@@ -4,7 +4,7 @@ Slice 4: AI-assisted ingestion of Ibn Hisham's al-Sira al-Nabawiyya (OpenITI) in
 
     .venv/bin/python ingest/ibn_hisham.py fetch     # download the pinned OpenITI text into ingest/cache/ and check its SHA-256
     .venv/bin/python ingest/ibn_hisham.py build     # write ontology/corpus/ibn-hisham.ttl (needs the cached text)
-    .venv/bin/python ingest/ibn_hisham.py build full   # the full-book pass: ontology/corpus-full/ibn-hisham-full.ttl
+    .venv/bin/python ingest/ibn_hisham.py build full   # the full-book pass: ontology/corpus/ibn-hisham-full.ttl
     .venv/bin/python ingest/ibn_hisham.py check all    # exit 1 if a committed Turtle differs from what build would write
     .venv/bin/python ingest/ibn_hisham.py review    # write ingest/cache/review.html: every claim beside its Arabic span
     .venv/bin/python ingest/ibn_hisham.py locate PASSAGE "Arabic words"   # offsets of a phrase in a passage
@@ -73,7 +73,7 @@ FULL_ENTITIES = CLAIMS_DIR / "ibn-hisham-full-entities.jsonl"
 FULL_CLAIMS = CLAIMS_DIR / "ibn-hisham-full.jsonl"
 # its Turtle sits outside ontology/corpus/ on purpose: build_graph.py and the site read every file
 # in corpus/, and this one (the whole book) is a separate, opt-in layer until it is reviewed
-FULL_OUT = ROOT / "ontology" / "corpus-full" / "ibn-hisham-full.ttl"
+FULL_OUT = ROOT / "ontology" / "corpus" / "ibn-hisham-full.ttl"
 
 PASSES = {
     "slice4": {"files": (PASSAGES, ENTITIES, CLAIMS), "out": ROOT / "ontology" / "corpus" / "ibn-hisham.ttl", "agent": "agent", "activity": "activity",

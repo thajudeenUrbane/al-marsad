@@ -10,6 +10,9 @@ Conformance criterion (docs/02 §4): a dataset conforms if it validates
 WITHOUT VIOLATION. Warning-level results are advisories that require a
 human decision; they do not block conformance.
 
+One data file is checked through the cache in ontology/shacl_check.py: an
+unchanged file (with unchanged vocabulary and shapes) is not checked twice.
+
 Exit codes:  0 = conforms   1 = violations   2 = could not run
 """
 
@@ -19,7 +22,7 @@ from pathlib import Path
 
 try:
     from rdflib import Graph
-    from pyshacl import validate
+    import shacl_check
 except ImportError:
     sys.exit("Requires rdflib and pyshacl:  pip install rdflib pyshacl")
 
@@ -32,24 +35,20 @@ DEFAULT_DATA = [ONT / "examples" / "thawr.ttl"]
 def main(argv):
     data_files = [Path(a) for a in argv[1:]] or DEFAULT_DATA
 
-    data = Graph()
     for f in VOCAB + data_files:
         if not f.exists():
             sys.exit(f"missing: {f}")
-        data.parse(f, format="turtle")
 
-    shapes = Graph().parse(SHAPES, format="turtle")
-
-    print(f"data:   {len(data)} triples from {len(VOCAB) + len(data_files)} files")
-    print(f"shapes: {len(shapes)} triples\n")
-
-    # The spec's conformance criterion: no violations.
-    conforms, _, _ = validate(data, shacl_graph=shapes, advanced=True,
-                              allow_warnings=True)
-
-    # Second pass to surface advisories the first pass tolerated.
-    _, _, full_text = validate(data, shacl_graph=shapes, advanced=True)
-    advisories = re.findall(r"Message: (.+)", full_text)
+    if len(data_files) == 1:
+        conforms, full_text, advisories, cached = shacl_check.cached_file_check(data_files[0])
+        print(f"data:   {data_files[0]} with the vocabulary{' (cached verdict)' if cached else ''}\n")
+    else:
+        data = Graph()
+        for f in VOCAB + data_files:
+            data.parse(f, format="turtle")
+        print(f"data:   {len(data)} triples from {len(VOCAB) + len(data_files)} files\n")
+        # The spec's conformance criterion: no violations (warnings are advisories).
+        conforms, full_text, advisories = shacl_check.check(data)
 
     if conforms:
         print("CONFORMS — no violations.")

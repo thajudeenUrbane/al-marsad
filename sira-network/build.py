@@ -9,7 +9,7 @@ self-contained page (sira-network/index.html, committed, like the other prototyp
 Reads only committed files, so it needs neither the cached text nor rdflib:
   ingest/claims/ibn-hisham-full*.jsonl       the claims, passages and new entities
   ontology/corpus/identity.csv               names (English and Arabic as written)
-  ontology/corpus-full/ibn-hisham-full.ttl   each passage's citation (page, milestone, lines)
+  ontology/corpus/ibn-hisham-full.ttl   each passage's citation (page, milestone, lines)
   ontology/relations.ttl                     each relation's label and class
 
 Nothing on the page is typed in by hand. Every edge is a proposed, AI-extracted claim
@@ -31,7 +31,7 @@ PASSAGES = CLAIMS_DIR / "ibn-hisham-full-passages.jsonl"
 CLAIMS = CLAIMS_DIR / "ibn-hisham-full.jsonl"
 ENTITIES = CLAIMS_DIR / "ibn-hisham-full-entities.jsonl"
 IDENTITY = ROOT / "ontology" / "corpus" / "identity.csv"
-TTL = ROOT / "ontology" / "corpus-full" / "ibn-hisham-full.ttl"
+TTL = ROOT / "ontology" / "corpus" / "ibn-hisham-full.ttl"
 RELATIONS = ROOT / "ontology" / "relations.ttl"
 TEMPLATE = Path(__file__).resolve().parent / "index.template.html"
 OUT = Path(__file__).resolve().parent / "index.html"
