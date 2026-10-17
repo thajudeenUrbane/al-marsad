@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sīra network</title>
+<meta name="description" content="Every person, place and event in Ibn Hishām's al-Sīra al-Nabawiyya and the relations the text states between them: AI-extracted, proposed, not yet reviewed.">
+<style>
+:root {
+  --bg: #fbfaf7; --fg: #1d1c1a; --muted: #6b665e; --line: #dcd6cc; --panel: #ffffff; --accent: #7a4b12;
+  --warn-bg: #fff4dc; --warn-fg: #5c3d00;
+  --c0: #8a5a00; --c1: #2f6f9f; --c2: #6a4c9c; --c3: #2e7d4f; --c4: #b0413e; --c5: #777;
+  --node: #ffffff; --center: #1d1c1a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161513; --fg: #ece8e1; --muted: #a39d93; --line: #3a3732; --panel: #1f1d1a; --accent: #e0b070;
+    --warn-bg: #3a2d12; --warn-fg: #f3dcb0;
+    --c0: #e0b070; --c1: #7cb6e0; --c2: #b9a0e6; --c3: #7fcf9d; --c4: #ee8f8b; --c5: #aaa;
+    --node: #1f1d1a; --center: #ece8e1;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161513; --fg: #ece8e1; --muted: #a39d93; --line: #3a3732; --panel: #1f1d1a; --accent: #e0b070;
+  --warn-bg: #3a2d12; --warn-fg: #f3dcb0;
+  --c0: #e0b070; --c1: #7cb6e0; --c2: #b9a0e6; --c3: #7fcf9d; --c4: #ee8f8b; --c5: #aaa;
+  --node: #1f1d1a; --center: #ece8e1;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header, main, footer { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+header h1 { font-size: 1.5rem; margin: 18px 0 4px; }
+header p { margin: 4px 0; color: var(--muted); }
+.warn { background: var(--warn-bg); color: var(--warn-fg); border-radius: 6px; padding: 10px 12px; margin: 12px 0; }
+.stats { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 8px 0 12px; color: var(--muted); }
+.stats b { color: var(--fg); font-variant-numeric: tabular-nums; }
+main { display: grid; grid-template-columns: 300px 1fr; gap: 16px; align-items: start; }
+@media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+label.s { display: block; font-weight: 600; margin-bottom: 6px; }
+input[type=search] { width: 100%; padding: 8px 10px; font: inherit; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
+.kinds { display: flex; gap: 6px; margin: 8px 0; flex-wrap: wrap; }
+.kinds button, .filters button { font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 99px; padding: 2px 10px; cursor: pointer; }
+.kinds button[aria-pressed=true], .filters button[aria-pressed=true] { background: var(--fg); color: var(--bg); }
+#results { list-style: none; margin: 0; padding: 0; max-height: 60vh; overflow: auto; }
+#results li button { all: unset; display: block; width: 100%; padding: 5px 4px; border-bottom: 1px solid var(--line); cursor: pointer; }
+#results li button:hover, #results li button:focus-visible { background: var(--bg); outline: 2px solid var(--accent); }
+.ar { font-family: "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif; direction: rtl; unicode-bidi: isolate; }
+.small { font-size: .85rem; color: var(--muted); }
+#view h2 { margin: 0 0 2px; font-size: 1.25rem; }
+#view .sub { margin: 0 0 8px; }
+svg { width: 100%; height: auto; display: block; }
+svg text { fill: var(--fg); font-size: 11px; }
+svg .center { font-size: 14px; font-weight: 700; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .85rem; color: var(--muted); }
+.legend i { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin-right: 4px; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: .92rem; }
+th, td { text-align: start; padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td button { all: unset; color: var(--accent); cursor: pointer; text-decoration: underline; }
+.q { font-size: .78rem; color: var(--warn-fg); background: var(--warn-bg); border-radius: 4px; padding: 0 4px; margin-inline-start: 4px; }
+footer { color: var(--muted); font-size: .85rem; margin: 24px auto 32px; }
+.theme { float: right; font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--panel); color: var(--fg); border-radius: 6px; padding: 2px 8px; margin-top: 20px; cursor: pointer; }
+</style>
+</head>
+<body>
+<header>
+  <button class="theme" id="theme" type="button">Theme</button>
+  <h1>The Sīra network</h1>
+  <p>Every person, place and event in Ibn Hishām's <i>al-Sīra al-Nabawiyya</i>, and every relation the text states between them.</p>
+  <div class="warn" role="note"><b>AI-extracted. Proposed. Not reviewed.</b> Each line below is a claim an AI pass proposed from one passage of the text, with the exact span it rests on recorded in the data. No scholar has checked them yet. The same person may appear under two entries (the pass merges people only on name and father line), and some relations may be misread. Nothing here is a ruling, a grading or a ranking. Lists are alphabetical.</div>
+  <div class="stats"><span><b>{{people}}</b> people</span><span><b>{{places}}</b> places</span><span><b>{{events}}</b> events</span><span><b>{{relations}}</b> relations</span><span>from <b>{{passages}}</b> sections of the text</span></div>
+</header>
+<main>
+  <section class="panel" aria-label="Find">
+    <label class="s" for="q">Find a person, place or event</label>
+    <input id="q" type="search" placeholder="e.g. Ḥamza, Badr, حمزة" autocomplete="off">
+    <div class="kinds" role="group" aria-label="Kind">
+      <button type="button" data-k="-1" aria-pressed="true">All</button>
+      <button type="button" data-k="0" aria-pressed="false">People</button>
+      <button type="button" data-k="1" aria-pressed="false">Places</button>
+      <button type="button" data-k="2" aria-pressed="false">Events</button>
+    </div>
+    <ul id="results"></ul>
+    <p class="small" id="rcount"></p>
+  </section>
+  <section class="panel" id="view" aria-live="polite">
+    <noscript><p>This page draws the network with JavaScript. The data is in the repository: ingest/claims/ibn-hisham-full*.jsonl and ontology/corpus-full/ibn-hisham-full.ttl.</p></noscript>
+    <p class="small">Choose an entry on the left to see its relations.</p>
+  </section>
+</main>
+<footer>
+  <p>Source: Ibn Hishām, al-Sīra al-Nabawiyya, ed. al-Saqqā, al-Abyārī and Shalabī, Cairo 1375/1955 (provisional edition), through the OpenITI digital text. Page numbers are that edition's as OpenITI marks them, not checked in print. Built by sira-network/build.py from the full-book pass (ingest/sira_full.py). Data CC BY-SA 4.0; code AGPL-3.0.</p>
+</footer>
+<script id="data" type="application/json">/*DATA*/null</script>
+<script>
+(function () {
+  "use strict";
+  var D = JSON.parse(document.getElementById("data").textContent);
+  var N = D.nodes, E = D.edges, P = D.preds, S = D.passages;
+  var KIND = ["person", "place", "event"];
+  var CLASSNAME = ["kinship", "social and political", "transmission", "places", "participation", "other"];
+  var adj = N.map(function () { return []; });
+  E.forEach(function (e, i) { adj[e[0]].push(i); if (e[2] !== e[0]) adj[e[2]].push(i); });
+  var dated = {};
+  D.dated.forEach(function (d) { (dated[d[0]] = dated[d[0]] || []).push(d[1]); });
+
+  function fold(s) {
+    s = s.normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[ʿʾ'’‘`]/g, "").toLowerCase();
+    s = s.replace(/[ً-ْٰـ]/g, "").replace(/[إأآٱ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه");
+    return s.replace(/\s+/g, " ").trim();
+  }
+  function el(tag, attrs, kids) {
+    var x = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "text") x.textContent = attrs[k]; else if (k === "class") x.className = attrs[k]; else x.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) x.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return x;
+  }
+  function nameEl(i) {
+    var n = N[i], s = el("span", null, [n[1]]);
+    if (n[2]) { s.appendChild(document.createTextNode(" ")); s.appendChild(el("span", { class: "ar", lang: "ar", text: n[2] })); }
+    return s;
+  }
+
+  // ---- search
+  var q = document.getElementById("q"), results = document.getElementById("results"), rcount = document.getElementById("rcount");
+  var kind = -1;
+  function search() {
+    var t = fold(q.value), out = [], total = 0;
+    for (var k = 0; k < D.order.length; k++) {
+      var i = D.order[k];
+      if (kind >= 0 && N[i][0] !== kind) continue;
+      if (t && D.fold[i].indexOf(t) < 0) continue;
+      total++;
+      if (out.length < 200) out.push(i);
+    }
+    results.textContent = "";
+    out.forEach(function (i) {
+      var b = el("button", { type: "button" }, [nameEl(i), el("div", { class: "small", text: KIND[N[i][0]] + " · " + adj[i].length + " relation" + (adj[i].length === 1 ? "" : "s") })]);
+      b.addEventListener("click", function () { show(i, true); });
+      results.appendChild(el("li", null, [b]));
+    });
+    rcount.textContent = total > out.length ? "Showing the first " + out.length + " of " + total.toLocaleString() + " (alphabetical). Type more to narrow." : total.toLocaleString() + " found.";
+  }
+  q.addEventListener("input", search);
+  Array.prototype.forEach.call(document.querySelectorAll(".kinds button"), function (b) {
+    b.addEventListener("click", function () {
+      kind = +b.dataset.k;
+      Array.prototype.forEach.call(document.querySelectorAll(".kinds button"), function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      search();
+    });
+  });
+
+  // ---- one entry and its relations
+  var view = document.getElementById("view"), filter = -1, MAX = 72;
+  function show(i, push) {
+    if (push) { try { history.replaceState(null, "", "#" + N[i][4]); } catch (e) { /* file: or sandbox */ } }
+    view.textContent = "";
+    var n = N[i];
+    view.appendChild(el("h2", null, [nameEl(i)]));
+    view.appendChild(el("p", { class: "small sub", text: KIND[n[0]] + (n[3] ? " · already in the graph before this pass" : " · new in this pass (identity: needs review)") + " · " + n[4] }));
+    var mine = adj[i];
+    var present = {};
+    mine.forEach(function (ei) { present[P[E[ei][1]][2]] = true; });
+    var fl = el("div", { class: "filters", role: "group", "aria-label": "Relation kind" });
+    [-1, 0, 1, 2, 3, 4, 5].forEach(function (c) {
+      if (c >= 0 && !present[c]) return;
+      var b = el("button", { type: "button", "aria-pressed": String(filter === c), text: c < 0 ? "All" : CLASSNAME[c] });
+      b.addEventListener("click", function () { filter = c; show(i, false); });
+      fl.appendChild(b);
+    });
+    view.appendChild(fl);
+    var list = mine.filter(function (ei) { return filter < 0 || P[E[ei][1]][2] === filter; });
+    if (filter >= 0 && !list.length) { filter = -1; return show(i, false); }
+    // neighbours, alphabetical within relation class
+    var nb = {}, nbOrder = [];
+    list.forEach(function (ei) {
+      var e = E[ei], o = e[0] === i ? e[2] : e[0];
+      if (!nb[o]) { nb[o] = { cls: P[e[1]][2], edges: [] }; nbOrder.push(o); }
+      nb[o].edges.push(ei);
+    });
+    nbOrder.sort(function (a, b) { return nb[a].cls - nb[b].cls || D.fold[a].localeCompare(D.fold[b]); });
+    view.appendChild(draw(i, nbOrder.slice(0, MAX), nb));
+    if (nbOrder.length > MAX) view.appendChild(el("p", { class: "small", text: "The drawing shows " + MAX + " of " + nbOrder.length + " connected entries; the table lists all of them. Use the filters above to draw one kind of relation." }));
+    var lg = el("div", { class: "legend" });
+    [0, 1, 2, 3, 4].forEach(function (c) { if (present[c]) lg.appendChild(el("span", null, [el("i", { style: "background:var(--c" + c + ")" }), CLASSNAME[c]])); });
+    view.appendChild(lg);
+    if (dated[i]) {
+      view.appendChild(el("p", { class: "small", text: "Dated in the text in " + dated[i].length + " passage(s): " + dated[i].map(function (p) { return S[p][1]; }).join("; ") }));
+    }
+    // table of statements
+    var tb = el("tbody");
+    list.slice().sort(function (a, b) {
+      return P[E[a][1]][2] - P[E[b][1]][2] || P[E[a][1]][1].localeCompare(P[E[b][1]][1]) || E[a][3] - E[b][3];
+    }).forEach(function (ei) {
+      var e = E[ei];
+      function who(k) {
+        if (k === i) return el("span", { text: N[k][1] });
+        var b = el("button", { type: "button" }, [N[k][1]]);
+        b.addEventListener("click", function () { filter = -1; show(k, true); window.scrollTo(0, view.offsetTop - 8); });
+        return b;
+      }
+      var qs = [];
+      if (e[4] & 1) qs.push(el("span", { class: "q", text: "hedged" }));
+      if (e[4] & 2) qs.push(el("span", { class: "q", text: "one of two reports" }));
+      if (e[4] & 4) qs.push(el("span", { class: "q", text: "counted, not present" }));
+      if (e[4] & 8) qs.push(el("span", { class: "q", text: "editors' brackets" }));
+      tb.appendChild(el("tr", null, [
+        el("td", null, [who(e[0]), " ", el("b", { text: P[e[1]][1] }), " ", who(e[2])].concat(qs)),
+        el("td", { class: "small" }, [S[e[3]][0], el("br"), S[e[3]][1]])
+      ]));
+    });
+    view.appendChild(el("table", null, [el("thead", null, [el("tr", null, [el("th", { text: "What the text states (proposed)" }), el("th", { text: "Where" })])]), tb]));
+  }
+
+  function draw(c, ids, nb) {
+    var NS = "http://www.w3.org/2000/svg", W = 820, H = ids.length > 24 ? 820 : 620, cx = W / 2, cy = H / 2;
+    var R = Math.min(W, H) / 2 - 175;
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "Relations of " + N[c][1] + ": " + ids.length + " connected entries, grouped by kind of relation");
+    function mk(tag, a) { var x = document.createElementNS(NS, tag); Object.keys(a).forEach(function (k) { x.setAttribute(k, a[k]); }); return x; }
+    var gl = mk("g", {}), gn = mk("g", {});
+    svg.appendChild(gl); svg.appendChild(gn);
+    ids.forEach(function (o, k) {
+      var a = -Math.PI / 2 + 2 * Math.PI * k / Math.max(ids.length, 1);
+      var x = cx + R * Math.cos(a), y = cy + R * Math.sin(a), col = "var(--c" + nb[o].cls + ")";
+      gl.appendChild(mk("line", { x1: cx, y1: cy, x2: x, y2: y, stroke: col, "stroke-width": Math.min(1 + nb[o].edges.length * 0.6, 4), "stroke-opacity": 0.75 }));
+      var g = mk("g", { tabindex: "0", role: "button", style: "cursor:pointer" });
+      var shape = N[o][0] === 0 ? mk("circle", { cx: x, cy: y, r: 6 }) : mk("rect", { x: x - 6, y: y - 6, width: 12, height: 12, transform: N[o][0] === 2 ? "rotate(45 " + x + " " + y + ")" : "" });
+      shape.setAttribute("fill", "var(--node)"); shape.setAttribute("stroke", col); shape.setAttribute("stroke-width", "2");
+      g.appendChild(shape);
+      var right = Math.cos(a) >= 0, label = N[o][1], deg = a * 180 / Math.PI;
+      if (label.length > 28) label = label.slice(0, 27) + "…";
+      // radial labels: along the spoke, turned upright on the left half
+      var t = mk("text", { x: x + (right ? 10 : -10), y: y + 4, "text-anchor": right ? "start" : "end",
+        transform: "rotate(" + (right ? deg : deg + 180) + " " + x + " " + y + ")" });
+      t.textContent = label;
+      g.appendChild(t);
+      var tip = mk("title", {}); tip.textContent = N[o][1] + (N[o][2] ? " — " + N[o][2] : "") + " (" + nb[o].edges.map(function (ei) { return P[E[ei][1]][1]; }).join(", ") + ")";
+      g.appendChild(tip);
+      function go() { filter = -1; show(o, true); }
+      g.addEventListener("click", go);
+      g.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); } });
+      gn.appendChild(g);
+    });
+    gn.appendChild(mk("circle", { cx: cx, cy: cy, r: 10, fill: "var(--center)" }));
+    var ct = mk("text", { x: cx, y: cy + 28, "text-anchor": "middle", class: "center", "paint-order": "stroke", stroke: "var(--panel)", "stroke-width": "5" });
+    ct.textContent = N[c][1];
+    gn.appendChild(ct);
+    return svg;
+  }
+
+  // ---- theme, start
+  var th = document.getElementById("theme");
+  th.addEventListener("click", function () {
+    var cur = document.documentElement.getAttribute("data-theme");
+    var dark = cur ? cur === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+  });
+  search();
+  var start = -1, h = decodeURIComponent((location.hash || "").slice(1));
+  if (h) N.forEach(function (n, k) { if (n[4] === h) start = k; });
+  if (start < 0) N.forEach(function (n, k) { if (start < 0 && n[1].indexOf("The Prophet Mu") === 0) start = k; });
+  if (start >= 0) show(start, false);
+})();
+</script>
+</body>
+</html>

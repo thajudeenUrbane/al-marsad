@@ -223,6 +223,29 @@ mrs:qualifier a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:
 mrs:assertionStatus a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:AssertionStatus .
 mrs:Qualifier a owl:Class .
 
+# ADDED IN SLICE 11a, 17 Oct 2026 (maintainer answers round 3, F1, F5, F7):
+# what the full-book pass did not record, read again from the same text.
+mrs:atEvent a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:Event ;
+    rdfs:comment """The occasion at which the stated relation held, as the source places it: 'fought
+        against the Prophet (peace and blessings be upon him) at Badr'. The relation is the claim; the
+        event only says where it applies."""@en .
+mrs:Voice a owl:Class ;
+    rdfs:comment """Who is speaking where a claim's words stand in a composite work: the author, or an
+        editor adding notes (Ibn Hishām in Ibn Isḥāq's Sīra). Not a grading: a later editor's note can be
+        the better-sourced statement."""@en .
+mrs:voice_ibn_ishaq a mrs:Voice ; skos:prefLabel "Ibn Isḥāq (the author)"@en .
+mrs:voice_ibn_hisham a mrs:Voice ; skos:prefLabel "Ibn Hishām (the editor's addition)"@en .
+mrs:voice a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:Voice ;
+    rdfs:comment "The speaker of the words the claim rests on, from the work's own markers (\"qāla Ibn Hishām\", \"qāla Ibn Isḥāq\")."@en .
+mrs:voiceCarried a owl:DatatypeProperty ; rdfs:domain mrs:Assertion ; rdfs:range xsd:boolean ;
+    rdfs:comment "True when no marker stands in the claim's own section and the voice is carried from the last marker before it, as the work's convention is."@en .
+mrs:narrationFormula a owl:DatatypeProperty ; rdfs:domain mrs:Assertion ; rdfs:range rdf:langString ;
+    rdfs:comment "On a 'narrated from' claim: the transmission formula exactly as written (ḥaddathanī, ʿan, balaghanī ...)."@en .
+mrs:narrationMode a owl:ObjectProperty ; rdfs:domain mrs:Assertion ; rdfs:range mrs:TransmissionMode ;
+    rdfs:comment """On a 'narrated from' claim: the mode the formula fixes (ḥaddatha, samiʿa: samāʿ; ʿan: ʿanʿana),
+        else unspecified. Read from the words, never inferred from a narrator's habits; whether a ʿanʿana by a
+        mudallis is connected is a scholar's determination."""@en .
+
 # ADDED IN SLICE 4, 15 Oct 2026, for the lifelines view: ages and dates
 # kept exactly as the source gives them, on the Assertion that rests on
 # them (relations mrs:rel_age_at, rel_born_during, rel_died_during and

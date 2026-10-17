@@ -119,6 +119,15 @@ class Decision:
                 "status_before": self.status_before, "status_after": self.status_after}
 
 
+def on_hold_from_pages() -> set:
+    """Data files the reader pages and the review queue leave out for now (slice 11a)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("shacl_check", ONTOLOGY / "shacl_check.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return set(mod.ON_HOLD_FROM_PAGES)
+
+
 class Tree:
     """One ontology directory, parsed: the vocabulary, every data file and the tables."""
 
@@ -372,6 +381,8 @@ def drift(tree: Tree) -> tuple[list, list]:
 # (slice 1a merged two IDs on one label: on its own that gives 'probable'), and "info"
 # (explains something, asks nothing). Any other part is a real question: unknown notes
 # are never dropped.
+# Maintainer P9 (round 3): the 50 Stories groups' flag becomes this question for scholars.
+REAL_GROUP_NOTE = "question for scholars: is this a real tribe, clan or group the sources name, or only a description?"
 NOTE_KINDS = [
     (re.compile(r"^IRI nearly identical to "), "id", "slice-1a ID collision (fixed by the slice 1d re-mint)"),
     (re.compile(r"stays needs-review only for the ID collision"), "id", "flag kept only for the ID collision"),

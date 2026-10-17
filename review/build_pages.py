@@ -206,7 +206,8 @@ def claim_card(u: dict, n: int, total: int, seq: int, passages: dict, story_pass
 def identity_card(u: dict, n: int, total: int, seq: int) -> str:
     kind = u.get("entity") if u.get("entity") in ENTITY_KINDS else "other"
     title = esc(u["name"]) + (" " + ar(u["name_ar"]) if u.get("name_ar") else "")
-    detail = f'<p class="question">{t("identity.question." + kind)}</p><p class="hint">{t("identity.hint")}</p>'
+    q = "real_group" if u.get("question") == "real_group" else kind
+    detail = f'<p class="question">{t("identity.question." + q)}</p><p class="hint">{t("identity.hint")}</p>'
     facts = [t("identity.confidence", value=u.get("confidence") or ""), t("card.id", value=u["id"])]
     if u.get("variant_ids"):
         facts.append(t("identity.variants", value=", ".join(u["variant_ids"])))

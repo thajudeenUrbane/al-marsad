@@ -683,3 +683,28 @@ mrs:TraditionShape a sh:NodeShape ;
                 FILTER (?value != $this)
             }
         """ ] .
+
+
+#################################################################
+#  SLICE 11a — occasion, voice and narration formula on claims.
+#################################################################
+
+mrs:Slice11aAssertionShape a sh:NodeShape ;
+    sh:targetClass mrs:Assertion ;
+    sh:property [ sh:path mrs:atEvent ;          sh:maxCount 1 ; sh:nodeKind sh:IRI ;            sh:severity sh:Violation ] ;  # an event, often declared in another corpus file
+    sh:property [ sh:path mrs:voice ;            sh:maxCount 1 ; sh:in ( mrs:voice_ibn_ishaq mrs:voice_ibn_hisham ) ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:voiceCarried ;     sh:maxCount 1 ; sh:datatype xsd:boolean ;       sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:narrationFormula ; sh:maxCount 1 ; sh:datatype rdf:langString ;    sh:severity sh:Violation ] ;
+    sh:property [ sh:path mrs:narrationMode ;    sh:maxCount 1 ; sh:class mrs:TransmissionMode ; sh:severity sh:Violation ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "A formula or a mode belongs only on a 'narrated from' claim, and the two go together." ;
+        sh:prefixes [ sh:declare [ sh:prefix "mrs" ; sh:namespace "https://w3id.org/marsad/core#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                { $this mrs:narrationFormula ?f } UNION { $this mrs:narrationMode ?m }
+                FILTER ( NOT EXISTS { $this mrs:predicate mrs:rel_narrated_from }
+                         || NOT EXISTS { $this mrs:narrationFormula ?f2 }
+                         || NOT EXISTS { $this mrs:narrationMode ?m2 } )
+            }
+        """ ] .

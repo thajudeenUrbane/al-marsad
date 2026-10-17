@@ -1,0 +1,1805 @@
+{
+ "seed": 20261017,
+ "claims": 15602,
+ "sampled": 400,
+ "strata": {
+  "rel_absent_from": {
+   "claims": 45,
+   "sampled": 5
+  },
+  "rel_adopted_by": {
+   "claims": 5,
+   "sampled": 5
+  },
+  "rel_age_at": {
+   "claims": 23,
+   "sampled": 5
+  },
+  "rel_ally_of": {
+   "claims": 16,
+   "sampled": 5
+  },
+  "rel_ancestor_of": {
+   "claims": 24,
+   "sampled": 5
+  },
+  "rel_appointed": {
+   "claims": 123,
+   "sampled": 6
+  },
+  "rel_born_at": {
+   "claims": 23,
+   "sampled": 5
+  },
+  "rel_born_during": {
+   "claims": 3,
+   "sampled": 3
+  },
+  "rel_buried_at": {
+   "claims": 3,
+   "sampled": 3
+  },
+  "rel_captured": {
+   "claims": 32,
+   "sampled": 5
+  },
+  "rel_corresponded_with": {
+   "claims": 57,
+   "sampled": 6
+  },
+  "rel_cousin_of": {
+   "claims": 22,
+   "sampled": 5
+  },
+  "rel_dated": {
+   "claims": 46,
+   "sampled": 5
+  },
+  "rel_died_at": {
+   "claims": 60,
+   "sampled": 6
+  },
+  "rel_died_during": {
+   "claims": 411,
+   "sampled": 9
+  },
+  "rel_divorced_from": {
+   "claims": 6,
+   "sampled": 5
+  },
+  "rel_father_of": {
+   "claims": 9231,
+   "sampled": 102
+  },
+  "rel_fought_against": {
+   "claims": 192,
+   "sampled": 7
+  },
+  "rel_fought_alongside": {
+   "claims": 402,
+   "sampled": 9
+  },
+  "rel_governed": {
+   "claims": 19,
+   "sampled": 5
+  },
+  "rel_killed": {
+   "claims": 228,
+   "sampled": 7
+  },
+  "rel_led": {
+   "claims": 143,
+   "sampled": 7
+  },
+  "rel_manumitted": {
+   "claims": 13,
+   "sampled": 5
+  },
+  "rel_maternal_uncle_of": {
+   "claims": 15,
+   "sampled": 5
+  },
+  "rel_mawla_of": {
+   "claims": 107,
+   "sampled": 6
+  },
+  "rel_migrated_from": {
+   "claims": 11,
+   "sampled": 5
+  },
+  "rel_migrated_to": {
+   "claims": 241,
+   "sampled": 8
+  },
+  "rel_mother_of": {
+   "claims": 277,
+   "sampled": 8
+  },
+  "rel_narrated_from": {
+   "claims": 1250,
+   "sampled": 18
+  },
+  "rel_occurred_at": {
+   "claims": 84,
+   "sampled": 6
+  },
+  "rel_occurred_during": {
+   "claims": 2,
+   "sampled": 2
+  },
+  "rel_opposed": {
+   "claims": 72,
+   "sampled": 6
+  },
+  "rel_participated_in": {
+   "claims": 1236,
+   "sampled": 18
+  },
+  "rel_party_to_treaty_with": {
+   "claims": 8,
+   "sampled": 5
+  },
+  "rel_paternal_uncle_of": {
+   "claims": 47,
+   "sampled": 6
+  },
+  "rel_pledged_allegiance_to": {
+   "claims": 16,
+   "sampled": 5
+  },
+  "rel_preceded": {
+   "claims": 38,
+   "sampled": 5
+  },
+  "rel_present_at": {
+   "claims": 131,
+   "sampled": 6
+  },
+  "rel_protected": {
+   "claims": 27,
+   "sampled": 5
+  },
+  "rel_resided_in": {
+   "claims": 52,
+   "sampled": 6
+  },
+  "rel_sent_delegation_to": {
+   "claims": 53,
+   "sampled": 6
+  },
+  "rel_sheltered": {
+   "claims": 77,
+   "sampled": 6
+  },
+  "rel_sheltered_at": {
+   "claims": 7,
+   "sampled": 5
+  },
+  "rel_sibling_of": {
+   "claims": 304,
+   "sampled": 8
+  },
+  "rel_spouse_of": {
+   "claims": 148,
+   "sampled": 7
+  },
+  "rel_succeeded": {
+   "claims": 23,
+   "sampled": 5
+  },
+  "rel_travelled_via": {
+   "claims": 67,
+   "sampled": 6
+  },
+  "rel_visited": {
+   "claims": 170,
+   "sampled": 7
+  },
+  "rel_witnessed": {
+   "claims": 12,
+   "sampled": 5
+  }
+ },
+ "sample": [
+  {
+   "claim": "ast:8YwDF77xZgZVhUamubmFsS",
+   "predicate": "rel_absent_from"
+  },
+  {
+   "claim": "ast:OQ3PyTAhTHIPMhh5B2kMPf",
+   "predicate": "rel_absent_from"
+  },
+  {
+   "claim": "ast:S8rVRy4FGkY7ofVb2oTOAM",
+   "predicate": "rel_absent_from"
+  },
+  {
+   "claim": "ast:afr3sqcL8XygvJ0FpNL6CP",
+   "predicate": "rel_absent_from"
+  },
+  {
+   "claim": "ast:uWDFO2KYcG1jzKbNQXFvgY",
+   "predicate": "rel_absent_from"
+  },
+  {
+   "claim": "ast:3KO59T1xZrBHZRYr5c5m2x",
+   "predicate": "rel_adopted_by"
+  },
+  {
+   "claim": "ast:NJ5fDdHNmmvaLh1C239Mgb",
+   "predicate": "rel_adopted_by"
+  },
+  {
+   "claim": "ast:YMkCze7vtAh0MMnizuT6hR",
+   "predicate": "rel_adopted_by"
+  },
+  {
+   "claim": "ast:fDXx3RAWBspJZpW13HqlM7",
+   "predicate": "rel_adopted_by"
+  },
+  {
+   "claim": "ast:v0W4LM5Edf9BcPqrOIPc7h",
+   "predicate": "rel_adopted_by"
+  },
+  {
+   "claim": "ast:gxi2edUEADwrYjtdqi1SA2",
+   "predicate": "rel_age_at"
+  },
+  {
+   "claim": "ast:mkeOlldejrJW5pDAR1GXrg",
+   "predicate": "rel_age_at"
+  },
+  {
+   "claim": "ast:n4ezP9ZhXRWUXfmdYCD6Ve",
+   "predicate": "rel_age_at"
+  },
+  {
+   "claim": "ast:sKV0PylZeaDSMv7bEl6E88",
+   "predicate": "rel_age_at"
+  },
+  {
+   "claim": "ast:uwgcRNeM3bvFsxvUENg6T1",
+   "predicate": "rel_age_at"
+  },
+  {
+   "claim": "ast:EllQPtXdbqnJZprljW762M",
+   "predicate": "rel_ally_of"
+  },
+  {
+   "claim": "ast:iRMzVhuDX8jI4HLSP7O4kz",
+   "predicate": "rel_ally_of"
+  },
+  {
+   "claim": "ast:k84KcvZtOP6Dru5fHGIVUS",
+   "predicate": "rel_ally_of"
+  },
+  {
+   "claim": "ast:ypaokPbo1oG8G4F0Lapo3Q",
+   "predicate": "rel_ally_of"
+  },
+  {
+   "claim": "ast:zQVFqhZZsYl0STGPaujJEK",
+   "predicate": "rel_ally_of"
+  },
+  {
+   "claim": "ast:EZG7bBoxhbY99Vx9xkDMGZ",
+   "predicate": "rel_ancestor_of"
+  },
+  {
+   "claim": "ast:MgN0gnrv65Ft3hqGdqUSuM",
+   "predicate": "rel_ancestor_of"
+  },
+  {
+   "claim": "ast:U5uH7xpfki4AxpysEV0QZG",
+   "predicate": "rel_ancestor_of"
+  },
+  {
+   "claim": "ast:jUckQ6ZpVfHwkZ0A252cC4",
+   "predicate": "rel_ancestor_of"
+  },
+  {
+   "claim": "ast:tJlBBvVqONGbsCyIEbV9xb",
+   "predicate": "rel_ancestor_of"
+  },
+  {
+   "claim": "ast:1lpqmcaxWeeiHOgr5RtfOC",
+   "predicate": "rel_appointed"
+  },
+  {
+   "claim": "ast:CAmiZqiu2geAnPwUKKz4md",
+   "predicate": "rel_appointed"
+  },
+  {
+   "claim": "ast:LkjqvFfQn0X0rryLl1AnYj",
+   "predicate": "rel_appointed"
+  },
+  {
+   "claim": "ast:hOpnR8dKoVNWjqXGLBynLR",
+   "predicate": "rel_appointed"
+  },
+  {
+   "claim": "ast:p1KkONKTA1YWBrlzaBjf5e",
+   "predicate": "rel_appointed"
+  },
+  {
+   "claim": "ast:qXsoInO36InQKkKJ3xsxUB",
+   "predicate": "rel_appointed"
+  },
+  {
+   "claim": "ast:1Vx5iwGtAQ5yOBcrS8Q4dA",
+   "predicate": "rel_born_at"
+  },
+  {
+   "claim": "ast:7mNVnpfKaSe01uG9CLKjIe",
+   "predicate": "rel_born_at"
+  },
+  {
+   "claim": "ast:TaIg2T2UO30avwutR5N9XN",
+   "predicate": "rel_born_at"
+  },
+  {
+   "claim": "ast:UozoO5Sy6yog4U97WgYJjU",
+   "predicate": "rel_born_at"
+  },
+  {
+   "claim": "ast:ot3viq6YxldNGVHHzllfys",
+   "predicate": "rel_born_at"
+  },
+  {
+   "claim": "ast:UTp31glv3j74OWtpYprWlT",
+   "predicate": "rel_born_during"
+  },
+  {
+   "claim": "ast:YkDAGZl0e7YtsC83lmMVjZ",
+   "predicate": "rel_born_during"
+  },
+  {
+   "claim": "ast:pJhwwTzRg8fmprgZvhdpX6",
+   "predicate": "rel_born_during"
+  },
+  {
+   "claim": "ast:65C9tGvs2ovZav0DQQBC3A",
+   "predicate": "rel_buried_at"
+  },
+  {
+   "claim": "ast:TZZHIBIahcKTXoH1ZPuKsa",
+   "predicate": "rel_buried_at"
+  },
+  {
+   "claim": "ast:c3r0lWipEgt80jasTYGxG4",
+   "predicate": "rel_buried_at"
+  },
+  {
+   "claim": "ast:R5MudDMQCIDr2G4GUGPxij",
+   "predicate": "rel_captured"
+  },
+  {
+   "claim": "ast:T1S0N1nwnSwXD0zijdDffE",
+   "predicate": "rel_captured"
+  },
+  {
+   "claim": "ast:YCMSlfng8xeNH53vt9g3ma",
+   "predicate": "rel_captured"
+  },
+  {
+   "claim": "ast:fZGCPQJ4rTkCSsXhkeWXCw",
+   "predicate": "rel_captured"
+  },
+  {
+   "claim": "ast:mkpnp6UFFtboa26ZlUTfpY",
+   "predicate": "rel_captured"
+  },
+  {
+   "claim": "ast:51dtWfErjpA8dl9Oh2YLdi",
+   "predicate": "rel_corresponded_with"
+  },
+  {
+   "claim": "ast:7UNfpqO4iRmfwW1mEJtkH6",
+   "predicate": "rel_corresponded_with"
+  },
+  {
+   "claim": "ast:KUSIJqE4lV5ou9Z9lrmxef",
+   "predicate": "rel_corresponded_with"
+  },
+  {
+   "claim": "ast:MTZCj53zlrxvh0h9J2ar5W",
+   "predicate": "rel_corresponded_with"
+  },
+  {
+   "claim": "ast:vI9YT2ZwVjqdLFTIWOYDWf",
+   "predicate": "rel_corresponded_with"
+  },
+  {
+   "claim": "ast:vyILit82ob72XVeGRVDnbJ",
+   "predicate": "rel_corresponded_with"
+  },
+  {
+   "claim": "ast:H4jqna5bRQUgk3XsKBuFXI",
+   "predicate": "rel_cousin_of"
+  },
+  {
+   "claim": "ast:YxSNzyhuHtoInEIcPiLN2D",
+   "predicate": "rel_cousin_of"
+  },
+  {
+   "claim": "ast:ZaYFYa3SkGMjjAx89NtthO",
+   "predicate": "rel_cousin_of"
+  },
+  {
+   "claim": "ast:cgRgOG7hUuk93DuCYyU8o6",
+   "predicate": "rel_cousin_of"
+  },
+  {
+   "claim": "ast:pqAaeiducfyyDCcOKftYLA",
+   "predicate": "rel_cousin_of"
+  },
+  {
+   "claim": "ast:2SHvyYyDuJ9Bntf4QLD0P4",
+   "predicate": "rel_dated"
+  },
+  {
+   "claim": "ast:F6pjq329nrXTunIqdrNSxd",
+   "predicate": "rel_dated"
+  },
+  {
+   "claim": "ast:QhCcMq05dRdV28c62nRXtk",
+   "predicate": "rel_dated"
+  },
+  {
+   "claim": "ast:S7jWAubNiaf4zysjcwvPOr",
+   "predicate": "rel_dated"
+  },
+  {
+   "claim": "ast:kCLnZES5KrSVUMPpx2IFv7",
+   "predicate": "rel_dated"
+  },
+  {
+   "claim": "ast:6FR47ad8AwhtyNnKbLRnAH",
+   "predicate": "rel_died_at"
+  },
+  {
+   "claim": "ast:Gz4BHUVuj4rsOILgONXwq3",
+   "predicate": "rel_died_at"
+  },
+  {
+   "claim": "ast:QZBXFnL1k6Jsp0LyliDTKN",
+   "predicate": "rel_died_at"
+  },
+  {
+   "claim": "ast:Sqk8QccwEjaymvudBdQB6d",
+   "predicate": "rel_died_at"
+  },
+  {
+   "claim": "ast:iAn9rdqiXOXZQXF1fLMQ8W",
+   "predicate": "rel_died_at"
+  },
+  {
+   "claim": "ast:p4ZsBuse4iV63Y0hmhQn2Z",
+   "predicate": "rel_died_at"
+  },
+  {
+   "claim": "ast:0eOCOXHGha11SKgrmLLwpW",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:A4PfddjMt4gVaNXQdz0R3M",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:KeooRUf9wUkaZH60NyYj7m",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:PktlIdqTNgQHxvnav82MQW",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:UTO3cIS9t4u805n2YyF1Kl",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:ZLBg8Gyn7b7EWUpmKvr4DS",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:rOBNIOIGfSD9gbSC59OVsB",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:x5uKkZInmW9ssJ4ih5KLGi",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:yy9ZrSQ0jjXiyVOvjIQO0x",
+   "predicate": "rel_died_during"
+  },
+  {
+   "claim": "ast:0rBrqTJPAwtqgnVQ4x7XK2",
+   "predicate": "rel_divorced_from"
+  },
+  {
+   "claim": "ast:1mzQWtiLB09cJAOMRLceDG",
+   "predicate": "rel_divorced_from"
+  },
+  {
+   "claim": "ast:Nl1Am8mSTLhkWOtpPZIrzQ",
+   "predicate": "rel_divorced_from"
+  },
+  {
+   "claim": "ast:XeCLWHtyrAX46YfS7so2o4",
+   "predicate": "rel_divorced_from"
+  },
+  {
+   "claim": "ast:zNAVURX3FmPhjjAByTNZzY",
+   "predicate": "rel_divorced_from"
+  },
+  {
+   "claim": "ast:0l0BVn1MvYkTr8IjDmXzj8",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:0zreyURkxQNlBga45kX5Rw",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:15ScDLbTVo5nu2WnquDufd",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:1bWjRwTfz1evxeN7GaYFqU",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:289CEaJDeyDuOVzTlSH3IK",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:2EYxfzZnG0s3clAmFBxx1i",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:2JODdeircxX4AbFlIrpB3x",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:2n8MZLgTwMLie3u0iLCuWH",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:2zXX2qhBkrv6ReFbPmpGVJ",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:3Mc6S1IieXAYZumaxersWt",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:4Tz3ncCPgUwL7WGNDCOzy7",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:5H6eDWElkeALTFiTvw96bI",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:5QgKuW4wyZgaFwgrwky9k4",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:6JCqAknnzhB5vimR5A9eVV",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:6aLPBkzRRWN0pClmZlehPi",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:7kjrItFvNSJXDAo2m1B62f",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:80Jr6XSiizrTQdLCs25BhS",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:8FeHxgH4d1lSGjX0WmTVrP",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:9Iiml7vqGcLhnpuyvBd364",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:A0UWE5avdd8oogT5Cfnj97",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:AhMIco8OgnJmVlHzbjI1nI",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:BDHxhdNiJaAFRvMO7IWxH0",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:BiTCPrNu30rZ5WfG80uph0",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:C2hihZGfeSaxQm6WlEuBZO",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:CXZSQgCyal7Z2V1DPIMDNV",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:D8ZcApasLOzoIlpNzqxBbY",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:DfWPMajo6bPYY2LYllX7BL",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:F8pD071ixZHsNsEdBaizFQ",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:FClmW6X1Vw6yOTD5nEGfNC",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:FU8G9gzduSnQuypKKcGB1t",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:GGcc3kBcHnpQz68QQ5bDFE",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:GVlryPUoXngBXDpvFuryZI",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:J4eD9Mt5vwY2qRMm06X5gH",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:L47iRoQ4T77vwFgGWE5E8S",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:L6xL5iMkt0TKuEmleF9Ovz",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:LlkBYszF2u4ZJ7QVJpDd0Y",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:Mw1MK1BFOT6RL1eOv5T3Zk",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:OJ1dTPRhjexAknThxqMIwO",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:OSHJbtWsDAHRPc8xMbhIfR",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:P4u4q8hytSmqfRzkP2YI2m",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:P9VI97eddcecXwoHQTTyyc",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:V5CUXRxNRzVq9hqblaIguy",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:VBkdlXpbuVZdPcGuD5nd3M",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:Vqh8KdY3wzPSNPNtaWc7GS",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:WCkC4cUPrWin5pjTlKjAUG",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:WYz0zOnH6wSCeCP5tMXim3",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:Xnq0cswvP16sZmc4IpQRga",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:b2l65LeOqjJxm1VKf9XR0Q",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:boy9YIihKawx6MXweLGg6O",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:cD6qGxi5NheKpwigloB8kx",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:cPBZanBAUpjgRjaeWWhSqM",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:cp9diYrKING8t5utel48ub",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:dGfUfRcxIzSmZPZb7WDem0",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:dhbdWtvN62yq2wQSAZ7vlB",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:dnz3RtTeO0Plz4EiDbmVsq",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:eB4RcQATGS2smBFGlj85ea",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:exn7Oce4JBqhazjHNTwT7U",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:fTWmnuiaj4DawE1IqnZeu2",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:hFykBQSGJQcDY2KRihMmTH",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:hIpVUuTSf4Mswlka8VQlr1",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:hrQ6Zdz0DFrfWRpYh9mB8v",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:iz6cYjdfUMdWR9e1kIWPA6",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:jtftYJGPdIHlvbJoB6kgfE",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:kcvUE7NIbNpxZfdUNu8YYo",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:lrSLGAc759W9iMQFpPYrAU",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:lzwUvvF19NllzVQHhemskR",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:mYoyWNS3HEIswCclG7zChC",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:mgEJzaqwuBI6f1p5gbmwIS",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:nJzuP6IE0zOZmG1uRUol3L",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:nSfIBzXOIzCWovEyGdEast",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:nVQU1FE1a8TTiFGdNbY8s2",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:nWVSVsLiPoP3CWaqkB49GW",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:o7zjyF0SXSIZUSt0kvcDnU",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:oD2UEWWey8HPoaituMXTMe",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:pOV0EVU53laCErVvhdxd0w",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:pP9BoTQlwDSjM2fNI41IdY",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:pgYTC6RMVhj087fWMgNmQ6",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:prsoC9NzRHsw6JDCnkJ7c0",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:q2R2oVe6sI4hFtLPadW2HW",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:qO0cqni0U8PjZrlsviJTeS",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:r5Iw3RflfLc1UqOwMxLoVE",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:rU3F6XAIJHllNOsNe4ecER",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:s5ZkPfEoMmWTwmqtq7EiZS",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:sc7vTQFWVw1U78aCsNgGpl",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:siTne21KX3P1m3ah324TA9",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:tAkR2dCf4f30XDklrWt3ua",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:tp8Y8b6QRZQgPQuZHBI0xZ",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:tsmNuZbtHdqYhHK2treSH1",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:u9NeEqVwZDV7xqRShBjTXV",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:u9wOIqK8sWz4a56iMHxKhE",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:uWVUJy2s2yWSUWidth4fzp",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:vD3yl2LoPDYdZApBTcrEL1",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:vKjxNJ3rtvPT6s7nEvyM2L",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:vSaf3smEdxnnzPW1g1LhrC",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:vqGQjESKic2eJhFqsM67vW",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:wlSpbggQG0q5QUX7fpkWSY",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:xlVusNjfqk2y2JmqV4Mw7p",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:xmmkfzvIcR59RW9un2XMft",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:xnFi9pA2PAU6Kn4KgjROrh",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:yMKNVXwfs6v5AT4YuHdaQH",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:yZNt4q3mcU10UDuzoOHF2Q",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:zDCHrsuq1kG1fpimg0cEWy",
+   "predicate": "rel_father_of"
+  },
+  {
+   "claim": "ast:PjD5oRLPEv9DOiqTWgH8i6",
+   "predicate": "rel_fought_against"
+  },
+  {
+   "claim": "ast:V0iXqyn26mwCUxbGrV6pBP",
+   "predicate": "rel_fought_against"
+  },
+  {
+   "claim": "ast:V65Ea5v2LMbio8KMoq5BVE",
+   "predicate": "rel_fought_against"
+  },
+  {
+   "claim": "ast:hTcxAImybW6XUSfSPbPsyz",
+   "predicate": "rel_fought_against"
+  },
+  {
+   "claim": "ast:isad4w9uCICSOBnnVEH2rz",
+   "predicate": "rel_fought_against"
+  },
+  {
+   "claim": "ast:m4Z2jj7gSHf8cfouV8n1q4",
+   "predicate": "rel_fought_against"
+  },
+  {
+   "claim": "ast:z5OycGcfJjGBSaLFcUebEb",
+   "predicate": "rel_fought_against"
+  },
+  {
+   "claim": "ast:S3U9gTuAHvE0k8jiFYlroP",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:SC08zEafMepDMCaeYXYRFn",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:SutGUxOEesJTX8c2n5GN7z",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:T14Dw2Y0V5xx1frzjpWoE9",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:WoeVUZDeGRUZHJamipuIqm",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:c5hfT40c6zYRuAQ2rsNqSO",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:fDfEauDelVMGUdRT4pQFAk",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:jZd1uokCZfJvbGl7HqQUQf",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:vSb0URuhxu68X789HSDRl9",
+   "predicate": "rel_fought_alongside"
+  },
+  {
+   "claim": "ast:Ip8h3sZbreLhOnocjStZ4I",
+   "predicate": "rel_governed"
+  },
+  {
+   "claim": "ast:NdJSP00mibePYoQEpf8EFD",
+   "predicate": "rel_governed"
+  },
+  {
+   "claim": "ast:RE2ZpROHchnoqyhoyVKnO4",
+   "predicate": "rel_governed"
+  },
+  {
+   "claim": "ast:ZTjfcXfnfGVPk9r4KawR4L",
+   "predicate": "rel_governed"
+  },
+  {
+   "claim": "ast:ZaSeFqeF0TazgEqbGVOGEb",
+   "predicate": "rel_governed"
+  },
+  {
+   "claim": "ast:62pKVxPncHfdZb0z0LVmg4",
+   "predicate": "rel_killed"
+  },
+  {
+   "claim": "ast:6MqAw4M8waXvzrjFQqTLNM",
+   "predicate": "rel_killed"
+  },
+  {
+   "claim": "ast:Lpy1IKPAg5i7NepoBUZVHL",
+   "predicate": "rel_killed"
+  },
+  {
+   "claim": "ast:T6Tp97fucGSnOexKH1xEdK",
+   "predicate": "rel_killed"
+  },
+  {
+   "claim": "ast:UMeVxRUnnMXRPEX0H6YYsZ",
+   "predicate": "rel_killed"
+  },
+  {
+   "claim": "ast:Z3Qp3KxBAMeax7oPUdvFPm",
+   "predicate": "rel_killed"
+  },
+  {
+   "claim": "ast:tGYCCe52kTTkdv4pQW61tZ",
+   "predicate": "rel_killed"
+  },
+  {
+   "claim": "ast:9V49i789Am7p2ElQ4Qu2Lq",
+   "predicate": "rel_led"
+  },
+  {
+   "claim": "ast:N1B4naawQoZXA9lhhQ9qCi",
+   "predicate": "rel_led"
+  },
+  {
+   "claim": "ast:S46KrqIha0AqY794wsDAw6",
+   "predicate": "rel_led"
+  },
+  {
+   "claim": "ast:lN2ca0qNDlF0ZvzbjsroPg",
+   "predicate": "rel_led"
+  },
+  {
+   "claim": "ast:mioGjgmPj6Gn5lDTe1plMc",
+   "predicate": "rel_led"
+  },
+  {
+   "claim": "ast:y3XxxKDxvPfpl2xSpaIv6u",
+   "predicate": "rel_led"
+  },
+  {
+   "claim": "ast:yAJZibe2Ph3dvwjRJsVOS3",
+   "predicate": "rel_led"
+  },
+  {
+   "claim": "ast:V57vnpSCw5Pk1Y3tpzIkZv",
+   "predicate": "rel_manumitted"
+  },
+  {
+   "claim": "ast:XMiOx373ad034lqfBbLlTK",
+   "predicate": "rel_manumitted"
+  },
+  {
+   "claim": "ast:oofQeK5Ux0X2aYjLvPEptI",
+   "predicate": "rel_manumitted"
+  },
+  {
+   "claim": "ast:rD3CleI5wh8olIrjbD5qoD",
+   "predicate": "rel_manumitted"
+  },
+  {
+   "claim": "ast:vz4LsA3wlFZMDoxqd7m8Te",
+   "predicate": "rel_manumitted"
+  },
+  {
+   "claim": "ast:6Lz8Z7XG93gZ0pimTAPwYy",
+   "predicate": "rel_maternal_uncle_of"
+  },
+  {
+   "claim": "ast:O29dQVQ07z6NzVdgn3J8A1",
+   "predicate": "rel_maternal_uncle_of"
+  },
+  {
+   "claim": "ast:S9YqnkSWAvCBW5czYjElyf",
+   "predicate": "rel_maternal_uncle_of"
+  },
+  {
+   "claim": "ast:TX7fwyr8aWrjTv53fnYbsg",
+   "predicate": "rel_maternal_uncle_of"
+  },
+  {
+   "claim": "ast:ZGgT3yAKQjghrXyhoY5by7",
+   "predicate": "rel_maternal_uncle_of"
+  },
+  {
+   "claim": "ast:Dfo8QSh4hYyy3YB1GeuyYM",
+   "predicate": "rel_mawla_of"
+  },
+  {
+   "claim": "ast:JPcQ9DIxP3UgY0gKFrqLWS",
+   "predicate": "rel_mawla_of"
+  },
+  {
+   "claim": "ast:MnQlmgdSp7srwEwddQBqIM",
+   "predicate": "rel_mawla_of"
+  },
+  {
+   "claim": "ast:QYWYl9YZmNIWemSV0dq7xc",
+   "predicate": "rel_mawla_of"
+  },
+  {
+   "claim": "ast:ZvmTAb6EdIDMCXcbmKL8kL",
+   "predicate": "rel_mawla_of"
+  },
+  {
+   "claim": "ast:pANzqUqRGOPhBi9Ut61aWN",
+   "predicate": "rel_mawla_of"
+  },
+  {
+   "claim": "ast:S1UgD0tLWpbklhC4D6NxBn",
+   "predicate": "rel_migrated_from"
+  },
+  {
+   "claim": "ast:frQixLHE3qDGW2giVOMYeh",
+   "predicate": "rel_migrated_from"
+  },
+  {
+   "claim": "ast:hsX2DPWRQu6TrgaD5ITPku",
+   "predicate": "rel_migrated_from"
+  },
+  {
+   "claim": "ast:kmVD9RB09CrO9Pc8Vw21IV",
+   "predicate": "rel_migrated_from"
+  },
+  {
+   "claim": "ast:y3PZ5s2MSp5f04FjLoUQas",
+   "predicate": "rel_migrated_from"
+  },
+  {
+   "claim": "ast:CeCyKKv0oCAmhnSL7uBXJs",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:RerO0g3RQ9YR3ViijvVBHS",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:kFh5X62WQDM2XmjnTIpb8y",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:mWlGINZau03Y37uS4PX3x7",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:mcTb3hPPcSkMLBkZmweWlv",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:owfQjzOPD9TDdhKlSLvTqV",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:qWTmkcVYSJCIEhZrS7wcCZ",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:ue0Qnt7G4Xm4ZqalZlyVF9",
+   "predicate": "rel_migrated_to"
+  },
+  {
+   "claim": "ast:MGQPlH9M7Ge9rMGWfWkPMs",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:WJ3kfZVDMDz7YcMKjW7QUC",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:dOtYLCosHmuTC61EivLVKS",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:k2fbQeIzZbzOQxqMYGsRue",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:lyrkRgdfJodlAJKYvl6pt6",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:mxymCcY48NdcjLJnCmsw9m",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:nmSB1CGTVOoUf0qQ2Aov5V",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:ontqUo3jJazfEV2nyiHSAz",
+   "predicate": "rel_mother_of"
+  },
+  {
+   "claim": "ast:3IgZ7SxtWu0VbnDy04onY9",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:5dIdZtEs7P2XPJ18jMCfIl",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:6RLeyFPUAjNFxXGMjAPM69",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:8SvOSb0jL40ADMOXe1ZPeW",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:LGX8uQBPRmg8nQVByRWmzp",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:RV1RpsC0RAYBGNmNGuaDS2",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:UnQSsjQV8VFCycYwnwiMzD",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:XqnXEfc6FuXCBGiQlN7tLz",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:b7GuHFkK9vTlAOYw2VDGVn",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:bC9xn7GYKXREguPAOo70cY",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:fINPdx9dPhgSeAgHV24vAU",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:iPuW2bcPOOzHJACyp83Bi0",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:iiwoFgRZ6EmkHUezVbxn2X",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:jQEhrTFBMR72KzEFCZF2xP",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:l5UDykJotVzkWQoee0zDle",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:o7FxAtYe0k1RPln3D3Rjqr",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:sC32iDuGYBbSoHalun0VrQ",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:ux4yvKTJ6r1HyB11ARXmDR",
+   "predicate": "rel_narrated_from"
+  },
+  {
+   "claim": "ast:1CE1noho5kPeueh86Rn2un",
+   "predicate": "rel_occurred_at"
+  },
+  {
+   "claim": "ast:ZQU3lCOYxGSZoT9z1M5o5W",
+   "predicate": "rel_occurred_at"
+  },
+  {
+   "claim": "ast:c8pn7h7izYAAqiNv8af3Jq",
+   "predicate": "rel_occurred_at"
+  },
+  {
+   "claim": "ast:gz7JrT3fHyfjJhetTwikTj",
+   "predicate": "rel_occurred_at"
+  },
+  {
+   "claim": "ast:itep3OzlCmW5z5qGtkUczS",
+   "predicate": "rel_occurred_at"
+  },
+  {
+   "claim": "ast:p0lKWf9IozfrQmE66BPfTg",
+   "predicate": "rel_occurred_at"
+  },
+  {
+   "claim": "ast:BY415kkNn2712jzMcEwK7I",
+   "predicate": "rel_occurred_during"
+  },
+  {
+   "claim": "ast:QS9Z18GUXcDJtYzdxvBUdG",
+   "predicate": "rel_occurred_during"
+  },
+  {
+   "claim": "ast:7kCGFm63mufWfxbz5x0FNG",
+   "predicate": "rel_opposed"
+  },
+  {
+   "claim": "ast:LFYQDVrIItmztUcwWf6UzU",
+   "predicate": "rel_opposed"
+  },
+  {
+   "claim": "ast:jGho1uAKqUstHyU6zwAi2z",
+   "predicate": "rel_opposed"
+  },
+  {
+   "claim": "ast:qsBvLwVJhVuXEdgq8LANyj",
+   "predicate": "rel_opposed"
+  },
+  {
+   "claim": "ast:vFJRxPB57swhBThEHSuvGo",
+   "predicate": "rel_opposed"
+  },
+  {
+   "claim": "ast:vkcqeCCclj6FmMLwVQ8d48",
+   "predicate": "rel_opposed"
+  },
+  {
+   "claim": "ast:7MrgZqnsxUc8uKOqL8Kya2",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:9ssx1jA1l5DbBQnpgt2FM8",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:CzMy9XapAk0P6WBq8S0UCX",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:HUrj99qB9t9LkxYPyDJPXj",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:IzpwJIiMb5oEYmAsNYUwJp",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:NUoGZJqQifzIIE4JXdk1Or",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:Q8sE4Ed0VRllpZHt07dJAx",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:VobXmfhQ6fFGKmhgCRkQH1",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:Wd1U7YOlPDUb97ALE85FW7",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:ZSnp00fxgLUn25x8lxERjv",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:hDxJboqyQS972oKuYTsUTe",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:jKNTeLFA2OtqdCUe5pj2Cd",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:kmK0kOkO8lxFVMDPWsUEkF",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:mVLSflmMlyyTgFdC7DDiCE",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:nWECHUBYgkaLimlpObT4Pv",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:oRJTs037qe9uRUjjqHGbAm",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:rDF80CDetDvLoJHikwtDCA",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:vh3N40falgosluUGyFYSfV",
+   "predicate": "rel_participated_in"
+  },
+  {
+   "claim": "ast:1rADt5EVCWB5L2wruft5MX",
+   "predicate": "rel_party_to_treaty_with"
+  },
+  {
+   "claim": "ast:CpbnWsVbnjjGq3TxFI1T7e",
+   "predicate": "rel_party_to_treaty_with"
+  },
+  {
+   "claim": "ast:DvoJ0x1UxpaxKt0DB9QPdH",
+   "predicate": "rel_party_to_treaty_with"
+  },
+  {
+   "claim": "ast:LNvPJJBe963KAkPEzg3nWZ",
+   "predicate": "rel_party_to_treaty_with"
+  },
+  {
+   "claim": "ast:uzUyqvp6sjek55lh6zRSzK",
+   "predicate": "rel_party_to_treaty_with"
+  },
+  {
+   "claim": "ast:3OsZsuZAT3Rcoqhd2zzcTI",
+   "predicate": "rel_paternal_uncle_of"
+  },
+  {
+   "claim": "ast:SqxRB7TzzYpkH7KtBqra40",
+   "predicate": "rel_paternal_uncle_of"
+  },
+  {
+   "claim": "ast:WaXsNmJuLlVNmhSWbUk2As",
+   "predicate": "rel_paternal_uncle_of"
+  },
+  {
+   "claim": "ast:dAvL8hHZpQDGWC4rVTvGxp",
+   "predicate": "rel_paternal_uncle_of"
+  },
+  {
+   "claim": "ast:gfCMrlrDCV1RbRxVSkqqBR",
+   "predicate": "rel_paternal_uncle_of"
+  },
+  {
+   "claim": "ast:n3SlInnUG3A6XqdtWb8qyS",
+   "predicate": "rel_paternal_uncle_of"
+  },
+  {
+   "claim": "ast:f4VfcxTBhRhIyxTbcUSXi8",
+   "predicate": "rel_pledged_allegiance_to"
+  },
+  {
+   "claim": "ast:f5vXayiJJQB637Ayj9WvmL",
+   "predicate": "rel_pledged_allegiance_to"
+  },
+  {
+   "claim": "ast:ioaiqMtL507SrNeQfj5XbF",
+   "predicate": "rel_pledged_allegiance_to"
+  },
+  {
+   "claim": "ast:jaMRqcXri9IeeUZx2lmCby",
+   "predicate": "rel_pledged_allegiance_to"
+  },
+  {
+   "claim": "ast:ooeC9GZVeWba8r9nquX5zY",
+   "predicate": "rel_pledged_allegiance_to"
+  },
+  {
+   "claim": "ast:8J1qy6XAXeDXEagkSwXxB7",
+   "predicate": "rel_preceded"
+  },
+  {
+   "claim": "ast:BuoYh79I0CogmxOVrwZjhD",
+   "predicate": "rel_preceded"
+  },
+  {
+   "claim": "ast:HBWRT78vUDyKaJEuYUSOMD",
+   "predicate": "rel_preceded"
+  },
+  {
+   "claim": "ast:ai3ndayfgl23r9ZXfFkoer",
+   "predicate": "rel_preceded"
+  },
+  {
+   "claim": "ast:c9w9T7I0nEs5MugK48YSxl",
+   "predicate": "rel_preceded"
+  },
+  {
+   "claim": "ast:C5FuGUa3ZZu3n67FHyD4yE",
+   "predicate": "rel_present_at"
+  },
+  {
+   "claim": "ast:GbyzelVfBqegGaQiXfLXu4",
+   "predicate": "rel_present_at"
+  },
+  {
+   "claim": "ast:fGYyJavwfCW6GaxUTSanXX",
+   "predicate": "rel_present_at"
+  },
+  {
+   "claim": "ast:gYv5vCV813FcN3s2pHsPWG",
+   "predicate": "rel_present_at"
+  },
+  {
+   "claim": "ast:kJDzX7z0ExS7OUySbdtQ5t",
+   "predicate": "rel_present_at"
+  },
+  {
+   "claim": "ast:pqCDXIaCBQdvUKR8z3IPcL",
+   "predicate": "rel_present_at"
+  },
+  {
+   "claim": "ast:HO3MACLRLoQHPjJznWZ0im",
+   "predicate": "rel_protected"
+  },
+  {
+   "claim": "ast:M6Pfh6w8p4FePeBsWnSPTi",
+   "predicate": "rel_protected"
+  },
+  {
+   "claim": "ast:OCTUtcfMLQ3QBdjVsJH9Sc",
+   "predicate": "rel_protected"
+  },
+  {
+   "claim": "ast:n4tvB6AmxYQcpFJXJ0jEzB",
+   "predicate": "rel_protected"
+  },
+  {
+   "claim": "ast:ux3ldsscSXIFqDgS7qYlm0",
+   "predicate": "rel_protected"
+  },
+  {
+   "claim": "ast:51BPglh9SIIkbXYNyIq0wC",
+   "predicate": "rel_resided_in"
+  },
+  {
+   "claim": "ast:MaPeFPA7b25al3wXG83FJl",
+   "predicate": "rel_resided_in"
+  },
+  {
+   "claim": "ast:kTzjHlvYjkfIdcmiHcW0v3",
+   "predicate": "rel_resided_in"
+  },
+  {
+   "claim": "ast:m3Xnc8pCkoYmU4MjlhmIAz",
+   "predicate": "rel_resided_in"
+  },
+  {
+   "claim": "ast:oqQ6EG567aIoEo6OX0c6Ip",
+   "predicate": "rel_resided_in"
+  },
+  {
+   "claim": "ast:yFrjFM68oXUcV31VpFrTTN",
+   "predicate": "rel_resided_in"
+  },
+  {
+   "claim": "ast:30z6IfnYINjqcWHtsSs4aU",
+   "predicate": "rel_sent_delegation_to"
+  },
+  {
+   "claim": "ast:3XOMrTnE6yQRdCNFVIyKer",
+   "predicate": "rel_sent_delegation_to"
+  },
+  {
+   "claim": "ast:Djg2IrnScAmaNgA5e6aq3R",
+   "predicate": "rel_sent_delegation_to"
+  },
+  {
+   "claim": "ast:YWjFKPlzB4Tzpl6PPLnX77",
+   "predicate": "rel_sent_delegation_to"
+  },
+  {
+   "claim": "ast:xAyRdDgTPNsewsXmTkCYok",
+   "predicate": "rel_sent_delegation_to"
+  },
+  {
+   "claim": "ast:yBdzlPK5AXnwxDGH7FOZnF",
+   "predicate": "rel_sent_delegation_to"
+  },
+  {
+   "claim": "ast:TcdO8ufyazzniZKCa3Pyn0",
+   "predicate": "rel_sheltered"
+  },
+  {
+   "claim": "ast:U9aYGV41uNROmORCX4cRf1",
+   "predicate": "rel_sheltered"
+  },
+  {
+   "claim": "ast:haAZZdgAmdRf2tufZMhvFB",
+   "predicate": "rel_sheltered"
+  },
+  {
+   "claim": "ast:iB2Pto1kUEogFCog8aK0QU",
+   "predicate": "rel_sheltered"
+  },
+  {
+   "claim": "ast:khjXtB5fapF2e7pkmuRKaD",
+   "predicate": "rel_sheltered"
+  },
+  {
+   "claim": "ast:lBclSII9GBWCbqmb1xMrrp",
+   "predicate": "rel_sheltered"
+  },
+  {
+   "claim": "ast:B5JHvIRgo1Bul4BnKsSPtp",
+   "predicate": "rel_sheltered_at"
+  },
+  {
+   "claim": "ast:GTlqeberTbwJiB95zISDti",
+   "predicate": "rel_sheltered_at"
+  },
+  {
+   "claim": "ast:ZJH4teqAD7Di9wYT1EaT3w",
+   "predicate": "rel_sheltered_at"
+  },
+  {
+   "claim": "ast:fKQEgwvakH32fJcvGdC0R9",
+   "predicate": "rel_sheltered_at"
+  },
+  {
+   "claim": "ast:lbuhm8tCb7IrRxW9HzScxT",
+   "predicate": "rel_sheltered_at"
+  },
+  {
+   "claim": "ast:04Vj7AwMTNCAbp6ouo3Iaq",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:7IuPunvg5A3nbzz19vONsK",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:AjHwFxTNEMlWlxEk6Vg4vZ",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:FAHUGSPklFuEzUgh9Jke6P",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:T79AdU4Du2kwjZt6NNOuqU",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:jCwAPm8rkrppcWV8JYquMW",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:pMVpe6vKYUz5Gs3KwtdEMn",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:zatEHrwsnJwTF3BRoDFRqE",
+   "predicate": "rel_sibling_of"
+  },
+  {
+   "claim": "ast:GkWGpCAjJUR2G4X77kMRYA",
+   "predicate": "rel_spouse_of"
+  },
+  {
+   "claim": "ast:Q5T4j2WTa2lYOwfurccSeX",
+   "predicate": "rel_spouse_of"
+  },
+  {
+   "claim": "ast:bQ5DGEhiPXOOugajOzTeWh",
+   "predicate": "rel_spouse_of"
+  },
+  {
+   "claim": "ast:bXSlJUjiN12frWLb1B0g77",
+   "predicate": "rel_spouse_of"
+  },
+  {
+   "claim": "ast:lkhdXrLYWP63H5A5TKSNZ0",
+   "predicate": "rel_spouse_of"
+  },
+  {
+   "claim": "ast:pL5LLKncKYx3kZOLhITNFX",
+   "predicate": "rel_spouse_of"
+  },
+  {
+   "claim": "ast:z9GVuwdYfzVyEWQw7j9GtD",
+   "predicate": "rel_spouse_of"
+  },
+  {
+   "claim": "ast:5hT9t8IM0k3i0iMBOnPU3C",
+   "predicate": "rel_succeeded"
+  },
+  {
+   "claim": "ast:68vvJQz4fZGVbWIPc6oKRj",
+   "predicate": "rel_succeeded"
+  },
+  {
+   "claim": "ast:7BqIc9VocAVuIE8sIp6jUR",
+   "predicate": "rel_succeeded"
+  },
+  {
+   "claim": "ast:7t2gokHuigAqSEKHqU2d27",
+   "predicate": "rel_succeeded"
+  },
+  {
+   "claim": "ast:NzF66e6woXPCBD0jAehWGX",
+   "predicate": "rel_succeeded"
+  },
+  {
+   "claim": "ast:C9meC7ZrtSImotZZh7FjnB",
+   "predicate": "rel_travelled_via"
+  },
+  {
+   "claim": "ast:DY7MX6bysMPEXOEpehyo1t",
+   "predicate": "rel_travelled_via"
+  },
+  {
+   "claim": "ast:GyZLtBVZOgVjIvDkAqPIUF",
+   "predicate": "rel_travelled_via"
+  },
+  {
+   "claim": "ast:kL9YSO9ABC3RkUMf4EpMgC",
+   "predicate": "rel_travelled_via"
+  },
+  {
+   "claim": "ast:lCqyZS7BvBiFCHBpl14Hzk",
+   "predicate": "rel_travelled_via"
+  },
+  {
+   "claim": "ast:wwqWrGDbLjYME23Ij1RVhy",
+   "predicate": "rel_travelled_via"
+  },
+  {
+   "claim": "ast:0wuGu7l6vRY8WU2jZ2R8Te",
+   "predicate": "rel_visited"
+  },
+  {
+   "claim": "ast:9Wc5qNo94g3CoIDTNBS6sf",
+   "predicate": "rel_visited"
+  },
+  {
+   "claim": "ast:9dz7mgPFv9KfU4xkFUpWwG",
+   "predicate": "rel_visited"
+  },
+  {
+   "claim": "ast:9xiAXIlNyic1tqTmGxHOxZ",
+   "predicate": "rel_visited"
+  },
+  {
+   "claim": "ast:Gf2bMzXE5mv9taj8dG1w7A",
+   "predicate": "rel_visited"
+  },
+  {
+   "claim": "ast:qjD2EPTcv95o1rrbvXlajA",
+   "predicate": "rel_visited"
+  },
+  {
+   "claim": "ast:rqsibjMM3XUd63ZFqMLwPm",
+   "predicate": "rel_visited"
+  },
+  {
+   "claim": "ast:32xazUcZPc0W3729f4ZuJO",
+   "predicate": "rel_witnessed"
+  },
+  {
+   "claim": "ast:IvstBpW7cFpFahZzMppXYo",
+   "predicate": "rel_witnessed"
+  },
+  {
+   "claim": "ast:QTn65EtL6DSknl5BicknLY",
+   "predicate": "rel_witnessed"
+  },
+  {
+   "claim": "ast:QVIaeKoUz8UE281uD1hCAX",
+   "predicate": "rel_witnessed"
+  },
+  {
+   "claim": "ast:qFU0K0fusuxvheAkeGgKD0",
+   "predicate": "rel_witnessed"
+  }
+ ]
+}

@@ -126,7 +126,9 @@ class ReviewSlice3a(unittest.TestCase):
         ids = [u["id"] for b in q["claims"] for u in b["units"]]
         self.assertEqual(len(ids), len(set(ids)))
         tree = c.Tree(ROOT / "ontology")
-        self.assertEqual(set(ids), {c.curie(a) for a in tree.assertions() if tree.status(a) == "proposed"})
+        held = {Path(n).stem for n in c.on_hold_from_pages()}  # held back with the pages until slice 11b
+        self.assertEqual(set(ids), {c.curie(a) for a in tree.assertions()
+                                    if tree.status(a) == "proposed" and tree.source_of(a) not in held})
         for b in q["claims"]:
             self.assertLessEqual(len(b["units"]), 50)
             if b["kind"] == "story":

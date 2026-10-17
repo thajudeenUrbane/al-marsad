@@ -1,0 +1,181 @@
+{
+ "source": "ingest/count_checks.py (slice 11a)",
+ "checks": [
+  {
+   "key": "badr_emigrants",
+   "what": "Emigrants present at Badr, or given a share",
+   "stated": 83,
+   "found": 85,
+   "found_ibn_ishaq_voice": 82,
+   "found_ibn_hisham_voice": 3,
+   "found_no_voice": 0,
+   "matches": false,
+   "total_at": {
+    "offset": 753683,
+    "length": 30,
+    "sha256": "9a7dcc9a499e681aeae063ff3659a99f699156828c3ace892de20c5fae0dfffa"
+   },
+   "list_sections": 18
+  },
+  {
+   "key": "badr_aws",
+   "what": "Aws present at Badr, or given a share",
+   "stated": 61,
+   "found": 65,
+   "found_ibn_ishaq_voice": 46,
+   "found_ibn_hisham_voice": 12,
+   "found_no_voice": 7,
+   "matches": false,
+   "total_at": {
+    "offset": 759804,
+    "length": 26,
+    "sha256": "36eeacc06aecf71d19e3272493e1508cdd1bb17e62d6895b5d2b87749dd82621"
+   },
+   "list_sections": 13
+  },
+  {
+   "key": "badr_khazraj",
+   "what": "Khazraj present at Badr, or given a share",
+   "stated": 170,
+   "found": 171,
+   "found_ibn_ishaq_voice": 152,
+   "found_ibn_hisham_voice": 7,
+   "found_no_voice": 12,
+   "matches": false,
+   "total_at": {
+    "offset": 776228,
+    "length": 27,
+    "sha256": "ebe6a5cc8e2cdc80fb886b354155aef6525fde2feb656165b621fc3806a4cbd7"
+   },
+   "list_sections": 48
+  },
+  {
+   "key": "badr_all",
+   "what": "All Muslims present at Badr, or given a share",
+   "stated": 314,
+   "found": 321,
+   "found_ibn_ishaq_voice": 279,
+   "found_ibn_hisham_voice": 22,
+   "found_no_voice": 20,
+   "matches": false,
+   "total_at": {
+    "offset": 776865,
+    "length": 29,
+    "sha256": "274c91c3ddd1a08072b1e609301063e9f8f7f3ffb7cb427ef6878d16d3f20acf"
+   },
+   "list_sections": 79
+  },
+  {
+   "key": "badr_slain",
+   "what": "Quraysh killed at Badr, as counted for Ibn Hishām",
+   "stated": 50,
+   "found": 51,
+   "found_ibn_ishaq_voice": 39,
+   "found_ibn_hisham_voice": 7,
+   "found_no_voice": 5,
+   "matches": false,
+   "total_at": {
+    "offset": 785411,
+    "length": 25,
+    "sha256": "6eda92101cded748df3fe67d7a85b7f718e482bb2fc3a2bd0b310be29faaf34e"
+   },
+   "list_sections": 10
+  },
+  {
+   "key": "badr_captives",
+   "what": "Quraysh captured at Badr, as remembered",
+   "stated": 43,
+   "found": 42,
+   "found_ibn_ishaq_voice": 42,
+   "found_ibn_hisham_voice": 0,
+   "found_no_voice": 0,
+   "matches": false,
+   "total_at": {
+    "offset": 791099,
+    "length": 18,
+    "sha256": "19be57e38324810ed7a04a48b45c5d656820465725c344bc4d0b447d2a029417"
+   },
+   "list_sections": 11
+  },
+  {
+   "key": "uhud_martyrs",
+   "what": "Muslims martyred at Uḥud (Ibn Isḥāq)",
+   "stated": 65,
+   "found": 65,
+   "found_ibn_ishaq_voice": 53,
+   "found_ibn_hisham_voice": 0,
+   "found_no_voice": 12,
+   "matches": true,
+   "total_at": {
+    "offset": 923499,
+    "length": 40,
+    "sha256": "2b048051149e63288a3f18900010b1de6650662fec13efb76f9a5d66bb28d29f"
+   },
+   "list_sections": 27
+  },
+  {
+   "key": "uhud_slain",
+   "what": "Idolaters killed at Uḥud",
+   "stated": 22,
+   "found": 22,
+   "found_ibn_ishaq_voice": 22,
+   "found_ibn_hisham_voice": 0,
+   "found_no_voice": 0,
+   "matches": true,
+   "total_at": {
+    "offset": 926312,
+    "length": 17,
+    "sha256": "35148ed60946bd7a378c9f8226d01d125ed36e9b8f0b35a67e7709aa59bcf331"
+   },
+   "list_sections": 6
+  },
+  {
+   "key": "aqaba_second",
+   "what": "Those who pledged at the second ʿAqaba: 73 men and 2 women",
+   "stated": 75,
+   "found": 74,
+   "found_ibn_ishaq_voice": 66,
+   "found_ibn_hisham_voice": 1,
+   "found_no_voice": 7,
+   "matches": false,
+   "total_at": {
+    "offset": 460432,
+    "length": 26,
+    "sha256": "6b6d9c3b0d2143e25fe7ce907e4cf75f4a6a4eb542c0aaf487d92662cb4d678b"
+   },
+   "list_sections": 23
+  },
+  {
+   "key": "aqaba_first",
+   "what": "The twelve men of the first ʿAqaba",
+   "stated": 12,
+   "found": 12,
+   "found_ibn_ishaq_voice": 10,
+   "found_ibn_hisham_voice": 0,
+   "found_no_voice": 2,
+   "matches": true,
+   "total_at": {
+    "offset": 434376,
+    "length": 31,
+    "sha256": "fad814edfd1883cd8fe3a78001c077276b158b00d89b95bfbdc0e89d4eb91815"
+   },
+   "list_sections": 11
+  },
+  {
+   "key": "abyssinia_men",
+   "what": "Men who emigrated to Abyssinia, “if ʿAmmār was among them” (the list also names women)",
+   "stated": 83,
+   "found": 87,
+   "found_ibn_ishaq_voice": 75,
+   "found_ibn_hisham_voice": 0,
+   "found_no_voice": 12,
+   "matches": false,
+   "total_at": {
+    "offset": 322662,
+    "length": 18,
+    "sha256": "6e91b149c15aa2a595d3624f1b15e66ef143be396ac52842d1447c9552f3c68b"
+   },
+   "list_sections": 22
+  }
+ ]
+}

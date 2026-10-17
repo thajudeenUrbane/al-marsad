@@ -130,7 +130,7 @@ def build(g):
                mrs:nonReportBasis ?basis .
             ?p skos:prefLabel ?predicate .
             ?subject rdfs:label ?subjectLabel . ?object rdfs:label ?objectLabel .
-            FILTER (?p IN (mrs:rel_father_of, mrs:rel_spouse_of, mrs:rel_sibling_of))
+            FILTER (?p IN (mrs:rel_father_of, mrs:rel_mother_of, mrs:rel_spouse_of, mrs:rel_sibling_of))
         } ORDER BY ?subjectLabel
     """)
 
@@ -218,7 +218,7 @@ def build_seed(g):
                mrs:nonReportBasis ?basis .
             ?p skos:prefLabel ?predicate .
             ?subject rdfs:label ?subjectLabel . ?object rdfs:label ?objectLabel .
-            FILTER (?p IN (mrs:rel_father_of, mrs:rel_spouse_of, mrs:rel_sibling_of))
+            FILTER (?p IN (mrs:rel_father_of, mrs:rel_mother_of, mrs:rel_spouse_of, mrs:rel_sibling_of))
         } ORDER BY ?subjectLabel
     """)
 

@@ -95,9 +95,9 @@ if off:
 EOF
 
 # --- helpers used by the steps -----------------------------------------------
-ISLANDS=(demo generation-1 stories-50)
+ISLANDS=(demo generation-1 stories-50 sira-network)
 
-# The three earlier prototypes commit their built pages: a fresh build must leave them unchanged.
+# The earlier prototypes and the Sira network page commit their built pages: a fresh build must leave them unchanged.
 islands_current() {
   local new
   git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { echo "not a git checkout"; return 1; }
@@ -151,12 +151,21 @@ actions_pinned() {
 step "ontology: build the graph (must conform)"    "$PY" ontology/build_graph.py
 step "ontology: identity table"                    "$PY" ontology/tools/identity_audit.py --check
 step "ontology: stories-50.ttl is current"         "$PY" ontology/tools/stories50_to_ttl.py --check
+# Each data file on its own. The full-book Ibn Hisham pass (ontology/corpus/ibn-hisham-full.ttl, about
+# 500,000 triples) takes about half an hour, so it runs only when asked (CHECK_FULL_SIRA=1); the graph
+# build above already checks it wherever it meets the other files, and a verdict, once computed, is
+# cached by checksum (build/cache/shacl/), so re-runs on an unchanged file are instant.
 for f in ontology/corpus/*.ttl ontology/examples/*.ttl; do
+  if [ "$f" = ontology/corpus/ibn-hisham-full.ttl ] && [ "${CHECK_FULL_SIRA:-0}" != 1 ]; then
+    skip "ontology: validate $f"                   "slow: set CHECK_FULL_SIRA=1"
+    continue
+  fi
   step "ontology: validate $f"                     "$PY" ontology/validate.py "$f"
 done
 step "prototypes: build demo"                      "$PY" demo/build.py
 step "prototypes: build generation-1"              "$PY" generation-1/build.py
 step "prototypes: build stories-50"                "$PY" stories-50/build.py
+step "prototypes: build sira-network"              "$PY" sira-network/build.py
 step "prototypes: outputs committed and current"   islands_current
 if step "site: build"                              "$PY" site/build.py; then
   # Module builders write into site/dist after site/build.py (which empties it), so the
