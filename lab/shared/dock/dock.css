@@ -1,0 +1,23 @@
+/* Dock styles. Products may set --dock-bg, --dock-fg, --dock-ring, --dock-line, --dock-muted, and
+   --dock-top / --dock-bottom (px) to keep the dots clear of a header or a bottom sheet that is still open. */
+.dock-hidden { display: none !important; }
+.dock { position: fixed; z-index: 7; display: flex; gap: 8px; pointer-events: none; }
+.dock > * { pointer-events: auto; }
+.dock-tl { top: var(--dock-top, calc(env(safe-area-inset-top, 0px) + 12px)); left: max(12px, env(safe-area-inset-left, 0px)); }
+.dock-tr { top: var(--dock-top, calc(env(safe-area-inset-top, 0px) + 12px)); right: max(12px, env(safe-area-inset-right, 0px)); flex-direction: row-reverse; }
+.dock-bl { bottom: var(--dock-bottom, calc(env(safe-area-inset-bottom, 0px) + 12px)); left: max(12px, env(safe-area-inset-left, 0px)); }
+.dock-br { bottom: var(--dock-bottom, calc(env(safe-area-inset-bottom, 0px) + 12px)); right: max(12px, env(safe-area-inset-right, 0px)); flex-direction: row-reverse; }
+.dock-dot { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--dock-ring, rgba(255, 212, 134, 0.5));
+  background: var(--dock-bg, rgba(12, 16, 32, 0.88)); color: var(--dock-fg, #ffd486); font: 600 17px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: grid; place-items: center; cursor: pointer; touch-action: none; padding: 0;
+  box-shadow: 0 0 14px rgba(255, 212, 134, 0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.dock-dot:hover, .dock-dot:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--dock-fg, #ffd486), 0 0 18px rgba(255, 212, 134, 0.35); }
+.dock-dot.dragging { opacity: 0.85; z-index: 8; cursor: grabbing; }
+.dock-min { position: absolute; top: 8px; inset-inline-end: 8px; width: 28px; height: 28px; border-radius: 50%; padding: 0;
+  border: 1px solid var(--dock-line, rgba(235, 230, 214, 0.2)); background: var(--dock-bg, rgba(12, 16, 32, 0.88));
+  color: var(--dock-muted, #9ba1b6); font: 600 17px/1 system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer; display: grid; place-items: center; z-index: 2; }
+.dock-min:hover, .dock-min:focus-visible { color: var(--dock-fg, #ffd486); border-color: currentColor; outline: none; }
+.dock-min.inline { position: static; flex: none; }
+@media (prefers-reduced-motion: no-preference) { .dock-dot { transition: transform 0.15s; } .dock-dot:active { transform: scale(0.94); } }
+.dock-min.sticky { position: sticky; top: 0; float: inline-end; margin: 0 0 4px 8px; }
+.dock-min.small { width: 24px; height: 24px; top: 6px; inset-inline-end: 6px; font-size: 15px; }

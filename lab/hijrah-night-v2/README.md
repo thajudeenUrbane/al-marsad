@@ -44,6 +44,10 @@ python3 lab/hijrah-night-v2/tools/review_checklist.py # writes REVIEW-CHECKLIST.
   - people cards and "Explore" moves that fly the camera and reveal a graded statement;
   - guess-first, recall and reflection questions;
   - an "In the graph" drawer with the AI-extracted claims of each section.
+- **See the whole view:**
+  - every panel (controls, journey list, mini-map, route, reading panel) can be minimised to a dot in a corner, and the dot can be dragged to any corner;
+  - **Full view** (button or **F**) hides everything behind one dot, and **Escape** returns;
+  - this comes from the shared module `lab/shared/dock/`.
 - **Learner state:** your sky (people met, stages to revisit) and saved progress, both kept only in the browser.
 
 ## Known gaps

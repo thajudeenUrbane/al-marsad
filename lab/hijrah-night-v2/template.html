@@ -154,7 +154,8 @@ body[data-depth="discover"] .srcs { display: none; }
 #mini canvas { width: 100%; height: 100%; display: block; border-radius: 10px; }
 #ribbon { position: fixed; left: calc(max(16px, env(safe-area-inset-left, 0px)) + 274px); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   right: calc(min(460px, 38vw) + max(16px, env(safe-area-inset-right, 0px)) + 16px); display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 2; }
-#ribbon .cap { font-size: 11px; color: var(--muted); text-shadow: 0 0 6px #000; }
+#ribbon .cap { font-size: 11px; color: var(--muted); text-shadow: 0 0 6px #000; display: flex; gap: 10px; align-items: center; }
+#ribbon .cap .dock-min { pointer-events: auto; }
 #ribbon ol { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; overflow-x: auto; pointer-events: auto; scrollbar-width: none; }
 #ribbon li { display: flex; align-items: center; flex: none; }
 #ribbon li + li::before { content: ""; width: 14px; height: 1px; background: var(--line); }
@@ -187,15 +188,15 @@ body[data-depth="discover"] .srcs { display: none; }
 @media (max-width: 760px) {
   .brand b { font-size: 18px; }
   #panel { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); width: auto; top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); height: 52%; }
-  #panel.min { height: 120px; }
   #mini { display: none; }
   #ribbon { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); bottom: auto; top: var(--header-h, 120px); }
-  #ribbon .cap { display: none; }
+  #ribbon .cap span { display: none; }
   .chip, .seg button { padding: 5px 9px; }
   h1.ch { font-size: 23px; }
 }
 @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
 </style>
+<style>/*DOCK_CSS*/</style>
 
 <canvas id="world" aria-label="A view of the Ḥijāz terrain between Makkah and Madinah. The reading panel describes everything shown."></canvas>
 <div id="labels" aria-hidden="true"></div>
@@ -212,6 +213,7 @@ body[data-depth="discover"] .srcs { display: none; }
   <button type="button" class="chip" id="skyBtn" aria-pressed="false">Your sky · <span id="skyCount">0</span></button>
   <button type="button" class="chip" id="soundBtn" aria-pressed="false">Sound off</button>
   <button type="button" class="chip" id="aboutBtn">How to read this</button>
+  <button type="button" class="chip" id="fullBtn" title="Hide every panel and see the whole view (F)">Full view</button>
 </header>
 
 <nav id="nav" aria-label="The journey"></nav>
@@ -221,14 +223,14 @@ body[data-depth="discover"] .srcs { display: none; }
   <div class="scroll" id="pane"></div>
   <div class="navbar">
     <button type="button" class="btn" id="prev">Back</button>
-    <button type="button" class="btn" id="look">Look</button>
+    <button type="button" class="btn" id="look" title="Minimise this panel to a dot">Hide</button>
     <span class="grow" id="pos"></span>
     <button type="button" class="btn primary" id="next">Next</button>
   </div>
 </aside>
 
 <nav id="ribbon" aria-label="Places in this stage">
-  <div class="cap" id="ribbonCap"></div>
+  <div class="cap"><span id="ribbonCap"></span></div>
   <ol id="stops"></ol>
 </nav>
 <div id="toast" role="status"></div>
@@ -263,6 +265,7 @@ body[data-depth="discover"] .srcs { display: none; }
 </div>
 
 <script id="data" type="application/json">/*DATA*/null</script>
+<script>/*DOCK_JS*/</script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
 <script>
 (() => {
@@ -636,12 +639,13 @@ function navHere() {
   const c = navEl.querySelector("button.cur"); if (c) c.scrollIntoView({ block: "nearest", behavior: RM ? "auto" : "smooth" });
 }
 function toggleNav(open) { navEl.classList.toggle("open", open); $("#navBtn").setAttribute("aria-expanded", String(open)); }
-$("#navBtn").addEventListener("click", () => toggleNav(!navEl.classList.contains("open")));
+$("#navBtn").addEventListener("click", () => { dock.restore("journey"); toggleNav(!navEl.classList.contains("open")); });
 
 function go(i) { skyOff(); cur = Math.max(0, Math.min(UNITS.length - 1, i)); const u = UNITS[cur]; render(); drawUnit(u); meet(u); }
 $("#prev").addEventListener("click", () => go(cur - 1));
 $("#next").addEventListener("click", () => { if (skyMode) go(cur); else if (cur === UNITS.length - 1) skyOn(); else go(cur + 1); });
-$("#look").addEventListener("click", () => { const p = $("#panel"); p.classList.toggle("min"); $("#look").textContent = p.classList.contains("min") ? "Read" : "Look"; });
+$("#look").addEventListener("click", () => dock.minimise("reading"));
+$("#fullBtn").addEventListener("click", () => dock.setFull(true));
 document.addEventListener("keydown", e => { if (e.target.closest("input,textarea")) return; if (!$("#intro").hidden) return;
   if (e.key === "ArrowRight") go(cur + 1); if (e.key === "ArrowLeft") go(cur - 1); if (e.key === "Escape") { $("#about").hidden = true; toggleNav(false); } });
 document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => { depth = b.dataset.depth; document.body.dataset.depth = depth; document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }));
@@ -707,7 +711,12 @@ $("#aboutCounts").textContent = `${UNITS.length} stages; ${nStat} statements; ${
 const saved = store.get("cur", 0); if (saved > 0) { $("#resume").hidden = false; $("#resume").textContent = `Continue at stage ${saved + 1}`; }
 $("#begin").addEventListener("click", () => { $("#intro").hidden = true; go(0); });
 $("#resume").addEventListener("click", () => { $("#intro").hidden = true; go(saved); });
-function resize() { document.documentElement.style.setProperty("--header-h", $("header.top").getBoundingClientRect().bottom + "px"); renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); }
+function resize() {
+  const root = document.documentElement.style, hdr = $("header.top"), pan = $("#panel");
+  root.setProperty("--header-h", Math.max(hdr.getBoundingClientRect().bottom, 0) + "px");
+  // keep corner dots clear of the controls bar and of the phone's bottom sheet while they are open
+  if (hdr.classList.contains("dock-hidden")) root.removeProperty("--dock-top"); else root.setProperty("--dock-top", hdr.getBoundingClientRect().bottom + 6 + "px");
+  if (innerWidth <= 760 && !pan.classList.contains("dock-hidden")) root.setProperty("--dock-bottom", innerHeight - pan.getBoundingClientRect().top + 8 + "px"); else root.removeProperty("--dock-bottom"); renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); }
 addEventListener("resize", resize);
 function frame(now) {
   stepCamera(now); const camD = skyMode ? 1 : cam.dist, breathe = RM ? 1 : 1 + Math.sin(now / 1400) * 0.06;
@@ -719,6 +728,18 @@ function frame(now) {
   renderer.render(scene, camera); updateLabels(); requestAnimationFrame(frame);
 }
 buildNav();
+const dock = Dock.init({
+  storeKey: "hijrah-night-2",
+  fullLabel: "all panels",
+  panels: [
+    { id: "controls", el: $("header.top"), label: "the controls", glyph: "≡", corner: "tl", buttonClass: "inline" },
+    { id: "journey", el: navEl, label: "the journey list", glyph: "☰", corner: "tl", buttonClass: "sticky", prepend: true },
+    { id: "map", el: $("#mini"), label: "the mini-map", glyph: "◎", corner: "tr", buttonClass: "small" },
+    { id: "route", el: $("#ribbon"), label: "the route", glyph: "⋯", corner: "bl", buttonHost: $("#ribbon .cap"), buttonClass: "inline" },
+    { id: "reading", el: $("#panel"), label: "the reading panel", glyph: "¶", corner: "br", noButton: true },
+  ],
+  onChange: () => requestAnimationFrame(resize),
+});
 loadDem().then(() => {
   buildTerrain(); addPlaces(); buildMini();
   Object.assign(cam, { target: P(39.5, 22.95), dist: 520, pitch: 64 * Math.PI / 180, heading: 0 });

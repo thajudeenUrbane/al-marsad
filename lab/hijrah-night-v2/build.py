@@ -8,6 +8,7 @@ Reads (committed files only):
   lab/hijrah-night-v2/acts/act*.json          the drafted stages (SCHEMA.md); validated before building
   lab/hijrah-night-v2/data/places.csv          gazetteer points with certainty
   lab/hijrah-night-v2/data/hijaz-dem.json      terrain (AWS Terrain Tiles, zoom 9)
+  lab/shared/dock/dock.{css,js}                minimise panels to corner dots; full view
   ingest/claims/ibn-hisham-full*.jsonl         claims and passages, for each stage's "in the graph" drawer
   ontology/corpus/ibn-hisham-full.ttl          each section's citation (volume, page, milestone)
 
@@ -100,7 +101,11 @@ def main() -> None:
             "counts": {"acts": len(acts), "units": n_units, "statements": n_stat,
                        "claims": sum(len(v) for v in claims.values()), "sections": len(used)}}
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    page = (HERE / "template.html").read_text(encoding="utf-8").replace("/*DATA*/null", blob)
+    dock = ROOT / "lab" / "shared" / "dock"
+    page = (HERE / "template.html").read_text(encoding="utf-8")
+    page = page.replace("/*DOCK_CSS*/", (dock / "dock.css").read_text(encoding="utf-8"))
+    page = page.replace("/*DOCK_JS*/", (dock / "dock.js").read_text(encoding="utf-8"))
+    page = page.replace("/*DATA*/null", blob)
     (HERE / "index.html").write_text(page, encoding="utf-8")
     print(f"wrote lab/hijrah-night-v2/index.html ({len(page.encode()) // 1000} kB): {data['counts']}")
 
