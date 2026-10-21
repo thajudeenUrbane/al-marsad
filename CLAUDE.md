@@ -1,6 +1,6 @@
 # al-Marsad: rules for every Claude Code session
 
-## Saving GitHub Actions minutes (the Actions budget is $10 until the month resets)
+## Saving GitHub Actions minutes
 
 - **Taste at home first.** Before every push, run what `.github/workflows/checks.yml` runs:
   `python3 -m pip install --require-hashes -r requirements.txt` once, then
