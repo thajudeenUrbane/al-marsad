@@ -64,6 +64,9 @@ FILES = {
 BASE = "https://w3id.org/marsad/id/"
 SEGMENT = {"person": "per", "place": "plc", "event": "ev", "group": "grp"}  # kind -> prefix (and IRI path segment: see below)
 IRI_SEGMENT = {"per": "person", "plc": "place", "ev": "event", "grp": "group"}
+TOKEN_RE = re.compile(r"(?<![A-Za-z0-9_:])(per|plc|ev|grp):([A-Za-z0-9]+)"
+                      rf"|{re.escape(BASE)}(person|place|event|group)/([A-Za-z0-9]+)")
+ALNUM_RUN = re.compile(r"[A-Za-z0-9]+")
 COLUMNS = ["kind", "canonical_id", "preferred_name_en", "name_ar", "variant_ids",
            "stories50_names", "source_files", "confidence", "note"]
 CONFIDENCE = {"exact", "probable", "needs-review"}
@@ -204,13 +207,18 @@ def main():
                         used[c].add(name)
         raw = path.read_text(encoding="utf-8")
         raw_text[name] = raw
-        for v, canon in variants.items():
-            pre, payload = v.split(":")
-            seg = IRI_SEGMENT[pre]
-            pats = (rf"(?<![A-Za-z0-9_:]){pre}:{payload}(?![A-Za-z0-9])",
-                    rf"{re.escape(BASE)}{seg}/{payload}(?![A-Za-z0-9])")
-            if any(re.search(p, raw) for p in pats):
-                errors.append(f"{name}: raw text still contains variant {v} (canonical {canon})")
+        # One pass over the text: every per:/plc:/ev:/grp: token and every .../id/<kind>/<payload> IRI,
+        # looked up in the variant set. A token is a whole run of letters and digits, which is the
+        # same as the old "not followed by a letter or digit" rule; a CURIE must not follow a
+        # letter, digit, "_" or ":".
+        seen = set()
+        for m in TOKEN_RE.finditer(raw):
+            if m.group(1):
+                seen.add(f"{m.group(1)}:{m.group(2)}")
+            else:
+                seen.add(f"{SEGMENT[m.group(3)]}:{m.group(4)}")
+        for v in sorted(seen & variants.keys()):
+            errors.append(f"{name}: raw text still contains variant {v} (canonical {variants[v]})")
 
     # 5. source_files vs. use
     for c, r in canonical.items():
@@ -259,13 +267,20 @@ def main():
             if rd.fieldnames != RENAME_COLUMNS:
                 errors.append(f"id-renames.csv columns are {rd.fieldnames}, expected {RENAME_COLUMNS}")
             renamed = list(rd)
+        runs_cache = {}
+
+        def alnum_runs(name, raw):
+            if name not in runs_cache:
+                runs_cache[name] = set(ALNUM_RUN.findall(raw))
+            return runs_cache[name]
+
         live_payloads = {pay for _, pay in live} | {c.split(":")[1] for c in canonical}
         for r in renamed:
             old, new = r["old_id"].split(":")[1], r["new_id"].split(":")[1]
             if new not in live_payloads:
                 errors.append(f"id-renames.csv: new ID {r['new_id']} is not in use")
             for name, raw in raw_text.items():
-                if re.search(rf"(?<![A-Za-z0-9]){old}(?![A-Za-z0-9])", raw):
+                if old in alnum_runs(name, raw):
                     errors.append(f"{name}: raw text still contains the retired ID {r['old_id']} (renamed to {r['new_id']})")
 
     if errors:
