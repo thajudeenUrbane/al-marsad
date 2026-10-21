@@ -84,7 +84,10 @@ def main(argv=None) -> int:
     tmp = Path(tempfile.mkdtemp(prefix="marsad-review-pages-"))
     try:
         ont = tmp / "ontology"
-        shutil.copytree(c.ONTOLOGY, ont, ignore=shutil.ignore_patterns("__pycache__", "*.tmp"))
+        # Leave out the 24 MB full-book file (held back from the pages anyway; slow to parse).
+        # CHECK_FULL_SIRA=1 keeps it in.
+        skip = ["__pycache__", "*.tmp"] + ([] if os.environ.get("CHECK_FULL_SIRA") == "1" else ["ibn-hisham-full.ttl"])
+        shutil.copytree(c.ONTOLOGY, ont, ignore=shutil.ignore_patterns(*skip))
         tree = c.Tree(ont)
         queue = build_queue.build(tree, {"needs-review", "probable"}, 50)
         (tmp / "queue.json").write_text(json.dumps(queue, ensure_ascii=False), encoding="utf-8")

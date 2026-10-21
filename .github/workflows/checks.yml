@@ -71,7 +71,7 @@ jobs:
   checks:
     name: All checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 22
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -97,9 +97,19 @@ jobs:
           npm install --global --no-audit --no-fund "playwright@${PLAYWRIGHT_VERSION}"
           playwright install --with-deps --only-shell chromium
 
+      # On a pull request, check_all.sh skips the slow review steps when the change touches
+      # nothing under ontology/, review/, ingest/, requirements.txt or scripts/check_all.sh.
+      # It needs the base commit to compare with; main always runs everything.
+      - name: Fetch the base commit (pull requests)
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: git fetch --no-tags --depth=1 origin "$BASE_SHA" || true
+
       - name: Run scripts/check_all.sh
         env:
           PYTHON: ${{ steps.python.outputs.python-path }}
+          PR_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || '' }}
         run: bash scripts/check_all.sh
 
       # Same condition as the deploy job. Hidden files (the generator's marker) stay out.

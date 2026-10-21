@@ -15,6 +15,7 @@ import csv
 import hashlib
 import io
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -69,7 +70,10 @@ class ReviewSlice3a(unittest.TestCase):
         cls.digest = real_corpus_digest()
         cls.tmp = Path(tempfile.mkdtemp(prefix="marsad-review-test-"))
         cls.ont = cls.tmp / "ontology"
-        shutil.copytree(ROOT / "ontology", cls.ont, ignore=shutil.ignore_patterns("__pycache__", "*.tmp"))
+        # The 24 MB full-book file is left out (it is held back from the review pages anyway and
+        # each copy of it costs minutes to parse); CHECK_FULL_SIRA=1 keeps it in.
+        skip = ["__pycache__", "*.tmp"] + ([] if os.environ.get("CHECK_FULL_SIRA") == "1" else ["ibn-hisham-full.ttl"])
+        shutil.copytree(ROOT / "ontology", cls.ont, ignore=shutil.ignore_patterns(*skip))
         cls.inbox = cls.tmp / "inbox"
         cls.inbox.mkdir()
         cls.queue = build_queue.build(c.Tree(cls.ont), {"needs-review"}, 50)
