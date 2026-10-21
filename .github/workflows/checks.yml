@@ -1,4 +1,7 @@
-# Every push and pull request runs every check (scripts/check_all.sh).
+# Every pull request, and every push to main, runs every check
+# (scripts/check_all.sh). A push to any other branch runs nothing: the pull
+# request opened from it is the run that counts, so a change is checked once,
+# not twice (saves Actions minutes).
 # A push to main, once the checks pass, deploys the checked site to Cloudflare
 # Pages, but only when the maintainer has added the two Cloudflare secrets;
 # without them the deploy job says it was skipped and still succeeds.
@@ -8,10 +11,44 @@
 # scripts/check_all.sh fails if one is not. Tools are pinned below.
 name: Checks and deploy
 
+# Saves Actions minutes: a change that touches only notes (below) runs nothing.
+# Everything the build, the tests or the site read is left out of the list, so
+# a real content change always runs the checks and, on main, the deploy. Switch
+# to an in-job skip if main ever gets required checks (a BillBol
+# branch-protection decision is pending): a workflow skipped by paths-ignore
+# leaves a required check waiting forever.
 on:
   push:
-    branches: ["**"]
+    branches: [main]
+    paths-ignore:
+      - "CLAUDE.md"
+      - "README.md"
+      - "docs/*.md"
+      # The handover notes. Not docs/handover/slice-6-7*.md: a learn test
+      # reads those two files (no entity id may appear in them), so they are
+      # left out of this list on purpose. A new handover file that matches no
+      # line here simply runs the checks.
+      - "docs/handover/[a-r]*.md"
+      - "docs/handover/session-*.md"
+      - "docs/handover/sira-*.md"
+      - "docs/handover/sky-*.md"
+      - "docs/handover/slice-[1-5]*.md"
+      - "docs/handover/slice-[89]*.md"
   pull_request:
+    paths-ignore:
+      - "CLAUDE.md"
+      - "README.md"
+      - "docs/*.md"
+      # The handover notes. Not docs/handover/slice-6-7*.md: a learn test
+      # reads those two files (no entity id may appear in them), so they are
+      # left out of this list on purpose. A new handover file that matches no
+      # line here simply runs the checks.
+      - "docs/handover/[a-r]*.md"
+      - "docs/handover/session-*.md"
+      - "docs/handover/sira-*.md"
+      - "docs/handover/sky-*.md"
+      - "docs/handover/slice-[1-5]*.md"
+      - "docs/handover/slice-[89]*.md"
 
 permissions:
   contents: read
