@@ -12,6 +12,7 @@ The project's original published pages were found deleted on 9 October 2026 and 
 | Synthetic Capacity Test | https://claude.ai/artifact/BRWwrkeG6iUSX7PfNUDNC5 | `bench/capacity-test.html` |
 | The First Generation, with At Scale and The Wider Network inside it | https://claude.ai/artifact/MWrchAW32H8MdMM4KYSNDC | `generation-1/*.html`, built by `generation-1/build.py` |
 | 50 Stories, Connected | https://claude.ai/artifact/Fp5nL7pV4bux3KKuCkg5sf | `stories-50/index.html`, built by `stories-50/build.py` (published 10 October 2026) |
+| al-Marṣad Sky Atlas (the whole joined graph, guided) | https://claude.ai/artifact/3SytVkX5u6GqAF7r7GYEeS | `atlas/index.html`, built by `atlas/build.py`; published from `atlas/build.py --artifact FILE` (the same page without its document skeleton), 17 October 2026 |
 
 ## Notes
 
@@ -21,5 +22,8 @@ The project's original published pages were found deleted on 9 October 2026 and 
 - The Road Ahead PDF was not affected. A copy is in Downloads.
 
 ## Republishing
+
+For the Sky Atlas, run `ontology/build_graph.py`, then `atlas/build.py --artifact FILE`, and publish FILE with the link above as the `url`.
+
 
 To update a page from a new session, pass its link above as the `url` when publishing, so the link stays the same. For the generation-1 artifact, run `generation-1/build.py` first, then publish `index.html` with `at-scale.html` and `wider-network.html` as supporting files, each of those two prefixed with a doctype, charset and viewport line.
