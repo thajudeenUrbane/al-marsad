@@ -18,12 +18,14 @@ What is proposed, in this order:
    parentheses are set aside ("The Battle of the Yarmūk" / "The Battle of al-Yarmūk").
    A story event of the 50 Stories is never proposed as one with a historical event:
    that pairing is listed with confidence `scholar` (a story is a telling, docs/02);
-2. people among the 100 with the most recorded claims, against every other person
-   entry with the same name or a name it gives in brackets ("ʿAbd al-ʿUzzā ... (Abū
+2. every person with a recorded claim (slice 11a began with the 100 most connected),
+   against every other person entry with the same name or a name it gives in brackets ("ʿAbd al-ʿUzzā ... (Abū
    Lahab)"): `probable` when the recorded fathers agree (and the grandfathers, where
    both are recorded), `possible` when one side records no father or is an ancestor
    in a lineage, `scholar` when fathers or grandfathers differ, when the entries'
-   notes tell namesakes apart ("of Banū ʿAbd al-Dār"), or when the name is only a kunya;
+   notes tell namesakes apart ("of Banū ʿAbd al-Dār"), or when the name is only a kunya.
+   A single name is never matched on: one word (ʿAmr, Kaʿb), a compound ism (ʿAbd Allāh,
+   ʿAbd al-Dār, ʿUbayd Allāh) or Imruʾ al-Qays;
 3. royal titles recorded as persons (Qayṣar, Kisrā, al-Najāshī ...): grouped under the
    title for the office model (maintainer F12), confidence `scholar`.
 
@@ -44,7 +46,7 @@ ROOT = Path(__file__).resolve().parents[2]
 IDENTITY = ROOT / "ontology" / "corpus" / "identity.csv"
 CLAIMS = [ROOT / "ingest" / "claims" / "ibn-hisham-full.jsonl", ROOT / "ingest" / "claims" / "ibn-hisham.jsonl"]
 OUT = ROOT / "ontology" / "corpus" / "merge-proposals.csv"
-TOP_PEOPLE = 100
+TOP_PEOPLE = None  # every person with a recorded claim (slice 11a began with the 100 most connected)
 STOP = {"the", "of", "a", "an", "at", "in", "to", "and", "s"}
 KUNYA = {"abu", "abi", "aba", "umm"}
 TITLES = ["qaysar", "kisra", "najashi", "tubba", "muqawqis", "hiraql"]
@@ -83,8 +85,25 @@ def aliases(name):
         if not f or re.match(r"^\d+$|^note\b|^father of|^mother of|^son of|^of\b|^from\b|^ancestor|^transmitter|^narrator|^poet", f):
             continue
         names.append(base_tokens(inner))
-    # a bare single name (ʿAmr, Kaʿb) says nothing about who is meant: never matched on (as in the full pass)
-    return [n for n in names if len(n) > 1]
+    # a bare single name (ʿAmr, Kaʿb, and a compound ism such as ʿAbd Allāh or ʿAbd al-Dār) says nothing
+    # about who is meant: never matched on (as in the full pass)
+    return [n for n in names if units(n) > 1]
+
+
+def units(tokens):
+    """Name units: 'abd' with the word after it is one name (ʿAbd Allāh, ʿAbd al-Dār once articles go), as are
+    'X Allāh' (ʿUbayd Allāh) and Imruʾ al-Qays."""
+    n, skip = 0, False
+    for t in tokens:
+        if skip:
+            skip = False
+            continue
+        if t in ("alla", "allah") and n:  # ʿUbayd Allāh, Taym Allāh: one name
+            continue
+        n += 1
+        if t in ("abd", "imru", "imr", "imra"):  # ʿAbd X, Imruʾ al-Qays: one name
+            skip = True
+    return n
 
 
 def first_name(tokens):
