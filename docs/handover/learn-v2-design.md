@@ -551,7 +551,7 @@ Each depth is its own static page, because CSS-hidden text is still public.
 - **Shows:** h1, `lead`, the scale line, and the rule in plain words. For e3 that is the text from §6.7. Graph term labels sit in `.term`. Then each step:
   - name link and kind;
   - the facts line: When and Where as entity fields, Gregorian first, shown as the reader's public entity pages show them (open decision);
-  - the computed reasons only (`named`, or `part` with the AI-document label);
+  - the computed reasons only (`named`, or `part` with the AI-document label; the `part` sentence is `learn.why.part`, "It is a story in the part {word} of {work}.", with the work wrapped in `learn.source.ai_document`);
   - up to 3 narration `li.sentence` items, each with its `.source`;
   - if the step has no eligible claim, the line `learn.discover.no_work`: "No record behind this stop gives a work and page. Its {n} records are at Study." (with a link);
   - otherwise `learn.narr.more`;
@@ -572,6 +572,8 @@ Each depth is its own static page, because CSS-hidden text is still public.
 - claim lists capped at 40 per step, then "{n} more on its page" pointing to `#evidence`.
 
 Glosses move to Research. With `hold_study`, the v1 rendering is kept (§3.7).
+
+Built in stage C: Study also shows the narration (6 sentences, full source lines), and a people step lists its side claims as rows under `learn.side.heading`. An assertion's note is a row line, `learn.note.text`, or `learn.note.ai_document` when its work is AI-generated. Discover's order sentence for `recorded` is `learn.order.recorded_discover` (a `rule_text` item with `"only": "discover"`), because the Study sentence ends "Each step says which applies" and Discover shows no order notes. A prompt's answer shows every claim behind it that the depth may show, as sentences.
 
 **Research:** Study, plus:
 
@@ -646,7 +648,7 @@ G5 redirects for merged pids come with slice 11b. A `was` alias list per stop is
 `build_learn` writes it to `site/dist/learn/data/` (rebuilt, never committed). For any graph:
 
 ```
-.venv/bin/python learn/journey_export.py --graph build/graph-all.ttl --out DIR [--part-budget N] [--facade] [--lock]
+.venv/bin/python learn/journey_export.py --graph build/graph-all.ttl --out DIR [--part-budget N] [--step-budget N] [--facade] [--lock]
 ```
 
 In process: `journey_export.resolve(site, journey, strings) -> dict` (unsplit) and `resolve_all(site, folder=None) -> dict`. `strings` is `{"en": {...}, "ar": {...}}` (`journeys.load_i18n()`); the flat en table the Atlas reads raises `TypeError`, because `rule_sha` binds the en and ar wording.
@@ -851,6 +853,8 @@ Deferred: `ar/learn/` twins, hreflang, LRI/PDI isolation, plural categories, Ara
 
 - `STEP_HTML_BUDGET = 220,000` bytes of step HTML per page. Assets are 23,968 B. Against `check_budget`'s 300,000, that leaves room.
 - **The split is computed per depth, at that depth's own weight**: greedy in stop order and deterministic. The contents list counts against page 1. `<ol start>` continues the numbering.
+- A page holds at least one stop. Unlike a part, a single stop over the step budget is not an error: it gets a page of its own (the 300,000 B check still applies).
+- Stage C: `render_learn.reader_plans` measures each stop's HTML on pages rendered from the export, cuts, re-resolves with the new URLs and measures again until the cut is stable. `resolve_all` does this when it is given no plan, so the CLI (`--step-budget`) and `resolve_all(site)` name the same pages as `build_learn`.
 - The stops and their order are the same at every depth. Only the page cut points differ. Depth links and `stops[].urls` find the right page.
 - Caps keep any single step far below a page: Discover 3 sentences and 1 prompt; Study 40 claims; Research 80.
 
@@ -862,6 +866,12 @@ Deferred: `ar/learn/` twins, hreflang, LRI/PDI isolation, plural categories, Ara
 **Export:** parts are cut at ≤150,000 B, each with its own tables.
 
 Measured in stage B (page graph): the largest single stop is the second Hijrah stop at 23,564 B (its 23 claims, narration and tables), so a part budget below about 24,000 B fails closed on it. On the joined graph, Badr takes 10 parts of ≤150,000 B, its head is about 207 KB (mostly the per-depth stop URLs), and the Prophet's ﷺ step is about 2 KB with no side entries.
+
+Measured in stage C (reader pages, printed by `build_learn`, never asserted):
+
+- Page graph, pages at Discover / Study / Research: first-believers 1 / 1 / 1, Hijrah 1 / 1 / 1, Badr 1 / 2 / 2. Badr's Study step HTML is about 224 KB (the v1 rows plus narration, prompts and next), so it is cut at 88 stops. The heaviest learn page is 253,792 B with its assets.
+- Page graph at `--step-budget 30000 --part-budget 30000`: 2 / 4 / 6, 1 / 3 / 6 and 5 / 9 / 11 pages. The second Hijrah stop is about 42 KB at Research, so it has a page of its own there.
+- Joined graph: Badr (438 stops) 4 / 8 / 10 pages, the largest page 237,683 B of HTML; Hijrah (9 stops) one page per depth; the largest of the 12 parts 149,913 B.
 
 Slice 11b needs no learn code change. `LEARN_JOINED=1` is the gate.
 

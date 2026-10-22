@@ -1,20 +1,24 @@
-"""The learn pages: built output, budgets, i18n, logical CSS, JS-free reading.
+"""The learn pages: built output at three depths, budgets, i18n, logical CSS, JS-free reading.
 
 The built-site tests need build/graph.ttl (run ontology/build_graph.py first) and are
-skipped without it. The practice rendering test uses a made-up fixture graph.
+skipped without it; they state invariants, never corpus counts. The fixture tests use
+made-up graphs (fixtures.py) and carry the exact expectations.
 Run:  .venv/bin/python -m unittest discover -s learn/tests -v
 """
 import ast
 import contextlib
+import filecmp
 import hashlib
 import io
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
 from unittest import mock
 
@@ -30,17 +34,22 @@ import build_learn  # noqa: E402
 import check_budget  # noqa: E402
 import check_html  # noqa: E402
 import golden  # noqa: E402
+import journey_export as X  # noqa: E402
 import journeys as J  # noqa: E402
 import practice  # noqa: E402
 import render_learn  # noqa: E402
-from fixtures import Fx, people_spec, side_fixture  # noqa: E402
+from fixtures import (GLOSS, NOTE, SOFTWARE_AGENT, Fx, big_people_graph, events_spec, people_spec,  # noqa: E402
+                      side_fixture, status_fixture)
 from model import Site  # noqa: E402
 
 GRAPH = ROOT / "build" / "graph.ttl"
 EN = json.loads((LEARN / "i18n" / "en.json").read_text(encoding="utf-8"))
 SITE_EN = json.loads((SITE / "i18n" / "en.json").read_text(encoding="utf-8"))
+SITE_AR = json.loads((SITE / "i18n" / "ar.json").read_text(encoding="utf-8"))
 PY_FILES = sorted(LEARN.glob("*.py"))
 KEY = re.compile(r"^[a-z_]+(\.[a-z0-9_]+)+$")
+SMALL = 30_000        # the small step and part budget of the split builds (design §14)
+AI_LABEL = EN["learn.source.ai_document"].replace("{source}", "")
 
 
 def quiet(fn, *args, **kw):
@@ -51,7 +60,7 @@ def quiet(fn, *args, **kw):
 def family_keys() -> set:
     """Keys the code builds from parts, listed here so that none can go missing or stale."""
     keys = set()
-    for k in ("named", "part_of", "has_part", "date_after", "date_before", "date_related", "dated_after_this",
+    for k in ("named", "part", "part_of", "has_part", "date_after", "date_before", "date_related", "dated_after_this",
               "dated_before_this", "dated_related_this", "event_claim"):
         keys.add(f"learn.why.{k}")
     keys |= {f"learn.order_note.{k}" for k in ("part", "recorded", "unrecorded")}
@@ -61,14 +70,14 @@ def family_keys() -> set:
     keys |= {"learn.kinds.event", "learn.kinds.story", "learn.kinds.event_story"}
     keys |= {f"learn.legend.{t}" for t in J.STEP_TYPES}
     keys |= {f"learn.door.{d}" for d in J.DOORS}
-    keys |= {f"learn.state.{s}" for s in ("draft", "approved")}
     for t in practice.QUESTION_TYPES:
         for p in practice.PARTICIPATION:
             keys.add(f"learn.q.{t}.{practice.local(p)}")
     plural = ["learn.scale.events", "learn.scale.people", "learn.scale.stories", "learn.scale.apart",
               "learn.claims.assertions", "learn.claims.links", "learn.claims.show", "learn.records.heading",
               "learn.contrary.heading", "learn.named.summary", "learn.named.show", "learn.index.steps",
-              "learn.index.practice_count", "learn.rule.events_follow", "learn.rule.people_follow"]
+              "learn.index.practice_count", "learn.rule.events_follow", "learn.rule.people_follow",
+              "learn.claims.more", "learn.narr.more", "learn.discover.no_work"]
     for k in plural:
         keys |= {f"{k}.one", f"{k}.other"}
     for path in sorted((LEARN / "journeys").glob("*.json")):
@@ -81,9 +90,9 @@ def literal_keys() -> set:
     found = set()
     namespaces = {k.split(".")[0] for k in list(EN) + list(SITE_EN)}
     for path in PY_FILES:
-        tree = ast.parse(path.read_text(encoding="utf-8"))
-        inner = {id(v) for n in ast.walk(tree) if isinstance(n, ast.JoinedStr) for v in n.values}
-        for node in ast.walk(tree):
+        tree_ = ast.parse(path.read_text(encoding="utf-8"))
+        inner = {id(v) for n in ast.walk(tree_) if isinstance(n, ast.JoinedStr) for v in n.values}
+        for node in ast.walk(tree_):
             if id(node) in inner:
                 continue  # a fragment of an f-string builds a key family, listed in family_keys()
             if (isinstance(node, ast.Constant) and isinstance(node.value, str) and KEY.match(node.value)
@@ -96,6 +105,12 @@ def literal_keys() -> set:
 
 
 class StaticChecks(unittest.TestCase):
+    def test_the_scans_see_every_learn_module(self):
+        names = {p.name for p in PY_FILES}
+        for module in ("journeys.py", "journey_lists.py", "journey_export.py", "render_learn.py", "build_learn.py",
+                       "practice.py"):
+            self.assertIn(module, names)
+
     def test_every_key_used_exists(self):
         missing = [k for k in sorted(literal_keys() | family_keys()) if k not in EN and k not in SITE_EN
                    and f"{k}.one" not in EN]
@@ -120,7 +135,7 @@ class StaticChecks(unittest.TestCase):
     def test_html_built_in_python_has_no_hard_coded_words(self):
         bad = []
         for path in PY_FILES:
-            tree = ast.parse(path.read_text(encoding="utf-8"))
+            tree_ = ast.parse(path.read_text(encoding="utf-8"))
 
             def flatten(node):
                 if isinstance(node, ast.Constant) and isinstance(node.value, str):
@@ -129,8 +144,8 @@ class StaticChecks(unittest.TestCase):
                     return "".join(v.value if isinstance(v, ast.Constant) else "{}" for v in node.values)
                 return None
 
-            inner = {id(v) for n in ast.walk(tree) if isinstance(n, ast.JoinedStr) for v in n.values}
-            for node in ast.walk(tree):
+            inner = {id(v) for n in ast.walk(tree_) if isinstance(n, ast.JoinedStr) for v in n.values}
+            for node in ast.walk(tree_):
                 if id(node) in inner:
                     continue
                 if isinstance(node, ast.JoinedStr) or (isinstance(node, ast.Constant) and isinstance(node.value, str)):
@@ -146,7 +161,7 @@ class StaticChecks(unittest.TestCase):
 
     def test_css_uses_logical_properties_only(self):
         css = re.sub(r"/\*.*?\*/", "", (LEARN / "static" / "learn.css").read_text(encoding="utf-8"), flags=re.S)
-        self.assertEqual(re.findall(r"[^\n]*\b(?:left|right)\b[^\n]*", css, flags=re.I), [])
+        self.assertEqual(re.findall(r"[^\n]*\b(?:left|right|top|bottom)\b[^\n]*", css, flags=re.I), [])
 
     def test_script_holds_no_interface_text_and_guards_storage(self):
         js = (LEARN / "static" / "learn.js").read_text(encoding="utf-8")
@@ -155,14 +170,15 @@ class StaticChecks(unittest.TestCase):
         phrases = [s for s in literals if re.search(r"[A-Za-z]+\s+[A-Za-z]+", s) and s != "use strict"]
         self.assertEqual(phrases, [])
         self.assertIn("try", code)
-        for call in re.findall(r"\b\w+\.(?:getItem|setItem|removeItem)\(", code):
-            self.assertTrue(call)
         # every storage call sits inside a function whose body is wrapped in try/catch
         for fn in ("storage", "load", "save"):
             body = re.search(r"function " + fn + r"\([^)]*\) \{(.*?)\n  \}", code, flags=re.S).group(1)
             self.assertIn("try {", body)
             self.assertIn("catch (e)", body)
         self.assertNotIn("localStorage", code.replace("window.localStorage", ""))
+        self.assertIn('"al-marsad.learn.progress.v1"', code)        # the key E1 progress lives under (design §9)
+        for attr_ in ("data-steps", "data-total"):                   # progress counts the whole journey
+            self.assertIn(f'"{attr_}"', code)
 
     def test_progress_markup_is_hidden_until_the_script_runs(self):
         src = (LEARN / "templates" / "progress.html").read_text(encoding="utf-8")
@@ -204,19 +220,411 @@ class GoldenRecipe(unittest.TestCase):
                 self.assertIn(extra, golden.held_page(page))
 
 
-def build_into(out: Path, graph: Path = GRAPH, journeys_dir: Path | None = None) -> dict:
+# --------------------------------------------------------------------------- reading built pages
+VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+
+
+class Node:
+    __slots__ = ("tag", "attrs", "children", "parent")
+
+    def __init__(self, tag, attrs, parent):
+        self.tag, self.attrs, self.children, self.parent = tag, dict(attrs), [], parent
+
+    @property
+    def classes(self) -> set:
+        return set((self.attrs.get("class") or "").split())
+
+    def text(self) -> str:
+        return "".join(c if isinstance(c, str) else c.text() for c in self.children)
+
+    def walk(self):
+        yield self
+        for c in self.children:
+            if not isinstance(c, str):
+                yield from c.walk()
+
+    def find(self, tag=None, cls=None) -> list:
+        return [n for n in self.walk() if (tag is None or n.tag == tag) and (cls is None or cls in n.classes)]
+
+
+class _Tree(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.root = self.cur = Node("#root", [], None)
+
+    def handle_starttag(self, tag, attrs):
+        n = Node(tag, attrs, self.cur)
+        self.cur.children.append(n)
+        if tag not in VOID:
+            self.cur = n
+
+    def handle_startendtag(self, tag, attrs):
+        self.cur.children.append(Node(tag, attrs, self.cur))
+
+    def handle_endtag(self, tag):
+        n = self.cur
+        while n is not None and n.tag != tag:
+            n = n.parent
+        if n is not None and n.parent is not None:
+            self.cur = n.parent
+
+    def handle_data(self, data):
+        self.cur.children.append(data)
+
+
+_TREES: dict[str, Node] = {}
+
+
+def tree(src: str) -> Node:
+    """The parsed page (cached: the tests read the same pages many times)."""
+    key = hashlib.sha256(src.encode("utf-8")).hexdigest()
+    if key not in _TREES:
+        p = _Tree()
+        p.feed(src)
+        p.close()
+        _TREES[key] = p.root
+    return _TREES[key]
+
+
+_FILES: dict[tuple, str] = {}
+
+
+def read_page(path: Path) -> str:
+    st = path.stat()
+    key = (str(path), st.st_mtime_ns, st.st_size)
+    if key not in _FILES:
+        _FILES[key] = path.read_text(encoding="utf-8")
+    return _FILES[key]
+
+
+def norm(s: str) -> str:
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def build_into(out: Path, graph: Path = GRAPH, journeys_dir: Path | None = None, **kw) -> dict:
     quiet(site_build.build, graph, out, True)
-    return quiet(build_learn.build, graph, out, True, journeys_dir)
+    return quiet(build_learn.build, graph, out, True, journeys_dir, **kw)
+
+
+def load_json(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def export_of(out: Path) -> dict:
+    """The built export: index, pages, and per journey its head with every part and
+    research file joined (steps in order, the tables merged, the glosses)."""
+    data = out / "learn" / "data"
+    index = load_json(data / "index.json")
+    docs = {}
+    for e in index["journeys"]:
+        head = load_json(data / e["file"])
+        doc = {"head": head, "steps": [], "claims": {}, "passages": {}, "entities": {}, "terms": {}, "glosses": {}}
+        for name in head["parts"]:
+            part = load_json(data / "journeys" / e["slug"] / name)
+            doc["steps"] += part["steps"]
+            for k in ("claims", "passages", "entities", "terms"):
+                doc[k].update(part[k])
+        for name in head["research"]:
+            doc["glosses"].update(load_json(data / "journeys" / e["slug"] / name)["glosses"])
+        doc["by_key"] = {s["key"]: s for s in doc["steps"]}
+        docs[e["slug"]] = doc
+    return {"index": index, "pages": load_json(data / "pages.json")["pages"], "journeys": docs}
+
+
+def journey_pages(out: Path, exp: dict, slug: str | None = None, depth: str | None = None) -> list:
+    """[(pages.json entry, HTML)] of the journey pages, each depth's pages in order."""
+    rows = [e for e in exp["pages"] if e["kind"] == "journey" and slug in (None, e["journey"]) and depth in (None, e["depth"])]
+    rows.sort(key=lambda e: (e["journey"], X.DEPTHS.index(e["depth"]), e["page"]))
+    return [(e, read_page(out / e["file"])) for e in rows]
+
+
+def page_keys(root: Node) -> tuple[list, list]:
+    """The step keys (li.step data-step) and set-apart keys (li.apart anchors) on a page, in order."""
+    steps = [n.attrs["data-step"] for n in root.find("li", "step")]
+    apart = []
+    for li in root.find("li", "apart"):
+        spans = [n.attrs["id"][2:] for n in li.find("span") if n.attrs.get("id", "").startswith("s-")]
+        apart += spans[:1]
+    return steps, apart
+
+
+def graph_data(doc: dict) -> set:
+    """Every graph datum a journey's export holds: entity names and labels, term labels,
+    literals as written, dates as shown, part titles and works."""
+    out = set()
+    for e in doc["entities"].values():
+        out |= {e.get("name"), e.get("scholarly"), e.get("part_label"), e.get("work")}
+        out |= {(d.get("text") or {}).get("en") for d in e.get("dates") or []}
+    out |= {t.get("en") for t in doc["terms"].values()}
+    out |= {(c.get("text") or {}).get("value") for c in doc["claims"].values()}
+    out |= {p.get("work") for p in doc["passages"].values()}
+    out |= set(doc["head"].get("ai_documents") or []) | set(doc["head"].get("part_labels") or [])
+    return {norm(x) for x in out if x}
+
+
+def review_language(root: Node, data: set) -> list:
+    """Review words in a page's text outside a, .term and .data, and in any such exempt
+    element whose text is not a graph datum (design §8, enforcement 3)."""
+    found = []
+
+    def walk(node: Node, exempt: bool):
+        for ch in node.children:
+            if isinstance(ch, str):
+                if not exempt and J.review_words(ch):
+                    found.append(norm(ch))
+                continue
+            here = ch.tag == "a" or bool({"term", "data"} & ch.classes)
+            if here and not exempt:
+                text = norm(ch.text())
+                if J.review_words(text) and text not in data:
+                    found.append(text)
+            walk(ch, exempt or here)
+
+    walk(root, False)
+    return found
+
+
+def node_env() -> tuple[str | None, dict]:
+    """node, with NODE_PATH from `npm root -g` and PLAYWRIGHT_BROWSERS_PATH as review/check_pages.py finds them."""
+    node = shutil.which("node")
+    env = dict(os.environ)
+    if node and not env.get("NODE_PATH") and shutil.which("npm"):
+        env["NODE_PATH"] = subprocess.run([shutil.which("npm"), "root", "-g"], capture_output=True, text=True).stdout.strip()
+    if not env.get("PLAYWRIGHT_BROWSERS_PATH") and Path("/opt/pw-browsers").is_dir():
+        env["PLAYWRIGHT_BROWSERS_PATH"] = "/opt/pw-browsers"
+    if node and subprocess.run([node, "-e", 'require.resolve("playwright")'], env=env, capture_output=True).returncode:
+        return None, env
+    return node, env
+
+
+def differs(cmp) -> list:
+    bad = list(cmp.diff_files) + list(cmp.left_only) + list(cmp.right_only)
+    for sub in cmp.subdirs.values():
+        bad += differs(sub)
+    return bad
+
+
+class PageChecks:
+    """Invariants every built learn site keeps, whatever the graph and the budgets."""
+    out: Path
+    exp: dict
+
+    def test_the_pages_match_the_manifest(self):
+        listed = sorted(e["file"] for e in self.exp["pages"])
+        found = sorted(p.relative_to(self.out).as_posix() for p in (self.out / "learn").rglob("index.html"))
+        self.assertEqual(listed, found)
+        for e in self.exp["pages"]:
+            self.assertEqual(e["file"], e["path"] + "index.html")
+
+    def test_reader_pages_follow_the_export(self):
+        """At every depth the stops appear once each, in the export's order, numbered across pages."""
+        for slug, doc in self.exp["journeys"].items():
+            head = doc["head"]
+            for depth in X.DEPTHS:
+                steps, apart, numbers = [], [], []
+                for e, src in journey_pages(self.out, self.exp, slug, depth):
+                    root = tree(src)
+                    s, a = page_keys(root)
+                    steps += s
+                    apart += a
+                    numbers += [int(n.attrs["id"][5:]) for n in root.find("li", "step")]
+                    self.assertEqual(e["first"], (s + a)[0])
+                    self.assertEqual(e["last"], (s + a)[-1])
+                with self.subTest(slug=slug, depth=depth):
+                    self.assertEqual(steps, [x["key"] for x in head["stops"]])
+                    self.assertEqual(apart, [x["key"] for x in head["set_apart"]])
+                    self.assertEqual(numbers, list(range(1, len(steps) + 1)))
+
+    def test_every_stop_url_names_the_page_that_holds_it(self):
+        for slug, doc in self.exp["journeys"].items():
+            for stop in doc["head"]["stops"] + doc["head"]["set_apart"]:
+                for depth, url in stop["urls"].items():
+                    page, frag = url.split("#", 1)
+                    root = tree(read_page(self.out / page / "index.html"))
+                    s, a = page_keys(root)
+                    self.assertIn(stop["key"], s + a, url)
+                    self.assertEqual(frag, f"s-{stop['key']}")
+
+    def test_every_step_has_a_stable_pid_anchor(self):
+        for e, src in journey_pages(self.out, self.exp):
+            root = tree(src)
+            for li in root.find("li", "step"):
+                spans = [n.attrs.get("id") for n in li.children if not isinstance(n, str) and n.tag == "span"]
+                self.assertEqual(spans[:1], [f"s-{li.attrs['data-step']}"], e["path"])
+
+    def test_depth_links_land_on_the_page_holding_the_first_stop(self):
+        for e, src in journey_pages(self.out, self.exp):
+            root = tree(src)
+            nav = root.find("nav", "journey-depths")
+            self.assertEqual(len(nav), 1, e["path"])
+            links = nav[0].find("a")
+            self.assertEqual([a.attrs.get("aria-current") for a in links].count("page"), 1)
+            first = (page_keys(root)[0] + page_keys(root)[1])[0]
+            here = Path(e["path"])
+            for a, depth in zip(links, X.DEPTHS):
+                target, frag = a.attrs["href"].split("#", 1)
+                self.assertEqual(frag, f"s-{first}")
+                path = os.path.normpath(here / target).replace(os.sep, "/") + "/"
+                held = tree(read_page(self.out / path / "index.html"))
+                self.assertIn(first, sum(page_keys(held), []), f"{e['path']} -> {a.attrs['href']}")
+                self.assertEqual(held.find("article")[0].attrs["data-depth"], depth)
+                self.assertEqual(a.attrs.get("aria-current") == "page", depth == e["depth"])
+
+    def test_split_depths_have_a_pager_and_page_one_a_contents_list(self):
+        for e, src in journey_pages(self.out, self.exp):
+            root = tree(src)
+            pager, contents = root.find("nav", "journey-pager"), root.find("nav", "journey-contents")
+            if e["pages"] == 1:
+                self.assertEqual((pager, contents), ([], []), e["path"])
+                continue
+            self.assertEqual(len(pager[0].find("a")), e["pages"])
+            self.assertEqual(len(contents), 1 if e["page"] == 1 else 0, e["path"])
+            if e["page"] == 1:
+                s, a = page_keys(root)
+                doc = self.exp["journeys"][e["journey"]]
+                keys = [x["key"] for x in doc["head"]["stops"] + doc["head"]["set_apart"]]
+                anchored = {li.attrs["id"][2:] for li in contents[0].find("li") if li.attrs.get("id")}
+                self.assertEqual(anchored, set(keys) - set(s + a))
+
+    def test_every_step_links_to_its_entity_page(self):
+        for e, src in journey_pages(self.out, self.exp):
+            for li in tree(src).find("li", "step"):
+                links = li.find("h3")[0].find("a")
+                self.assertEqual(len(links), 1)
+                target = os.path.normpath(Path(e["path"]) / links[0].attrs["href"]).replace(os.sep, "/")
+                kind, pid = target.split("/")[-2:]
+                self.assertEqual(pid, li.attrs["data-step"])
+                self.assertTrue((self.out / kind / pid / "index.html").is_file(), target)
+
+    def test_evidence_links_reach_the_evidence_section(self):
+        seen = 0
+        for e, src in journey_pages(self.out, self.exp):
+            for href in set(re.findall(r'href="([^"]+)#evidence"', src)):
+                path = os.path.normpath(Path(e["path"]) / href).replace(os.sep, "/")
+                self.assertIn('id="evidence"', read_page(self.out / path / "index.html"), path)
+                seen += 1
+        self.assertGreater(seen, 0)
+
+    def test_study_and_research_pages_show_the_draft_note_and_a_status_on_every_claim(self):
+        for e, src in journey_pages(self.out, self.exp):
+            if e["depth"] == "discover":
+                continue
+            root = tree(src)
+            with self.subTest(e["path"]):
+                self.assertIn(norm(EN["learn.draft_banner"]), norm(root.text()))
+                self.assertIn(EN["learn.rule.heading"], src)
+                for li in root.find("li", "claim"):
+                    self.assertIn("Status:", li.text())
+
+    def test_discover_pages_carry_no_review_language(self):
+        for e, src in journey_pages(self.out, self.exp, depth="discover"):
+            root = tree(src)
+            doc = self.exp["journeys"][e["journey"]]
+            with self.subTest(e["path"]):
+                for n in root.walk():
+                    self.assertNotIn("status", n.classes)
+                    self.assertNotIn("claim-id", n.classes)
+                    self.assertFalse(any(c.startswith("coverage") for c in n.classes), n.classes)
+                self.assertNotIn(norm(EN["learn.draft_banner"]), norm(root.text()))
+                self.assertNotIn("Status:", root.text())
+                self.assertEqual(review_language(root, graph_data(doc)), [])
+
+    def test_discover_sources_are_short_citations_only(self):
+        """Every .source on a Discover page is source_line(c, "discover") of an eligible claim
+        of a stop on that page (or a reviewed list's source); no basis text or recorded-by
+        agent of the journey's claims appears there."""
+        t = X.translators()["en"]
+        for e, src in journey_pages(self.out, self.exp, depth="discover"):
+            doc = self.exp["journeys"][e["journey"]]
+            root = tree(src)
+            s, a = page_keys(root)
+            allowed = {X.source_line(doc["claims"][c], "discover", doc["passages"], t)
+                       for key in s + a for item in doc["by_key"][key]["narration"] for c in item["c"]
+                       if doc["claims"][c]["discover"]}
+            lists = doc["head"].get("lists") or {}
+            if lists.get("state") == "reviewed":
+                allowed |= {x["text"] for x in lists["sources"] if x.get("text")}
+            sources = [norm(n.text()) for n in root.find(cls="source")]
+            with self.subTest(e["path"]):
+                self.assertEqual(sorted(set(sources) - {norm(x) for x in allowed}), [])
+                text = norm(root.text())
+                cites = " ".join(p.get("cite") or "" for p in doc["passages"].values())
+                for c in doc["claims"].values():
+                    if c.get("basis"):
+                        self.assertNotIn(norm(c["basis"]), text)
+                    for agent in c.get("recorded_by") or []:
+                        if agent["label"] not in cites:
+                            self.assertNotIn(agent["label"], text)
+
+    def test_every_discover_sentence_has_a_source_line(self):
+        for e, src in journey_pages(self.out, self.exp, depth="discover"):
+            doc = self.exp["journeys"][e["journey"]]
+            ai = {norm(X.source_line(c, "discover", doc["passages"], X.translators()["en"]))
+                  for c in doc["claims"].values() if c["discover"] and c.get("ai_document")}
+            for li in tree(src).find("li", "sentence"):
+                sources = [norm(n.text()) for n in li.find(cls="source")]
+                self.assertTrue(sources, e["path"])
+                for s in sources:
+                    if s in ai:
+                        self.assertTrue(s.endswith(norm(AI_LABEL)), s)
+
+    def test_stops_without_a_cited_claim_show_the_no_work_line(self):
+        for e, src in journey_pages(self.out, self.exp, depth="discover"):
+            doc = self.exp["journeys"][e["journey"]]
+            for li in tree(src).find("li", "step") + tree(src).find("li", "apart"):
+                key = li.attrs.get("data-step") or [n.attrs["id"][2:] for n in li.find("span") if n.attrs.get("id")][0]
+                step = doc["by_key"][key]
+                no_work = li.find(cls="no-work")
+                if step["counts"]["discover"] == 0:
+                    self.assertEqual(len(no_work), 1, key)
+                    self.assertEqual(li.find(cls="source"), [], key)
+                    self.assertEqual(norm(no_work[0].text()),
+                                     norm(EN["learn.discover.no_work." + ("one" if step["counts"]["records"] == 1 else "other")]
+                                          .format(n=step["counts"]["records"])))
+                else:
+                    self.assertEqual(no_work, [], key)
+
+    def test_research_pages_show_claim_ids_and_the_data_files(self):
+        for e, src in journey_pages(self.out, self.exp):
+            root = tree(src)
+            ids = root.find(cls="claim-id")
+            if e["depth"] != "research":
+                self.assertEqual(ids, [], e["path"])
+                self.assertNotIn(EN["learn.gloss.label"], src)
+                continue
+            claims = root.find("li", "claim")
+            self.assertEqual(len(ids), len(claims), e["path"])
+            head = self.exp["journeys"][e["journey"]]["head"]
+            for needle in (head["rule_sha"], head["content_sha"], head["graph"]["fingerprint"],
+                           f"learn/data/journeys/{e['journey']}/journey.json"):
+                self.assertIn(needle, src, e["path"])
+
+    def test_the_site_checks_pass_with_the_learn_pages_in_place(self):
+        self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
+        self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
+        results, problems = check_budget.check(self.out)
+        learn = [r for r in results if r[1].startswith("learn/")]
+        self.assertEqual(len(learn), len(self.exp["pages"]))
+        self.assertTrue(all(total <= 300_000 for total, *_ in learn))
+
+
+def step_html_bytes(src: str) -> int:
+    """The bytes of a page's step HTML: its step lists and set-apart section."""
+    body = src.split('<section class="journey-body"', 1)[1]
+    steps = body.split("<ol class=\"journey-steps\"", 1)[1].split("</ol>\n</section>", 1)[0] if "<li class=\"step\"" in body else ""
+    apart = re.findall(r'<section class="journey-apart".*?</section>', src, flags=re.S)
+    return len(steps.encode("utf-8")) + sum(len(a.encode("utf-8")) for a in apart)
 
 
 @unittest.skipUnless(GRAPH.exists(), "build/graph.ttl missing: run ontology/build_graph.py")
-class BuiltPages(unittest.TestCase):
+class BuiltPages(PageChecks, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.out = Path(cls.tmp.name)
         cls.summary = build_into(cls.out)
         cls.learn = cls.out / "learn"
+        cls.exp = export_of(cls.out)
 
     @classmethod
     def tearDownClass(cls):
@@ -225,49 +633,72 @@ class BuiltPages(unittest.TestCase):
     def pages(self):
         return sorted(self.learn.rglob("*.html"))
 
-    def test_the_pages_exist(self):
-        rel = sorted(p.relative_to(self.learn).as_posix() for p in self.pages())
-        self.assertEqual(rel, ["first-believers/index.html", "hijrah-step-by-step/index.html", "index.html",
-                               "people-of-badr/index.html", "practice/index.html"])
+    def test_every_journey_has_three_depths_and_its_door_at_the_root(self):
         self.assertEqual(json.loads((self.learn / "practice" / "bank.json").read_text(encoding="utf-8")),
                          {"questions": []})
+        for slug, doc in self.exp["journeys"].items():
+            door = doc["head"]["door"]
+            self.assertEqual(tree((self.learn / slug / "index.html").read_text(encoding="utf-8"))
+                             .find("article")[0].attrs["data-depth"], door)
+            for depth in X.DEPTHS:
+                if depth != door:
+                    self.assertTrue((self.learn / slug / depth / "index.html").is_file())
+            self.assertEqual(self.summary["journeys"][slug]["pages"],
+                             {d: len(journey_pages(self.out, self.exp, slug, d)) for d in X.DEPTHS})
 
-    def test_the_site_checks_pass_with_the_learn_pages_in_place(self):
-        self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
-        self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
-        results, problems = check_budget.check(self.out)
-        learn = [r for r in results if r[1].startswith("learn/")]
-        self.assertEqual(len(learn), 5)
-        self.assertTrue(all(total <= 300_000 for total, *_ in learn))
-
-    def test_every_journey_page_says_draft_and_shows_status_on_every_claim(self):
-        for slug in self.summary["journeys"]:
-            src = (self.learn / slug / "index.html").read_text(encoding="utf-8")
-            with self.subTest(slug):
-                self.assertIn(EN["learn.draft_banner"], src.replace("&#x27;", "'"))
-                self.assertIn(EN["learn.rule.heading"], src)
-                for li in re.findall(r'<li class="claim[^"]*">(.*?)</li>', src, flags=re.S):
-                    self.assertIn("Status:", li)
-                steps = re.findall(r'<li class="step" id="step-(\d+)" data-step="([^"]+)"', src)
-                self.assertEqual([int(n) for n, _ in steps], list(range(1, len(steps) + 1)))
-                self.assertEqual(len(steps), self.summary["journeys"][slug]["steps"])
-
-    def test_every_step_links_to_its_entity_page(self):
-        for slug in self.summary["journeys"]:
-            src = (self.learn / slug / "index.html").read_text(encoding="utf-8")
-            for block in re.split(r'(?=<li class="step")', src)[1:]:
-                pid = re.search(r'data-step="([^"]+)"', block).group(1)
-                href = re.search(r'<h3 class="step-title"[^>]*>.*?<a href="\.\./\.\./([a-z]+)/([^/"]+)/">', block, flags=re.S)
-                self.assertIsNotNone(href, slug)
-                self.assertEqual(href.group(2), pid)
-                self.assertTrue((self.out / href.group(1) / pid / "index.html").is_file())
-
-    def test_ai_generated_material_is_flagged(self):
-        for slug in self.summary["journeys"]:
-            src = (self.learn / slug / "index.html").read_text(encoding="utf-8")
-            self.assertIn(EN["learn.ai_note"], src, slug)
-        fb = (self.learn / "first-believers" / "index.html").read_text(encoding="utf-8")
+    def test_ai_generated_material_is_flagged_at_every_depth(self):
+        for e, src in journey_pages(self.out, self.exp):
+            head = self.exp["journeys"][e["journey"]]["head"]
+            if not head["ai_note"]:
+                continue
+            text = norm(tree(src).text())
+            if e["depth"] == "discover":
+                self.assertIn(norm(EN["learn.ai_source_note"].split("{work}")[0]), text, e["path"])
+                self.assertNotIn(norm(EN["learn.ai_note"]), text)
+            else:
+                self.assertIn(norm(EN["learn.ai_note"]), text, e["path"])
+        fb = (self.learn / "first-believers" / "study" / "index.html").read_text(encoding="utf-8")
         self.assertEqual(fb.count(SITE_EN["story.banner"]), self.summary["journeys"]["first-believers"]["steps"])
+        self.assertNotIn(SITE_EN["story.banner"], (self.learn / "first-believers" / "index.html").read_text(encoding="utf-8"))
+
+    def test_discover_set_apart_lines_are_sentences_with_source_and_ai_label(self):
+        src = (self.learn / "people-of-badr" / "discover" / "index.html").read_text(encoding="utf-8")
+        apart = tree(src).find("section", "journey-apart")
+        self.assertEqual(len(apart), 1)
+        self.assertIn(EN["learn.apart.lead_discover"], norm(apart[0].text()))
+        doc = self.exp["journeys"]["people-of-badr"]
+        for li in apart[0].find("li", "apart"):
+            sentences = li.find("li", "sentence")
+            key = li.find("span")[0].attrs["id"][2:]
+            if doc["by_key"][key]["counts"]["discover"] == 0:
+                self.assertEqual(sentences, [])
+                continue
+            for s in sentences:
+                self.assertTrue(s.find(cls="source"))
+                self.assertIn(EN["learn.narr.marker"].split("{marker}")[0].strip(), s.text())
+                if any(norm(x.text()).endswith(norm(AI_LABEL)) for x in s.find(cls="source")):
+                    continue
+                self.fail(f"{key}: a set-apart line from the AI document without its label")
+
+    def test_index_is_depth_neutral(self):
+        src = (self.learn / "index.html").read_text(encoding="utf-8")
+        root = tree(src)
+        for k in ("learn.draft_banner", "learn.ai_note"):
+            self.assertNotIn(norm(EN[k]), norm(root.text()))
+        for n in root.walk():
+            self.assertNotIn("status", n.classes)
+        self.assertIn(EN["learn.index.how_depths"], src)
+        data = set()
+        for doc in self.exp["journeys"].values():
+            data |= graph_data(doc)
+        self.assertEqual(review_language(root, data), [])
+        for slug, doc in self.exp["journeys"].items():
+            card = [n for n in root.find("li", "journey-card") if n.attrs["data-journey-card"] == slug][0]
+            self.assertEqual(card.attrs["data-steps"].split(), [x["key"] for x in doc["head"]["stops"]])
+            links = card.find(cls="depth-links")[0].find("a")
+            self.assertEqual([a.attrs["href"] for a in links],
+                             [e["urls"][d][0][len("learn/"):] for e in self.exp["index"]["journeys"]
+                              if e["slug"] == slug for d in X.DEPTHS])
 
     def test_the_practice_page_is_honest_about_being_empty(self):
         src = (self.learn / "practice" / "index.html").read_text(encoding="utf-8")
@@ -288,6 +719,9 @@ class BuiltPages(unittest.TestCase):
             self.assertNotIn("onclick", src)
             # nothing on the page depends on the script: progress controls are hidden or inert
             self.assertNotIn("<input", re.sub(r"<template.*?</template>", "", src, flags=re.S))
+            if p.parent.name != "practice" and p.name == "index.html" and "data-journey=" in src:
+                article = tree(src).find("article")[0]
+                self.assertEqual(int(article.attrs["data-total"]), len(article.attrs["data-steps"].split()))
 
     def test_licence_footer_on_every_page(self):
         for p in self.pages():
@@ -295,17 +729,64 @@ class BuiltPages(unittest.TestCase):
             for needle in ("LICENSING.md", "creativecommons.org/licenses/by-sa/4.0/", "gnu.org/licenses/agpl-3.0.html"):
                 self.assertIn(needle, foot, p)
 
-    def test_hijrah_page_still_matches_the_e1_golden_hash(self):
-        """The E1 class page (design §3.7): the golden hash recorded on the v1 renderer
-        (learn/tests/golden_e1.json), compared while the Hijrah content is unchanged."""
+    def test_hijrah_root_page_is_still_the_e1_study_page(self):
+        """The E1 class page (design §3.7): same URL, the Study depth, the v1 steps with their
+        claims and statuses, today's lead_study, none of the layers; and, while the Hijrah
+        content_sha is the one recorded with the golden hash, the v1 page byte for byte
+        (golden.held_page takes out the permitted additions)."""
         want = json.loads(golden.E1_FILE.read_text(encoding="utf-8"))
-        site = Site(GRAPH)
-        j = next(j for j in J.build_all(site, J.load_specs(LEARN / "journeys")) if j.slug == golden.HIJRAH)
-        if golden.content_facts(site, j) != want["gate"]:
-            self.skipTest("re-verify E1: the Hijrah content changed since the golden hash was recorded")
         page = (self.learn / golden.HIJRAH / "index.html").read_text(encoding="utf-8")
-        self.assertEqual(golden.page_sha(golden.held_page(page)), want["page_sha256"])
+        root = tree(page)
+        self.assertEqual(root.find("article")[0].attrs["data-depth"], "study")
+        steps = [(li.attrs["id"], li.attrs["data-step"]) for li in root.find("li", "step")]
+        head = self.exp["journeys"][golden.HIJRAH]["head"]
+        self.assertEqual(steps, [(f"step-{n}", s["key"]) for n, s in enumerate(head["stops"], 1)])
+        for li in root.find("li", "claim"):
+            self.assertIn("Status:", li.text())
+        self.assertIn(norm(EN["learn.draft_banner"]), norm(root.text()))
         self.assertIn(EN["journey.hijrah.lead_study"], page)
+        for n in root.walk():
+            self.assertFalse(n.classes & {"step-prompts", "step-next", "accepted-share", "narration", "claim-id",
+                                          "journey-contents", "journey-pager"}, n.classes)
+        if golden.content_sha(self.out) != want["content_sha"]:
+            self.skipTest("re-verify E1: the Hijrah content changed since the golden hash was recorded")
+        self.assertEqual(golden.page_sha(golden.held_page(page)), want["page_sha256"])
+
+    def test_study_pages_keep_the_v1_order(self):
+        """While the page graph is the one the v1 order was recorded on, every journey's Study
+        pages list the v1 steps and set-apart people in the v1 order (Badr's list file is
+        unreviewed, so its order is the Prophet ﷺ, then A to Z; design §3.8)."""
+        want = json.loads(golden.ORDER_FILE.read_text(encoding="utf-8"))
+        if self.exp["index"]["graph"]["fingerprint"] != want["graph"]["fingerprint"]:
+            self.skipTest("the page graph changed since the v1 order was recorded")
+        for slug, facts in want["journeys"].items():
+            steps, apart = [], []
+            for _, src in journey_pages(self.out, self.exp, slug, "study"):
+                s, a = page_keys(tree(src))
+                steps += s
+                apart += a
+            with self.subTest(slug):
+                self.assertEqual((len(steps), golden.sha12(steps)), (facts["steps"], facts["steps_sha"]))
+                self.assertEqual((len(apart), golden.sha12(apart)), (facts["apart"], facts["apart_sha"]))
+
+    def test_discover_strings_have_no_review_words(self):
+        """Every key a Discover render reads (pages and the index): its en text has no review
+        word, and its ar text, where there is one, no Arabic review stem (design §8)."""
+        site = Site(GRAPH)
+        built = J.build_all(site, J.load_specs(LEARN / "journeys"))
+        r = render_learn.default_renderer(site)
+        res = X.resolve_all(site, None, journeys=built, renderer=r)
+        for j in built:
+            r.journey_pages(j, res["journeys"], res["plans"][j.slug])
+        r.at("discover").index_page(built, 0, res["index"]["journeys"])
+        used = r.s.used_at["discover"]
+        self.assertTrue({"learn.narr.took_part", "learn.discover.no_work.other", "learn.prompt.note"} <= used)
+        ar = {**SITE_AR, **(J.load_i18n().get("ar") or {})}
+        for key in sorted(used):
+            self.assertFalse(render_learn.forbidden_at_discover(key), key)
+            self.assertEqual(J.review_words({**SITE_EN, **EN}[key]), [], key)
+            if key in ar:
+                self.assertEqual(J.ar_review_stems(ar[key]), [], key)
 
     def test_rebuilding_replaces_only_learn(self):
         marker = self.out / "person" / "index.html"
@@ -330,25 +811,263 @@ class BuiltPages(unittest.TestCase):
                 self.assertEqual(list(Path(d).iterdir()), [])
         self.assertEqual(snapshot(self.learn), before)
 
+    def test_the_cli_writes_the_same_files_as_the_build(self):
+        """journey_export.py computes the reader's page cuts too, so its stop URLs and
+        pages.json name the pages build_learn writes."""
+        with tempfile.TemporaryDirectory() as tmp:
+            subprocess.run([sys.executable, str(LEARN / "journey_export.py"), "--graph", str(GRAPH), "--out", tmp],
+                           check=True, capture_output=True, cwd=ROOT)
+            cli = {p.relative_to(tmp).as_posix(): p.read_bytes() for p in Path(tmp).rglob("*") if p.is_file()}
+        built = {p.relative_to(self.learn / "data").as_posix(): p.read_bytes()
+                 for p in (self.learn / "data").rglob("*") if p.is_file()}
+        self.assertEqual(sorted(cli), sorted(built))
+        for k in cli:
+            self.assertEqual(cli[k], built[k], k)
+
     def test_build_is_deterministic_across_processes(self):
-        import filecmp
-        outs = []
-        with tempfile.TemporaryDirectory() as da, tempfile.TemporaryDirectory() as db:
-            for seed, d in (("1", da), ("2", db)):
+        """Two builds under hash seeds 1 and 2 are byte-identical, with the default budgets and
+        with --step-budget 30000 --part-budget 30000 (split pages, cross-page links, contents
+        and several parts), data/ and every page included (design §14)."""
+        with tempfile.TemporaryDirectory() as tmp:
+            outs = {}
+            for seed in ("1", "2"):
                 env = {**os.environ, "PYTHONHASHSEED": seed}
-                subprocess.run([sys.executable, str(SITE / "build.py"), "--graph", str(GRAPH), "--out", d],
+                site = Path(tmp) / f"site-{seed}"
+                subprocess.run([sys.executable, str(SITE / "build.py"), "--graph", str(GRAPH), "--out", str(site)],
                                check=True, capture_output=True, env=env)
-                subprocess.run([sys.executable, str(LEARN / "build_learn.py"), "--graph", str(GRAPH), "--site", d],
-                               check=True, capture_output=True, env=env)
-                outs.append(Path(d) / "learn")
+                for name, extra in (("default", []), ("small", ["--step-budget", str(SMALL), "--part-budget", str(SMALL)])):
+                    subprocess.run([sys.executable, str(LEARN / "build_learn.py"), "--graph", str(GRAPH), "--site", str(site),
+                                    *extra], check=True, capture_output=True, env=env)
+                    outs[(name, seed)] = Path(tmp) / f"{name}-{seed}"
+                    shutil.copytree(site / "learn", outs[(name, seed)])
+            for name in ("default", "small"):
+                with self.subTest(name):
+                    self.assertEqual(differs(filecmp.dircmp(outs[(name, "1")], outs[(name, "2")])), [])
+            small = load_json(outs[("small", "1")] / "data" / "pages.json")["pages"]
+            self.assertTrue(any(e["pages"] > 1 for e in small if e["kind"] == "journey"))
+            self.assertGreater(len(list((outs[("small", "1")] / "data" / "journeys" / "people-of-badr").glob("part-*.json"))), 2)
 
-            def differs(cmp):
-                bad = list(cmp.diff_files) + list(cmp.left_only) + list(cmp.right_only)
-                for sub in cmp.subdirs.values():
-                    bad += differs(sub)
-                return bad
 
-            self.assertEqual(differs(filecmp.dircmp(outs[0], outs[1])), [])
+@unittest.skipUnless(GRAPH.exists(), "build/graph.ttl missing: run ontology/build_graph.py")
+class SplitPages(PageChecks, unittest.TestCase):
+    """The page graph built with a 30,000-byte step and part budget: every depth of every
+    journey is cut into pages, with contents, pager and cross-page links (design §13)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.out = Path(cls.tmp.name)
+        cls.summary = build_into(cls.out, step_budget=SMALL, part_budget=SMALL)
+        cls.exp = export_of(cls.out)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_long_journeys_are_split_within_the_budget(self):
+        self.assertTrue(any(n > 1 for j in self.summary["journeys"].values() for n in j["pages"].values()))
+        for e, src in journey_pages(self.out, self.exp):
+            s, a = page_keys(tree(src))
+            size = step_html_bytes(src)
+            if e["page"] == 1 and e["pages"] > 1:
+                contents = re.search(r'<nav class="journey-contents".*?</nav>', src, flags=re.S).group(0)
+                size += len(contents.encode("utf-8"))
+            if len(s + a) > 1:
+                self.assertLessEqual(size, SMALL + 64 * len(s + a), e["path"])   # the joins between items
+        for path in (self.out / "learn" / "data" / "journeys").rglob("*.json"):
+            if path.name.startswith(("part-", "research-")):
+                self.assertLessEqual(path.stat().st_size, SMALL, path)
+
+    def test_split_build_passes_the_browser_check(self):
+        node, env = node_env()
+        if node is None:
+            if os.environ.get("GITHUB_ACTIONS"):
+                self.fail("node with the playwright package is needed for learn/check_nojs.cjs")
+            self.skipTest("node with the playwright package not found")
+        res = subprocess.run([node, str(LEARN / "check_nojs.cjs"), str(self.out)], capture_output=True, text=True, env=env,
+                             timeout=1200)
+        self.assertEqual(res.returncode, 0, res.stdout[-3000:] + res.stderr[-2000:])
+
+
+class DiscoverGuard(unittest.TestCase):
+    """Strings.at("discover") refuses every key that carries review status or review
+    language, and the template cache is keyed by depth (design §8, enforcement 1)."""
+
+    def strings(self):
+        return render_learn.Strings(LEARN / "i18n" / "en.json", SITE / "i18n" / "en.json")
+
+    def test_discover_guard_raises_on_forbidden_keys(self):
+        s = self.strings()
+        keys = list(render_learn.DISCOVER_FORBIDDEN_KEYS) + [p + "x" for p in render_learn.DISCOVER_FORBIDDEN_PREFIXES]
+        keys += ["status.label", "coverage.label", "learn.claims.show.one", "learn.accepted_share.line",
+                 "learn.order.e3_pending", "learn.gloss.label", "learn.check.not_both", "learn.research.heading"]
+        for key in keys:
+            with self.subTest(key), self.assertRaises(render_learn.ReviewLanguageAtDiscover):
+                s.at("discover").t(key)
+        for key in render_learn.DISCOVER_FORBIDDEN_KEYS:
+            s.at("study").raw(key)          # Study and Research may show them
+        self.assertNotIn("discover", s.used_at)
+        self.assertTrue(issubclass(render_learn.ReviewLanguageAtDiscover, J.RuleError))
+
+    def test_a_forbidden_key_in_a_template_stops_a_discover_render(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for p in (LEARN / "templates").glob("*.html"):
+                shutil.copyfile(p, Path(tmp) / p.name)
+            (Path(tmp) / "probe.html").write_text("<p>[[learn.draft_banner]]</p>", encoding="utf-8")
+            r = render_learn.LearnRenderer(None, self.strings(), Path(tmp))
+            self.assertIn(EN["learn.draft_banner"][:20], r.at("research").tpl("probe").replace("&#x27;", "'"))
+            with self.assertRaises(render_learn.ReviewLanguageAtDiscover):
+                r.at("discover").tpl("probe")          # the research copy in the cache is not reused
+
+    def test_discover_after_research_render_sees_the_same_keys(self):
+        fx, i = side_fixture()
+        from fixtures import site_of
+        site = site_of(fx)
+        j = J.build(site, J.validate(people_spec(order="prophet_first_then_name", group_by="side")))
+        res = X.resolve_all(site, None, journeys=[j], bank=[])
+
+        def discover_keys(first_research: bool) -> set:
+            r = render_learn.LearnRenderer(site, self.strings(), LEARN / "templates")
+            book = r.book(j, res["journeys"], res["plans"][j.slug])
+            if first_research:
+                rr = r.at("research")
+                rr.page(rr.ctx(book, "research", 1))
+            rd = r.at("discover")
+            rd.page(rd.ctx(book, "discover", 1))
+            return r.s.used_at["discover"]
+
+        fresh, after = discover_keys(False), discover_keys(True)
+        self.assertEqual(fresh, after)
+        self.assertFalse(any(render_learn.forbidden_at_discover(k) for k in after))
+
+
+class StatusesAtEachDepth(unittest.TestCase):
+    """A made-up battle with claims of every status, cited and uncited, a gloss, a note, a
+    software agent and a 50 Stories record (fixtures.status_fixture), built as an events
+    journey and a people journey."""
+
+    @classmethod
+    def setUpClass(cls):
+        fx, cls.i = status_fixture()
+        cls.tmp = tempfile.TemporaryDirectory()
+        root = Path(cls.tmp.name)
+        graph = fx.write(root / "graph.ttl")
+        jdir = root / "journeys"
+        jdir.mkdir()
+        (jdir / "fixture-events.json").write_text(json.dumps(events_spec(["Fixtureplace"])), encoding="utf-8")
+        (jdir / "fixture-people.json").write_text(json.dumps(people_spec(order="prophet_first_then_name")),
+                                                  encoding="utf-8")
+        cls.out = root / "dist"
+        cls.summary = build_into(cls.out, graph, jdir)
+        cls.exp = export_of(cls.out)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def page(self, slug: str, depth: str) -> str:
+        e = [e for e in self.exp["pages"] if e.get("journey") == slug and e["depth"] == depth and e["page"] == 1][0]
+        return (self.out / e["file"]).read_text(encoding="utf-8")
+
+    def name(self, k: str) -> str:
+        return f"Person {k.replace('_cited', ' cited').replace('_uncited', ' uncited').replace('_', ' ')}"
+
+    def test_discover_never_shows_rejected_or_superseded_claims(self):
+        hidden = [self.name(k) for k in ("rejected_cited", "superseded_cited", "rejected_uncited", "superseded_uncited")]
+        hidden.append("Person twostatus")
+        hidden += [self.name(k) for k in ("accepted_uncited", "proposed_uncited", "under_review_uncited")]
+        for slug in ("fixture-events", "fixture-people"):
+            sentences = " ".join(norm(li.text()) for li in tree(self.page(slug, "discover")).find("li", "sentence"))
+            self.assertTrue(sentences, slug)
+            for who in hidden:
+                self.assertNotIn(who, sentences, (slug, who))
+            for who in (self.name("accepted_cited"), self.name("proposed_cited"), "Person nostatus"):
+                self.assertIn(who, sentences, (slug, who))
+        study = tree(self.page("fixture-events", "study"))
+        self.assertIn(self.name("rejected_cited"), " ".join(li.text() for li in study.find("li", "claim")))
+
+    def test_a_stop_without_a_cited_claim_shows_the_no_work_line(self):
+        root = tree(self.page("fixture-people", "discover"))
+        doc = self.exp["journeys"]["fixture-people"]
+        by_name = {doc["entities"][s["ref"]]["name"]: s for s in doc["steps"]}
+        step = by_name[self.name("accepted_uncited")]
+        li = [n for n in root.find("li", "step") if n.attrs["data-step"] == step["key"]][0]
+        self.assertEqual(li.find(cls="source"), [])
+        self.assertEqual(norm(li.find(cls="no-work")[0].text()), EN["learn.discover.no_work.one"].format(n=1))
+
+    def test_the_ai_document_label_is_on_every_depth(self):
+        for depth in X.DEPTHS:
+            src = self.page("fixture-events", depth)
+            self.assertIn(norm(AI_LABEL), norm(tree(src).text()), depth)
+
+    def test_glosses_notes_and_agents_by_depth(self):
+        gloss = GLOSS.split("): ", 1)[1]
+        note = EN["learn.note.text"].format(note=NOTE)
+        software = EN["learn.research.software"].format(name=SOFTWARE_AGENT)
+        pages = {d: norm(tree(self.page("fixture-events", d)).text()) for d in X.DEPTHS}
+        self.assertNotIn(gloss, pages["discover"] + pages["study"])
+        self.assertIn(gloss, pages["research"])
+        self.assertIn(EN["learn.gloss.label"], pages["research"])
+        self.assertNotIn(GLOSS, pages["research"])            # the gloss prefix is never shown as text
+        self.assertNotIn(NOTE, pages["discover"])
+        self.assertIn(note, pages["study"])
+        self.assertIn(note, pages["research"])
+        self.assertNotIn(SOFTWARE_AGENT, pages["discover"])
+        self.assertIn(software, pages["research"])
+        self.assertNotIn(software, pages["study"])
+
+    def test_statuses_are_shown_as_recorded(self):
+        study = tree(self.page("fixture-events", "study"))
+        rows = {norm(li.find(cls="claim-text")[0].text()): norm(li.text()) for li in study.find("li", "claim")}
+        two = [v for k, v in rows.items() if k.startswith("Person twostatus")][0]
+        self.assertIn("Status: rejected", two)                # the most cautious of its two statuses, never folded
+
+
+class LongJourneys(unittest.TestCase):
+    """A made-up battle with 600 people (fixtures.big_people_graph), at the default budget:
+    the Study and Research depths are cut into pages within STEP_HTML_BUDGET, page 1 lists
+    every stop, the pages link to each other and the site checks pass."""
+
+    @classmethod
+    def setUpClass(cls):
+        fx, cls.i = big_people_graph(600)
+        cls.tmp = tempfile.TemporaryDirectory()
+        root = Path(cls.tmp.name)
+        graph = fx.write(root / "graph.ttl")
+        jdir = root / "journeys"
+        jdir.mkdir()
+        (jdir / "fixture-people.json").write_text(json.dumps(people_spec(order="prophet_first_then_name")),
+                                                  encoding="utf-8")
+        cls.out = root / "dist"
+        cls.summary = build_into(cls.out, graph, jdir)
+        cls.exp = export_of(cls.out)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_a_600_person_journey_is_split_within_the_budget(self):
+        pages = self.summary["journeys"]["fixture-people"]["pages"]
+        self.assertGreater(pages["study"], 1)
+        self.assertGreater(pages["research"], pages["study"] - 1)
+        budget = render_learn.STEP_HTML_BUDGET
+        for e, src in journey_pages(self.out, self.exp):
+            s, a = page_keys(tree(src))
+            size = step_html_bytes(src)
+            if e["page"] == 1 and e["pages"] > 1:
+                size += len(re.search(r'<nav class="journey-contents".*?</nav>', src, flags=re.S).group(0).encode("utf-8"))
+            self.assertLessEqual(size, budget + 64 * len(s + a), e["path"])
+        self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
+        # the reader tier's own page for a 600-person battle is over its budget; the learn pages are not
+        results, _ = check_budget.check(self.out)
+        learn = [(total, rel) for total, rel, *_ in results if rel.startswith("learn/")]
+        self.assertEqual(len(learn), len(self.exp["pages"]))
+        self.assertEqual([rel for total, rel in learn if total > 300_000], [])
+
+    def test_the_numbering_and_the_contents_run_across_pages(self):
+        PageChecks.test_reader_pages_follow_the_export(self)
+        PageChecks.test_split_depths_have_a_pager_and_page_one_a_contents_list(self)
+        PageChecks.test_every_stop_url_names_the_page_that_holds_it(self)
 
 
 class PracticeWithAcceptedClaims(unittest.TestCase):
@@ -388,6 +1107,9 @@ class PracticeWithAcceptedClaims(unittest.TestCase):
         bank = json.loads((self.out / "learn" / "practice" / "bank.json").read_text(encoding="utf-8"))
         self.assertEqual(sorted(q["type"] for q in bank["questions"]), ["both_events", "shared_events"])
         self.assertEqual(practice.claims_used(bank["questions"]), set(self.claims))
+        pages = load_json(self.out / "learn" / "data" / "pages.json")["pages"]
+        self.assertEqual(sorted(e["path"] for e in pages if e["kind"] == "practice"),
+                         ["learn/practice/", "learn/practice/2/"])
 
     def test_each_answer_links_to_its_entities_and_sources(self):
         pages = [self.out / "learn" / "practice" / "index.html", self.out / "learn" / "practice" / "2" / "index.html"]
@@ -402,11 +1124,11 @@ class PracticeWithAcceptedClaims(unittest.TestCase):
         self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
 
 
-class SideGroupsOnTheStudyPage(unittest.TestCase):
-    """A made-up battle with people recorded on both sides (fixtures.side_fixture): the
-    Study page gives the against group its heading and lead where the group starts,
-    numbers the steps across both lists, and says in the rule box that the order holds
-    inside each group (design §6.4). Without group_by, neither appears."""
+class SideGroupsAtEveryDepth(unittest.TestCase):
+    """A made-up battle with people recorded on both sides (fixtures.side_fixture): every
+    depth gives the against group its heading and lead where the group starts, numbers the
+    steps across both lists, and says in the rule box that the order holds inside each group
+    (design §6.4). Without group_by, neither appears."""
 
     @classmethod
     def setUpClass(cls):
@@ -429,35 +1151,41 @@ class SideGroupsOnTheStudyPage(unittest.TestCase):
     def tearDownClass(cls):
         cls.tmp.cleanup()
 
-    def page(self, name: str) -> str:
-        return (self.out[name] / "learn" / self.slug / "index.html").read_text(encoding="utf-8")
+    def page(self, name: str, depth: str = "study") -> str:
+        rel = "" if depth == "study" else f"{depth}/"       # the fixture journey's door is Study
+        return (self.out[name] / "learn" / self.slug / rel / "index.html").read_text(encoding="utf-8")
 
     def test_the_against_group_has_its_heading_and_lead_where_it_starts(self):
-        src = self.page("grouped")
         heading, lead = (render_learn.esc(EN[k]) for k in ("learn.group.against", "learn.group.against_lead"))
-        self.assertEqual(src.count(heading), 1)
-        self.assertEqual(src.count(lead), 1)
-        before, after = src.split(heading, 1)
-        steps_before = re.findall(r'<li class="step" id="step-(\d+)" data-step="([^"]+)"', before)
-        steps_after = re.findall(r'<li class="step" id="step-(\d+)" data-step="([^"]+)"', after)
-        self.assertEqual(sorted(pid for _, pid in steps_after),
-                         sorted(self.i[k].rsplit("/", 1)[-1] for k in ("against", "convert")))
-        self.assertEqual([int(n) for n, _ in steps_before + steps_after], list(range(1, 12)))
-        self.assertIn(f'<ol class="journey-steps" start="{len(steps_before) + 1}">', after)
+        for depth in X.DEPTHS:
+            src = self.page("grouped", depth)
+            with self.subTest(depth):
+                self.assertEqual(src.count(heading), 1)
+                self.assertEqual(src.count(lead), 1)
+                before, after = src.split(heading, 1)
+                steps_before = re.findall(r'<li class="step" id="step-(\d+)" data-step="([^"]+)"', before)
+                steps_after = re.findall(r'<li class="step" id="step-(\d+)" data-step="([^"]+)"', after)
+                self.assertEqual(sorted(pid for _, pid in steps_after),
+                                 sorted(self.i[k].rsplit("/", 1)[-1] for k in ("against", "convert")))
+                self.assertEqual([int(n) for n, _ in steps_before + steps_after], list(range(1, 12)))
+                self.assertIn(f'<ol class="journey-steps" start="{len(steps_before) + 1}">', after)
         self.assertEqual(quiet(check_html.main, [str(self.out["grouped"])]), 0)
 
     def test_the_rule_box_says_the_order_holds_inside_each_group(self):
-        rule = self.page("grouped").split('id="h-rule"', 1)[1].split("</section>", 1)[0]
-        order = rule.index(render_learn.esc(EN["learn.order.prophet_first_then_name"]))
-        self.assertGreater(rule.index(render_learn.esc(EN["learn.rule.group_side"])), order)
+        for depth in X.DEPTHS:
+            rule = self.page("grouped", depth).split('id="h-rule"', 1)[1].split("</section>", 1)[0]
+            with self.subTest(depth):
+                order = rule.index(render_learn.esc(EN["learn.order.prophet_first_then_name"]))
+                self.assertGreater(rule.index(render_learn.esc(EN["learn.rule.group_side"])), order)
         self.assertEqual(J.review_words(EN["learn.rule.group_side"]), [])
         self.assertNotIn("last", EN["learn.rule.group_side"].lower().split())
 
     def test_without_group_by_there_is_one_list_and_no_group_text(self):
-        src = self.page("plain")
-        for k in ("learn.group.against", "learn.group.against_lead", "learn.rule.group_side"):
-            self.assertNotIn(render_learn.esc(EN[k]), src, k)
-        self.assertEqual(src.count('<ol class="journey-steps"'), 1)
+        for depth in X.DEPTHS:
+            src = self.page("plain", depth)
+            for k in ("learn.group.against", "learn.group.against_lead", "learn.rule.group_side"):
+                self.assertNotIn(render_learn.esc(EN[k]), src, k)
+            self.assertEqual(src.count('<ol class="journey-steps"'), 1)
 
 
 if __name__ == "__main__":

@@ -27,6 +27,39 @@
 .group-lead { color: var(--muted); margin-block: 0 0.5rem; }
 .apart-list h3 { margin-block: 0 0.25rem; font-size: 1.05rem; }
 
+/* depths, contents and pages (design §8): every link works without JavaScript */
+.journey-depths ul { display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; list-style: none; margin: 0 0 0.75rem; padding: 0; }
+.journey-depths a { display: inline-block; padding-block: 0.2rem; padding-inline: 0.7rem; border: 1px solid var(--line); border-radius: 1rem; text-decoration: none; }
+.journey-depths a[aria-current="page"] { font-weight: 700; border-color: currentColor; }
+.journey-contents { margin-block: 1rem; padding-block: 0.25rem; padding-inline: 0.9rem; border: 1px solid var(--line); border-radius: 0.35rem; }
+.journey-contents h2 { font-size: 1.05rem; margin-block: 0.6rem 0.25rem; }
+.journey-contents ol { columns: 16rem; column-gap: 1.5rem; margin-block: 0 0.6rem; padding: 0; list-style: none; }
+.journey-contents li { break-inside: avoid; margin-block: 0.1rem; }
+.journey-contents li:target { outline: 3px solid var(--focus); outline-offset: 2px; }
+.journey-pager { margin-block: 1.5rem; }
+
+/* layers on a step: sentences from the record, their sources, prompts and next directions */
+.narration { margin-block: 0.5rem; }
+.narration > li, .step-prompts li.sentence { margin-block: 0.3rem; padding-inline-start: 0.75rem; border-inline-start: 3px solid var(--line); }
+.sources, .claim-refs { color: var(--muted); font-size: 0.9rem; }
+.source { font-style: normal; }
+.step-why li { margin-block: 0.2rem; }
+.no-work, .narr-more, .claims-more { font-size: 0.92rem; margin-block: 0.35rem; }
+.step-prompts { margin-block: 0.5rem; }
+.prompt summary { cursor: pointer; font-weight: 600; padding-block: 0.2rem; }
+.prompt > ul, .prompt > p { margin-block: 0.25rem 0.5rem; }
+.step-next { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-block: 0.5rem 0; font-size: 0.92rem; }
+.claim-note, .claim-gloss, .claim-agents { font-size: 0.9rem; margin-block: 0.15rem; }
+.gloss-label { font-weight: 600; }
+.claim-id { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--muted); }
+.claim-id:target, .claim:has(.claim-id:target) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.accepted-share { color: var(--muted); }
+.journey-research { border: 1px solid var(--line); border-radius: 0.35rem; padding-block: 0.25rem; padding-inline: 0.9rem; margin-block: 1.5rem; }
+.journey-research h2 { margin-block: 0.75rem 0.25rem; font-size: 1.1rem; }
+.research-facts { font-family: ui-monospace, monospace; font-size: 0.85rem; }
+.research-data a { overflow-wrap: anywhere; }
+.depth-links a { margin-inline-end: 0.15rem; }
+
 /* progress: only shown when the script runs and the browser lets it store anything */
 .learn-progress { margin-block: 0.75rem; padding: 0.5rem 0.9rem; border: 1px solid var(--line); border-radius: 0.35rem; }
 .learn-progress[hidden], .card-progress[hidden] { display: none; }
@@ -47,6 +80,6 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--focus); out
 .answers > li { margin-block: 0.5rem; }
 .pager ul { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; }
 @media print {
-  .learn-progress, .step-done { display: none; }
+  .learn-progress, .step-done, .journey-depths, .journey-pager { display: none; }
   .step-claims, .answer-box { border: 0; }
 }

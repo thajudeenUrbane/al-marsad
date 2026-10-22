@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """marsad-journey v1: every journey resolved into versioned, byte-stable JSON (design §7, §9-§11).
 
-    .venv/bin/python learn/journey_export.py --graph build/graph-all.ttl --out DIR [--part-budget N] [--facade]
+    .venv/bin/python learn/journey_export.py --graph build/graph-all.ttl --out DIR [--part-budget N]
+                                             [--step-budget N] [--facade]
     .venv/bin/python learn/journey_export.py --lock
 
 In process:
     resolve(site, journey, strings)       one journey, unsplit, as a dict; strings is
                                           {"en": {...}, "ar": {...}} (journeys.load_i18n())
     resolve_all(site, folder=None)        every journey in learn/journeys, split into parts, and
-                                          written to `folder` when one is given
+                                          written to `folder` when one is given; its stop URLs
+                                          name the reader pages build_learn writes
+    resolve_docs(site, journeys, plans=)  every journey unsplit, as the reader pages render it
     source_line(claim, depth, passages, t)  the one source-line function (design §7.2)
     atlas_projection(journey, strings)    the record the Sky Atlas builds from the v1 facade;
                                           strings is the flat en table, as the Atlas reads it
@@ -138,19 +141,24 @@ TEXTS = {"narration_more": "learn.narr.more", "no_work": "learn.discover.no_work
          "group_against_lead": "learn.group.against_lead", "undated": "learn.sort.undated",
          "source_label": "claim.source", "recorded_by": "claim.recorded_by", "not_recorded": "common.not_recorded",
          "apart_heading": "learn.apart.heading", "apart_lead": "learn.apart.lead",
+         "apart_lead_discover": "learn.apart.lead_discover",
          "why_heading": "learn.why.heading", "links_heading": "learn.links.heading",
          "plain_link": "learn.why.plain_link", "quote": "learn.quote", "step_ref": "learn.step_ref"}
 # Why each stop is there (steps[].reasons[].kind and links[].kind), the sentence for each
-# kind (index.json "reasons"). A "part" reason (a stories step) has no sentence: its word is
-# the part's recorded title.
+# kind (index.json "reasons"). A "part" reason (a stories step) has the slots word (the
+# part's recorded title) and work (the story's work, with the AI-document label when the
+# reason says ai_document).
 REASON_KEYS = {kind: f"learn.why.{kind}" for kind in (
     "date_after", "date_before", "date_related", "dated_after_this", "dated_before_this", "dated_related_this",
-    "event_claim", "has_part", "named", "part_of")}
+    "event_claim", "has_part", "named", "part", "part_of")}
 # steps[].order.note: why a stop is where it is (index.json "order_notes")
 ORDER_NOTE_KEYS = {note: f"learn.order_note.{note}" for note in ("part", "recorded", "unrecorded")}
 SORTS = {"default": "learn.sort.default", "az": "learn.sort.az", "links": "learn.sort.links"}
 ORDER_KEYS = {"recorded": "learn.order.recorded", "prophet_first_then_name": "learn.order.prophet_first_then_name",
               "name": "learn.order.name", "e3": "learn.order.e3", "story": "learn.order.story"}
+# The Discover form of an order sentence whose Study form points at the order notes, which
+# Discover does not show (rule_text item with "only": "discover").
+ORDER_DISCOVER = {"recorded": "learn.order.recorded_discover"}
 E3_TEXT = {"pending": "learn.order.e3_pending", "sources": "learn.order.e3_sources", "links": "learn.order.e3_links",
            "lists": "learn.order.e3_lists", "no_last": "learn.order.e3_no_last"}
 GROUP_SIDE = "learn.rule.group_side"
@@ -935,10 +943,16 @@ class Resolver:
         return {"key": key, "en": (self.i18n.get("en") or {}).get(key), "ar": (self.i18n.get("ar") or {}).get(key)}
 
     def rule_text(self, j) -> list[dict]:
-        """The order sentences of the rule box, each with the depth it starts at (design §6.7)."""
+        """The order sentences of the rule box, each with the depth it starts at (design §6.7).
+        An item with "only": "discover" is shown at Discover alone: the Discover form of an
+        order sentence whose Study form refers to the order notes."""
         applied = j.order_applied or j.spec["order"]
         shown = "prophet_first_then_name" if applied == "e3_pending" else applied
-        out = [{"t": self.k(ORDER_KEYS[shown]), "d": "discover"}]
+        if shown in ORDER_DISCOVER:
+            out = [{"t": self.k(ORDER_DISCOVER[shown]), "d": "discover", "only": "discover"},
+                   {"t": self.k(ORDER_KEYS[shown]), "d": "study"}]
+        else:
+            out = [{"t": self.k(ORDER_KEYS[shown]), "d": "discover"}]
         if j.spec["order"] == "e3" and j.lists:
             ls = j.lists
             if applied == "e3_pending":
@@ -1127,7 +1141,8 @@ def content_sha(doc: dict) -> str:
 
 
 def default_plan(keys: list[str]) -> dict:
-    """One page per depth, holding every stop (stage C's reader passes its own split)."""
+    """One page per depth, holding every stop. The reader's own split is
+    render_learn.reader_plans; resolve_all computes it unless it is given a plan."""
     return {d: [list(keys)] for d in DEPTHS}
 
 
@@ -1272,23 +1287,45 @@ def resolve(site: Site, journey, strings: dict | None = None, *, lists_root=None
     return r.journey(journey, plans[journey.slug]).doc
 
 
+def resolve_docs(site: Site, journeys: list, *, plans: dict | None = None, strings: dict | None = None,
+                 lists_root=None, bank: list | None = None, graph: dict | None = None) -> dict:
+    """Every built journey, resolved and unsplit, with the stop URLs of `plans` ({slug:
+    {depth: [[stop keys of a page], ...]}}; a journey without one gets one page per depth).
+    This is what the reader pages are measured and rendered from (render_learn.reader_plans)."""
+    i18n = J.load_i18n() if strings is None else J.check_i18n(strings)
+    bank = practice.bank(site.g) if bank is None else bank
+    r = Resolver(site, i18n=i18n, lists_root=lists_root, bank=bank, graph=graph or graph_info(site))
+    plans = _prepare(r, journeys, plans)
+    return {j.slug: r.journey(j, plans[j.slug]).doc for j in journeys}
+
+
 def resolve_all(site: Site, folder=None, *, journeys: list | None = None, journeys_dir=None, lists_root=None,
                 strings: dict | None = None, bank: list | None = None, plans: dict | None = None,
-                extra_pages: list | None = None, part_budget: int = PART_BUDGET, graph_file=None,
-                facade: bool = False) -> dict:
+                extra_pages: list | None = None, part_budget: int = PART_BUDGET, step_budget: int | None = None,
+                graph_file=None, facade: bool = False, renderer=None) -> dict:
     """Every journey, resolved and split; written to `folder` (index.json, strings.json,
     pages.json, and journeys/{slug}/ with journey.json, part-{k}.json and research-{k}.json)
-    when one is given. `plans` ({slug: {depth: [[stop keys of a page], ...]}}) and
-    `extra_pages` come from the reader build; without them every depth is one page.
-    `strings` has the shape resolve() takes. Public mode 'accepted' is a RuleError (design §8).
-    Returns {"index", "journeys": {slug: unsplit doc}, "files": {path: bytes}, "digest", "facade"}."""
+    when one is given. `plans` ({slug: {depth: [[stop keys of a page], ...]}}) says which
+    stops each reader page holds; without it the reader's own split is computed
+    (render_learn.reader_plans, at `step_budget` bytes of step HTML per page), so the stop
+    URLs name the pages build_learn writes (`renderer`, a render_learn.LearnRenderer, is
+    the one that measures them; by default a fresh one). `extra_pages` (the learn index and practice
+    pages) come from the reader build, else from the question count. `strings` has the
+    shape resolve() takes. Public mode 'accepted' is a RuleError (design §8).
+    Returns {"index", "journeys": {slug: unsplit doc}, "files": {path: bytes}, "digest",
+    "facade", "plans"}."""
     mode = check_public_mode()
     i18n = J.load_i18n() if strings is None else J.check_i18n(strings)
     if journeys is None:
         specs = J.load_specs(journeys_dir or HERE / "journeys", lists_root=lists_root)
         journeys = J.build_all(site, specs, lists_root=lists_root)
     bank = practice.bank(site.g) if bank is None else bank
-    r = Resolver(site, i18n=i18n, lists_root=lists_root, bank=bank, graph=graph_info(site, graph_file), mode=mode)
+    graph = graph_info(site, graph_file)
+    if plans is None:
+        import render_learn
+        plans = render_learn.reader_plans(site, journeys, strings=i18n, lists_root=lists_root, bank=bank, graph=graph,
+                                          step_budget=step_budget or render_learn.STEP_HTML_BUDGET, renderer=renderer)
+    r = Resolver(site, i18n=i18n, lists_root=lists_root, bank=bank, graph=graph, mode=mode)
     plans = _prepare(r, journeys, plans)
 
     out: dict[str, bytes] = {}
@@ -1339,7 +1376,7 @@ def resolve_all(site: Site, folder=None, *, journeys: list | None = None, journe
     digest = J.sha12({p: hashlib.sha256(out[p]).hexdigest() for p in sorted(out)})
     if folder is not None:
         write_export(folder, out)
-    return {"index": index, "journeys": docs, "files": out, "digest": digest,
+    return {"index": index, "journeys": docs, "files": out, "digest": digest, "plans": plans,
             "facade": projection["digest"] if projection else facade_digest(journeys, i18n.get("en") or {})}
 
 
@@ -1505,6 +1542,8 @@ def main(argv=None) -> int:
     ap.add_argument("--graph", default=str(ROOT / "build" / "graph.ttl"))
     ap.add_argument("--out", help="the folder to write the export into")
     ap.add_argument("--part-budget", type=int, default=PART_BUDGET)
+    ap.add_argument("--step-budget", type=int, default=None,
+                    help="bytes of step HTML per reader page, as build_learn.py --step-budget (default 220,000)")
     ap.add_argument("--facade", action="store_true", help="also write facade.json, the Atlas projection")
     ap.add_argument("--lock", action="store_true", help="rewrite learn/facade.lock")
     a = ap.parse_args(argv)
@@ -1519,7 +1558,8 @@ def main(argv=None) -> int:
     if not graph.is_file():
         ap.error(f"{graph} not found: run ontology/build_graph.py first")
     site = Site(graph)
-    res = resolve_all(site, a.out, part_budget=a.part_budget, graph_file=graph, facade=a.facade)
+    res = resolve_all(site, a.out, part_budget=a.part_budget, step_budget=a.step_budget, graph_file=graph,
+                      facade=a.facade)
     idx = res["index"]
     print(f"export: {a.out}, {len(idx['journeys'])} journeys, {len(res['files'])} files, digest {res['digest']}")
     print(f"  graph {idx['graph']['file']}: fingerprint {idx['graph']['fingerprint']}, {idx['graph']['triples']} triples")

@@ -159,7 +159,7 @@ def step_templates(tc: unittest.TestCase, files: dict) -> tuple[set, set]:
                 kinds |= {r["kind"] for r in st["reasons"] + st["links"]}
                 if "order" in st:
                     notes.add(st["order"]["note"])
-    tc.assertEqual(kinds - set(index["reasons"]), kinds & {"part"})   # a part reason's word is its title
+    tc.assertEqual(kinds - set(index["reasons"]), set())   # a part reason's sentence is learn.why.part (stage C)
     tc.assertEqual(notes - set(index["order_notes"]), set())
     return kinds, notes
 

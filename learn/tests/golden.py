@@ -18,6 +18,9 @@ stage can recompute every value:
     content_facts(site, journey)  sha12 of what the v1 page shows of the record: the
                                 ordered steps, each step's entity fields, and every
                                 claim about a step or behind a reason, as sorted rows
+                                (the stage-A gate, kept as content_v1_gate)
+    content_sha(dist)           the E1 gate since stage C: the Hijrah content_sha (design
+                                §9) in the built export, data/journeys/{HIJRAH}/journey.json
 
     .venv/bin/python learn/tests/golden.py [site/dist]   prints the current values
 
@@ -133,6 +136,11 @@ def fingerprint(g) -> str:
     return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()[:12]
 
 
+def content_sha(dist: Path) -> str:
+    head = Path(dist) / "learn" / "data" / "journeys" / HIJRAH / "journey.json"
+    return json.loads(head.read_text(encoding="utf-8"))["content_sha"]
+
+
 def current(dist: Path, graph: Path = ROOT / "build" / "graph.ttl") -> dict:
     sys.path.insert(0, str(ROOT / "site"))
     sys.path.insert(0, str(LEARN))
@@ -141,7 +149,8 @@ def current(dist: Path, graph: Path = ROOT / "build" / "graph.ttl") -> dict:
     site = Site(graph)
     built = {j.slug: j for j in J.build_all(site, J.load_specs(LEARN / "journeys"))}
     page = (Path(dist) / "learn" / HIJRAH / "index.html").read_text(encoding="utf-8")
-    return {"page_sha256": page_sha(held_page(page)), "hijrah": content_facts(site, built[HIJRAH]),
+    return {"page_sha256": page_sha(held_page(page)), "content_sha": content_sha(dist),
+            "hijrah": content_facts(site, built[HIJRAH]),
             "order": {slug: order_facts(site, j) for slug, j in sorted(built.items())},
             "fingerprint": fingerprint(site.g)}
 

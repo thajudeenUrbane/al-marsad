@@ -13,11 +13,13 @@ the rule's own words. The files are rebuilt, never committed.
 ## Making the files
 
 ```
-.venv/bin/python learn/journey_export.py --graph build/graph-all.ttl --out DIR [--part-budget N] [--facade]
+.venv/bin/python learn/journey_export.py --graph build/graph-all.ttl --out DIR [--part-budget N]
+                                         [--step-budget N] [--facade]
 .venv/bin/python learn/journey_export.py --lock        rewrite learn/facade.lock (see "The Atlas facade")
 ```
 
-`learn/build_learn.py` writes the same files to `site/dist/learn/data/`. In process:
+`learn/build_learn.py` writes the same files to `site/dist/learn/data/`, with the same
+`--step-budget` and `--part-budget`, and renders the reader pages from them. In process:
 
 - `journey_export.resolve(site, journey, strings)` gives one built journey, unsplit, as a dict.
   `strings` is `{"en": {...}, "ar": {...}}`, as `journeys.load_i18n()` gives it, or `None`
@@ -25,8 +27,13 @@ the rule's own words. The files are rebuilt, never committed.
   Atlas reads and `atlas_projection` takes. `rule_sha` binds the en and ar wording, so any
   other shape raises `TypeError` rather than give a wrong `rule_sha`, `state` and title.
 - `journey_export.resolve_all(site, folder=None)` gives every journey, split, and writes them
-  to `folder` when one is given. It returns `{"index", "journeys", "files", "digest", "facade"}`.
-  Its `strings` takes the same shape.
+  to `folder` when one is given. It returns `{"index", "journeys", "files", "digest", "facade",
+  "plans"}`. Its `strings` takes the same shape. Without a `plans` argument it computes the
+  reader's own page cuts (`render_learn.reader_plans`, `step_budget` bytes of step HTML per
+  page, 220,000 by default), so `stops[].urls` and `pages.json` name the pages the reader
+  build writes, on any graph.
+- `journey_export.resolve_docs(site, journeys, plans=)` gives every built journey unsplit,
+  with the stop URLs of the given page cuts: what the reader pages are rendered from.
 - `journey_export.source_line(claim, depth, passages, t)` is the one source-line function.
 
 In public mode `accepted` (see "The Discover rule"), `resolve_all` and `build_learn.py`
@@ -154,11 +161,16 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
   (`learn.why.{kind}`). Its slots are `other` (the entity), `word` (a `named` reason) and
   `label` (an `event_claim` reason, the relation label as recorded). The reader wraps
   `word` and `label` in `texts.quote`. A reason other than `named` with no claims behind it
-  rests on a plain link in the record (`texts.plain_link`). A `part` reason (a stories step) has no sentence: its `word` is the
-  part's recorded title. The reader heads the two lists `texts.why_heading` and `texts.links_heading`.
+  rests on a plain link in the record (`texts.plain_link`). A `part` reason (a stories step,
+  `learn.why.part`) has the slots `word`, the part's recorded title, and `work`, the story's
+  work (its entity's `work`), wrapped in `texts.ai_document` when the reason has
+  `ai_document`. `named` and `part` are the reasons the rule computes; the others rest on
+  claims. The reader heads the two lists `texts.why_heading` and `texts.links_heading`.
 - `order_notes` gives the sentence for `steps[].order.note`. Its slot `n` is the step number
   of `order.ref`. Order notes are Study and above (`depth_policy.order_notes`).
-- `texts.apart_heading` and `texts.apart_lead` head the set-apart people.
+- `texts.apart_heading` and `texts.apart_lead` head the set-apart people; at Discover the
+  lead is `texts.apart_lead_discover`, which says that only records with a work and page
+  are shown there.
 - `title`, `lead` and `lead_study` are `{key, en, ar}`. `ar` is null where there is no Arabic
   text yet. `lead` is Discover-safe; `lead_study` is for Study and Research.
 
@@ -192,7 +204,9 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
   a cited record, and not as fighting alongside him there. It is the record's side at that
   event only, never a statement about faith, and never "last".
 - `rule_text` lists the order sentences of the rule box with the depth each starts at
-  (`d`). Keys with review language start at Study.
+  (`d`). Keys with review language start at Study. An item with `"only": "discover"` is
+  shown at Discover alone: the Discover form of an order sentence whose Study form refers
+  to the order notes (`learn.order.recorded_discover` beside `learn.order.recorded`).
 - `stops[].sort` (people journeys): positions in the default order, A to Z, by coverage
   (how many records about the person the graph holds, never rank), and the rank of the
   acceptance-of-Islam sort (null when no cited record gives it).
@@ -334,10 +348,18 @@ On the Prophet's ﷺ step `focus` is null and `light` is true. Hints carry no fa
 "kind": "journey" | "index" | "practice", "journey"?, "depth", "page", "pages", "door"?, "first", "last"}]}`.
 A journey's door depth is at `learn/{slug}/`; the other depths are at `learn/{slug}/{depth}/`;
 page k of a split depth is at `.../p{k}/`. `first` and `last` are the stop keys on the page.
+Each depth is cut at its own weight: greedily in stop order (the stops, then the set-apart
+people), at most 220,000 bytes of step HTML a page (`--step-budget`), page 1 less its
+contents list; a page holds at least one stop. Page 1 of a split depth lists every stop and
+carries the anchor `s-{key}` of each stop on another page, so `learn/{slug}/#s-{key}`
+resolves without JavaScript.
 
 ## How to use it
 
-- **Reader pages** are rendered from the same resolved journeys, one static page per depth.
+- **Reader pages** are rendered from the same resolved journeys, one static page per depth
+  (or several, when a depth is split). Every page's `<article>` carries `data-depth`,
+  `data-total` and `data-steps` (the journey's stop keys), and `nav.journey-depths` links
+  to the page of each depth that holds its first stop.
 - **Sky Atlas**: call `journey_export.resolve_all(site)`, or read `site/dist/learn/data/`.
   At its public depth, show only `discover` claims, each with `passages[...].short`; gate
   Play and read-aloud on `story_mode.open`; restore tokens with `content_sha`.
