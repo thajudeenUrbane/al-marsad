@@ -23,6 +23,8 @@
 .read-story a { font-weight: 600; }
 .step .banner { margin-block: 0.4rem; padding-block: 0.3rem; font-size: 0.92rem; }
 .apart-list > li { padding-block: 0.6rem; border-block-end: 1px solid var(--line); }
+.group-heading { margin-block: 2rem 0.25rem; padding-block-start: 0.75rem; border-block-start: 2px solid var(--line); font-size: 1.1rem; }
+.group-lead { color: var(--muted); margin-block: 0 0.5rem; }
 .apart-list h3 { margin-block: 0 0.25rem; font-size: 1.05rem; }
 
 /* progress: only shown when the script runs and the browser lets it store anything */

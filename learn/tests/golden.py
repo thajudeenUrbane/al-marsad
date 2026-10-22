@@ -8,6 +8,12 @@ stage can recompute every value:
 
     page_sha(html)              sha256 of the page with every href and id attribute
                                 value blanked and every whitespace run collapsed
+    held_page(html)             the held v2 Study page (design §3.7) with the additions a
+                                hold permits taken out, so that page_sha(held_page(v2))
+                                must equal the v1 page_sha256: nav.journey-depths, the
+                                empty s-* anchor spans, and the data-depth, data-total and
+                                data-steps attributes of <article> (design §8). Base-relative
+                                links need nothing: page_sha blanks every href value.
     order_facts(site, journey)  sha12 of the ordered step, set-apart and anchor pids
     content_facts(site, journey)  sha12 of what the v1 page shows of the record: the
                                 ordered steps, each step's entity fields, and every
@@ -60,6 +66,20 @@ def normalise_page(src: str) -> str:
 
 def page_sha(src: str) -> str:
     return hashlib.sha256(normalise_page(src).encode("utf-8")).hexdigest()
+
+
+_DEPTH_NAV = re.compile(r'<nav\b[^>]*\sclass="(?:[^"]*\s)?journey-depths(?:\s[^"]*)?"[^>]*>.*?</nav>', re.S)
+_ANCHOR = re.compile(r'<span\b[^>]*\sid="s-[^"]*"[^>]*>\s*</span>')
+_ARTICLE = re.compile(r"<article\b[^>]*>")
+_ARTICLE_V2 = re.compile(r'\s(?:data-depth|data-total|data-steps)="[^"]*"')
+
+
+def held_page(src: str) -> str:
+    """A held Study page less the v2 additions that §3.7 and §8 permit on it. On a v1
+    page, which has none of them, this returns the page unchanged."""
+    src = _DEPTH_NAV.sub("", src)
+    src = _ANCHOR.sub("", src)
+    return _ARTICLE.sub(lambda m: _ARTICLE_V2.sub("", m.group(0)), src)
 
 
 def _pid(site, iri: str | None) -> str | None:
@@ -121,7 +141,7 @@ def current(dist: Path, graph: Path = ROOT / "build" / "graph.ttl") -> dict:
     site = Site(graph)
     built = {j.slug: j for j in J.build_all(site, J.load_specs(LEARN / "journeys"))}
     page = (Path(dist) / "learn" / HIJRAH / "index.html").read_text(encoding="utf-8")
-    return {"page_sha256": page_sha(page), "hijrah": content_facts(site, built[HIJRAH]),
+    return {"page_sha256": page_sha(held_page(page)), "hijrah": content_facts(site, built[HIJRAH]),
             "order": {slug: order_facts(site, j) for slug, j in sorted(built.items())},
             "fingerprint": fingerprint(site.g)}
 

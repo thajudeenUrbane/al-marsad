@@ -165,7 +165,8 @@ When it is true, the journey's Study pages render exactly as v1 did. The only ad
 
 - the depth links (`nav.journey-depths`);
 - invisible `id="s-<pid>"` anchor spans;
-- base-relative links to the same targets.
+- base-relative links to the same targets;
+- the `data-depth`, `data-total` and `data-steps` attributes that §8 puts on every `<article>`.
 
 Under the hold, Study shows no prompts, no next directions and no accepted share, and the AI-gloss role lines stay where v1 shows them.
 
@@ -174,7 +175,7 @@ Under the hold, Study shows no prompts, no next directions and no accepted share
 - the sha256 of the v1 Hijrah page, with `href` and `id` values blanked and whitespace collapsed;
 - the Hijrah `content_sha` (§9) on the current graph.
 
-While the `content_sha` still matches, the test compares the v2 Study page, with `nav.journey-depths` and the `s-*` spans removed, against that hash. Once the graph changes, the test skips with the message "re-verify E1". The invariant checks still run.
+While the `content_sha` still matches, the test compares the v2 Study page, with the permitted additions taken out, against that hash. `learn/tests/golden.py` `held_page()` is the one statement of that recipe: it removes `nav.journey-depths`, the empty `s-*` spans and the three `<article>` attributes, and `page_sha()` blanks every `href` and `id` value. Anything else a held page adds fails the test. Once the graph changes, the test skips with the message "re-verify E1". The invariant checks still run.
 
 Hijrah ships with `hold_study: true`. Discover and Research pages are new and are not held.
 
@@ -360,6 +361,7 @@ A person goes to the **against** group when both of these hold:
 Everyone else is in the **main** group, the Prophet ﷺ included. Someone with both is placed in main and flagged `side_conflict`, shown at Study (none today).
 
 - The groups follow one another: main, then against. Each group is ordered by §6.3.
+- The rule box says so at every depth with `learn.rule.group_side`, after the order sentence: "People recorded as fighting against the Prophet ﷺ at these events, in a record that gives a work and page, and not recorded as fighting alongside him there, are listed after the others, under their own heading. The order above applies inside each group." It is shown whenever the rule has `group_by: "side"`, also when the group is empty.
 - The against group's heading is `learn.group.against`: "Recorded as fighting against the Prophet ﷺ at this event".
 - Its lead is `learn.group.against_lead`: "The record lists these people among those who fought against the Prophet ﷺ here, each with its source. This is the record's side at this event only. It says nothing about anyone's faith or later life."
 - The grouping is the event's recorded side (F1: the text's list headings). It is **not** the E3 "died as disbelievers, last" rule, and it is never called last.
@@ -390,6 +392,7 @@ There is no recorded term for "died as a disbeliever", so no last tier exists (�
 | `learn.order.e3_sources` | reviewed | all (Discover-safe) | The lists' sources, each in a `.source` span. |
 | `learn.order.e3_links` | reviewed | all | "Then everyone else by how many records about them this record holds (statements, participation records and links), most first. That number shows how much is recorded (coverage), not rank or importance." |
 | `learn.order.e3_lists` | reviewed | Study, Research | The list file, its state and its sha. |
+| `learn.rule.group_side` | `group_by: "side"` | all (Discover-safe) | The groups and that the order applies inside each (§6.4). |
 
 ### 6.8 Verified
 

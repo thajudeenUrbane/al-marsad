@@ -52,6 +52,7 @@
   "learn.rule.also_show": "Claims of the kind {kinds} are shown beside a person's records, but never choose anyone.",
   "learn.rule.not_words": "Events whose recorded name also contains the word {words} are left out.",
   "learn.rule.set_apart": "People whose every record carries the marker {markers} are listed apart, after the steps.",
+  "learn.rule.group_side": "People recorded as fighting against the Prophet ﷺ at these events, in a record that gives a work and page, and not recorded as fighting alongside him there, are listed after the others, under their own heading. The order above applies inside each group.",
   "learn.rule.stories": "Steps are the stories in the part of the story document whose title contains the word {words} ({parts}), with the people and groups each story names.",
   "learn.rule.separate_records": "A story and an event with a similar name are separate records here. The journey does not treat them as the same occurrence; whether they are is for scholars to decide.",
   "learn.rule.order_conflict": "Some before and after links in the record contradict each other, so the order below leaves them out.",

@@ -18,7 +18,7 @@ import display
 from model import MRS, Claim, Entity, Site
 from render import URL_AGPL, URL_CC_BY_SA, URL_LICENSING
 
-from journeys import Journey, Reason, Step, term
+from journeys import Group, Journey, Reason, Step, term
 
 NAV = (("people", "person"), ("events", "event"), ("places", "place"), ("groups", "group"),
        ("stories", "story"), ("glossary", "glossary"))
@@ -218,6 +218,8 @@ class LearnRenderer:
             parts = self.join_or([self.t("learn.quote", value=display.name_display(p)) for p in j.part_labels])
             paras.append(self.t("learn.rule.stories", words=self.words_list(sel["part"]["words"]), parts=parts))
         paras.append(self.t(f"learn.order.{self.order_shown(j)}"))
+        if sel.get("group_by") == "side":
+            paras.append(self.t("learn.rule.group_side"))   # the order above holds inside each group (§6.4)
         if j.mixes_stories_and_events:
             paras.append(self.t("learn.rule.separate_records"))
         if j.order_conflict:
@@ -384,6 +386,23 @@ class LearnRenderer:
         return (f'<li class="step" id="step-{n}" data-step="{attr(e.pid)}" aria-labelledby="step-{n}-title">\n'
                 f'{body}\n</li>')
 
+    def steps_html(self, base: str, j: Journey, positions: dict[str, int]) -> str:
+        """The step items, numbered across groups. A group with a heading (design §6.4: the
+        against group) closes the list, gives its heading and lead, and opens the next list
+        where the numbering left off. A journey without such a group renders as v1 did."""
+        heads = {g.start: g for g in j.groups if g.t}
+        out = []
+        for n, st in enumerate(j.steps, 1):
+            if n - 1 in heads:
+                out.append(self.group_head(heads[n - 1], n))
+            out.append(self.step_li(base, j, n, st, positions))
+        return "\n".join(out)
+
+    def group_head(self, g: Group, n: int) -> str:
+        lead = f'<p class="group-lead">{esc(self.t(g.lead))}</p>' if g.lead else ""
+        return (f'</ol>\n<h3 class="group-heading" id="group-{attr(g.key)}">{esc(self.t(g.t))}</h3>{lead}\n'
+                f'<ol class="journey-steps" start="{n}">')
+
     def apart_html(self, base: str, j: Journey) -> str:
         if not j.set_apart:
             return ""
@@ -433,7 +452,7 @@ class LearnRenderer:
     def journey_page(self, j: Journey) -> str:
         base = "../../"
         positions = {st.iri: n for n, st in enumerate(j.steps, 1)}
-        steps = "\n".join(self.step_li(base, j, n, st, positions) for n, st in enumerate(j.steps, 1))
+        steps = self.steps_html(base, j, positions)
         title = self.t(j.spec["title"])
         lead = self.t(j.spec.get("lead_study") or j.spec["lead"])   # this page shows the claims and their status
         banner = self.banner(j)

@@ -31,7 +31,7 @@ import golden  # noqa: E402
 import journeys as J  # noqa: E402
 import practice  # noqa: E402
 import render_learn  # noqa: E402
-from fixtures import Fx  # noqa: E402
+from fixtures import Fx, people_spec, side_fixture  # noqa: E402
 from model import Site  # noqa: E402
 
 GRAPH = ROOT / "build" / "graph.ttl"
@@ -168,6 +168,40 @@ class StaticChecks(unittest.TestCase):
         self.assertIn("<template id=\"learn-step-done\">", src)
 
 
+class GoldenRecipe(unittest.TestCase):
+    """golden.held_page takes out exactly the additions a held Study page may carry
+    (design §3.7 and §8), so the E1 hash recorded on the v1 page still applies to it."""
+
+    V1 = ('<article class="journey door-study" data-journey="x">\n<header class="journey-head">\n<h1>T</h1>\n'
+          '</header>\n<nav class="breadcrumb"><ol><li><a href="../../">H</a></li></ol></nav>\n'
+          '<ol class="journey-steps">\n<li class="step" id="step-1" data-step="p1" aria-labelledby="step-1-title">\n'
+          '<h3 class="step-title" id="step-1-title"><a href="../../event/p1/">N</a></h3>\n</li>\n</ol>\n</article>')
+
+    def held(self) -> str:
+        v2 = self.V1.replace('data-journey="x">', 'data-journey="x" data-depth="study" data-total="1" data-steps="p1">')
+        v2 = v2.replace('<header class="journey-head">\n',
+                        '<header class="journey-head">\n<nav class="journey-depths" aria-label="D"><ul><li>'
+                        '<a href="discover/#s-p1">D</a></li><li><a href="./#s-p1" aria-current="page">S</a></li>'
+                        '</ul></nav>\n')
+        v2 = v2.replace('aria-labelledby="step-1-title">\n', 'aria-labelledby="step-1-title">\n<span id="s-p1"></span>\n')
+        return v2.replace('href="../../event/p1/"', 'href="../../../event/p1/"')
+
+    def test_the_permitted_additions_are_neutralised(self):
+        v2 = self.held()
+        self.assertNotEqual(golden.page_sha(v2), golden.page_sha(self.V1))
+        self.assertEqual(golden.page_sha(golden.held_page(v2)), golden.page_sha(self.V1))
+
+    def test_a_page_without_them_is_unchanged(self):
+        self.assertEqual(golden.held_page(self.V1), self.V1)
+
+    def test_nothing_else_is_taken_out(self):
+        for extra in ('<span data-id="s-p1"></span>', '<span id="s-p1">text</span>', '<p data-depth="study">x</p>',
+                      '<nav class="journey-contents"><a href="#s-p1">C</a></nav>'):
+            page = self.held().replace("<h1>T</h1>", "<h1>T</h1>" + extra)
+            with self.subTest(extra):
+                self.assertIn(extra, golden.held_page(page))
+
+
 def build_into(out: Path, graph: Path = GRAPH, journeys_dir: Path | None = None) -> dict:
     quiet(site_build.build, graph, out, True)
     return quiet(build_learn.build, graph, out, True, journeys_dir)
@@ -268,7 +302,7 @@ class BuiltPages(unittest.TestCase):
         if golden.content_facts(site, j) != want["gate"]:
             self.skipTest("re-verify E1: the Hijrah content changed since the golden hash was recorded")
         page = (self.learn / golden.HIJRAH / "index.html").read_text(encoding="utf-8")
-        self.assertEqual(golden.page_sha(page), want["page_sha256"])
+        self.assertEqual(golden.page_sha(golden.held_page(page)), want["page_sha256"])
         self.assertIn(EN["journey.hijrah.lead_study"], page)
 
     def test_rebuilding_replaces_only_learn(self):
@@ -348,6 +382,64 @@ class PracticeWithAcceptedClaims(unittest.TestCase):
             self.assertTrue((self.out / href[1] / href[2] / "index.html").is_file())
         self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
         self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
+
+
+class SideGroupsOnTheStudyPage(unittest.TestCase):
+    """A made-up battle with people recorded on both sides (fixtures.side_fixture): the
+    Study page gives the against group its heading and lead where the group starts,
+    numbers the steps across both lists, and says in the rule box that the order holds
+    inside each group (design §6.4). Without group_by, neither appears."""
+
+    @classmethod
+    def setUpClass(cls):
+        fx, cls.i = side_fixture()
+        cls.tmp = tempfile.TemporaryDirectory()
+        root = Path(cls.tmp.name)
+        graph = fx.write(root / "graph.ttl")
+        cls.out = {}
+        for name, group_by in (("grouped", "side"), ("plain", None)):
+            jdir = root / f"journeys-{name}"
+            jdir.mkdir()
+            spec = people_spec(order="prophet_first_then_name", group_by=group_by)
+            (jdir / f"{spec['slug']}.json").write_text(json.dumps(spec), encoding="utf-8")
+            out = root / f"dist-{name}"
+            build_into(out, graph, jdir)
+            cls.out[name] = out
+        cls.slug = spec["slug"]
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def page(self, name: str) -> str:
+        return (self.out[name] / "learn" / self.slug / "index.html").read_text(encoding="utf-8")
+
+    def test_the_against_group_has_its_heading_and_lead_where_it_starts(self):
+        src = self.page("grouped")
+        heading, lead = (render_learn.esc(EN[k]) for k in ("learn.group.against", "learn.group.against_lead"))
+        self.assertEqual(src.count(heading), 1)
+        self.assertEqual(src.count(lead), 1)
+        before, after = src.split(heading, 1)
+        steps_before = re.findall(r'<li class="step" id="step-(\d+)" data-step="([^"]+)"', before)
+        steps_after = re.findall(r'<li class="step" id="step-(\d+)" data-step="([^"]+)"', after)
+        self.assertEqual(sorted(pid for _, pid in steps_after),
+                         sorted(self.i[k].rsplit("/", 1)[-1] for k in ("against", "convert")))
+        self.assertEqual([int(n) for n, _ in steps_before + steps_after], list(range(1, 12)))
+        self.assertIn(f'<ol class="journey-steps" start="{len(steps_before) + 1}">', after)
+        self.assertEqual(quiet(check_html.main, [str(self.out["grouped"])]), 0)
+
+    def test_the_rule_box_says_the_order_holds_inside_each_group(self):
+        rule = self.page("grouped").split('id="h-rule"', 1)[1].split("</section>", 1)[0]
+        order = rule.index(render_learn.esc(EN["learn.order.prophet_first_then_name"]))
+        self.assertGreater(rule.index(render_learn.esc(EN["learn.rule.group_side"])), order)
+        self.assertEqual(J.review_words(EN["learn.rule.group_side"]), [])
+        self.assertNotIn("last", EN["learn.rule.group_side"].lower().split())
+
+    def test_without_group_by_there_is_one_list_and_no_group_text(self):
+        src = self.page("plain")
+        for k in ("learn.group.against", "learn.group.against_lead", "learn.rule.group_side"):
+            self.assertNotIn(render_learn.esc(EN[k]), src, k)
+        self.assertEqual(src.count('<ol class="journey-steps"'), 1)
 
 
 if __name__ == "__main__":
