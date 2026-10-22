@@ -24,12 +24,16 @@ What it does with each decision file (format: docs/handover/slice-3a.md):
      or citation holds a reviewer's name, an email address or a phone number; the same
      reviewer already decided that target differently; or it contradicts the claim's
      current status (accepted, rejected or under review) - a disagreement goes to the
-     review board, not to this script.
+     review board, not to this script. A merge decision (kind "merge", target
+     keep_id|merge_id, maintainer F3) needs an editor or scholar grant whose scope covers
+     the two entries, and is refused once the proposal is decided.
   3. Applies what is left: each decision becomes one mrs:ReviewDecision in
      ontology/corpus/reviews.ttl (reviewer by opaque ID; status before and after), and the
      claim's mrs:assertionStatus is changed in the corpus file that states it - one triple,
      located in the text and checked by re-parsing (nothing else may change). A decision
-     that agrees with the claim's current status is recorded and changes nothing.
+     that agrees with the claim's current status is recorded and changes nothing. A merge
+     decision is written into ontology/corpus/merge-proposals.csv (decision, the reviewer's
+     opaque ID, date, note) and nothing else: no merge happens until the maintainer approves.
   4. Validates reviews.ttl alone and, if a status changed, the whole graph as
      build_graph.py builds it; writes nothing unless both conform.
 Re-importing a file changes nothing. The roster names are printed so the maintainer can
@@ -40,7 +44,9 @@ Exit codes: 0 = all done, 1 = something refused or out of step, 2 = could not ru
 from __future__ import annotations
 
 import argparse
+import csv
 import importlib.util
+import io
 import json
 import os
 import re
@@ -122,8 +128,8 @@ def parse_decision(d) -> dict:
     for key in ("kind", "target", "decision", "date"):
         if not isinstance(d.get(key), str) or not d[key].strip():
             raise Refused(f'"{key}" is missing')
-    if d["kind"] not in ("claim", "identity"):
-        raise Refused('"kind" must be "claim" or "identity"')
+    if d["kind"] not in ("claim", "identity", "merge"):
+        raise Refused('"kind" must be "claim", "identity" or "merge"')
     if d["decision"] not in c.OUTCOMES:
         raise Refused(f'"decision" must be one of {", ".join(c.OUTCOMES)}')
     checks = d.get("checks", [])
@@ -153,6 +159,16 @@ class Importer:
         self.existing = tree.decisions()
         self.new: list[c.Decision] = []
         self.tradition = tree.default_tradition()
+        self.merge_path = tree.ontology / "corpus" / "merge-proposals.csv"
+        self.merge_fields, self.merge_rows = [], {}
+        if self.merge_path.exists():
+            with self.merge_path.open(encoding="utf-8", newline="") as fh:
+                rd = csv.DictReader(fh)
+                self.merge_fields = list(rd.fieldnames or [])
+                self.merge_list = list(rd)
+            self.merge_rows = {f"{r['keep_id']}|{r['merge_id']}": r for r in self.merge_list}
+        self.merge_new: list[dict] = []
+        self.identity_by_id = {r["canonical_id"]: r for r in tree.identity}
 
     def resolve(self, kind: str, target: str):
         key = c.curie(target) if target.startswith(c.BASE) else target
@@ -174,6 +190,46 @@ class Importer:
             facets = {"sources": {s for s in row.get("source_files", "").split(";") if s}, "topic": "identity", "period": None}
         return iri, facets
 
+    def resolve_merge(self, target: str):
+        row = self.merge_rows.get(target)
+        if row is None:
+            raise Refused(f"no merge proposal {target!r} in merge-proposals.csv (pairs are written keep_id|merge_id)")
+        sources = set()
+        for cid in (row["keep_id"], row["merge_id"]):
+            sources |= {s for s in self.identity_by_id.get(cid, {}).get("source_files", "").split(";") if s}
+        return row, {"sources": sources, "topic": "identity", "period": None}
+
+    def decide_merge(self, reviewer, d: dict) -> str:
+        """A merge proposal (maintainer F3): the decision goes into merge-proposals.csv. Nothing in the graph
+        changes: an accepted row is applied later, after the maintainer approves it (P8)."""
+        row, facets = self.resolve_merge(d["target"])
+        want = c.MERGE_OUTCOMES[d["outcome"]]
+        who = c.curie(reviewer)
+        if row.get("decision"):
+            if row["decision"] == want and row.get("decided_by") == who and row.get("decision_note", "") == (d["note"] or ""):
+                return "already imported"
+            raise Refused(f"merge proposal {row['proposal']} is already decided ({row['decision']}, "
+                          f"{row.get('decided_by')}, {row.get('decided_on')}); a change goes through the maintainer")
+        grants = [g for g in self.roster[reviewer] if g.active_on(d["day"])]
+        if not grants:
+            raise Refused(f"the reviewer has no grant active on {d['day']}")
+        deciding = [g for g in grants if g.role in c.DECIDING_ROLES["merge"]]
+        if not deciding:
+            raise Refused(f"role {', '.join(sorted({g.role for g in grants}))} may not decide a merge proposal "
+                          f"(maintainer F3: {', '.join(sorted(c.DECIDING_ROLES['merge']))})")
+        if not any(c.scope_matches(g.scope, facets) for g in deciding):
+            raise Refused(f"out of scope: merge proposal {row['proposal']} is {c.describe_facets(facets)}; the reviewer's "
+                          "scope is " + " | ".join(repr(g.scope_text) for g in deciding))
+        why = d["note"] and c.private_data_in(d["note"], self.names)
+        if why:
+            raise Refused(f"the note contains {why}; names and contact details must not enter the public record")
+        if d["outcome"] == "needs_discussion" and not d["note"]:
+            raise Refused("needs discussion must carry a note: the scholars need the reason")
+        row.update({"decision": want, "decided_by": who, "decided_on": d["day"].isoformat(),
+                    "decision_note": d["note"] or ""})
+        self.merge_new.append(row)
+        return "new"
+
     def authorize(self, reviewer, kind: str, day: date, facets: dict, target):
         grants = self.roster[reviewer]
         active = [g for g in grants if g.active_on(day)]
@@ -189,6 +245,8 @@ class Importer:
 
     def decide(self, reviewer, raw) -> str:
         d = parse_decision(raw)
+        if d["kind"] == "merge":
+            return self.decide_merge(reviewer, d)
         target, facets = self.resolve(d["kind"], d["target"])
         new = c.Decision(iri=None, target=target, reviewer=reviewer, outcome=d["outcome"], checks=d["checks"],
                          note=d["note"], citation=d["citation"], day=d["day"].isoformat(), tradition=self.tradition,
@@ -330,6 +388,19 @@ def write(tree: c.Tree, roster: dict, importer_new: list, status_edits: dict, do
     return [p.name for p in changed]
 
 
+def write_merges(imp: "Importer") -> None:
+    """The decided merge proposals, back into merge-proposals.csv (same rows, same order, same columns)."""
+    fields = imp.merge_fields + [f for f in ("decision_note",) if f not in imp.merge_fields]
+    buf = io.StringIO()
+    w = csv.DictWriter(buf, fieldnames=fields, lineterminator="\n")
+    w.writeheader()
+    for r in imp.merge_list:
+        w.writerow({k: r.get(k, "") for k in fields})
+    tmp = imp.merge_path.with_suffix(".csv.tmp")
+    tmp.write_text(buf.getvalue(), encoding="utf-8")
+    os.replace(tmp, imp.merge_path)
+
+
 def plan_edits(tree: c.Tree, changes: list) -> dict:
     """(assertion, old, new) -> {file: [(assertion, old, new)]} for every file that states the old status."""
     edits = {}
@@ -437,7 +508,16 @@ def main(argv=None) -> int:
         print("next: .venv/bin/python ontology/build_graph.py" + ("" if not args.no_validate else " (validation was skipped)"))
     elif imp.new:
         print(f"dry run: {len(imp.new)} decision(s) would be recorded; nothing written")
-    else:
+    if imp.merge_new and not args.dry_run:
+        write_merges(imp)
+        n = {}
+        for r in imp.merge_new:
+            n[r["decision"]] = n.get(r["decision"], 0) + 1
+        print(f"wrote {imp.merge_path.name}: {len(imp.merge_new)} merge decision(s) ("
+              + ", ".join(f"{v} {k}" for k, v in sorted(n.items())) + "); nothing is merged until the maintainer approves")
+    elif imp.merge_new:
+        print(f"dry run: {len(imp.merge_new)} merge decision(s) would be written; nothing written")
+    if not imp.new and not imp.merge_new:
         print("nothing new to write")
     return 1 if refused else 0
 

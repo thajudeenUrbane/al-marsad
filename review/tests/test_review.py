@@ -103,6 +103,17 @@ class ReviewSlice3a(unittest.TestCase):
             decision(cls.discussed, "reject", note=NOTE),
         ])
         cls.code_d, cls.out_d = cls.run_import(cls.file_d)
+        # merge proposals (maintainer F3): an editor decides; a reviewer may not; nothing in the graph moves
+        mu = [u for b in cls.queue["merges"] for u in b["units"]]
+        cls.merge_accept, cls.merge_discuss, cls.merge_bare, cls.merge_by_reviewer = mu[:4]
+        cls.ttl_before_merges = {p: p.read_bytes() for p in sorted(cls.ont.rglob("*.ttl"))}
+        cls.file_m = decision_file(cls.inbox / "m.json", "Test Editor E", [
+            decision(cls.merge_accept, "accept"),
+            decision(cls.merge_discuss, "needs_discussion", note=NOTE),
+            decision(cls.merge_bare, "needs_discussion"),
+        ])
+        cls.file_n = decision_file(cls.inbox / "n.json", "Test Reviewer B", [decision(cls.merge_by_reviewer, "accept")])
+        cls.code_m, cls.out_m = cls.run_import(cls.file_m, cls.file_n)
         cls.tree = c.Tree(cls.ont)
 
     @classmethod
@@ -198,6 +209,43 @@ class ReviewSlice3a(unittest.TestCase):
         d = next(d for d in self.tree.decisions() if c.curie(d.target) == self.identity_unit["id"])
         self.assertEqual((d.outcome, d.question, d.status_after), ("needs_discussion", "same_as", None))
         self.assertEqual((self.ont / "corpus" / "identity.csv").read_bytes(), (ROOT / "ontology" / "corpus" / "identity.csv").read_bytes())
+
+    # ---- merge proposals ------------------------------------------------------------------------
+    def merge_rows(self):
+        with (self.ont / "corpus" / "merge-proposals.csv").open(encoding="utf-8", newline="") as fh:
+            return {f"{r['keep_id']}|{r['merge_id']}": r for r in csv.DictReader(fh)}
+
+    def test_merge_queue_holds_every_undecided_proposal_once(self):
+        with (ROOT / "ontology" / "corpus" / "merge-proposals.csv").open(encoding="utf-8", newline="") as fh:
+            undecided = {f"{r['keep_id']}|{r['merge_id']}" for r in csv.DictReader(fh) if not r["decision"]}
+        ids = [u["id"] for b in self.queue["merges"] for u in b["units"]]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertEqual(set(ids), undecided)
+        self.assertTrue(all(u["kind"] == "merge" and u["keep"]["id"] != u["merge"]["id"]
+                            for b in self.queue["merges"] for u in b["units"]))
+
+    def test_merge_decisions_go_to_the_csv_only(self):
+        self.assertEqual(self.code_m, 1, self.out_m)  # the bare needs-discussion and the reviewer's decision are refused
+        rows = self.merge_rows()
+        acc, dis = rows[self.merge_accept["id"]], rows[self.merge_discuss["id"]]
+        self.assertEqual((acc["decision"], acc["decided_by"], acc["decided_on"]), ("accept", reviewer_id("Test Editor E"), TODAY))
+        self.assertEqual((dis["decision"], dis["decision_note"]), ("scholar", NOTE))
+        self.assertEqual(rows[self.merge_bare["id"]]["decision"], "")
+        self.assertEqual(rows[self.merge_by_reviewer["id"]]["decision"], "")
+        self.assertIn("needs discussion must carry a note", self.out_m)
+        self.assertIn("may not decide a merge proposal", self.out_m)
+        self.assertEqual({p: p.read_bytes() for p in sorted(self.ont.rglob("*.ttl"))}, self.ttl_before_merges,
+                         "a merge decision changes no Turtle file: nothing merges before the maintainer approves")
+
+    def test_merge_reimport_changes_nothing_and_decided_rows_leave_the_queue(self):
+        before = self.snapshot()
+        code, out = self.run_import(self.file_m)
+        self.assertIn("2 already imported", out)
+        self.assertEqual(self.snapshot(), before)
+        again = build_queue.build(c.Tree(self.ont), {"needs-review"}, 50)
+        ids = {u["id"] for b in again["merges"] for u in b["units"]}
+        self.assertNotIn(self.merge_accept["id"], ids)
+        self.assertIn(self.merge_bare["id"], ids)
 
     def test_second_reviewer_agrees_or_goes_to_the_board(self):
         self.assertEqual(self.code_d, 1, self.out_d)
