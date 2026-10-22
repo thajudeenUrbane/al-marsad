@@ -40,7 +40,7 @@ from rdflib.namespace import RDFS, SKOS
 import display
 import journey_export as X
 import journeys as J
-from journeys import Group, Journey, Reason, Step, term
+from journeys import Journey, Reason, Step, term
 from model import MRS, Claim, Entity, Site
 from render import URL_AGPL, URL_CC_BY_SA, URL_LICENSING
 
@@ -600,9 +600,10 @@ class LearnRenderer:
         return (f'<li class="step" id="step-{n}" data-step="{attr(e.pid)}" aria-labelledby="step-{n}-title">\n'
                 f'{span}{body}\n</li>')
 
-    def group_head(self, g: Group, n: int) -> str:
-        lead = f'<p class="group-lead">{esc(self.t(g.lead))}</p>' if g.lead else ""
-        return (f'</ol>\n<h3 class="group-heading" id="group-{attr(g.key)}">{esc(self.t(g.t))}</h3>{lead}\n'
+    def group_head(self, g: dict, n: int) -> str:
+        """The heading and lead of an exported group ({key, t, lead, from, to}) that starts at step n."""
+        lead = f'<p class="group-lead">{esc(self.t(g["lead"]))}</p>' if g["lead"] else ""
+        return (f'</ol>\n<h3 class="group-heading" id="group-{attr(g["key"])}">{esc(self.t(g["t"]))}</h3>{lead}\n'
                 f'<ol class="journey-steps" start="{n}">')
 
     def v1_apart_li(self, base: str, st: Step) -> str:
@@ -655,7 +656,7 @@ class LearnRenderer:
 
     def ctx(self, book: Book, depth: str, k: int) -> Ctx:
         pages = book.plan[depth]
-        path = X.page_url(book.j.slug, book.j.spec["door"], depth, k)
+        path = X.page_url(book.doc["slug"], book.doc["door"], depth, k)
         return Ctx(book=book, depth=depth, k=k, pages=len(pages), keys=list(pages[k - 1]), path=path,
                    base="../" * path.count("/"))
 
@@ -705,8 +706,8 @@ class LearnRenderer:
 
     def group_head_for(self, ctx: Ctx, key: str) -> str:
         n = ctx.book.steps[key]["n"]
-        for g in ctx.book.j.groups:
-            if g.t and g.start == n - 1:
+        for g in ctx.book.doc["groups"]:
+            if g["t"] and g["from"] == n:
                 return self.group_head(g, n)
         return ""
 
@@ -772,17 +773,27 @@ class LearnRenderer:
         return text
 
     def sources_html(self, ctx: Ctx, cids: list[str]) -> str:
-        """The source lines of claims at this depth, each in its own .source span."""
+        """The source lines of claims at this depth, each in its own .source span. As on a
+        claim row (source_x), the claim.source label goes before a citation, a basis or "not
+        yet recorded", never before a line that only says who recorded the claim: an agent
+        is not a source."""
         doc = ctx.book.doc
-        texts = []
+        labelled, agents, seen = [], [], set()
         for cid in cids:
-            text = X.source_line(doc["claims"][cid], ctx.depth, doc["passages"], self.t)
-            if text and text not in texts:
-                texts.append(text)
-        if not texts:
-            return ""
-        spans = SEP.join(f'<span class="source">{esc(x)}</span>' for x in texts)
-        return f' <span class="sources">{html.escape(self.t("claim.source"))} {spans}</span>'
+            rec = doc["claims"][cid]
+            text = X.source_line(rec, ctx.depth, doc["passages"], self.t)
+            if not text or text in seen:
+                continue
+            seen.add(text)
+            cite = (doc["passages"].get(rec.get("passage") or "") or {}).get("cite")
+            if cite or rec.get("basis"):
+                labelled.append(f'<span class="source">{esc(text)}</span>')
+            elif rec.get("recorded_by"):
+                agents.append(f'<span class="source">{esc(text)}</span>')
+            else:
+                labelled.append(f'<span class="source not-recorded">{esc(text)}</span>')
+        bits = ([f'{html.escape(self.t("claim.source"))} {SEP.join(labelled)}'] if labelled else []) + agents
+        return f' <span class="sources">{SEP.join(bits)}</span>' if bits else ""
 
     def refs_html(self, ctx: Ctx, cids: list[str], linkable: set) -> str:
         """Research: links to the claim rows behind a sentence instead of its source line."""
@@ -802,12 +813,15 @@ class LearnRenderer:
         claims = ctx.book.doc["claims"]
         return [c for c in cids if claims[c]["discover"]]
 
-    def prompts_html(self, ctx: Ctx, step: dict, linkable: set | None = None) -> str:
+    def prompts_html(self, ctx: Ctx, step: dict, linkable: set | None = None, shown: set | None = None) -> str:
         """Ungraded prompts, each a details element with no form control: one at Discover
-        (whose answer shows only claims with a work and page), every one at Study and Research."""
+        (whose answer shows only claims with a work and page), every one at Study and Research.
+        An answer is capped like the narration: at most NARRATION[depth] sentences (3 at
+        Discover, 6 at Study, 80 at Research). `shown` collects the claims the answers show."""
         prompts = step["prompts"]
         if ctx.depth == "discover":
             prompts = [p for p in prompts if p["d"] == "discover"][:1]
+        cap = NARRATION[ctx.depth]
         items = []
         for p in prompts:
             question = self.s.th(p["t"], **{k: self.ref_data(ctx, v) for k, v in p["slots"].items()})
@@ -818,14 +832,19 @@ class LearnRenderer:
                         f'{self.s.th("learn.next.page", name=name)}</a></p>')
             else:
                 want = set(self.eligible(ctx, ans["claims"]) if ctx.depth == "discover" else ans["claims"])
-                lis = []
+                lis, cids_shown = [], []
                 for item in step["narration"]:
+                    if len(lis) == cap:
+                        break
                     cids = [c for c in item["c"] if c in want]
                     if cids:
                         lis.append(self.sentence_li(ctx, item, cids, linkable))
+                        cids_shown += cids
                 if not lis:
                     continue
-                body = '<ul class="plain">' + "".join(lis[:X.NARRATION_CAP]) + "</ul>"
+                if shown is not None:
+                    shown.update(cids_shown)
+                body = '<ul class="plain">' + "".join(lis) + "</ul>"
             items.append(f'<details class="prompt"><summary>{question}</summary>{body}</details>')
         if not items:
             return ""
@@ -871,7 +890,7 @@ class LearnRenderer:
             where = ", ".join(self.ref_link(ctx, p) for p in places) if places else self.not_recorded()
             bits.append(self.s.th("learn.facts.where", value=where))
         if e["kind"] == "story" and e.get("number") is not None:
-            bits.append(html.escape(self.t("fact.story_number", n=e["number"], total=len(self.site.by_kind["story"]))))
+            bits.append(html.escape(self.t("fact.story_number", n=e["number"], total=ctx.book.doc["graph"]["stories"])))
         return f'<p class="step-facts">{SEP.join(bits)}</p>' if bits else ""
 
     def computed_reasons(self, ctx: Ctx, step: dict) -> str:
@@ -890,13 +909,14 @@ class LearnRenderer:
                                      work=work_html))
         return ('<ul class="plain step-why">' + "".join(f"<li>{x}</li>" for x in lis) + "</ul>") if lis else ""
 
-    def discover_lines(self, ctx: Ctx, key: str, step: dict, cap: int | None) -> list[str]:
+    def discover_lines(self, ctx: Ctx, key: str, step: dict, cap: int | None, also: frozenset = frozenset()) -> list[str]:
         """Narration sentences whose claims give a work and page, each with its short source
-        line, then the absence line or the count of records left for Study."""
+        line, then the absence line or the count of records left for Study: the records the
+        step shows neither here nor in its prompt's answer (`also`)."""
         items = [i for i in step["narration"] if i["d"] == "discover"]
         if cap is not None:
             items = items[:cap]
-        shown: set[str] = set()
+        shown: set[str] = set(also)
         lis = []
         for item in items:
             cids = self.eligible(ctx, item["c"])
@@ -915,8 +935,10 @@ class LearnRenderer:
         step = ctx.book.steps[key]
         n = step["n"]
         parts = [self.head_x(ctx, n, step["ref"]), self.facts_x(ctx, step["ref"]), self.computed_reasons(ctx, step)]
-        parts += self.discover_lines(ctx, key, step, NARRATION["discover"])
-        parts.append(self.prompts_html(ctx, step))
+        answered: set[str] = set()
+        prompt = self.prompts_html(ctx, step, shown=answered)
+        parts += self.discover_lines(ctx, key, step, NARRATION["discover"], frozenset(answered))
+        parts.append(prompt)
         parts.append(self.next_html(ctx, step))
         body = "\n".join(p for p in parts if p)
         return (f'<li class="step" id="step-{n}" data-step="{attr(key)}" aria-labelledby="step-{n}-title">\n'
@@ -1145,17 +1167,18 @@ class LearnRenderer:
     def pager_html(self, ctx: Ctx) -> str:
         links = []
         for k in range(1, ctx.pages + 1):
-            href = attr(ctx.base + X.page_url(ctx.book.j.slug, ctx.book.j.spec["door"], ctx.depth, k))
+            href = attr(ctx.base + X.page_url(ctx.book.doc["slug"], ctx.book.doc["door"], ctx.depth, k))
             cur = ' aria-current="page"' if k == ctx.k else ""
             links.append(f'<li><a href="{href}"{cur}>{k}</a></li>')
         return (f'<nav class="pager journey-pager" aria-label="{attr(self.t("learn.pager.label"))}"><ul>'
                 + "".join(links) + "</ul></nav>")
 
     def rule_box(self, ctx: Ctx) -> str:
-        """The rule in plain words, with graph term labels in .term and recorded titles in
-        .data; the order sentences of the export's rule_text that this depth shows."""
-        j, doc, depth = ctx.book.j, ctx.book.doc, ctx.depth
-        sel = j.spec["select"]
+        """The rule in plain words, from the export alone: the rule as written (select), graph
+        term labels from its terms in .term, recorded part titles in .data, then the order
+        sentences of its rule_text that this depth shows."""
+        doc, depth = ctx.book.doc, ctx.depth
+        sel = doc["select"]
 
         def quote(h: str) -> str:
             return self.s.th("learn.quote", value=h)
@@ -1163,8 +1186,9 @@ class LearnRenderer:
         def word(w: str) -> str:
             return quote(html.escape(w, quote=False))
 
-        def term_q(curie: str) -> str:
-            return quote(f'<span class="term">{esc(self.term_label(curie))}</span>')
+        def term_q(curie: str, qualifier: bool = False) -> str:
+            label = doc["terms"][X.rule_term_ref(curie, qualifier)]["en"]
+            return quote(f'<span class="term">{esc(label)}</span>')
 
         def words(named: dict, key: str = "words") -> str:
             ws = self.named_words(named) if key == "words" else named[key]
@@ -1196,17 +1220,17 @@ class LearnRenderer:
             if sel["also_show"]:
                 paras.append(self.s.th("learn.rule.also_show", kinds=self.join_html([term_q(c) for c in sel["also_show"]], "or")))
             if sel["set_apart"]:
-                paras.append(self.s.th("learn.rule.set_apart", markers=self.join_html([term_q(q) for q in sel["set_apart"]], "or")))
+                paras.append(self.s.th("learn.rule.set_apart", markers=self.join_html([term_q(q, True) for q in sel["set_apart"]], "or")))
         else:
-            parts = self.join_html([quote(self.data_span(display.name_display(p))) for p in j.part_labels], "or")
+            parts = self.join_html([quote(self.data_span(display.name_display(p))) for p in doc["part_labels"]], "or")
             paras.append(self.s.th("learn.rule.stories", words=self.join_html([word(w) for w in sel["part"]["words"]], "or"),
                                    parts=parts))
         for item in doc["rule_text"]:
             if DEPTH_RANK[item["d"]] <= DEPTH_RANK[depth] and item.get("only") in (None, depth):
                 paras.append(self.rule_item(item))
-        if depth != "discover" and j.mixes_stories_and_events:
+        if depth != "discover" and doc["mixes_stories_and_events"]:
             paras.append(esc(self.t("learn.rule.separate_records")))
-        if j.order_conflict:
+        if doc["order_conflict"]:
             paras.append(esc(self.t("learn.rule.order_conflict")))
         return "".join(f"<p>{p}</p>" for p in paras)
 
@@ -1224,7 +1248,7 @@ class LearnRenderer:
         the rule left out as background."""
         if ctx.depth != "research":
             return ""
-        doc, slug = ctx.book.doc, ctx.book.j.slug
+        doc, slug = ctx.book.doc, ctx.book.doc["slug"]
         g = doc["graph"]
         facts = [self.t("learn.research.rule_sha", sha=doc["rule_sha"]),
                  self.t("learn.research.content_sha", sha=doc["content_sha"]),
@@ -1256,7 +1280,7 @@ class LearnRenderer:
         return f'<p class="scale">{html.escape(text)}</p>'
 
     def page_title(self, ctx: Ctx, title: str) -> str:
-        door = ctx.book.j.spec["door"]
+        door = ctx.book.doc["door"]
         if ctx.depth == door and ctx.k == 1:
             return title
         depth = self.t(DEPTH_LABEL[ctx.depth])
@@ -1265,21 +1289,21 @@ class LearnRenderer:
         return self.t("learn.title.page", title=title, depth=depth, n=ctx.k)
 
     def crumbs(self, ctx: Ctx, title: str) -> list:
-        door = ctx.book.j.spec["door"]
+        door = ctx.book.doc["door"]
         if ctx.depth == door and ctx.k == 1:
             return [(self.t("learn.nav"), "learn/"), (title, None)]
         depth = self.t(DEPTH_LABEL[ctx.depth])
         last = depth if ctx.k == 1 else self.t("learn.crumb.page", depth=depth, n=ctx.k)
-        return [(self.t("learn.nav"), "learn/"), (title, f"learn/{ctx.book.j.slug}/"), (last, None)]
+        return [(self.t("learn.nav"), "learn/"), (title, f"learn/{ctx.book.doc['slug']}/"), (last, None)]
 
     def journey_tpl(self, ctx: Ctx, **parts) -> str:
-        book, j = ctx.book, ctx.book.j
+        book = ctx.book
         keys = " ".join(s["key"] for s in book.doc["stops"])
         data = f' data-depth="{ctx.depth}" data-total="{len(book.doc["stops"])}" data-steps="{attr(keys)}"'
         numbers = [book.steps[k]["n"] for k in ctx.keys if book.steps[k]["n"]]
         start = f' start="{numbers[0]}"' if numbers and numbers[0] != 1 else ""
         split = ctx.pages > 1
-        return self.tpl("journey", slug=attr(j.slug), door=attr(j.spec["door"]), data=data, base=ctx.base,
+        return self.tpl("journey", slug=attr(book.doc["slug"]), door=attr(book.doc["door"]), data=data, base=ctx.base,
                         depthnav=self.depth_nav(ctx), contents=self.contents_html(ctx) if split and ctx.k == 1 else "",
                         pager=self.pager_html(ctx) if split else "", start=start, research=self.research_html(ctx),
                         **parts)
@@ -1316,7 +1340,7 @@ class LearnRenderer:
 
     def page(self, ctx: Ctx) -> str:
         """A Discover, Study or Research page, rendered from the export."""
-        book, j, doc, depth = ctx.book, ctx.book.j, ctx.book.doc, ctx.depth
+        doc, depth = ctx.book.doc, ctx.depth
         steps, apart = self.page_body(ctx)
         title = self.t(doc["title"]["key"])
         lead = self.t(doc["lead"]["key"] if depth == "discover" else (doc["lead_study"] or doc["lead"])["key"])
@@ -1344,7 +1368,7 @@ class LearnRenderer:
                                    lead=esc(lead), scale=scale, progress=self.progress_ui(len(doc["stops"])),
                                    rule=self.rule_box(ctx), legend=legend, steps=steps, apart=apart)
         page = self.shell(ctx.base, self.page_title(ctx, title), content,
-                          body_class=f"page-learn page-journey door-{j.spec['door']}",
+                          body_class=f"page-learn page-journey door-{doc['door']}",
                           crumbs=self.crumbs(ctx, title), description=lead, script=True)
         return _EMPTY_OL.sub("", page)
 

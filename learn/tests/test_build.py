@@ -17,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import types
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
@@ -50,6 +51,8 @@ PY_FILES = sorted(LEARN.glob("*.py"))
 KEY = re.compile(r"^[a-z_]+(\.[a-z0-9_]+)+$")
 SMALL = 30_000        # the small step and part budget of the split builds (design §14)
 AI_LABEL = EN["learn.source.ai_document"].replace("{source}", "")
+AR_MISSING = ("learn/i18n/ar.json is missing (implementation plan step 8, design §12): the Arabic titles, "
+              "leads and learn keys are not checked against AR_REVIEW_STEMS yet")
 
 
 def quiet(fn, *args, **kw):
@@ -505,6 +508,29 @@ class PageChecks:
                 seen += 1
         self.assertGreater(seen, 0)
 
+    def test_every_step_keeps_to_its_depth_caps(self):
+        """Design §7.1, §8 and §13: a step shows at most NARRATION[depth] narration sentences,
+        each prompt's answer at most as many, Discover one prompt, and Study and Research at
+        most CLAIM_LIST[depth] claim rows. A held Study page is the v1 page (§3.7) and is
+        left out."""
+        for e, src in journey_pages(self.out, self.exp):
+            depth = e["depth"]
+            if depth == "study" and self.exp["journeys"][e["journey"]]["head"]["hold_study"]:
+                continue
+            cap = render_learn.NARRATION[depth]
+            for li in tree(src).find("li", "step"):
+                with self.subTest(page=e["path"], step=li.attrs["data-step"]):
+                    narration = li.find("ul", "narration")
+                    self.assertLessEqual(sum(len(u.find("li", "sentence")) for u in narration), cap)
+                    prompts = li.find("details", "prompt")
+                    for p in prompts:
+                        self.assertLessEqual(len(p.find("li", "sentence")), cap)
+                    self.assertLessEqual(len(li.find("li", "sentence")), cap * (1 + len(prompts)))
+                    if depth == "discover":
+                        self.assertLessEqual(len(prompts), X.DEPTH_POLICY["discover"]["prompts"])
+                    else:
+                        self.assertLessEqual(len(li.find("li", "claim")), render_learn.CLAIM_LIST[depth])
+
     def test_study_and_research_pages_show_the_draft_note_and_a_status_on_every_claim(self):
         for e, src in journey_pages(self.out, self.exp):
             if e["depth"] == "discover":
@@ -515,6 +541,11 @@ class PageChecks:
                 self.assertIn(EN["learn.rule.heading"], src)
                 for li in root.find("li", "claim"):
                     self.assertIn("Status:", li.text())
+
+    def test_no_recorded_by_line_is_labelled_a_source(self):
+        label = norm(f'{SITE_EN["claim.source"]} {SITE_EN["claim.recorded_by"].split("{")[0]}')
+        for e, src in journey_pages(self.out, self.exp):
+            self.assertNotIn(label, norm(tree(src).text()), e["path"])
 
     def test_discover_pages_carry_no_review_language(self):
         for e, src in journey_pages(self.out, self.exp, depth="discover"):
@@ -700,6 +731,35 @@ class BuiltPages(PageChecks, unittest.TestCase):
                              [e["urls"][d][0][len("learn/"):] for e in self.exp["index"]["journeys"]
                               if e["slug"] == slug for d in X.DEPTHS])
 
+    def test_discover_pages_render_from_the_data_files_alone(self):
+        """Design §8: a Discover page is rendered from the resolved export. Rebuilt from
+        learn/data alone (each head with its parts joined, the page cut read from the stop
+        URLs), with no Site and no engine journey behind the renderer, every Discover page
+        is the built page byte for byte."""
+        docs, plans = {}, {}
+        for slug, j in self.exp["journeys"].items():
+            head = j["head"]
+            docs[slug] = {**head, "steps": j["steps"], "claims": j["claims"], "passages": j["passages"],
+                          "entities": {**head["entities"], **j["entities"]}, "terms": {**head["terms"], **j["terms"]},
+                          "glosses": j["glosses"]}
+            plans[slug] = {}
+            for depth in X.DEPTHS:
+                pages: dict[str, list] = {}
+                for stop in head["stops"] + head["set_apart"]:
+                    pages.setdefault(stop["urls"][depth].split("#", 1)[0], []).append(stop["key"])
+                plans[slug][depth] = list(pages.values())
+        r = render_learn.LearnRenderer(None, render_learn.Strings(LEARN / "i18n" / "en.json", SITE / "i18n" / "en.json"),
+                                       LEARN / "templates").at("discover")
+        seen = 0
+        for slug in docs:
+            book = r.book(types.SimpleNamespace(slug=slug, steps=[], set_apart=[]), docs, plans[slug])
+            for k in range(1, len(plans[slug]["discover"]) + 1):
+                ctx = r.ctx(book, "discover", k)
+                with self.subTest(ctx.path):
+                    self.assertEqual(r.page(ctx), read_page(self.out / ctx.path / "index.html"))
+                seen += 1
+        self.assertEqual(seen, len([e for e in self.exp["pages"] if e["kind"] == "journey" and e["depth"] == "discover"]))
+
     def test_the_practice_page_is_honest_about_being_empty(self):
         src = (self.learn / "practice" / "index.html").read_text(encoding="utf-8")
         self.assertIn(EN["learn.practice.empty"], src)
@@ -769,24 +829,47 @@ class BuiltPages(PageChecks, unittest.TestCase):
                 self.assertEqual((len(steps), golden.sha12(steps)), (facts["steps"], facts["steps_sha"]))
                 self.assertEqual((len(apart), golden.sha12(apart)), (facts["apart"], facts["apart_sha"]))
 
+    @classmethod
+    def discover_keys(cls) -> set:
+        """Every key a fresh Discover render reads: every journey page and the index."""
+        if getattr(cls, "_discover_keys", None) is None:
+            site = Site(GRAPH)
+            built = J.build_all(site, J.load_specs(LEARN / "journeys"))
+            r = render_learn.default_renderer(site)
+            res = X.resolve_all(site, None, journeys=built, renderer=r)
+            for j in built:
+                r.journey_pages(j, res["journeys"], res["plans"][j.slug])
+            r.at("discover").index_page(built, 0, res["index"]["journeys"])
+            cls._discover_keys = set(r.s.used_at["discover"])
+        return cls._discover_keys
+
     def test_discover_strings_have_no_review_words(self):
         """Every key a Discover render reads (pages and the index): its en text has no review
-        word, and its ar text, where there is one, no Arabic review stem (design §8)."""
-        site = Site(GRAPH)
-        built = J.build_all(site, J.load_specs(LEARN / "journeys"))
-        r = render_learn.default_renderer(site)
-        res = X.resolve_all(site, None, journeys=built, renderer=r)
-        for j in built:
-            r.journey_pages(j, res["journeys"], res["plans"][j.slug])
-        r.at("discover").index_page(built, 0, res["index"]["journeys"])
-        used = r.s.used_at["discover"]
+        word, and for a site key, its ar text, where there is one, no Arabic review stem
+        (design §8). The learn ar texts are test_arabic_titles_leads_and_discover_keys_*."""
+        used = self.discover_keys()
         self.assertTrue({"learn.narr.took_part", "learn.discover.no_work.other", "learn.prompt.note"} <= used)
-        ar = {**SITE_AR, **(J.load_i18n().get("ar") or {})}
         for key in sorted(used):
             self.assertFalse(render_learn.forbidden_at_discover(key), key)
             self.assertEqual(J.review_words({**SITE_EN, **EN}[key]), [], key)
-            if key in ar:
-                self.assertEqual(J.ar_review_stems(ar[key]), [], key)
+            if key in SITE_AR and key not in EN:
+                self.assertEqual(J.ar_review_stems(SITE_AR[key]), [], key)
+
+    def test_arabic_titles_leads_and_discover_keys_have_no_review_stems(self):
+        """Design §8 enforcement 2 and §12: the ar text of every exported title and lead, and
+        of every learn key a Discover render reads, has no Arabic review stem. Until
+        learn/i18n/ar.json exists this is skipped, not passed."""
+        if not (LEARN / "i18n" / "ar.json").is_file():
+            self.skipTest(AR_MISSING)
+        learn_ar = J.load_i18n()["ar"]
+        self.assertTrue(learn_ar, "learn/i18n/ar.json is empty or unreadable")
+        for e in self.exp["index"]["journeys"]:
+            for role in ("title", "lead"):
+                with self.subTest(e["slug"], role=role):
+                    self.assertTrue(e[role]["ar"], "no Arabic text")
+                    self.assertEqual(J.ar_review_stems(e[role]["ar"]), [])
+        for key in sorted(self.discover_keys() & set(learn_ar)):
+            self.assertEqual(J.ar_review_stems(learn_ar[key]), [], key)
 
     def test_rebuilding_replaces_only_learn(self):
         marker = self.out / "person" / "index.html"
@@ -981,8 +1064,12 @@ class StatusesAtEachDepth(unittest.TestCase):
             self.assertTrue(sentences, slug)
             for who in hidden:
                 self.assertNotIn(who, sentences, (slug, who))
-            for who in (self.name("accepted_cited"), self.name("proposed_cited"), "Person nostatus"):
-                self.assertIn(who, sentences, (slug, who))
+        # each person is a stop of the people journey, so every eligible record shows there; the
+        # events journey's one step shows only its first sentences and its prompt's first answers
+        # (the Discover caps, design §7.1 and §8) and counts the rest for Study
+        sentences = " ".join(norm(li.text()) for li in tree(self.page("fixture-people", "discover")).find("li", "sentence"))
+        for who in (self.name("accepted_cited"), self.name("proposed_cited"), "Person nostatus"):
+            self.assertIn(who, sentences, who)
         study = tree(self.page("fixture-events", "study"))
         self.assertIn(self.name("rejected_cited"), " ".join(li.text() for li in study.find("li", "claim")))
 
@@ -1015,6 +1102,22 @@ class StatusesAtEachDepth(unittest.TestCase):
         self.assertNotIn(SOFTWARE_AGENT, pages["discover"])
         self.assertIn(software, pages["research"])
         self.assertNotIn(software, pages["study"])
+
+    def test_a_recorded_by_line_is_never_labelled_a_source(self):
+        """A claim with no citation and no basis says who recorded it, without the "Source:"
+        label, in its sentence as on its claim row."""
+        agent = SITE_EN["claim.recorded_by"].format(value=SOFTWARE_AGENT)
+        for slug in ("fixture-events", "fixture-people"):
+            for depth in ("study", "research"):
+                self.assertNotIn(norm(f'{SITE_EN["claim.source"]} {agent}'), norm(tree(self.page(slug, depth)).text()))
+        li = [n for n in tree(self.page("fixture-people", "study")).find("li", "step")
+              if n.attrs["data-step"] == self.i["software"].rsplit("/", 1)[-1]][0]
+        sentences = li.find("li", "sentence")
+        self.assertTrue(sentences)
+        self.assertEqual([norm(s.text()) for s in sentences[0].find(cls="source")], [agent])
+        self.assertEqual([norm(s.text()) for s in sentences[0].find(cls="sources")], [agent])
+        rows = [r for r in li.find("li", "claim") if SOFTWARE_AGENT in r.text()]
+        self.assertEqual([norm(s.text()) for r in rows for s in r.find(cls="source")], [agent])
 
     def test_statuses_are_shown_as_recorded(self):
         study = tree(self.page("fixture-events", "study"))
@@ -1068,6 +1171,77 @@ class LongJourneys(unittest.TestCase):
         PageChecks.test_reader_pages_follow_the_export(self)
         PageChecks.test_split_depths_have_a_pager_and_page_one_a_contents_list(self)
         PageChecks.test_every_stop_url_names_the_page_that_holds_it(self)
+
+
+class CapsAtEachDepth(unittest.TestCase):
+    """A made-up battle with a cited whole, a cited leader and 100 cited participants (102
+    records): each depth keeps the step to its narration cap, and so does the answer of
+    every prompt (design §7.1, §8, §13). At Discover the count of records left for Study
+    leaves out what the narration and the prompt's answer show."""
+
+    @classmethod
+    def setUpClass(cls):
+        fx = Fx()
+        cite = "Ibn Hishām, al-Sīra al-Nabawiyya, vol. 1, p. {}"
+        cls.battle = fx.event("fxBattle", "Fixtureplace battle", dates=("0624-03-01", "0624-03-31"))
+        whole = fx.event("fxWhole", "Greater campaign", dates=("0624-01-01", "0624-12-31"))
+        fx.claim(cls.battle, "rel_part_of", whole, cite=cite.format(10))
+        fx.claim(fx.person("fxLeader", "Leader fixture"), "rel_led", cls.battle, cite=cite.format(20))
+        for i in range(100):
+            fx.claim(fx.person(f"fxP{i:03d}", f"Person {i:03d}"), "rel_participated_in", cls.battle,
+                     cite=cite.format(100 + i))
+        cls.tmp = tempfile.TemporaryDirectory()
+        root = Path(cls.tmp.name)
+        graph = fx.write(root / "graph.ttl")
+        jdir = root / "journeys"
+        jdir.mkdir()
+        (jdir / "fixture-events.json").write_text(json.dumps(events_spec(["Fixtureplace"])), encoding="utf-8")
+        cls.out = root / "dist"
+        build_into(cls.out, graph, jdir)
+        cls.exp = export_of(cls.out)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def step(self, depth: str) -> Node:
+        rel = "" if depth == "study" else f"{depth}/"       # the fixture journey's door is Study
+        src = (self.out / "learn" / "fixture-events" / rel / "index.html").read_text(encoding="utf-8")
+        return [li for li in tree(src).find("li", "step") if li.attrs["data-step"] == "fxBattle"][0]
+
+    def test_a_discover_step_shows_three_sentences_and_one_capped_prompt(self):
+        li = self.step("discover")
+        cap = render_learn.NARRATION["discover"]
+        narration = li.find("ul", "narration")[0].find("li", "sentence")
+        prompts = li.find("details", "prompt")
+        self.assertEqual(len(narration), cap)
+        self.assertEqual(len(prompts), 1)
+        answer = prompts[0].find("li", "sentence")
+        self.assertEqual(len(answer), cap)
+        self.assertEqual(len(li.find("li", "sentence")), 2 * cap)
+        for s in narration + answer:
+            self.assertTrue(s.find(cls="source"))
+        # the narration shows the whole, the leader and the first participant; the answer
+        # (who took part) the leader and the first two participants: 4 of the 102 records
+        self.assertIn("Greater campaign", narration[0].text())
+        self.assertIn("Leader fixture", answer[0].text())
+        self.assertIn("Person 001", answer[2].text())
+        self.assertEqual(norm(li.find(cls="narr-more")[0].text()), EN["learn.narr.more.other"].format(n=98))
+
+    def test_study_and_research_keep_narration_answers_and_claim_rows_to_their_caps(self):
+        for depth in ("study", "research"):
+            li = self.step(depth)
+            cap, rows = render_learn.NARRATION[depth], render_learn.CLAIM_LIST[depth]
+            with self.subTest(depth):
+                self.assertEqual(len(li.find("ul", "narration")[0].find("li", "sentence")), min(cap, 102))
+                prompts = li.find("details", "prompt")
+                self.assertEqual(len(prompts), 1)              # who took part; no dated or place claim
+                answer = self.exp["journeys"]["fixture-events"]["by_key"]["fxBattle"]["prompts"][0]["answer"]["claims"]
+                self.assertGreater(len(answer), cap if depth == "study" else 0)
+                self.assertEqual(len(prompts[0].find("li", "sentence")), min(cap, len(answer)))
+                self.assertEqual(len(li.find("li", "claim")), rows)
+                self.assertEqual(norm(li.find(cls="claims-more")[0].text()),
+                                 EN["learn.claims.more.other"].format(n=102 - rows))
 
 
 class PracticeWithAcceptedClaims(unittest.TestCase):

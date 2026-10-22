@@ -178,19 +178,31 @@ class RuleFiles(unittest.TestCase):
         J.validate(s)
 
     def test_titles_and_leads_are_discover_safe(self):
-        ar = json.loads((LEARN / "i18n" / "ar.json").read_text(encoding="utf-8")) \
-            if (LEARN / "i18n" / "ar.json").is_file() else {}
         for path in SPECS:
             spec = json.loads(path.read_text(encoding="utf-8"))
             for role in ("title", "lead"):
                 with self.subTest(path.name, role=role):
                     self.assertEqual(J.review_words(EN[spec[role]]), [])
-                    self.assertEqual(J.ar_review_stems(ar.get(spec[role], "")), [])
             if "lead_study" in spec:
                 self.assertIn(spec["lead_study"], EN)
                 self.assertNotEqual(EN[spec["lead_study"]], EN[spec["lead"]])
         self.assertEqual(J.review_words("Numbers to be checked by the Board."), ["checked", "board"])
         self.assertEqual(J.ar_review_stems("مسودة"), ["مسود"])
+
+    def test_arabic_titles_and_leads_are_discover_safe(self):
+        """design §12: learn/i18n/ar.json holds every journey's title and lead, free of the
+        Arabic review stems. Skipped, not passed, while the file is missing."""
+        path = LEARN / "i18n" / "ar.json"
+        if not path.is_file():
+            self.skipTest("learn/i18n/ar.json is missing (implementation plan step 8, design §12): "
+                          "the Arabic titles and leads are not checked yet")
+        ar = json.loads(path.read_text(encoding="utf-8"))
+        for spec_path in SPECS:
+            spec = json.loads(spec_path.read_text(encoding="utf-8"))
+            for role in ("title", "lead"):
+                with self.subTest(spec_path.name, role=role):
+                    self.assertTrue(ar.get(spec[role]), "no Arabic text")
+                    self.assertEqual(J.ar_review_stems(ar[spec[role]]), [])
 
     def test_v1_files_stay_valid_without_v2_keys(self):
         for spec in (events_spec(["Rihla"]), people_spec(order="name"), stories_spec()):

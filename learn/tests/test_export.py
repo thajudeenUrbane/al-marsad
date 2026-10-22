@@ -809,6 +809,27 @@ class Shape(unittest.TestCase):
             self.assertIn(f"{k}.one", strings["en"])
             self.assertIn(f"{k}.other", strings["en"])
 
+    def test_the_head_carries_the_rule_terms_and_the_graph_its_story_count(self):
+        """The rule box reads only the export (design §8): every term the rule names has its
+        graph label in the head's terms, whether or not a claim of the journey uses it, and
+        the graph block says how many stories the graph holds (a story's "of {total}")."""
+        from fixtures import RELATIONS
+        for e in self.files["index.json"]["journeys"]:
+            head = self.files[e["file"]]
+            with self.subTest(e["slug"]):
+                self.assertEqual(head["graph"]["stories"], self.files["index.json"]["graph"]["stories"])
+                if head["type"] != "people":
+                    self.assertEqual(head["terms"], {})
+                    continue
+                want = {f"pk:{c.split(':')[1]}": {"en": RELATIONS[c.split(":")[1]]}
+                        for c in head["select"]["participation"]["claims"] + head["select"]["also_show"]}
+                want["q:q_later"] = {"en": "marker for the tests"}
+                self.assertEqual(head["terms"], want)
+                self.assertEqual([r for r, _ in X.rule_terms(head["select"])], list(want))
+        site = site_of(facade_graph())
+        self.assertEqual(self.files["index.json"]["graph"]["stories"], len(site.by_kind["story"]))
+        self.assertGreater(len(site.by_kind["story"]), 0)
+
     def test_title_and_lead_carry_en_and_ar(self):
         for e in self.files["index.json"]["journeys"]:
             for k in ("title", "lead"):

@@ -223,7 +223,29 @@ def graph_info(site: Site, graph_file=None) -> dict:
             name = p.resolve().relative_to(ROOT).as_posix()
         except ValueError:
             name = p.name
-    return {"file": name, "fingerprint": fingerprint(site.g), "triples": len(site.g)}
+    # stories: how many stories the graph holds, the "of {total}" of a story's number
+    return {"file": name, "fingerprint": fingerprint(site.g), "triples": len(site.g),
+            "stories": len(site.by_kind["story"])}
+
+
+def rule_term_ref(curie: str, qualifier: bool = False) -> str:
+    """The term ref of an ontology term a rule names: pk:{key} for a claim predicate,
+    q:{qualifier} for a set-apart qualifier."""
+    return f"{'q' if qualifier else 'pk'}:{local(J.term(curie, 'rule'))}"
+
+
+def rule_terms(select: dict) -> list[tuple[str, str]]:
+    """(term ref, IRI) of every ontology term a rule names, in rule order: the claim
+    predicates of a people rule and its set-apart qualifiers. The rule box shows their
+    labels, so the export carries them (the head's "terms")."""
+    if select.get("type") != "people":
+        return []
+    out = {}
+    for c in list(select["participation"]["claims"]) + list(select.get("also_show") or []):
+        out.setdefault(rule_term_ref(c), str(J.term(c, "rule")))
+    for q in select.get("set_apart") or []:
+        out.setdefault(rule_term_ref(q, qualifier=True), str(J.term(q, "rule")))
+    return list(out.items())
 
 
 def _table(path: Path) -> dict:
@@ -993,6 +1015,9 @@ class Resolver:
         head_needs = Needs()
         head_needs.entities.update(head_refs)
         self.close(head_needs)
+        for ref, iri in rule_terms(spec["select"]):
+            self._term(ref, iri)
+            head_needs.terms.add(ref)
         everything = Needs()
         for needs in step_needs + [head_needs]:
             everything.update(needs)
@@ -1250,6 +1275,7 @@ def split(resolver: Resolver, res: Resolved, budget: int = PART_BUDGET) -> tuple
     head["research"] = [f"research-{k}.json" for k in range(1, len(parts) + 1)]
     head["entities"] = {r: {"kind": doc["entities"][r]["kind"], "name": doc["entities"][r]["name"]}
                         for r in res.head_refs}
+    head["terms"] = {ref: doc["terms"][ref] for ref, _ in rule_terms(doc["select"])}
     return head, parts, researches
 
 

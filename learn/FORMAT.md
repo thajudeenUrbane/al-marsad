@@ -83,7 +83,8 @@ form. `index.json` gives each journey's shas, so a consumer never has to recompu
 - Consumers ignore keys they do not know. An added key keeps version 1. A renamed or
   removed key, or a changed meaning, makes version 2, and version 1 is still written beside
   it for one release.
-- `graph = {file, fingerprint, triples}`. `fingerprint` is exactly the Atlas's
+- `graph = {file, fingerprint, triples, stories}`. `stories` is how many stories the graph
+  holds (the reader's "Story {n} of {total}"). `fingerprint` is exactly the Atlas's
   `obsdata.ObsData.fingerprint()`: sha256 over the sorted N3 lines of every triple without a
   blank node, 12 hex digits. It cannot see blank-node data: participation records, roles,
   relative date anchors.
@@ -131,7 +132,7 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
 
 ```
 {"format": "marsad-journeys", "version": 1,
- "graph": {"file", "fingerprint", "triples"}, "public_mode": "all" | "accepted",
+ "graph": {"file", "fingerprint", "triples", "stories"}, "public_mode": "all" | "accepted",
  "depths": ["discover", "study", "research"],
  "depth_policy": {depth: {"status", "draft_note", "coverage_state", "accepted_share", "source",
                           "claims", "basis", "recorded_by", "notes", "gloss", "claim_ids",
@@ -188,7 +189,7 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
  "rule_text": [{"t", "d", "slots"?}], "ai_documents": [work labels], "ai_note": {"discover", "study"} | null,
  "stops": [{"key", "ref", "n", "group", "part", "urls": {depth: url}, "sort"?: {"default", "az", "links", "accepted_islam"}}],
  "set_apart": [{"key", "ref", "part", "urls", "because": [{"qualifier", "claims"}]}],
- "entities": {ref: {"kind", "name"}}, "parts": [...], "research": [...],
+ "entities": {ref: {"kind", "name"}}, "terms": {ref: {"en", "ar"?}}, "parts": [...], "research": [...],
  "reader": {"url": "learn/{slug}/", "anchor": "s-{key}"}}
 ```
 
@@ -212,6 +213,10 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
   acceptance-of-Islam sort (null when no cited record gives it).
 - `stops[].urls` and `stops[].part` say where each stop is; no consumer computes paths.
 - `entities` names every stop, anchor and excluded entity, enough for a contents list.
+- `terms` labels every ontology term the rule names (`select`: a people rule's claim
+  predicates as `pk:{key}`, its set-apart qualifiers as `q:{qualifier}`), even one no claim of
+  the journey uses, so the rule reads in plain words from the head alone. It is `{}` for a
+  rule that names no term.
 - `checkpoint.items` are practice question IDs (the reader's `practice/bank.json`) about
   the journey's stops and anchors. Practice questions are made only from accepted claims.
   When a learner's answer misses, the feedback is `learn.check.not_both` ("The record does
@@ -269,6 +274,8 @@ Narration never reads an assertion's comment.
 **Prompts** are never graded. `learn.prompt.event_who`, `event_when`, `event_where`,
 `person_elsewhere` (a link to the person's page `#evidence`), `person_contrary` and
 `story_names`, shown under `learn.prompt.note`. Their IDs are `{slug}:{stop key}:{prompt}`.
+An answer is shown as narration sentences, capped like the narration at that depth
+(`depth_policy[depth].narration`).
 
 **Next** directions are fixed by rule: the entity page (`learn.next.page`, `#evidence`),
 the stop's records at Study (`learn.next.study`, shown at Discover only: `"only": "discover"`)
