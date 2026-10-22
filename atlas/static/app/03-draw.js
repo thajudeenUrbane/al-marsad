@@ -1,4 +1,4 @@
-/* Sky Atlas, part 3 of 8 — showing a view, blending views, the look of every mark at
+/* Sky Atlas, part 3 of 10 — showing a view, blending views, the look of every mark at
    this moment (focus, period, history, filters), the names, and what is drawn over and
    under the sky. */
 let CUR = null;          // the current view's data (or a blend of two)

@@ -47,7 +47,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 SITE = ROOT / "site"
-for p in (HERE, SITE / "observatory", SITE, ROOT / "learn"):
+for p in (HERE, SITE / "observatory", SITE, ROOT / "learn", ROOT):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))
 
@@ -224,6 +224,35 @@ def table(values: list) -> tuple[list, dict]:
     return order, ix
 
 
+MERGES = ROOT / "ontology" / "corpus" / "merge-proposals.csv"
+DECISIONS = ("accept", "reject", "scholar")
+
+
+def load_merges(ids: list[str], log) -> list[dict]:
+    """Slice 11a's merge proposals (ontology/tools/propose_merges.py), for the review
+    screen: both entries as marks, the evidence and confidence as the tool wrote them,
+    and any decision already committed to the file. Nothing is merged here."""
+    at = {x: i for i, x in enumerate(ids)}
+    out, skipped = [], 0
+    with MERGES.open(encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            a, b = at.get(row["keep_id"].split(":", 1)[-1]), at.get(row["merge_id"].split(":", 1)[-1])
+            if a is None or b is None:
+                skipped += 1
+                continue
+            m = {"p": row["proposal"], "k": row["kind"], "a": a, "b": b, "ev": row["evidence"], "conf": row["confidence"],
+                 # as the file has them, so the page can copy decisions out in the file's own format
+                 "ka": row["keep_id"], "an": row["keep_name"], "kb": row["merge_id"], "bn": row["merge_name"]}
+            if row["decision"]:
+                if row["decision"] not in DECISIONS:
+                    raise SystemExit(f"{MERGES.name}: {row['proposal']} has decision {row['decision']!r}")
+                m.update({"dec": row["decision"], "by": row["decided_by"], "on": row["decided_on"]})
+            out.append(m)
+    if skipped:
+        log(f"merge proposals: {skipped} name an entry that is not a mark here, left out")
+    return out
+
+
 def payload(data: ObsData, site: Site, log, links: dict | None = None) -> dict:
     links = links or {}
     nodes, claims = data.nodes, data.claims
@@ -365,19 +394,35 @@ def payload(data: ObsData, site: Site, log, links: dict | None = None) -> dict:
         "counts": counts, "ms_max": max(first_ms.values()) if first_ms else 0,
         "ecliptic": sky["ecliptic"], "lists": lists, "journeys": journeys, "presets": presets,
         "fingerprint": data.fingerprint(), "reader": links.get("reader"), "ask": links.get("ask"),
+        "merges": load_merges([nd["id"] for nd in nodes], log),
     }
     return {"meta": meta, "nodes": nd_out, "claims": cl, "reports": reports, "chains": chains,
             "pos": sky["pos"]}
 
 
-def render(pl: dict, artifact: bool) -> str:
+def ask_data(site: Site, graph: Path) -> tuple[str, list, dict]:
+    """The Ask engine's index over this page's graph, packed as ask/build_ask.py packs it
+    for the site's Ask page, with the examples it offers and a check that every entity
+    it can name is a mark here (or the light)."""
+    from ask import index
+    from ask.build_ask import browser_data, cache_entries, examples_of, packed
+    from ask.dsl import load_i18n
+    ix = index.build(graph, site=site)
+    examples = examples_of(cache_entries())
+    blob = base64.b64encode(packed(browser_data(ix, load_i18n(), examples))).decode("ascii")
+    pids = {e["r"].split("/", 1)[1] for e in ix["entities"]}
+    return blob, examples, {"entities": len(ix["entities"]), "claims": len(ix["claims"]), "pids": pids}
+
+
+def render(pl: dict, artifact: bool, ask_blob: str = "") -> str:
     tpl = (STATIC / "template.html").read_text(encoding="utf-8")
     css = (STATIC / "atlas.css").read_text(encoding="utf-8")
     # the renderer, then the page's parts joined in order inside one function scope
     parts = sorted((STATIC / "app").glob("[0-9][0-9]-*.js"))
     js = (STATIC / "gl.js").read_text(encoding="utf-8") + "\n(function () {\n" + \
         "\n".join(f.read_text(encoding="utf-8") for f in parts) + "\n})();\n"
-    if "</script" in js.lower() or "</style" in css.lower():
+    ask_js = (ROOT / "ask" / "static" / "ask.js").read_text(encoding="utf-8")
+    if "</script" in (js + ask_js).lower() or "</style" in css.lower():
         raise ValueError("inline script or style would close its own tag")
     en = json.loads((HERE / "i18n" / "en.json").read_text(encoding="utf-8"))
     ar = json.loads((HERE / "i18n" / "ar.json").read_text(encoding="utf-8"))
@@ -388,7 +433,7 @@ def render(pl: dict, artifact: bool) -> str:
     raw = json.dumps(pl, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     packed = base64.b64encode(gzip.compress(raw, compresslevel=9, mtime=0)).decode("ascii")
     dump = lambda o: json.dumps(o, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    values = {"CSS": css, "JS": js, "DATA": packed, "I18N_EN": dump(en), "I18N_AR": dump(ar),
+    values = {"CSS": css, "JS": js, "ASK_JS": ask_js, "ASK_DATA": ask_blob, "DATA": packed, "I18N_EN": dump(en), "I18N_AR": dump(ar),
               "LAND": dump(land), "RAW_BYTES": str(len(raw))}
 
     def sub(m):
@@ -423,7 +468,13 @@ def main(argv=None) -> int:
     site = Site(graph)
     data = ObsData(site, t)
     pl = payload(data, site, notes.append, {"reader": a.reader_base, "ask": a.ask_url})
-    page = render(pl, artifact=False)
+    ask_blob, examples, ask_counts = ask_data(site, graph)
+    off_sky = ask_counts.pop("pids") - set(pl["nodes"]["id"])
+    if off_sky:  # an answer could name an entry the sky cannot open
+        raise SystemExit(f"{len(off_sky)} entities in Ask's index are not marks, e.g. {sorted(off_sky)[:3]}")
+    pl["meta"]["ask_examples"] = [q for q, _slug in examples]
+    pl["meta"]["counts"]["ask"] = ask_counts
+    page = render(pl, artifact=False, ask_blob=ask_blob)
     if len(page.encode("utf-8")) > SIZE_LIMIT:
         raise SystemExit(f"page is {len(page.encode()):,} bytes, over {SIZE_LIMIT:,}")
     Path(a.out).write_text(page, encoding="utf-8")
@@ -435,10 +486,11 @@ def main(argv=None) -> int:
           f"named in Ibn Hisham's text {c['in_text']:,}")
     print(f"  journeys: {', '.join(f'{j['key']} ({len(j['steps'])})' for j in pl['meta']['journeys']) or 'none'}")
     print(f"  vantage points: {', '.join(p['key'] for p in pl['meta']['presets'])}; corpus fingerprint {pl['meta']['fingerprint']}")
+    print(f"  Ask: {ask_counts['entities']:,} entities, {ask_counts['claims']:,} claims ({len(ask_blob):,} bytes packed)")
     for note in notes:
         print("  " + note)
     if a.artifact:
-        Path(a.artifact).write_text(render(pl, artifact=True), encoding="utf-8")
+        Path(a.artifact).write_text(render(pl, artifact=True, ask_blob=ask_blob), encoding="utf-8")
         print(f"wrote {a.artifact}")
     return 0
 

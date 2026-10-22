@@ -1,4 +1,4 @@
-/* Sky Atlas, part 8 of 8 — captions, the "you are here" line, Back and Home, the view
+/* Sky Atlas, part 10 of 10 — captions, the "you are here" line, Back and Home, the view
    state in the address, language, depth, reading and teaching modes, and start-up. */
 function caption() {
   let s = t("caption." + S.view);
@@ -333,8 +333,9 @@ async function start() {
   else if (!store.get("marsad-atlas-welcomed", 0)) { welcomeCounts(); $("welcome").hidden = false; }
   if (lang === "ar") checkMilestones();
   refreshText();
+  shareStart();
   window.__atlas = { S, t, focus, startTour, setView, setLang, setDepth, trace, search, TOURS: () => TOURS, n: () => n, openDrawer, renderDrawer,
-    R: () => R, endTour, goStop, applyPreset, compare, back, home, setBlend, viewToken, applyViewState, openPair, playHistory, setPeriod, QUESTS: () => QUESTS, toggleStar, byId };
+    R: () => R, endTour, goStop, applyPreset, compare, back, home, setBlend, viewToken, applyViewState, openPair, playHistory, setPeriod, QUESTS: () => QUESTS, toggleStar, byId, ask, SHARE, decide, addNote, mergesCsv };
   document.documentElement.dataset.ready = "1";
 }
 if (!("DecompressionStream" in window)) { $("loading").replaceChildren(h("p", null, t("error.unpack"))); }

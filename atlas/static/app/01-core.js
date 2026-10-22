@@ -1,4 +1,4 @@
-/* Sky Atlas: the page, part 1 of 8 — helpers, data, the model, state and the look of a
+/* Sky Atlas: the page, part 1 of 10 — helpers, data, the model, state and the look of a
    mark. The build joins the parts, in order, inside one function scope. Every sentence
    a reader sees is an interface string or a recorded claim with its source; the page
    computes positions and orders, never facts. */
@@ -64,8 +64,8 @@ function copyText(s, where) {
 }
 
 // ------------------------------------------------------------------ data
-async function unpack() {
-  const raw = atob($("atlas-data").textContent.trim());
+async function unpack(id) { // a gzip-packed data block of the page (the graph, or Ask's index)
+  const raw = atob($(id || "atlas-data").textContent.trim());
   const bin = new Uint8Array(raw.length);
   for (let i = 0; i < raw.length; i++) bin[i] = raw.charCodeAt(i);
   const text = await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream("gzip"))).text();
@@ -245,7 +245,7 @@ const S = {
 let R = null;
 const LOG_KEY = "marsad-atlas-log-v1";
 const LOG_DEFAULT = () => ({ seen: {}, events: {}, places: {}, ladders: 0, chains: 0, traces: 0, tours: {}, lineages: 0,
-  recalls: 0, arabic: 0, done: {}, views: {}, chainSet: {}, compares: 0, spoken: 0 });
+  recalls: 0, arabic: 0, done: {}, views: {}, chainSet: {}, compares: 0, spoken: 0, asked: 0 });
 let LOG = Object.assign(LOG_DEFAULT(), store.get(LOG_KEY, null) || {});
 const STAR_KEY = "marsad-atlas-stars-v1";
 let STARS = store.get(STAR_KEY, []) || [];  // the learner's own star chart: entry IDs, in the order saved

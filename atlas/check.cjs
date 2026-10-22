@@ -173,6 +173,39 @@ async function features(page, tag, shot) {
   await page.fill("#trace-to", "Bilal"); await page.press("#trace-to", "Enter");
   await page.click("#trace-find"); await wait(1500);
   ok(/Thread 1/.test(await text("#record-body")), `${tag}: the trace tool finds ranked threads`);
+  // Ask: the rule-based engine of ask/, over this graph
+  await A((k) => window.__atlas.openDrawer(k), "ask"); await wait(300);
+  const askOut = async (q) => {
+    await page.fill("#atlas-ask-q", q); await page.press("#atlas-ask-q", "Enter");
+    await page.waitForFunction((q) => (document.getElementById("atlas-ask-out").textContent || "").includes(q), q, { timeout: 30000 });
+    return text("#atlas-ask-out");
+  };
+  ok(/people\(at: place "Badr"\)/.test(await askOut("Who was at Badr?")), `${tag}: Ask turns a question into a query and answers it`);
+  const lit = await A(() => (window.__atlas.S.lit ? window.__atlas.S.lit.size : 0));
+  ok(lit > 50, `${tag}: Ask lights the answer on the sky (${lit})`);
+  await shot("19-ask");
+  ok(/does not rank people/.test(await askOut("Who was the greatest Companion?")), `${tag}: Ask refuses a ranking, with the reason`);
+  ok(await A(() => !window.__atlas.S.lit), `${tag}: a refusal lights nothing`);
+  ok(/matches \d+ entries/.test(await askOut("Relatives of Fatima")), `${tag}: Ask asks which one when a name fits several`);
+  await askOut("Who was at Badr?");
+  await page.click("#atlas-ask-out a[href^='#ask/person/']"); await wait(900);
+  ok(await page.isVisible("#record"), `${tag}: a name in an answer opens its record`);
+  ok(!(await page.evaluate(() => location.hash)).startsWith("#ask/"), `${tag}: answer links never change the address`);
+  // the merge review and class notes (this file has no shared store, so both stay in this browser)
+  await A((k) => window.__atlas.openDrawer(k), "merges"); await wait(300);
+  ok((await page.$$("#drawer-body .merge")).length > 50, `${tag}: the merge review lists slice 11a's proposals`);
+  await page.selectOption("#drawer-body .merge-edit select >> nth=0", "scholar");
+  await page.click("#drawer-body .merge-edit button >> nth=0"); await wait(300);
+  ok(/working list: ask a scholar/.test(await text("#drawer-body .merge-state >> nth=0")), `${tag}: a merge decision is kept as a working list`);
+  ok(/,scholar,/.test(await A(() => window.__atlas.mergesCsv())), `${tag}: decisions copy out in the proposals file's format`);
+  await shot("20-merges");
+  await page.click("#close-atlas"); await wait(200);
+  const badr = await A(() => window.__atlas.search("Battle of Badr")[0]);
+  await A((i) => window.__atlas.focus(i), badr); await wait(800);
+  ok(/Proposed merges/.test(await text("#record-body")), `${tag}: a record names the merges proposed for it`);
+  await page.fill("#notes-facet textarea", "<b>Start</b> with the people of Badr tour.");
+  await page.click("#notes-facet button.chip"); await wait(300);
+  ok(/<b>Start<\/b>/.test(await text("#notes-facet .notes-list")), `${tag}: a class note is added, shown as text`);
   await shot("15-threads");
   // show tab: light, period, scenery, groups, test load, GPU, speed
   await A((k) => window.__atlas.openDrawer(k), "show"); await wait(300);

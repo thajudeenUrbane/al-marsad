@@ -1,4 +1,4 @@
-/* Sky Atlas, part 4 of 8 — focus and the Record card: every record with its source and
+/* Sky Atlas, part 4 of 10 — focus and the Record card: every record with its source and
    status, the evidence ladder for an item and for a line, who was there and who was not,
    entries with the same written name, comparing two records, and copying a citation. */
 function focus(i, opts) {
@@ -286,6 +286,7 @@ function renderRecord(i) {
   const dup = DUPES.get(i);
   if (dup && S.depth !== "discover") out.push(facet(t("facet.dupes", { n: fmt(dup.length - 1) }), h("p", { class: "muted" }, t("dupes.note")), chips(dup.filter((j) => j !== i), 12)));
   if (S.depth !== "discover") out.push(evidenceSummary(i), nodeLadder(i));
+  out.push(...[mergeFacet(i), notesFacet(i)].filter(Boolean)); // part 9: merge proposals, class notes
 
   // every record
   if (S.depth === "discover") {
