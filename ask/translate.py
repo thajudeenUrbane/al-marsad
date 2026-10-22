@@ -3,7 +3,8 @@
     .venv/bin/python -m ask.translate "Who was at both Badr and Uhud?"
 
 The pipeline, for every question (answer() below):
-  1. Empty or over-long questions stop here. A question that is already a query
+  1. Empty questions (nothing left once trailing punctuation is set aside) and
+     over-long ones stop here. A question that is already a query
      (it starts with an operation name and a bracket) is run as it stands.
   2. The question is folded and lower-cased (ask/normalise.py text_key).
   3. The refusal classifier runs before anything else (docs/07 section 5, docs/06
@@ -361,6 +362,9 @@ def answer(question: str, engine: Engine, T: dict, translators: list | None = No
         out["direct"] = 1
         return run_query(raw, engine, T, out)
     q = strip_trailing(text_key(raw))
+    if not q:
+        out["outcome"] = "empty"
+        return out
     cls = classify_refusal(q)
     if cls:
         out.update({"outcome": "refusal", "refusal": cls})
