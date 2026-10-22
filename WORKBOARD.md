@@ -17,12 +17,11 @@ Keep each row to one line. Status words: `claimed`, `building`, `in review (PR #
 
 | Work | Branch | Session | Touches | Status | Updated |
 |---|---|---|---|---|---|
-| Sky Atlas onto main: merge main in, checks, one PR | `sky-atlas-new` | [session_01FqdCKi3xBmAaxFfcPL4rgu](https://claude.ai/code/session_01FqdCKi3xBmAaxFfcPL4rgu) | `atlas/`, `scripts/check_all.sh`, `README.md`, `LICENSING.md`, `pages/README.md` | building | 2026-10-22 |
-| Sky Atlas: merge-review screen (slice 11a merge proposals; editor approves or rejects; review-decisions export) | `sky-atlas-new` | same | `atlas/` (reads `ontology/corpus/merge-proposals.csv`) | claimed | 2026-10-22 |
-| Sky Atlas: shared class notes on stars | `sky-atlas-new` | same | `atlas/` | claimed | 2026-10-22 |
-| Plain-language questions: adversarial tests first (rule A2), then rule-based translation in the Atlas | `sky-atlas-new` | same | `ask/` tests, `atlas/` | claimed | 2026-10-22 |
+| Sky Atlas onto main: merge main in, checks, one PR | `sky-atlas-new` | [session_01FqdCKi3xBmAaxFfcPL4rgu](https://claude.ai/code/session_01FqdCKi3xBmAaxFfcPL4rgu) | `atlas/`, `scripts/check_all.sh`, `README.md`, `LICENSING.md`, `pages/README.md` | in review (PR #31) | 2026-10-22 |
+| Sky Atlas: merge-review screen. Built; paused because it overlaps PR #30: the Atlas keeps decisions in the browser as a working list (`MERGE_SHARED = false`); maintainer to choose which screen records them | `sky-atlas-round3` | same | `atlas/` (reads `ontology/corpus/merge-proposals.csv`) | paused | 2026-10-22 |
+| Sky Atlas: shared class notes on every record | `sky-atlas-round3` | same | `atlas/` | building | 2026-10-22 |
+| Plain-language questions: 89 adversarial questions + refusal patterns (`ask/golden/adversarial.jsonl`, `ask/rules.json`, `ask/translate.py`, `ask/static/ask.js`, `ask/index.py`); Ask tab in the Atlas. Note for slice 11b: the Atlas page now embeds `ask/`, so an `ask/` change needs `atlas/build.py` rerun | `sky-atlas-round3` | same | `ask/`, `atlas/` | building | 2026-10-22 |
 | Preview refresh (Observatory, Lifelines), scholar pilot pack, Khadīja fix check, identity questions for scholars | `fixes/pilot-and-corrections` | [session_01EbeK4zbgeZZ2BG7bPF3LPF](https://claude.ai/code/session_01EbeK4zbgeZZ2BG7bPF3LPF) | `review/`, `docs/handover/` | building | 2026-10-22 |
-| Work board and the CLAUDE.md rule | `coordination`, `claude/workboard-rule` | same | `WORKBOARD.md`, `CLAUDE.md` | in review (PR #29) | 2026-10-22 |
 | Merge proposals for every person (908 rows) + merge-review screen in the **review pages** (editor accepts/rejects; `import_decisions.py` writes the decision into `merge-proposals.csv`). Overlaps the Sky Atlas merge-review row above: same proposals, different screen; user to choose | `sira-merge-proposals` | [session_016qVqtfhyhh4S1yN49wjcyi](https://claude.ai/code/session_016qVqtfhyhh4S1yN49wjcyi) | `ontology/tools/propose_merges.py`, `ontology/corpus/merge-proposals.csv`, `review/` | in review (PR #30) | 2026-10-22 |
 | Slice 11b: the reader site, search, thread, Observatory and Ask with the joined graph (thread split per person, paged indexes, the Prophet's ﷺ page in parts, redirects, Connect "same clan", background layer) | `slice-11b-site` | [session_016qVqtfhyhh4S1yN49wjcyi](https://claude.ai/code/session_016qVqtfhyhh4S1yN49wjcyi) | `site/`, `ontology/shacl_check.py` (page hold-back), `ask/`, `site/observatory/` | building | 2026-10-22 |
 | **Hub session** (coordinates al-Marsad work; route new tasks here) | none | [session_01MMFsjHHmzvhvLhM5s4NpnH](https://claude.ai/code/session_01MMFsjHHmzvhvLhM5s4NpnH) | none | active | 2026-10-22 |
@@ -45,6 +44,7 @@ Keep each row to one line. Status words: `claimed`, `building`, `in review (PR #
 
 | Work | PR | Merged |
 |---|---|---|
+| Work board (`coordination` branch) and the CLAUDE.md rule | #29 | 2026-10-22 |
 | CI speed: full-book file out of review test copies, one-pass identity audit, skip review steps on unrelated PRs | #27 | 2026-10-21 |
 | Public readiness: draft and AI banner in README | #25 | 2026-10-21 |
 | CI: check main and PRs only, skip notes-only changes; CLAUDE.md | #24 | 2026-10-21 |
