@@ -1,0 +1,204 @@
+@prefix mrs:  <https://w3id.org/marsad/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix per:  <https://w3id.org/marsad/id/person/> .
+@prefix plc:  <https://w3id.org/marsad/id/place/> .
+@prefix psg:  <https://w3id.org/marsad/id/passage/> .
+@prefix rpt:  <https://w3id.org/marsad/id/report/> .
+@prefix ast:  <https://w3id.org/marsad/id/assertion/> .
+@prefix agt:  <https://w3id.org/marsad/id/agent/> .
+@prefix mom:  <https://w3id.org/marsad/id/moment/> .
+@prefix scn:  <https://w3id.org/marsad/id/scene/> .
+@prefix bad:  <https://w3id.org/marsad/id/scene/INVALID-> .
+
+#################################################################
+#  "Three days in the cave" — scene-layer worked example (LAB)
+#
+#  Source: Ibn Hishām, Sīra, sections S0685, S0686, S0688
+#  (ingest/claims/ibn-hisham-full.jsonl; ontology/corpus/ibn-hisham-full.ttl).
+#  Part A is VALID. Part B (prefix bad:) is DELIBERATELY INVALID and
+#  exists only to show each standing rule firing.
+#
+#  Every claim used is still PROPOSED in the corpus. Part A is therefore
+#  "in review", not publishable: no review decision or approval is
+#  invented here. Spans are copied from the claim files; Moment glosses
+#  are proposed, machine-written, and await a reviewer.
+#################################################################
+
+#################################################################
+#  CONTEXT — minimal copies of corpus triples, so this file validates
+#  on its own. The build validates against the full corpus instead.
+#################################################################
+
+per:Vc74FSoBSMY4TBSEwjPyai a mrs:Person ; rdfs:label "The Prophet Muḥammad (peace and blessings be upon him)"@en ;
+    mrs:depictionConstraint mrs:dc_light_only .      # proposed addition to the corpus record (README, migration step 3)
+per:QYWUDj7ATL1ApLn5P7gmsQ a mrs:Person ; rdfs:label "Abū Bakr al-Ṣiddīq"@en .
+per:8gztwMhLzVG8nUtMnV3GUW a mrs:Person ; rdfs:label "Amir b. Fuhayra"@en .
+plc:Tvj82GYrHHvbBIehvFBQcA a mrs:Place ; rdfs:label "Ghar Thawr"@en .   # no geometryState in the graph today
+
+rpt:DEHElvsq41rsdTvNYU2rwP a mrs:Report ; mrs:locatedIn psg:rfmXj3ZO7gvqNX3mZUqXBk .   # S0685
+rpt:RG2XjPQuBnQZQpwUP5TX11 a mrs:Report ; mrs:locatedIn psg:aBWLFJR7lOsqHHwE5NNm5H .   # S0686
+rpt:FSABA8oJD7mMqDvidSg37Q a mrs:Report ; mrs:locatedIn psg:t1qQntMtw2oDNVUTylmwL2 .   # S0688
+psg:rfmXj3ZO7gvqNX3mZUqXBk a mrs:Passage .
+psg:aBWLFJR7lOsqHHwE5NNm5H a mrs:Passage .
+psg:t1qQntMtw2oDNVUTylmwL2 a mrs:Passage .
+
+ast:lbuhm8tCb7IrRxW9HzScxT a mrs:Assertion ; mrs:assertionStatus mrs:as_proposed ; mrs:fromReport rpt:DEHElvsq41rsdTvNYU2rwP .  # Prophet sheltered at Thawr (S0685 132-173)
+ast:fKQEgwvakH32fJcvGdC0R9 a mrs:Assertion ; mrs:assertionStatus mrs:as_proposed ; mrs:fromReport rpt:DEHElvsq41rsdTvNYU2rwP .  # Abū Bakr sheltered at Thawr (S0685 132-173)
+ast:jsZXGQsK2eDf5DyfAcZIXw a mrs:Assertion ; mrs:assertionStatus mrs:as_proposed ; mrs:fromReport rpt:RG2XjPQuBnQZQpwUP5TX11 .  # Prophet stayed three days (S0686 17-81)
+ast:ZJH4teqAD7Di9wYT1EaT3w a mrs:Assertion ; mrs:assertionStatus mrs:as_proposed ; mrs:fromReport rpt:RG2XjPQuBnQZQpwUP5TX11 .  # Abū Bakr stayed three days (S0686 17-81)
+ast:JPcQ9DIxP3UgY0gKFrqLWS a mrs:Assertion ; mrs:assertionStatus mrs:as_proposed ; mrs:fromReport rpt:RG2XjPQuBnQZQpwUP5TX11 .  # ʿĀmir is Abū Bakr's mawlā (S0686 314-341)
+ast:BFYYcDvOwptKTm7CKvBPUd a mrs:Assertion ; mrs:assertionStatus mrs:as_proposed ; mrs:fromReport rpt:FSABA8oJD7mMqDvidSg37Q .  # ʿĀmir rides behind Abū Bakr (S0688 414-433)
+ast:9fzWgxalAjRjSOm3Wx2dug a mrs:Assertion ; mrs:assertionStatus mrs:as_proposed ; mrs:fromReport rpt:DEHElvsq41rsdTvNYU2rwP .  # unrelated genealogy in S0685 (used only in Part B)
+
+agt:software-extractor a prov:SoftwareAgent .
+
+#################################################################
+#  MOMENTS — proposed beats, each anchored to a claim's span
+#################################################################
+
+mom:cave-01 a mrs:Moment ;
+    mrs:momentOf rpt:DEHElvsq41rsdTvNYU2rwP ; mrs:anchoredIn psg:rfmXj3ZO7gvqNX3mZUqXBk ;
+    mrs:spanStart "132"^^xsd:nonNegativeInteger ; mrs:spanEnd "173"^^xsd:nonNegativeInteger ;
+    mrs:sequenceIndex "1"^^xsd:positiveInteger ;
+    mrs:momentActor per:Vc74FSoBSMY4TBSEwjPyai , per:QYWUDj7ATL1ApLn5P7gmsQ ;
+    mrs:actionType mrs:at_arrive ; mrs:momentPlace plc:Tvj82GYrHHvbBIehvFBQcA ;
+    mrs:hedge mrs:hd_stated ; mrs:momentStatus mrs:as_proposed ;
+    mrs:momentEvidence ast:lbuhm8tCb7IrRxW9HzScxT , ast:fKQEgwvakH32fJcvGdC0R9 ;
+    mrs:momentGloss "Proposed: they enter the cave at Thawr, a mountain below Makkah."@en ;
+    mrs:createdBy agt:software-extractor .
+
+mom:cave-02 a mrs:Moment ;
+    mrs:momentOf rpt:RG2XjPQuBnQZQpwUP5TX11 ; mrs:anchoredIn psg:aBWLFJR7lOsqHHwE5NNm5H ;
+    mrs:spanStart "17"^^xsd:nonNegativeInteger ; mrs:spanEnd "81"^^xsd:nonNegativeInteger ;
+    mrs:sequenceIndex "1"^^xsd:positiveInteger ;
+    mrs:momentActor per:Vc74FSoBSMY4TBSEwjPyai , per:QYWUDj7ATL1ApLn5P7gmsQ ;
+    mrs:actionType mrs:at_stay ; mrs:momentPlace plc:Tvj82GYrHHvbBIehvFBQcA ;
+    mrs:timeCue "three days (English gloss; reviewer to copy the Arabic from the span)"@en ;
+    mrs:hedge mrs:hd_stated ; mrs:momentStatus mrs:as_proposed ;
+    mrs:momentEvidence ast:jsZXGQsK2eDf5DyfAcZIXw , ast:ZJH4teqAD7Di9wYT1EaT3w ;
+    mrs:momentGloss "Proposed: they stay three days in the cave."@en ;
+    mrs:createdBy agt:software-extractor .
+
+mom:cave-03 a mrs:Moment ;
+    mrs:momentOf rpt:FSABA8oJD7mMqDvidSg37Q ; mrs:anchoredIn psg:t1qQntMtw2oDNVUTylmwL2 ;
+    mrs:spanStart "414"^^xsd:nonNegativeInteger ; mrs:spanEnd "433"^^xsd:nonNegativeInteger ;
+    mrs:sequenceIndex "1"^^xsd:positiveInteger ;
+    mrs:momentActor per:8gztwMhLzVG8nUtMnV3GUW , per:QYWUDj7ATL1ApLn5P7gmsQ ;
+    mrs:actionType mrs:at_depart ;
+    mrs:hedge mrs:hd_stated ; mrs:momentStatus mrs:as_proposed ;
+    mrs:momentEvidence ast:BFYYcDvOwptKTm7CKvBPUd ;
+    mrs:momentGloss "Proposed: they set out; Abū Bakr takes ʿĀmir b. Fuhayra up behind him."@en ;
+    mrs:createdBy agt:software-extractor .
+
+#################################################################
+#  PART A — VALID: the scene as it can stand today (in review)
+#################################################################
+
+scn:three-days-in-the-cave a mrs:Scene ;
+    mrs:sceneVersion "0.1.0" ;
+    mrs:publicationState mrs:ps_in_review ;
+    mrs:sceneTitle scn:cave-title ;
+    mrs:scenePlace plc:Tvj82GYrHHvbBIehvFBQcA ;
+    mrs:placeCertainty mrs:pc_unlocated ;         # SC5: Thawr has no geometry in the graph yet
+    mrs:sceneTime scn:cave-time ;
+    mrs:hasBeat scn:cave-b1 , scn:cave-b2 , scn:cave-b3 , scn:cave-b4 ;
+    mrs:hasFigure scn:cave-f-prophet , scn:cave-f-abubakr , scn:cave-f-amir ;
+    mrs:camera scn:cave-cam ;
+    mrs:hasQuestion scn:cave-q1 , scn:cave-q2 ;
+    mrs:hasSoundCue scn:cave-sound .
+
+scn:cave-time a mrs:TemporalExtent ;
+    rdfs:comment "Relative only: the three days named in S0686. No absolute corners are claimed."@en .
+
+scn:cave-title a mrs:SceneText ; mrs:textValue "Three days in the cave"@en ;
+    mrs:resolvesTo mom:cave-02 .
+
+scn:cave-b1 a mrs:SceneBeat ; mrs:beatIndex "1"^^xsd:positiveInteger ; mrs:beatMoment mom:cave-01 ;
+    mrs:narrationLine [ a mrs:SceneText ; mrs:textValue "The Prophet ﷺ and Abū Bakr enter the cave at Thawr."@en ;
+                        mrs:resolvesTo mom:cave-01 , ast:lbuhm8tCb7IrRxW9HzScxT ] .
+scn:cave-b2 a mrs:SceneBeat ; mrs:beatIndex "2"^^xsd:positiveInteger ; mrs:beatMoment mom:cave-02 ;
+    mrs:narrationLine [ a mrs:SceneText ; mrs:textValue "They stay there three days."@en ;
+                        mrs:resolvesTo mom:cave-02 ] .
+scn:cave-b3 a mrs:SceneBeat ; mrs:beatIndex "3"^^xsd:positiveInteger ; mrs:beatClaim ast:JPcQ9DIxP3UgY0gKFrqLWS ;
+    mrs:narrationLine [ a mrs:SceneText ; mrs:textValue "ʿĀmir b. Fuhayra, Abū Bakr's mawlā, is named in the account."@en ;
+                        mrs:resolvesTo ast:JPcQ9DIxP3UgY0gKFrqLWS ] .
+scn:cave-b4 a mrs:SceneBeat ; mrs:beatIndex "4"^^xsd:positiveInteger ; mrs:beatMoment mom:cave-03 ;
+    mrs:narrationLine [ a mrs:SceneText ; mrs:textValue "When they set out, Abū Bakr takes ʿĀmir up behind him."@en ;
+                        mrs:resolvesTo mom:cave-03 ] .
+
+scn:cave-f-prophet a mrs:SceneFigure ; mrs:depicts per:Vc74FSoBSMY4TBSEwjPyai ; mrs:drawRole mrs:dr_light ;
+    mrs:figureEvidence ast:jsZXGQsK2eDf5DyfAcZIXw .
+scn:cave-f-abubakr a mrs:SceneFigure ; mrs:depicts per:QYWUDj7ATL1ApLn5P7gmsQ ; mrs:drawRole mrs:dr_person ;
+    mrs:figureEvidence ast:ZJH4teqAD7Di9wYT1EaT3w .
+scn:cave-f-amir a mrs:SceneFigure ; mrs:depicts per:8gztwMhLzVG8nUtMnV3GUW ; mrs:drawRole mrs:dr_stone ;
+    mrs:figureEvidence ast:JPcQ9DIxP3UgY0gKFrqLWS .
+
+scn:cave-cam a mrs:CameraPose ; mrs:cameraTarget scn:cave-f-prophet ;
+    mrs:headingDeg 0.0 ; mrs:pitchDeg -10.0 ; mrs:rangeM 12.0 .   # relative pose only: the place is unlocated
+
+scn:cave-q1 a mrs:SceneQuestion ;
+    mrs:questionPrompt [ a mrs:SceneText ; mrs:textValue "How long did they stay in the cave?"@en ; mrs:resolvesTo mom:cave-02 ] ;
+    mrs:hasOption [ a mrs:QuestionOption ; mrs:optionText "Three days"@en ; mrs:isAnswer true ;
+                    mrs:optionEvidence ast:jsZXGQsK2eDf5DyfAcZIXw ] ,
+                  [ a mrs:QuestionOption ; mrs:optionText "Ten days"@en ; mrs:isAnswer false ;
+                    mrs:optionEvidence ast:jsZXGQsK2eDf5DyfAcZIXw ] .
+scn:cave-q2 a mrs:SceneQuestion ;
+    mrs:questionPrompt [ a mrs:SceneText ; mrs:textValue "Whose mawlā was ʿĀmir b. Fuhayra?"@en ; mrs:resolvesTo ast:JPcQ9DIxP3UgY0gKFrqLWS ] ;
+    mrs:hasOption [ a mrs:QuestionOption ; mrs:optionText "Abū Bakr's"@en ; mrs:isAnswer true ;
+                    mrs:optionEvidence ast:JPcQ9DIxP3UgY0gKFrqLWS ] ,
+                  [ a mrs:QuestionOption ; mrs:optionText "No one's; he was free-born"@en ; mrs:isAnswer false ;
+                    mrs:optionEvidence ast:JPcQ9DIxP3UgY0gKFrqLWS ] .
+
+scn:cave-sound a mrs:SoundCue ; mrs:cueKind mrs:sk_ambient ; mrs:cueAtBeat scn:cave-b2 ; mrs:cueAsset "ambient/night-wind" .
+
+scn:hijrah-journey a mrs:Journey ; mrs:publicationState mrs:ps_draft ;
+    mrs:hasStep [ a mrs:JourneyStep ; mrs:stepIndex "1"^^xsd:positiveInteger ; mrs:stepScene scn:three-days-in-the-cave ] .
+
+#################################################################
+#  PART B — DELIBERATELY INVALID. Each line marked "breaks" fails.
+#################################################################
+
+bad:scene a mrs:Scene ;
+    mrs:sceneVersion "0.2.0" ;
+    mrs:publicationState mrs:ps_publishable ;     # breaks SC3: claims proposed, Moment unreviewed, no valid approval
+    mrs:sceneTitle bad:title ;
+    mrs:sceneCaption "A night of fear and trust in the mountain."@en ;   # breaks SC1: bare string, rests on nothing
+    mrs:scenePlace plc:Tvj82GYrHHvbBIehvFBQcA ;
+    mrs:placeCertainty mrs:pc_certain ;           # breaks SC5: no coordinates, yet not 'unlocated'
+    mrs:hasBeat bad:b1 ;
+    mrs:hasFigure bad:f-prophet , bad:f-amir ;
+    mrs:hasQuestion bad:q1 ;
+    mrs:hasSoundCue bad:sound .
+
+bad:title a mrs:SceneText ; mrs:textValue "The cave"@en ;
+    mrs:resolvesTo ast:9fzWgxalAjRjSOm3Wx2dug .   # breaks SC1: resolves to a claim that is no beat of this scene
+
+bad:moment a mrs:Moment ;
+    mrs:momentOf rpt:RG2XjPQuBnQZQpwUP5TX11 ; mrs:anchoredIn psg:aBWLFJR7lOsqHHwE5NNm5H ;
+    mrs:spanStart "81"^^xsd:nonNegativeInteger ; mrs:spanEnd "17"^^xsd:nonNegativeInteger ;   # breaks SC6: start not before end
+    mrs:sequenceIndex "1"^^xsd:positiveInteger ; mrs:actionType mrs:at_stay ; mrs:hedge mrs:hd_stated ;
+    mrs:momentStatus mrs:as_accepted ;            # breaks SC6: accepted by software, no human decision
+    mrs:momentEvidence ast:BFYYcDvOwptKTm7CKvBPUd ;   # breaks SC6: evidence from another report
+    mrs:createdBy agt:software-extractor .
+
+bad:b1 a mrs:SceneBeat ; mrs:beatIndex "1"^^xsd:positiveInteger ; mrs:beatMoment bad:moment ; mrs:beatClaim ast:jsZXGQsK2eDf5DyfAcZIXw .  # breaks: beat carries both
+
+bad:f-prophet a mrs:SceneFigure ; mrs:depicts per:Vc74FSoBSMY4TBSEwjPyai ; mrs:drawRole mrs:dr_person ;   # breaks SC4
+    mrs:figureEvidence ast:jsZXGQsK2eDf5DyfAcZIXw .
+bad:f-amir a mrs:SceneFigure ; mrs:depicts per:8gztwMhLzVG8nUtMnV3GUW ; mrs:drawRole mrs:dr_light .   # breaks SC4 (light reserved) and figure evidence
+
+bad:q1 a mrs:SceneQuestion ;
+    mrs:questionPrompt [ a mrs:SceneText ; mrs:textValue "How long did they stay?"@en ; mrs:resolvesTo ast:jsZXGQsK2eDf5DyfAcZIXw ] ;
+    mrs:hasOption [ a mrs:QuestionOption ; mrs:optionText "Three days"@en ; mrs:isAnswer true ;
+                    mrs:optionEvidence ast:jsZXGQsK2eDf5DyfAcZIXw ] ,
+                  [ a mrs:QuestionOption ; mrs:optionText "A week"@en ; mrs:isAnswer false ] .   # breaks SC2: no evidence claim
+
+bad:sound a mrs:SoundCue ; mrs:cueKind bad:voice-of-abu-bakr .   # breaks SC8: no voice
+
+bad:approval a mrs:ApprovalAct ;
+    mrs:reviewedBy agt:software-extractor ;       # breaks SC7: not a human
+    mrs:reviewTarget bad:scene ; mrs:reviewOutcome mrs:ro_accept ;
+    mrs:reviewDate "2026-10-17"^^xsd:date ;
+    mrs:approvedVersion "0.1.0" .                 # stale: scene is now 0.2.0 (warning)

@@ -1,0 +1,423 @@
+{
+  "act": 5,
+  "title": "The plot",
+  "subtitle": "The Prophet ﷺ waits for leave, Abū Bakr readies two camels, and the chiefs of Quraysh meet at Dār al-Nadwa to decide his fate",
+  "span": "end of Ṣafar, year 1 (622 CE)",
+  "units": [
+    {
+      "id": "a05-u01",
+      "title": "The last to stay",
+      "kicker": "After the emigrants have gone",
+      "when": {"label": "The weeks before the Hijra (622 CE)", "grade": "supported"},
+      "place": {"key": "makkah"},
+      "sky": "day",
+      "camera": {"target": "makkah", "dist": 4, "pitch": 35, "heading": 200},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Abū Bakr", "role": "person"},
+        {"name": "ʿAlī b. Abī Ṭālib", "role": "person"}
+      ],
+      "route": ["makkah"],
+      "statements": [
+        {"text": "Ibn Isḥāq says that after his Companions among the emigrants had left, the Prophet ﷺ stayed on in Makkah, waiting to be given leave to emigrate.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0678"}]},
+        {"text": "By his account, none of the emigrants remained in Makkah except those who were held back by force or were being pressed to abandon their faith.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0678"}]},
+        {"text": "The only two others he names as still there with him are ʿAlī b. Abī Ṭālib and Abū Bakr b. Abī Quḥāfa.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0678"}]},
+        {"text": "In ʿĀʾisha's long report of the Hijra, the Prophet ﷺ tells the Muslims he has been shown the land of their emigration: a place of palm trees between two lava fields.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Her report adds that some then emigrated toward Madina, and that most of those who had earlier gone to Abyssinia came back to Madina.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Makkah lies in a narrow, dry valley closed in by bare granite hills.", "grade": "reconstruction", "basis": "terrain data"}
+      ],
+      "people": [
+        {"name": "ʿAlī b. Abī Ṭālib", "who": "The Prophet's cousin", "here": "Named by Ibn Isḥāq as one of the two who remained in Makkah with him"},
+        {"name": "Abū Bakr b. Abī Quḥāfa", "who": "The Prophet's close Companion", "here": "Named as the other who remained"}
+      ],
+      "discover": [
+        {"label": "Look at the land between two lava fields", "camera": {"target": "madina", "dist": 40, "pitch": 45, "heading": 0}, "reveal": {"text": "The Madina oasis sits between broad fields of black basalt lava (ḥarra) to its east and west, with palm gardens in the ground between.", "grade": "reconstruction", "basis": "geological and terrain maps of the Madina ḥarrāt"}}
+      ],
+      "matters": "The community moves before its leader does. The Prophet ﷺ leaves last, and he waits for leave rather than fixing his own time.",
+      "sections": ["S0678"]
+    },
+    {
+      "id": "a05-u02",
+      "title": "“Do not hurry”",
+      "kicker": "Abū Bakr asks again",
+      "when": {"label": "The months before the Hijra (622 CE)", "grade": "supported"},
+      "place": {"key": "makkah"},
+      "sky": "day",
+      "camera": {"target": "makkah", "dist": 2, "pitch": 30, "heading": 90},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Abū Bakr", "role": "person"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq says Abū Bakr often asked the Prophet ﷺ for leave to emigrate.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0678"}]},
+        {"text": "Each time, the source has the Prophet ﷺ answer that he should not hurry, for perhaps God would give him a companion.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0678"}, {"type": "ibn-hisham", "sec": "S0682"}]},
+        {"text": "Ibn Isḥāq says Abū Bakr hoped the words pointed to the Prophet ﷺ himself, that is, that the promised companion would be him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0678"}, {"type": "ibn-hisham", "sec": "S0682"}]},
+        {"text": "In ʿĀʾisha's report the reply is worded differently: when Abū Bakr prepared to set out for Madina, the Prophet ﷺ told him to take his time, because he himself hoped to be given leave.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Her report has Abū Bakr ask whether he really hoped for that, and the answer is yes.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "So, ʿĀʾisha says, Abū Bakr held himself back for the Prophet's ﷺ sake, in order to travel with him.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]}
+      ],
+      "discover": [
+        {"label": "Compare the two tellings", "reveal": {"text": "Ibn Isḥāq gives the reply twice. In the first telling God may ‘make’ (yajʿal) a companion for Abū Bakr; in the second God may ‘find’ (yajid) one.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0678"}, {"type": "ibn-hisham", "sec": "S0682"}]}}
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "In ʿĀʾisha's report, what reason does the Prophet ﷺ give Abū Bakr for waiting?",
+        "options": [
+          {"text": "He hoped to be given leave to emigrate himself", "ok": true, "why": "That is the reason her report gives, and Abū Bakr asks whether he truly hopes for it.", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+          {"text": "The camels were not yet ready", "ok": false, "why": "In her report the feeding of the camels comes after this answer, as Abū Bakr's response to it.", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+          {"text": "The road north was being watched", "ok": false, "why": "Neither report gives this as the reason for the delay.", "sources": [{"type": "ibn-hisham", "sec": "S0678"}]}
+        ]
+      },
+      "matters": "Abū Bakr is given no date, only a hope. Both reports show him turning that hope into a decision to stay.",
+      "sections": ["S0678", "S0682"]
+    },
+    {
+      "id": "a05-u03",
+      "title": "Two riding camels",
+      "kicker": "Four months of feeding",
+      "when": {"label": "About four months before the departure (622 CE)", "grade": "established"},
+      "place": {"key": "makkah", "note": "Abū Bakr's house in Makkah; its exact site is not mapped"},
+      "sky": "day",
+      "camera": {"target": "makkah", "dist": 1.5, "pitch": 40, "heading": 30},
+      "lights": [
+        {"name": "Abū Bakr", "role": "person"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq describes Abū Bakr as a man of wealth.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0682"}]},
+        {"text": "He says that after hearing the reply, Abū Bakr bought two riding camels and kept them at his house, feeding them so they would be ready.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0682"}]},
+        {"text": "ʿĀʾisha's report agrees that he fed two riding camels for the journey, and adds that he fed them leaves of the samur tree, which she glosses as khabaṭ, for four months.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}, {"type": "ibn-hisham", "sec": "S0682"}]},
+        {"text": "The two accounts differ slightly: Ibn Isḥāq has Abū Bakr buy the camels for the purpose, while ʿĀʾisha's wording says only that the camels were with him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0682"}, {"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Neither account gives a calendar date for when the four months of feeding began.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0682"}, {"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "The samur is the umbrella-thorn acacia, a common tree of the dry wadis of the Ḥijāz.", "grade": "reconstruction", "basis": "botany of the Ḥijāz"}
+      ],
+      "discover": [
+        {"label": "What is khabaṭ?", "reveal": {"text": "Khabaṭ is the name for tree leaves knocked down with a stick and gathered as fodder; on acacias the leaves grow among long thorns, so beating them down is the practical way to collect them.", "grade": "reconstruction", "basis": "botanical description of acacia and Arabic lexical references"}}
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Abū Bakr is told only ‘perhaps God will give you a companion’. What do the sources say he does next?",
+        "options": [
+          {"text": "Readies two riding camels and feeds them", "ok": true, "why": "Both Ibn Isḥāq and ʿĀʾisha's report say so; she adds that the feeding lasted four months.", "sources": [{"type": "ibn-hisham", "sec": "S0682"}, {"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+          {"text": "Leaves for Madina alone", "ok": false, "why": "Both reports keep him in Makkah, holding himself back to travel with the Prophet ﷺ.", "sources": [{"type": "ibn-hisham", "sec": "S0678"}, {"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+          {"text": "Sells his house to fund the journey", "ok": false, "why": "Nothing of the kind is in these sources; they speak only of the camels.", "sources": [{"type": "ibn-hisham", "sec": "S0682"}]}
+        ]
+      },
+      "matters": "A hope is answered with preparation. The camels show that Abū Bakr took ‘perhaps’ seriously enough to spend on it.",
+      "sections": ["S0682"]
+    },
+    {
+      "id": "a05-u04",
+      "title": "A refuge beyond their reach",
+      "kicker": "Quraysh after the pledge of the Anṣār",
+      "when": {"label": "After the second pledge of al-ʿAqaba (622 CE)", "grade": "supported"},
+      "place": {"key": "makkah"},
+      "sky": "day",
+      "camera": {"target": [39.72, 22.95], "dist": 380, "pitch": 35, "heading": 350},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "the chiefs of Quraysh", "role": "group-stone"}
+      ],
+      "route": ["makkah", "madina"],
+      "statements": [
+        {"text": "Ibn Isḥāq says Quraysh saw that the Prophet ﷺ now had partisans and companions who were not of their tribe and who lived outside their land.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "They also saw his Companions among the emigrants leaving Makkah to join those people.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "From this, he says, they understood that the emigrants had found a home and had gained protection there.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "They were wary that the Prophet ﷺ himself would go out to join them, and they understood that a resolve to make war on them had been formed.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The straight line from Makkah to al-Madīna runs almost due north for about 340 km.", "grade": "reconstruction", "basis": "computed distance between gazetteer points"}
+      ],
+      "discover": [
+        {"label": "Look north to the new refuge", "camera": {"target": "madina", "dist": 120, "pitch": 30, "heading": 0}, "reveal": {"text": "At camel pace that distance meant many days on the road, far beyond the reach of Makkah's ordinary authority.", "grade": "reconstruction", "basis": "computed distance between gazetteer points and typical caravan pace"}}
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Quraysh had opposed the Prophet ﷺ inside Makkah for years. According to Ibn Isḥāq, what changed now?",
+        "options": [
+          {"text": "His followers had a protected home outside Makkah", "ok": true, "why": "Ibn Isḥāq says they saw his Companions settling among people of another land who gave them protection.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "He had begun to attack their caravans", "ok": false, "why": "Nothing of the kind is in this account; the fear is of what might come, not of anything already done.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "His own clan had withdrawn its protection", "ok": false, "why": "This passage gives no such reason; it speaks of the emigrants and their new hosts.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+        ]
+      },
+      "matters": "The threat Quraysh feared was not a man in their city but a man with a base outside it. The Hijra changed the map before it happened.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u05",
+      "title": "The house of Quṣayy",
+      "kicker": "Dār al-Nadwa, on the appointed morning",
+      "when": {"label": "Yawm al-Zaḥma, shortly before the Hijra (622 CE)", "grade": "supported"},
+      "place": {"key": "dar_nadwa", "note": "Beside the Kaʿba per the sources; the exact footprint is not established"},
+      "sky": "dawn",
+      "camera": {"target": "dar_nadwa", "dist": 0.8, "pitch": 50, "heading": 120},
+      "lights": [
+        {"name": "the chiefs of Quraysh", "role": "group-stone"}
+      ],
+      "statements": [
+        {"text": "They met in Dār al-Nadwa, which Ibn Isḥāq calls the house of Quṣayy b. Kilāb, where Quraysh decided no matter except there.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "He says they gathered to consult on what to do about the Prophet ﷺ, at a time when they feared him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "In the report Ibn Isḥāq traces to Ibn ʿAbbās, they had fixed the meeting in advance and set off for it early in the morning of the appointed day.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "That report says the day was called Yawm al-Zaḥma, ‘the Day of the Crowding’.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+      ],
+      "discover": [
+        {"label": "Turn toward the Kaʿba", "camera": {"target": "kaaba", "dist": 0.8, "pitch": 45, "heading": 140}, "reveal": {"text": "The illustrative point for Dār al-Nadwa sits about 100 m from the Kaʿba; the sources place the house beside the sanctuary, but its true footprint is not established.", "grade": "reconstruction", "basis": "computed distance between gazetteer points"}}
+      ],
+      "matters": "The decision was taken in the founding house of Quraysh, the place where their common business was settled. This was the tribe acting as a body.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u06",
+      "title": "An elder at the door",
+      "kicker": "As Ibn Isḥāq narrates it",
+      "when": {"label": "Yawm al-Zaḥma (622 CE)", "grade": "supported"},
+      "place": {"key": "dar_nadwa"},
+      "sky": "dawn",
+      "camera": {"target": "dar_nadwa", "dist": 0.8, "pitch": 25, "heading": 250},
+      "lights": [
+        {"name": "the elder from Najd (as narrated)", "role": "stone"},
+        {"name": "the chiefs of Quraysh", "role": "group-stone"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq gives his chain: a man he does not name, but says he does not suspect, from ʿAbd Allāh b. Abī Najīḥ, from Mujāhid b. Jabr and others, from ʿAbd Allāh b. ʿAbbās.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "Because one link is unnamed, the story rests on Ibn Isḥāq's trust in his informant; it is a narration of the Sīra, not an authenticated ḥadīth.", "grade": "disputed", "sources": [{"type": "ibn-hisham", "sec": "S0679"}], "note": "Unnamed transmitter (‘someone I do not suspect’) between Ibn Isḥāq and Ibn Abī Najīḥ."},
+        {"text": "The report says Iblīs met them in the form of a venerable elder wearing a coarse cloak, and stood at the door of the house.", "grade": "disputed", "sources": [{"type": "ibn-hisham", "sec": "S0679"}], "note": "Carried by the Ibn ʿAbbās report above, whose chain has an unnamed link."},
+        {"text": "Asked who he was, the source has him say he was an elder from Najd who had heard of their meeting and come to listen, and that they might find advice and counsel in him.", "grade": "disputed", "sources": [{"type": "ibn-hisham", "sec": "S0679"}], "note": "Same report and same chain weakness."},
+        {"text": "In the report they accept, and he goes in with them.", "grade": "disputed", "sources": [{"type": "ibn-hisham", "sec": "S0679"}], "note": "Same report and same chain weakness."},
+        {"text": "A shorter report attributed to Ibn ʿAbbās, on Qurʾān 8:30, in the Musnad of Aḥmad, has Quraysh confer at night, some saying to bind him, some to kill him, some to drive him out; it does not mention the elder.", "grade": "disputed", "sources": [{"type": "hadith", "ref": "Musnad Aḥmad, Musnad ʿAbd Allāh b. ʿAbbās (report on Qurʾān 8:30)", "grade": "chain debated", "verify": true}], "note": "Ḥadīth critics differ on this chain; it also places the council at night, where Ibn Isḥāq's report has a morning meeting."}
+      ],
+      "discover": [
+        {"label": "Look east toward Najd", "camera": {"target": [41.5, 23.2], "dist": 450, "pitch": 30, "heading": 80}, "reveal": {"text": "Najd is the high inland plateau east of the Ḥijāz mountains, several days' ride from Makkah.", "grade": "reconstruction", "basis": "terrain data"}}
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Ibn Isḥāq's chain for this story contains a man he does not name. How should that shape the way you hold the elder at the door?"
+      },
+      "matters": "In the narration the elder is the voice that weighs every plan. Knowing how the story reached us lets you keep its lesson while holding its details lightly.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u07",
+      "title": "Who sat in the council: ʿAbd Shams and Nawfal",
+      "kicker": "The nobles of Quraysh, clan by clan",
+      "when": {"label": "Yawm al-Zaḥma (622 CE)", "grade": "supported"},
+      "place": {"key": "dar_nadwa"},
+      "sky": "day",
+      "camera": {"target": "dar_nadwa", "dist": 0.9, "pitch": 60, "heading": 30},
+      "lights": [
+        {"name": "ʿUtba b. Rabīʿa", "role": "stone"},
+        {"name": "Shayba b. Rabīʿa", "role": "stone"},
+        {"name": "Abū Sufyān b. Ḥarb", "role": "stone"},
+        {"name": "Ṭuʿayma b. ʿAdī", "role": "stone"},
+        {"name": "Jubayr b. Muṭʿim", "role": "stone"},
+        {"name": "al-Ḥārith b. ʿĀmir b. Nawfal", "role": "stone"}
+      ],
+      "statements": [
+        {"text": "The report says the nobles (ashrāf) of Quraysh had gathered in the house, and it names them clan by clan.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "From Banū ʿAbd Shams it names ʿUtba b. Rabīʿa, Shayba b. Rabīʿa, and Abū Sufyān b. Ḥarb.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "From Banū Nawfal b. ʿAbd Manāf it names Ṭuʿayma b. ʿAdī, Jubayr b. Muṭʿim, and al-Ḥārith b. ʿĀmir b. Nawfal.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The report attributes none of the proposals to any of these six men; the only speaker it names in the debate is Abū Jahl.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+      ],
+      "people": [
+        {"name": "ʿUtba and Shayba b. Rabīʿa", "who": "Two sons of Rabīʿa of Banū ʿAbd Shams", "here": "Named among those present"},
+        {"name": "Abū Sufyān b. Ḥarb", "who": "Of Banū ʿAbd Shams", "here": "Named among those present"},
+        {"name": "Jubayr b. Muṭʿim", "who": "Of Banū Nawfal", "here": "Named among those present"}
+      ],
+      "discover": [
+        {"label": "Trace the family tree", "reveal": {"text": "ʿAbd Shams and Nawfal were, like Hāshim and al-Muṭṭalib, sons of ʿAbd Manāf b. Quṣayy, so these two clans were close cousins of the Prophet's ﷺ own clan.", "grade": "supported", "sources": [{"type": "other", "ref": "Ibn Hishām, al-Sīra al-nabawiyya, genealogy of the sons of ʿAbd Manāf", "note": "Genealogical section near the opening of the Sīra", "verify": true}]}}
+      ],
+      "matters": "The council was not a gathering of strangers. Some of the men named came from branches of the Prophet's ﷺ own wider family.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u08",
+      "title": "Who sat in the council: the other clans",
+      "kicker": "ʿAbd al-Dār, Asad, Makhzūm, Sahm, Jumaḥ",
+      "when": {"label": "Yawm al-Zaḥma (622 CE)", "grade": "supported"},
+      "place": {"key": "dar_nadwa"},
+      "sky": "day",
+      "camera": {"target": "dar_nadwa", "dist": 0.9, "pitch": 60, "heading": 210},
+      "lights": [
+        {"name": "al-Naḍr b. al-Ḥārith b. Kalada", "role": "stone"},
+        {"name": "Abū l-Bakhtarī b. Hishām", "role": "stone"},
+        {"name": "Zamʿa b. al-Aswad b. al-Muṭṭalib", "role": "stone"},
+        {"name": "Ḥakīm b. Ḥizām", "role": "stone"},
+        {"name": "Abū Jahl b. Hishām", "role": "stone"},
+        {"name": "Nubayh b. al-Ḥajjāj", "role": "stone"},
+        {"name": "Munabbih b. al-Ḥajjāj", "role": "stone"},
+        {"name": "Umayya b. Khalaf", "role": "stone"}
+      ],
+      "statements": [
+        {"text": "From Banū ʿAbd al-Dār b. Quṣayy the report names al-Naḍr b. al-Ḥārith b. Kalada.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "From Banū Asad b. ʿAbd al-ʿUzzā it names Abū l-Bakhtarī b. Hishām, Zamʿa b. al-Aswad b. al-Muṭṭalib, and Ḥakīm b. Ḥizām.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "From Banū Makhzūm it names Abū Jahl b. Hishām; from Banū Sahm, Nubayh and Munabbih, the sons of al-Ḥajjāj; from Banū Jumaḥ, Umayya b. Khalaf.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The list ends with ‘those who were with them’, and others who were not counted as Quraysh.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The list names no one from Banū Hāshim, the Prophet's ﷺ own clan, or from Banū al-Muṭṭalib.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+      ],
+      "discover": [
+        {"label": "Count the names", "reveal": {"text": "Across both halves of the list the report names fourteen men from seven clans of Quraysh.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}}
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Three proposals will be put to this room: prison, banishment and killing. Which one does the report say they left agreed upon?",
+        "options": [
+          {"text": "Killing, by young men drawn from every clan", "ok": true, "why": "The report ends with the people dispersing agreed on Abū Jahl's plan.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "Prison behind a locked door", "ok": false, "why": "The elder rejects it, saying his followers would free him.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "Banishment from Makkah", "ok": false, "why": "The elder rejects it, saying he would win over another tribe and return with them.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+        ]
+      },
+      "matters": "Seven clans in one room meant that whatever was decided would be decided by Quraysh as a whole, and that is exactly what the final plan relied on.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u09",
+      "title": "First proposal: iron and a locked door",
+      "kicker": "The debate opens",
+      "when": {"label": "Yawm al-Zaḥma (622 CE)", "grade": "supported"},
+      "place": {"key": "dar_nadwa"},
+      "sky": "day",
+      "camera": {"target": "dar_nadwa", "dist": 1, "pitch": 65, "heading": 300},
+      "lights": [
+        {"name": "the chiefs of Quraysh", "role": "group-stone"},
+        {"name": "the elder from Najd (as narrated)", "role": "stone"}
+      ],
+      "statements": [
+        {"text": "In the report, they begin by telling one another that they have all seen what this man's affair has become, and that they do not feel safe from his turning on them with the outsiders who follow him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "An unnamed speaker proposes that they bind him in iron, shut a door on him, and wait until death takes him as it took the poets before him, Zuhayr and al-Nābigha.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The elder rejects it. As the source has him say, word of him would slip out from behind the locked door to his companions, who would soon fall on them, take him from their hands, and outnumber them until they overpowered them.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The comparison with Zuhayr and al-Nābigha treats him as a poet, the same label the Qurʾān reports his opponents using: ‘a poet, for whom we await the turn of fate’.", "grade": "established", "sources": [{"type": "quran", "ref": "52:30"}, {"type": "ibn-hisham", "sec": "S0679"}]}
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "The elder will reject prison. What danger does the report have him name?",
+        "options": [
+          {"text": "His companions would break him out and overpower Quraysh", "ok": true, "why": "That is the objection the report gives.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "Imprisoning a man of Quraysh broke their custom", "ok": false, "why": "The report gives no objection from custom.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "He might live for many years", "ok": false, "why": "The report's elder does not argue from time; he argues from the risk of rescue.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+        ]
+      },
+      "matters": "The first plan assumed the message could be locked up with the man. The objection, as narrated, is that it could not.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u10",
+      "title": "Second proposal: drive him out",
+      "kicker": "Banishment is weighed",
+      "when": {"label": "Yawm al-Zaḥma (622 CE)", "grade": "supported"},
+      "place": {"key": "dar_nadwa"},
+      "sky": "day",
+      "camera": {"target": "dar_nadwa", "dist": 1.2, "pitch": 55, "heading": 20},
+      "lights": [
+        {"name": "the chiefs of Quraysh", "role": "group-stone"},
+        {"name": "the elder from Najd (as narrated)", "role": "stone"}
+      ],
+      "statements": [
+        {"text": "Another speaker, unnamed, proposes expelling him from among them and banishing him from their land; once he was gone, the source has him say, they would not care where he went or where he ended up.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "With him gone, the speaker argues, they could set their affairs right and restore the unity they had before.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The elder rejects this too, pointing, as narrated, to the beauty of his speech, the sweetness of his words, and the hold his message took on men's hearts.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "Banished, the elder warns, he might settle among some Arab tribe and win them over until they followed him, then lead them against Quraysh, trample them in their own land, and take their affairs out of their hands.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+      ],
+      "discover": [
+        {"label": "Look at the open country beyond Makkah", "camera": {"target": [40.2, 22.5], "dist": 300, "pitch": 30, "heading": 0}, "reveal": {"text": "Beyond Makkah's valley lay a wide country of wadis, wells and oases, where a banished man could find a host far from Quraysh's reach.", "grade": "reconstruction", "basis": "terrain data"}}
+      ],
+      "matters": "The case against banishment, as narrated, is a concession: his opponents' own counsellor credits the power of his words.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u11",
+      "title": "Abū Jahl's plan",
+      "kicker": "A young man from every clan",
+      "when": {"label": "Yawm al-Zaḥma (622 CE)", "grade": "supported"},
+      "place": {"key": "dar_nadwa"},
+      "sky": "day",
+      "camera": {"target": "dar_nadwa", "dist": 1, "pitch": 70, "heading": 160},
+      "lights": [
+        {"name": "Abū Jahl b. Hishām", "role": "stone"},
+        {"name": "the elder from Najd (as narrated)", "role": "stone"},
+        {"name": "the chiefs of Quraysh", "role": "group-stone"}
+      ],
+      "statements": [
+        {"text": "Abū Jahl b. Hishām, whom the others address by his kunya Abū l-Ḥakam, says he has a view they have not yet reached.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "He proposes taking from every clan a young man who is strong, well born and well placed among them, and giving each a sharp sword.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "They would go to him and strike him all at once, ‘the blow of a single man’, kill him, and be rid of him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The logic, as the source has him give it: his blood would be spread across all the clans, Banū ʿAbd Manāf could not make war on their whole people, and they would accept blood-money (ʿaql), which the clans would pay.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The elder, as narrated, endorses it: this is the view, and there is no other.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+        {"text": "The report ends with the people dispersing, agreed upon it.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Why does Abū Jahl want a young man from every clan rather than one killer?",
+        "options": [
+          {"text": "So the blood would be shared and no single clan could be targeted for revenge", "ok": true, "why": "That is the reason he gives: Banū ʿAbd Manāf could not fight all of Quraysh and would have to accept blood-money.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "Because one man might lose his nerve", "ok": false, "why": "The report gives no such reason; it gives only the reason of shared blood.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]},
+          {"text": "To honour the Prophet's ﷺ rank with a large escort", "ok": false, "why": "Nothing in the report supports this.", "sources": [{"type": "ibn-hisham", "sec": "S0679"}]}
+        ]
+      },
+      "matters": "The plan was designed so that no one would be responsible: guilt was divided until it could be paid off.",
+      "sections": ["S0679"]
+    },
+    {
+      "id": "a05-u12",
+      "title": "The Qurʾān names the plot",
+      "kicker": "Verses Ibn Isḥāq ties to that day",
+      "when": {"label": "Yawm al-Zaḥma and after (622 CE)", "grade": "supported"},
+      "place": {"key": "kaaba"},
+      "sky": "day",
+      "camera": {"target": "kaaba", "dist": 1.5, "pitch": 40, "heading": 270},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq says that among what God revealed about that day and what they had agreed on was 8:30, on the disbelievers plotting to confine the Prophet ﷺ, kill him, or drive him out, while God also plans, and is the best of planners.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0681"}, {"type": "quran", "ref": "8:30"}]},
+        {"text": "He also cites 52:30–31: those who call him a poet and wait for fate to overtake him are told to wait, for he too is waiting with them.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0681"}, {"type": "quran", "ref": "52:30-31"}]},
+        {"text": "The three plots named in 8:30, confining, killing and expelling, are the three options the council weighs in Ibn Isḥāq's account.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}, {"type": "quran", "ref": "8:30"}]},
+        {"text": "The verb of waiting in 52:30 is the same verb the first proposal used in the council: wait for death to take him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}, {"type": "ibn-hisham", "sec": "S0681"}]},
+        {"text": "Ibn Hishām explains al-manūn as death and ‘rayb al-manūn’ as its sudden turns, and quotes a line of the poet Abū Dhuʾayb al-Hudhalī to illustrate the word.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0681"}]},
+        {"text": "Sūrat al-Anfāl, where 8:30 stands, is generally dated after the battle of Badr, so the verse is often read as recalling the plot after the event.", "grade": "disputed", "sources": [{"type": "other", "ref": "al-Ṭabarī, Jāmiʿ al-bayān, on Qurʾān 8:30", "verify": true}], "note": "Ibn Isḥāq's phrase can be read as ‘revealed on that day’ or ‘revealed about that day’; the commentators date al-Anfāl later."}
+      ],
+      "quran": [
+        {"ref": "8:30", "gist": "God reminds the Prophet ﷺ of the time the disbelievers schemed to hold him fast, kill him or expel him; they schemed, and God planned, and God's planning is best.", "context": "Ibn Isḥāq links it to the council at Dār al-Nadwa (supported, S0681); the verse itself is Qurʾān.", "grade": "established"},
+        {"ref": "52:30-31", "gist": "His opponents call him a poet and wait for misfortune to carry him off; he is told to answer that they may wait, for he waits with them.", "context": "Ibn Isḥāq places these verses alongside 8:30 as revealed concerning that day (supported, S0681).", "grade": "supported"}
+      ],
+      "discover": [
+        {"label": "Set the plan beside the verse", "reveal": {"text": "The council's three options appear in 8:30 in the order confine, kill, expel; the report's debate takes them in the order prison, banishment, killing.", "grade": "supported", "sources": [{"type": "quran", "ref": "8:30"}, {"type": "ibn-hisham", "sec": "S0679"}]}}
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Which three schemes does Qurʾān 8:30 name?",
+        "options": [
+          {"text": "To confine him, kill him, or drive him out", "ok": true, "why": "These are the three the verse names.", "sources": [{"type": "quran", "ref": "8:30"}]},
+          {"text": "To bribe him, exile him, or imprison him", "ok": false, "why": "The verse names no bribe.", "sources": [{"type": "quran", "ref": "8:30"}]},
+          {"text": "To mock him, boycott him, or kill him", "ok": false, "why": "The verse names confining and expelling, not mockery or boycott.", "sources": [{"type": "quran", "ref": "8:30"}]}
+        ]
+      },
+      "matters": "The source frames the council with scripture: a room full of planners, and a verse that sets another planning above theirs.",
+      "sections": ["S0679", "S0681"]
+    },
+    {
+      "id": "a05-u13",
+      "title": "Leave is given",
+      "kicker": "The waiting ends",
+      "when": {"label": "End of Ṣafar, year 1 (622 CE)", "grade": "supported"},
+      "place": {"key": "makkah"},
+      "sky": "day",
+      "camera": {"target": "makkah", "dist": 3, "pitch": 30, "heading": 330},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Abū Bakr", "role": "person"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq says that at that point God gave His Prophet ﷺ leave to emigrate.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0681"}]},
+        {"text": "In his telling, the leave comes directly after the council's decision and the verses he ties to it.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}, {"type": "ibn-hisham", "sec": "S0681"}]},
+        {"text": "In ʿĀʾisha's report, the Prophet ﷺ later tells Abū Bakr plainly that he has been given leave to go out.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3905", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Ibn Isḥāq gives no calendar date in these sections for either the council or the leave.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0679"}, {"type": "ibn-hisham", "sec": "S0681"}]}
+      ],
+      "discover": [
+        {"label": "Look south to the mountains", "camera": {"target": "thawr", "dist": 8, "pitch": 30, "heading": 180}, "reveal": {"text": "Jabal Thawr rises about 5.5 km south-southeast of the Kaʿba, in the opposite direction from the road north to Madina.", "grade": "reconstruction", "basis": "computed distance between gazetteer points"}}
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Abū Bakr waited months on the words ‘perhaps God will give you a companion’; Quraysh reached their decision in a single meeting. What does the contrast suggest to you?"
+      },
+      "matters": "Two preparations meet here: the camels kept ready in Abū Bakr's house, and the plan agreed at Dār al-Nadwa. The leave sets both in motion.",
+      "sections": ["S0679", "S0681"]
+    }
+  ]
+}

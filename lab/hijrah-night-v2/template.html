@@ -1,0 +1,749 @@
+<title>Hijrah Night</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: the world fills the screen; a journey navigator (left) and one reading panel (right; bottom sheet on phones);
+   a mini-map and the route ribbon orient the learner. Single night look by choice; evidence grades have their own hues. */
+:root {
+  --night: #070a15;
+  --panel: rgba(11, 15, 29, 0.9);
+  --panel-solid: #0c1020;
+  --ink: #ebe6d6;
+  --muted: #9ba1b6;
+  --faint: #6b7189;
+  --line: rgba(235, 230, 214, 0.13);
+  --light: #ffd486;
+  --light-dim: rgba(255, 212, 134, 0.16);
+  --person: #dce7ff;
+  --stone: #7b7f8e;
+  --ok: #95d5ac;
+  --no: #e8a090;
+  --g-established: #ffd486;
+  --g-supported: #8fb8ff;
+  --g-disputed: #f0a26b;
+  --g-reconstruction: #b7a4f0;
+  --f-display: "Marcellus", "Palatino Linotype", Palatino, Georgia, serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-arabic: "Amiri", "Noto Naskh Arabic", "Geeza Pro", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+[hidden] { display: none !important; }
+body { background: var(--night); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; overflow: hidden; margin: 0; }
+button { font: inherit; color: inherit; }
+a { color: var(--light); }
+:focus-visible { outline: 2px solid var(--light); outline-offset: 2px; }
+#world { position: fixed; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#world.dragging { cursor: grabbing; }
+#labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.lbl { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 12px; color: var(--ink); text-shadow: 0 0 6px #000, 0 0 2px #000; will-change: transform; }
+.lbl.place { font-family: var(--f-display); font-size: 14px; color: var(--muted); }
+.lbl.place .ar { font-family: var(--f-arabic); font-size: 15px; margin-inline-start: 6px; }
+.lbl.place.on { color: var(--ink); }
+.lbl.prophet { color: var(--light); font-size: 13px; }
+.lbl.stone { color: var(--stone); font-size: 11px; }
+.lbl.group { color: var(--person); font-size: 11.5px; font-style: italic; }
+.lbl.note { color: var(--muted); font-style: italic; font-size: 12px; }
+.lbl.stop { color: var(--light); font-family: var(--f-mono); font-size: 11px; }
+
+header.top { position: fixed; top: 0; left: 0; right: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 10px); padding-bottom: 6px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); pointer-events: none; z-index: 3; }
+header.top > * { pointer-events: auto; }
+.brand { display: flex; flex-direction: column; margin-inline-end: auto; min-width: 0; }
+.brand b { font-family: var(--f-display); font-weight: 400; font-size: 21px; text-shadow: 0 0 10px #000; }
+.brand span { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; text-shadow: 0 0 6px #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); overflow: hidden; }
+.seg button { border: 0; background: none; padding: 6px 11px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { color: var(--night); background: var(--light); }
+.chip { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 6px 11px; font-size: 13px; cursor: pointer; color: var(--ink); }
+.chip[aria-pressed="true"] { border-color: var(--light); color: var(--light); }
+
+#nav { position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); top: calc(env(safe-area-inset-top, 0px) + 70px); width: 260px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 200px); background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  overflow-y: auto; padding: 10px 6px 10px 10px; z-index: 2; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+#nav details { border-bottom: 1px solid var(--line); padding: 4px 0; }
+#nav summary { cursor: pointer; list-style: none; padding: 6px 6px; border-radius: 8px; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 4px; }
+#nav summary::-webkit-details-marker { display: none; }
+#nav summary .n { font-family: var(--f-display); color: var(--light); font-size: 16px; }
+#nav summary b { font-weight: 500; font-size: 13.5px; }
+#nav summary small { display: block; color: var(--faint); font-size: 11.5px; }
+#nav ol { list-style: none; margin: 2px 0 6px; padding: 0 0 0 26px; }
+#nav li button { display: flex; gap: 8px; align-items: baseline; width: 100%; text-align: start; border: 0; background: none; padding: 4px 6px; border-radius: 6px; cursor: pointer; font-size: 12.5px; color: var(--muted); }
+#nav li button:hover { background: rgba(255,255,255,.04); color: var(--ink); }
+#nav li button.cur { background: var(--light-dim); color: var(--light); }
+#nav li button i { font-style: normal; font-family: var(--f-mono); font-size: 10.5px; color: var(--faint); min-width: 22px; }
+#nav li button.seen i::after { content: " ✓"; color: var(--ok); }
+
+#panel { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); top: calc(env(safe-area-inset-top, 0px) + 70px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); width: min(460px, 38vw); background: var(--panel); border: 1px solid var(--line);
+  border-radius: 14px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; flex-direction: column; min-width: 0; z-index: 2; }
+#panel .scroll { overflow-y: auto; padding: 18px 20px 8px; flex: 1; min-height: 0; overscroll-behavior: contain; }
+#panel .navbar { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); align-items: center; }
+#panel .navbar .grow { flex: 1; font-family: var(--f-mono); font-size: 11.5px; color: var(--faint); text-align: center; }
+.btn { border: 1px solid var(--line); background: transparent; border-radius: 10px; padding: 8px 13px; cursor: pointer; font-size: 14px; }
+.btn.primary { background: var(--light); color: var(--night); border-color: var(--light); font-weight: 600; }
+.btn:disabled { opacity: 0.35; cursor: default; }
+.eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+h1.ch { font-family: var(--f-display); font-weight: 400; font-size: 27px; line-height: 1.15; margin: 4px 0 4px; text-wrap: balance; }
+.kicker { color: var(--light); font-size: 13px; margin: 0 0 8px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.meta span { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; }
+h2.sub { font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 20px 0 8px; }
+ul.st { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+ul.st li { border-inline-start: 2px solid var(--line); padding: 2px 0 2px 12px; }
+ul.st li[data-g="established"] { border-color: var(--g-established); }
+ul.st li[data-g="supported"] { border-color: var(--g-supported); }
+ul.st li[data-g="disputed"] { border-color: var(--g-disputed); }
+ul.st li[data-g="reconstruction"] { border-color: var(--g-reconstruction); border-inline-start-style: dashed; }
+ul.st li.dim { opacity: .28; }
+.gb { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; border-radius: 4px; padding: 0 5px; margin-inline-end: 6px; vertical-align: 1px; border: 1px solid currentColor; }
+.gb.established { color: var(--g-established); } .gb.supported { color: var(--g-supported); } .gb.disputed { color: var(--g-disputed); } .gb.reconstruction { color: var(--g-reconstruction); }
+.srcs { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 4px; }
+.src { font-family: var(--f-mono); font-size: 11px; color: var(--faint); border: 0; background: none; padding: 0; text-decoration: none; }
+a.src:hover { color: var(--muted); text-decoration: underline; }
+.src.verify::after { content: " · to verify"; color: var(--g-disputed); }
+.note { font-size: 12.5px; color: var(--g-disputed); margin-top: 3px; }
+.basis { font-size: 12px; color: var(--g-reconstruction); margin-top: 3px; font-style: italic; }
+.quran { margin: 12px 0; padding: 12px 14px; border: 1px solid var(--light-dim); border-radius: 12px; background: rgba(255,212,134,.04); }
+.quran .ref { font-family: var(--f-display); color: var(--light); font-size: 17px; }
+.quran .gist { margin: 4px 0; font-size: 15px; }
+.quran .ctx { font-size: 12.5px; color: var(--muted); }
+.quran small { display: block; font-size: 11px; color: var(--faint); letter-spacing: .05em; margin-top: 4px; }
+.people { display: grid; gap: 6px; }
+.pc { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 8px; align-items: start; font-size: 13.5px; }
+.pc i { width: 9px; height: 9px; border-radius: 50%; margin-top: 6px; background: var(--person); box-shadow: 0 0 8px var(--person); }
+.pc b { font-weight: 500; }
+.pc span { color: var(--muted); }
+.disc { display: grid; gap: 6px; }
+.disc button { text-align: start; border: 1px dashed var(--line); background: none; border-radius: 10px; padding: 8px 10px; cursor: pointer; font-size: 13.5px; }
+.disc button::before { content: "◎ "; color: var(--light); }
+.disc button[aria-expanded="true"] { border-style: solid; border-color: var(--light-dim); }
+.disc .rv { padding: 6px 2px 2px 10px; }
+.quiz { margin: 16px 0 6px; padding: 14px; border: 1px solid var(--light-dim); border-radius: 12px; background: rgba(255,212,134,0.04); }
+.quiz p.q { margin: 0 0 10px; font-weight: 500; }
+.quiz .opts { display: grid; gap: 6px; }
+.opt { display: flex; gap: 10px; align-items: flex-start; text-align: start; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: none; cursor: pointer; }
+.opt[aria-pressed="true"] { border-color: var(--light); }
+.opt.ok { border-color: var(--ok); } .opt.no { border-color: var(--no); }
+.opt .why { display: block; color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+.opt .mark { font-family: var(--f-mono); font-size: 12px; min-width: 16px; color: var(--faint); }
+.opt.ok .mark { color: var(--ok); } .opt.no .mark { color: var(--no); }
+.quiz .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.quiz .res { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.quiz textarea { width: 100%; min-height: 70px; background: rgba(0,0,0,.25); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font: inherit; box-sizing: border-box; }
+.veil { filter: blur(5px); opacity: 0.45; pointer-events: none; user-select: none; }
+.matters { margin: 18px 0 8px; padding-inline-start: 12px; border-inline-start: 2px solid var(--light); font-family: var(--f-display); font-size: 17px; line-height: 1.35; }
+.matters small { display: block; font-family: var(--f-body); font-size: 11px; color: var(--faint); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+details.graph summary { cursor: pointer; color: var(--muted); font-size: 13px; margin-top: 14px; }
+details.graph ul { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 6px; font-size: 13px; }
+details.graph li span { display: block; font-family: var(--f-mono); font-size: 11px; color: var(--faint); }
+.research { display: none; }
+body[data-depth="research"] .research { display: revert; }
+body[data-depth="discover"] .srcs { display: none; }
+.prov { font-size: 12px; color: var(--faint); margin: 16px 0 4px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 6px; }
+.legend button { border: 1px solid var(--line); background: none; border-radius: 999px; padding: 2px 9px; font-size: 11.5px; cursor: pointer; }
+.legend button[aria-pressed="false"] { opacity: .4; text-decoration: line-through; }
+
+#mini { position: fixed; right: calc(min(460px, 38vw) + max(16px, env(safe-area-inset-right, 0px)) + 14px); top: calc(env(safe-area-inset-top, 0px) + 70px);
+  width: 120px; height: 240px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); z-index: 2; }
+#mini canvas { width: 100%; height: 100%; display: block; border-radius: 10px; }
+#ribbon { position: fixed; left: calc(max(16px, env(safe-area-inset-left, 0px)) + 274px); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  right: calc(min(460px, 38vw) + max(16px, env(safe-area-inset-right, 0px)) + 16px); display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 2; }
+#ribbon .cap { font-size: 11px; color: var(--muted); text-shadow: 0 0 6px #000; display: flex; gap: 10px; align-items: center; }
+#ribbon .cap .dock-min { pointer-events: auto; }
+#ribbon ol { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; overflow-x: auto; pointer-events: auto; scrollbar-width: none; }
+#ribbon li { display: flex; align-items: center; flex: none; }
+#ribbon li + li::before { content: ""; width: 14px; height: 1px; background: var(--line); }
+#ribbon button { display: flex; align-items: center; gap: 6px; border: 0; background: var(--panel); border-radius: 999px; padding: 4px 10px 4px 6px; font-size: 12px; cursor: pointer; color: var(--muted); }
+#ribbon button i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--muted); }
+#ribbon button.placed i { background: var(--muted); }
+#ribbon button.unplaced { font-style: italic; cursor: help; }
+#ribbon button.unplaced i { border-style: dashed; }
+#ribbon button.here { color: var(--light); }
+#ribbon button.here i { border-color: var(--light); background: var(--light); box-shadow: 0 0 8px var(--light); }
+
+#intro, #about { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(5, 7, 14, 0.74); z-index: 5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.card { max-width: 620px; background: var(--panel-solid); border: 1px solid var(--line); border-radius: 16px; padding: 26px; max-height: 86vh; overflow-y: auto; box-sizing: border-box; }
+.card h2 { font-family: var(--f-display); font-weight: 400; font-size: 34px; margin: 0 0 4px; line-height: 1.1; }
+.card .ar { font-family: var(--f-arabic); font-size: 22px; color: var(--light); }
+.card p, .card li { color: #cfcabb; }
+.card .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.card .fine { font-size: 12px; color: var(--faint); }
+.card .acts { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 6px; margin: 12px 0; font-size: 13px; }
+.card .acts div { border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+.card .acts b { color: var(--light); font-family: var(--f-display); font-weight: 400; margin-inline-end: 4px; }
+#toast { position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 74px); transform: translateX(-50%); background: var(--panel-solid); z-index: 4;
+  border: 1px solid var(--light-dim); color: var(--light); border-radius: 999px; padding: 7px 14px; font-size: 13px; opacity: 0; transition: opacity .4s; pointer-events: none; }
+#toast.on { opacity: 1; }
+#loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+
+@media (max-width: 1100px) { #nav { display: none; } #nav.open { display: block; width: auto; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 4; }
+  #ribbon { left: max(16px, env(safe-area-inset-left, 0px)); } }
+@media (max-width: 760px) {
+  .brand b { font-size: 18px; }
+  #panel { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); width: auto; top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); height: 52%; }
+  #mini { display: none; }
+  #ribbon { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); bottom: auto; top: var(--header-h, 120px); }
+  #ribbon .cap span { display: none; }
+  .chip, .seg button { padding: 5px 9px; }
+  h1.ch { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+</style>
+<style>/*DOCK_CSS*/</style>
+
+<canvas id="world" aria-label="A view of the Ḥijāz terrain between Makkah and Madinah. The reading panel describes everything shown."></canvas>
+<div id="labels" aria-hidden="true"></div>
+<div id="loading">Raising the terrain…</div>
+
+<header class="top">
+  <div class="brand"><b>Hijrah Night</b><span id="actline">al-Marṣad lab · prototype 2</span></div>
+  <button type="button" class="chip" id="navBtn" aria-expanded="false">Journey</button>
+  <div class="seg" role="group" aria-label="Depth">
+    <button type="button" data-depth="discover" aria-pressed="false">Discover</button>
+    <button type="button" data-depth="study" aria-pressed="true">Study</button>
+    <button type="button" data-depth="research" aria-pressed="false">Research</button>
+  </div>
+  <button type="button" class="chip" id="skyBtn" aria-pressed="false">Your sky · <span id="skyCount">0</span></button>
+  <button type="button" class="chip" id="soundBtn" aria-pressed="false">Sound off</button>
+  <button type="button" class="chip" id="aboutBtn">How to read this</button>
+  <button type="button" class="chip" id="fullBtn" title="Hide every panel and see the whole view (F)">Full view</button>
+</header>
+
+<nav id="nav" aria-label="The journey"></nav>
+<div id="mini" title="The Ḥijāz: located places as dots, the current view in gold"><canvas id="miniCanvas" width="240" height="480"></canvas></div>
+
+<aside id="panel" aria-live="polite">
+  <div class="scroll" id="pane"></div>
+  <div class="navbar">
+    <button type="button" class="btn" id="prev">Back</button>
+    <button type="button" class="btn" id="look" title="Minimise this panel to a dot">Hide</button>
+    <span class="grow" id="pos"></span>
+    <button type="button" class="btn primary" id="next">Next</button>
+  </div>
+</aside>
+
+<nav id="ribbon" aria-label="Places in this stage">
+  <div class="cap"><span id="ribbonCap"></span></div>
+  <ol id="stops"></ol>
+</nav>
+<div id="toast" role="status"></div>
+
+<div id="intro">
+  <div class="card">
+    <div class="ar">الهجرة</div>
+    <h2>Hijrah Night</h2>
+    <p>The Hijrah, step by step: from the years of pressure in Makkah, through the pledges at ʿAqaba and the emigrants who went ahead, to the plot, the night of leaving, three nights in the cave, the road north, the arrival at Qubāʾ and the entry into Madinah. <b id="introCount"></b></p>
+    <div class="acts" id="introActs"></div>
+    <p>Every statement carries its evidence: <span class="gb established">Established</span> by the Qurʾān, authenticated ḥadīth or agreement of the sources; <span class="gb supported">Supported</span> by an early narration; <span class="gb disputed">Disputed</span> where reports differ or a chain is weak; <span class="gb reconstruction">Reconstruction</span> for the land and the light only, never for what anyone did or said.</p>
+    <p class="fine">A draft for scholars to review. The narrative was drafted with AI from the Arabic of Ibn Hishām and other named sources (round 3, G3: Claude drafts, a scholar edits and approves). The Prophet ﷺ appears only as a light; nobody is drawn as a figure. Drag to look, scroll or pinch to zoom.</p>
+    <div class="row"><button type="button" class="btn primary" id="begin">Begin</button><button type="button" class="btn" id="resume" hidden>Continue where I left off</button><button type="button" class="btn" id="introAbout">How to read this</button></div>
+  </div>
+</div>
+
+<div id="about" hidden>
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="aboutH">
+    <h2 id="aboutH">How to read this</h2>
+    <ul>
+      <li><b>Evidence grades.</b> <span class="gb established">Established</span> needs the Qurʾān, an authenticated ḥadīth, or agreement of independent early sources. <span class="gb supported">Supported</span> means an early source narrates it and nothing contradicts it. <span class="gb disputed">Disputed</span> always says why: different reports, a weak chain, or a later popular tradition. <span class="gb reconstruction">Reconstruction</span> is only the environment (terrain, light, distance) and states its basis.</li>
+      <li><b>Sources.</b> Ibn Hishām's <i>Sīra</i> by section, with volume and page (Cairo edition of 1955, provisional). Qurʾān references link to the verse; the short meaning shown is in our own words, not a translation. Ḥadīth and other references marked "to verify" wait for a scholar to check the wording and numbering.</li>
+      <li><b>In the graph.</b> Each stage lists the AI-extracted claims of the sections it rests on, so the narrative can be checked against the data.</li>
+      <li><b>The world.</b> Places are drawn only where a gazetteer locates them, with their certainty; unlocated places are dashed and nothing is drawn for them. No road is drawn between stops. The sky follows the time of day the sources give, or is marked as reconstruction.</li>
+      <li><b>People.</b> The Prophet ﷺ is the warm light. Others are lights; gatherings of believers are clusters of light; people, tribes and crowds named without a recorded side are grey stones; only groups acting against the Prophet ﷺ in that moment, such as the watchers at the door or the trackers, are dark stones. Nobody is depicted.</li>
+      <li><b>Depth.</b> Discover hides source chips; Study shows them; Research adds claim IDs.</li>
+      <li><b>Your sky</b> keeps the people you meet, only in this browser.</li>
+    </ul>
+    <p class="fine">Terrain: AWS Terrain Tiles (Mapzen) from SRTM, GMTED and ETOPO1, about 1 km per cell, heights × 3. Places: al-Thurayya (CC BY 4.0) and Wikidata (CC0). <span id="aboutCounts"></span></p>
+    <div class="row"><button type="button" class="btn primary" id="aboutClose">Close</button></div>
+  </div>
+</div>
+
+<script id="data" type="application/json">/*DATA*/null</script>
+<script>/*DOCK_JS*/</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script>
+(() => {
+"use strict";
+const D = JSON.parse(document.getElementById("data").textContent);
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("hijrah-night-2:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("hijrah-night-2:" + k, JSON.stringify(v)); } catch (e) {} }
+};
+const UNITS = []; D.acts.forEach((a, ai) => a.units.forEach((u, ui) => UNITS.push({ ...u, act: a, ai, ui })));
+const PL = D.places;
+
+/* ---------- geography ---------- */
+const dem = D.dem, W = dem.west, E = dem.east, N = dem.north, S = dem.south;
+const KX = 111.32 * Math.cos(((N + S) / 2) * Math.PI / 180), KZ = 110.95;
+const WK = (E - W) * KX, HK = (N - S) * KZ, EX = 3;
+let H = null;
+function elev(lon, lat) {
+  lon = Math.max(W, Math.min(E, lon)); lat = Math.max(S, Math.min(N, lat));
+  const fx = (lon - W) / (E - W) * (dem.w - 1), fy = (N - lat) / (N - S) * (dem.h - 1);
+  const x0 = Math.max(0, Math.min(dem.w - 2, Math.floor(fx))), y0 = Math.max(0, Math.min(dem.h - 2, Math.floor(fy)));
+  const tx = fx - x0, ty = fy - y0, w = dem.w;
+  const a = H[y0 * w + x0], b = H[y0 * w + x0 + 1], c = H[(y0 + 1) * w + x0], d = H[(y0 + 1) * w + x0 + 1];
+  return a * (1 - tx) * (1 - ty) + b * tx * (1 - ty) + c * (1 - tx) * ty + d * tx * ty;
+}
+const ey = m => m > 0 ? m / 1000 * EX : -0.35;
+function P(lon, lat, lift = 0) { return new THREE.Vector3((lon - W) * KX - WK / 2, ey(elev(lon, lat)) + lift, (N - lat) * KZ - HK / 2); }
+function toLL(v) { return [(v.x + WK / 2) / KX + W, N - (v.z + HK / 2) / KZ]; }
+function ground(v, lift = 0) { const [lo, la] = toLL(v); return P(lo, la, lift); }
+function locate(t) { // place key, [lon, lat] or "~unlocated" -> {lon, lat, located, key}
+  if (Array.isArray(t)) return { lon: t[0], lat: t[1], located: false, wide: true };
+  if (t && PL[t]) return { lon: PL[t].lon, lat: PL[t].lat, located: true, key: t };
+  return null;
+}
+async function loadDem() {
+  const bin = Uint8Array.from(atob(dem.b64), c => c.charCodeAt(0));
+  if (!("DecompressionStream" in window)) throw new Error("This browser cannot unpack the terrain (DecompressionStream is missing).");
+  const buf = await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer();
+  const u = new Uint16Array(buf), f = new Float32Array(u.length);
+  for (let i = 0; i < u.length; i++) f[i] = u[i] - dem.offset;
+  H = f;
+}
+
+/* ---------- three ---------- */
+const canvas = $("#world");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene();
+scene.background = new THREE.Color("#070a15");
+scene.fog = new THREE.FogExp2(0x0a0e1e, 0.0021);
+const camera = new THREE.PerspectiveCamera(50, 1, 0.03, 9000);
+const hemi = new THREE.HemisphereLight(0x2e3d6c, 0x050508, 0.52); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0x8ea3e6, 0.78); sun.position.set(-300, 220, 90); scene.add(sun);
+const SKY = { // environment only (reconstruction): colours of sky, fog and light for the time of day
+  night:  { bg: "#070a15", fog: "#0a0e1e", fd: 0.0021, hemi: ["#2e3d6c", 0.52], sun: ["#8ea3e6", 0.78, [-300, 220, 90]], stars: 0.75, lamp: 1.5 },
+  dawn:   { bg: "#2a2440", fog: "#2a2440", fd: 0.0028, hemi: ["#6b6a96", 0.7], sun: ["#ffb98a", 0.9, [400, 60, -60]], stars: 0.25, lamp: 1.0 },
+  day:    { bg: "#8ea6c4", fog: "#8ea6c4", fd: 0.0032, hemi: ["#cfd9ec", 0.95], sun: ["#fff3dc", 1.0, [120, 400, 160]], stars: 0, lamp: 0.5 },
+  midday: { bg: "#c4cbd2", fog: "#c4cbd2", fd: 0.0034, hemi: ["#f2efe6", 1.05], sun: ["#ffffff", 1.25, [10, 600, 30]], stars: 0, lamp: 0.4 },
+  dusk:   { bg: "#3b2a3a", fog: "#3b2a3a", fd: 0.0028, hemi: ["#8b6a7a", 0.68], sun: ["#ff9a5a", 0.95, [-420, 50, 40]], stars: 0.15, lamp: 1.1 },
+};
+let skyNow = "night";
+function setSky(k) {
+  const s = SKY[k] || SKY.night; skyNow = k;
+  scene.background.set(s.bg); scene.fog.color.set(s.fog); scene.fog.density = s.fd;
+  hemi.color.set(s.hemi[0]); hemi.intensity = s.hemi[1];
+  sun.color.set(s.sun[0]); sun.intensity = s.sun[1]; sun.position.set(...s.sun[2]);
+  stars.material.opacity = s.stars; stars.visible = s.stars > 0; pLamp.intensity = s.lamp;
+}
+function glowTex(inner, outer) {
+  const c = document.createElement("canvas"); c.width = c.height = 128;
+  const g = c.getContext("2d"), r = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  r.addColorStop(0, inner); r.addColorStop(0.18, inner); r.addColorStop(0.45, outer); r.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = r; g.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(c);
+}
+const TEX = {
+  light: glowTex("rgba(255,244,214,1)", "rgba(255,196,110,0.32)"),
+  person: glowTex("rgba(240,246,255,1)", "rgba(170,195,255,0.22)"),
+  ring: (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const g = c.getContext("2d");
+    g.strokeStyle = "rgba(235,230,214,0.8)"; g.lineWidth = 3; g.beginPath(); g.arc(32, 32, 24, 0, 7); g.stroke(); return new THREE.CanvasTexture(c); })(),
+  dashed: (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const g = c.getContext("2d");
+    g.strokeStyle = "rgba(235,230,214,0.6)"; g.lineWidth = 3; g.setLineDash([6, 6]); g.beginPath(); g.arc(32, 32, 24, 0, 7); g.stroke(); return new THREE.CanvasTexture(c); })(),
+};
+function sprite(tex, opacity = 1, additive = true) {
+  return new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, opacity, depthWrite: false, blending: additive ? THREE.AdditiveBlending : THREE.NormalBlending, fog: false }));
+}
+let terrainMesh;
+function buildTerrain() {
+  const g = new THREE.PlaneGeometry(WK, HK, dem.w - 1, dem.h - 1); g.rotateX(-Math.PI / 2);
+  const pos = g.attributes.position, col = new Float32Array(pos.count * 3);
+  const sand = new THREE.Color("#7d6c58"), rock = new THREE.Color("#5e5249"), high = new THREE.Color("#3a3538"), wadi = new THREE.Color("#8f7d64"), c = new THREE.Color();
+  for (let i = 0; i < pos.count; i++) {
+    const m = H[i]; pos.setY(i, ey(m));
+    if (m < 250) c.copy(wadi).lerp(sand, m / 250); else if (m < 900) c.copy(sand).lerp(rock, (m - 250) / 650); else c.copy(rock).lerp(high, Math.min(1, (m - 900) / 900));
+    col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+  }
+  g.setAttribute("color", new THREE.BufferAttribute(col, 3)); g.computeVertexNormals();
+  const nrm = g.attributes.normal;
+  for (let i = 0; i < pos.count; i++) { const k = 0.55 + 0.45 * Math.pow(nrm.getY(i), 3); col[i * 3] *= k; col[i * 3 + 1] *= k; col[i * 3 + 2] *= k; }
+  terrainMesh = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ vertexColors: true })); scene.add(terrainMesh);
+  const sea = new THREE.Mesh(new THREE.PlaneGeometry(WK * 4, HK * 3), new THREE.MeshPhongMaterial({ color: 0x0a1630, specular: 0x5b6fa8, shininess: 70 }));
+  sea.rotateX(-Math.PI / 2); scene.add(sea);
+}
+const starsGeo = new THREE.BufferGeometry();
+{ const n = 2600, a = new Float32Array(n * 3); let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < n; i++) { const th = rnd() * Math.PI * 2, ph = Math.acos(1 - (rnd() * 0.92 + 0.08)); a[i * 3] = Math.sin(ph) * Math.cos(th) * 3000; a[i * 3 + 1] = Math.cos(ph) * 3000; a[i * 3 + 2] = Math.sin(ph) * Math.sin(th) * 3000; }
+  starsGeo.setAttribute("position", new THREE.BufferAttribute(a, 3)); }
+const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({ color: 0xc9d2f0, size: 1.4, sizeAttenuation: false, fog: false, transparent: true, opacity: 0.75 }));
+scene.add(stars);
+
+/* ---------- labels ---------- */
+const labelsEl = $("#labels"); let labels = [];
+function addLabel(pos3, html, cls = "", obj = null, group = "unit") {
+  const el = document.createElement("div"); el.className = "lbl " + cls; el.innerHTML = html; labelsEl.appendChild(el);
+  const L = { pos: pos3, el, obj, group }; labels.push(L); return L;
+}
+const PRI = { prophet: 0, stop: 1, place: 2, "": 3, group: 4, stone: 5, note: 6 };
+const v3 = new THREE.Vector3();
+function updateLabels() {
+  const w = innerWidth, h = innerHeight, placed = [], todo = [];
+  for (const L of labels) {
+    if ((L.obj && !L.obj.visible) || L.hide) { L.el.style.display = "none"; continue; }
+    v3.copy(L.obj ? L.obj.position : L.pos).project(camera);
+    if (v3.z > 1 || Math.abs(v3.x) > 1.1 || Math.abs(v3.y) > 1.1) { L.el.style.display = "none"; continue; }
+    if (L.kind === undefined) L.kind = ["prophet", "stop", "place", "group", "stone", "note"].find(k => L.el.classList.contains(k)) || "";
+    todo.push([L, (v3.x + 1) / 2 * w, (1 - v3.y) / 2 * h]);
+  }
+  todo.sort((a, b) => PRI[a[0].kind] - PRI[b[0].kind]);
+  for (const [L, x, y] of todo) {
+    L.el.style.display = "";
+    if (!L.w) { L.w = L.el.offsetWidth; L.h = L.el.offsetHeight; }
+    const x0 = x - L.w / 2, y0 = L.kind === "prophet" ? y + L.h * 0.7 : y - L.h * 1.5;
+    const box = [x0 - 3, y0 - 1, x0 + L.w + 3, y0 + L.h + 1];
+    if (placed.some(b => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1])) { L.el.style.display = "none"; continue; }
+    placed.push(box); L.el.style.transform = `translate(${x0.toFixed(1)}px, ${y0.toFixed(1)}px)`;
+  }
+}
+
+/* ---------- camera ---------- */
+const cam = { target: new THREE.Vector3(), dist: 300, pitch: 0.9, heading: 0 };
+let tween = null, skyMode = false, skyLook = { heading: 0, pitch: 0.55 };
+function poseFrom(c) {
+  const t = locate(c.target) || lastLocated;
+  return { target: P(t.lon, t.lat), dist: c.dist || 20, pitch: (c.pitch || 35) * Math.PI / 180, heading: (c.heading || 0) * Math.PI / 180 };
+}
+function flyTo(goal, ms = 2400) {
+  if (RM) { Object.assign(cam, { target: goal.target.clone(), dist: goal.dist, pitch: goal.pitch, heading: goal.heading }); tween = null; return; }
+  let dh = goal.heading - cam.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh));
+  tween = { t0: performance.now(), ms, from: { target: cam.target.clone(), dist: cam.dist, pitch: cam.pitch, heading: cam.heading }, to: goal, dh };
+}
+function stepCamera(now) {
+  if (tween) {
+    const k = Math.min(1, (now - tween.t0) / tween.ms), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2, f = tween.from, t = tween.to;
+    cam.target.lerpVectors(f.target, t.target, e);
+    const arc = Math.sin(Math.PI * e) * Math.min(1.2, f.target.distanceTo(t.target) / Math.max(f.dist, t.dist)) * 0.9;
+    cam.dist = Math.exp(Math.log(f.dist) + (Math.log(t.dist) - Math.log(f.dist)) * e) * (1 + arc);
+    cam.pitch = f.pitch + (t.pitch - f.pitch) * e; cam.heading = f.heading + tween.dh * e;
+    if (k >= 1) tween = null;
+  }
+  if (skyMode) {
+    const base = ground(cam.target, 0.4); camera.position.copy(base);
+    camera.lookAt(base.clone().add(new THREE.Vector3(Math.sin(skyLook.heading) * Math.cos(skyLook.pitch), Math.sin(skyLook.pitch), Math.cos(skyLook.heading) * Math.cos(skyLook.pitch))));
+  } else {
+    const cp = Math.cos(cam.pitch);
+    camera.position.set(cam.target.x + Math.sin(cam.heading) * cp * cam.dist, cam.target.y + Math.sin(cam.pitch) * cam.dist, cam.target.z + Math.cos(cam.heading) * cp * cam.dist);
+    const gy = ey(elev(...toLL(camera.position))) + 0.25; if (camera.position.y < gy) camera.position.y = gy;
+    camera.lookAt(cam.target);
+  }
+  stars.position.copy(camera.position);
+}
+const ptrs = new Map(); let pinch0 = 0, dist0 = 0, panMode = false;
+canvas.addEventListener("pointerdown", e => { canvas.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY }); canvas.classList.add("dragging"); tween = null; panMode = e.shiftKey || e.button === 2;
+  if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch0 = Math.hypot(a.x - b.x, a.y - b.y); dist0 = cam.dist; } });
+canvas.addEventListener("pointermove", e => {
+  const p = ptrs.get(e.pointerId); if (!p) return;
+  const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+  if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch0) cam.dist = clampD(dist0 * pinch0 / d); return; }
+  if (skyMode) { skyLook.heading -= dx * 0.004; skyLook.pitch = Math.max(0.05, Math.min(1.5, skyLook.pitch + dy * 0.004)); return; }
+  if (panMode) { const s = cam.dist * 0.0018, ch = Math.cos(cam.heading), sh = Math.sin(cam.heading);
+    cam.target.x -= (dx * ch + dy * sh) * s; cam.target.z -= (-dx * sh + dy * ch) * s; cam.target.copy(ground(cam.target)); }
+  else { cam.heading -= dx * 0.005; cam.pitch = Math.max(0.06, Math.min(1.5, cam.pitch + dy * 0.004)); }
+});
+const endPtr = e => { ptrs.delete(e.pointerId); if (!ptrs.size) canvas.classList.remove("dragging"); pinch0 = 0; };
+canvas.addEventListener("pointerup", endPtr); canvas.addEventListener("pointercancel", endPtr);
+canvas.addEventListener("contextmenu", e => e.preventDefault());
+const clampD = d => Math.max(0.6, Math.min(900, d));
+canvas.addEventListener("wheel", e => { e.preventDefault(); tween = null; cam.dist = clampD(cam.dist * Math.exp(e.deltaY * 0.0012)); }, { passive: false });
+const ray = new THREE.Raycaster();
+canvas.addEventListener("dblclick", e => { if (skyMode) return; ray.setFromCamera({ x: e.clientX / innerWidth * 2 - 1, y: -(e.clientY / innerHeight) * 2 + 1 }, camera);
+  const hit = ray.intersectObject(terrainMesh)[0]; if (hit) flyTo({ target: hit.point, dist: Math.max(2, cam.dist * 0.45), pitch: cam.pitch, heading: cam.heading }, 1400); });
+
+/* ---------- actors ---------- */
+const unitGroup = new THREE.Group(); scene.add(unitGroup);
+const prophet = new THREE.Group(); const pGlow = sprite(TEX.light); prophet.add(pGlow);
+const pLamp = new THREE.PointLight(0xffc77a, 1.5, 22, 1.6); pLamp.position.y = 0.6; prophet.add(pLamp); scene.add(prophet);
+addLabel(null, "The Prophet Muḥammad ﷺ", "prophet", prophet, "fixed");
+const placeMarks = {};
+function addPlaces() {
+  for (const [k, p] of Object.entries(PL)) {
+    const r = sprite(p.certainty === "approximate" || p.certainty === "possible" ? TEX.dashed : TEX.ring, 0.5); r.position.copy(P(p.lon, p.lat, 0.15)); r.userData.ring = true; scene.add(r);
+    const L = addLabel(r.position, esc(p.name) + (p.ar ? `<span class="ar">${esc(p.ar)}</span>` : ""), "place", r, "fixed");
+    placeMarks[k] = { r, L };
+  }
+}
+function clearUnit() { unitGroup.clear(); labels = labels.filter(L => { if (L.group === "unit") { L.el.remove(); return false; } return true; }); }
+function ringAround(c, n, r, start = 0) { const out = []; for (let i = 0; i < n; i++) { const a = start + i / Math.max(1, n) * Math.PI * 2; out.push(ground(new THREE.Vector3(c.x + Math.cos(a) * r, 0, c.z + Math.sin(a) * r), 0.35)); } return out; }
+function light(pos, k = 1, op = 1) { const s = sprite(TEX.person, op); s.position.copy(pos); s.userData.k = k; unitGroup.add(s); return s; }
+function stoneAt(pos, dark) { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshLambertMaterial({ color: dark ? 0x121216 : 0x2a2c34, emissive: dark ? 0x050506 : 0x111218 })); m.position.copy(pos); m.userData.stone = 1; unitGroup.add(m); }
+let lastLocated = { lon: 39.5, lat: 22.95 };
+function drawUnit(u) {
+  clearUnit(); setSky(u.sky || "night");
+  const loc = locate(u.camera && u.camera.target);
+  if (loc && loc.located) lastLocated = loc;
+  const goal = poseFrom(u.camera || {}); flyTo(goal);
+  const d = u.camera.dist || 20;
+  const placeLoc = u.place && locate(u.place.key);
+  const center = placeLoc ? P(placeLoc.lon, placeLoc.lat, 0.5) : goal.target.clone();
+  const lights = u.lights || [];
+  const hasP = lights.some(l => l.role === "prophet");
+  prophet.visible = hasP && !!placeLoc && placeLoc.located;
+  if (prophet.visible) prophet.position.copy(center);
+  const ppl = lights.filter(l => l.role === "person"), grp = lights.filter(l => l.role === "group"), st = lights.filter(l => l.role === "stone"), gs = lights.filter(l => l.role === "group-stone");
+  ringAround(center, ppl.length, d * 0.09 + ppl.length * d * 0.004, 2.2).forEach((p, i) => { light(p); addLabel(p, esc(ppl[i].name)); });
+  grp.forEach((g, gi) => { const c = ringAround(center, grp.length, d * 0.22, 0.6)[gi]; ringAround(c, 9, d * 0.03).forEach(p => light(p, 0.55, 0.8)); addLabel(c, esc(g.name), "group"); });
+  ringAround(center, st.length, d * 0.17, 0.3).forEach((p, i) => { stoneAt(p, false); addLabel(p, esc(st[i].name), "stone"); });
+  const asm = lights.filter(l => l.role === "assembly");
+  asm.forEach((g, gi) => { const c = ringAround(center, asm.length, d * 0.2, 1.4)[gi]; ringAround(c, 7, d * 0.028).forEach(p => stoneAt(p, false)); addLabel(c, esc(g.name), "stone"); });
+  gs.forEach((g, gi) => { const c = ringAround(center, gs.length, d * 0.14, 3.6)[gi]; ringAround(c, 7, d * 0.025).forEach(p => stoneAt(p, true)); addLabel(c, esc(g.name), "stone"); });
+  if (!placeLoc || !placeLoc.located) {
+    const nm = u.place && u.place.key && u.place.key.startsWith("~") ? u.place.key.slice(1).replace(/[-_]/g, " ") : null;
+    addLabel(ground(goal.target, 0.5), nm ? `${esc(nm)}: no reviewed location, so the view shows the wider land` : "No single place: a wide view", "note");
+  }
+  // route stops of this stage, numbered; unlocated ones only in the ribbon
+  (u.route || []).forEach((k, i) => { const l = locate(k); if (l && l.located) addLabel(P(l.lon, l.lat, 0.2), String(i + 1), "stop"); });
+  Object.entries(placeMarks).forEach(([k, m]) => m.L.el.classList.toggle("on", (u.route || []).includes(k) || (u.place && u.place.key === k)));
+  ribbon(u); drawMini(u);
+}
+
+/* ---------- ribbon and mini-map ---------- */
+const stopsEl = $("#stops");
+function ribbon(u) {
+  const r = u.route && u.route.length ? u.route : (u.place && u.place.key ? [u.place.key] : []);
+  $("#ribbonCap").textContent = u.route && u.route.length ? "Places in this stage, in order. Dashed: named in the sources, no reviewed location, nothing drawn." : "";
+  stopsEl.innerHTML = r.map((k, i) => { const l = locate(k); const nm = l && l.located ? PL[k].name : String(k).replace(/^~/, "").replace(/[-_]/g, " ");
+    return `<li><button type="button" class="${l && l.located ? "placed" : "unplaced"} ${u.place && u.place.key === k ? "here" : ""}" data-k="${esc(k)}" title="${l && l.located ? esc(PL[k].certainty + " · " + PL[k].src) : "No reviewed location yet"}"><i></i>${esc(nm)}</button></li>`; }).join("");
+  stopsEl.querySelectorAll("button.placed").forEach(b => b.addEventListener("click", () => { const p = PL[b.dataset.k]; skyOff(); flyTo({ target: P(p.lon, p.lat), dist: 10, pitch: 0.6, heading: cam.heading }, 1600); }));
+  stopsEl.querySelectorAll("button.unplaced").forEach(b => b.addEventListener("click", () => toast("No reviewed location yet, so nothing is drawn")));
+}
+const mini = $("#miniCanvas"), mg = mini.getContext("2d"); let miniBase = null;
+function buildMini() {
+  const w = mini.width, h = mini.height, img = mg.createImageData(w, h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const sx = Math.floor(x / w * dem.w), sy = Math.floor(y / h * dem.h), m = H[sy * dem.w + sx], i = (y * w + x) * 4;
+    if (m <= 0) { img.data[i] = 12; img.data[i + 1] = 22; img.data[i + 2] = 44; } else { const k = Math.min(1, m / 1800); img.data[i] = 60 + k * 90; img.data[i + 1] = 54 + k * 80; img.data[i + 2] = 52 + k * 70; }
+    img.data[i + 3] = 255;
+  }
+  mg.putImageData(img, 0, 0); miniBase = mg.getImageData(0, 0, w, h);
+}
+const mxy = (lon, lat) => [(lon - W) / (E - W) * mini.width, (N - lat) / (N - S) * mini.height];
+function drawMini(u) {
+  if (!miniBase) return; mg.putImageData(miniBase, 0, 0);
+  for (const p of Object.values(PL)) { const [x, y] = mxy(p.lon, p.lat); mg.fillStyle = "rgba(235,230,214,.7)"; mg.beginPath(); mg.arc(x, y, 3, 0, 7); mg.fill(); }
+  (u.route || []).forEach((k, i) => { const l = locate(k); if (l && l.located) { const [x, y] = mxy(l.lon, l.lat); mg.fillStyle = "#ffd486"; mg.font = "bold 16px IBM Plex Mono, monospace"; mg.fillText(String(i + 1), x + 6, y + 5); } });
+  const t = locate(u.camera.target) || lastLocated; const [x, y] = mxy(t.lon, t.lat);
+  mg.strokeStyle = "#ffd486"; mg.lineWidth = 3; mg.beginPath(); mg.arc(x, y, 9, 0, 7); mg.stroke();
+}
+
+/* ---------- learner state ---------- */
+const PROPHET = "The Prophet Muḥammad ﷺ";
+let met = store.get("met", {}), answers = store.get("answers", {}), seen = store.get("seen", {});
+function meet(u) {
+  let n = 0;
+  for (const p of (u.people || [])) if (p.name && !/Prophet Muḥammad/.test(p.name) && !met[p.name]) { met[p.name] = u.act.act; n++; }
+  store.set("met", met); $("#skyCount").textContent = Object.keys(met).length;
+  if (n) toast(`${n} new ${n === 1 ? "star" : "stars"} in your sky`);
+}
+
+/* ---------- panel ---------- */
+let depth = "study", cur = 0, revealed = {}, gradeOn = { established: true, supported: true, disputed: true, reconstruction: true };
+document.body.dataset.depth = depth;
+const pane = $("#pane");
+const GL = { established: "Established", supported: "Supported", disputed: "Disputed", reconstruction: "Reconstruction" };
+function srcHtml(s) {
+  if (s.type === "ibn-hisham") { const c = D.cites[s.sec]; const sec = String(s.sec).slice(1).replace(/^0+/, ""), page = c && c.cite && !c.cite.startsWith("section not") ? c.cite.split(";")[0] : "";
+    return `<span class="src" title="${esc(c ? c.label : "")}">Ibn Hishām ${page ? esc(page) + " · " : ""}§${esc(sec)}${page ? "" : " (page not yet indexed)"}</span>`; }
+  if (s.type === "quran") { const [su, ay] = String(s.ref).split(":"); return `<a class="src" href="https://quran.com/${esc(su)}/${esc(ay.split("-")[0])}" target="_blank" rel="noopener">Qurʾān ${esc(s.ref)}</a>`; }
+  return `<span class="src ${s.verify ? "verify" : ""}" title="${esc(s.note || "")}">${esc(s.ref)}${s.grade ? " (" + esc(s.grade) + ")" : ""}</span>`;
+}
+function stmtHtml(s) {
+  return `<li data-g="${esc(s.grade)}" class="${gradeOn[s.grade] ? "" : "dim"}"><span class="gb ${esc(s.grade)}">${GL[s.grade] || esc(s.grade)}</span>${esc(s.text)}
+    ${s.note ? `<div class="note">${esc(s.note)}</div>` : ""}${s.basis ? `<div class="basis">Basis: ${esc(s.basis)}</div>` : ""}
+    ${s.sources && s.sources.length ? `<div class="srcs">${s.sources.map(srcHtml).join("")}</div>` : ""}</li>`;
+}
+function quizHtml(q, u) {
+  const key = u.id, multi = (q.options || []).filter(o => o.ok).length > 1;
+  if (q.kind === "reflect") return `<div class="quiz" data-kind="reflect"><div class="eyebrow">Reflect</div><p class="q">${esc(q.q)}</p><textarea id="rf-${esc(key)}" aria-label="Your thoughts (kept only in this browser)">${esc(store.get("note:" + key, ""))}</textarea><div class="res">Kept only in this browser.</div></div>`;
+  return `<div class="quiz" data-kind="${esc(q.kind)}"><div class="eyebrow">${q.kind === "predict" ? "Guess first" : "Remember"}</div><p class="q">${esc(q.q)}</p>
+    <div class="opts">${q.options.map((o, i) => `<button type="button" class="opt" data-i="${i}" aria-pressed="false"><span class="mark">${multi ? "□" : "○"}</span><span>${esc(o.text)}<span class="why" hidden></span></span></button>`).join("")}</div>
+    <div class="row"><button type="button" class="btn primary" data-act="check">${q.kind === "predict" ? "Show me" : "Check"}</button>${q.kind === "predict" ? '<button type="button" class="btn" data-act="skip">Skip</button>' : ""}</div><div class="res" hidden></div></div>`;
+}
+function render() {
+  const u = UNITS[cur]; store.set("cur", cur); seen[u.id] = 1; store.set("seen", seen);
+  const q = u.question, veiled = q && q.kind === "predict" && !revealed[u.id];
+  const placeName = u.place && u.place.key ? (PL[u.place.key] ? PL[u.place.key].name + " · " + PL[u.place.key].certainty : u.place.key.replace(/^~/, "").replace(/[-_]/g, " ") + " · no reviewed location") : "";
+  const claims = (u.sections || []).flatMap(s => (D.claims[s] || []).map(c => ({ ...c, sec: s })));
+  pane.innerHTML = `
+    <div class="eyebrow">Act ${u.act.act} · ${esc(u.act.title)} · stage ${u.ui + 1} of ${u.act.units.length}</div>
+    <h1 class="ch">${esc(u.title)}</h1>
+    ${u.kicker ? `<p class="kicker">${esc(u.kicker)}</p>` : ""}
+    <div class="meta">${placeName ? `<span>${esc(placeName)}</span>` : ""}${u.when ? `<span>${esc(u.when.label)} <span class="gb ${esc(u.when.grade)}">${GL[u.when.grade] || ""}</span></span>` : ""}<span>Sky: ${esc(u.sky)} <span class="gb reconstruction">Reconstruction</span></span></div>
+    <div class="legend" role="group" aria-label="Show evidence grades">${Object.keys(GL).map(g => `<button type="button" class="gb ${g}" data-g="${g}" aria-pressed="${gradeOn[g]}">${GL[g]}</button>`).join("")}</div>
+    ${veiled ? quizHtml(q, u) : ""}
+    <div class="${veiled ? "veil" : ""}" id="body">
+      <ul class="st">${(u.statements || []).map(stmtHtml).join("")}</ul>
+      ${(u.quran || []).map(x => { const [su, ay] = x.ref.split(":"); return `<div class="quran"><div class="ref">Qurʾān ${esc(x.ref)} <span class="gb ${esc(x.grade || "established")}">${GL[x.grade || "established"]}</span></div><div class="gist">${esc(x.gist)}</div>${x.context ? `<div class="ctx">${esc(x.context)}</div>` : ""}<small>Meaning in our own words, not a translation · <a href="https://quran.com/${esc(su)}/${esc(ay.split("-")[0])}" target="_blank" rel="noopener">Read the verse</a></small></div>`; }).join("")}
+      ${(u.people || []).length ? `<h2 class="sub">People</h2><div class="people">${u.people.map(p => `<div class="pc"><i></i><div><b>${esc(p.name)}</b>${p.who ? ` <span>· ${esc(p.who)}</span>` : ""}${p.here ? `<br><span>${esc(p.here)}</span>` : ""}</div></div>`).join("")}</div>` : ""}
+      ${(u.discover || []).length ? `<h2 class="sub">Explore</h2><div class="disc">${u.discover.map((dd, i) => `<div><button type="button" data-d="${i}" aria-expanded="false">${esc(dd.label)}</button><div class="rv" hidden>${dd.reveal ? `<ul class="st">${stmtHtml(dd.reveal)}</ul>` : ""}</div></div>`).join("")}</div>` : ""}
+      ${q && !veiled && q.kind !== "predict" ? quizHtml(q, u) : ""}
+      ${u.matters ? `<p class="matters"><small>Reflection</small>${esc(u.matters)}</p>` : ""}
+      ${claims.length ? `<details class="graph"><summary>In the graph: ${claims.length} AI-extracted claims from ${(u.sections || []).length} section${u.sections.length > 1 ? "s" : ""}</summary><ul>${claims.map(c => `<li>${esc(c.g)}<span>§${esc(c.sec.slice(1).replace(/^0+/, ""))} · ${esc(c.p)}<span class="research"> · ${esc(c.id)}</span></span></li>`).join("")}</ul></details>` : ""}
+      <p class="prov">Draft for scholarly review. Statements were drafted with AI from the named sources and are not yet checked by a scholar.</p>
+    </div>`;
+  $("#prev").disabled = cur === 0; $("#next").textContent = cur === UNITS.length - 1 ? "Finish" : "Next";
+  $("#pos").textContent = `${cur + 1} / ${UNITS.length}`;
+  $("#actline").textContent = `Act ${u.act.act} · ${u.act.title}`;
+  pane.scrollTop = 0; wire(u); navHere();
+}
+function wire(u) {
+  pane.querySelectorAll(".legend button").forEach(b => b.addEventListener("click", () => { const g = b.dataset.g; gradeOn[g] = !gradeOn[g]; b.setAttribute("aria-pressed", String(gradeOn[g])); pane.querySelectorAll(`ul.st li[data-g="${g}"]`).forEach(li => li.classList.toggle("dim", !gradeOn[g])); }));
+  pane.querySelectorAll(".disc button").forEach(b => b.addEventListener("click", () => {
+    const dd = u.discover[+b.dataset.d], open = b.getAttribute("aria-expanded") !== "true";
+    b.setAttribute("aria-expanded", String(open)); b.nextElementSibling.hidden = !open;
+    if (open && dd.camera) { skyOff(); flyTo(poseFrom(dd.camera), 1800); }
+  }));
+  const rf = pane.querySelector("textarea"); if (rf) rf.addEventListener("input", () => store.set("note:" + u.id, rf.value));
+  const box = pane.querySelector('.quiz:not([data-kind="reflect"])'); if (!box) return;
+  const q = u.question, multi = q.options.filter(o => o.ok).length > 1, pick = new Set();
+  box.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+    if (box.dataset.done) return; const i = +b.dataset.i;
+    if (!multi) { pick.clear(); box.querySelectorAll(".opt").forEach(x => { x.setAttribute("aria-pressed", "false"); x.querySelector(".mark").textContent = "○"; }); }
+    pick.has(i) ? pick.delete(i) : pick.add(i);
+    b.setAttribute("aria-pressed", String(pick.has(i))); b.querySelector(".mark").textContent = pick.has(i) ? (multi ? "■" : "●") : (multi ? "□" : "○");
+  }));
+  const finish = skipped => {
+    box.dataset.done = "1"; let right = 0;
+    q.options.forEach((o, i) => { const b = box.querySelector(`.opt[data-i="${i}"]`), why = b.querySelector(".why");
+      b.classList.add(o.ok ? "ok" : "no"); b.querySelector(".mark").textContent = o.ok ? "✓" : "×";
+      if (o.why) { why.hidden = false; why.innerHTML = esc(o.why) + (o.sources ? " " + o.sources.map(srcHtml).join(" ") : ""); }
+      if (o.ok === pick.has(i)) right++; });
+    const all = right === q.options.length, res = box.querySelector(".res"); res.hidden = false;
+    res.textContent = skipped ? "Here is what the sources record." : all ? "All right. Each answer shows what it rests on." : "Partly right. Each answer shows what it rests on; this will come back later.";
+    if (!skipped) { answers[u.id] = { ok: all, at: Date.now(), due: Date.now() + (all ? 3 : 1) * 864e5 }; store.set("answers", answers); }
+    if (q.kind === "predict") { revealed[u.id] = true; $("#body").classList.remove("veil"); }
+  };
+  box.querySelector('[data-act="check"]').addEventListener("click", () => { if (!box.dataset.done) finish(false); });
+  const sk = box.querySelector('[data-act="skip"]'); if (sk) sk.addEventListener("click", () => { if (!box.dataset.done) finish(true); });
+}
+
+/* ---------- navigator ---------- */
+const navEl = $("#nav");
+function buildNav() {
+  let g = 0;
+  navEl.innerHTML = D.acts.map((a, ai) => `<details ${ai === 0 ? "open" : ""} data-a="${ai}"><summary><span class="n">${a.act}</span><span><b>${esc(a.title)}</b><small>${esc(a.span || "")} · ${a.units.length} stages</small></span></summary><ol>${a.units.map((u, ui) => `<li><button type="button" data-g="${g++}"><i>${ui + 1}</i>${esc(u.title)}</button></li>`).join("")}</ol></details>`).join("");
+  navEl.querySelectorAll("li button").forEach(b => b.addEventListener("click", () => { go(+b.dataset.g); if (innerWidth <= 1100) toggleNav(false); }));
+}
+function navHere() {
+  navEl.querySelectorAll("li button").forEach(b => { const i = +b.dataset.g; b.classList.toggle("cur", i === cur); b.classList.toggle("seen", !!seen[UNITS[i].id]); });
+  const d = navEl.querySelector(`details[data-a="${UNITS[cur].ai}"]`); if (d && !d.open) d.open = true;
+  const c = navEl.querySelector("button.cur"); if (c) c.scrollIntoView({ block: "nearest", behavior: RM ? "auto" : "smooth" });
+}
+function toggleNav(open) { navEl.classList.toggle("open", open); $("#navBtn").setAttribute("aria-expanded", String(open)); }
+$("#navBtn").addEventListener("click", () => { dock.restore("journey"); toggleNav(!navEl.classList.contains("open")); });
+
+function go(i) { skyOff(); cur = Math.max(0, Math.min(UNITS.length - 1, i)); const u = UNITS[cur]; render(); drawUnit(u); meet(u); }
+$("#prev").addEventListener("click", () => go(cur - 1));
+$("#next").addEventListener("click", () => { if (skyMode) go(cur); else if (cur === UNITS.length - 1) skyOn(); else go(cur + 1); });
+$("#look").addEventListener("click", () => dock.minimise("reading"));
+$("#fullBtn").addEventListener("click", () => dock.setFull(true));
+document.addEventListener("keydown", e => { if (e.target.closest("input,textarea")) return; if (!$("#intro").hidden) return;
+  if (e.key === "ArrowRight") go(cur + 1); if (e.key === "ArrowLeft") go(cur - 1); if (e.key === "Escape") { $("#about").hidden = true; toggleNav(false); } });
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => { depth = b.dataset.depth; document.body.dataset.depth = depth; document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }));
+
+/* ---------- your sky ---------- */
+const skyGroup = new THREE.Group(); skyGroup.visible = false; scene.add(skyGroup); let skyLabels = [];
+function hash(s) { let h = 2166136261; for (const c of s) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; }
+function skyOn() {
+  skyMode = true; $("#skyBtn").setAttribute("aria-pressed", "true"); tween = null; setSky("night"); stars.visible = true;
+  prophet.visible = false; unitGroup.visible = false; labels.forEach(L => { if (L.group !== "sky") L.hide = true; });
+  skyGroup.clear(); skyLabels.forEach(L => L.el.remove()); labels = labels.filter(L => L.group !== "sky"); skyLabels = [];
+  const byAct = {}; Object.entries(met).forEach(([n, a]) => (byAct[a] = byAct[a] || []).push(n));
+  const top = sprite(TEX.light); top.userData.sky = 46; top.position.set(0, 400, 0); skyGroup.add(top);
+  D.acts.forEach((a, ai) => {
+    const names = byAct[a.act]; if (!names) return; const az = ai / D.acts.length * Math.PI * 2, pts = [];
+    names.forEach((n, k) => { const an = az + (hash(n) - 0.5) * 0.5, el = 0.35 + hash(n + "e") * 0.6;
+      const p = new THREE.Vector3(Math.sin(an) * Math.cos(el) * 420, Math.sin(el) * 420, Math.cos(an) * Math.cos(el) * 420);
+      const s = sprite(TEX.person, 0.95); s.position.copy(p); s.userData.sky = 7 + hash(n + "s") * 5; skyGroup.add(s); pts.push(p);
+      if (names.length <= 6 || k % 3 === 0) { const L = addLabel(p, esc(n), "", null, "sky"); L.rel = true; skyLabels.push(L); } });
+    const segs = [], inT = [0];
+    while (inT.length < pts.length) { let best = null; for (const i of inT) for (let j = 0; j < pts.length; j++) if (!inT.includes(j)) { const dd = pts[i].distanceTo(pts[j]); if (!best || dd < best[2]) best = [i, j, dd]; } segs.push(pts[best[0]], pts[best[1]]); inT.push(best[1]); }
+    if (segs.length) skyGroup.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(segs), new THREE.LineBasicMaterial({ color: 0x8796c8, transparent: true, opacity: 0.4, fog: false })));
+    const low = pts.reduce((x, y) => (y.y < x.y ? y : x)); const L = addLabel(low.clone().add(new THREE.Vector3(0, -26, 0)), `<i>Act ${a.act} · ${esc(a.title)}</i>`, "note", null, "sky"); L.rel = true; skyLabels.push(L);
+  });
+  skyGroup.visible = true;
+  const due = Object.entries(answers).filter(([, x]) => !x.ok || x.due < Date.now());
+  pane.innerHTML = `<div class="eyebrow">Your sky</div><h1 class="ch">${Object.keys(met).length} people met</h1>
+    <p class="kicker">Each person you met is a star; each act is a constellation. The warm light above is the Prophet ﷺ, at the centre and never one of the stars. Positions are decorative.</p>
+    <h2 class="sub">Stages to revisit</h2>${due.length ? `<div class="disc">${due.map(([id]) => { const i = UNITS.findIndex(x => x.id === id); return i < 0 ? "" : `<button type="button" data-go="${i}">${esc(UNITS[i].title)}</button>`; }).join("")}</div>` : '<p class="prov">Nothing yet. Questions you miss come back the next day; questions you get right come back in three days.</p>'}
+    <h2 class="sub">Progress</h2><p class="prov">${Object.keys(seen).length} of ${UNITS.length} stages visited.</p>`;
+  pane.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => go(+b.dataset.go)));
+  $("#next").textContent = "Back to the journey";
+}
+function skyOff() {
+  if (!skyMode) return; skyMode = false; $("#skyBtn").setAttribute("aria-pressed", "false");
+  skyGroup.visible = false; unitGroup.visible = true; skyLabels.forEach(L => L.el.remove()); labels = labels.filter(L => L.group !== "sky"); skyLabels = [];
+  labels.forEach(L => L.hide = false); setSky(UNITS[cur].sky || "night");
+}
+$("#skyBtn").addEventListener("click", () => { if (skyMode) go(cur); else skyOn(); });
+
+/* ---------- sound: wind only ---------- */
+let audio = null;
+$("#soundBtn").addEventListener("click", () => {
+  const b = $("#soundBtn");
+  if (!audio) { const ac = new (window.AudioContext || window.webkitAudioContext)(); const buf = ac.createBuffer(1, ac.sampleRate * 4, ac.sampleRate), d = buf.getChannelData(0);
+    let last = 0; for (let i = 0; i < d.length; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.5; }
+    const src = ac.createBufferSource(); src.buffer = buf; src.loop = true; const bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 420; bp.Q.value = 0.6;
+    const lfo = ac.createOscillator(), lg = ac.createGain(); lfo.frequency.value = 0.07; lg.gain.value = 260; lfo.connect(lg).connect(bp.frequency); lfo.start();
+    const g = ac.createGain(); g.gain.value = 0; src.connect(bp).connect(g).connect(ac.destination); src.start(); audio = { ac, g }; }
+  const on = b.getAttribute("aria-pressed") !== "true"; audio.ac.resume(); audio.g.gain.setTargetAtTime(on ? 0.5 : 0, audio.ac.currentTime, 0.6);
+  b.setAttribute("aria-pressed", String(on)); b.textContent = on ? "Sound on" : "Sound off";
+});
+
+/* ---------- misc ---------- */
+let toastT; function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("on"), 2600); }
+$("#aboutBtn").addEventListener("click", () => { $("#about").hidden = false; $("#aboutClose").focus(); });
+$("#introAbout").addEventListener("click", () => { $("#about").hidden = false; });
+$("#aboutClose").addEventListener("click", () => { $("#about").hidden = true; });
+const nStat = UNITS.reduce((n, u) => n + (u.statements || []).length, 0);
+$("#introCount").textContent = `${D.acts.length} acts, ${UNITS.length} stages, ${nStat} graded statements.`;
+$("#introActs").innerHTML = D.acts.map(a => `<div><b>${a.act}</b>${esc(a.title)}</div>`).join("");
+$("#aboutCounts").textContent = `${UNITS.length} stages; ${nStat} statements; ${D.counts.claims} claims from ${D.counts.sections} sections in the graph drawers.`;
+const saved = store.get("cur", 0); if (saved > 0) { $("#resume").hidden = false; $("#resume").textContent = `Continue at stage ${saved + 1}`; }
+$("#begin").addEventListener("click", () => { $("#intro").hidden = true; go(0); });
+$("#resume").addEventListener("click", () => { $("#intro").hidden = true; go(saved); });
+function resize() {
+  const root = document.documentElement.style, hdr = $("header.top"), pan = $("#panel");
+  root.setProperty("--header-h", Math.max(hdr.getBoundingClientRect().bottom, 0) + "px");
+  // keep corner dots clear of the controls bar and of the phone's bottom sheet while they are open
+  if (hdr.classList.contains("dock-hidden")) root.removeProperty("--dock-top"); else root.setProperty("--dock-top", hdr.getBoundingClientRect().bottom + 6 + "px");
+  if (innerWidth <= 760 && !pan.classList.contains("dock-hidden")) root.setProperty("--dock-bottom", innerHeight - pan.getBoundingClientRect().top + 8 + "px"); else root.removeProperty("--dock-bottom"); renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); }
+addEventListener("resize", resize);
+function frame(now) {
+  stepCamera(now); const camD = skyMode ? 1 : cam.dist, breathe = RM ? 1 : 1 + Math.sin(now / 1400) * 0.06;
+  pGlow.scale.setScalar(Math.max(0.5, camD * 0.075) * breathe); pLamp.distance = Math.max(4, Math.min(60, camD * 0.5));
+  unitGroup.children.forEach(o => { if (o.userData.k) o.scale.setScalar(camD * 0.032 * o.userData.k); if (o.userData.stone) o.scale.setScalar(camD * 0.0075); });
+  scene.children.forEach(o => { if (o.userData && o.userData.ring) o.scale.setScalar(Math.max(0.04, camD * 0.03)); });
+  skyGroup.position.copy(camera.position); skyGroup.children.forEach(o => { if (o.userData.sky) o.scale.setScalar(o.userData.sky); });
+  skyLabels.forEach(L => { if (L.rel) { L.pos0 = L.pos0 || L.pos.clone(); L.pos = L.pos0.clone().add(camera.position); } });
+  renderer.render(scene, camera); updateLabels(); requestAnimationFrame(frame);
+}
+buildNav();
+const dock = Dock.init({
+  storeKey: "hijrah-night-2",
+  fullLabel: "all panels",
+  panels: [
+    { id: "controls", el: $("header.top"), label: "the controls", glyph: "≡", corner: "tl", buttonClass: "inline" },
+    { id: "journey", el: navEl, label: "the journey list", glyph: "☰", corner: "tl", buttonClass: "sticky", prepend: true },
+    { id: "map", el: $("#mini"), label: "the mini-map", glyph: "◎", corner: "tr", buttonClass: "small" },
+    { id: "route", el: $("#ribbon"), label: "the route", glyph: "⋯", corner: "bl", buttonHost: $("#ribbon .cap"), buttonClass: "inline" },
+    { id: "reading", el: $("#panel"), label: "the reading panel", glyph: "¶", corner: "br", noButton: true },
+  ],
+  onChange: () => requestAnimationFrame(resize),
+});
+loadDem().then(() => {
+  buildTerrain(); addPlaces(); buildMini();
+  Object.assign(cam, { target: P(39.5, 22.95), dist: 520, pitch: 64 * Math.PI / 180, heading: 0 });
+  resize(); $("#loading").remove(); $("#skyCount").textContent = Object.keys(met).length; requestAnimationFrame(frame);
+}).catch(err => { $("#loading").textContent = err.message; });
+})();
+</script>
