@@ -77,14 +77,19 @@ def build(graph: Path, site_dist: Path, quiet: bool = False, journeys_dir: Path 
     write("practice/bank.json", json.dumps({"questions": bank}, ensure_ascii=False, indent=1, sort_keys=True) + "\n")
     write("index.html", r.index_page(built, len(bank)))
 
-    summary = {"journeys": {j.slug: {"steps": len(j.steps), "apart": len(j.set_apart), "draft": j.is_draft}
-                            for j in built},
+    rule_shas = {s["slug"]: journeys.rule_sha(s) for s in specs}   # what an approval must name (design §3.5)
+    summary = {"journeys": {j.slug: {"steps": len(j.steps), "apart": len(j.set_apart), "draft": j.is_draft,
+                                     "rule_sha": rule_shas[j.slug]} for j in built},
                "questions": len(bank), "practice_pages": len(pages), "claims": counts}
     if not quiet:
         print(f"built learn/ into {out}")
         for j in built:
             extra = f" (+{len(j.set_apart)} apart)" if j.set_apart else ""
-            print(f"  {j.slug}: {len(j.steps)} steps{extra}, {'draft' if j.is_draft else 'approved'}")
+            print(f"  {j.slug}: {len(j.steps)} steps{extra}, {'draft' if j.is_draft else 'approved'}, "
+                  f"rule_sha {rule_shas[j.slug]}")
+            if j.lists:
+                print(f"    list file {j.lists['file']}: {j.lists['state']}, sha {j.lists['sha']}, "
+                      f"order {j.order_applied}")
         print(f"  practice: {len(bank)} questions from accepted claims "
               f"({counts.get('accepted', 0)} accepted of {sum(counts.values())} claims)")
     return summary

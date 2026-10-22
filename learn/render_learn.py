@@ -199,13 +199,15 @@ class LearnRenderer:
             paras.append(self.rule_events(sel))
         elif sel["type"] == "people":
             ev = sel["events"]
-            paras.append(self.t("learn.rule.people", words=self.words_list(ev["named"]["words"]),
+            paras.append(self.t("learn.rule.people", words=self.words_list(self.named_words(ev["named"])),
                                 kinds=self.kinds_text(ev["named"]["kinds"]),
                                 records=self.t("learn.rule.people_records") if sel["participation"]["records"] else "",
                                 claims=self.join_or([self.t("learn.quote", value=self.term_label(c))
                                                      for c in sel["participation"]["claims"]])))
             if ev["max_links"]:
                 paras.append(self.rule_follow(ev, "learn.rule.people_follow"))
+            if ev["named"].get("not_words"):
+                paras.append(self.rule_not_words(ev["named"]))
             if sel["also_show"]:
                 paras.append(self.t("learn.rule.also_show", kinds=self.join_or(
                     [self.t("learn.quote", value=self.term_label(c)) for c in sel["also_show"]])))
@@ -215,22 +217,38 @@ class LearnRenderer:
         else:
             parts = self.join_or([self.t("learn.quote", value=display.name_display(p)) for p in j.part_labels])
             paras.append(self.t("learn.rule.stories", words=self.words_list(sel["part"]["words"]), parts=parts))
-        paras.append(self.t(f"learn.order.{spec['order']}"))
+        paras.append(self.t(f"learn.order.{self.order_shown(j)}"))
         if j.mixes_stories_and_events:
             paras.append(self.t("learn.rule.separate_records"))
         if j.order_conflict:
             paras.append(self.t("learn.rule.order_conflict"))
         return "".join(f"<p>{esc(p)}</p>" for p in paras)
 
+    def order_shown(self, j: Journey) -> str:
+        """The order a page states: the one applied. An e3 journey whose list file is not
+        reviewed is ordered, and so described, as the Prophet first, then by name."""
+        applied = j.order_applied or j.spec["order"]
+        return "prophet_first_then_name" if applied == "e3_pending" else applied
+
+    def rule_not_words(self, named: dict) -> str:
+        return self.t("learn.rule.not_words", words=self.words_list(named["not_words"]))
+
     def kinds_text(self, kinds: list[str]) -> str:
         return self.t("learn.kinds." + "_".join(sorted(kinds)))
 
     def rule_events(self, sel: dict) -> str:
         text = self.t("learn.rule.events", kinds=self.kinds_text(sel["named"]["kinds"]),
-                      words=self.words_list(sel["named"]["words"]))
+                      words=self.words_list(self.named_words(sel["named"])))
+        if sel["named"].get("not_words"):
+            text += " " + self.rule_not_words(sel["named"])
         if sel["max_links"]:
             text += " " + self.rule_follow(sel, "learn.rule.events_follow")
         return text
+
+    @staticmethod
+    def named_words(named: dict) -> list[str]:
+        """The rule's words, and its phrase as one quoted item."""
+        return list(named.get("words") or []) + ([" ".join(named["phrase"])] if named.get("phrase") else [])
 
     def rule_follow(self, rule: dict, key: str) -> str:
         links = self.join([self.t(f"learn.follow.{f}") for f in rule["follow"]], "and")
@@ -417,18 +435,19 @@ class LearnRenderer:
         positions = {st.iri: n for n, st in enumerate(j.steps, 1)}
         steps = "\n".join(self.step_li(base, j, n, st, positions) for n, st in enumerate(j.steps, 1))
         title = self.t(j.spec["title"])
+        lead = self.t(j.spec.get("lead_study") or j.spec["lead"])   # this page shows the claims and their status
         banner = self.banner(j)
         if self.ai_involved(j):
             banner += f'<p class="banner" role="note">{html.escape(self.t("learn.ai_note"))}</p>'
         content = self.tpl("journey", slug=attr(j.slug), door=attr(j.spec["door"]),
                            kicker=html.escape(self.t(f"learn.door.{j.spec['door']}")),
-                           h1=esc(title), banner=banner, lead=esc(self.t(j.spec["lead"])),
+                           h1=esc(title), banner=banner, lead=esc(lead),
                            scale=self.scale(j), progress=self.progress_ui(len(j.steps)), rule=self.rule_html(j),
                            legend=html.escape(self.t(f"learn.legend.{j.spec['select']['type']}")),
                            steps=steps, apart=self.apart_html(base, j))
         return self.shell(base, title, content, body_class=f"page-learn page-journey door-{j.spec['door']}",
                           crumbs=[(self.t("learn.nav"), "learn/"), (title, None)],
-                          description=self.t(j.spec["lead"]), script=True)
+                          description=lead, script=True)
 
     # ------------------------------------------------------------------ index
     def index_page(self, journeys: list[Journey], n_questions: int) -> str:

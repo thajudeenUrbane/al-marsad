@@ -27,15 +27,17 @@ import build as site_build  # noqa: E402
 import build_learn  # noqa: E402
 import check_budget  # noqa: E402
 import check_html  # noqa: E402
+import golden  # noqa: E402
 import journeys as J  # noqa: E402
 import practice  # noqa: E402
 import render_learn  # noqa: E402
 from fixtures import Fx  # noqa: E402
+from model import Site  # noqa: E402
 
 GRAPH = ROOT / "build" / "graph.ttl"
 EN = json.loads((LEARN / "i18n" / "en.json").read_text(encoding="utf-8"))
 SITE_EN = json.loads((SITE / "i18n" / "en.json").read_text(encoding="utf-8"))
-PY_FILES = [LEARN / n for n in ("build_learn.py", "journeys.py", "practice.py", "render_learn.py")]
+PY_FILES = sorted(LEARN.glob("*.py"))
 KEY = re.compile(r"^[a-z_]+(\.[a-z0-9_]+)+$")
 
 
@@ -69,7 +71,7 @@ def family_keys() -> set:
         keys |= {f"{k}.one", f"{k}.other"}
     for path in sorted((LEARN / "journeys").glob("*.json")):
         spec = json.loads(path.read_text(encoding="utf-8"))
-        keys |= {spec["title"], spec["lead"]}
+        keys |= {spec[k] for k in ("title", "lead", "lead_study") if k in spec}
     return keys
 
 
@@ -256,6 +258,18 @@ class BuiltPages(unittest.TestCase):
             foot = p.read_text(encoding="utf-8").split("<footer", 1)[1]
             for needle in ("LICENSING.md", "creativecommons.org/licenses/by-sa/4.0/", "gnu.org/licenses/agpl-3.0.html"):
                 self.assertIn(needle, foot, p)
+
+    def test_hijrah_page_still_matches_the_e1_golden_hash(self):
+        """The E1 class page (design §3.7): the golden hash recorded on the v1 renderer
+        (learn/tests/golden_e1.json), compared while the Hijrah content is unchanged."""
+        want = json.loads(golden.E1_FILE.read_text(encoding="utf-8"))
+        site = Site(GRAPH)
+        j = next(j for j in J.build_all(site, J.load_specs(LEARN / "journeys")) if j.slug == golden.HIJRAH)
+        if golden.content_facts(site, j) != want["gate"]:
+            self.skipTest("re-verify E1: the Hijrah content changed since the golden hash was recorded")
+        page = (self.learn / golden.HIJRAH / "index.html").read_text(encoding="utf-8")
+        self.assertEqual(golden.page_sha(page), want["page_sha256"])
+        self.assertIn(EN["journey.hijrah.lead_study"], page)
 
     def test_rebuilding_replaces_only_learn(self):
         marker = self.out / "person" / "index.html"
