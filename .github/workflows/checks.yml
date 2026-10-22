@@ -1,4 +1,7 @@
-# Every push and pull request runs every check (scripts/check_all.sh).
+# Every pull request, and every push to main, runs every check
+# (scripts/check_all.sh). A push to any other branch runs nothing: the pull
+# request opened from it is the run that counts, so a change is checked once,
+# not twice (saves Actions minutes).
 # A push to main, once the checks pass, deploys the checked site to Cloudflare
 # Pages, but only when the maintainer has added the two Cloudflare secrets;
 # without them the deploy job says it was skipped and still succeeds.
@@ -8,10 +11,44 @@
 # scripts/check_all.sh fails if one is not. Tools are pinned below.
 name: Checks and deploy
 
+# Saves Actions minutes: a change that touches only notes (below) runs nothing.
+# Everything the build, the tests or the site read is left out of the list, so
+# a real content change always runs the checks and, on main, the deploy. Switch
+# to an in-job skip if main ever gets required checks (a BillBol
+# branch-protection decision is pending): a workflow skipped by paths-ignore
+# leaves a required check waiting forever.
 on:
   push:
-    branches: ["**"]
+    branches: [main]
+    paths-ignore:
+      - "CLAUDE.md"
+      - "README.md"
+      - "docs/*.md"
+      # The handover notes. Not docs/handover/slice-6-7*.md: a learn test
+      # reads those two files (no entity id may appear in them), so they are
+      # left out of this list on purpose. A new handover file that matches no
+      # line here simply runs the checks.
+      - "docs/handover/[a-r]*.md"
+      - "docs/handover/session-*.md"
+      - "docs/handover/sira-*.md"
+      - "docs/handover/sky-*.md"
+      - "docs/handover/slice-[1-5]*.md"
+      - "docs/handover/slice-[89]*.md"
   pull_request:
+    paths-ignore:
+      - "CLAUDE.md"
+      - "README.md"
+      - "docs/*.md"
+      # The handover notes. Not docs/handover/slice-6-7*.md: a learn test
+      # reads those two files (no entity id may appear in them), so they are
+      # left out of this list on purpose. A new handover file that matches no
+      # line here simply runs the checks.
+      - "docs/handover/[a-r]*.md"
+      - "docs/handover/session-*.md"
+      - "docs/handover/sira-*.md"
+      - "docs/handover/sky-*.md"
+      - "docs/handover/slice-[1-5]*.md"
+      - "docs/handover/slice-[89]*.md"
 
 permissions:
   contents: read
@@ -34,7 +71,7 @@ jobs:
   checks:
     name: All checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 22
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -60,9 +97,19 @@ jobs:
           npm install --global --no-audit --no-fund "playwright@${PLAYWRIGHT_VERSION}"
           playwright install --with-deps --only-shell chromium
 
+      # On a pull request, check_all.sh skips the slow review steps when the change touches
+      # nothing under ontology/, review/, ingest/, requirements.txt or scripts/check_all.sh.
+      # It needs the base commit to compare with; main always runs everything.
+      - name: Fetch the base commit (pull requests)
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: git fetch --no-tags --depth=1 origin "$BASE_SHA" || true
+
       - name: Run scripts/check_all.sh
         env:
           PYTHON: ${{ steps.python.outputs.python-path }}
+          PR_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || '' }}
         run: bash scripts/check_all.sh
 
       # Same condition as the deploy job. Hidden files (the generator's marker) stay out.

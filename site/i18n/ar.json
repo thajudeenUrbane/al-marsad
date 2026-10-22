@@ -417,6 +417,8 @@
   "research.download.graph.note": "كل سجل وإفادة وحالة في هذا الموقع، في ملف واحد.",
   "research.download.external_ids": "مطابقات محتملة في قواعد بيانات أخرى (CSV)",
   "research.download.external_ids.note": "اقترحتها أداة مطابقة ولم تُراجَع: مرشَّحات لا هويات.",
+  "research.download.external_ids_althurayya": "مطابقات محتملة في معجم الثريا الجغرافي (CSV)",
+  "research.download.external_ids_althurayya.note": "اقترحتها أداة مطابقة ولم تُراجَع. بيانات مشروع الثريا، بترخيصه CC BY 4.0 (المصدر: مشروع الثريا).",
   "research.entity_ttl": "يوجد ملف Turtle لكل سجل تحت «التفاصيل» في صفحته، وفي القائمة أدناه.",
   "research.iris": "لكل سجل معرّف ثابت (IRI) تحت https://w3id.org/marsad/id/، وعنوان صفحته مصنوع من هذا المعرّف لا من اسم.",
   "research.licence": "النص والبيانات تحت CC BY-SA 4.0؛ وجداول المعرّفات تحت CC0.",

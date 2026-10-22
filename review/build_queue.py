@@ -6,7 +6,8 @@ Build the scholars' review queue (slice 3a). Reads the graph; changes nothing in
     .venv/bin/python review/build_queue.py --list-excluded      # also print the identity rows left out, and why
     .venv/bin/python review/build_queue.py --identity-confidence needs-review,probable
 
-Claims queue: every Assertion whose status is `proposed`, one review unit per claim,
+Claims queue: every Assertion whose status is `proposed` (except in the files the reader
+pages hold back for now, ontology/shacl_check.py ON_HOLD_FROM_PAGES), one review unit per claim,
 each claim in exactly one batch, batched in this order:
   1. by story: claims derived from a narrative passage (the 50 Stories), one batch per
      story, in the work's own order;
@@ -23,7 +24,14 @@ Identity queue: the rows of ontology/corpus/identity.csv whose confidence is in
 --identity-confidence (default: needs-review), as "same person?" questions
 (mrs:IdentityAssertion candidates). Rows whose flag is only ID bookkeeping from
 slice 1a (the ID collision or hash IDs that slice 1d re-minted) are left out, so no
-scholar time goes on them; --list-excluded prints them for the maintainer.
+scholar time goes on them, and so are the rows the full-book pass created (new, not
+known duplicates: those go through merge proposals and an editor, maintainer F3);
+--list-excluded prints them for the maintainer.
+
+Count checks (slice 11a): where a list in Ibn Hishām's text gives a total and the graph
+holds a different number of people in it (ingest/claims/ibn-hisham-full-counts.json),
+the mismatch is listed under "count_checks" for an editor: a missed name, a duplicate or
+a person in the wrong list. They are questions, not claims, so they carry no decision.
 
 The output is deterministic (no timestamps). Format: docs/handover/slice-3a.md.
 """
@@ -39,6 +47,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common as c  # noqa: E402
 
 DEFAULT_OUT = c.ROOT / "review" / "dist" / "queue.json"
+COUNTS = c.ROOT / "ingest" / "claims" / "ibn-hisham-full-counts.json"
+
+
+def count_checks() -> list:
+    if not COUNTS.exists():
+        return []
+    rows = json.loads(COUNTS.read_text(encoding="utf-8"))["checks"]
+    return [{k: r[k] for k in ("key", "what", "stated", "found", "found_ibn_ishaq_voice",
+                               "found_ibn_hisham_voice", "found_no_voice")} for r in rows if not r["matches"]]
 
 
 def claim_unit(tree: c.Tree, a, earlier: dict) -> dict:
@@ -86,7 +103,9 @@ def split(batch: dict, units: list, size: int) -> list[dict]:
 def claim_batches(tree: c.Tree, size: int) -> tuple[list, dict]:
     g = tree.graph
     earlier = tree.decisions_by_target()
-    proposed = [a for a in tree.assertions() if tree.status(a) == "proposed"]
+    # the files the pages hold back (ontology/shacl_check.py) are held back here too, until slice 11b
+    held = {Path(n).stem for n in c.on_hold_from_pages()}
+    proposed = [a for a in tree.assertions() if tree.status(a) == "proposed" and tree.source_of(a) not in held]
     stories, persons, files, passages = {}, {}, {}, {}
     for a in proposed:
         story = tree.story_of(a)
@@ -138,6 +157,14 @@ def identity_batches(tree: c.Tree, levels: set, size: int) -> tuple[list, list]:
     earlier = tree.decisions_by_target()
     units, excluded = [], []
     for row in tree.identity:
+        if row.get("source_files", "") == "ibn-hisham-full" and row["confidence"] in levels:
+            # a person, place or event first named by the full-book pass: needs-review because it is new,
+            # not because a "same as?" question is known; duplicates go to an editor through merge proposals
+            # (ontology/tools/propose_merges.py, maintainer F3), and only the hard cases reach scholars
+            excluded.append({"id": row["canonical_id"], "kind": row["kind"], "name": row["preferred_name_en"],
+                             "confidence": row["confidence"], "queued_as": None,
+                             "reasons": ["new from the full-book pass: duplicates go through merge proposals"]})
+            continue
         queued_as = c.queued_confidence(row)
         flags = c.note_flags(row.get("note", ""))
         if queued_as not in levels:
@@ -151,7 +178,7 @@ def identity_batches(tree: c.Tree, levels: set, size: int) -> tuple[list, list]:
             "id": row["canonical_id"],
             "kind": "identity",
             "entity": row["kind"],
-            "question": "same_as",
+            "question": "real_group" if c.REAL_GROUP_NOTE in row.get("note", "") else "same_as",
             "name": row["preferred_name_en"],
             "name_ar": row.get("name_ar") or None,
             "variant_ids": [v for v in row.get("variant_ids", "").split(";") if v],
@@ -171,6 +198,7 @@ def build(tree: c.Tree, levels: set, size: int) -> dict:
     claims, passages = claim_batches(tree, size)
     identity, excluded = identity_batches(tree, levels, size)
     t = tree.default_tradition()
+    counts = count_checks()
     count = {k: sum(1 for b in claims if b["kind"] == k) for k in ("story", "person", "file")}
     return {
         "format": "marsad-review-queue",
@@ -185,10 +213,12 @@ def build(tree: c.Tree, levels: set, size: int) -> dict:
             "identity_units": sum(len(b["units"]) for b in identity),
             "identity_excluded": len(excluded),
             "identity_confidence": sorted(levels),
+            "count_checks": len(counts),
         },
         "claims": claims,
         "identity": identity,
         "identity_excluded": excluded,
+        "count_checks": counts,
         "passages": dict(sorted(passages.items())),
     }
 
@@ -216,7 +246,9 @@ def main(argv=None) -> int:
     print(f"claims: {s['claims']} proposed, in {sum(b.values())} batches "
           f"({b['story']} story, {b['person']} person, {b['file']} file)")
     print(f"identity: {s['identity_units']} question(s); {s['identity_excluded']} row(s) left out "
-          f"(flagged only for slice-1a ID bookkeeping)")
+          f"(slice-1a ID bookkeeping, or new from the full-book pass)")
+    if s["count_checks"]:
+        print(f"count checks: {s['count_checks']} list(s) whose count differs from the total the text gives (for an editor)")
     if args.list_excluded:
         for row in queue["identity_excluded"]:
             print(f"  {row['id']}  {row['name']}  -- {'; '.join(row['reasons'])}")

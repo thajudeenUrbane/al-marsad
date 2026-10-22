@@ -20,6 +20,8 @@ import sys
 import re
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # shacl_check.py sits beside this file
+
 try:
     from rdflib import Graph
     import shacl_check

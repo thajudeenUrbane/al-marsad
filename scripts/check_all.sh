@@ -63,6 +63,16 @@ skip() {
   summary+=("SKIP  $1 ($2)")
 }
 
+# Pull requests that touch nothing the review code reads skip the two slow review steps.
+# PR_BASE_SHA is set by the workflow on pull requests only; main and local runs always run them.
+review_wanted() {
+  local changed
+  [ "${GITHUB_EVENT_NAME:-}" = pull_request ] && [ -n "${PR_BASE_SHA:-}" ] || return 0
+  changed=$(git diff --name-only "$PR_BASE_SHA" HEAD 2>/dev/null) || return 0
+  [ -n "$changed" ] || return 0
+  grep -Eq '^(ontology/|review/|ingest/|requirements\.txt$|scripts/check_all\.sh$)' <<<"$changed"
+}
+
 # --- Python ------------------------------------------------------------------
 find_python() {
   local c common
@@ -202,9 +212,17 @@ fi
 step "site: unit tests"                            "$PY" -m unittest discover -s site/tests
 # Other modules, one line each when they land, e.g.
 step "review: statuses agree with the review log"  "$PY" review/import_decisions.py --check
-step "review: tests"                               "$PY" -m unittest discover -s review/tests
+if review_wanted; then
+  step "review: tests"                             "$PY" -m unittest discover -s review/tests
+else
+  skip "review: tests" "pull request touches nothing under ontology/, review/ or ingest/"
+fi
 step "review: build the review pages"              "$PY" review/build_pages.py
-step "review: pages to importer (browser)"         "$PY" review/check_pages.py
+if review_wanted; then
+  step "review: pages to importer (browser)"       "$PY" review/check_pages.py
+else
+  skip "review: pages to importer (browser)" "pull request touches nothing under ontology/, review/ or ingest/"
+fi
 step "learn: tests"                                "$PY" -m unittest discover -s learn/tests
 step "ask: tests"                                  "$PY" -m unittest discover -s ask/tests
 step "ci: actions pinned to commit SHAs"           actions_pinned

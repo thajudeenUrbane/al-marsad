@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pyshacl
 from pyshacl import validate
-from rdflib import Graph, Namespace
+from rdflib import BNode, Graph, Namespace
 from rdflib.namespace import RDF
 
 ONT = Path(__file__).resolve().parent
@@ -70,3 +70,65 @@ def cached_file_check(path, run=True):
         old.unlink()
     hit.write_text(json.dumps({"conforms": conforms, "text": text, "advisories": advisories}), encoding="utf-8")
     return conforms, text, advisories, False
+
+
+# Data files left out of what the pages and the scholars' queue read, until they can carry them (slice 11b).
+ON_HOLD_FROM_PAGES = {"ibn-hisham-full.ttl"}
+# A file with more triples than this is "large": its own nodes are checked through the per-file
+# cache rather than in every joined check.
+LARGE = 100_000
+
+
+def check_joined(parsed, vocab, merge_decisions=(), run_large=False, paths=None):
+    """Check a joined graph the way build_graph.py does (slice 11a). `parsed`: file name -> Graph.
+
+    1. each large file on its own, through the cache (computed only when run_large, else
+       reported as not checked whole);
+    2. every triple of the smaller files, plus what the large files say about nodes another
+       file also describes (with their blank-node parts), with the merge decisions applied.
+    Returns (conforms, report_text, advisories, notes)."""
+    notes, ok_all, texts = [], True, []
+    large = sorted(n for n, g in parsed.items() if len(g) > LARGE)
+    for name in large:
+        path = (paths or {}).get(name)
+        res = cached_file_check(path, run=run_large) if path is not None else None
+        if res is None:
+            notes.append(f"{name}: {len(parsed[name])} triples, no cached verdict for this version of the file: "
+                         "checked only where it meets other files")
+            continue
+        ok, text, _, cached = res
+        notes.append(f"{name} on its own: {'conforms' if ok else 'DOES NOT CONFORM'}{' (cached verdict)' if cached else ''}")
+        if not ok:
+            ok_all = False
+            texts.append(text)
+    subjects_in = {}
+    for name, g in parsed.items():
+        for s in set(g.subjects()):
+            subjects_in.setdefault(s, set()).add(name)
+    shared = {s for s, fs in subjects_in.items() if len(fs) > 1}
+    meet = Graph() + vocab
+    big = Graph()
+    for name, g in parsed.items():
+        if name in large:
+            big += g
+        else:
+            meet += g
+    todo = [s for s in shared if (s, None, None) in big]
+    seen = set()
+    while todo:
+        s = todo.pop()
+        if s in seen:
+            continue
+        seen.add(s)
+        for t in big.triples((s, None, None)):
+            meet.add(t)
+            if isinstance(t[2], BNode):
+                todo.append(t[2])
+    for s, p, drop, keep, *_ in merge_decisions:
+        if (s, p, drop) in meet and (s, p, keep) in meet:
+            meet.remove((s, p, drop))
+    ok, text, advisories = check(meet)
+    notes.append(f"joined graph checked where files meet: {len(meet)} triples ({len(seen)} nodes from the large files)")
+    if not ok:
+        texts.append(text)
+    return ok and ok_all, "\n".join(texts), advisories, notes

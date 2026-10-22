@@ -344,6 +344,8 @@
   "research.download.graph.note": "Every record, claim and status on this site, in one file.",
   "research.download.external_ids": "Possible matches in other databases (CSV)",
   "research.download.external_ids.note": "Proposed by a matching tool and not reviewed: candidates, not identities.",
+  "research.download.external_ids_althurayya": "Possible matches in the al-Thurayya gazetteer (CSV)",
+  "research.download.external_ids_althurayya.note": "Proposed by a matching tool and not reviewed. al-Thurayya's data, under its licence, CC BY 4.0 (credit: the al-Thurayya Project).",
   "research.entity_ttl": "Each record's own Turtle is linked under Details on its page, and in the list below.",
   "research.iris": "Every record has a stable identifier (IRI) under https://w3id.org/marsad/id/, and its page address is made from that identifier, never from a name.",
   "research.licence": "Text and data are under CC BY-SA 4.0; the tables of identifiers are under CC0.",
