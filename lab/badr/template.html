@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badr Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A prototype of an evidence-graded learning world: stand at Badr under the computed sky, then investigate why Ibn Isḥāq's list and its total disagree.">
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #0b1020; --panel: #111a2e; --panel-2: #18233c; --border: #2b3858;
+  --ink: #e8edf5; --muted: #a6b2c6; --link: #cfe3ff; --focus: #ffffff;
+  /* the four provenance classes: the one encoding this page is about */
+  --p-attested: #e6b450; --p-located: #2cb98f; --p-computed: #6cb6ff; --p-schematic: #9aa3b5;
+  --v-ishaq: #e6b450; --v-hisham: #d98cb8; --v-none: #7d879b;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Naskh Arabic", sans-serif; font-size: 16px; line-height: 1.55; }
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.sr-only { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: -1px; padding: 0; border: 0; }
+main { max-inline-size: 1080px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block-end: 64px; }
+header.top { padding-block: 28px 8px; }
+h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; margin: 0 0 6px; }
+h3 { font-size: 1.05rem; margin: 18px 0 6px; }
+p { margin: 0 0 10px; }
+.muted { color: var(--muted); }
+.banner { border: 1px solid var(--border); background: var(--panel); padding: 10px 14px; border-radius: 8px; font-size: 0.92rem; color: var(--muted); }
+.banner strong { color: var(--ink); }
+section.room { margin-block-start: 34px; padding-block-start: 22px; border-block-start: 1px solid var(--border); }
+.kicker { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem; color: var(--muted); margin-block-end: 2px; }
+button, .btn { font: inherit; color: var(--ink); background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; padding: 7px 12px; cursor: pointer; }
+button[aria-pressed="true"] { background: #2a3a62; border-color: #6b80b8; }
+button.primary { background: #2f4a86; border-color: #6b8be0; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* provenance lens */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--bg); }
+.lensbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(11,16,32,0.94); backdrop-filter: blur(6px); border-block-end: 1px solid var(--border); padding-block: 8px; }
+.lensbar .inner { max-inline-size: 1080px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+@media (max-width: 639px) { body:not(.lens) .legend { display: none; } }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.82rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; inline-size: 10px; block-size: 10px; border-radius: 2px; margin-inline-end: 5px; vertical-align: -1px; background: var(--c); }
+[data-prov] { transition: box-shadow .2s, outline-color .2s; }
+body.lens [data-prov] { outline: 2px solid var(--pc); outline-offset: 3px; border-radius: 4px; }
+body.lens [data-prov]::after { content: attr(data-prov); font-size: 0.68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bg); background: var(--pc); padding: 0 5px; border-radius: 3px; margin-inline-start: 6px; vertical-align: 2px; }
+[data-prov="attested"] { --pc: var(--p-attested); }
+[data-prov="located"] { --pc: var(--p-located); }
+[data-prov="computed"] { --pc: var(--p-computed); }
+[data-prov="schematic"] { --pc: var(--p-schematic); }
+
+/* the world */
+.world { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+@media (min-width: 900px) { .world { grid-template-columns: minmax(0, 1fr) 320px; } }
+.stage { max-width: 100%; position: relative; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #04060c; aspect-ratio: 4 / 5; touch-action: none; }
+@media (min-width: 640px) { .stage { aspect-ratio: 16 / 10; } }
+.stage canvas { display: block; inline-size: 100%; block-size: 100%; cursor: grab; }
+.stage canvas:active { cursor: grabbing; }
+.tag { position: absolute; transform: translate(-50%, -100%); font-size: 0.78rem; white-space: nowrap; pointer-events: none; padding: 1px 6px; border-radius: 4px; background: rgba(4,6,12,0.7); border: 1px solid var(--border); }
+.tag[hidden] { display: none; }
+.hud { position: absolute; inset-inline: 8px; inset-block-end: 10px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background: rgba(4,6,12,0.72); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 0.85rem; }
+.hud input[type=range] { flex: 1 1 160px; }
+.side { display: flex; flex-direction: column; gap: 10px; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 0.92rem; }
+.card h3 { margin-block-start: 0; }
+.fact { margin-block-end: 8px; padding-inline-start: 10px; border-inline-start: 3px solid var(--pc, var(--border)); }
+.fact small { display: block; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; }
+
+/* the investigation */
+.step { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-block: 12px; }
+.step[hidden] { display: none; }
+.step .n { display: inline-block; inline-size: 26px; block-size: 26px; border-radius: 50%; background: var(--panel-2); text-align: center; line-height: 26px; font-size: 0.85rem; margin-inline-end: 8px; }
+.guide { border-inline-start: 3px solid #8fa6e0; padding: 8px 12px; background: #141f38; border-radius: 0 8px 8px 0; margin-block: 10px; }
+.guide::before { content: "The guide asks"; display: block; font-size: 0.72rem; letter-spacing: .08em; text-transform: uppercase; color: #8fa6e0; margin-block-end: 2px; }
+.choices { display: grid; gap: 6px; margin-block: 8px; }
+.choices label { display: flex; gap: 8px; align-items: flex-start; background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; cursor: pointer; }
+.choices label.right { border-color: var(--p-located); }
+.reveal { border-block-start: 1px dashed var(--border); margin-block-start: 10px; padding-block-start: 10px; }
+.reveal[hidden] { display: none; }
+input[type=number], textarea { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; }
+input[type=number] { inline-size: 7em; }
+textarea { inline-size: 100%; min-block-size: 70px; }
+.field { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-block: 10px; }
+.block h4 { margin: 0 0 6px; font-size: 0.92rem; display: flex; justify-content: space-between; gap: 8px; }
+.block h4 .count { color: var(--muted); font-weight: normal; }
+.dots { display: flex; flex-wrap: wrap; gap: 3px; }
+.dot { inline-size: 13px; block-size: 13px; border-radius: 50%; border: 0; padding: 0; background: var(--v-ishaq); cursor: pointer; }
+.dot[data-v="hish"] { background: var(--v-hisham); }
+.dot[data-v="none"] { background: var(--v-none); }
+.dot[data-twice] { border-radius: 2px; }
+.dot[data-s="1"] { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px #fff; }
+.dot.off { opacity: 0.12; }
+.dot.seen { outline: 1px solid #fff; outline-offset: 1px; }
+.vlegend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; color: var(--muted); }
+.vlegend i { display: inline-block; inline-size: 10px; block-size: 10px; border-radius: 50%; margin-inline-end: 5px; vertical-align: -1px; }
+.person { min-block-size: 92px; }
+table { border-collapse: collapse; inline-size: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: start; padding: 5px 8px; border-block-end: 1px solid var(--border); }
+td.num, th.num { text-align: end; }
+.bad { color: #ffb38a; }
+.ok { color: #7fe0b6; }
+.tablewrap { overflow-x: auto; }
+#mysky { inline-size: 100%; block-size: 160px; display: block; background: #04060c; border-radius: 8px; border: 1px solid var(--border); }
+footer { margin-block-start: 44px; font-size: 0.82rem; color: var(--muted); border-block-start: 1px solid var(--border); padding-block-start: 14px; }
+footer li { margin-block-end: 4px; }
+.nojs-note { display: none; }
+</style>
+</head>
+<body>
+<div class="lensbar" role="region" aria-label="Provenance lens">
+  <div class="inner">
+    <button id="lens" aria-pressed="false" title="Outline every element by where it comes from">Provenance lens</button>
+    <div class="legend" aria-hidden="false">
+      <span style="--c: var(--p-attested)">attested: a source says it</span>
+      <span style="--c: var(--p-located)">located: gazetteer point</span>
+      <span style="--c: var(--p-computed)">computed: from physics or data</span>
+      <span style="--c: var(--p-schematic)">schematic: layout only</span>
+    </div>
+  </div>
+</div>
+<main id="main">
+<header class="top">
+  <p class="kicker">al-Marṣad · lab prototype · one event</p>
+  <h1>Badr: stand there, then ask how we know</h1>
+  <p class="muted">Two rooms. In the first you stand in the valley of Badr under the sky that astronomy computes for the eve of the battle. In the second you investigate a real question in the oldest surviving full biography: why its list of names and its own total do not agree.</p>
+  <p class="banner"><strong>A prototype, built to test ideas.</strong> Nothing here is scholar-reviewed. The names are claims an AI extraction pass proposed from Ibn Hishām's <i>Sīra</i>. The terrain is today's ground. The sky is a calculation. Press <em>Provenance lens</em> at any time to see which is which.</p>
+</header>
+
+<section class="room" id="stand" aria-labelledby="stand-h">
+  <p class="kicker">Room 1</p>
+  <h2 id="stand-h">Stand at Badr</h2>
+  <p class="muted">Drag to look around, scroll or pinch to move closer, and slide through the night. No person is drawn, ever: the place, the ground and the sky are what can be shown.</p>
+  <div class="world">
+    <div>
+      <div class="stage" id="stage" data-prov="computed">
+        <canvas id="gl" tabindex="0" aria-label="The valley of Badr at night, with the computed sky. Use the arrow keys to look around and plus or minus to zoom."></canvas>
+        <div class="tag" id="tag-badr" data-prov="located">Badr</div>
+        <div class="tag" id="tag-madinah" data-prov="computed"></div>
+        <div class="tag" id="tag-makkah" data-prov="computed"></div>
+        <div class="tag" id="tag-moon" data-prov="computed">Moon</div>
+        <div class="hud">
+          <label for="time" class="sr-only">Time of night</label>
+          <span id="clock" style="min-inline-size: 9.5em">—</span>
+          <input id="time" type="range" min="0" max="10" value="0">
+          <span class="seg" role="group" aria-label="Which lunation was Ramaḍān">
+            <button id="sc-feb" aria-pressed="true">Feb lunation</button>
+            <button id="sc-mar" aria-pressed="false">Mar lunation</button>
+          </span>
+        </div>
+      </div>
+      <p class="muted" id="nogl" hidden>This device cannot draw the 3D view, so here is the same place as a flat relief map. Everything you need is in the cards.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>What the source says</h3>
+        <div class="fact" data-prov="attested">The battle was on <b>Friday, the morning of 17 Ramaḍān</b>.<small>Ibn Isḥāq, from Abū Jaʿfar Muḥammad ibn ʿAlī ibn al-Ḥusayn; Ibn Hishām, <i>Sīra</i>, Cairo 1955 edition, vol. 1, about p. 625 (provisional edition, page not checked in print).</small></div>
+        <div class="fact" data-prov="attested">The Muslims came from Madinah; Quraysh came from Makkah.<small>Ibn Hishām, <i>Sīra</i>, the Badr chapters.</small></div>
+      </div>
+      <div class="card">
+        <h3>What is computed</h3>
+        <div class="fact" data-prov="computed" id="c-moon">—</div>
+        <div class="fact" data-prov="computed" id="c-week">—</div>
+        <div class="fact" data-prov="computed" id="c-dir">—</div>
+        <div class="fact" data-prov="computed">Ground: present-day elevation, about <span id="c-size">22</span> km square, heights exaggerated 2.5×. Modern roads and buildings are not drawn, and neither are the wells, whose places have not been reviewed.</div>
+      </div>
+      <div class="card" data-prov="schematic">
+        <h3>A question the sky raises</h3>
+        <p id="c-question">—</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="room" id="investigate" aria-labelledby="inv-h">
+  <p class="kicker">Room 2</p>
+  <h2 id="inv-h">The 314: an investigation</h2>
+  <p class="muted">Ibn Isḥāq (d. about 150 AH) names everyone he counted at Badr, clan by clan, and closes with totals. His student's student, Ibn Hishām (d. 213 or 218 AH), edited the book and added notes of his own. You will do what a reviewer does: compare a list with what it claims.</p>
+
+  <div class="step" id="s1">
+    <h3><span class="n">1</span>Do the totals agree with each other?</h3>
+    <p data-prov="attested">Ibn Isḥāq gives three totals: <b>83</b> Emigrants, <b>61</b> of the Aws, <b>170</b> of the Khazraj. Then a grand total: <b>314</b>.</p>
+    <div class="guide">Before anything else: add the three. Does the author's own arithmetic hold?</div>
+    <div class="row"><label for="sum">83 + 61 + 170 =</label><input id="sum" type="number" inputmode="numeric"><button id="sum-go" class="primary">Check</button></div>
+    <div class="reveal" id="s1r" hidden><p id="s1msg"></p></div>
+  </div>
+
+  <div class="step" id="s2">
+    <h3><span class="n">2</span>Predict before you look</h3>
+    <p>The graph read the whole list and found <b data-prov="computed" id="found-all">321</b> different names: more than 314.</p>
+    <div class="guide">Why might a list hold more names than its own total? Choose every reason you think is possible. There is no penalty for guessing; predicting first is how this sticks.</div>
+    <div class="choices" id="hyp">
+      <label><input type="checkbox" value="editor"> A later editor added names of his own</label>
+      <label><input type="checkbox" value="share"> Some people were counted who were not at the battle</label>
+      <label><input type="checkbox" value="dup"> The same person was counted twice under two names</label>
+      <label><input type="checkbox" value="machine"> The machine that read the list made mistakes</label>
+      <label><input type="checkbox" value="copyist"> A copyist changed a number over the centuries</label>
+    </div>
+    <button id="hyp-go" class="primary">Lock in my prediction</button>
+    <div class="reveal" id="s2r" hidden>
+      <p>All five are real possibilities, and historians check for each one. Now look at the evidence.</p>
+    </div>
+  </div>
+
+  <div class="step" id="s3">
+    <h3><span class="n">3</span>Look at every name</h3>
+    <p class="muted">Each dot is one name the list holds, grouped as the text groups them. Colour says <em>whose voice</em> the name is in. A ring means the text says the person was given a share without being present. Open any dot to see its claim.</p>
+    <div class="vlegend">
+      <span><i style="background: var(--v-ishaq)"></i>Ibn Isḥāq's list</span>
+      <span><i style="background: var(--v-hisham)"></i>added in Ibn Hishām's voice</span>
+      <span><i style="background: var(--v-none)"></i>voice not tagged by the extraction</span>
+      <span><i style="background: transparent; box-shadow: 0 0 0 1.5px #fff"></i>given a share</span>
+    </div>
+    <div class="row" style="margin-block: 10px" role="group" aria-label="Filter names">
+      <button class="flt" data-f="all" aria-pressed="true">All names</button>
+      <button class="flt" data-f="ishq" aria-pressed="false">Ibn Isḥāq's voice only</button>
+      <button class="flt" data-f="hish" aria-pressed="false">Ibn Hishām's additions</button>
+      <button class="flt" data-f="none" aria-pressed="false">Untagged</button>
+    </div>
+    <div class="field" id="field" data-prov="attested"></div>
+    <p class="muted" id="oddities" data-prov="computed"></p>
+    <div class="card person" id="person" aria-live="polite"><span class="muted">Open a dot to read its claim.</span></div>
+    <div class="guide" id="g3">Filter to <b>Ibn Isḥāq's voice only</b>. How many names are left, and is that more or fewer than 314?</div>
+  </div>
+
+  <div class="step" id="s4">
+    <h3><span class="n">4</span>Now the gap runs the other way</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Group</th><th class="num">Text says</th><th class="num">Names found</th><th class="num">Ibn Isḥāq's voice</th><th class="num">+ untagged</th><th class="num">Ibn Hishām's</th></tr></thead>
+        <tbody id="tbl"></tbody>
+      </table>
+    </div>
+    <div class="guide">Take away Ibn Hishām's additions and the list is now <b>short</b> of 314. So there are two problems at once. Which layer could each one live in?</div>
+    <div class="choices" id="layers">
+      <label><input type="radio" name="layer" value="event"> The event itself: we cannot know who was there</label>
+      <label><input type="radio" name="layer" value="text"> The text: an editor, a copyist, or the printed edition</label>
+      <label><input type="radio" name="layer" value="reading"> Our reading of the text: the extraction missed or mis-tagged names</label>
+      <label><input type="radio" name="layer" value="all"> Possibly the text and our reading, and only a reviewer with the passage can tell</label>
+    </div>
+    <button id="layer-go" class="primary">Answer</button>
+    <div class="reveal" id="s4r" hidden>
+      <p><b>The last answer is the honest one.</b> The totals agree with each other, so the author's arithmetic holds. The extra names come mostly from the editor's notes, which the text marks. The shortfall is most likely in our own machine reading, which tags voice imperfectly and may have missed names. Only a reviewer with the Arabic passage beside them can settle each one.</p>
+      <p>That is why this mismatch sits in al-Marṣad's review queue as <code>badr_all: MISMATCH, to review</code>, and why the graph never "corrects" the source to make the numbers fit.</p>
+      <p class="muted">Three layers can disagree: what happened, the text that reports it, and our reading of the text. Good history keeps them apart. You just did.</p>
+    </div>
+  </div>
+
+  <div class="step" id="s5">
+    <h3><span class="n">5</span>In your own words</h3>
+    <div class="guide">Explain to a friend, in two sentences, why "314 at Badr" and "321 names in the list" are both true. It stays on this device.</div>
+    <label for="explain" class="sr-only">Your explanation</label>
+    <textarea id="explain" placeholder="Write it here…"></textarea>
+    <div class="row" style="margin-block-start: 8px"><button id="explain-go">Save</button><span class="muted" id="explain-ok"></span></div>
+  </div>
+</section>
+
+<section class="room" id="carry" aria-labelledby="carry-h">
+  <p class="kicker">Room 3</p>
+  <h2 id="carry-h">Carry it with you</h2>
+  <p class="muted" id="carry-lead">Four questions, answered from memory. Come back in two days and the page will ask again: remembering after a gap is what makes it last.</p>
+  <div class="step" id="quiz"></div>
+  <h3>Your sky</h3>
+  <p class="muted">Every name you opened is a point of light here, kept only on this device. It is a record of what you have looked at, nothing more: it ranks no one.</p>
+  <canvas id="mysky" aria-label="A star for each person you opened"></canvas>
+  <p class="muted" id="mysky-n"></p>
+</section>
+
+<footer>
+  <p><b>Where everything comes from.</b> Nothing here is reviewed; this is a lab page, not part of the public site.</p>
+  <ul>
+    <li>Names, groups, voice and "given a share": proposed claims of the full-book AI extraction pass over Ibn Hishām, <i>al-Sīra al-Nabawiyya</i> (OpenITI 0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1). The Arabic text is not copied here.</li>
+    <li>Totals: the numbers the text itself states, checked by <code>ingest/count_checks.py</code>.</li>
+    <li>Places: al-Thurayya Gazetteer (CC BY 4.0), rows BADR_388E237N_S, MADINA_396E244N_S, MAKKA_398E213N_S, all proposed.</li>
+    <li>Ground: Terrain Tiles on AWS Open Data (Mapzen), from SRTM and other public sources: present-day elevation.</li>
+    <li>Sky: astronomy-engine 2.1.19 (MIT); HYG star catalogue v4.1 (CC BY-SA 4.0), stars moved back to 624 CE by proper motion and precessed to date. The crescent rule is a stated simplification.</li>
+  </ul>
+</footer>
+</main>
+
+<script>
+"use strict";
+const D = /*__DATA__*/null;
+const $ = s => document.querySelector(s);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("badrlab:" + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("badrlab:" + k, JSON.stringify(v)); } catch (e) {} },
+};
+
+/* ---------- provenance lens ---------- */
+$("#lens").addEventListener("click", e => {
+  const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  e.currentTarget.setAttribute("aria-pressed", on);
+  document.body.classList.toggle("lens", on);
+  world.lens = on; world.draw();
+});
+
+/* ---------- room 1: the world ---------- */
+const world = (() => {
+  const T = D.terrain, N = T.n, S = T.size_km, EX = 2.5;
+  const bin = atob(T.h), H = new Float32Array(N * N);
+  for (let i = 0; i < N * N; i++) H[i] = (bin.charCodeAt(2 * i) | (bin.charCodeAt(2 * i + 1) << 8)) + T.base_m;
+  const sky = D.sky, P = D.places;
+  const st = { sc: 0, f: 0, yaw: -Math.PI / 2, pitch: 0.2, dist: 11, lens: false };
+  const rad = Math.PI / 180;
+  const hAt = (i, j) => H[Math.min(N - 1, Math.max(0, j)) * N + Math.min(N - 1, Math.max(0, i))];
+  const yOf = h => (h - T.base_m) / 1000 * EX;
+  const yBadr = yOf(hAt(N >> 1, N >> 1));
+  const dirOf = (alt, az) => [Math.sin(az * rad) * Math.cos(alt * rad), Math.sin(alt * rad), -Math.cos(az * rad) * Math.cos(alt * rad)];
+
+  // cards
+  function cards() {
+    const s = sky.scenarios[st.sc];
+    $("#c-moon").innerHTML = `On the eve of the 17th the Moon is <b>${s.moon_illuminated_pct}% lit</b> and rises about <b>${Math.round(s.moonrise_minutes_after_sunset / 6) / 10} hours</b> after sunset: a little past full.<small>Holds for the 17th of any month that began with the new crescent. This is physics, not a report.</small>`;
+    $("#c-week").innerHTML = `If Ramaḍān 2 AH was the ${st.sc ? "March–April" : "February–March"} 624 lunation, the morning of the 17th was <b>${s.morning_of_17}</b> (Julian calendar).<small>Conjunction ${s.conjunction}; first crescent taken as ${s.crescent_evening}. ${sky.crescent_rule}</small>`;
+    $("#c-dir").innerHTML = `Madinah lies <b>${P.to_madinah.km} km</b> away at a bearing of ${Math.round(P.to_madinah.deg)}°; Makkah <b>${P.to_makkah.km} km</b> at ${Math.round(P.to_makkah.deg)}°.<small>Straight-line, from the gazetteer points. Not a route.</small>`;
+    $("#c-size").textContent = Math.round(S);
+    $("#c-question").innerHTML = `The source says <b>Friday</b>. Under this simple crescent rule, neither lunation gives a Friday 17th (${sky.scenarios[0].morning_of_17.split(" ")[0]}, ${sky.scenarios[1].morning_of_17.split(" ")[0]}). Was the crescent seen later? Was the calendar still intercalated in 2 AH? This page does not answer. It shows why scholars keep the reported date and the converted date apart, and it would send the question to them.`;
+  }
+
+  const cv = $("#gl");
+  const gl = cv.getContext("webgl", { antialias: true });
+  if (!gl) { flat(); cards(); return { draw() {}, set lens(v) {} }; }
+
+  function sh(type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s); return s; }
+  function prog(vs, fs) { const p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p); return p; }
+
+  const terrainP = prog(`
+    attribute vec3 p; attribute vec3 n; uniform mat4 m; varying vec3 vn; varying float vh; varying vec3 vp;
+    void main(){ vn=n; vh=p.y; vp=p; gl_Position=m*vec4(p,1.0); }`, `
+    precision mediump float; varying vec3 vn; varying float vh; varying vec3 vp;
+    uniform vec3 moon; uniform float moonI; uniform vec3 sun; uniform float sunI; uniform float lens; uniform vec3 eye;
+    void main(){
+      vec3 n=normalize(vn);
+      vec3 base=mix(vec3(0.58,0.47,0.33),vec3(0.42,0.35,0.28),clamp(vh/1.6,0.0,1.0));
+      float ml=max(dot(n,moon),0.0)*moonI, sl=max(dot(n,sun),0.0)*sunI;
+      vec3 c=base*(0.06+ml*1.15*vec3(0.74,0.82,1.0)+sl*vec3(1.0,0.86,0.66)+sunI*0.25);
+      if(lens>0.5){ float k=abs(fract(vh*6.0)-0.5); c=mix(c,vec3(0.42,0.71,1.0)*(0.35+ml+sl),0.55); if(k<0.04) c+=vec3(0.25,0.4,0.6); }
+      float d=length(vp-eye); c=mix(c,vec3(0.02,0.03,0.06),clamp((d-8.0)/40.0,0.0,0.7));
+      gl_FragColor=vec4(c,1.0);
+    }`);
+  const pointP = prog(`
+    attribute vec3 p; attribute vec2 a; uniform mat4 m; uniform float dpr; varying float va; varying float vk;
+    void main(){ gl_Position=m*vec4(p,1.0); gl_PointSize=a.x*dpr; va=a.y; vk=a.x; }`, `
+    precision mediump float; varying float va; varying float vk; uniform vec3 tint;
+    void main(){ vec2 q=gl_PointCoord-0.5; float r=length(q); if(r>0.5) discard;
+      float f = vk>12.0 ? smoothstep(0.5,0.44,r) : smoothstep(0.5,0.0,r);
+      gl_FragColor=vec4(tint*f*va, 1.0); }`);
+
+  // terrain mesh
+  const pos = new Float32Array(N * N * 3), nor = new Float32Array(N * N * 3), cell = S / (N - 1);
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    const k = (j * N + i) * 3;
+    pos[k] = (i / (N - 1) - 0.5) * S; pos[k + 1] = yOf(hAt(i, j)); pos[k + 2] = (j / (N - 1) - 0.5) * S;
+    const dx = (yOf(hAt(i + 1, j)) - yOf(hAt(i - 1, j))) / (2 * cell), dz = (yOf(hAt(i, j + 1)) - yOf(hAt(i, j - 1))) / (2 * cell);
+    const l = Math.hypot(dx, 1, dz); nor[k] = -dx / l; nor[k + 1] = 1 / l; nor[k + 2] = -dz / l;
+  }
+  const idx = new Uint16Array((N - 1) * (N - 1) * 6); let q = 0;
+  for (let j = 0; j < N - 1; j++) for (let i = 0; i < N - 1; i++) { const a = j * N + i; idx.set([a, a + N, a + 1, a + 1, a + N, a + N + 1], q); q += 6; }
+  const buf = (data, target = gl.ARRAY_BUFFER) => { const b = gl.createBuffer(); gl.bindBuffer(target, b); gl.bufferData(target, data, gl.STATIC_DRAW); return b; };
+  const bPos = buf(pos), bNor = buf(nor), bIdx = buf(idx, gl.ELEMENT_ARRAY_BUFFER);
+  const starBuf = gl.createBuffer(), starAttr = gl.createBuffer(), moonBuf = gl.createBuffer(), moonAttr = gl.createBuffer();
+
+  // math
+  const persp = (fov, asp, n, f) => { const t = 1 / Math.tan(fov / 2); return [t / asp, 0, 0, 0, 0, t, 0, 0, 0, 0, (f + n) / (n - f), -1, 0, 0, 2 * f * n / (n - f), 0]; };
+  const mul = (a, b) => { const o = new Array(16).fill(0); for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++) for (let k = 0; k < 4; k++) o[c * 4 + r] += a[k * 4 + r] * b[c * 4 + k]; return o; };
+  function look(e, t) {
+    let z = [e[0] - t[0], e[1] - t[1], e[2] - t[2]]; const zl = Math.hypot(...z); z = z.map(v => v / zl);
+    let x = [z[2], 0, -z[0]]; const xl = Math.hypot(...x); x = x.map(v => v / xl);
+    const y = [z[1] * x[2] - z[2] * x[1], z[2] * x[0] - z[0] * x[2], z[0] * x[1] - z[1] * x[0]];
+    return [x[0], y[0], z[0], 0, x[1], y[1], z[1], 0, x[2], y[2], z[2], 0,
+      -(x[0] * e[0] + x[1] * e[1] + x[2] * e[2]), -(y[0] * e[0] + y[1] * e[1] + y[2] * e[2]), -(z[0] * e[0] + z[1] * e[1] + z[2] * e[2]), 1];
+  }
+  const proj = (m, v) => { const x = m[0] * v[0] + m[4] * v[1] + m[8] * v[2] + m[12], y = m[1] * v[0] + m[5] * v[1] + m[9] * v[2] + m[13], w = m[3] * v[0] + m[7] * v[1] + m[11] * v[2] + m[15]; return w <= 0 ? null : [x / w, y / w]; };
+
+  function skyPoints() {
+    const s = sky.scenarios[st.sc], fr = s.frames[st.f];
+    const sunAlt = fr.sun[0], dark = Math.min(1, Math.max(0, (-sunAlt - 4) / 12));
+    const moonGlow = fr.moon[0] > 0 ? 0.55 : 1;
+    const lat = D.sky.place.lat * rad, lst = fr.lst;
+    const p = [], a = [];
+    for (const [ra, dec, mag] of sky.stars) {
+      const ha = (lst - ra) * rad, d = dec * rad;
+      const alt = Math.asin(Math.sin(lat) * Math.sin(d) + Math.cos(lat) * Math.cos(d) * Math.cos(ha));
+      if (alt < -0.02) continue;
+      const az = Math.atan2(-Math.sin(ha) * Math.cos(d), Math.cos(lat) * Math.sin(d) - Math.sin(lat) * Math.cos(d) * Math.cos(ha));
+      const ext = Math.min(1, alt / (8 * rad) + 0.25);
+      const v = dirOf(alt / rad, az / rad);
+      p.push(v[0] * 90, v[1] * 90, v[2] * 90);
+      a.push(Math.max(1.8, (5.8 - mag) * 1.5), Math.min(1, Math.pow(2.512, -(mag - 1.6)) * 1.6 + 0.2) * dark * ext * moonGlow);
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, starBuf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(p), gl.DYNAMIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, starAttr); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(a), gl.DYNAMIC_DRAW);
+    const mv = dirOf(fr.moon[0], fr.moon[1]);
+    gl.bindBuffer(gl.ARRAY_BUFFER, moonBuf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mv.map(x => x * 90)), gl.DYNAMIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, moonAttr); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([26, fr.moon[0] > -1 ? 1 : 0]), gl.DYNAMIC_DRAW);
+    return { n: p.length / 3, fr, dark };
+  }
+
+  function resize() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1), r = cv.getBoundingClientRect();
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); return dpr;
+  }
+  let pending = false;
+  function draw() { if (!pending) { pending = true; requestAnimationFrame(frame); } }
+  function frame() {
+    pending = false;
+    const dpr = resize();
+    gl.viewport(0, 0, cv.width, cv.height);
+    const sp = skyPoints(), fr = sp.fr, sunAlt = fr.sun[0];
+    const tw = Math.min(1, Math.max(0, (sunAlt + 12) / 14));
+    gl.clearColor(0.015 + 0.16 * tw, 0.02 + 0.2 * tw, 0.045 + 0.32 * tw, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    const target = [0, yBadr, 0];
+    const eye = [target[0] + st.dist * Math.cos(st.pitch) * Math.sin(st.yaw), target[1] + st.dist * Math.sin(st.pitch), target[2] + st.dist * Math.cos(st.pitch) * Math.cos(st.yaw)];
+    const P4 = persp(55 * rad, cv.width / cv.height, 0.05, 200), V = look(eye, target);
+    const VR = V.slice(); VR[12] = VR[13] = VR[14] = 0;
+    const MVP = mul(P4, V), SKY = mul(P4, VR);
+    // sky
+    gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE);
+    gl.useProgram(pointP);
+    const pl = gl.getAttribLocation(pointP, "p"), al = gl.getAttribLocation(pointP, "a");
+    gl.uniformMatrix4fv(gl.getUniformLocation(pointP, "m"), false, SKY);
+    gl.uniform1f(gl.getUniformLocation(pointP, "dpr"), dpr);
+    gl.uniform3fv(gl.getUniformLocation(pointP, "tint"), st.lens ? [0.55, 0.78, 1] : [1, 0.97, 0.9]);
+    gl.enableVertexAttribArray(pl); gl.enableVertexAttribArray(al);
+    gl.bindBuffer(gl.ARRAY_BUFFER, starBuf); gl.vertexAttribPointer(pl, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, starAttr); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
+    gl.drawArrays(gl.POINTS, 0, sp.n);
+    gl.uniform3fv(gl.getUniformLocation(pointP, "tint"), st.lens ? [0.55, 0.78, 1] : [1, 0.98, 0.9]);
+    gl.bindBuffer(gl.ARRAY_BUFFER, moonBuf); gl.vertexAttribPointer(pl, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, moonAttr); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
+    gl.drawArrays(gl.POINTS, 0, 1);
+    gl.disableVertexAttribArray(al);
+    // ground
+    gl.disable(gl.BLEND); gl.enable(gl.DEPTH_TEST);
+    gl.useProgram(terrainP);
+    const tp = gl.getAttribLocation(terrainP, "p"), tn = gl.getAttribLocation(terrainP, "n");
+    gl.uniformMatrix4fv(gl.getUniformLocation(terrainP, "m"), false, MVP);
+    const md = dirOf(fr.moon[0], fr.moon[1]), sd = dirOf(fr.sun[0], fr.sun[1]);
+    const ill = sky.scenarios[st.sc].moon_illuminated_pct / 100;
+    gl.uniform3fv(gl.getUniformLocation(terrainP, "moon"), md);
+    gl.uniform1f(gl.getUniformLocation(terrainP, "moonI"), fr.moon[0] > 0 ? ill * Math.min(1, fr.moon[0] / 6) : 0);
+    gl.uniform3fv(gl.getUniformLocation(terrainP, "sun"), sd);
+    gl.uniform1f(gl.getUniformLocation(terrainP, "sunI"), Math.max(0, Math.min(1, (sunAlt + 2) / 10)));
+    gl.uniform1f(gl.getUniformLocation(terrainP, "lens"), st.lens ? 1 : 0);
+    gl.uniform3fv(gl.getUniformLocation(terrainP, "eye"), eye);
+    gl.bindBuffer(gl.ARRAY_BUFFER, bPos); gl.enableVertexAttribArray(tp); gl.vertexAttribPointer(tp, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, bNor); gl.enableVertexAttribArray(tn); gl.vertexAttribPointer(tn, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, bIdx);
+    gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
+    gl.disableVertexAttribArray(tn);
+    // labels
+    const w = cv.clientWidth, h = cv.clientHeight;
+    const place = (el, ndc) => { if (!ndc || Math.abs(ndc[0]) > 1.05 || Math.abs(ndc[1]) > 1.05) { el.hidden = true; return; } el.hidden = false; el.style.left = ((ndc[0] + 1) / 2 * w) + "px"; el.style.top = ((1 - ndc[1]) / 2 * h - 6) + "px"; };
+    place($("#tag-badr"), proj(MVP, [0, yBadr + 0.15, 0]));
+    for (const [key, b] of [["madinah", P.to_madinah], ["makkah", P.to_makkah]]) {
+      const el = $("#tag-" + key), r = S * 0.47, x = Math.sin(b.deg * rad) * r, z = -Math.cos(b.deg * rad) * r;
+      const gi = Math.round((x / S + 0.5) * (N - 1)), gj = Math.round((z / S + 0.5) * (N - 1));
+      el.textContent = (key === "madinah" ? "towards Madinah, " : "towards Makkah, ") + b.km + " km";
+      place(el, proj(MVP, [x, yOf(hAt(gi, gj)) + 0.2, z]));
+    }
+    const mt = $("#tag-moon");
+    mt.textContent = "Moon " + (fr.moon[0] > 0 ? Math.round(fr.moon[0]) + "° up" : "below the horizon");
+    place(mt, fr.moon[0] > -1 ? proj(SKY, md.map(v => v * 90)) : null);
+    const s = sky.scenarios[st.sc], local = (() => { const [hh, mm] = fr.ut.split(":").map(Number); let t = hh * 60 + mm + s.local_offset_minutes; t = (t + 1440) % 1440; return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0"); })();
+    $("#clock").textContent = local + " local solar time";
+  }
+
+  function setScenario(i) {
+    st.sc = i; const n = sky.scenarios[i].frames.length;
+    const t = $("#time"); t.max = n - 1;
+    if (st.f > n - 1) st.f = n - 1;
+    $("#sc-feb").setAttribute("aria-pressed", i === 0); $("#sc-mar").setAttribute("aria-pressed", i === 1);
+    cards(); draw();
+  }
+  $("#sc-feb").onclick = () => setScenario(0);
+  $("#sc-mar").onclick = () => setScenario(1);
+  $("#time").addEventListener("input", e => { st.f = +e.target.value; draw(); });
+  // start a little after moonrise, looking east
+  const f0 = sky.scenarios[0].frames.findIndex(f => f.moon[0] > 22);
+  st.f = Math.max(0, f0); $("#time").value = st.f;
+
+  let drag = null; const pts = new Map();
+  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]); drag = [e.clientX, e.clientY]; });
+  cv.addEventListener("pointermove", e => {
+    if (!pts.has(e.pointerId)) return;
+    if (pts.size === 2) {
+      const [a, b] = [...pts.values()], d0 = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      pts.set(e.pointerId, [e.clientX, e.clientY]);
+      const [c, d] = [...pts.values()], d1 = Math.hypot(c[0] - d[0], c[1] - d[1]);
+      st.dist = Math.min(30, Math.max(1.5, st.dist * d0 / (d1 || d0))); draw(); return;
+    }
+    pts.set(e.pointerId, [e.clientX, e.clientY]);
+    st.yaw -= (e.clientX - drag[0]) * 0.006; st.pitch = Math.min(1.45, Math.max(0.02, st.pitch + (e.clientY - drag[1]) * 0.004));
+    drag = [e.clientX, e.clientY]; draw();
+  });
+  const up = e => { pts.delete(e.pointerId); };
+  cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+  cv.addEventListener("wheel", e => { e.preventDefault(); st.dist = Math.min(30, Math.max(1.5, st.dist * Math.exp(e.deltaY * 0.001))); draw(); }, { passive: false });
+  cv.addEventListener("keydown", e => {
+    const k = { ArrowLeft: () => st.yaw += 0.1, ArrowRight: () => st.yaw -= 0.1, ArrowUp: () => st.pitch = Math.min(1.45, st.pitch + 0.06), ArrowDown: () => st.pitch = Math.max(0.02, st.pitch - 0.06), "+": () => st.dist = Math.max(1.5, st.dist * 0.9), "-": () => st.dist = Math.min(30, st.dist * 1.1) }[e.key];
+    if (k) { e.preventDefault(); k(); draw(); }
+  });
+  window.addEventListener("resize", draw);
+  setScenario(0);
+
+  function flat() {
+    $("#nogl").hidden = false;
+    const c2 = cv.getContext("2d"); cv.width = N; cv.height = N; const img = c2.createImageData(N, N);
+    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const s = Math.max(0, Math.min(255, 128 + (hAt(i - 1, j) - hAt(i + 1, j)) * 2 + (hAt(i, j - 1) - hAt(i, j + 1)) * 2)); const k = (j * N + i) * 4; img.data.set([s * 0.9, s * 0.8, s * 0.65, 255], k); }
+    c2.putImageData(img, 0, 0); cv.style.imageRendering = "pixelated";
+  }
+  return { draw, get lens() { return st.lens; }, set lens(v) { st.lens = v; } };
+})();
+
+/* ---------- room 2: the investigation ---------- */
+(() => {
+  const R = D.people.rows, SEC = D.people.sections, ST = D.people.stats;
+  const G = { e: ["Emigrants"], a: ["Aws"], k: ["Khazraj"], x: ["After the last clan total"] };
+  const V = { ishq: "Ibn Isḥāq's list", hish: "added in Ibn Hishām's voice", none: "voice not tagged by the extraction" };
+  const seen = new Set(store.get("seen", []));
+  // gate later steps behind earlier answers (with JavaScript off, everything shows)
+  ["#s2", "#s3", "#s4", "#s5"].forEach(s => $(s).hidden = true);
+  $("#found-all").textContent = R.length;
+
+  $("#sum-go").onclick = () => {
+    const v = +$("#sum").value; $("#s1r").hidden = false;
+    $("#s1msg").innerHTML = v === 314 ? `<span class="ok">Yes: 314.</span> The author's three totals and his grand total agree. Whatever goes wrong next, it is not his arithmetic.`
+      : `Not quite: 83 + 61 + 170 = <b>314</b>. So the three totals and the grand total agree. Whatever goes wrong next, it is not the author's arithmetic.`;
+    $("#s2").hidden = false;
+  };
+  $("#hyp-go").onclick = () => {
+    const picked = [...document.querySelectorAll("#hyp input:checked")].map(i => i.value);
+    store.set("hyp", picked); $("#s2r").hidden = false; $("#s3").hidden = false; $("#s4").hidden = false; $("#s5").hidden = false; fill();
+    $("#s3").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  function fill() {
+    const field = $("#field"); if (field.childElementCount) return;
+    for (const g of ["e", "a", "k", "x"]) {
+      const rows = R.map((r, i) => [r, i]).filter(([r]) => r[1] === g);
+      if (!rows.length) continue;
+      const blk = document.createElement("div"); blk.className = "block";
+      blk.innerHTML = `<h4><span>${G[g][0]}</span><span class="count" data-g="${g}"></span></h4><div class="dots"></div>`;
+      const dots = blk.querySelector(".dots");
+      for (const [r, i] of rows) {
+        const b = document.createElement("button"); b.className = "dot" + (seen.has(r[0]) ? " seen" : ""); b.dataset.v = r[2]; b.dataset.s = r[3]; b.dataset.i = i; if (r[6].length > 1) b.dataset.twice = "1";
+        b.setAttribute("aria-label", `${r[0]}: ${V[r[2]]}${r[3] ? ", given a share" : ""}`); b.title = r[0];
+        b.onclick = () => open(i, b); dots.appendChild(b);
+      }
+      field.appendChild(blk);
+    }
+    filter("all");
+    const twice = R.filter(r => r[6].length > 1), after = R.filter(r => r[1] === "x");
+    $("#oddities").innerHTML = `Two more things the reading turned up: <b>${twice.length}</b> names sit in two clan lists at once (${twice.map(r => r[0]).join(", ")}), and <b>${after.length}</b> come after the last clan total, so belong to no clan's count. Either could be how the text is laid out, or where our machine drew a list's edge wrongly.`;
+    const cls = (n, stated) => n === stated ? "ok" : "bad", row = (name, t) =>
+      `<tr><td>${name}</td><td class="num">${t.stated}</td><td class="num ${cls(t.found, t.stated)}">${t.found}</td><td class="num ${cls(t.ishq, t.stated)}">${t.ishq}</td><td class="num ${cls(t.ishq + t.none, t.stated)}">${t.ishq + t.none}</td><td class="num">${t.hish}</td></tr>`;
+    $("#tbl").innerHTML = ["e", "a", "k"].map(g => row(G[g][0], ST[g])).join("") + row("<b>All</b>", ST.all);
+  }
+  function open(i, b) {
+    const r = R[i]; seen.add(r[0]); store.set("seen", [...seen]); b.classList.add("seen"); drawSky();
+    $("#person").innerHTML = `<div class="fact" data-prov="attested"><b>${r[0]}</b> · ${r[6].split("").map(g => G[g][0]).join(" and ")} · ${V[r[2]]}${r[3] ? ` · <b>given a share</b>` : ""}
+      <small>${r[5] ? r[5] + " " : ""}Passage: ${SEC[r[4]][1]} (Ibn Hishām, <i>Sīra</i>, section ${SEC[r[4]][0].slice(1).replace(/^0+/, "")}). Proposed claim, not reviewed.</small></div>`;
+  }
+  function filter(f) {
+    document.querySelectorAll(".flt").forEach(b => b.setAttribute("aria-pressed", b.dataset.f === f));
+    document.querySelectorAll(".dot").forEach(d => d.classList.toggle("off", f !== "all" && d.dataset.v !== f));
+    for (const g of ["e", "a", "k", "x"]) {
+      const el = document.querySelector(`.count[data-g="${g}"]`); if (!el) continue;
+      const n = R.filter(r => r[1] === g && (f === "all" || r[2] === f)).length;
+      el.textContent = ST[g] ? `${n} shown · text says ${ST[g].stated}` : `${n} shown`;
+    }
+    if (f === "ishq") $("#g3").innerHTML = `<b>${R.filter(r => r[2] === "ishq").length}</b> names are in Ibn Isḥāq's own voice: now <b>fewer</b> than 314. Look at the table below.`;
+  }
+  document.querySelectorAll(".flt").forEach(b => b.onclick = () => filter(b.dataset.f));
+  $("#layer-go").onclick = () => {
+    $("#s4r").hidden = false;
+    document.querySelectorAll("#layers label").forEach(l => l.classList.toggle("right", l.querySelector("input").value === "all"));
+  };
+  $("#explain").value = store.get("explain", "");
+  $("#explain-go").onclick = () => { store.set("explain", $("#explain").value); $("#explain-ok").textContent = "Saved on this device."; };
+
+  /* ---------- room 3: carry ---------- */
+  const Q = [
+    { q: "What grand total does Ibn Isḥāq give for the Muslims at Badr?", type: "num", a: 314 },
+    { q: "His list adds up from three groups. Which?", type: "one", opts: ["Emigrants, Aws, Khazraj", "Quraysh, Thaqīf, Hawāzin", "Makkans, Madinans, Bedouin"], a: 0 },
+    { q: "Why does the list hold more names than its total?", type: "one", opts: ["The total is simply wrong", "Mostly names the editor Ibn Hishām added in his own voice", "Nobody knows anything about Badr"], a: 1 },
+    { q: "On the eve of the 17th of a lunar month, the Moon is…", type: "one", opts: ["new and invisible", "a thin crescent at sunset", "a little past full, rising after dark"], a: 2 },
+  ];
+  const last = store.get("quizAt", 0), days = (Date.now() - last) / 864e5;
+  if (last && days >= 2) $("#carry-lead").textContent = `Welcome back. It has been ${Math.floor(days)} days: try these again before looking anything up.`;
+  else if (last) $("#carry-lead").textContent = "Done for now. Come back in two days and the page will ask again.";
+  const quiz = $("#quiz");
+  quiz.innerHTML = Q.map((x, i) => `<div style="margin-block-end:14px"><p><b>${i + 1}.</b> ${x.q}</p>${x.type === "num"
+    ? `<input type="number" id="q${i}" aria-label="Answer ${i + 1}">`
+    : `<div class="choices">${x.opts.map((o, j) => `<label><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join("")}</div>`}<p class="muted" id="qa${i}" aria-live="polite"></p></div>`).join("") + `<button class="primary" id="q-go">Check my answers</button> <span id="q-score" class="muted"></span>`;
+  $("#q-go").onclick = () => {
+    let right = 0;
+    Q.forEach((x, i) => {
+      const v = x.type === "num" ? +($("#q" + i).value) : +((document.querySelector(`input[name=q${i}]:checked`) || {}).value ?? -1);
+      const ok = v === x.a; right += ok;
+      $("#qa" + i).innerHTML = ok ? `<span class="ok">Right.</span>` : `<span class="bad">Not this time:</span> ${x.type === "num" ? x.a : x.opts[x.a]}.`;
+    });
+    $("#q-score").textContent = `${right} of ${Q.length}. Next check in two days.`;
+    store.set("quizAt", Date.now());
+  };
+
+  function drawSky() {
+    const c = $("#mysky"), dpr = Math.min(2, window.devicePixelRatio || 1), w = c.clientWidth, h = c.clientHeight;
+    c.width = w * dpr; c.height = h * dpr; const x = c.getContext("2d"); x.scale(dpr, dpr);
+    x.fillStyle = "#04060c"; x.fillRect(0, 0, w, h);
+    let k = 0;
+    for (const name of seen) {
+      let hsh = 2166136261; for (const ch of name) { hsh ^= ch.codePointAt(0); hsh = Math.imul(hsh, 16777619) >>> 0; }
+      const px = (hsh % 1000) / 1000 * (w - 16) + 8, py = ((hsh >>> 10) % 1000) / 1000 * (h - 16) + 8;
+      const g = x.createRadialGradient(px, py, 0, px, py, 5); g.addColorStop(0, "rgba(255,244,220,1)"); g.addColorStop(1, "rgba(255,244,220,0)");
+      x.fillStyle = g; x.beginPath(); x.arc(px, py, 5, 0, 7); x.fill(); k++;
+    }
+    $("#mysky-n").textContent = k ? `${k} of ${R.length} names opened.` : "Open names in Room 2 and they appear here.";
+  }
+  drawSky(); window.addEventListener("resize", drawSky);
+  if (store.get("hyp", null)) { $("#s2").hidden = false; }
+})();
+</script>
+</body>
+</html>
