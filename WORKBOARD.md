@@ -21,7 +21,7 @@ Keep each row to one line. Status words: `claimed`, `building`, `in review (PR #
 | Sky Atlas: merge-review screen (slice 11a merge proposals; editor approves or rejects; review-decisions export) | `sky-atlas-new` | same | `atlas/` (reads `ontology/corpus/merge-proposals.csv`) | claimed | 2026-10-22 |
 | Sky Atlas: shared class notes on stars | `sky-atlas-new` | same | `atlas/` | claimed | 2026-10-22 |
 | Plain-language questions: adversarial tests first (rule A2), then rule-based translation in the Atlas | `sky-atlas-new` | same | `ask/` tests, `atlas/` | claimed | 2026-10-22 |
-| Work board and the CLAUDE.md rule | `coordination`, `claude/workboard-rule` | same | `WORKBOARD.md`, `CLAUDE.md` | building | 2026-10-22 |
+| Work board and the CLAUDE.md rule | `coordination`, `claude/workboard-rule` | same | `WORKBOARD.md`, `CLAUDE.md` | in review (PR #29) | 2026-10-22 |
 
 ## Built, not merged (check before building anything like these)
 
