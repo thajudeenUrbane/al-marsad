@@ -1,0 +1,641 @@
+<title>Beyond the Graph</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~68ch) for argument; tables, charts and the roadmap break out wider.
+   Ink on cool paper by day, the observatory's night by dark; gold is the one accent (the light). */
+:root {
+  --paper: #f5f6f8;
+  --paper-2: #ebedf2;
+  --card: #ffffff;
+  --ink: #161a2e;
+  --ink-2: #464b62;
+  --ink-3: #6b7088;
+  --rule: #d6d9e2;
+  --gold: #9a6a0c;
+  --gold-soft: #f3e3bf;
+  --good: #2f7d4f;
+  --warn: #9a5b00;
+  --bad: #a3392f;
+  --s1: #2a78d6;  /* now */
+  --s2: #eb6834;  /* experiment */
+  --s3: #1baf7a;  /* long-term */
+  --f-display: "Marcellus", "Palatino Linotype", Palatino, Georgia, serif;
+  --f-body: "Literata", Georgia, "Times New Roman", serif;
+  --f-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0b0e1a; --paper-2: #121628; --card: #111527; --ink: #ebe6d6; --ink-2: #c3bfb2; --ink-3: #9096ad;
+    --rule: #262b42; --gold: #ffd486; --gold-soft: #2a2414; --good: #8fd3a8; --warn: #f0b860; --bad: #f09a8c;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0b0e1a; --paper-2: #121628; --card: #111527; --ink: #ebe6d6; --ink-2: #c3bfb2; --ink-3: #9096ad;
+  --rule: #262b42; --gold: #ffd486; --gold-soft: #2a2414; --good: #8fd3a8; --warn: #f0b860; --bad: #f09a8c;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.62; margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: var(--gold); text-underline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+.col { max-width: 720px; }
+header.hero { padding-block: 56px 28px; border-bottom: 1px solid var(--rule); }
+.kicker { font-family: var(--f-ui); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(40px, 7vw, 76px); line-height: 1.02; margin: 10px 0 14px; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { font-size: 21px; line-height: 1.5; color: var(--ink-2); max-width: 760px; margin: 0; }
+.meta { font-family: var(--f-ui); font-size: 13px; color: var(--ink-3); margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.cta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-ui); font-size: 15px; font-weight: 600; background: var(--ink); color: var(--paper);
+  padding: 10px 16px; border-radius: 10px; text-decoration: none; margin-top: 22px; }
+nav.toc { font-family: var(--f-ui); font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 14px; padding-block: 14px; border-bottom: 1px solid var(--rule); }
+nav.toc a { color: var(--ink-2); text-decoration: none; }
+nav.toc a:hover { color: var(--gold); }
+section { padding-block: 44px 8px; }
+h2 { font-family: var(--f-display); font-weight: 400; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; margin: 0 0 6px; text-wrap: balance; }
+h2 + .sub { font-family: var(--f-ui); color: var(--ink-3); font-size: 14px; margin: 0 0 22px; }
+h3 { font-family: var(--f-ui); font-size: 16px; font-weight: 600; margin: 26px 0 8px; letter-spacing: 0.01em; }
+p { margin: 0 0 14px; }
+.small { font-size: 14px; color: var(--ink-3); font-family: var(--f-ui); }
+.mono { font-family: var(--f-mono); font-size: 0.86em; }
+.verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 8px; }
+.verdict > div { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.verdict b { display: block; font-family: var(--f-ui); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.verdict p { margin: 0; font-size: 16px; }
+.pull { font-family: var(--f-display); font-size: clamp(22px, 3vw, 30px); line-height: 1.3; border-inline-start: 3px solid var(--gold); padding-inline-start: 18px; margin: 26px 0; max-width: 860px; }
+.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; background: var(--card); margin: 10px 0 18px; }
+table { border-collapse: collapse; width: 100%; font-family: var(--f-ui); font-size: 14px; line-height: 1.45; }
+th, td { text-align: start; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; color: var(--ink-2); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--paper-2); position: sticky; top: 0; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tag { display: inline-block; font-family: var(--f-ui); font-size: 11.5px; font-weight: 600; border-radius: 999px; padding: 2px 8px; white-space: nowrap; border: 1px solid currentColor; }
+.tag.now { color: var(--s1); } .tag.exp { color: var(--s2); } .tag.long { color: var(--s3); }
+.risk-L { color: var(--good); } .risk-M { color: var(--warn); } .risk-H { color: var(--bad); }
+.dots { letter-spacing: 1px; color: var(--gold); white-space: nowrap; }
+.dots i { color: var(--rule); font-style: normal; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; min-width: 0; font-size: 15.5px; }
+.card h4 { font-family: var(--f-ui); font-size: 15px; margin: 0 0 2px; }
+.card .who { font-family: var(--f-ui); font-size: 12.5px; color: var(--ink-3); margin-bottom: 8px; }
+.card .ev { font-family: var(--f-ui); font-size: 13.5px; color: var(--ink-2); margin: 6px 0; }
+.card .lesson { border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; font-size: 15px; }
+.card .lesson b { color: var(--gold); font-family: var(--f-ui); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin-inline-end: 6px; }
+.group-h { font-family: var(--f-ui); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin: 28px 0 10px; }
+.shots { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 14px; align-items: start; margin: 18px 0; }
+.shots figure { margin: 0; }
+.shots img { width: 100%; border-radius: 10px; border: 1px solid var(--rule); display: block; }
+.shots figcaption { font-family: var(--f-ui); font-size: 13px; color: var(--ink-3); margin-top: 6px; }
+.findings { counter-reset: f; display: grid; gap: 10px; padding: 0; list-style: none; }
+.findings li { counter-increment: f; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; }
+.findings li::before { content: counter(f); font-family: var(--f-display); font-size: 22px; color: var(--gold); line-height: 1.2; }
+.layers { display: grid; gap: 8px; margin: 14px 0; }
+.layer { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 14px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 16px; }
+.layer b { font-family: var(--f-display); font-weight: 400; font-size: 20px; }
+.layer span { font-size: 15.5px; color: var(--ink-2); }
+.layer.engine { background: var(--paper-2); }
+.grammar { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.grammar div { border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; font-size: 15px; background: var(--card); }
+.grammar b { font-family: var(--f-ui); display: block; font-size: 13px; margin-bottom: 4px; }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-inline-end: 6px; }
+.sw.light { background: #ffd486; box-shadow: 0 0 8px #ffd486; }
+.sw.person { background: #dce7ff; box-shadow: 0 0 6px #9fb3ff; border: 1px solid #9fb3ff; }
+.sw.stone { background: #2a2c34; border: 1px solid #7b7f8e; }
+.sw.dash { border: 1.5px dashed var(--ink-3); }
+.sw.chain { background: #b9c4ea; }
+.sw.sky { background: var(--ink); }
+/* chart */
+.chart-wrap { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px; margin: 12px 0 18px; position: relative; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--f-ui); font-size: 13px; color: var(--ink-2); margin-bottom: 6px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-inline-end: 6px; vertical-align: 0; }
+#chart { width: 100%; height: auto; display: block; overflow: visible; }
+#chart text { font-family: var(--f-ui); fill: var(--ink-3); font-size: 12px; }
+#chart .lab { fill: var(--ink-2); font-size: 11.5px; font-weight: 600; }
+#chart .grid { stroke: var(--rule); stroke-width: 1; }
+#chart .pt { stroke: var(--card); stroke-width: 2; cursor: pointer; }
+#chart .pt:focus { outline: none; stroke: var(--ink); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); font-family: var(--f-ui); font-size: 13px; line-height: 1.4;
+  padding: 8px 10px; border-radius: 8px; max-width: 260px; opacity: 0; transition: opacity .12s; }
+.tip.on { opacity: 1; }
+/* roadmap */
+.gantt { display: grid; grid-template-columns: 150px repeat(15, minmax(44px, 1fr)); font-family: var(--f-ui); font-size: 12.5px; min-width: 860px; }
+.gantt .m { color: var(--ink-3); font-size: 11px; text-align: center; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+.gantt .m.mark { color: var(--gold); font-weight: 600; }
+.gantt .lane { font-weight: 600; color: var(--ink-2); padding: 8px 8px 8px 0; border-bottom: 1px solid var(--rule); grid-column: 1; }
+.gantt .bar { margin: 5px 2px; padding: 4px 8px; border-radius: 6px; background: var(--paper-2); border-inline-start: 3px solid var(--s1); color: var(--ink); line-height: 1.3; align-self: center; }
+.gantt .bar.exp { border-color: var(--s2); }
+.gantt .bar.long { border-color: var(--s3); }
+.gantt .bar.gate { background: var(--gold-soft); border-color: var(--gold); font-weight: 600; }
+.gantt .cell { border-bottom: 1px solid var(--rule); }
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.phase { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; font-size: 15px; min-width: 0; }
+.phase h4 { font-family: var(--f-display); font-weight: 400; font-size: 22px; margin: 0; }
+.phase .when { font-family: var(--f-ui); font-size: 12.5px; color: var(--ink-3); margin-bottom: 8px; }
+.phase ul { padding-inline-start: 18px; margin: 6px 0; }
+.phase .gate { font-family: var(--f-ui); font-size: 13.5px; border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; }
+.phase .gate b { color: var(--gold); }
+/* experiments */
+.xp { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; min-width: 0; font-size: 15px; }
+.xp h4 { font-family: var(--f-ui); font-size: 15px; margin: 0 0 6px; }
+.xp dl { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 4px 10px; margin: 0; font-size: 14.5px; }
+.xp dt { font-family: var(--f-ui); font-size: 12px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; padding-top: 3px; }
+.xp dd { margin: 0; }
+.cmp td:not(:first-child), .cmp th:not(:first-child) { text-align: center; }
+.y { color: var(--good); font-weight: 600; } .p { color: var(--warn); } .n { color: var(--ink-3); }
+.decisions { counter-reset: d; list-style: none; padding: 0; display: grid; gap: 10px; }
+.decisions li { counter-increment: d; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 16px 12px 52px; position: relative; font-size: 16px; }
+.decisions li::before { content: counter(d); position: absolute; left: 16px; top: 10px; font-family: var(--f-display); font-size: 24px; color: var(--gold); }
+.sources { font-family: var(--f-ui); font-size: 13.5px; columns: 2 320px; column-gap: 32px; }
+.sources p { break-inside: avoid; margin: 0 0 8px; }
+footer { border-top: 1px solid var(--rule); margin-top: 48px; padding-block: 20px 48px; font-family: var(--f-ui); font-size: 13px; color: var(--ink-3); }
+@media (max-width: 700px) {
+  body { font-size: 16px; }
+  .lede { font-size: 18px; }
+  .shots { grid-template-columns: minmax(0, 1fr); }
+  .layer { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">al-Marṣad · strategy and roadmap · 17 October 2026</div>
+  <h1>Beyond the Graph</h1>
+  <p class="lede">How to turn a knowledge graph of the Sīra into a place people enter, a story they are guided through, a companion that questions them without ever inventing, and a memory that lasts. Research from around the world, a working prototype built on our own data, and a scored plan for what to build first.</p>
+  <div class="meta"><span>Five parallel research reviews, about 250 sources</span><span>1 working prototype</span><span>22 directions scored</span><span>10 experiments designed</span></div>
+  <a class="cta" href="https://claude.ai/artifact/1o4mF9NNEsFbcyMWA1bn4q">Open the prototype: Hijrah Night →</a>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <a href="#verdict">Verdict</a><a href="#prototype">What the prototype showed</a><a href="#assumptions">Assumptions to retire</a><a href="#gaps">Gaps</a>
+  <a href="#world">What the world tried</a><a href="#concept">The experience</a><a href="#directions">Directions, scored</a><a href="#architecture">Architecture</a>
+  <a href="#roadmap">Roadmap</a><a href="#experiments">Experiments</a><a href="#cost">Team and cost</a><a href="#risks">Risks</a><a href="#different">How we differ</a><a href="#decide">Decisions</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="verdict">
+  <div class="col">
+    <h2>The verdict</h2>
+    <p class="sub">What went wrong, and the one change that fixes it</p>
+    <p>We built an excellent evidence engine and then showed people the engine. A ring of names around one person, a yellow "not reviewed" banner and a table of citations serve an auditor. A learner cannot use them. The data is not the problem: 15,019 sourced relations from 1,788 sections of Ibn Hishām is rare material. The problem is that nothing turns it into an experience.</p>
+  </div>
+  <p class="pull">The graph becomes the engine. The product becomes a world: places you stand in, a story you are guided through, a companion that asks before it tells, and a sky that remembers what you have learned.</p>
+  <div class="verdict">
+    <div><b>Enter</b><p>Real terrain of the Ḥijāz at night. The Prophet ﷺ is the light, people are lights, places appear only where a gazetteer locates them, and gaps are shown as gaps. Nothing is depicted.</p></div>
+    <div><b>Be guided</b><p>Chapters built from scenes. A scene is a place, a moment, people and sourced claims, reviewed as one unit, so scholars review what learners actually see.</p></div>
+    <div><b>Remember</b><p>Guess first, then read. Recall at the end of each chapter, spaced reviews, and a personal sky of everyone met. These are the methods with the strongest evidence in learning science.</p></div>
+    <div><b>Ask</b><p>A companion that cannot assert by construction. The model chooses claim IDs and teaching moves; the claims are shown verbatim from the graph; questions it cannot answer are referred to a scholar.</p></div>
+    <div><b>Prove it</b><p>Measure delayed learning, at one week and one month, from the first pilot onward. Almost no immersive heritage project has published this; it would set us apart.</p></div>
+  </div>
+</section>
+
+<section id="prototype">
+  <div class="col">
+    <h2>What the prototype showed</h2>
+    <p class="sub">Hijrah Night: built today, from committed files only, in about 1,000 lines</p>
+    <p>To test the central bet before planning around it, I built a working slice: ten chapters of the Hijrah over real terrain (about 1 km per cell), using <b>277 claims from 28 sections</b> of the full-book Ibn Hishām pass. Every sentence a learner reads is a claim's gloss with its volume and page. The only text written by hand is chapter titles, camera positions and questions, and the questions assert nothing.</p>
+  </div>
+  <div class="shots">
+    <figure><img alt="Arrival at Qubāʾ in the Study depth: the Prophet's light at Qubāʾ, the hosts as lights, the emigrants who arrived earlier in a ring, and two chains of narration rising toward the book. The panel shows the two reports of where the Prophet lodged." src="data:image/jpeg;base64,{{IMG_QUBA}}"><figcaption>Arrival at Qubāʾ, Study depth: chains of narration rise from the scene toward the book; the panel teaches that Ibn Hishām gives two reports of the lodging.</figcaption></figure>
+    <figure><img alt="Phone view of the cave at Thawr: the light, Abū Bakr, and the reading panel." src="data:image/jpeg;base64,{{IMG_CAVE}}"><figcaption>Phone, 390 px wide: the cave at Thawr.</figcaption></figure>
+  </div>
+  <div class="col">
+    <h3>What it proved</h3>
+    <ol class="findings">
+      <li><span><b>The data can carry an arc on its own.</b> Section 669 and its neighbours record who emigrated first and who lodged them at Qubāʾ, so the first chapter fills Qubāʾ with 39 lights before the Prophet ﷺ leaves Makkah. In chapter 9 his light arrives where they are waiting. Nobody wrote that arc; the claims contain it.</span></li>
+      <li><span><b>Questions can be generated entirely from claims, including the wrong answers.</b> "Who stayed behind in Makkah?" Abū Bakr and ʿAlī are right (§678). ʿUmar is wrong because §665 records him emigrating earlier, and the learner is shown that claim. Distractors with evidence teach as much as the answers do.</span></li>
+      <li><span><b>Disagreement is a lesson, not a defect.</b> §698 gives two reports of where the Prophet ﷺ lodged at Qubāʾ (Kulthūm b. Hidm or Saʿd b. Khaythama). The question accepts both and explains why. The arrival date also has two claims ("Monday, 12 Rabīʿ al-Awwal" and "twelve nights gone").</span></li>
+      <li><span><b>Honest gaps look intentional, not broken.</b> Five of the eleven route stops (Amaj, Qudayd, Marjiḥ, Dhū Kashr, Dhū Salam) have no reviewed location, so they appear as dashed stops and the light goes dark between ʿUsfān and al-ʿArj. No line is drawn between stops, because the text gives their order, not the road.</span></li>
+      <li><span><b>The isnād can be seen.</b> In Study depth each section's chain rises from the scene toward the book: Ibn Isḥāq, al-Zuhrī, ʿAbd al-Raḥmān b. Mālik, his father, Surāqa. Provenance becomes something you can look at.</span></li>
+    </ol>
+    <h3>What it exposed</h3>
+    <ol class="findings">
+      <li><span><b>The graph records relations, not what happened.</b> Section 680, the night of leaving, produced exactly one story claim: Abū Jahl was at the door. ʿAlī sleeping in the bed and the watchers being blinded exist only in an AI-written section heading. About 61% of the full pass is "father of". <b>We need a layer of moments</b> (who did what, where, in what order), or every world will feel like a genealogy.</span></li>
+      <li><span><b>Geography is the bottleneck for immersion.</b> Of 213 places in the full pass, only a few carry reviewed coordinates; the prototype had to match al-Thurayya by name for ʿUsfān, al-ʿArj and Qubāʾ.</span></li>
+      <li><span><b>Identity problems show up in the experience.</b> The guide appears as ʿAbd Allāh b. Urayqiṭ (§691) and ʿAbd Allāh b. Arqaṭ (§696), so a learner's sky holds two stars for one man. Merge resolution (round 3, F3) is learner-facing, not only bookkeeping.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="assumptions">
+  <div class="col">
+    <h2>Assumptions to retire</h2>
+    <p class="sub">Each one shaped the current product. The evidence says to change it.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>We assumed</th><th>The evidence</th><th>New stance</th></tr></thead>
+    <tbody>
+      <tr><td>The graph is the product.</td><td>Narrative is remembered far better than exposition (meta-analysis of 33,000+ people: memory g = .72). Places work as memory anchors (method of loci g = .65).</td><td>The graph is the engine. The product is worlds and journeys made from it.</td></tr>
+      <tr><td>The low-end phone on 3G limits everything.</td><td>YouVersion grew in Africa with a Lite app. WebGPU now ships by default in Chrome, Edge and Safari 26; WebGL2 covers the rest.</td><td>One build, several tiers. Text for every phone, a 2.5D map for most, the 3D world where the device can carry it. Nobody is excluded, and nobody is held back.</td></tr>
+      <tr><td>Immersion produces learning.</td><td>Headset VR raised presence but lowered learning in Makransky 2019. Meta-analyses find small effects (0.24 to 0.38). Assassin's Creed's Discovery Tour lost to a teacher (Montréal study).</td><td>Immersion only with a task: guess first, short segments, recall afterwards. The world serves the lesson.</td></tr>
+      <tr><td>AI should stay out of learning.</td><td>A tutor fed fixed worked solutions doubled learning gains at Harvard (0.63 SD). Unguarded ChatGPT access left students 17% worse once it was taken away (Bastani, PNAS 2025).</td><td>AI is central to teaching but architecturally unable to assert: it points to claims and asks questions; it never writes facts.</td></tr>
+      <tr><td>Gamification means points and badges.</td><td>Gamification helps cognitive outcomes (g = .49), but compulsory leaderboards and badges lowered motivation and exam scores (Hanus and Fox 2015). Scholars warn rewards can crowd out sincerity (ikhlāṣ).</td><td>Mastery you can see (your sky), quests made of real questions, and ijāza-style credentials given by teachers. No leaderboards and no streak pressure.</td></tr>
+      <tr><td>Headsets are where immersion lives.</td><td>Google Expeditions shut in 2021 because schools lacked headsets. Headset sales fell in 2025 while smart glasses grew 167% (IDC, Q1 2026).</td><td>Web first. WebXR comes almost free from the same scenes. Glasses suit an audio guide on the real Hijrah trail, not a screen.</td></tr>
+      <tr><td>A learner learns alone.</td><td>Khanmigo's two-year trial found no gain over plain practice because students barely used it: "the binding constraint appears to be engagement" (NBER, Aug 2026). Tutor CoPilot, which supports human tutors, worked at about $20 per tutor per year.</td><td>Design for the teacher, the halaqa and the family first. Solo use follows.</td></tr>
+      <tr><td>Review the whole graph, then build experiences.</td><td>15,019 unordered claims would take reviewers years. One world needs roughly 300 claims, about five hours of a scholar's time at one minute per claim.</td><td>Review scenes, in the order learners meet them. Each finished world is a reviewable, publishable unit.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="gaps">
+  <div class="col">
+    <h2>The gaps that matter most</h2>
+    <p class="sub">Ranked by how much each one blocks a learning experience</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Gap</th><th>Why it matters</th><th>Closed by</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><b>No moment layer</b></td><td>The text's events are flattened into relations, so the most memorable beats of the Hijrah are not in the data (finding 1 above).</td><td>N2: moments in the ontology, an extraction pass, scene review</td></tr>
+      <tr><td class="num">2</td><td><b>No learning design or learner model</b></td><td>Nothing asks the learner to recall, nothing spaces reviews, nothing knows what a person has mastered.</td><td>N4 memory engine; X1 companion</td></tr>
+      <tr><td class="num">3</td><td><b>Thin geography</b></td><td>Worlds need places. Most places have no reviewed coordinates and there is no certainty grading.</td><td>N3 place and route layer</td></tr>
+      <tr><td class="num">4</td><td><b>Nothing reviewed that learners can see</b></td><td>Zero accepted claims; the review queue is not ordered by what learners will meet.</td><td>N7 scene review lane</td></tr>
+      <tr><td class="num">5</td><td><b>No identity in sight or sound</b></td><td>No designer, no sound, no calligraphy. "Futuristic" is a craft standard, not a feature.</td><td>A designer (0.5), X2 voice and sound</td></tr>
+      <tr><td class="num">6</td><td><b>One source only</b></td><td>Disagreement between al-Wāqidī, Ibn Saʿd, al-Ṭabarī and al-Bukhārī is where historical thinking happens; we cannot show it yet.</td><td>X4 multi-source layer</td></tr>
+      <tr><td class="num">7</td><td><b>No evidence that anyone learns</b></td><td>Without it we cannot know if the product works, and donors cannot see it.</td><td>N6 pilots, published</td></tr>
+      <tr><td class="num">8</td><td><b>No route to learners</b></td><td>No teachers, no partners, no presence where people already learn the Sīra.</td><td>N5 teacher mode; partners in "How we differ"</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="world">
+  <div class="col">
+    <h2>What the world has tried</h2>
+    <p class="sub">The strongest examples and failures from five research reviews, each with the lesson for us. Figures are as the sources report them; vendor claims are marked.</p>
+  </div>
+  <div class="group-h">Immersive history</div>
+  <div class="cards">
+    <div class="card"><h4>Assassin's Creed Discovery Tour</h4><div class="who">Ubisoft, 2018 onward; "History of Baghdad" with the Institut du monde arabe, 2023</div><div class="ev">About 330 students: the tour raised knowledge 22–44%; teacher-led classes gained more. Tested immediately only.</div><div class="lesson"><b>Lesson</b>A beautiful world without a task loses to a teacher. Baghdad's content unlocks by discovery, which is worth copying.</div></div>
+    <div class="card"><h4>Google Expeditions</h4><div class="who">Google, closed June 2021</div><div class="ev">Closed because schools lacked headsets and hybrid learning made it hard to use. Tours moved to web and phone.</div><div class="lesson"><b>Lesson</b>Hardware dependence kills reach. Web first; headsets are an extra.</div></div>
+    <div class="card"><h4>USC Shoah Foundation, Dimensions in Testimony</h4><div class="who">12+ museum installations</div><div class="ev">Visitors ask questions; the system plays only answers survivors actually recorded, and asks people to rephrase when nothing matches.</div><div class="lesson"><b>Lesson</b>The closest model to our rule: answer only with recorded words, never generated ones.</div></div>
+    <div class="card"><h4>Venice Time Machine</h4><div class="who">EPFL and the Venice State Archive, suspended 2019</div><div class="ev">A non-binding agreement with no data licensing; the archive called 8 TB of scans unusable because provenance metadata did not meet archival standards (Nature).</div><div class="lesson"><b>Lesson</b>Licences, governance and provenance decide survival. Our provenance discipline is an asset; keep it.</div></div>
+    <div class="card"><h4>Never Alone</h4><div class="who">Upper One Games with about 40 Iñupiat elders</div><div class="ev">24 short films of community voices unlock as you play.</div><div class="lesson"><b>Lesson</b>Co-design with the tradition's own authorities gives legitimacy. Our scholars should shape scenes, not only check claims.</div></div>
+    <div class="card"><h4>Lighthouse "Immersive Van Gogh"; NFB Interactive</h4><div class="who">Bankrupt 2023; studios closed January 2024</div><div class="ev">7M+ tickets and still bankrupt; one-off interactive documentaries cost double their budgets.</div><div class="lesson"><b>Lesson</b>Spectacle is fragile. Build one reusable engine that produces many worlds from data.</div></div>
+  </div>
+  <div class="group-h">AI tutors and companions</div>
+  <div class="cards">
+    <div class="card"><h4>Harvard physics AI tutor</h4><div class="who">Kestin et al., Scientific Reports, 2025; 194 students</div><div class="ev">More than twice the learning gain of an active-learning class (0.63 SD). The tutor was given pre-written step-by-step solutions, and the platform, not the prompt, enforced the sequence.</div><div class="lesson"><b>Lesson</b>A fixed answer key plus enforced steps. For us, the claims are the answer key.</div></div>
+    <div class="card"><h4>Khanmigo</h4><div class="who">NBER working paper, August 2026; 18 schools, two years</div><div class="ev">0.06–0.08 SD per year, no better than Khan Academy practice without AI. The median student messaged it on about a third of practice days.</div><div class="lesson"><b>Lesson</b>A tutor nobody talks to teaches nothing. Ours has to start the conversation, and teachers have to bring it into class.</div></div>
+    <div class="card"><h4>Unguarded vs guarded AI</h4><div class="who">Bastani et al., PNAS 2025; about 1,000 students</div><div class="ev">Unguarded ChatGPT raised practice scores 48% but left students 17% worse once it was removed; a guarded tutor did no harm.</div><div class="lesson"><b>Lesson</b>Recall before reveal, always. Even a quotation comes after the learner has tried.</div></div>
+    <div class="card"><h4>Character.AI, Meta, "Father Justin"</h4><div class="who">2023–2025</div><div class="ev">User-made "Muhammad" and "Jesus" bots removed by Meta after press reports; Character.AI ended open chat for under-18s; an AI priest was demoted after offering confession.</div><div class="lesson"><b>Lesson</b>Never a persona of the Prophet ﷺ or the Companions. The companion speaks as itself, labelled as AI.</div></div>
+    <div class="card"><h4>Usul.ai and Ansari</h4><div class="who">Non-profit and open-source Islamic AI</div><div class="ev">Retrieval over OpenITI and Shamela with inspectable citations; Usul states it is "not for fatwas".</div><div class="lesson"><b>Lesson</b>Our nearest technical neighbours, and potential partners. Our difference is a reviewed, structured graph and a learning design.</div></div>
+    <div class="card"><h4>Faithful citations</h4><div class="who">arXiv 2412.18004 and a 2026 replication</div><div class="ev">Up to 57% of RAG citations were added after the fact in adversarial tests; about 1 in 7 in a 2026 replication.</div><div class="lesson"><b>Lesson</b>Never let a model write a sentence and then cite it. It chooses claims; the page shows them.</div></div>
+  </div>
+  <div class="group-h">Faith education and the Sīra</div>
+  <div class="cards">
+    <div class="card"><h4>Sefaria</h4><div class="who">Open library of Jewish texts, non-profit</div><div class="ev">1M+ monthly users (2026); 584,000 user-made source sheets (2024); an AI Library Assistant designed to send readers to sources.</div><div class="lesson"><b>Lesson</b>Our closest model: open texts, a linked graph, user-made sheets, AI that points to sources. Copy the source sheet as a "majlis sheet".</div></div>
+    <div class="card"><h4>BibleProject</h4><div class="who">Donor-funded, everything free</div><div class="ev">620M+ views; FY2025 revenue $30.9M; 48,000 donors in 2023.</div><div class="lesson"><b>Lesson</b>Craft and theme-led storytelling attract donors at scale. A donor-funded project can afford a world-class designer.</div></div>
+    <div class="card"><h4>Quran.com / Quran Foundation</h4><div class="who">Non-profit with open APIs</div><div class="ev">63M+ active users on the web in a year; usage doubles in Ramadan.</div><div class="lesson"><b>Lesson</b>Plan launches around the calendar: Ramadan and Rabīʿ al-Awwal. Link occasions of revelation through their API.</div></div>
+    <div class="card"><h4>Prophet's Biography Museum, Madinah</h4><div class="who">Muslim World League, 2021</div><div class="ev">25+ pavilions in 7 languages; the Rabat branch reports 3M visitors. No online corpus, no footnotes.</div><div class="lesson"><b>Lesson</b>The institutional benchmark for presentation without depiction. Our edge is a citation behind every statement, available anywhere.</div></div>
+    <div class="card"><h4>Ithra, "Hijrah: In the Footsteps of the Prophet"</h4><div class="who">2022–23, then the National Museum, Riyadh</div><div class="ev">14 zones, route imagery, calligraphy and manuscripts; 100,000+ visitors.</div><div class="lesson"><b>Lesson</b>The closest precedent to Hijrah Night. Their route research is a partnership opportunity.</div></div>
+    <div class="card"><h4>The Hijrah trail ("ʿAlā Khuṭāh")</h4><div class="who">Saudi General Entertainment Authority, inaugurated about February 2026</div><div class="ev">About 470 km from Thawr to Qubāʾ, 41 restored landmarks, a target of 5M visitors a year by 2030.</div><div class="lesson"><b>Lesson</b>Millions will walk the route with no sourced companion. A place-anchored, cited audio guide is a large opening (X6).</div></div>
+  </div>
+  <div class="col">
+    <h3>Patterns that keep working</h3>
+    <p>Learning ends in retrieval, not in a "next" button. Real places act as memory anchors. Real voices and source texts carry emotion and authority. Discovery unlocks content. Short immersive segments are followed by reflection. Teachers and groups multiply reach. Open data outlives the apps built on it.</p>
+    <h3>Patterns that keep failing</h3>
+    <p>Hardware-gated products. Spectacle with no task. Generated speech presented as a person. Leaderboards and compulsory badges. Success measured by engagement or completion (MOOC completion fell to about 3%). One-off bespoke formats. Ambitious projects without licensing and governance.</p>
+    <h3>What nobody has done yet</h3>
+    <p>An immersive world in which every rendered thing resolves to a source passage. Disagreement between reports shown side by side as a learning event. A generative tutor that cannot assert by construction. Knowledge tracing over a historical claim graph rather than maths skills. A randomised trial of AI tutoring in history or religious studies (every trial found was in maths, physics or English). A codified way to present a sacred history immersively without depiction. All six are within our reach.</p>
+  </div>
+</section>
+
+<section id="concept">
+  <div class="col">
+    <h2>The experience we should build</h2>
+    <p class="sub">Six layers people touch, one engine underneath</p>
+  </div>
+  <div class="layers">
+    <div class="layer"><b>World</b><span>Seventh-century Arabia as real terrain you can enter, at the time of day and season the text supports. Places appear only when located, with a certainty grade. Time can be scrubbed, and on the Hijri calendar the world follows the year: on 12 Rabīʿ al-Awwal the light arrives at Qubāʾ.</span></div>
+    <div class="layer"><b>Journeys</b><span>Guided chapters made of scenes: the Hijrah, the people of Badr, the first believers, then every documented event (round 3, E6). Each scene has a place, a moment, people, claims, a camera, a question and an approval.</span></div>
+    <div class="layer"><b>Investigations</b><span>Quests that are real historical questions. When did they reach Qubāʾ? With whom did he lodge? Why the coastal route? Learners weigh reports, trace chains to their eyewitness, and record their reasoning.</span></div>
+    <div class="layer"><b>Companion</b><span>A guide that asks before it tells, proposes the next path, turns a question into a query that moves the camera, shows claims verbatim, and refers rulings to a scholar. It speaks as itself, never as a person of the Sīra.</span></div>
+    <div class="layer"><b>Sky</b><span>Your memory, made visible. Everyone you meet becomes a star, each journey a constellation; stars brighten as you recall them. Spaced reviews bring you back; nothing ranks you against anyone else.</span></div>
+    <div class="layer"><b>Circle</b><span>The halaqa, the classroom and the family. A teacher drives the camera on every phone in the room, runs guess-first questions live, and hands out majlis sheets (claims gathered for a lesson). Families get "teach it back" prompts.</span></div>
+    <div class="layer engine"><b>Engine</b><span>One graph: claims, moments, places, scenes, reviews. Compiled into static packs (scenes, terrain tiles, audio, question banks, indexes) served almost free. The research depth keeps full access to the data.</span></div>
+  </div>
+
+  <div class="col">
+    <h3>Three people, one graph</h3>
+    <p><b>Maryam, 13, in Kochi,</b> opens the Hijrah on a mid-range phone. She guesses who stayed behind in Makkah, gets ʿUmar wrong, and sees why: §665 has him emigrating earlier. Two days later her sky shows five stars due for review; she remembers four. In class her teacher projects the cave at Thawr and the whole room answers the same question at once.</p>
+    <p><b>Yusuf, a teacher in Birmingham,</b> builds a majlis sheet for Friday: the two reports of the lodging at Qubāʾ, the chain behind each, and one investigation. His students argue over evidence, not opinions, and every claim they cite has a page number.</p>
+    <p><b>Dr Amina, a historian,</b> switches to Research depth, filters the Hijrah scenes by source and status, downloads the claims behind them, and checks whether the route stops match the gazetteer. Her correction goes into the review queue with her name on it.</p>
+
+    <h3>A design grammar without depiction</h3>
+    <p>Nobody has codified how to present a sacred history immersively without figures. We can, and publish it for others to use:</p>
+  </div>
+  <div class="grammar">
+    <div><b><span class="sw light"></span>The light</b>The Prophet ﷺ, warm and at the centre, never a node and never a figure (round 3, H4).</div>
+    <div><b><span class="sw person"></span>Lights</b>People, with brightness for generation (T4). Names in Arabic and transliteration.</div>
+    <div><b><span class="sw stone"></span>Stones</b>Named as present, with no side drawn until claims and scholars decide (X1). They turn to stars only on a recorded conversion.</div>
+    <div><b><span class="sw dash"></span>Absence</b>Unlocated places are dashed, and no road is drawn where the text gives only an order. Gaps are shown, not filled.</div>
+    <div><b><span class="sw chain"></span>Chains</b>Narrators rising from the event toward the book: the isnād made visible.</div>
+    <div><b><span class="sw sky"></span>Sound</b>Wind, night, distance; recited source text by a human reader. No instruments by default, following the scholars' ruling.</div>
+  </div>
+</section>
+
+<section id="directions">
+  <div class="col">
+    <h2>Every direction, scored</h2>
+    <p class="sub">22 directions in three horizons, plus what not to build. Scores are my judgement from the research and our data; effort is in person-weeks of a senior builder.</p>
+  </div>
+  <div class="chart-wrap">
+    <div class="legend" aria-hidden="true"><span><i style="background:var(--s1)"></i>Build now (0–3 months)</span><span><i style="background:var(--s2)"></i>Experiment first (3–12 months)</span><span><i style="background:var(--s3)"></i>Long-term vision (1–5 years)</span></div>
+    <svg id="chart" viewBox="0 0 1000 460" role="img" aria-label="Scatter chart of 22 directions: learning value and impact against effort. The table below lists every value."></svg>
+    <div class="tip" id="tip" role="status"></div>
+    <p class="small">Up is more learning value plus impact (2–10). Right is more effort (person-weeks, log scale). Top-left is where to start. Hover or focus a point for its name.</p>
+  </div>
+  <div class="tbl"><table id="dirs">
+    <thead><tr><th>ID</th><th>Direction</th><th>Horizon</th><th>Learning value</th><th>Feasibility</th><th>Impact</th><th>Effort</th><th>Build cost</th><th>Running cost</th><th>Main risk</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="small">Build cost = effort × $2,000 per person-week (a blended rate for a remote non-profit team; change it and every figure scales) plus listed direct costs. Running cost is per month at early scale unless stated.</p>
+  <div class="col">
+    <h3>What not to build</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Tempting</th><th>Why not</th></tr></thead>
+      <tbody>
+        <tr><td>Generated reconstructions of scenes or people (world models such as Genie 3, video models, text-to-3D)</td><td>They invent architecture, dress and figures and cannot be traced to a source; they break both "no pixel without provenance" and "no depiction". At most, labelled mood backdrops with no people, and only after scholars agree.</td></tr>
+        <tr><td>AI personas of the Prophet ﷺ or the Companions</td><td>The clearest red line in the research: removed by Meta, criticised wherever tried, and contrary to the standing rules.</td></tr>
+        <tr><td>A headset-first product</td><td>Expeditions shows where that leads. WebXR from the same scenes costs almost nothing; a dedicated app does not.</td></tr>
+        <tr><td>Leaderboards, streak pressure, points for worship</td><td>They harm motivation and exam scores and raise concerns about sincerity.</td></tr>
+        <tr><td>Real-time voice chat for everyone</td><td>About $0.04–0.11 per minute; it would consume a donation budget. Pre-recorded human voice is cheaper and better.</td></tr>
+        <tr><td>A metaverse twin or NFT "heritage"</td><td>Dated quickly where tried; adds cost and no learning.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="col">
+    <h2>Architecture</h2>
+    <p class="sub">A static, near-zero-cost core with rich tiers above it</p>
+  </div>
+  <div class="tbl" style="background:var(--card)"><table>
+    <thead><tr><th>Layer</th><th>What it holds</th><th>Formats and tools</th><th>Cost</th></tr></thead>
+    <tbody>
+      <tr><td><b>Truth</b> (git, build time)</td><td>Claims, passages, people, places with certainty grades, <b>moments</b> (new), <b>scenes</b> (new: place, time window, actors, claims, camera, sound, questions, approvals), reviews and credit</td><td>RDF/Turtle checked by SHACL; a scene is published only if every field resolves to claims</td><td>Free</td></tr>
+      <tr><td><b>Compile</b> (CI)</td><td>Scene packs, question banks with evidence-backed distractors, terrain tiles for the Ḥijāz, narration audio, a search index, embeddings for semantic search, Linked Places export</td><td>JSON scene packs, PMTiles (terrain-RGB from Copernicus GLO-30), glTF with meshopt/KTX2, Opus audio, Pagefind-style index</td><td>Free</td></tr>
+      <tr><td><b>Deliver</b></td><td>Tier 0 text (any phone); tier 1 2.5D map and timeline; tier 2 3D world; tier 3 WebXR and glasses audio. Chosen from device memory, a GPU probe and measured frame rate</td><td>Static pages; MapLibre GL; three.js with WebGPU where available, WebGL2 otherwise; offline chapter packs under 100 MB</td><td>Cloudflare Pages and R2 (no egress fees): a few dollars a month</td></tr>
+      <tr><td><b>Companion</b> (optional)</td><td>Question → typed query → claim IDs and a teaching move; answers cached by normalised question; budget kill switch</td><td>Cloudflare Workers; a small model for routing; a validator rejects any name, number or date not inside a shown claim</td><td>About $0.30–3.60 per active learner per year at 2026 prices (secondary price tables)</td></tr>
+      <tr><td><b>Learner</b></td><td>Sky, answers, review schedule. On the device first; optional sync for researchers and teachers (round 3, E5)</td><td>FSRS-style scheduler; Bayesian knowledge tracing per person, place, event and causal link</td><td>Free on device</td></tr>
+      <tr><td><b>Circle</b></td><td>Live classroom sessions: a teacher's camera and questions mirrored to students</td><td>Durable Objects or WebSockets; no accounts for students</td><td>Under $10 a month at pilot scale</td></tr>
+    </tbody>
+  </table></div>
+  <div class="col">
+    <p>Two rules make this safe. First, <b>nothing in the experience is typed by hand that could be a claim</b>; build scripts refuse a scene whose text does not resolve to claims, as the prototype's build does. Second, <b>the site works fully with the companion switched off</b>; if funding or safety requires it, AI can stop without breaking learning.</p>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="col">
+    <h2>Roadmap</h2>
+    <p class="sub">Four phases, each ending at a gate decided on evidence. Islamic dates are approximate.</p>
+  </div>
+  <div class="tbl" style="padding:12px">
+    <div class="gantt" id="gantt"></div>
+  </div>
+  <div class="phases">
+    <div class="phase"><h4>A · Prove it</h4><div class="when">November 2026 to January 2027 · 12 weeks</div>
+      <ul><li>Hijrah World beta from the prototype (N1), with the designer</li><li>Moments in the ontology; extraction pass over the Hijrah sections (N2)</li><li>Place pass for the Hijrah and Makkah (N3)</li><li>Memory engine and sky (N4); projector and circle mode (N5)</li><li>Scholars review the Hijrah scenes, about 300 claims (N7)</li><li>Pilot 1 with the class (E1 in round 3) and a think-aloud study</li></ul>
+      <div class="gate"><b>Gate:</b> delayed recall at 1 week beats a reading-page control by d ≥ 0.3; 30 fps on a $150 Android phone; scholars approve the scene format.</div></div>
+    <div class="phase"><h4>B · Grow the world</h4><div class="when">February to July 2027 · Ramadan 1448 soft launch</div>
+      <ul><li>Makkah years, Badr and Uḥud as worlds (about 40 scenes)</li><li>Companion v1 behind published adversarial tests (X1)</li><li>Voice and sound (X2); Arabic interface</li><li>Investigations (X3); Hijrah trail companion pilot (X6)</li><li>Pilot 2: a randomised trial, about 85 per arm</li></ul>
+      <div class="gate"><b>Gate:</b> retention holds at 1 month; zero unsupported statements in the companion audit; teachers return for a second session.</div></div>
+    <div class="phase"><h4>C · The whole Sīra</h4><div class="when">August 2027 to 2028 · public launch around Rabīʿ al-Awwal 1449</div>
+      <ul><li>Every dated event as a scene, 570–632, with time scrubbing (L1)</li><li>Multi-source disagreements (X4)</li><li>Urdu and Malayalam (L4); open benchmark and research API (L5)</li><li>WebXR tier (L3)</li></ul>
+      <div class="gate"><b>Gate:</b> published learning results and error rate; a versioned DOI release (round 3, W7).</div></div>
+    <div class="phase"><h4>D · Beyond the Sīra</h4><div class="when">2029 onward</div>
+      <ul><li>The Rāshidūn and the first generations</li><li>Isnād geography: knowledge travelling from Madinah to Kufa, Nishapur, Cordoba and Malabar (L2)</li><li>Kerala as the first regional study (round 3, D3)</li><li>Mastery credentials with teachers (L6)</li></ul>
+      <div class="gate"><b>Gate:</b> the master vision in the README, built one evidenced world at a time.</div></div>
+  </div>
+</section>
+
+<section id="experiments">
+  <div class="col">
+    <h2>Experiments before we invest</h2>
+    <p class="sub">Small, cheap tests of the riskiest assumptions. Each has a pass mark and a stop rule.</p>
+  </div>
+  <div class="cards" id="xps"></div>
+  <div class="col"><p class="small">Sample sizes: a two-arm trial needs about 64 per arm for d = 0.5 at 80% power, about 85 with attrition; a within-person design across two units needs about 34 (d = 0.5) to 90 (d = 0.3). Preregister, with recall at one month as the primary outcome.</p></div>
+</section>
+
+<section id="cost">
+  <div class="col">
+    <h2>Team and cost</h2>
+    <p class="sub">Year one, two ways. Ranges assume a remote team and non-profit rates; they are estimates to plan with, not quotes.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Line</th><th>Full plan</th><th>Lean plan</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>3D and web engineer</td><td class="num">$70k–110k</td><td class="num">$50k–70k</td><td>Owns the world engine and performance</td></tr>
+      <tr><td>Data and graph engineer</td><td class="num">$55k–90k</td><td class="num">AI-assisted, part-time</td><td>Moments, places, scenes, review tooling</td></tr>
+      <tr><td>Product designer (0.5)</td><td class="num">$30k–45k</td><td class="num">$12k–20k contract</td><td>Visual and sonic identity; already in round 3 M2</td></tr>
+      <tr><td>Learning researcher (0.3)</td><td class="num">$15k–25k</td><td class="num">Academic partner</td><td>Pilots, measures, preregistration</td></tr>
+      <tr><td>Voice and sound</td><td class="num">$8k–15k</td><td class="num">$3k–5k</td><td>Human recitation of source passages; field ambience</td></tr>
+      <tr><td>Scholar stipends</td><td class="num">$15k–30k</td><td class="num">$8k–12k</td><td>Scenes first, so time goes where learners look</td></tr>
+      <tr><td>AI runs</td><td class="num">$3k–8k</td><td class="num">$2k–4k</td><td>Moments, merges, translation drafts</td></tr>
+      <tr><td>Test devices, pilots, hosting, domain and legal</td><td class="num">$6k–12k</td><td class="num">$4k–6k</td><td>Hosting itself is under $600 a year</td></tr>
+      <tr><td><b>Total</b></td><td class="num"><b>$200k–335k</b></td><td class="num"><b>$80k–125k</b></td><td>The lean plan reaches Phase B about six months later</td></tr>
+    </tbody>
+  </table></div>
+  <div class="col"><p>Running cost stays close to zero because the core is static. The one variable cost is the companion: at 2026 prices, about $0.30 a year per active learner on the cheapest capable models and about $3.60 on mid-tier ones, before caching. Most questions repeat, so a shared cache cuts this further, and a monthly cap with a kill switch keeps it inside the donation budget (round 3, D4).</p></div>
+</section>
+
+<section id="risks">
+  <div class="col">
+    <h2>Risks and red lines</h2>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Risk</th><th>Likelihood</th><th>Harm</th><th>Mitigation</th></tr></thead>
+    <tbody>
+      <tr><td>An AI sentence states something no source supports</td><td class="risk-M">Medium</td><td class="risk-H">High</td><td>The model outputs claim IDs only; a validator rejects stray names, numbers and dates; adversarial test set published before launch (round 3, A2); weekly audit</td></tr>
+      <tr><td>Drift into rulings, tafsīr or hadith grading</td><td class="risk-M">Medium</td><td class="risk-H">High</td><td>Intent filter, fixed refusal with referral to a local scholar (A4); Dar al-Iftāʾ's 2025 position on AI fatwas cited publicly</td></tr>
+      <tr><td>Depiction creep through generated media or "reconstructions"</td><td class="risk-L">Low</td><td class="risk-H">High</td><td>The design grammar above; no generated figures ever; scholars sign off the visual language</td></tr>
+      <tr><td>Immersion distracts from learning</td><td class="risk-M">Medium</td><td class="risk-M">Medium</td><td>Short segments, guess first, recall after; pilot gate on delayed recall</td></tr>
+      <tr><td>Low engagement (the Khanmigo problem)</td><td class="risk-H">High</td><td class="risk-H">High</td><td>Teachers and circles first; the companion starts conversations; calendar launches</td></tr>
+      <tr><td>Unreviewed claims shown as settled</td><td class="risk-M">Medium</td><td class="risk-H">High</td><td>Scene review before public worlds; source line on every claim (round 4, question 1)</td></tr>
+      <tr><td>Licensing: OpenITI text is CC BY-NC-SA, Shamela has no licence</td><td class="risk-M">Medium</td><td class="risk-M">Medium</td><td>Keep pointers and short phrases only; human recitation from a licensed edition; write to OpenITI (S1)</td></tr>
+      <tr><td>Sectarian or political framing; tourism framing of the trail</td><td class="risk-M">Medium</td><td class="risk-M">Medium</td><td>Show sources and disagreements, never verdicts; partner without adopting a partner's narrative</td></tr>
+      <tr><td>Children's data and safety</td><td class="risk-M">Medium</td><td class="risk-H">High</td><td>No open chat under 13; learner data stays on the device; UK DfE 2026 expectations and US COPPA (amended, April 2026)</td></tr>
+      <tr><td>Key-person dependence</td><td class="risk-H">High</td><td class="risk-M">Medium</td><td>Everything in git, generated and documented; open data releases; a second keyholder (M4)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="different">
+  <div class="col">
+    <h2>How we will be different</h2>
+    <p class="sub">Compared with the closest projects, as far as their public information shows</p>
+  </div>
+  <div class="tbl"><table class="cmp">
+    <thead><tr><th>Capability</th><th>AC Discovery Tour</th><th>Seerah museum (Madinah)</th><th>Sefaria</th><th>Usul.ai</th><th>al-Marṣad (target)</th></tr></thead>
+    <tbody>
+      <tr><td>Enter a place, explore freely</td><td class="y">Yes</td><td class="p">On site</td><td class="n">No</td><td class="n">No</td><td class="y">Yes</td></tr>
+      <tr><td>Every statement cited to a passage</td><td class="n">No</td><td class="n">No</td><td class="y">Yes</td><td class="y">Yes</td><td class="y">Yes</td></tr>
+      <tr><td>Disagreements shown side by side</td><td class="n">No</td><td class="n">No</td><td class="p">Through links</td><td class="n">No</td><td class="y">Yes</td></tr>
+      <tr><td>Scholar review status</td><td class="p">Curated</td><td class="p">Institutional</td><td class="p">Editorial</td><td class="n">No</td><td class="y">Per claim and scene</td></tr>
+      <tr><td>Retrieval, spacing, mastery</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="y">Yes</td></tr>
+      <tr><td>AI that cannot assert</td><td class="n">—</td><td class="n">—</td><td class="p">Points to sources</td><td class="p">Cites sources</td><td class="y">By construction</td></tr>
+      <tr><td>Open data</td><td class="n">No</td><td class="n">No</td><td class="y">Yes</td><td class="p">Partly</td><td class="y">CC BY-SA</td></tr>
+      <tr><td>Published learning results</td><td class="p">One study</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="y">From pilot 1</td></tr>
+    </tbody>
+  </table></div>
+  <div class="col">
+    <h3>Partners worth approaching now</h3>
+    <p><b>OpenITI and KITAB</b> (text identifiers, text reuse across sources, credibility). <b>Usul.ai and GTAF</b> (non-profit peers; GTAF is piloting AI extraction from <i>al-Raḥīq al-Makhtūm</i>; share rather than duplicate). <b>Quran Foundation</b> (verses linked to events through their API). <b>Ithra</b> and the <b>Hijrah trail</b> (route research; a sourced companion for millions of visitors). <b>Yaqeen, SeekersGuidance, Qalam</b> (link scenes to moments in their lectures instead of competing with them). <b>A university learning-science group</b> for the trials.</p>
+  </div>
+</section>
+
+<section id="decide">
+  <div class="col">
+    <h2>Decisions for you</h2>
+    <p class="sub">What I need to move from plan to build</p>
+    <ol class="decisions">
+      <li><b>Approve the reframe.</b> The graph is the engine; the first product is the Hijrah World, built from the prototype; one build serves every device tier.</li>
+      <li><b>Add moments and scenes</b> to the ontology, and reorder review so scholars review scenes in the order learners meet them.</li>
+      <li><b>Set the sound policy</b> with the scholars: ambience and human recitation, no instruments by default.</li>
+      <li><b>Hire a designer (0.5) and a 3D/web engineer</b>, or choose the lean plan.</li>
+      <li><b>Approve pilot 1</b> with the class: consent forms, a reading-page control, and recall tests at one week and one month.</li>
+      <li><b>Approve the companion experiment</b> under the "points, never speaks" rule, with its adversarial test set published first (A2).</li>
+      <li><b>Approve partner outreach</b> to OpenITI, Usul.ai, GTAF, Ithra and the Quran Foundation.</li>
+    </ol>
+    <h3>The next two weeks, if you approve</h3>
+    <p>Week 1: moments schema and an extraction trial on the Hijrah sections (X6 of the experiments); performance test of Hijrah Night on three cheap Android phones; brief for the designer. Week 2: think-aloud sessions with 8–10 people on the prototype (do they understand dashed stops, two reports and "AI-extracted"?); the pilot protocol for your class; review of the 277 Hijrah claims by one scholar, timed, to measure minutes per claim.</p>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="col"><h2>Sources</h2><p class="sub">Selected; every figure above comes from one of these. Items the reviews could not verify were left out or marked as vendor claims.</p></div>
+  <div class="sources">
+    <p>Kestin et al. 2025, AI tutoring outperforms active learning, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12179260/">Scientific Reports</a></p>
+    <p>Oreopoulos and Low 2026, "One Click Away", <a href="https://ideas.repec.org/p/nbr/nberwo/35620.html">NBER w35620</a></p>
+    <p>Bastani et al. 2025, generative AI without guardrails, <a href="https://knowledge.wharton.upenn.edu/article/without-guardrails-generative-ai-can-harm-education">PNAS / Wharton</a></p>
+    <p>Tutor CoPilot, <a href="https://arxiv.org/pdf/2410.03017v1">arXiv 2410.03017</a></p>
+    <p>Google, Learn Your Way, <a href="https://research.google/blog/learn-your-way-reimagining-textbooks-with-generative-ai/">research blog</a></p>
+    <p>Citation faithfulness in RAG, <a href="https://arxiv.org/pdf/2412.18004">arXiv 2412.18004</a></p>
+    <p>Knowledge tracing, deep vs LLM, <a href="https://arxiv.org/pdf/2512.23036">arXiv 2512.23036</a></p>
+    <p>Mar et al. 2021, narrative and memory meta-analysis, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8219577/">PMC</a></p>
+    <p>Clark et al. 2016, digital games for learning, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4748544/">PMC</a></p>
+    <p>Twomey and Kroneisen 2021, method of loci, <a href="https://journals.sagepub.com/doi/10.1177/1747021821993457">QJEP</a></p>
+    <p>Roediger and Karpicke 2006, testing effect, <a href="https://psychology.ecu.edu/wp-content/pv-uploads/sites/216/2019/03/Roediger-Karpicke-2006.pdf">PDF</a>; Cepeda et al. 2008, spacing, <a href="https://www.evullab.org/pdf/CepedaVulRohrerWixtedPashler-PS-2008.pdf">PDF</a></p>
+    <p>Sailer and Homner 2020, gamification meta-analysis, <a href="https://link.springer.com/article/10.1007/s10648-019-09498-w">Springer</a></p>
+    <p>Reisman 2012, Reading Like a Historian, <a href="https://purl.stanford.edu/by786ht6640">Stanford</a></p>
+    <p>Makransky et al. 2019, immersive VR and learning, <a href="https://test01.ku.dk/:obvius/pureproxy/3974268/en/publications/adding-immersive-virtual-reality-to-a-science-lab-simulation-caus">KU</a></p>
+    <p>Discovery Tour study, <a href="https://variety.com/2018/gaming/news/assassins-creed-origins-discovery-tour-effectiveness-1202861325">Variety</a>; Mirage's History of Baghdad, <a href="https://gamespot.com/articles/assassins-creed-mirage-will-have-a-history-of-baghdad-educational-mode/1100-6515689/">GameSpot</a></p>
+    <p>Google Expeditions closure, <a href="https://www.xda-developers.com/google-shut-down-expeditions-app/">XDA</a></p>
+    <p>Venice Time Machine, <a href="https://media.nature.com/original/magazine-assets/d41586-019-03240-w/d41586-019-03240-w.pdf">Nature</a></p>
+    <p>Dimensions in Testimony, <a href="https://sfi.usc.edu/dit">USC Shoah Foundation</a></p>
+    <p>Lighthouse Immersive bankruptcy, <a href="https://dallas.culturemap.com/news/arts/lighthouse-immersive-van-gogh-bankrupt">CultureMap</a>; NFB studios, <a href="https://www.canada.ca/en/national-film-board/news/2024/01/nfb-interactive-studios-closing-the-nfb-announces-reinvestments-in-production-and-innovation-initiatives-to-serve-creation-distribution-and-audienc.html">Canada.ca</a></p>
+    <p>Sefaria Impact Report 2024, <a href="https://www.sefaria.org/static/files/Sefaria_Impact_Report_2024.pdf">PDF</a>; Library Assistant, <a href="https://jweekly.com/2026/08/12/sefarias-ai-chatbot-parses-3000-years-of-jewish-text-but-doesnt-stop-there/">J. Weekly</a></p>
+    <p>BibleProject, <a href="https://en.wikipedia.org/wiki/BibleProject">overview</a></p>
+    <p>Quran Foundation, <a href="https://quran.foundation/year-in-review/2025">Year in Review 2025</a></p>
+    <p>Usul.ai, <a href="https://usul.ai/about">about</a>; Ansari, <a href="https://github.com/ansari-project/ansari-backend">GitHub</a>; GTAF Seerah extraction, <a href="https://gtaf.org/blog/using-ai-to-extract-structured-insights-from-seerah-texts/">blog</a></p>
+    <p>Ithra Hijrah exhibition, <a href="https://www.aramcoworld.com/articles/2023/hijrah-a-journey-that-changed-the-world">AramcoWorld</a>; Prophet's Biography Museum, <a href="https://english.aawsat.com/node/2786926">Asharq Al-Awsat</a></p>
+    <p>Hijrah trail, <a href="https://gulfnews.com/world/gulf/saudi/from-mecca-to-medina-saudi-arabia-recreates-the-prophets-migration-for-visitors-1.500216115">Gulf News</a></p>
+    <p>IIFA Resolution 258 on AI, <a href="https://iifa-aifi.org/en/56035.html">IIFA</a>; Dar al-Iftāʾ on AI fatwas, <a href="https://dar-alifta.org/en/fatwa/details/22255/using-ai-applications-to-obtain-fatwas">dar-alifta.org</a></p>
+    <p>Meta user-made religious bots, <a href="https://www.nbcnews.com/tech/social-media/meta-user-made-ai-chatbots-include-hitler-jesus-christ-rcna186206">NBC News</a></p>
+    <p>WebGPU in all major browsers, <a href="https://web.dev/blog/webgpu-supported-major-browsers">web.dev</a>; IDC smart glasses Q1 2026, <a href="https://www.idc.com/resource-center/press-releases/xr-market-grew-44-4-in-2025-as-smart-glasses-redefine-the-category/">IDC</a></p>
+    <p>ORBIS, Stanford geospatial network of the Roman world, <a href="https://orbis.stanford.edu">orbis.stanford.edu</a>; KITAB text reuse, <a href="https://kitab-project.org/methods/text-reuse">kitab-project.org</a></p>
+    <p>al-Thurayya Gazetteer, <a href="https://althurayya.github.io">althurayya.github.io</a> (CC BY 4.0); AWS Terrain Tiles, <a href="https://registry.opendata.aws/terrain-tiles">registry.opendata.aws</a></p>
+  </div>
+</section>
+
+<footer>Prepared for the al-Marṣad maintainer and scholars, 17 October 2026. Research by five parallel reviews of public sources; prototype and scores by Claude. Estimates are for planning and should be checked against quotes. Everything here follows the standing rules: no pixel without provenance, no depiction, AI never asserts, computed ≠ significant, the data outlives the app.</footer>
+</div>
+
+<script>
+(() => {
+const DIRS = [
+  ["N1","Hijrah World v1, from the prototype to production quality","now",5,5,5,10,"$20k + $8k design","~$0","Performance on low-end Android","M"],
+  ["N2","Moments layer: what happened, in order, as reviewable claims","now",5,4,5,6,"$12k + $0.5k AI","~$0","Extraction quality; scholar time","M"],
+  ["N3","Places and routes with certainty grades; Linked Places export","now",4,4,4,5,"$10k","~$0","Contested locations","M"],
+  ["N4","Memory engine: guess first, recall, spaced review, your sky","now",5,5,4,4,"$8k","~$0","Low; well-evidenced","L"],
+  ["N5","Teacher and circle mode: projector, live questions, majlis sheets","now",4,4,5,5,"$10k","<$10","Low","L"],
+  ["N6","Learning evidence: delayed-recall pilots, published","now",4,5,4,3,"$6k + $0.5k","~$0","Small samples","L"],
+  ["N7","Scene review lane for scholars","now",4,5,5,2,"$4k + stipends","~$0","Scholar availability","M"],
+  ["X1","Grounded companion: points to claims, never writes facts","exp",5,3,5,10,"$20k","$0.30–3.60/learner/yr","Faithfulness; religious acceptance","H"],
+  ["X2","Voice and sound: human recitation, narration, ambience","exp",4,4,4,6,"$12k + $8k recording","~$5 storage","Norms on voice and music","M"],
+  ["X3","Investigations: quests built on real disagreements","exp",5,4,4,6,"$12k","~$0","Too hard for beginners","M"],
+  ["X4","Multi-source layer: al-Wāqidī, Ibn Saʿd, al-Ṭabarī, al-Bukhārī","exp",5,3,5,16,"$32k + $2k AI","~$0","Licensing; review load","H"],
+  ["X5","Journey simulator: least-cost route from terrain, cited parameters","exp",4,3,3,6,"$12k","~$0","False precision","M"],
+  ["X6","On-site companion for the Hijrah trail and Madinah visits","exp",4,3,4,8,"$16k","~$5","Partnership; tourism framing","M"],
+  ["X7","Ask the world: question moves the camera and shows claims","exp",4,3,4,8,"$16k","Cached; small","Unsupported answers","H"],
+  ["X8","Landform capture of Thawr, Uḥud and Badr, labelled as today","exp",3,3,3,6,"$12k + $5k field","~$5","Mistaken for reconstruction","M"],
+  ["L1","The whole Sīra, 570–632, as one time-scrubbed world","long",5,3,5,60,"$120k","~$20","Scale of review and places","M"],
+  ["L2","Isnād geography: knowledge travelling 14 centuries","long",4,2,5,50,"$100k","~$20","Data volume; scholarly scope","H"],
+  ["L3","Spatial tier: WebXR scenes and a glasses audio guide","long",3,3,3,10,"$20k","~$0","Small audience","M"],
+  ["L4","Multilingual worlds: Arabic, Urdu, Malayalam and more","long",4,4,5,20,"$40k + translation","~$0","Review of translations","M"],
+  ["L5","Open Seerah grounding benchmark and research API","long",3,4,4,6,"$12k","~$10","Low","L"],
+  ["L6","Mastery credentials given by teachers, ijāza-style","long",4,3,3,8,"$16k","~$0","Credential misuse","M"],
+  ["L7","Calendar-synchronised world: the Sīra on the Hijri year","long",3,5,3,3,"$6k","~$0","Low","L"],
+];
+const HZ = { now: ["Build now", "var(--s1)", "now"], exp: ["Experiment", "var(--s2)", "exp"], long: ["Long-term", "var(--s3)", "long"] };
+const dots = n => "●".repeat(n) + "<i>" + "●".repeat(5 - n) + "</i>";
+document.querySelector("#dirs tbody").innerHTML = DIRS.map(d => `<tr><td class="num"><b>${d[0]}</b></td><td>${d[1]}</td><td><span class="tag ${HZ[d[2]][2]}">${HZ[d[2]][0]}</span></td><td class="dots" aria-label="${d[3]} of 5">${dots(d[3])}</td><td class="dots" aria-label="${d[4]} of 5">${dots(d[4])}</td><td class="dots" aria-label="${d[5]} of 5">${dots(d[5])}</td><td class="num">${d[6]} pw</td><td class="num">${d[7]}</td><td class="num">${d[8]}</td><td class="risk-${d[10]}">${d[9]}</td></tr>`).join("");
+
+// scatter: x = log effort, y = value + impact
+const svg = document.getElementById("chart"), NS = "http://www.w3.org/2000/svg";
+const W = 1000, H = 460, L = 60, R = 24, T = 16, B = 46;
+const xs = v => L + (Math.log(v) - Math.log(1.5)) / (Math.log(80) - Math.log(1.5)) * (W - L - R);
+const ys = v => T + (10.5 - v) / (10.5 - 4.5) * (H - T - B);
+const el = (n, a, t) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (t != null) e.textContent = t; svg.appendChild(e); return e; };
+[2, 5, 10, 20, 50].forEach(v => { el("line", { x1: xs(v), x2: xs(v), y1: T, y2: H - B, class: "grid" }); el("text", { x: xs(v), y: H - B + 18, "text-anchor": "middle" }, v + " pw"); });
+[5, 6, 7, 8, 9, 10].forEach(v => { el("line", { x1: L, x2: W - R, y1: ys(v), y2: ys(v), class: "grid" }); el("text", { x: L - 10, y: ys(v) + 4, "text-anchor": "end" }, v); });
+el("text", { x: (L + W - R) / 2, y: H - 6, "text-anchor": "middle" }, "Effort, person-weeks (log scale)");
+el("text", { x: 14, y: (T + H - B) / 2, "text-anchor": "middle", transform: `rotate(-90 14 ${(T + H - B) / 2})` }, "Learning value + impact");
+const seen = {};
+const tip = document.getElementById("tip"), wrap = svg.parentElement;
+DIRS.forEach(d => {
+  const key = d[6] + ":" + (d[3] + d[5]); const k = (seen[key] = (seen[key] || 0) + 1) - 1;
+  const cx = xs(d[6]) + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 18, cy = ys(d[3] + d[5]);
+  const c = el("circle", { cx, cy, r: 9, fill: HZ[d[2]][1], class: "pt", tabindex: 0, role: "img", "aria-label": `${d[0]}: ${d[1]}. ${HZ[d[2]][0]}. Value plus impact ${d[3] + d[5]}, effort ${d[6]} person-weeks.` });
+  el("text", { x: cx, y: cy - 14, "text-anchor": "middle", class: "lab" }, d[0]);
+  const show = () => { tip.innerHTML = `<b>${d[0]}</b> · ${HZ[d[2]][0]}<br>${d[1]}<br>Value ${d[3]}/5 · impact ${d[5]}/5 · ${d[6]} pw`; tip.classList.add("on");
+    const r = svg.getBoundingClientRect(), s = r.width / W; tip.style.left = Math.min(r.width - 270, Math.max(0, cx * s - 120)) + 16 + "px"; tip.style.top = (cy * s + 26) + "px"; };
+  c.addEventListener("pointerenter", show); c.addEventListener("focus", show);
+  c.addEventListener("pointerleave", () => tip.classList.remove("on")); c.addEventListener("blur", () => tip.classList.remove("on"));
+});
+
+// roadmap grid
+const months = ["Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","2028+"];
+const marks = { 3: "Ramadan 1448 (≈ Feb 2027)", 9: "Rabīʿ al-Awwal 1449 (≈ Aug 2027)" };
+const LANES = [
+  ["Worlds", [[[0, 3, "Hijrah World beta", ""], [3, 9, "Makkah years, Badr, Uḥud", "exp"], [9, 14, "Every dated event, 570–632", "long"], [14, 15, "Beyond", "long"]]]],
+  ["Engine", [[[0, 2, "Moments and scenes", ""], [4, 10, "Multi-source layer", "exp"], [10, 15, "Benchmark, API, DOI", "long"]], [[1, 3, "Places pass", ""]]]],
+  ["Learning", [[[0, 3, "Memory and sky", ""], [3, 7, "Companion v1", "exp"], [9, 15, "Credentials, XR", "long"]], [[5, 9, "Investigations", "exp"]]]],
+  ["People", [[[0, 3, "Scholar scene review", ""], [4, 8, "Trail companion pilot", "exp"]], [[1, 3, "Circle mode", ""], [6, 15, "Arabic, Urdu, Malayalam", "long"]]]],
+  ["Evidence", [[[1, 3, "Pilot 1", ""], [5, 8, "Pilot 2 (trial)", "exp"]], [[2, 3, "Gate A", "gate"], [8, 9, "Gate B", "gate"], [12, 13, "Gate C", "gate"]]]],
+];
+const g = document.getElementById("gantt");
+let html = `<div class="m" style="grid-column:1;text-align:start">2026–27</div>` + months.map((m, i) => `<div class="m${marks[i] ? " mark" : ""}" style="grid-column:${i + 2}" title="${marks[i] || ""}">${m}${marks[i] ? " ●" : ""}</div>`).join("");
+let row = 2;
+LANES.forEach(ln => {
+  const n = ln[1].length;
+  html += `<div class="lane" style="grid-row:${row} / ${row + n}">${ln[0]}</div>`;
+  for (let i = 0; i < 15; i++) html += `<div class="cell" style="grid-row:${row} / ${row + n};grid-column:${i + 2}"></div>`;
+  ln[1].forEach((bars, k) => bars.forEach(b => { html += `<div class="bar ${b[3]}" style="grid-row:${row + k};grid-column:${b[0] + 2} / ${b[1] + 2}">${b[2]}</div>`; }));
+  row += n;
+});
+g.innerHTML = html;
+g.insertAdjacentHTML("afterend", `<p class="small" style="margin:10px 0 0">● ${marks[3]} and ${marks[9]}. Gold bars are decision gates.</p>`);
+
+// experiments
+const XPS = [
+  ["1 · World or page?", "The world, with guess-first and recall, beats the same claims on a reading page at one week.", "Within-person, two counterbalanced units (Hijrah, Makkah years); 34–90 learners.", "Cued recall at 1 week and 1 month.", "d ≥ 0.3 at one week.", "Below d = 0.1: the world becomes optional and the money goes to the memory engine."],
+  ["2 · Guess before you read", "Predicting before reading improves recall even when the guess is wrong.", "Randomise the guess-first prompt on or off per chapter.", "Recall of those chapters at 1 week.", "Any reliable gain.", "No gain: keep prompts only where learners like them."],
+  ["3 · The cheap phone", "The terrain world runs at 30 fps and under 150 MB on a $150 Android phone.", "Three devices; frame time and memory per chapter.", "Median fps, worst-chapter memory, first-load size.", "30 fps, 150 MB, under 3 MB first load.", "Fall back to the 2.5D map tier by default on such phones."],
+  ["4 · Do people read the honesty?", "Learners understand dashed stops, two reports, stones and \"AI-extracted\".", "Think-aloud with 8–12 people; the class and academic contacts (round 3, E2).", "Correct explanations of each cue.", "8 of 10 explain each cue.", "Redesign any cue that fewer than half understand."],
+  ["5 · The companion cannot lie", "With claim-ID output and a validator, the companion makes no unsupported statement.", "300 adversarial questions, including rulings, misquotes and leading questions.", "Unsupported statements; correct refusals; useful answers.", "Zero unsupported; 95% correct refusals.", "Any unsupported statement in the public set: no launch."],
+  ["6 · Can AI find the moments?", "An AI pass recovers the moments of a section as claims scholars accept.", "Extract moments for the 28 Hijrah sections; a scholar reviews them, timed.", "Acceptance rate; minutes per moment.", "80% accepted; under 2 minutes each.", "Below 60%: moments are written by an editor from the section, then reviewed."],
+  ["7 · Sound without distraction", "Ambience and recitation raise presence without lowering recall.", "Sound on or off, randomised.", "Presence scale; recall at 1 week.", "Presence up, recall not down.", "Recall down: sound only between chapters."],
+  ["8 · The circle", "Teachers use the projector mode again without being asked.", "3 teachers, 2 sessions each.", "Second session booked; student participation.", "2 of 3 return.", "Interview, redesign and rerun before scaling."],
+  ["9 · Coming back", "Your sky and spaced reviews bring learners back within 7 days without streak pressure.", "Pilot cohort with and without review reminders.", "7-day return; reviews completed.", "40% return.", "Below 20%: test teacher-assigned reviews instead."],
+  ["10 · The route that makes sense", "A least-cost route over the terrain passes the stops in Ibn Hishām's order.", "Slope-cost model between located stops; parameters cited.", "Order and plausibility against the text and the trail.", "Same order; scholars find it plausible.", "Disagreement: keep it as a research view, never a drawn road."],
+];
+document.getElementById("xps").innerHTML = XPS.map(x => `<div class="xp"><h4>${x[0]}</h4><dl><dt>Bet</dt><dd>${x[1]}</dd><dt>Method</dt><dd>${x[2]}</dd><dt>Measure</dt><dd>${x[3]}</dd><dt>Pass</dt><dd>${x[4]}</dd><dt>Stop rule</dt><dd>${x[5]}</dd></dl></div>`).join("");
+})();
+</script>

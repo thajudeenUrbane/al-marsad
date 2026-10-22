@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-depth="discover">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{t:page.title}}</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="{{t:page.description}}">
+<meta name="color-scheme" content="dark">
+<style>{{CSS}}</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="bar">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="1.5 2.2"/><path d="M20 6 L22 18 L34 20 L22 22 L20 34 L18 22 L6 20 L18 18 Z" fill="currentColor"/></svg>
+      <div>
+        <p class="site" data-i18n="page.site">{{t:page.site}}</p>
+        <h1 data-i18n="page.h1">{{t:page.h1}}</h1>
+      </div>
+    </div>
+    <form class="search" id="search-form" role="search" autocomplete="off">
+      <label for="search" class="sr-only" data-i18n="search.label">{{t:search.label}}</label>
+      <input id="search" type="search" placeholder="{{t:search.placeholder}}" data-i18n-ph="search.placeholder" aria-controls="search-results" aria-expanded="false" aria-autocomplete="list">
+      <ul id="search-results" class="results" role="listbox" hidden></ul>
+    </form>
+    <div class="depth" role="radiogroup" aria-label="{{t:depth.label}}" data-i18n-aria="depth.label">
+      <button type="button" role="radio" id="depth-discover" data-depth="discover" aria-checked="true" data-i18n="depth.discover">{{t:depth.discover}}</button>
+      <button type="button" role="radio" id="depth-study" data-depth="study" aria-checked="false" data-i18n="depth.study">{{t:depth.study}}</button>
+      <button type="button" role="radio" id="depth-research" data-depth="research" aria-checked="false" data-i18n="depth.research">{{t:depth.research}}</button>
+    </div>
+    <div class="bar-tools">
+      <button type="button" class="chip" id="back" disabled data-i18n="nav.back">{{t:nav.back}}</button>
+      <button type="button" class="chip" id="home" data-i18n="nav.home">{{t:nav.home}}</button>
+      <span id="ask-slot"></span>
+      <button type="button" class="chip" id="lang" lang="ar" data-i18n="lang.switch">{{t:lang.switch}}</button>
+      <button type="button" class="chip primary" id="open-atlas" aria-controls="drawer" aria-expanded="false" data-i18n="nav.atlas">{{t:nav.atlas}}</button>
+    </div>
+  </header>
+  <p class="band lang-note" id="lang-note" role="note" hidden data-i18n="lang.note">{{t:lang.note}}</p>
+  <p class="band" role="note"><span class="pill" data-i18n="band.pill">{{t:band.pill}}</span> <span data-i18n="band.text">{{t:band.text}}</span> <span class="here" id="here"></span></p>
+
+  <main class="stage" id="stage">
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <canvas id="cv" aria-hidden="true" hidden></canvas>
+    <canvas id="ov" tabindex="0" role="img" aria-label="{{t:stage.label}}" data-i18n-aria="stage.label" aria-describedby="stage-help"></canvas>
+    <p id="stage-help" class="sr-only" data-i18n="stage.help">{{t:stage.help}}</p>
+    <div class="toolbars">
+      <div class="views" role="tablist" aria-label="{{t:views.label}}" data-i18n-aria="views.label">
+        <button type="button" role="tab" id="view-sky" data-view="sky" aria-selected="true" data-i18n="view.sky">{{t:view.sky}}</button>
+        <button type="button" role="tab" id="view-stories" data-view="stories" aria-selected="false" data-i18n="view.stories">{{t:view.stories}}</button>
+        <button type="button" role="tab" id="view-time" data-view="time" aria-selected="false" data-i18n="view.time">{{t:view.time}}</button>
+        <button type="button" role="tab" id="view-map" data-view="map" aria-selected="false" data-i18n="view.map">{{t:view.map}}</button>
+        <button type="button" role="tab" id="view-globe" data-view="globe" aria-selected="false" data-i18n="view.globe">{{t:view.globe}}</button>
+        <button type="button" role="tab" id="view-book" data-view="book" aria-selected="false" data-i18n="view.book">{{t:view.book}}</button>
+        <button type="button" role="tab" id="view-chains" data-view="chains" aria-selected="false" data-i18n="view.chains">{{t:view.chains}}</button>
+        <button type="button" role="tab" id="view-lineage" data-view="lineage" aria-selected="false" data-i18n="view.lineage">{{t:view.lineage}}</button>
+      </div>
+      <div class="skybar">
+        <div class="seg-row" role="group" aria-label="{{t:viewpoint.label}}" data-i18n-aria="viewpoint.label">
+          <button type="button" class="mini" data-viewpoint="face" data-i18n="viewpoint.face">{{t:viewpoint.face}}</button>
+          <button type="button" class="mini" data-viewpoint="angle" data-i18n="viewpoint.angle">{{t:viewpoint.angle}}</button>
+          <button type="button" class="mini" data-viewpoint="edge" data-i18n="viewpoint.edge">{{t:viewpoint.edge}}</button>
+          <button type="button" class="mini" data-viewpoint="below" data-i18n="viewpoint.below">{{t:viewpoint.below}}</button>
+        </div>
+        <div class="seg-row">
+          <button type="button" class="mini" id="play" aria-pressed="false" data-i18n="play.start">{{t:play.start}}</button>
+          <span class="year" id="play-year" aria-live="off"></span>
+        </div>
+        <label class="blend"><span data-i18n="blend.label">{{t:blend.label}}</span><input type="range" id="blend" min="0" max="6" step="0.01" value="0"></label>
+      </div>
+    </div>
+    <p class="caption" id="caption"></p>
+    <div class="zoom" role="group" aria-label="{{t:zoom.label}}" data-i18n-aria="zoom.label">
+      <button type="button" id="zoom-in" aria-label="{{t:zoom.in}}" data-i18n-aria="zoom.in">+</button>
+      <button type="button" id="zoom-out" aria-label="{{t:zoom.out}}" data-i18n-aria="zoom.out">−</button>
+      <button type="button" id="zoom-fit" aria-label="{{t:zoom.fit}}" data-i18n-aria="zoom.fit">◎</button>
+    </div>
+    <div class="tip" id="tip" hidden></div>
+    <p class="perf" id="perf" hidden></p>
+    <div class="loading" id="loading"><span class="spinner" aria-hidden="true"></span><span data-i18n="loading">{{t:loading}}</span></div>
+    <div class="welcome" id="welcome" hidden>
+      <h2 data-i18n="welcome.title">{{t:welcome.title}}</h2>
+      <p data-i18n="welcome.text">{{t:welcome.text}}</p>
+      <p class="muted" id="welcome-counts"></p>
+      <div class="row">
+        <button type="button" class="chip primary" id="welcome-guide" data-i18n="welcome.guide">{{t:welcome.guide}}</button>
+        <button type="button" class="chip" id="welcome-explore" data-i18n="welcome.explore">{{t:welcome.explore}}</button>
+      </div>
+    </div>
+    <noscript><p class="nojs">{{t:page.nojs}}</p></noscript>
+  </main>
+
+  <aside class="drawer" id="drawer" aria-label="{{t:nav.atlas}}" hidden>
+    <div class="drawer-head">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tab-guide" data-tab="guide" aria-selected="true" data-i18n="tab.guide">{{t:tab.guide}}</button>
+        <button type="button" role="tab" id="tab-show" data-tab="show" aria-selected="false" data-i18n="tab.show">{{t:tab.show}}</button>
+        <button type="button" role="tab" id="tab-index" data-tab="index" aria-selected="false" data-i18n="tab.index">{{t:tab.index}}</button>
+        <button type="button" role="tab" id="tab-log" data-tab="log" aria-selected="false" data-i18n="tab.log">{{t:tab.log}}</button>
+        <button type="button" role="tab" id="tab-text" data-tab="text" aria-selected="false" data-i18n="tab.text">{{t:tab.text}}</button>
+        <button type="button" role="tab" id="tab-key" data-tab="key" aria-selected="false" data-i18n="tab.key">{{t:tab.key}}</button>
+      </div>
+      <button type="button" class="chip close" id="close-atlas" data-i18n="nav.close">{{t:nav.close}}</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+
+  <aside class="record" id="record" aria-label="{{t:record.label}}" data-i18n-aria="record.label" hidden>
+    <div class="record-head"><span class="grip" aria-hidden="true"></span><button type="button" class="chip close" id="close-record" data-i18n="nav.close">{{t:nav.close}}</button></div>
+    <div class="record-body" id="record-body"></div>
+  </aside>
+
+  <section class="guide" id="guide" aria-label="{{t:guide.label}}" data-i18n-aria="guide.label" hidden>
+    <div class="guide-top">
+      <div class="guide-title"><p class="eyebrow" id="guide-tour"></p><p class="progress" id="guide-progress"></p></div>
+      <div class="guide-actions">
+        <button type="button" class="chip" id="guide-prev" data-i18n="guide.prev">{{t:guide.prev}}</button>
+        <button type="button" class="chip" id="guide-play" aria-pressed="false" data-i18n="guide.play">{{t:guide.play}}</button>
+        <button type="button" class="chip primary" id="guide-next" data-i18n="guide.next">{{t:guide.next}}</button>
+        <button type="button" class="chip" id="guide-speak" aria-pressed="false" data-i18n="speak.guide">{{t:speak.guide}}</button>
+        <button type="button" class="chip" id="guide-min" aria-expanded="true" data-i18n="guide.fold">{{t:guide.fold}}</button>
+        <button type="button" class="chip" id="guide-end" data-i18n="guide.end">{{t:guide.end}}</button>
+      </div>
+    </div>
+    <div class="meter" aria-hidden="true"><span id="guide-meter"></span></div>
+    <div class="guide-body" id="guide-body"></div>
+  </section>
+  <p id="toast" class="toast" role="status" hidden></p>
+  <p id="announce" class="sr-only" aria-live="polite"></p>
+  <p id="live-summary" class="sr-only" aria-live="polite"></p>
+</div>
+<script type="application/octet-stream" id="atlas-data" data-bytes="{{RAW_BYTES}}">{{DATA}}</script>
+<script type="application/json" id="i18n-en">{{I18N_EN}}</script>
+<script type="application/json" id="i18n-ar">{{I18N_AR}}</script>
+<script type="application/json" id="land">{{LAND}}</script>
+<script>{{JS}}</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# downloads and intermediate build files
+.cache/
+build/
+node_modules/

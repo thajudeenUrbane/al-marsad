@@ -189,5 +189,26 @@
   "keys.k_clear": "X",
   "keys.clear": "Clear the claim",
   "keys.k_send": "S",
-  "keys.send": "Go to Send my decisions"
+  "keys.send": "Go to Send my decisions",
+
+  "index.section.merge": "Same entry? (merge proposals)",
+  "index.lead.merge": "Pairs of entries that may be one person, place or event under two records, with the evidence. An editor decides; the hard cases go to scholars. Accepting does not merge anything yet: the maintainer approves first.",
+  "batch.title.merge.person": "Same person? ({confidence} proposals)",
+  "batch.title.merge.event": "Same event? ({confidence} proposals)",
+  "batch.title.merge.title": "Same office or person? ({confidence} proposals)",
+  "merge.title": "{keep} = {merge}?",
+  "merge.question.person": "Are these two entries one person?",
+  "merge.question.event": "Are these two entries one event?",
+  "merge.question.title": "Are these two entries the same holder of this title?",
+  "merge.question.other": "Are these two entries one and the same?",
+  "merge.hint": "Accept: they are one (the second would become a name of the first, after the maintainer approves). Reject: they are different. Needs discussion: send it to the scholars, with a note.",
+  "merge.confidence": "Confidence of the proposal: {value}",
+  "merge.proposal": "Proposal {value}",
+  "merge.evidence": "Why it is proposed:",
+  "merge.keep": "Entry to keep",
+  "merge.merge": "Entry that would join it",
+  "merge.relations": "What the records say about it:",
+  "merge.more.one": "and {n} more relation",
+  "merge.more.other": "and {n} more relations",
+  "merge.no_relations": "No relations recorded for this entry."
 }

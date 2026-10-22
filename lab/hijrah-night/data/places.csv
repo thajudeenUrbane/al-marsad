@@ -1,0 +1,7 @@
+name_in_claims,display,arabic,latitude,longitude,source,status
+Makkah,Makkah,مكة,21.39132,39.83612,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MAKKA_398E213N_S",matched by name for this prototype
+Ghār Thawr,Ghār Thawr,غار ثور,21.37682,39.85004,"Wikidata Q6025084 P625 (CC0), as in ontology/corpus/external-coordinates.csv",exact (external-coordinates.csv)
+ʿUsfān,ʿUsfān,عسفان,21.88079,39.46144,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), USFAN_394E218N_S",matched by name for this prototype
+al-ʿArj (2),al-ʿArj,العرج,23.85851,39.20944,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), ARJ_392E238N_O",matched by name for this prototype
+Quba',Qubāʾ,قباء,24.44572,39.58264,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), QUBA_395E244N_S",matched by name for this prototype
+al-Madīna,al-Madīna,المدينة,24.47782,39.60908,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MADINA_396E244N_S",exact (external-coordinates.csv)
