@@ -11,7 +11,10 @@ earlier corpora name some of the same events again. This tool lists candidate pa
 with the evidence for each. It never merges: an editor fills in the `decision` column
 (accept / reject / scholar), the maintainer approves, and an accepted row is applied
 the way identity.csv already works (the merged ID becomes a variant, its address
-redirects; maintainer P8). Scholars see only the rows marked `scholar`.
+redirects; maintainer P8). Scholars see only the rows marked `scholar`. The review pages
+(review/build_pages.py) show the undecided rows as "same entry?" questions, and
+review/import_decisions.py writes the decision, the reviewer's opaque ID, the date and any
+note into the four decision columns; a re-run here keeps them.
 
 What is proposed, in this order:
 1. events with the same name once articles, diacritics, a trailing "(2)" and
@@ -51,7 +54,8 @@ STOP = {"the", "of", "a", "an", "at", "in", "to", "and", "s"}
 KUNYA = {"abu", "abi", "aba", "umm"}
 TITLES = ["qaysar", "kisra", "najashi", "tubba", "muqawqis", "hiraql"]
 FIELDS = ["proposal", "kind", "keep_id", "keep_name", "merge_id", "merge_name", "evidence", "confidence",
-          "decision", "decided_by", "decided_on"]
+          "decision", "decided_by", "decided_on", "decision_note"]
+DECIDED = ("decision", "decided_by", "decided_on", "decision_note")  # written by review/import_decisions.py
 
 
 def fold(s):
@@ -261,7 +265,7 @@ def proposals():
         rows.append({"proposal": f"M{n:04d}", "kind": kind, "keep_id": keep["canonical_id"],
                      "keep_name": keep["preferred_name_en"], "merge_id": other["canonical_id"],
                      "merge_name": other["preferred_name_en"], "evidence": why, "confidence": conf,
-                     "decision": "", "decided_by": "", "decided_on": ""})
+                     "decision": "", "decided_by": "", "decided_on": "", "decision_note": ""})
     return rows
 
 
@@ -274,7 +278,7 @@ def render(rows, previous):
     for r in rows:
         d = done.get((r["keep_id"], r["merge_id"]))
         if d:
-            for k in ("decision", "decided_by", "decided_on"):
+            for k in DECIDED:
                 r[k] = d.get(k, "")
         w.writerow(r)
     return buf.getvalue()
