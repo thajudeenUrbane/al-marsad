@@ -7,7 +7,8 @@ For every HTML page it adds the page itself and every same-site file the page lo
 (stylesheets, scripts, images, fonts and other resources, and what those stylesheets
 pull in with url() or @import). A file that a script fetches at run time (the search
 index) counts too: the page must name it in a data-fetch attribute, and the script
-fetches only what that attribute names. A page over LIMIT bytes fails the check. Any external
+fetches only what that attribute names; where that file is a manifest of shards (the
+search index), the largest shard counts as well. A page over LIMIT bytes fails the check. Any external
 URL in the src/href of a stylesheet, script, image or other loaded resource fails the
 check too (plain <a href> links to other sites are navigation, not loads, and pass).
 KB here means 1,000 bytes, the stricter reading of "300 KB".
@@ -18,6 +19,7 @@ Prints the five heaviest pages. Exit status 1 on any failure.
 """
 from __future__ import annotations
 
+import json
 import posixpath
 import re
 import sys
@@ -85,6 +87,20 @@ def css_loads(css_text: str) -> list[str]:
     return urls
 
 
+def shard_max(path: Path) -> int:
+    """A fetched index that is a manifest of shards ({"shards": {key: bytes}}, the search
+    index, slice 11b; values are byte sizes): the script loads one shard at a time (a query's), so the largest one
+    counts against the page as well as the manifest."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return 0
+    shards = data.get("shards") if isinstance(data, dict) else None
+    if not isinstance(shards, dict) or not shards:
+        return 0
+    return max(int(v[1] if isinstance(v, list) else v) for v in shards.values())
+
+
 def check(root: Path, limit: int = LIMIT) -> tuple[list[tuple[int, str, int, int]], list[str]]:
     results, problems = [], []
     css_cache: dict[Path, list[str]] = {}
@@ -113,6 +129,10 @@ def check(root: Path, limit: int = LIMIT) -> tuple[list[tuple[int, str, int, int
             if target in seen:
                 continue
             seen[target] = target.stat().st_size
+            if tag == "data-fetch" and target.suffix == ".json":
+                biggest = shard_max(target)
+                if biggest:
+                    seen[target.with_name(target.name + "#largest-shard")] = biggest
             if target.suffix == ".css":
                 if target not in css_cache:
                     css_cache[target] = css_loads(target.read_text(encoding="utf-8", errors="replace"))

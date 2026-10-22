@@ -11,9 +11,11 @@
  * the path, the address (#thread=<type>/<id>) can be shared, and a modified click (a new
  * tab, say) is left to the browser. Escape or the close button returns to the page.
  *
- * Every visible string and all the data come from thread.json (site/thread.py, built from
+ * Every visible string and all the data come from the thread files (site/thread.py, built from
  * the graph and site/i18n/en.json or ar.json) or from the page; this file holds neither.
- * The only request is the file the page names in data-fetch, on the same site.
+ * The first request is the file the page names in data-fetch; following someone loads their
+ * file, thread/<type>/<id>.json, the one their own page names, on the same site. Files merge:
+ * an entity keeps the index it has in the whole index, in every file.
  *
  * On an Arabic page (html lang="ar", thread.json from ar.json) the recorded names stay as
  * recorded: each is marked lang="en" dir="ltr" (or isolated inside a sentence), and the
@@ -35,7 +37,7 @@
   var pageTitle = document.title;
   var FOLLOW = { person: true, group: true };
   var LIMIT = 12;   // people shown per moment before "Show N more"
-  var D = null, S = null, byKey = {}, touching = [], loading = null, view = null, trail = [];
+  var D = null, S = null, byKey = {}, touching = {}, loaded = {}, seenClaim = {}, view = null, trail = [];
 
   // ------------------------------------------------------------------ data
   function has(obj, k) { return Object.prototype.hasOwnProperty.call(obj, k); }
@@ -56,22 +58,43 @@
   function href(i) { return base + key(i) + "/"; }
   function isMoment(i) { var k = kind(i); return k === "event" || k === "story"; }
 
-  function prepare(data) {
-    D = data;
-    S = data.s;
-    for (var i = 0; i < D.e.length; i++) { byKey[key(i)] = i; touching.push([]); }
-    D.c.forEach(function (c, n) { touching[c[0]].push(n); touching[c[1]].push(n); });
+  // A file: {s: strings, k: kinds, e: {index: row}, p: {moment: [place]}, c: [[subject, object,
+  // label, status, role, source, ai]] where label, status, role and source index the file's
+  // tables l, t ([key, text]), o and u (a source is text, or [index in h, the rest]: h holds the
+  // edition a citation names before its place); x: {moment: [how many others, [some of them]]}}
+  function merge(data) {
+    if (!D) { D = { k: data.k, e: {}, p: {}, c: [], x: {} }; S = data.s; }
+    Object.keys(data.e).forEach(function (i) {
+      if (!has(D.e, i)) { D.e[i] = data.e[i]; byKey[key(+i)] = +i; touching[i] = touching[i] || []; }
+    });
+    Object.keys(data.p).forEach(function (m) { D.p[m] = data.p[m]; });
+    Object.keys(data.x).forEach(function (m) { if (!has(D.x, m)) D.x[m] = data.x[m]; });
+    data.c.forEach(function (row) {
+      // the file's tables resolved, so rows from different files compare and merge
+      var u = data.u[row[5]];
+      if (Array.isArray(u)) u = data.h[u[0]] + u[1];   // the edition, written once per file, and the place in it
+      var c = [row[0], row[1], data.l[row[2]], data.t[row[3]], data.o[row[4]], u, row[6]];
+      var sig = JSON.stringify(c);
+      if (seenClaim[sig]) return;
+      seenClaim[sig] = true;
+      var n = D.c.push(c) - 1;
+      touching[c[0]].push(n);
+      if (c[1] !== c[0]) touching[c[1]].push(n);
+    });
   }
 
-  function load() {
-    if (!loading) {
-      loading = fetch(root.getAttribute("data-fetch"))
+  // the file for a person or group, once; url is the page's own data-fetch for itself
+  function load(k, url) {
+    k = k || selfKey;
+    if (!loaded[k]) {
+      loaded[k] = fetch(url || (k === selfKey ? root.getAttribute("data-fetch") : base + "thread/" + k + ".json"))
         .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
-        .then(prepare);
-      loading.catch(function () { loading = null; });   // a later click may try again
+        .then(merge);
+      loaded[k].catch(function () { delete loaded[k]; });   // a later click may try again
     }
-    return loading;
+    return loaded[k];
   }
+  function loadAll(keys) { return Promise.all([load()].concat(keys.map(function (k) { return load(k); }))); }
 
   // One moment per event or story the person is linked to, one per person, group or
   // place they are tied to; every claim or link behind it is a line of the moment.
@@ -83,6 +106,7 @@
       by[o].lines.push(n);
     });
     var g = { dated: [], stories: [], undated: [], people: [], places: [] };
+    all.forEach(function (m) { m.o = +m.o; });
     all.forEach(function (m) {
       var k = kind(m.o);
       if (isMoment(m.o)) g[day(m.o) ? "dated" : k === "story" ? "stories" : "undated"].push(m);
@@ -97,13 +121,11 @@
     return g;
   }
 
+  // who else shares a moment: the file lists some of them and how many there are in all
   function alsoHere(e, f) {
-    var seen = {}, out = [];
-    touching[e].forEach(function (n) {
-      var c = D.c[n], o = c[0] === e ? c[1] : c[0];
-      if (o !== f && FOLLOW[kind(o)] && !seen[o]) { seen[o] = true; out.push(o); }
-    });
-    return out.sort(function (a, b) { return a - b; });
+    var x = D.x[String(e)] || [0, []];
+    var list = x[1].filter(function (o) { return o !== f && has(D.e, String(o)); });
+    return { list: list, total: Math.max(x[0], list.length) };
   }
 
   // ------------------------------------------------------------------ drawing
@@ -126,7 +148,7 @@
   function sentence(n, f, m) {
     var c = D.c[n], words = [];
     if (c[0] !== f && c[0] !== m.o) words.push([name(c[0]), true]);
-    words.push([D.l[c[2]], false]);
+    words.push([c[2], false]);
     if (c[1] !== m.o && (c[1] !== f || c[0] !== f)) words.push([name(c[1]), true]);
     return words;
   }
@@ -150,31 +172,23 @@
   function claimNodes(n, f, m, box) {
     var c = D.c[n];
     box.appendChild(sentenceNode(sentence(n, f, m)));
-    if (c[4] && D.o[c[4]]) box.appendChild(el("p", "m-role", D.o[c[4]]));
+    if (c[4]) box.appendChild(el("p", "m-role", c[4]));
     var meta = el("p", "m-meta");
-    var st = D.t[c[3]];
+    var st = c[3];
     meta.appendChild(el("span", "status status-" + st[0], st[1]));
-    if (c[5] && D.u[c[5]]) { meta.appendChild(document.createTextNode(" ")); meta.appendChild(el("span", "m-src", D.u[c[5]])); }
+    if (c[5]) { meta.appendChild(document.createTextNode(" ")); meta.appendChild(el("span", "m-src", c[5])); }
     box.appendChild(meta);
   }
 
-  function alsoNode(list) {
+  // the others the file lists, then a link to the moment's own page, which names everyone
+  function alsoNode(also, m) {
     var p = el("p", "m-also");
     p.appendChild(el("span", "m-also-label", S.also));
-    list.forEach(function (o, n) {
-      var a = link(o, "chip");
-      if (n >= LIMIT) a.hidden = true;
-      p.appendChild(a);
-    });
-    if (list.length > LIMIT) {
-      var more = el("button", "m-more", fmt(S.more, { n: list.length - LIMIT }));
-      more.type = "button";
-      more.addEventListener("click", function () {
-        var hidden = p.querySelectorAll("a[hidden]");
-        for (var i = 0; i < hidden.length; i++) hidden[i].hidden = false;
-        if (hidden.length) hidden[0].focus();
-        p.removeChild(more);
-      });
+    also.list.slice(0, LIMIT).forEach(function (o) { p.appendChild(link(o, "chip")); });
+    var rest = also.total - Math.min(also.list.length, LIMIT);
+    if (rest > 0) {
+      var more = el("a", "m-more", fmt(S.more, { n: rest }));
+      more.href = href(m);
       p.appendChild(more);
     }
     return p;
@@ -200,7 +214,7 @@
     m.lines.forEach(function (c) { claimNodes(c, f, m, li); });
     if (isMoment(m.o)) {
       var also = alsoHere(m.o, f);
-      if (also.length) li.appendChild(alsoNode(also));
+      if (also.list.length) li.appendChild(alsoNode(also, m.o));
     }
     return li;
   }
@@ -297,7 +311,11 @@
 
   function follow(i) {
     var at = trail.indexOf(i);
-    go(at >= 0 ? trail.slice(0, at + 1) : trail.concat([i]), "push");
+    status.textContent = root.getAttribute("data-loading");
+    load(key(i)).then(function () {
+      status.textContent = "";
+      go(at >= 0 ? trail.slice(0, at + 1) : trail.concat([i]), "push");
+    }, failed);
   }
 
   function close(push) {
@@ -325,13 +343,13 @@
   function start(target, how) {
     openBtn.disabled = true;
     status.textContent = root.getAttribute("data-loading");
-    load().then(function () {
+    loadAll(target ? [target] : []).then(function () {
       openBtn.disabled = false;
       status.textContent = "";
       var self = byKey[selfKey];
       if (self === undefined) return failed();
-      var t = [self];
-      if (target !== undefined && target !== self) t.push(target);
+      var t = [self], to = target ? byKey[target] : undefined;
+      if (to !== undefined && to !== self) t.push(to);
       go(t, how);
     }, failed);
   }
@@ -343,11 +361,11 @@
 
   root.hidden = false;
   openBtn.addEventListener("click", function () { start(undefined, "push"); });
-  openBtn.addEventListener("pointerenter", load, { once: true });   // fetch while the pointer is on its way
+  openBtn.addEventListener("pointerenter", function () { load(); }, { once: true });   // fetch while the pointer is on its way
   window.addEventListener("popstate", function (ev) {
     var st = ev.state;
     if (st && st.thread) {
-      load().then(function () {
+      loadAll(st.thread).then(function () {
         var t = st.thread.map(function (k) { return byKey[k]; }).filter(function (i) { return i !== undefined; });
         if (t.length) go(t, null);
         else close(false);
@@ -358,7 +376,7 @@
   });
   function openFromHash() {
     var wanted = fromHash();
-    if (wanted) load().then(function () { start(byKey[wanted.key], "replace"); }, failed);
+    if (wanted) start(wanted.key === selfKey ? undefined : wanted.key, "replace");
   }
   window.addEventListener("hashchange", openFromHash);   // a #thread address typed or linked on this page
   openFromHash();

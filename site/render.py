@@ -24,6 +24,10 @@ URL_LICENSING = "https://github.com/thajudeenUrbane/al-marsad/blob/main/LICENSIN
 URL_CC_BY_SA = "https://creativecommons.org/licenses/by-sa/4.0/"
 URL_AGPL = "https://www.gnu.org/licenses/agpl-3.0.html"
 
+SPLIT_AT = 400   # a list longer than this gets a page per letter (slice 11b: the 300 KB page budget)
+LETTER_MAX = 350  # a letter page with more names is cut again by the first two letters, and so on
+PART_CLAIMS = 80   # a record with more claims is one long page loaded in parts (maintainer H3, slice 11b)
+
 SECTION_ORDER = {
     "person": ["stories", "events", "kinship", "people", "places", "groups", "other"],
     "group": ["stories", "events", "people", "groups", "places", "other"],
@@ -115,6 +119,12 @@ class Renderer:
         self._tpl: dict[str, str] = {}
         self.t = i18n.t
         self.external = external or {}   # possible matches elsewhere (site/external.py), by IRI
+        self.extra: dict[str, str] = {}  # pages a page split off (letter pages, parts), by path: build.py writes them
+
+    def take_extra(self) -> dict[str, str]:
+        """The pages split off since the last call (site/build.py writes them)."""
+        out, self.extra = self.extra, {}
+        return out
 
     # ------------------------------------------------------------------ templates
     def tpl(self, name: str, **vars) -> str:
@@ -369,26 +379,87 @@ class Renderer:
             return (0, n if n is not None else 10**6, c.predicate)
         return (1, display.sort_key(oe.name if oe else other), c.predicate)
 
-    def sections(self, ctx: Ctx, e: Entity) -> tuple[str, dict[str, int]]:
-        claims = self.site.claims.get(e.iri, [])
+    def section_items(self, e: Entity) -> list[tuple[str, list[Claim]]]:
+        """The record's claims, by section, each section in its order."""
         buckets: dict[str, list[Claim]] = {}
-        for c in claims:
+        for c in self.site.claims.get(e.iri, []):
             buckets.setdefault(self.bucket(e.kind, c, e.iri), []).append(c)
-        out, counts = [], {}
-        first = True
+        out = []
         for key in SECTION_ORDER[e.kind]:
             items = buckets.get(key, [])
-            if not items:
-                continue
-            items.sort(key=lambda c: self.claim_sort_key(c, e.iri, key))
-            counts[key] = len(items)
-            h = html.escape(self.t(f"section.{key}")) + f' <span class="count">({len(items)})</span>'
-            legend = f'<p class="legend">{html.escape(self.t("claims.legend"))}</p>' if first else ""
-            first = False
+            if items:
+                items.sort(key=lambda c: self.claim_sort_key(c, e.iri, key))
+                out.append((key, items))
+        return out
+
+    def render_sections(self, ctx: Ctx, e: Entity, parts: list[tuple[str, list[Claim], int]], suffix: str = "",
+                        legend: bool = True) -> str:
+        """parts: (section key, its claims on this page, the section's whole count)."""
+        out = []
+        for key, items, total in parts:
+            h = html.escape(self.t(f"section.{key}")) + f' <span class="count">({total})</span>'
+            leg = f'<p class="legend">{html.escape(self.t("claims.legend"))}</p>' if legend else ""
+            legend = False
             lis = "\n".join(self.claim_li(ctx, c, e.iri) for c in items)
-            out.append(f'<section class="claims" id="s-{key}" aria-labelledby="h-{key}">'
-                       f'<h3 id="h-{key}">{h}</h3>{legend}<ul class="claim-list">\n{lis}\n</ul></section>')
-        return "\n".join(out), counts
+            out.append(f'<section class="claims" id="s-{key}{suffix}" aria-labelledby="h-{key}{suffix}">'
+                       f'<h3 id="h-{key}{suffix}">{h}</h3>{leg}<ul class="claim-list">\n{lis}\n</ul></section>')
+        return "\n".join(out)
+
+    def sections(self, ctx: Ctx, e: Entity) -> tuple[str, dict[str, int]]:
+        items = self.section_items(e)
+        counts = {k: len(v) for k, v in items}
+        return self.render_sections(ctx, e, [(k, v, len(v)) for k, v in items]), counts
+
+    def paged(self, e: Entity) -> list[list[tuple[str, list[Claim], int]]] | None:
+        """A record with more than PART_CLAIMS claims, cut into pages of PART_CLAIMS claims in
+        section order (a section may run on into the next part); None for a shorter record."""
+        items = self.section_items(e)
+        if sum(len(v) for _, v in items) <= PART_CLAIMS:
+            return None
+        pages, cur, n = [], [], 0
+        for key, claims in items:
+            i = 0
+            while i < len(claims):
+                take = claims[i:i + PART_CLAIMS - n]
+                cur.append((key, take, len(claims)))
+                n += len(take)
+                i += len(take)
+                if n == PART_CLAIMS:
+                    pages.append(cur)
+                    cur, n = [], 0
+        if cur:
+            pages.append(cur)
+        return pages
+
+    def parts_nav(self, ctx: Ctx, e: Entity, n: int, total: int) -> str:
+        """Links to every part; on a page with a next part, data-next names it for static/parts.js."""
+        def href(k: int) -> str:
+            up = "../" if n > 1 else ""
+            return f"{up}part-{k}/" if k > 1 else (up or "./")
+        items = "".join(f'<li><a href="{href(k)}"' + (' aria-current="page"' if k == n else "") + f'>{k}</a></li>'
+                        for k in range(1, total + 1))
+        nxt = f' data-next="{href(n + 1)}" data-load="{self.attr(self.t("parts.load", n=n + 1, total=total))}"' if n < total else ""
+        return (f'<nav class="parts" aria-label="{self.attr(self.t("parts.label"))}"{nxt}>'
+                f'<p>{html.escape(self.t("parts.of", n=n, total=total))}</p><ol>{items}</ol></nav>')
+
+    def part_page(self, e: Entity, n: int, total: int, parts: list[tuple[str, list[Claim], int]]) -> str:
+        """Part n (2 or more) of a long record: its claims, complete without JavaScript."""
+        ctx = self.ctx(f"{e.kind}/{e.pid}/part-{n}/")
+        title = self.t("parts.title", name=e.name, n=n, total=total)
+        body = (f'<article class="entity entity-part kind-{e.kind}"><header class="entity-head">'
+                f'<p class="kicker">{html.escape(self.t(f"type.{e.subtype or e.kind}"))}</p>'
+                f'<h1>{self.name_h1(e)}</h1><p class="lead">{html.escape(self.t("parts.lead", total=total))} '
+                f'<a href="../">{html.escape(self.t("parts.first"))}</a></p></header>'
+                + self.parts_nav(ctx, e, n, total)
+                + f'<section class="evidence part-body" data-part="{n}" aria-label="{self.attr(self.t("parts.of", n=n, total=total))}">'
+                + self.render_sections(ctx, e, parts, suffix=f"-p{n}", legend=False) + "</section>"
+                + self.parts_nav(ctx, e, n, total) + "</article>")
+        nav_key = KIND_NAV[e.kind]
+        return self.shell(ctx, self.page_title(title), body, body_class=f"page-entity page-part kind-{e.kind}",
+                          current=nav_key, crumbs=[(self.t(f"nav.{nav_key}"), f"{e.kind}/"), (e.name, f"{e.kind}/{e.pid}/"),
+                                                   (self.t("parts.of", n=n, total=total), None)],
+                          description=title, twin=True,
+                          scripts=f'<script src="{ctx.site}assets/parts.js" defer></script>')
 
     def counts_row(self, counts: dict[str, int], kind: str) -> str:
         bits = []
@@ -601,7 +672,10 @@ class Renderer:
                f'<dt>{html.escape(self.t("details.turtle"))}</dt><dd><a href="{ctx.site + e.kind + "/" + e.pid + "/" if self.ar else ""}entity.ttl">{html.escape(self.t("details.turtle_link"))}</a></dd>']
         out.append(f'<h3>{html.escape(self.t("details.raw_heading"))}</h3><dl class="meta">{"".join(raw)}</dl>')
         claim_iris = sorted({c.node for c in claims if c.node})
-        if claim_iris:
+        if len(claim_iris) > PART_CLAIMS:   # a long record: the identifiers are in its Turtle file (slice 11b)
+            out.append(f'<h4>{html.escape(self.t("details.claim_iris"))}</h4>'
+                       f'<p>{html.escape(self.i.tn("details.claim_iris_in_turtle", len(claim_iris)))}</p>')
+        elif claim_iris:
             lis = "".join(f'<li><code class="iri">{html.escape(i, quote=False)}</code></li>' for i in claim_iris)
             out.append(f'<h4>{html.escape(self.t("details.claim_iris"))}</h4><ul class="plain iri-list">{lis}</ul>')
         out.append(self.external_matches(e))
@@ -641,14 +715,27 @@ class Renderer:
     # ------------------------------------------------------------------ entity page
     def thread_root(self, ctx: Ctx, e: Entity) -> str:
         """The "follow the thread" switch: hidden, and so absent, without JavaScript;
-        static/thread.js shows it and draws the thread from thread.json."""
+        static/thread.js shows it and draws the thread from thread/<kind>/<id>.json."""
         if e.kind not in FOCUS_KINDS:
             return ""
         return self.tpl("thread_root", base=ctx.base, focus=f"{e.kind}/{e.pid}")
 
     def entity_page(self, e: Entity) -> str:
         ctx = self.ctx(f"{e.kind}/{e.pid}/")
-        sections, counts = self.sections(ctx, e)
+        pages = self.paged(e)
+        if pages is None:
+            sections, counts = self.sections(ctx, e)
+        else:   # one long page in parts (H3): part 1 here, the rest at part-2/, part-3/ ... (static/parts.js)
+            counts = {k: len(v) for k, v in self.section_items(e)}
+            sections = (self.parts_nav(ctx, e, 1, len(pages))
+                        + f'<div class="part-body" data-part="1">{self.render_sections(ctx, e, pages[0])}</div>'
+                        + self.parts_nav(ctx, e, 1, len(pages)))
+            first_part = {}
+            for n, page in enumerate(pages, 1):
+                for key, _, _ in page:
+                    first_part.setdefault(key, n)
+                if n > 1:
+                    self.extra[f"{e.kind}/{e.pid}/part-{n}/index.html"] = self.part_page(e, n, len(pages), page)
         extra = ""
         banner = ""
         if e.kind == "story":
@@ -686,17 +773,38 @@ class Renderer:
         evidence_lead = self.i.th(lead_key, name=self.esc(e.name))
         desc = self.t("meta.entity", type=type_label, coverage=display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage or ""))
         thread = self.thread_root(ctx, e)
+        if pages is not None:   # a section that starts in a later part is linked there
+            for key, n in first_part.items():
+                if n > 1:
+                    facts = facts.replace(f'href="#s-{key}"', f'href="part-{n}/#s-{key}-p{n}"')
         content = self.tpl("entity", kind=e.kind, extra_class=extra, type_label=html.escape(type_label), h1=h1,
                            banner=banner, coverage=self.coverage_text(e), facts=facts, thread=thread,
                            story=story_html, evidence_lead=evidence_lead, sections=evidence,
                            details=self.details(ctx, e))
+        scripts = f'<script src="{ctx.site}assets/thread.js" defer></script>' if thread else ""
+        if pages is not None:
+            scripts += f'<script src="{ctx.site}assets/parts.js" defer></script>'
         kind_dir = e.kind
         return self.shell(ctx, self.page_title(e.name), content,
                           body_class=f"page-entity kind-{e.kind}" + (" is-prophet" if e.prophet else ""),
                           current=KIND_NAV[e.kind],
                           crumbs=[(self.t(f"nav.{KIND_NAV[e.kind]}"), f"{kind_dir}/"), (e.name, None)],
-                          description=desc, twin=True,
-                          scripts=f'<script src="{ctx.site}assets/thread.js" defer></script>' if thread else "")
+                          description=desc, twin=True, scripts=scripts)
+
+    # ------------------------------------------------------------------ retired addresses (G5)
+    def moved_page(self, kind: str, old_pid: str, e: Entity) -> str:
+        """A retired ID's old address (a merge or a rename, maintainer G5): it sends the reader on to
+        the record's address now (a refresh in the head, and a link for anyone it does not reach)."""
+        ctx = self.ctx(f"{kind}/{old_pid}/")
+        to = f"{ctx.base}{e.kind}/{e.pid}/"
+        body = (f'<article class="moved"><h1>{html.escape(self.t("moved.title"))}</h1>'
+                f'<p>{self.i.th("moved.lead", name=f'<a href="{to}">{self.esc(e.name)}</a>')}</p>'
+                f'<p class="note">{html.escape(self.t("moved.why"))}</p></article>')
+        page = self.shell(ctx, self.page_title(self.t("moved.title")), body, body_class="page-moved",
+                          current=KIND_NAV.get(kind), crumbs=[(self.t("moved.title"), None)],
+                          description=self.t("moved.why"))
+        return page.replace("</head>", f'<meta http-equiv="refresh" content="0; url={to}">\n'
+                                       f'<link rel="canonical" href="{to}">\n</head>', 1)
 
     # ------------------------------------------------------------------ index pages
     def index_row(self, ctx: Ctx, e: Entity, numbered: bool = False, anchor: str = "") -> str:
@@ -751,6 +859,9 @@ class Renderer:
             az = self.az_sections(ctx, ents, "story-az", level=3)
             body = ("".join(sections) + f'<h2 id="story-az-top">{html.escape(self.t("index.story_az"))}</h2>' + az)
             banner = f'<p class="banner" role="note"><strong>{html.escape(self.t("story.banner"))}</strong></p>'
+        elif len(ents) > SPLIT_AT:
+            body = self.split_az(ctx, f"{kind}/az/", ents, self.index_row, self.t(f"nav.{nav_key}"),
+                                 [(self.t(f"nav.{nav_key}"), f"{kind}/")], f"page-index kind-{kind}", nav_key)
         else:
             body = self.az_nav(ents) + self.az_sections(ctx, ents, "letter")
         lead = self.i.tn(f"index.lead.{kind}", len(ents))
@@ -759,6 +870,63 @@ class Renderer:
         return self.shell(ctx, self.page_title(self.t(f"nav.{nav_key}")), content, body_class=f"page-index kind-{kind}",
                           current=nav_key, crumbs=[(self.t(f"nav.{nav_key}"), None)],
                           description=lead, twin=True)
+
+    # ------------------------------------------------------------------ long lists: a page per letter
+    @staticmethod
+    def letter_slug(letter: str) -> str:
+        if letter == "#":
+            return "other"
+        if letter.isascii() and letter.isalnum():
+            return letter.lower()
+        if all(c.isascii() and (c.isalnum() or c in " \u00a0") for c in letter):
+            return re.sub(r"[ \u00a0]+", "-", letter.lower())
+        return "u" + "-".join(f"{ord(c):x}" for c in letter)
+
+    def split_az(self, holder: Ctx, folder: str, ents: list[Entity], row, title: str,
+                 crumbs: list[tuple[str, str | None]], body_class: str, current: str | None) -> str:
+        """A list too long for one page (more than SPLIT_AT names): one page per first letter at
+        folder/<letter>/, complete without JavaScript; returns the letter links for the page that
+        held the list. The letter pages are left in self.extra for site/build.py to write."""
+        groups: dict[str, list[Entity]] = {}
+        for e in ents:
+            groups.setdefault(display.index_letter(e.name), []).append(e)
+        # a letter with more than LETTER_MAX names is cut again by its first two letters, then three ...
+        def cut(label: str, items: list[Entity], depth: int) -> list[tuple[str, list[Entity]]]:
+            if len(items) <= LETTER_MAX or depth > 6 or label == "#":
+                return [(label, items)]
+            sub: dict[str, list[Entity]] = {}
+            for e in items:
+                k = display.sort_key(e.name)[:depth].replace(" ", "\u00a0")
+                sub.setdefault(k[:1].upper() + k[1:], []).append(e)
+            if len(sub) == 1:
+                return cut(label, items, depth + 1) if depth < 6 else [(label, items)]
+            out = []
+            for k, v in sub.items():
+                out += cut(k, v, depth + 1)
+            return out
+        flat: list[tuple[str, list[Entity]]] = []
+        for l, items in groups.items():
+            flat += cut(l, items, 2)
+        groups = dict(flat)
+        letters = list(groups)
+
+        def nav(ctx: Ctx, here: str | None) -> str:
+            items = "".join(
+                f'<li><a href="{ctx.base}{folder}{self.letter_slug(l)}/"'
+                + (' aria-current="page"' if l == here else "")
+                + f'>{html.escape(l)} <span class="count">({len(groups[l])})</span></a></li>' for l in letters)
+            return f'<nav class="az az-pages" aria-label="{self.attr(self.t("index.az"))}"><ul{self.en_attrs}>{items}</ul></nav>'
+
+        for l in letters:
+            ctx = self.ctx(f"{folder}{self.letter_slug(l)}/")
+            name = self.t("az.page_title", title=title, letter=l)
+            lis = "\n".join(row(ctx, e) for e in groups[l])
+            body = (f'<h1>{self.esc(name)}</h1><p class="lead">{html.escape(self.i.tn("az.count", len(groups[l])))}</p>'
+                    + nav(ctx, l) + f'<ul class="index-list">\n{lis}\n</ul>' + nav(ctx, l))
+            self.extra[f"{folder}{self.letter_slug(l)}/index.html"] = self.shell(
+                ctx, self.page_title(name), f'<article class="az-page">{body}</article>', body_class=body_class,
+                current=current, crumbs=crumbs + [(l, None)], description=name, twin=True)
+        return f'<p class="note">{html.escape(self.t("az.pick"))}</p>' + nav(holder, None)
 
     def letters(self, ents: list[Entity]) -> list[str]:
         seen = []
@@ -934,9 +1102,14 @@ class Renderer:
             events += (f'<h3>{html.escape(self.t("study.undated"))}</h3><ul class="index-list">\n' + "\n".join(undated) + "\n</ul>")
         events += "</section>"
         row = lambda c, e: self.index_row(c, e, anchor="evidence")
+        persons = s.by_kind["person"]
+        if len(persons) > SPLIT_AT:
+            plist = self.split_az(ctx, "study/people/", persons, row, self.t("nav.people"),
+                                  [(self.t("door.study.title"), "study/")], "page-door door-study", None)
+        else:
+            plist = self.az_nav(persons, "study-p") + self.az_sections(ctx, persons, "study-p", level=3, row=row)
         people = (f'<section id="study-people" aria-labelledby="study-people-h"><h2 id="study-people-h">{html.escape(self.t("nav.people"))}</h2>'
-                  + self.az_nav(s.by_kind["person"], "study-p") + self.az_sections(ctx, s.by_kind["person"], "study-p", level=3, row=row)
-                  + "</section>")
+                  + plist + "</section>")
         groups = (f'<section id="study-groups" aria-labelledby="study-groups-h"><h2 id="study-groups-h">{html.escape(self.t("nav.groups"))}</h2>'
                   f'<ul class="index-list">\n' + "\n".join(row(ctx, e) for e in s.by_kind["group"]) + "\n</ul></section>")
         toc = [("study-events", self.t("study.events")), ("study-people", self.t("nav.people")),
@@ -1001,8 +1174,13 @@ class Renderer:
         """Research: sources and data, and every record linked at its evidence (#evidence)."""
         ctx = self.ctx("research/")
         s = self.site
-        records = "".join(f'<h3 id="research-{kind}">{html.escape(self.t(f"nav.{nav}"))}</h3>'
-                          f'<ul class="index-list">\n' + "\n".join(self.record_row(ctx, e) for e in s.by_kind[kind]) + "\n</ul>"
+        def records_of(nav: str, kind: str) -> str:
+            ents = s.by_kind[kind]
+            if len(ents) > SPLIT_AT:
+                return self.split_az(ctx, f"research/{kind}/", ents, self.record_row, self.t(f"nav.{nav}"),
+                                     [(self.t("door.research.title"), "research/")], "page-door door-research", None)
+            return f'<ul class="index-list">\n' + "\n".join(self.record_row(ctx, e) for e in ents) + "\n</ul>"
+        records = "".join(f'<h3 id="research-{kind}">{html.escape(self.t(f"nav.{nav}"))}</h3>' + records_of(nav, kind)
                           for nav, kind in NAV)
         parts = [
             ("research-status", "home.status_heading", self.checked_html()),
@@ -1070,8 +1248,9 @@ class Renderer:
         return f"<p>{scope}</p><p>{checked}</p>"
 
     def search_page(self) -> str:
-        """The search page. Without JavaScript it is an A-Z list of every name, which the
-        search box on every page submits to; with it, search.js filters by search.json."""
+        """The search page. Without JavaScript it leads to an A-Z list of every name (a page per
+        letter once the list is long), which the search box on every page submits to; with it,
+        search.js searches the index in search-index/ (a manifest and its shards)."""
         ctx = self.ctx("search/")
         ents = sorted(self.site.entities.values(),
                       key=lambda e: (display.sort_key(e.name), KINDS.index(e.kind), e.pid))
@@ -1082,12 +1261,21 @@ class Renderer:
             "none": self.t("search.none"), "matching": self.t("search.matching"),
             "similar": self.t("search.similar"), "similar_note": self.t("search.similar_note"),
             "arabic_note": self.t("search.arabic_note"), "more": self.t("search.more"),
+            "short": self.t("search.short"), "coverage_sr": self.t("coverage.sr"),
+            # the words a result line shows, by key (the index is shared by both languages)
+            "types": {e.subtype or e.kind: self.t(f"type.{e.subtype or e.kind}") for e in self.site.entities.values()},
+            "coverage": {**{e.coverage: display.t_opt(self.t, f"coverage.{e.coverage}", e.coverage)
+                            for e in self.site.entities.values() if e.coverage},
+                         "": self.t("common.not_recorded")},
         }
         content = self.tpl(
             "search", base=ctx.base, site=ctx.site,
             nojs=f'<p>{html.escape(self.t("search.nojs"))}</p>{scope}',
             empty=f'{scope}<p>{html.escape(self.t("search.empty_next"))}</p>',
-            az=self.az_nav(ents, "all") + self.az_sections(ctx, ents, "all", level=3, row=self.search_row),
+            az=(self.split_az(ctx, "search/az/", ents, self.search_row, self.t("search.all_heading"),
+                              [(self.t("search.title"), "search/")], "page-search", "search")
+                if len(ents) > SPLIT_AT else
+                self.az_nav(ents, "all") + self.az_sections(ctx, ents, "all", level=3, row=self.search_row)),
             strings=json.dumps(strings, ensure_ascii=False, sort_keys=True).replace("</", "<\\/"))
         return self.shell(ctx, self.page_title(self.t("search.title")), content, body_class="page-search",
                           current="search", crumbs=[(self.t("search.title"), None)],

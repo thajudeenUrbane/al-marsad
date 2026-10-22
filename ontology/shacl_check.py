@@ -73,7 +73,7 @@ def cached_file_check(path, run=True):
 
 
 # Data files left out of what the pages and the scholars' queue read, until they can carry them (slice 11b).
-ON_HOLD_FROM_PAGES = {"ibn-hisham-full.ttl"}
+ON_HOLD_FROM_PAGES = set()
 # A file with more triples than this is "large": its own nodes are checked through the per-file
 # cache rather than in every joined check.
 LARGE = 100_000

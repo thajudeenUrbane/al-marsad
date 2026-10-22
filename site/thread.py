@@ -1,4 +1,7 @@
-"""thread.json: what the "follow the thread" view (static/thread.js) walks.
+"""The thread data: what the "follow the thread" view (static/thread.js) walks.
+
+Written as one small file per person and group, thread/<kind>/<id>.json (thread_files, slice
+11b); build_thread gives the whole-site table they are cut from, in the format below.
 
 The view is a port of the person thread in generation-1/wider-network.template.html, as a
 progressive enhancement of the person and group pages: pick anyone who shares a moment
@@ -26,6 +29,7 @@ arrives (loading, failed) are in the page itself (templates/thread_root.html).
 """
 from __future__ import annotations
 
+import json
 import re
 
 import display
@@ -128,3 +132,90 @@ def build_thread(site: Site, t, lang: str = "en") -> dict:
     if any(c[6] for c in claims):
         strings["note"] += " " + t("claims.ai_note")
     return {"v": 1, "s": strings, "k": list(KINDS), "e": rows, "p": places, "c": claims, **tables}
+
+
+# One file per person and group (slice 11b): with the whole Sīra in the graph, one thread.json
+# for every page was 1.7 MB, over each page's 300 KB budget. A focus file holds everything the
+# view draws for that person or group: the claims touching them; for each moment (event or
+# story) they share, up to ALSO_MAX others who share it and how many there are in all (the rest
+# are on the moment's own page); and the rows of every entity named. Following someone loads
+# their file. Entity indices stay those of the whole index, so files merge in the browser.
+ALSO_MAX = 12
+TABLE_COLS = (("l", 2), ("t", 3), ("o", 4), ("u", 5))   # claim column -> the file's table it indexes
+
+
+THREAD_MAX = 110_000   # a file larger than this lists fewer others per moment (the moment's page lists all)
+
+
+def thread_files(full: dict) -> dict[str, dict]:
+    """{"person/<pid>": focus file} from build_thread's whole-site data."""
+    rows, kinds = full["e"], full["k"]
+    touching: dict[int, list[int]] = {}
+    for n, c in enumerate(full["c"]):
+        touching.setdefault(c[0], []).append(n)
+        if c[1] != c[0]:
+            touching.setdefault(c[1], []).append(n)
+    moment = {kinds.index("event"), kinds.index("story")}
+    follow = {kinds.index(k) for k in FOCUS_KINDS}
+
+    def others(m: int) -> list[int]:
+        out = set()
+        for n in touching.get(m, []):
+            c = full["c"][n]
+            o = c[1] if c[0] == m else c[0]
+            if rows[o][0] in follow:
+                out.add(o)
+        return sorted(out)
+
+    also_cache: dict[int, list[int]] = {}
+    files = {}
+
+    def one(f: int, also_max: int) -> dict:
+        row = rows[f]
+        ents, claims, also, places = {f}, [], {}, {}
+        for n in touching.get(f, []):
+            c = full["c"][n]
+            o = c[1] if c[0] == f else c[0]
+            ents.add(o)
+            claims.append([c[0], c[1], full["l"][c[2]], full["t"][c[3]], full["o"][c[4]], full["u"][c[5]], c[6]])
+            if rows[o][0] in moment and str(o) not in also:
+                if o not in also_cache:
+                    also_cache[o] = others(o)
+                everyone = also_cache[o]
+                keep = [x for x in everyone if x != f][:also_max]
+                also[str(o)] = [len([x for x in everyone if x != f]), keep]
+                ents.update(keep)
+                for pl in full["p"].get(str(o), []):
+                    ents.add(pl)
+                if str(o) in full["p"]:
+                    places[str(o)] = full["p"][str(o)]
+        # each file's own tables: a label, status, role or source is written once per file
+        tabs = {k: sorted({json.dumps(cl[j], ensure_ascii=False) for cl in claims}) for k, j in TABLE_COLS}
+        pos = {k: {v: n for n, v in enumerate(vals)} for k, vals in tabs.items()}
+        rows_c = [[cl[0], cl[1]] + [pos[k][json.dumps(cl[j], ensure_ascii=False)] for k, j in TABLE_COLS] + [cl[6]]
+                  for cl in claims]
+        out = {"v": 2, "s": full["s"], "k": kinds, "e": {str(i): rows[i] for i in sorted(ents)},
+               "p": places, "c": rows_c, "x": also, **{k: [json.loads(v) for v in vals] for k, vals in tabs.items()}}
+        # a source's citation that names the edition before its volume and page: the edition is written
+        # once (table "h") and each source keeps only what follows it, as [h index, rest]
+        heads: list[str] = []
+        for n, u in enumerate(out["u"]):
+            cut = u.rfind("), ")
+            if cut > 20:
+                head, rest = u[:cut + 3], u[cut + 3:]
+                if head not in heads:
+                    heads.append(head)
+                out["u"][n] = [heads.index(head), rest]
+        if heads:
+            out["h"] = heads
+        return out
+
+    for f, row in enumerate(rows):
+        if row[0] not in follow:
+            continue
+        for also_max in (ALSO_MAX, 6, 3, 0):
+            data = one(f, also_max)
+            if len(json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) <= THREAD_MAX:
+                break
+        files[f"{kinds[row[0]]}/{row[1]}"] = data
+    return files

@@ -8,8 +8,12 @@
  * It holds no table of its own: every table comes from search.json ("rules"), which
  * site/build.py writes from names.RULES. site/tests/test_search.py runs this file and
  * the Python on the same cases and fails on any difference. Every visible string comes
- * from the page (#search-strings, from site/i18n/en.json or ar.json). The only request is
- * the index the page names in data-fetch, on the same site. On an Arabic page (html
+ * from the page (#search-strings, from site/i18n/en.json or ar.json). The first request is
+ * the index the page names in data-fetch (search-index/index.json, a manifest: the rules and
+ * the shards); a query then loads the shards its longest word is filed under, from the same
+ * folder (slice 11b: one file for all 8,000 names was over the page budget). A name is filed
+ * under the first two letters of each word and of each word's sound skeleton; a shard that
+ * grew too large is cut again by the third letter (the manifest's "split"). On an Arabic page (html
  * lang="ar") the result count picks the Arabic plural form (count_zero ... count_other)
  * and the query typed is isolated inside the sentence, whichever script it is in.
  */
@@ -180,14 +184,91 @@
   }
   function quoted(q) { return RTL ? "\u2068" + q + "\u2069" : q; }   // first-strong isolate: Arabic or Latin query
   var ARABIC = /[\u0600-\u06ff]/; // Arabic script in the query
-  var engine = null, items = null, timer = null;
+  var engine = null, manifest = null, timer = null, shards = {}, folder = null, runId = 0;
+  var base = form.getAttribute("data-base") || "";
 
-  // the A-Z lines already on the page, by their url path ("person/ID")
-  var rows = new Map();
-  all.querySelectorAll(".index-list li").forEach(function (li) {
-    var a = li.querySelector("a");
-    if (a) rows.set(a.getAttribute("href").replace(/^(\.\.\/)+/, "").replace(/\/$/, ""), li);
-  });
+  // one result line, as the A-Z pages write it (render.py search_row)
+  function row(it) {
+    var li = document.createElement("li"), a = document.createElement("a");
+    a.href = base + it.u + "/";
+    a.textContent = it.n;
+    li.appendChild(a);
+    (it.a || []).forEach(function (n, i) {
+      li.appendChild(document.createTextNode(" "));
+      if (i) {
+        var sep = document.createElement("span");
+        sep.className = "sep";
+        sep.setAttribute("aria-hidden", "true");
+        sep.textContent = "/";
+        li.appendChild(sep);
+        li.appendChild(document.createTextNode(" "));
+      }
+      var s = document.createElement("span");
+      s.className = "name-ar";
+      s.lang = "ar";
+      s.dir = "rtl";
+      s.textContent = n;
+      li.appendChild(s);
+    });
+    var meta = document.createElement("span");
+    meta.className = "meta";
+    meta.textContent = has(S.types, it.t) ? S.types[it.t] : it.t;
+    li.appendChild(document.createTextNode(" "));
+    li.appendChild(meta);
+    var cov = document.createElement("span"), sr = document.createElement("span");
+    cov.className = "cov";
+    sr.className = "sr-only";
+    sr.textContent = S.coverage_sr + " ";
+    cov.appendChild(sr);
+    cov.appendChild(document.createTextNode(has(S.coverage, it.v) ? S.coverage[it.v] : S.coverage[""]));
+    li.appendChild(document.createTextNode(" "));
+    li.appendChild(cov);
+    return li;
+  }
+
+  // the shards a query needs: its longest word's first two letters, as written and as sounded
+  function wanted(q) {
+    var skip = new Set(manifest.skip), best = "";
+    engine.normalise(q).split(" ").forEach(function (w) {
+      if (w.length >= 2 && !skip.has(w) && w.length > best.length) best = w;
+    });
+    if (!best) return null;
+    var keys = [];
+    // a shard that grew too large is cut by a third letter (manifest.split): a longer word loads
+    // its piece, a two-letter word every piece
+    function add(w) {
+      var two = w.slice(0, 3), three = w.slice(0, 4);
+      if (has(manifest.split, two)) {
+        if (w.length >= 4) keys.push(three);
+        else keys = keys.concat(manifest.split[two], [two]);
+      } else {
+        keys.push(two);
+      }
+    }
+    add("n" + best);
+    var sk = engine.skeletonWords(best)[0] || "";
+    if (sk.length >= 2) add("s" + sk);
+    return keys.filter(function (k, i) { return has(manifest.shards, k) && keys.indexOf(k) === i; });
+  }
+
+  // a shard's file: its key with every character outside a-z and 0-9 as _<hex> (build.py shard_file)
+  function file(k) {
+    var out = "";
+    for (var c of k) out += /[a-z0-9]/i.test(c) && c.charCodeAt(0) < 128 ? c : "_" + c.codePointAt(0).toString(16);
+    return out + ".json";
+  }
+
+  function shard(k) {
+    if (!shards[k]) {
+      shards[k] = fetch(new URL(file(k), folder).href)
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+        .then(function (d) {
+          return engine.prepare(d.items).map(function (p, i) { p.it = d.items[i]; return p; });
+        });
+      shards[k].catch(function () { delete shards[k]; });
+    }
+    return shards[k];
+  }
 
   function fmt(s, v) {
     return s.replace(/\{(\w+)\}/g, function (m, k) { return has(v, k) ? String(v[k]) : m; });
@@ -207,10 +288,7 @@
     notes.forEach(function (n) { results.appendChild(para(n)); });
     var ul = document.createElement("ul");
     ul.className = "index-list";
-    list.slice(0, LIMIT).forEach(function (f) {
-      var li = rows.get(f[0]);
-      if (li) ul.appendChild(li.cloneNode(true));
-    });
+    list.slice(0, LIMIT).forEach(function (f) { ul.appendChild(row(f[2])); });
     results.appendChild(ul);
     if (list.length > LIMIT) results.appendChild(para(fmt(S.more, { n: LIMIT })));
   }
@@ -228,7 +306,29 @@
       all.hidden = false;
       return;
     }
-    var found = engine.search(items, q);
+    var keys = wanted(q);
+    if (!keys) {
+      status.textContent = S.short;
+      results.hidden = true;
+      empty.hidden = true;
+      all.hidden = false;
+      return;
+    }
+    var mine = ++runId;
+    Promise.all(keys.map(shard)).then(function (lists) {
+      if (mine !== runId) return;   // a later keystroke has its own search
+      var seen = {}, items = [];
+      lists.forEach(function (l) {
+        l.forEach(function (p) { if (!seen[p.u]) { seen[p.u] = p; items.push(p); } });
+      });
+      items.sort(function (a, b) { return a.it.o - b.it.o; });   // index order, so ties rank as over the whole index
+      show(q, engine.search(items, q).map(function (f) { return [f[0], f[1], seen[f[0]].it]; }));
+    }, function () {
+      if (mine === runId) status.textContent = fmt(S.none, { q: quoted(q) });
+    });
+  }
+
+  function show(q, found) {
     all.hidden = true;
     if (!found.length) {
       status.textContent = fmt(S.none, { q: quoted(q) });
@@ -259,7 +359,8 @@
     })
     .then(function (data) {
       engine = makeEngine(data.rules);
-      items = engine.prepare(data.items);
+      manifest = data;
+      folder = new URL(form.getAttribute("data-fetch"), location.href).href;
       nojs.hidden = true;
       input.value = new URLSearchParams(location.search).get("q") || "";
       run(input.value, false);

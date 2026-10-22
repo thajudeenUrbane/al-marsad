@@ -284,3 +284,13 @@ html[dir="rtl"] .breadcrumb li + li::before, html[dir="rtl"] .thread-path li + l
 html[dir="rtl"] .kicker, html[dir="rtl"] .thread-group, html[dir="rtl"] .m-when { letter-spacing: normal; text-transform: none; }
 html[dir="rtl"] .claim-text .rel, html[dir="rtl"] .not-recorded, html[dir="rtl"] .m-line { font-style: normal; }
 html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3 { line-height: 1.5; }
+
+/* Long lists, a page per letter; long records, in parts (slice 11b) */
+.az-pages .count { color: var(--muted); font-size: 0.85em; }
+.az a[aria-current="page"] { font-weight: 700; border-color: currentColor; }
+nav.parts { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; margin-block: 1rem; }
+nav.parts p { margin: 0; }
+nav.parts ol { display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; list-style: none; padding: 0; margin: 0; }
+nav.parts a { display: inline-block; min-inline-size: 1.75rem; text-align: center; padding: 0.15rem 0.3rem; border: 1px solid var(--line); border-radius: 0.25rem; text-decoration: none; }
+nav.parts a[aria-current="page"] { font-weight: 700; border-color: currentColor; }
+.parts-load { margin-block: 0.5rem; }
