@@ -954,7 +954,8 @@ class OnThePageGraph(unittest.TestCase):
     def test_title_and_lead_carry_en_and_ar_and_ar_has_parity_and_no_review_stems(self):
         """design §10 and §12: the index and each head carry title, lead and lead_study as
         {key, en, ar}, the texts of learn/i18n/en.json and ar.json; the ar text has the
-        en text's {placeholders} and no Arabic review stem; strings.json holds the same."""
+        en text's {placeholders}; the ar title and lead have no Arabic review stem (lead_study
+        is a Study and Research text, design §12 and §20.1); strings.json holds the same."""
         slot = re.compile(r"\{([a-z_]+)\}")
         strings = self.files["strings.json"]
         for e in self.files["index.json"]["journeys"]:
@@ -968,7 +969,8 @@ class OnThePageGraph(unittest.TestCase):
                     key = e[role]["key"]
                     self.assertEqual(e[role], {"key": key, "en": EN[key], "ar": AR[key]})
                     self.assertTrue(e[role]["ar"])
-                    self.assertEqual(J.ar_review_stems(e[role]["ar"]), [])
+                    if role in ("title", "lead"):
+                        self.assertEqual(J.ar_review_stems(e[role]["ar"]), [])
                     self.assertEqual(sorted(slot.findall(e[role]["ar"])), sorted(slot.findall(e[role]["en"])))
                     self.assertEqual((strings["en"][key], strings["ar"][key]), (EN[key], AR[key]))
 

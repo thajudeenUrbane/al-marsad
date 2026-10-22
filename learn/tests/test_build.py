@@ -556,6 +556,8 @@ class PageChecks:
                     self.assertFalse(any(c.startswith("coverage") for c in n.classes), n.classes)
                 self.assertNotIn(norm(EN["learn.draft_banner"]), norm(root.text()))
                 self.assertNotIn("Status:", root.text())
+                if doc["head"]["lead_study"]:   # a Study and Research text (design §12, §20.1)
+                    self.assertNotIn(norm(doc["head"]["lead_study"]["en"]), norm(root.text()))
                 self.assertEqual(review_language(root, graph_data(doc)), [])
 
     def test_discover_sources_are_short_citations_only(self):
@@ -714,6 +716,9 @@ class BuiltPages(PageChecks, unittest.TestCase):
         root = tree(src)
         for k in ("learn.draft_banner", "learn.ai_note"):
             self.assertNotIn(norm(EN[k]), norm(root.text()))
+        for doc in self.exp["journeys"].values():
+            if doc["head"]["lead_study"]:   # a Study and Research text (design §12, §20.1)
+                self.assertNotIn(norm(doc["head"]["lead_study"]["en"]), norm(root.text()))
         for n in root.walk():
             self.assertNotIn("status", n.classes)
         self.assertIn(EN["learn.index.how_depths"], src)

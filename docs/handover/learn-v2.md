@@ -37,7 +37,8 @@ Atlas: `atlas/build.py` imports work unchanged; its output changes on purpose (D
 7. F11 provisional rule: year-632-only events (the Farewell Pilgrimage, Usāma's appointment) are "not placed" until slice 11b's marker.
 8. Decision 7: `learn/proposals/hijrah-parts.json`, proposals 1–5 together (1–2 alone list Arrival in Madinah before the departure; 5 moves the council); on the joined graph also which Hijra event is the whole.
 9. Decision 4 wording "as far as reviewed claims go", kept word for word.
-10. Arabic (L3): the `lead_study` drafts; the Badr Arabic lead, copied from the Atlas, is shorter than the English one.
+10. Arabic (L3): the `lead_study` drafts (Study and Research only; both say "checked", فُحِص); the Badr Arabic lead, copied from the Atlas, is shorter than the English one; add فحص (check), and stems for board and pending (the Atlas writes هيئة, the site بانتظار), to AR_REVIEW_STEMS (§8), which lacks them.
 11. CI: `paths-ignore docs/handover/[a-r]*.md` skips the ID scan on docs-only edits to these notes (every PR touching learn/ still scans them).
+12. Design open decisions 5, 14 and 17: rejected and superseded claims are never shown at Discover, only with their status at Study and Research (none exist yet); "AI draft" and "a teacher's lesson, not reviewed" stay off Discover (revisit if round 4 Q1 treats the AI-draft label as provenance); board-approved teacher lessons live outside the repository, their listing record decided when the first is proposed.
 
 Deferred: Track 0 method journeys, teacher lessons (refused by `validate`), the approved prose layer, new step kinds (place, chain, dispute, compare; life, period and family after slice 11b), Arabic learn pages and narration templates, the free-recall checkpoint (empty: 0 accepted), an accepted-only resolve (public mode `accepted` stops the build), the other sorts on reader pages, G5 `was` aliases, the Atlas's move to `resolve_all`.

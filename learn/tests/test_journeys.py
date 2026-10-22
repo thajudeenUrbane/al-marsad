@@ -192,9 +192,11 @@ class RuleFiles(unittest.TestCase):
         self.assertEqual(J.ar_review_stems("مسودة"), ["مسود"])
 
     def test_arabic_titles_and_leads_are_discover_safe(self):
-        """design §12: learn/i18n/ar.json holds every journey's title, lead and lead_study,
-        free of the Arabic review stems (lead_study too: it is an interface draft, and the
-        Arabic Study pages are not built yet)."""
+        """design §12: learn/i18n/ar.json holds every journey's title, lead and lead_study;
+        the title and lead are free of the Arabic review stems. lead_study is a Study and
+        Research text, held like the English one: not to the Discover word lists (test_build
+        keeps it off Discover pages and the index). Both drafts say "checked", which
+        AR_REVIEW_STEMS does not cover (design §20.1)."""
         ar = json.loads(AR_PATH.read_text(encoding="utf-8"))
         for spec_path in SPECS:
             spec = json.loads(spec_path.read_text(encoding="utf-8"))
@@ -203,7 +205,8 @@ class RuleFiles(unittest.TestCase):
                     continue
                 with self.subTest(spec_path.name, role=role):
                     self.assertTrue(ar.get(spec[role]), "no Arabic text")
-                    self.assertEqual(J.ar_review_stems(ar[spec[role]]), [])
+                    if role in ("title", "lead"):
+                        self.assertEqual(J.ar_review_stems(ar[spec[role]]), [])
 
     def test_arabic_strings_have_parity_with_english(self):
         """design §12: ar.json is a flat key -> text object, like en.json. In this slice it
