@@ -20,9 +20,17 @@ the rule's own words. The files are rebuilt, never committed.
 `learn/build_learn.py` writes the same files to `site/dist/learn/data/`. In process:
 
 - `journey_export.resolve(site, journey, strings)` gives one built journey, unsplit, as a dict.
+  `strings` is `{"en": {...}, "ar": {...}}`, as `journeys.load_i18n()` gives it, or `None`
+  to read `learn/i18n/`. It is not the flat en table (`learn/i18n/en.json` alone) that the
+  Atlas reads and `atlas_projection` takes. `rule_sha` binds the en and ar wording, so any
+  other shape raises `TypeError` rather than give a wrong `rule_sha`, `state` and title.
 - `journey_export.resolve_all(site, folder=None)` gives every journey, split, and writes them
   to `folder` when one is given. It returns `{"index", "journeys", "files", "digest", "facade"}`.
+  Its `strings` takes the same shape.
 - `journey_export.source_line(claim, depth, passages, t)` is the one source-line function.
+
+In public mode `accepted` (see "The Discover rule"), `resolve_all` and `build_learn.py`
+stop with a `RuleError`, the reader build before it writes or removes anything.
 
 The CLI writes only into `--out`. That folder must be new, empty, or an earlier export (it
 then holds `.marsad-journey-export`). It never writes into `learn/journeys/` or `learn/lists/`.
@@ -128,6 +136,7 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
            "accepted_islam": {"t", "rule": {"kinds", "phrase"}, "needs": "citation", "undated"}},
  "view_vocabulary": [...], "narration_order": [...],
  "texts": {name: i18n key}, "labels": {"status": {...}, "coverage": {...}, "type": {...}, ...},
+ "reasons": {reason kind: i18n key}, "order_notes": {"part" | "recorded" | "unrecorded": i18n key},
  "strings": "strings.json", "pages": "pages.json",
  "entities": {pid: [[slug, stop key, n or null], ...]},
  "journeys": [{"slug", "kind", "state", "stale_approval", "rule_sha", "content_sha", "listed",
@@ -141,6 +150,15 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
 - `background_rule` is the F11 rule as applied to this graph. `after_source` is
   `recorded_death`, `named_event` or `fallback`.
 - `entities` is the entity index: every journey each stop is in, with its number (null when set apart).
+- `reasons` gives the sentence for each kind in `steps[].reasons` and `steps[].links`
+  (`learn.why.{kind}`). Its slots are `other` (the entity), `word` (a `named` reason) and
+  `label` (an `event_claim` reason, the relation label as recorded). The reader wraps
+  `word` and `label` in `texts.quote`. A reason other than `named` with no claims behind it
+  rests on a plain link in the record (`texts.plain_link`). A `part` reason (a stories step) has no sentence: its `word` is the
+  part's recorded title. The reader heads the two lists `texts.why_heading` and `texts.links_heading`.
+- `order_notes` gives the sentence for `steps[].order.note`. Its slot `n` is the step number
+  of `order.ref`. Order notes are Study and above (`depth_policy.order_notes`).
+- `texts.apart_heading` and `texts.apart_lead` head the set-apart people.
 - `title`, `lead` and `lead_study` are `{key, en, ar}`. `ar` is null where there is no Arabic
   text yet. `lead` is Discover-safe; `lead_study` is for Study and Research.
 
@@ -263,8 +281,10 @@ On the Prophet's ﷺ step `focus` is null and `light` is true. Hints carry no fa
   (rejected, superseded, under review, proposed, accepted, in that order).
 - `pk`: an assertion's predicate local name, with `rel_`; `took_part` for a participation;
   `took_place_at` or `part_of` for a plain link. The Atlas's ObsData `pk` is this with `rel_`
-  removed (`rel_participated_in` is `participated_in`), and `claim.took_part`,
-  `claim.took_place_at` and `claim.part_of` for the three record kinds.
+  removed for an assertion (`rel_participated_in` is `participated_in`). For the other two
+  record kinds, participations and plain links, it is the same key: `took_part`,
+  `took_place_at` and `part_of` (three keys for two kinds). Only ObsData's translated `p`
+  label is built from the `claim.*` i18n keys.
 - `role` is only the participation role. An assertion's comment is never a role.
 - `note` is an assertion comment that is not an AI gloss, for example the 50 Stories
   document's own notes. Study and above.
@@ -307,7 +327,8 @@ On the Prophet's ﷺ step `focus` is null and `light` is true. Hints carry no fa
 ## strings.json and pages.json
 
 `strings.json` is `{"en": {...}, "ar": {...}}`: every i18n key the export names, with the
-`.one` and `.other` forms of plural keys. With `terms`, the data reads without the app.
+`.one` and `.other` forms of plural keys. That includes the keys of `index.json` `texts`,
+`labels`, `sorts`, `reasons` and `order_notes`. With `terms`, the data reads without the app.
 
 `pages.json` is `{"format": "marsad-learn-pages", "version": 1, "pages": [{"path", "file",
 "kind": "journey" | "index" | "practice", "journey"?, "depth", "page", "pages", "door"?, "first", "last"}]}`.

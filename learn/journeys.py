@@ -374,10 +374,24 @@ def load_i18n(folder: Path | str = I18N_DIR) -> dict:
     return out
 
 
+def check_i18n(i18n) -> dict:
+    """`i18n` as load_i18n() gives it, {"en": {...}, "ar": {...}}, or a TypeError. A flat key
+    table (the en table the Atlas reads, and that atlas_projection takes) has no "en" or
+    "ar" key, so it would give rule_sha, the hash approvals are bound to, without its
+    wording, and with no error."""
+    if not (isinstance(i18n, dict) and set(i18n) == {"en", "ar"}
+            and all(isinstance(i18n[lang], dict) for lang in ("en", "ar"))):
+        got = sorted(map(str, i18n))[:3] if isinstance(i18n, dict) else type(i18n).__name__
+        raise TypeError(f"i18n must be {{'en': {{...}}, 'ar': {{...}}}} as journeys.load_i18n() gives it, "
+                        f"not a flat key table (got {got!r})")
+    return i18n
+
+
 def rule_sha(spec: dict, *, lists_root: Path | str | None = None, i18n: dict | None = None) -> str:
     """The hash an approval is bound to: the rule without its approval layer, the en and
-    ar wording of its title and leads, and the content of its list file (design §3.5)."""
-    i18n = load_i18n() if i18n is None else i18n
+    ar wording of its title and leads, and the content of its list file (design §3.5).
+    `i18n` is {"en": {...}, "ar": {...}} (load_i18n()); any other shape raises TypeError."""
+    i18n = load_i18n() if i18n is None else check_i18n(i18n)
     en, ar = i18n.get("en") or {}, i18n.get("ar") or {}
     rule = {k: v for k, v in spec.items() if k not in LAYER_KEYS}
     strings = {"en": {r: en.get(spec[r]) for r in TEXT_ROLES if r in spec},

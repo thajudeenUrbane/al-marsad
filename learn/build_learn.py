@@ -40,6 +40,9 @@ MARKER = ".al-marsad-learn"
 
 def build(graph: Path, site_dist: Path, quiet: bool = False, journeys_dir: Path | None = None,
           part_budget: int = journey_export.PART_BUDGET) -> dict:
+    # Public mode 'accepted' is a RuleError here, before anything is written or removed, so
+    # no page that shows other statuses is left behind (design §8, fail-closed).
+    journey_export.check_public_mode()
     if not graph.exists():
         sys.exit(f"{graph} not found: run ontology/build_graph.py and site/build.py first")
     if not (site_dist / "assets" / "site.css").is_file():

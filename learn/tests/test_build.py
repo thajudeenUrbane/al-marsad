@@ -6,6 +6,7 @@ Run:  .venv/bin/python -m unittest discover -s learn/tests -v
 """
 import ast
 import contextlib
+import hashlib
 import io
 import json
 import os
@@ -15,6 +16,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 LEARN = Path(__file__).resolve().parents[1]
 ROOT = LEARN.parent
@@ -311,6 +313,22 @@ class BuiltPages(unittest.TestCase):
         quiet(build_learn.build, GRAPH, self.out, True)
         self.assertEqual(marker.read_bytes(), before)
         self.assertTrue((self.learn / ".al-marsad-learn").is_file())
+
+    def test_public_mode_accepted_stops_the_build_before_it_writes_or_removes_anything(self):
+        """design §8, fail-closed: no reader page that shows other statuses is left behind."""
+        def snapshot(root: Path) -> dict:
+            return {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+                    for p in sorted(root.rglob("*")) if p.is_file()}
+
+        before = snapshot(self.learn)
+        with mock.patch.dict(os.environ, {"MARSAD_PUBLIC_MODE": "accepted"}):
+            with self.assertRaises(J.RuleError):
+                quiet(build_learn.build, GRAPH, self.out, True)
+            with tempfile.TemporaryDirectory() as d:
+                with self.assertRaises(J.RuleError):
+                    quiet(build_learn.build, GRAPH, Path(d), True)
+                self.assertEqual(list(Path(d).iterdir()), [])
+        self.assertEqual(snapshot(self.learn), before)
 
     def test_build_is_deterministic_across_processes(self):
         import filecmp

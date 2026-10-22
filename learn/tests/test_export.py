@@ -29,8 +29,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import journey_export as X  # noqa: E402
 import journeys as J  # noqa: E402
-from fixtures import (GLOSS, NOTE, Fx, big_people_graph, events_spec, facade_graph, list_file, people_spec,  # noqa: E402
-                      role_pair, side_fixture, site_of, status_fixture, stories_spec)
+from fixtures import (GLOSS, NOTE, SOFTWARE_AGENT, Fx, big_people_graph, events_spec, facade_graph,  # noqa: E402
+                      list_file, people_spec, role_pair, side_fixture, site_of, status_fixture, stories_spec)
 from model import Site  # noqa: E402
 
 GRAPH = ROOT / "build" / "graph.ttl"
@@ -139,6 +139,29 @@ def walk_strings(obj, skip=()):
 
 
 I18N_KEY = re.compile(r"^(learn|journey|status|coverage|type|claim|common)(\.[a-z0-9_]+)+$")
+
+
+def step_templates(tc: unittest.TestCase, files: dict) -> tuple[set, set]:
+    """Every reason kind and order note the steps carry, and the set-apart heading and
+    lead, have their sentence named in index.json and held in strings.json, so a consumer
+    reading only the files can render them (design §10). Returns the kinds and notes seen."""
+    index, strings = files["index.json"], files["strings.json"]
+    tc.assertEqual(index["reasons"], {k: f"learn.why.{k}" for k in X.REASON_KEYS})
+    tc.assertEqual(index["order_notes"], {n: f"learn.order_note.{n}" for n in ("part", "recorded", "unrecorded")})
+    texts = [index["texts"][k] for k in ("apart_heading", "apart_lead", "why_heading", "links_heading",
+                                         "plain_link", "quote", "step_ref")]
+    for key in list(index["reasons"].values()) + list(index["order_notes"].values()) + texts:
+        tc.assertEqual(strings["en"].get(key), EN[key], key)
+    kinds, notes = set(), set()
+    for path, doc in files.items():
+        if "/part-" in path:
+            for st in doc["steps"]:
+                kinds |= {r["kind"] for r in st["reasons"] + st["links"]}
+                if "order" in st:
+                    notes.add(st["order"]["note"])
+    tc.assertEqual(kinds - set(index["reasons"]), kinds & {"part"})   # a part reason's word is its title
+    tc.assertEqual(notes - set(index["order_notes"]), set())
+    return kinds, notes
 
 
 def keys_named(obj) -> set:
@@ -251,7 +274,26 @@ class StatusesAndDiscover(unittest.TestCase):
         self.assertEqual(self.head["ai_documents"], ["50 Stories (fixture)"])
         self.assertEqual(self.head["ai_note"], {"discover": "learn.ai_source_note", "study": "learn.ai_note"})
         self.assertNotIn("ai_document", self.claim("c_accepted_cited"))
-        self.assertNotIn("software", self.claim("c_accepted_cited"))     # fixture claims carry no agent
+        self.assertNotIn("software", self.claim("c_accepted_cited"))     # recorded by no agent
+        self.assertNotIn("recorded_by", self.claim("c_accepted_cited"))
+        sw = self.claim("c_software")                                     # recorded by a software agent
+        self.assertIs(sw["software"], True)
+        self.assertEqual(sw["recorded_by"], [{"label": SOFTWARE_AGENT, "software": True}])
+        self.assertNotIn("ai_document", sw)                               # its passage is no AI document
+        self.assertIs(sw["discover"], False)                              # uncited
+
+    def test_source_line_falls_back_to_who_recorded_it(self):
+        """An uncited claim with no basis text: Study and Research name the agent that
+        recorded it (claim.recorded_by); Discover shows nothing."""
+        t = X.translators()["en"]
+        passages = self.parts[0]["passages"]
+        sw = self.claim("c_software")
+        self.assertNotIn("basis", sw)
+        self.assertNotIn("passage", sw)
+        self.assertIsNone(X.source_line(sw, "discover", passages, t))
+        for depth in ("study", "research"):
+            self.assertEqual(X.source_line(sw, depth, passages, t),
+                             SITE_EN["claim.recorded_by"].format(value=SOFTWARE_AGENT), depth)
 
     def test_accepted_share_counts_only_accepted(self):
         share = self.head["accepted_share"]
@@ -303,6 +345,27 @@ class StatusesAndDiscover(unittest.TestCase):
             else:
                 os.environ["MARSAD_PUBLIC_MODE"] = old
         self.assertEqual(X.public_mode(), "all")
+
+    def test_strings_must_be_the_en_and_ar_tables(self):
+        """resolve() takes {"en", "ar"} (journeys.load_i18n()). The flat en table the Atlas
+        reads would bind a wrong rule_sha and give null titles, so it raises TypeError."""
+        i18n = J.load_i18n()
+        default = X.resolve(self.site, self.j, bank=[])
+        given = X.resolve(self.site, self.j, i18n, bank=[])
+        self.assertEqual(J.canonical(given), J.canonical(default))
+        self.assertEqual(default["rule_sha"], J.rule_sha(self.j.spec))
+        self.assertEqual(default["title"]["en"], EN[self.j.spec["title"]])
+        flat = i18n["en"]
+        for bad in (flat, {"en": flat}, {"ar": {}}, {"en": flat, "ar": {}, "fr": {}}, {"en": flat, "ar": None}, []):
+            with self.subTest(bad=sorted(bad)[:2] if isinstance(bad, dict) else bad):
+                with self.assertRaises(TypeError):
+                    X.resolve(self.site, self.j, bad, bank=[])
+                with self.assertRaises(TypeError):
+                    X.resolve_all(self.site, None, journeys=[self.j], bank=[], strings=bad)
+                with self.assertRaises(TypeError):
+                    J.rule_sha(self.j.spec, i18n=bad)
+        # the facade keeps the flat en table, as the Atlas reads it
+        self.assertEqual(X.atlas_projection(self.j, flat)["title"], flat[self.j.spec["title"]])
 
 
 class Narration(unittest.TestCase):
@@ -752,6 +815,10 @@ class Shape(unittest.TestCase):
                 self.assertEqual(set(e[k]), {"key", "en", "ar"})
                 self.assertEqual(e[k]["en"], EN[e[k]["key"]])
 
+    def test_reasons_order_notes_and_set_apart_texts_are_in_the_strings(self):
+        kinds, _ = step_templates(self, self.files)
+        self.assertIn("named", kinds)
+
 
 class FacadeLock(unittest.TestCase):
     def test_facade_lock_is_current(self):
@@ -804,6 +871,11 @@ class OnThePageGraph(unittest.TestCase):
                 self.assertEqual(head["rule_sha"], J.rule_sha(J.load_specs(LEARN / "journeys")[self.slugs.index(slug)]))
         badr = self.files["journeys/people-of-badr/journey.json"]
         self.assertEqual((badr["order_applied"], badr["lists"]["applied"]), ("e3_pending", False))
+
+    def test_every_reason_kind_and_order_note_has_its_sentence_in_the_strings(self):
+        kinds, notes = step_templates(self, self.files)
+        self.assertTrue({"named", "part_of", "has_part"} <= kinds, kinds)
+        self.assertEqual(notes, {"part", "recorded", "unrecorded"})
 
     def test_fingerprint_matches_obsdata(self):
         obs = obsdata()

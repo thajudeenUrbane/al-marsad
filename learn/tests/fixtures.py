@@ -119,7 +119,10 @@ class Fx:
 
     def claim(self, subject: str, predicate: str, obj: str, statuses=("proposed",), *, pid: str | None = None,
               role: str | None = None, qualifiers=(), basis: str | None = "Fixture basis.",
-              cite: str | None = None, work: str | None = None, at_event: str | None = None) -> str:
+              cite: str | None = None, work: str | None = None, at_event: str | None = None,
+              agent: tuple[str, bool] | None = None) -> str:
+        """agent: (label, software) of who recorded the claim (mrs:createdBy); software
+        makes it a prov:SoftwareAgent."""
         self.n += 1
         iri = self._id("assertion", pid or f"fxClaim{self.n}")
         parts = [f"<{iri}> a mrs:Assertion", f"mrs:assertionSubject <{subject}>", f"mrs:predicate mrs:{predicate}",
@@ -136,6 +139,12 @@ class Fx:
             parts.append(f"prov:wasDerivedFrom <{self.citation(cite, work)}>")
         if at_event:
             parts.append(f"mrs:atEvent <{at_event}>")
+        if agent:
+            label, software = agent
+            who = self._id("agent", iri.rsplit("/", 1)[1] + "Agent")
+            kind = "prov:SoftwareAgent" if software else "prov:Agent"
+            self.out.append(f"<{who}> a {kind} ; rdfs:label {lit(label)} .")
+            parts.append(f"mrs:createdBy <{who}>")
         self.out.append(" ;\n    ".join(parts) + " .")
         return iri
 
@@ -377,12 +386,14 @@ def facade_graph() -> Fx:
 
 GLOSS = "AI gloss (proposed; machine-written, not reviewed, not a translation): a fixture gloss sentence."
 NOTE = "a fixture note from the document itself."
+SOFTWARE_AGENT = "Fixture software agent"
 
 
 def status_fixture() -> tuple[Fx, dict]:
     """A battle with claims of every status, cited and uncited, one with two statuses,
-    one with an AI gloss and one with a plain comment, a participation (no status), a
-    place link, a dated event and a 50 Stories record (an AI-generated document)."""
+    one with an AI gloss and one with a plain comment, one recorded by a software agent
+    (uncited, no basis), a participation (no status), a place link, a dated event and a
+    50 Stories record (an AI-generated document)."""
     fx = Fx()
     i = {"place": fx.place("fxStPlace", "Place of Fixtureplace"), "prophet": fx.prophet("fxStProphet")}
     i["battle"] = fx.event("fxStBattle", "Battle of Fixtureplace", dates=("0624-03-01", "0624-03-31"),
@@ -405,6 +416,9 @@ def status_fixture() -> tuple[Fx, dict]:
     i["c_glossed"] = fx.claim(i["glossed"], "rel_participated_in", i["battle"], cite=cite, role=GLOSS, pid="fxStClaimGloss")
     i["noted"] = fx.person("fxStNoted", "Person noted")
     i["c_noted"] = fx.claim(i["noted"], "rel_participated_in", i["battle"], cite=cite, role=NOTE, pid="fxStClaimNote")
+    i["software"] = fx.person("fxStSoftware", "Person software")
+    i["c_software"] = fx.claim(i["software"], "rel_participated_in", i["battle"], basis=None,
+                               agent=(SOFTWARE_AGENT, True), pid="fxStClaimSoftware")
     i["plain"] = fx.person("fxStPlain", "Person plain")
     fx.participation(i["battle"], i["plain"])
     work = fx.story_doc("fxStWork", "50 Stories (fixture)")

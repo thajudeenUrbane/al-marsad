@@ -5,11 +5,13 @@
     .venv/bin/python learn/journey_export.py --lock
 
 In process:
-    resolve(site, journey, strings)       one journey, unsplit, as a dict
+    resolve(site, journey, strings)       one journey, unsplit, as a dict; strings is
+                                          {"en": {...}, "ar": {...}} (journeys.load_i18n())
     resolve_all(site, folder=None)        every journey in learn/journeys, split into parts, and
                                           written to `folder` when one is given
     source_line(claim, depth, passages, t)  the one source-line function (design §7.2)
-    atlas_projection(journey, strings)    the record the Sky Atlas builds from the v1 facade
+    atlas_projection(journey, strings)    the record the Sky Atlas builds from the v1 facade;
+                                          strings is the flat en table, as the Atlas reads it
     facade_lock()                         what learn/facade.lock must hold (design §11)
 
 The contract is learn/FORMAT.md. Nothing here asserts anything: every sentence a page
@@ -134,7 +136,18 @@ TEXTS = {"narration_more": "learn.narr.more", "no_work": "learn.discover.no_work
          "ai_document": "learn.source.ai_document", "ai_source_note": "learn.ai_source_note",
          "ai_note": "learn.ai_note", "marker": NARR_MARKER, "group_against": "learn.group.against",
          "group_against_lead": "learn.group.against_lead", "undated": "learn.sort.undated",
-         "source_label": "claim.source", "recorded_by": "claim.recorded_by", "not_recorded": "common.not_recorded"}
+         "source_label": "claim.source", "recorded_by": "claim.recorded_by", "not_recorded": "common.not_recorded",
+         "apart_heading": "learn.apart.heading", "apart_lead": "learn.apart.lead",
+         "why_heading": "learn.why.heading", "links_heading": "learn.links.heading",
+         "plain_link": "learn.why.plain_link", "quote": "learn.quote", "step_ref": "learn.step_ref"}
+# Why each stop is there (steps[].reasons[].kind and links[].kind), the sentence for each
+# kind (index.json "reasons"). A "part" reason (a stories step) has no sentence: its word is
+# the part's recorded title.
+REASON_KEYS = {kind: f"learn.why.{kind}" for kind in (
+    "date_after", "date_before", "date_related", "dated_after_this", "dated_before_this", "dated_related_this",
+    "event_claim", "has_part", "named", "part_of")}
+# steps[].order.note: why a stop is where it is (index.json "order_notes")
+ORDER_NOTE_KEYS = {note: f"learn.order_note.{note}" for note in ("part", "recorded", "unrecorded")}
 SORTS = {"default": "learn.sort.default", "az": "learn.sort.az", "links": "learn.sort.links"}
 ORDER_KEYS = {"recorded": "learn.order.recorded", "prophet_first_then_name": "learn.order.prophet_first_then_name",
               "name": "learn.order.name", "e3": "learn.order.e3", "story": "learn.order.story"}
@@ -169,6 +182,19 @@ def public_mode() -> str:
     mode = getattr(display, "PUBLIC_MODE", None) or os.environ.get("MARSAD_PUBLIC_MODE") or "all"
     if mode not in PUBLIC_MODES:
         raise J.RuleError(f"public mode {mode!r} must be one of {PUBLIC_MODES}")
+    return mode
+
+
+ACCEPTED_ONLY = ("public mode 'accepted' needs resolve(accepted_only=True), which does not exist yet; "
+                 "the export stops here rather than show claims that are not accepted")
+
+
+def check_public_mode() -> str:
+    """The public mode, or a RuleError when it is 'accepted' (design §8, fail-closed). The
+    reader build calls this before it writes or removes anything."""
+    mode = public_mode()
+    if mode == "accepted":
+        raise J.RuleError(ACCEPTED_ONLY)
     return mode
 
 
@@ -375,7 +401,7 @@ class Resolver:
         self.site = site
         self.g = site.g
         self.ix = claim_index(site)
-        self.i18n = J.load_i18n() if i18n is None else i18n
+        self.i18n = J.load_i18n() if i18n is None else J.check_i18n(i18n)   # {"en", "ar"}, never a flat table
         self.t = translators(self.i18n)
         self.lists_root = lists_root
         self.bank = practice.bank(site.g) if bank is None else bank
@@ -934,8 +960,7 @@ class Resolver:
         slug = spec["slug"]
         t = spec["select"]["type"]
         if self.mode == "accepted":
-            raise J.RuleError(f"{slug}: public mode 'accepted' needs resolve(accepted_only=True), which does not "
-                              "exist yet; the export stops here rather than show claims that are not accepted")
+            raise J.RuleError(f"{slug}: {ACCEPTED_ONLY}")
         sha = J.rule_sha(spec, lists_root=self.lists_root, i18n=self.i18n)
         steps, step_needs = [], []
         for n, st in enumerate(j.steps, 1):
@@ -1236,7 +1261,11 @@ def _prepare(r: Resolver, journeys: list, plans: dict) -> dict:
 def resolve(site: Site, journey, strings: dict | None = None, *, lists_root=None, bank: list | None = None,
             graph_file=None, plan: dict | None = None) -> dict:
     """One built journey (journeys.build), resolved and unsplit (design §10). Alone, it
-    cannot name the other journeys a stop is also in; resolve_all does."""
+    cannot name the other journeys a stop is also in; resolve_all does.
+
+    `strings` is {"en": {...}, "ar": {...}}, as journeys.load_i18n() gives it (None reads
+    learn/i18n). It is not the flat en table that atlas_projection takes: rule_sha binds the
+    en and ar wording, so that shape raises TypeError instead of giving a wrong rule_sha."""
     r = Resolver(site, i18n=strings, lists_root=lists_root, bank=bank,
                  graph=graph_info(site, graph_file) if graph_file is not None else None)
     plans = _prepare(r, [journey], {journey.slug: plan} if plan else None)
@@ -1251,9 +1280,10 @@ def resolve_all(site: Site, folder=None, *, journeys: list | None = None, journe
     pages.json, and journeys/{slug}/ with journey.json, part-{k}.json and research-{k}.json)
     when one is given. `plans` ({slug: {depth: [[stop keys of a page], ...]}}) and
     `extra_pages` come from the reader build; without them every depth is one page.
+    `strings` has the shape resolve() takes. Public mode 'accepted' is a RuleError (design §8).
     Returns {"index", "journeys": {slug: unsplit doc}, "files": {path: bytes}, "digest", "facade"}."""
-    mode = public_mode()
-    i18n = J.load_i18n() if strings is None else strings
+    mode = check_public_mode()
+    i18n = J.load_i18n() if strings is None else J.check_i18n(strings)
     if journeys is None:
         specs = J.load_specs(journeys_dir or HERE / "journeys", lists_root=lists_root)
         journeys = J.build_all(site, specs, lists_root=lists_root)
@@ -1292,6 +1322,8 @@ def resolve_all(site: Site, folder=None, *, journeys: list | None = None, journe
                                      "needs": jl.ACCEPTANCE_NEEDS, "undated": r.k(TEXTS["undated"])}},
         "view_vocabulary": list(VIEW_VOCABULARY), "narration_order": list(NARRATION_ORDER),
         "texts": {k: r.k(v) for k, v in sorted(TEXTS.items())}, "labels": labels,
+        "reasons": {k: r.k(v) for k, v in sorted(REASON_KEYS.items())},
+        "order_notes": {k: r.k(v) for k, v in sorted(ORDER_NOTE_KEYS.items())},
         "strings": "strings.json", "pages": "pages.json",
         "entities": {}, "journeys": entries,
     }

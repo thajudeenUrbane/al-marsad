@@ -649,7 +649,7 @@ G5 redirects for merged pids come with slice 11b. A `was` alias list per stop is
 .venv/bin/python learn/journey_export.py --graph build/graph-all.ttl --out DIR [--part-budget N] [--facade] [--lock]
 ```
 
-In process: `journey_export.resolve(site, journey, strings) -> dict` (unsplit) and `resolve_all(site, folder=None) -> dict`.
+In process: `journey_export.resolve(site, journey, strings) -> dict` (unsplit) and `resolve_all(site, folder=None) -> dict`. `strings` is `{"en": {...}, "ar": {...}}` (`journeys.load_i18n()`); the flat en table the Atlas reads raises `TypeError`, because `rule_sha` binds the en and ar wording.
 
 **JSON conventions**
 
@@ -685,7 +685,8 @@ In process: `journey_export.resolve(site, journey, strings) -> dict` (unsplit) a
  "lists": {"file", "state", "applied", "sha", "sources_complete"},
  "sorts": {"default": "learn.sort.default", "az": "learn.sort.az", "links": "learn.sort.links",
            "accepted_islam": {"t": "learn.sort.accepted_islam", "rule": {"kinds": ["event"], "phrase": ["acceptance", "of", "islam"]}, "needs": "citation"}},
- "view_vocabulary": [...], "strings": "strings.json", "pages": "pages.json",
+ "view_vocabulary": [...], "texts": {name: key}, "reasons": {reason kind: key}, "order_notes": {note: key},
+ "strings": "strings.json", "pages": "pages.json",
  "entities": {"<pid>": [["<slug>", "<step key>", <n>]]},
  "journeys": [{"slug", "kind", "state", "stale_approval", "rule_sha", "content_sha", "listed": true,
                "title": {"key", "en", "ar"}, "lead": {...}, "lead_study": {...} | null,
@@ -753,7 +754,7 @@ Because `side` holds only claims whose subject is the stop's person, the Prophet
  "role"?: <participation role local; participations only>, "qualifiers"?: [qualifier locals], "voice"?, "at_event"?: ref}
 ```
 
-ObsData's `pk` is this `pk` with "rel_" removed. `FORMAT.md` gives the mapping. Labels for pk, qualifiers and roles are in `terms`, taken from `skos:prefLabel` or `rdfs:label`.
+ObsData's `pk` is this `pk` with "rel_" removed for an assertion, and the same key (`took_part`, `took_place_at`, `part_of`) for participations and plain links. `FORMAT.md` gives the mapping. Labels for pk, qualifiers and roles are in `terms`, taken from `skos:prefLabel` or `rdfs:label`.
 
 **Passage**
 
@@ -780,7 +781,7 @@ ObsData's `pk` is this `pk` with "rel_" removed. `FORMAT.md` gives the mapping. 
 {"format": "marsad-journey-research", "version": 1, slug, part, "glosses": {id: text}, "trace": {key: {"hop"}}}
 ```
 
-**`strings.json`** `{"en": {...}, "ar": {...}}` holds every i18n key the export references. Together with `terms`, the data reads without the app.
+**`strings.json`** `{"en": {...}, "ar": {...}}` holds every i18n key the export references, including the sentences `index.json` names for each reason kind (`learn.why.<kind>`), each order note (`learn.order_note.<note>`) and the set-apart heading and lead. Together with `terms`, the data reads without the app.
 
 **`pages.json`**
 
