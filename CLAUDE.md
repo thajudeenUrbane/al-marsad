@@ -12,10 +12,19 @@
   Before adding a file to that list, check that no build, test or site page reads it
   (`learn/tests` reads `docs/handover/slice-6-7*.md`, so those stay out).
 
-## Working alongside other sessions
+## Before you start: the work board
 
-- **Before starting work**, read the work board, issue #28 (what other sessions are doing), the open
-  pull requests, and `git log origin/main` (what has landed). If the work is claimed or done, stop and
-  tell the user.
-- **Claim it** with a comment on #28: `STARTING: <what>`, the branch and the session link.
-  **Close it** with `DONE: <what>` and the PR number, or `STOPPED: <what>` and why.
+Several Claude sessions work on this repository, in parallel and one after another. To avoid
+building the same thing twice, every session uses the work board, `WORKBOARD.md` on the
+`coordination` branch (that branch holds only the board, so pushing to it runs no checks).
+
+- **Read it first**, before planning: `git fetch origin coordination && git show origin/coordination:WORKBOARD.md`.
+  Check *Built, not merged* and *Done* as well as *In progress*: a feature may already exist on a
+  branch that is not merged yet.
+- **If your task overlaps a row in progress**, stop and tell your user which row and which
+  session; do not redo it. You can message that session if it is still running.
+- **Claim your work** with one row (work, branch, session link, what it touches, status, date)
+  and push it to `coordination` before you start building. **Update the row** when you push, open
+  a PR or stop; move finished work to *Done*.
+- Edit only your own rows. Mark a row with no update for 7 days `stale (date)`; never delete
+  another session's row. The board's own header says how to push to it.
