@@ -860,6 +860,8 @@ Deferred: `ar/learn/` twins, hreflang, LRI/PDI isolation, plural categories, Ara
 
 **Export:** parts are cut at ≤150,000 B, each with its own tables.
 
+Measured in stage B (page graph): the largest single stop is the second Hijrah stop at 23,564 B (its 23 claims, narration and tables), so a part budget below about 24,000 B fails closed on it. On the joined graph, Badr takes 10 parts of ≤150,000 B, its head is about 207 KB (mostly the per-depth stop URLs), and the Prophet's ﷺ step is about 2 KB with no side entries.
+
 Slice 11b needs no learn code change. `LEARN_JOINED=1` is the gate.
 
 ## 14. Determinism and what a change touches
@@ -867,7 +869,7 @@ Slice 11b needs no learn code change. `LEARN_JOINED=1` is the gate.
 - Every collection is sorted, with ties ending in pid or claim ID. `Site.entities` is never iterated. Synthetic IDs are built from pids and role locals. `canonical()` is used everywhere.
 - `test_build_is_deterministic_across_processes` runs twice under PYTHONHASHSEED 1 and 2 (dircmp):
   - with the default budgets;
-  - with `--step-budget 30000 --part-budget 20000`, so that multi-page, cross-page-link, contents and multi-part output are compared byte for byte.
+  - with `--step-budget 30000 --part-budget 30000`, so that multi-page, cross-page-link, contents and multi-part output are compared byte for byte (a part budget of 20,000 is below the largest page-graph stop; see §13).
 - `build_learn` prints:
   - the summary lines;
   - `rule_sha` and `content_sha` per journey;

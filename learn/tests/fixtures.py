@@ -157,6 +157,21 @@ class Fx:
                         f"dct:isPartOf <{part}> ; crm:P190_has_symbolic_content {lit(text)} .")
         return ev
 
+    def geometry(self, place: str, point: tuple[float, float] | None = None, confidence: str = "certain",
+                 basis: str = "textual"):
+        """A geometry state on a place: a WKT point (lon, lat) or none, with its location
+        confidence (certain, probable, unlocated, ...) and geometry basis."""
+        if not getattr(self, "_geo_vocab", False):
+            self._geo_vocab = True
+            for c in ("certain", "probable", "approximate", "unlocated"):
+                self.out.append(f"mrs:lc_{c} a mrs:LocationConfidence ; skos:prefLabel {lit(c)} .")
+            for b in ("textual", "traditional", "inferred"):
+                self.out.append(f"mrs:gb_{b} a mrs:GeometryBasis ; skos:prefLabel {lit(b)} .")
+        geo = (f' ; mrs:geometry [ a <http://www.opengis.net/ont/geosparql#Geometry> ; '
+               f'<http://www.opengis.net/ont/geosparql#asWKT> "POINT({point[0]} {point[1]})" ]') if point else ""
+        self.out.append(f"<{place}> mrs:geometryState [ a mrs:GeometryState ; mrs:locationConfidence mrs:lc_{confidence} ; "
+                        f"mrs:geometryBasis mrs:gb_{basis}{geo} ] .")
+
     def ttl(self) -> str:
         return "\n".join(self.out) + "\n"
 
@@ -358,3 +373,68 @@ def facade_graph() -> Fx:
              work=work)
     fx.claim(late, "rel_participated_in", s2, cite="50 Stories (fixture), Part 1, story 2", work=work)
     return fx
+
+
+GLOSS = "AI gloss (proposed; machine-written, not reviewed, not a translation): a fixture gloss sentence."
+NOTE = "a fixture note from the document itself."
+
+
+def status_fixture() -> tuple[Fx, dict]:
+    """A battle with claims of every status, cited and uncited, one with two statuses,
+    one with an AI gloss and one with a plain comment, a participation (no status), a
+    place link, a dated event and a 50 Stories record (an AI-generated document)."""
+    fx = Fx()
+    i = {"place": fx.place("fxStPlace", "Place of Fixtureplace"), "prophet": fx.prophet("fxStProphet")}
+    i["battle"] = fx.event("fxStBattle", "Battle of Fixtureplace", dates=("0624-03-01", "0624-03-31"),
+                           place=i["place"], precision="month")
+    cite = "Fixture work (fixture ed., Fixturetown 2000; draft), vol. 3, p. 11; Fixture lines 1–2"
+    fx.participation(i["battle"], i["prophet"], "role_leader")
+    for st in ("accepted", "under_review", "proposed", "rejected", "superseded"):
+        for cited in (True, False):
+            k = f"{st}_{'cited' if cited else 'uncited'}"
+            i[k] = fx.person(f"fxSt{st.replace('_', '')}{'C' if cited else 'U'}",
+                              f"Person {st.replace('_', ' ')} {'cited' if cited else 'uncited'}")
+            i[f"c_{k}"] = fx.claim(i[k], "rel_participated_in", i["battle"], (st,), cite=cite if cited else None,
+                                   pid=f"fxStClaim{st.replace('_', '')}{'C' if cited else 'U'}")
+    i["none"] = fx.person("fxStNone", "Person nostatus")
+    i["c_none"] = fx.claim(i["none"], "rel_participated_in", i["battle"], (), cite=cite, pid="fxStClaimNone")
+    i["two"] = fx.person("fxStTwo", "Person twostatus")
+    i["c_two"] = fx.claim(i["two"], "rel_participated_in", i["battle"], ("proposed", "rejected"), cite=cite,
+                          pid="fxStClaimTwo")
+    i["glossed"] = fx.person("fxStGlossed", "Person glossed")
+    i["c_glossed"] = fx.claim(i["glossed"], "rel_participated_in", i["battle"], cite=cite, role=GLOSS, pid="fxStClaimGloss")
+    i["noted"] = fx.person("fxStNoted", "Person noted")
+    i["c_noted"] = fx.claim(i["noted"], "rel_participated_in", i["battle"], cite=cite, role=NOTE, pid="fxStClaimNote")
+    i["plain"] = fx.person("fxStPlain", "Person plain")
+    fx.participation(i["battle"], i["plain"])
+    work = fx.story_doc("fxStWork", "50 Stories (fixture)")
+    i["c_ai"] = fx.claim(i["plain"], "rel_led", i["battle"], cite="50 Stories (fixture, rev 1), Part 2, story 4",
+                         work=work, pid="fxStClaimAi")
+    return fx, i
+
+
+def role_pair(role: str = "role_participant") -> Fx:
+    """A battle with three participations; the second person's role is `role`."""
+    fx = Fx()
+    battle = fx.event("fxRoBattle", "Battle of Fixtureplace")
+    fx.participation(battle, fx.prophet("fxRoProphet"), "role_leader")
+    fx.participation(battle, fx.person("fxRoA", "Person A"))
+    fx.participation(battle, fx.person("fxRoB", "Person B"), role)
+    fx.claim(fx.person("fxRoC", "Person C"), "rel_participated_in", battle, cite="Fixture work, vol. 1, p. 4")
+    return fx
+
+
+def big_people_graph(n: int = 600, note_words: int = 40) -> tuple[Fx, dict]:
+    """A battle with n people, each with a cited claim carrying a long note, for the
+    part-budget tests."""
+    fx = Fx()
+    battle = fx.event("fxBigBattle", "Battle of Fixtureplace")
+    fx.participation(battle, fx.prophet("fxBigProphet"), "role_leader")
+    note = " ".join(["fixture"] * note_words)
+    people = []
+    for k in range(n):
+        who = fx.person(f"fxBig{k:04d}", f"Person {k:04d}")
+        fx.participation(battle, who)
+        fx.claim(who, "rel_participated_in", battle, cite=f"Fixture work, vol. 1, p. {k + 1}", role=note)
+        people.append(who)
+    return fx, {"battle": battle, "people": people}

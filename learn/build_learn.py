@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Learning paths and practice (slices 6 and 7), built on top of the reader tier.
 
-    .venv/bin/python learn/build_learn.py [--graph build/graph.ttl] [--site site/dist]
+    .venv/bin/python learn/build_learn.py [--graph build/graph.ttl] [--site site/dist] [--part-budget N]
 
 Run it after site/build.py (which rebuilds site/dist/ from scratch, learn/ included).
 It writes site/dist/learn/ and nothing else: a journey index, one page per journey in
-learn/journeys/, the practice page with its question bank (bank.json), and two small
-assets (learn.css, learn.js). It reads build/graph.ttl through site/model.py, so every
+learn/journeys/, the practice page with its question bank (bank.json), two small
+assets (learn.css, learn.js), and the marsad-journey export in data/ (learn/FORMAT.md,
+written by learn/journey_export.py). It reads build/graph.ttl through site/model.py, so every
 step links to the page the reader tier built for that entity, and reuses site/display.py
 for names and dates and the site's stylesheet for the look.
 
@@ -29,6 +30,7 @@ sys.path.insert(0, str(HERE))
 
 from model import Site  # noqa: E402
 
+import journey_export  # noqa: E402
 import journeys  # noqa: E402
 import practice  # noqa: E402
 from render_learn import LearnRenderer, Strings  # noqa: E402
@@ -36,7 +38,8 @@ from render_learn import LearnRenderer, Strings  # noqa: E402
 MARKER = ".al-marsad-learn"
 
 
-def build(graph: Path, site_dist: Path, quiet: bool = False, journeys_dir: Path | None = None) -> dict:
+def build(graph: Path, site_dist: Path, quiet: bool = False, journeys_dir: Path | None = None,
+          part_budget: int = journey_export.PART_BUDGET) -> dict:
     if not graph.exists():
         sys.exit(f"{graph} not found: run ontology/build_graph.py and site/build.py first")
     if not (site_dist / "assets" / "site.css").is_file():
@@ -76,22 +79,32 @@ def build(graph: Path, site_dist: Path, quiet: bool = False, journeys_dir: Path 
         write(rel, content)
     write("practice/bank.json", json.dumps({"questions": bank}, ensure_ascii=False, indent=1, sort_keys=True) + "\n")
     write("index.html", r.index_page(built, len(bank)))
+    # the marsad-journey export (design §10); stage C passes the reader's own page plan
+    export = journey_export.resolve_all(site, out / "data", journeys=built, bank=bank, graph_file=graph,
+                                        part_budget=part_budget)
 
     rule_shas = {s["slug"]: journeys.rule_sha(s) for s in specs}   # what an approval must name (design §3.5)
+    entries = {e["slug"]: e for e in export["index"]["journeys"]}
     summary = {"journeys": {j.slug: {"steps": len(j.steps), "apart": len(j.set_apart), "draft": j.is_draft,
-                                     "rule_sha": rule_shas[j.slug]} for j in built},
-               "questions": len(bank), "practice_pages": len(pages), "claims": counts}
+                                     "rule_sha": rule_shas[j.slug], "content_sha": entries[j.slug]["content_sha"],
+                                     "parts": entries[j.slug]["parts"]} for j in built},
+               "questions": len(bank), "practice_pages": len(pages), "claims": counts,
+               "export": {"files": len(export["files"]), "digest": export["digest"], "facade": export["facade"]}}
     if not quiet:
         print(f"built learn/ into {out}")
         for j in built:
             extra = f" (+{len(j.set_apart)} apart)" if j.set_apart else ""
             print(f"  {j.slug}: {len(j.steps)} steps{extra}, {'draft' if j.is_draft else 'approved'}, "
-                  f"rule_sha {rule_shas[j.slug]}")
+                  f"rule_sha {rule_shas[j.slug]}, content_sha {entries[j.slug]['content_sha']}, "
+                  f"data parts {entries[j.slug]['parts']}")
             if j.lists:
                 print(f"    list file {j.lists['file']}: {j.lists['state']}, sha {j.lists['sha']}, "
                       f"order {j.order_applied}")
         print(f"  practice: {len(bank)} questions from accepted claims "
               f"({counts.get('accepted', 0)} accepted of {sum(counts.values())} claims)")
+        print(f"  export: learn/data, {len(built)} journeys, {len(export['files'])} files, digest {export['digest']}")
+        print(f"  atlas facade ({export['index']['graph']['file']}) {export['facade']}: "
+              "if this changed, rebuild atlas/index.html")
     return summary
 
 
@@ -99,8 +112,9 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--graph", default=str(ROOT / "build" / "graph.ttl"))
     ap.add_argument("--site", default=str(SITE / "dist"))
+    ap.add_argument("--part-budget", type=int, default=journey_export.PART_BUDGET)
     a = ap.parse_args(argv)
-    build(Path(a.graph), Path(a.site))
+    build(Path(a.graph), Path(a.site), part_budget=a.part_budget)
     return 0
 
 
