@@ -229,8 +229,8 @@ async function features(page, tag, shot) {
 }
 
 (async () => {
-  await run({ width: 1440, height: 900 }, "desktop");
-  await run({ width: 390, height: 844 }, "phone");
+  // the two sizes run side by side: the check stays well inside CI's time limit
+  await Promise.all([run({ width: 1440, height: 900 }, "desktop"), run({ width: 390, height: 844 }, "phone")]);
   console.log(failures ? `${failures} check(s) failed` : "all checks passed");
   process.exit(failures ? 1 : 0);
 })();
