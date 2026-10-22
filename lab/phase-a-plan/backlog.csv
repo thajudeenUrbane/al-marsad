@@ -1,0 +1,73 @@
+id,epic,story,acceptance,estimate_days,role,depends_on,week
+PPL-1.1,PPL-1 Hiring,Post the 3D/web engineer and product designer (0.5) briefs,Both hiring briefs (kept outside the repository) posted in 3+ channels; portfolio tests sent to every shortlisted candidate within 3 days,1,maintainer,,W0
+PPL-1.2,PPL-1 Hiring,Run portfolio tests and interviews,Each shortlisted candidate scored on the hiring-brief rubric by maintainer plus one reviewer,3,maintainer,PPL-1.1,W1-W2
+PPL-1.3,PPL-1 Hiring,Offers and onboarding,Engineer and designer contracted; repo access; first-day reading list done; check_all.sh green on their machine,2,maintainer,PPL-1.2,W3
+PPL-1.4,PPL-1 Hiring,Learning researcher (academic partner 0.3) agreed,Named partner; scope letter covers protocol; preregistration and analysis,1,maintainer,,W1-W2
+PPL-2.1,PPL-2 Scholars,Scholar plan and stipends for Phase A,Roster (encrypted; P3) names who reviews moments; scenes; places; stipend rate agreed; about 25 scholar-hours booked across W2-W12,1,maintainer,,W1
+PPL-2.2,PPL-2 Scholars,Round 4 answers (source line; opponents and edge cases),Answers to round 4 Q1 and Q2 recorded in docs/handover/maintainer-answers-4.md; edge cases list for the Hijrah cast resolved or marked neutral,1,maintainer,,W1-W3
+PPL-2.3,PPL-2 Scholars,Scholars sign off the visual grammar,Signed decision on the light; lights; stones; absence; chains; sound policy (no instruments by default) recorded in a handover note,0.5,scholar,WLD-2.1,W4
+PPL-2.4,PPL-2 Scholars,Scholars approve the scene format (Gate A),At least 2 scholars review a full chapter as scenes and record approve / approve-with-changes in the review log,0.5,scholar,ENG-4.1;ENG-2.2,W7
+PPL-3.1,PPL-3 Teachers,Recruit pilot cohort beyond the E1 class,Enough learners for at least 40 completers within-person (target 60 enrolled); 2-3 classes or circles; dates booked in W10-W11,2,maintainer,,W2-W5
+PPL-3.2,PPL-3 Teachers,Recruit 3 teachers for the circle test (exp 8),3 teachers agree to 2 sessions each between W10 and W12,1,maintainer,,W4-W6
+PPL-4.1,PPL-4 Partners,Write to OpenITI about permission and partnership (S1),Letter sent; reply logged,0.5,maintainer,,W6
+ENG-1.1,ENG-1 Moments (N2),Moment class and shapes in the ontology,mrs:Moment with agents; act; place; sequence; time window; rests on an exact passage span; SHACL shape; examples conform; build_graph.py passes,3,data-eng,,W1
+ENG-1.2,ENG-1 Moments (N2),Extraction trial on the 28 Hijrah sections (exp 6),Every moment quotes an exact substring of the cached text; statuses proposed; trial file and run log committed; no model names in files,3,data-eng,ENG-1.1,W1-W2
+ENG-1.3,ENG-1 Moments (N2),Timed scholar review of the trial moments,Acceptance rate and minutes per moment recorded; decision: >=80% go; 60-80% go with editor pass; <60% editor writes moments then review,0.5,scholar,ENG-1.2,W2
+ENG-1.4,ENG-1 Moments (N2),Full Hijrah moments pass,Moments for all sections used by the Hijrah chapters in ontology/corpus/moments-hijrah.ttl; conform; section 680 night of leaving recovered from the text not from headings,3,data-eng,ENG-1.3,W3
+ENG-1.5,ENG-1 Moments (N2),Resolve Hijrah cast duplicates,Ibn Urayqit / Ibn Arqat and every other Hijrah-cast merge proposal decided by an editor; old IDs redirect (P8; G5); one star per person in the sky,2,editor,,W3-W4
+ENG-2.1,ENG-2 Scenes,Scene schema in Turtle with SHACL,mrs:Scene: place; time window; actors; moments; claims; camera; sound; questions; approvals; a scene with any unresolved field fails the build,3,data-eng,ENG-1.1,W2
+ENG-2.2,ENG-2 Scenes,Author the Hijrah scenes,About 25-30 scenes over 10 chapters; hand-written text limited to titles; camera; questions (which assert nothing); about 300 claims plus moments,4,builder,ENG-2.1;ENG-1.4;ENG-3.2,W4-W5
+ENG-2.3,ENG-2 Scenes,Question bank compiler,Correct answers and distractors each resolve to a claim; a validator rejects any name/number/date not in a shown claim; tests,3,builder,ENG-2.1,W4-W5
+ENG-2.4,ENG-2 Scenes,Scene pack compiler and check step,JSON scene packs built in CI; step added to scripts/check_all.sh; build refuses a scene whose text does not resolve,2,builder,ENG-2.1,W5
+ENG-3.1,ENG-3 Places (N3),Certainty grades on place geometry,geometryState grades (exact; attested area; approximate; unlocated) with source per point; shapes; credited CC BY-SA file kept (S6),2,data-eng,,W2
+ENG-3.2,ENG-3 Places (N3),Place pass for the Hijrah route and Makkah,Every Hijrah stop and Makkah place in the scenes graded; editor checks each match; 11 route stops resolved or marked unlocated,4,editor,ENG-3.1,W3-W4
+ENG-3.3,ENG-3 Places (N3),Route as ordered stops with no drawn road,Route recorded as order from the text; renderer draws no line between stops; dashed for unlocated,1,data-eng,ENG-3.1,W3
+ENG-3.4,ENG-3 Places (N3),Scholar review of contested locations,Thawr; Quba lodging; the 5 unlocated stops reviewed; outcomes in review log,0.5,scholar,ENG-3.2,W6
+ENG-3.5,ENG-3 Places (N3),Linked Places export (CUTTABLE),LPF GeoJSON export validates; credited,2,data-eng,ENG-3.2,W8
+ENG-4.1,ENG-4 Scene review (N7),Scene review lane in the review tool,A scholar reviews a scene as one unit with claims in learner order; per-claim timing logged; decisions import through review/import_decisions.py; tests,4,builder,ENG-2.1,W4
+ENG-4.2,ENG-4 Scene review (N7),Queue ordered by what learners meet,Hijrah scene claims come first in the queue in chapter order,1,builder,ENG-4.1,W4
+ENG-4.3,ENG-4 Scene review (N7),Maintainer test-reviews one chapter first (P1),Maintainer reviews chapter 1; friction list fixed before scholars start,1,maintainer,ENG-4.1,W4
+ENG-4.4,ENG-4 Scene review (N7),Scholars review the Hijrah scenes (about 300 claims),All Hijrah scenes reviewed in 3 batches; minutes per claim published in the Gate A report,1,scholar,ENG-4.3;ENG-2.2,W5-W7
+WLD-1.1,WLD-1 Hijrah World (N1),Port the prototype into site/world/hijrah,build_world.py builds from scene packs; i18n keys for every string; no external requests; check step in check_all.sh,4,builder,ENG-2.4,W3-W5
+WLD-1.2,WLD-1 Hijrah World (N1),Device tiers 0/1/2,Tier 0 text works with JS off; tier 1 2.5D map; tier 2 3D; tier chosen by device memory; GPU probe; measured fps; manual override,5,3d-web-eng,WLD-1.1,W4-W6
+WLD-1.3,WLD-1 Hijrah World (N1),Terrain tiles,Terrain-RGB PMTiles for the Hijaz from Copernicus GLO-30 or the AWS tiles; credited; tiles load by view; first load <3 MB,4,3d-web-eng,,W4-W5
+WLD-1.4,WLD-1 Hijrah World (N1),Performance harness,Per-chapter frame times; memory; first-load size logged on 3 devices; CI size budget; weekly numbers in the log,3,3d-web-eng,,W1-W4
+WLD-1.5,WLD-1 Hijrah World (N1),Design grammar in the world,The light (never a node); lights by generation brightness; stones for recorded opponents (X1) and the turning on a recorded conversion; dashed absence; chains in Study depth,4,3d-web-eng,WLD-2.1;PPL-2.2,W5-W6
+WLD-1.6,WLD-1 Hijrah World (N1),Three depths and display rules (G1),Discover shows no review language but keeps the source line; Study and Research show status; checked at 390x844,2,3d-web-eng,WLD-1.1,W6
+WLD-1.7,WLD-1 Hijrah World (N1),Performance fixes to the gate,30 fps median per chapter; <150 MB worst chapter; <3 MB first load on all 3 devices,4,3d-web-eng,WLD-1.2;WLD-1.4,W7-W9
+WLD-1.8,WLD-1 Hijrah World (N1),Accessibility,Keyboard path through every chapter; reduced motion; screen-reader text tier; contrast checked in the night palette,2,3d-web-eng,WLD-1.2,W8
+WLD-1.9,WLD-1 Hijrah World (N1),Offline chapter pack (CUTTABLE),Service worker caches the world under 100 MB; works in airplane mode after first visit,2,3d-web-eng,WLD-1.3,W9
+WLD-1.10,WLD-1 Hijrah World (N1),WebGPU path (CUTTABLE),WebGPU renderer where available; WebGL2 otherwise; identical frames on both,3,3d-web-eng,WLD-1.2,W9
+WLD-1.11,WLD-1 Hijrah World (N1),Pilot build freeze and tag,beta-2 tagged; content hash recorded in the preregistration; no change during W10-W11 except blocking bugs,0.5,3d-web-eng,WLD-1.7;ENG-4.4,W9
+WLD-2.1,WLD-2 Identity,Design brief and night-world moodboard,Two directions for the aniconic grammar; palette; light and stone studies; reviewed by maintainer then scholars,4,designer,PPL-1.3,W3-W4
+WLD-2.2,WLD-2 Identity,Typography,Arabic and Latin pairing for names (both scripts); legible at 390 px on a dim screen; licences recorded,3,designer,WLD-2.1,W4-W5
+WLD-2.3,WLD-2 Identity,UI kit,Panels; depths; question cards; recall; sky; projector; tokens in CSS; light and dark,5,designer,WLD-2.1,W5-W6
+WLD-2.4,WLD-2 Identity,Sky design,Sky layout with the light at the centre; stars brighten with recall; stones; no ranks or points,3,designer,WLD-2.3,W6
+WLD-2.5,WLD-2 Identity,Sound policy note for the scholars,One page: ambience and human recitation only; no instruments by default; recording deferred to Phase B,1,designer,,W4
+WLD-2.6,WLD-2 Identity,Design grammar v0 written up,Short public-ready note: presenting a sacred history without depiction; scholars' sign-off cited,2,designer,PPL-2.3,W8
+LRN-1.1,LRN-1 Memory engine (N4),Learner model on the device,FSRS-style scheduler per item (person; place; moment); state on device with try/catch; works with storage blocked; no accounts (E5); unit tests,4,builder,,W4-W5
+LRN-1.2,LRN-1 Memory engine (N4),Guess first,Each scene asks before it tells; prompt can be switched on or off per chapter by a seeded pilot flag (exp 2),2,builder,ENG-2.3,W5
+LRN-1.3,LRN-1 Memory engine (N4),End-of-chapter recall,Cued and free recall; the claim and its source shown after the attempt; wrong answers explained by the distractor's claim,3,builder,ENG-2.3,W5-W6
+LRN-1.4,LRN-1 Memory engine (N4),Spaced reviews without pressure,Due items listed; no streaks; no points; no leaderboards,2,builder,LRN-1.1,W6
+LRN-1.5,LRN-1 Memory engine (N4),Personal sky,Everyone met is a star; brightens with recall; the Prophet ﷺ is the light; opponents are stones; merged people are one star,4,3d-web-eng,LRN-1.1;WLD-2.4,W6-W7
+LRN-1.6,LRN-1 Memory engine (N4),Pilot codes and export,A pilot code tags sessions; learner state exports to a file a researcher collects; no names stored,2,builder,LRN-1.1,W7
+LRN-2.1,LRN-2 Circle (N5),Projector mode,Teacher drives camera and chapters full screen; large type; presenter keys; works offline from the pack,3,3d-web-eng,WLD-1.1,W7
+LRN-2.2,LRN-2 Circle (N5),Live questions on students' phones (CUTTABLE to show of hands),Join by code; answers aggregated; no accounts; Worker cost <$10/month; works on school Wi-Fi,5,builder,LRN-2.1,W8-W9
+LRN-2.3,LRN-2 Circle (N5),Majlis sheet v0 (CUTTABLE),Teacher picks claims; printable sheet with citations; no hand-typed facts,3,builder,ENG-2.4,W9
+LRN-2.4,LRN-2 Circle (N5),One-page teacher guide,A teacher who never saw the tool runs a session from it in the dry run,1,designer,LRN-2.1,W8
+LRN-3.1,LRN-3 Control,Reading-page control,Same claims; same order; same citations; same time on task; no world; no guess-first; built from the same scene packs,2,builder,ENG-2.4,W7
+EVD-1.1,EVD-1 Think-aloud (exp 4),Round 1 on the prototype,8-10 people incl. the class and academic contacts; each cue (dashed stops; two reports; stones; AI-extracted) scored understood / not,2,learning-researcher,,W0-W2
+EVD-1.2,EVD-1 Think-aloud (exp 4),Round 2 on beta-1,Same cues; 8 of 10 explain each; any cue under half redesigned before freeze,2,learning-researcher,WLD-1.6,W8
+EVD-2.1,EVD-2 Performance (exp 3),Buy 3 test phones at or under $150,Devices named and logged with OS and browser versions,0.5,maintainer,,W1
+EVD-2.2,EVD-2 Performance (exp 3),Baseline the prototype,fps; memory; first load per chapter on the 3 phones recorded in the perf log,1,3d-web-eng,EVD-2.1,W1
+EVD-2.3,EVD-2 Performance (exp 3),Gate measurement,Final run on the frozen build with the harness; numbers in the Gate A report,1,3d-web-eng,WLD-1.11,W11
+EVD-3.1,EVD-3 Pilot 1 (exp 1; 2; 9),Protocol and instruments,Within-person counterbalanced design (chapters 1-5 vs 6-10); cued-recall test built from claims; scoring rubric; 2 blind raters,3,learning-researcher,PPL-1.4,W2-W4
+EVD-3.2,EVD-3 Pilot 1,Consent and safeguarding,Parent consent and child assent forms; data plan (no names in files; data outside the repo); ethics review by the partner's board or an independent reviewer,2,learning-researcher,EVD-3.1,W4-W6
+EVD-3.3,EVD-3 Pilot 1,Preregistration,Hypotheses; primary outcome (1-week cued recall); d threshold; exclusions; analysis script on simulated data; filed before any data,1,learning-researcher,EVD-3.1,W6-W9
+EVD-3.4,EVD-3 Pilot 1,Dry run,6-10 people run the full session and the test; timings and instrument fixes logged,1,learning-researcher,LRN-3.1;LRN-1.6,W7
+EVD-3.5,EVD-3 Pilot 1,Exposure sessions,At least 40 completers; both orders balanced; immediate test done,3,learning-researcher,WLD-1.11;EVD-3.3;EVD-3.2,W10
+EVD-3.6,EVD-3 Pilot 1,One-week recall,Cued recall 7 (+-1) days after exposure; attrition logged,2,learning-researcher,EVD-3.5,W11
+EVD-3.7,EVD-3 Pilot 1,Analysis and report,Preregistered analysis run; d with 95% CI; raters' agreement (kappa >=0.8); results in the Gate A report,3,learning-researcher,EVD-3.6,W12
+EVD-3.8,EVD-3 Pilot 1,One-month recall (feeds Gate B),Scheduled for about 8 Feb 2027; same instrument,0.5,learning-researcher,EVD-3.5,W12
+EVD-4.1,EVD-4 Circle (exp 8),Teacher sessions,3 teachers x 2 sessions; whether session 2 was booked unprompted; participation counted,2,learning-researcher,LRN-2.1;PPL-3.2,W10-W12
+EVD-5.1,EVD-5 Gate A,Gate A report and decision,Each criterion in PLAN.md measured as written; decision (go / extend / stop rule) recorded in docs/handover,2,maintainer,EVD-3.7;EVD-2.3;PPL-2.4,W12

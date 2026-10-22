@@ -1,0 +1,9 @@
+name_in_claims,display,arabic,latitude,longitude,source,status
+al-Madīna,al-Madīna,المدينة,24.47782,39.60908,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MADINA_396E244N_S",exact (external-coordinates.csv)
+Badr,Badr,بدر,23.72676,38.80098,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), BADR_388E237N_S",matched by name for this prototype
+Makkah,Makkah,مكة,21.39132,39.83612,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MAKKA_398E213N_S",matched by name for this prototype
+Dhū al-Ḥulayfa,Dhū al-Ḥulayfa,ذو الحليفة,24.40558,39.56501,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), DHUHULAYFA_395E244N_S",matched by name for this prototype
+Malal,Malal,ملل,24.29047,39.45628,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), MALAL_394E242N_S",matched by name for this prototype
+al-Sayāla,al-Sayāla,سيالة,24.19669,39.35343,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), SAYYALA_393E241N_S",matched by name for this prototype
+al-Rawḥāʾ,al-Rawḥāʾ,روحاء,24.11893,39.2976,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), RAWHA_392E241N_S",matched by name for this prototype
+al-Ṣafrāʾ,al-Ṣafrāʾ,الصفراء,24.03308,38.95085,"al-Thurayya Gazetteer Project, places.geojson (CC BY 4.0), SAFRA_389E240N_S",matched by name for this prototype

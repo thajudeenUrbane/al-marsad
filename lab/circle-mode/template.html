@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Majlis Sheet Builder</title>
+<style>
+:root{--bg:#f7f4ee;--panel:#fffdf8;--ink:#1f1d1a;--muted:#6b645a;--line:#e2dccf;--accent:#1d5c4d;--accent-ink:#fff;--q:#7a4b12;--qbg:#fbf1e2;--note:#4b4f7a;--notebg:#eef0fb;--hl:#fff3b0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171614;--panel:#211f1c;--ink:#ece6da;--muted:#a59d90;--line:#36322c;--accent:#6fbfa6;--accent-ink:#0f1f1a;--q:#f0b46a;--qbg:#2e2519;--note:#aab0ea;--notebg:#22243a;--hl:#4a4320}}
+:root[data-theme="dark"]{--bg:#171614;--panel:#211f1c;--ink:#ece6da;--muted:#a59d90;--line:#36322c;--accent:#6fbfa6;--accent-ink:#0f1f1a;--q:#f0b46a;--qbg:#2e2519;--note:#aab0ea;--notebg:#22243a;--hl:#4a4320}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+header h1{font:600 20px/1.2 Georgia,serif;margin:0}
+header p{margin:0;color:var(--muted);font-size:13px}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding:16px;max-width:1400px;margin:0 auto}
+@media (max-width:860px){main{grid-template-columns:minmax(0,1fr)}}
+section.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+h2{font:600 16px Georgia,serif;margin:0 0 10px}
+label{font-size:12px;color:var(--muted);display:block;margin:6px 0 2px}
+input,select,textarea,button{font:inherit;color:inherit}
+input[type=text],input[type=search],select,textarea{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+textarea{min-height:60px;resize:vertical;font-size:13px}
+button{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:5px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1 1 140px}
+.row>button{flex:0 0 auto}
+.meta{font-size:12px;color:var(--muted)}
+.list{margin-top:10px;max-height:62vh;overflow:auto;border-top:1px solid var(--line)}
+.claim{padding:8px 4px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:flex-start}
+.claim .body{flex:1;min-width:0}
+.claim .g{margin:0 0 2px}
+.cite{font-size:12px;color:var(--muted)}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:9px;background:var(--line);color:var(--ink);margin-right:4px}
+.dis{border:1px solid var(--line);border-radius:8px;padding:8px;margin:8px 0}
+.dis h3{font-size:13px;margin:0 0 4px}
+.item{border:1px solid var(--line);border-radius:8px;padding:8px;margin:6px 0;display:flex;gap:8px;align-items:flex-start;background:var(--panel)}
+.item.q{background:var(--qbg)}
+.item.n{background:var(--notebg)}
+.item .body{flex:1;min-width:0}
+.item .ctl{display:flex;flex-direction:column;gap:3px}
+.item .ctl button{padding:1px 7px;font-size:12px}
+.kind{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.q .kind{color:var(--q)}.n .kind{color:var(--note)}
+.empty{color:var(--muted);font-style:italic;padding:10px 0}
+#msg{min-height:1.2em;font-size:13px;color:var(--accent)}
+footer{padding:16px;color:var(--muted);font-size:12px;max-width:1400px;margin:0 auto}
+/* sheet (print + projector) */
+#paper{display:none}
+.sheet h1{font:600 30px/1.2 Georgia,serif;margin:0 0 4px}
+.sheet .sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+.sheet ol{padding-left:1.4em;margin:0}
+.sheet li{margin:0 0 16px;padding:6px 8px;border-radius:6px}
+.sheet li .g{font:20px/1.45 Georgia,serif}
+.sheet li.q .g{font-style:italic}
+.sheet li.cur{background:var(--hl)}
+.sheet .foot{margin-top:24px;border-top:1px solid var(--line);padding-top:8px;font-size:12px;color:var(--muted)}
+body.present header,body.present main,body.present footer{display:none}
+body.present #paper{display:block;padding:4vh 6vw;font-size:1.4em}
+body.present .sheet li .g{font-size:clamp(22px,2.6vw,40px)}
+body.present .sheet h1{font-size:clamp(28px,3.4vw,54px)}
+body.present .sheet .cite{font-size:clamp(13px,1.1vw,18px)}
+#presentBar{position:fixed;right:12px;top:12px;display:none;gap:6px}
+body.present #presentBar{display:flex}
+@media print{
+  body{background:#fff;color:#000}
+  header,main,footer,#presentBar{display:none!important}
+  #paper{display:block!important;padding:0}
+  .sheet li{break-inside:avoid}
+  .sheet li.cur{background:none}
+  .sheet li .g{font-size:14pt}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Majlis Sheet Builder</h1>
+  <p>Circle mode for teachers, halaqas and families: build a sheet from cited claims of Ibn Hishām's Sīra, add your own questions, then print or project it.</p>
+</header>
+<main>
+  <section class="panel" aria-labelledby="h-find">
+    <h2 id="h-find">Find claims</h2>
+    <label for="q">Search (accents, ʿayn/hamza and Arabic diacritics are ignored)</label>
+    <input id="q" type="search" placeholder="e.g. Quba, Khubayb, Badr, hijra">
+    <div class="row">
+      <div><label for="sec">Section</label><select id="sec"><option value="">All sections</option></select></div>
+      <div><label for="person">Person</label><input id="person" type="text" list="personList" placeholder="Any person"><datalist id="personList"></datalist></div>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <span class="meta" id="count"></span>
+      <button id="disBtn" title="Claims in one section with the same subject and predicate but different objects">Disagreements</button>
+    </div>
+    <div id="dis"></div>
+    <div class="list" id="results" aria-live="polite"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-sheet">
+    <h2 id="h-sheet">Your sheet</h2>
+    <label for="title">Sheet title</label>
+    <input id="title" type="text">
+    <div id="items"></div>
+    <div class="row">
+      <button id="addQ">+ Question</button>
+      <button id="addN">+ Teacher's note</button>
+      <button id="present" class="primary">Project</button>
+      <button id="print">Print</button>
+    </div>
+    <p class="meta">Only claims carry facts. Questions should ask, not tell; notes are printed as the teacher's own words, not the source.</p>
+    <div class="row">
+      <button id="save">Save</button>
+      <div><select id="saved" aria-label="Saved sheets"><option value="">Saved sheets…</option></select></div>
+      <button id="load">Open</button>
+      <button id="del">Delete</button>
+      <button id="example">Example</button>
+      <button id="clear">New</button>
+    </div>
+    <label for="share">Share string (copy to send; paste one and press Load)</label>
+    <textarea id="share" spellcheck="false"></textarea>
+    <div class="row"><button id="copy">Copy</button><button id="import">Load from string</button><span id="msg" role="status"></span></div>
+  </section>
+</main>
+<footer>
+  Claims are AI-extracted from Ibn Hishām's Sīra (al-Saqqā edition), each tied to a passage and its citation. They are <strong>proposed and unreviewed</strong>: check the cited page before teaching from a claim. Bare lineage claims are left out of this tool.
+</footer>
+<div id="presentBar"><button id="prev">◀</button><button id="next">▶</button><button id="exit">Close (Esc)</button></div>
+<div id="paper" class="sheet"></div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+"use strict";
+var D = JSON.parse(document.getElementById("data").textContent);
+var $ = function(id){return document.getElementById(id);};
+var N = D.names, P = D.preds, S = D.psgs, C = D.claims;
+var byId = {}; C.forEach(function(c){byId[c[0]] = c;});
+var LS = "marsad.circle.sheets", LSCUR = "marsad.circle.current";
+
+function norm(s){
+  return String(s).normalize("NFD")
+    .replace(/[̀-ًͯ-ٰٟـ]/g,"")
+    .replace(/[ʿʾ‘’'`]/g,"")
+    .replace(/[أإآٱ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي")
+    .toLowerCase().replace(/[^\p{L}\p{N}]+/gu," ")
+    .replace(/\b(ibn|bin)\b/g,"b").replace(/\bbint\b/g,"bt").trim();
+}
+var IX = C.map(function(c){
+  var s = S[c[5]];
+  return " " + norm([c[4], N[c[2]], c[3] >= 0 ? N[c[3]] : "", P[c[1]][1], s[0], s[1]].join(" ")) + " ";
+});
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(m){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m];});}
+function cite(c){var s = S[c[5]]; return (s[2] || ("section " + s[0])) ;}
+function claimHTML(c){
+  return '<p class="g">' + esc(c[4]) + '</p><div class="cite"><span class="tag">' + esc(S[c[5]][0]) + '</span>' +
+    esc(N[c[2]]) + ' · ' + esc(P[c[1]][1]) + (c[3] >= 0 ? ' · ' + esc(N[c[3]]) : '') + '<br>' + esc(cite(c)) + '</div>';
+}
+
+/* --- filters --- */
+var secSel = $("sec"), seen = {};
+S.map(function(s){return s;}).sort(function(a,b){return a[0] < b[0] ? -1 : 1;}).forEach(function(s){
+  if (seen[s[0]]) return; seen[s[0]] = 1;
+  var o = document.createElement("option"); o.value = s[0]; o.textContent = s[0] + " — " + s[1].slice(0,90);
+  secSel.appendChild(o);
+});
+var dl = $("personList"), frag = document.createDocumentFragment();
+D.persons.forEach(function(i){var o = document.createElement("option"); o.value = N[i]; frag.appendChild(o);});
+dl.appendChild(frag);
+var personIx = {}; D.persons.forEach(function(i){personIx[N[i]] = i;});
+
+function filtered(){
+  var q = norm($("q").value), toks = q ? q.split(" ") : [], sec = secSel.value, pv = $("person").value.trim();
+  var pi = pv ? (pv in personIx ? personIx[pv] : null) : -2, pn = pv ? norm(pv) : "";
+  var out = [];
+  for (var k = 0; k < C.length; k++){
+    var c = C[k];
+    if (sec && S[c[5]][0] !== sec) continue;
+    if (pi >= 0 && c[2] !== pi && c[3] !== pi) continue;
+    if (pi === null && (norm(N[c[2]]).indexOf(pn) < 0 && (c[3] < 0 || norm(N[c[3]]).indexOf(pn) < 0))) continue;
+    var ok = true;
+    for (var t = 0; t < toks.length; t++){ if (IX[k].indexOf(toks[t]) < 0){ok = false; break;} }
+    if (ok) out.push(c);
+  }
+  return out;
+}
+var LIMIT = 150;
+function renderResults(){
+  var r = filtered(), box = $("results");
+  $("count").textContent = r.length + " claim" + (r.length === 1 ? "" : "s") + (r.length > LIMIT ? " (showing " + LIMIT + ")" : "");
+  if (!r.length){box.innerHTML = '<div class="empty">No claims match. Try fewer words, or clear the section and person filters.</div>'; return;}
+  box.innerHTML = r.slice(0, LIMIT).map(function(c){
+    var on = inSheet(c[0]);
+    return '<div class="claim"><div class="body">' + claimHTML(c) + '</div><button data-add="' + c[0] + '"' + (on ? ' disabled' : '') + '>' + (on ? 'Added' : 'Add') + '</button></div>';
+  }).join("");
+}
+var tmr; function later(){clearTimeout(tmr); tmr = setTimeout(renderResults, 120);}
+$("q").addEventListener("input", later); $("person").addEventListener("input", later);
+secSel.addEventListener("change", function(){$("dis").innerHTML = ""; renderResults();});
+$("results").addEventListener("click", function(e){var id = e.target.getAttribute("data-add"); if (id){addItem(["c", id]);}});
+
+/* --- disagreement helper --- */
+// Same subject + predicate, different objects (one section). For predicates where one person is
+// normally the answer (who lodged him, who killed him), also: same predicate + object, different subjects.
+var MULTI = {rel_participated_in:1, rel_narrated_from:1, rel_present_at:1, rel_visited:1, rel_killed:1, rel_fought_against:1,
+  rel_fought_alongside:1, rel_travelled_via:1, rel_opposed:1, rel_corresponded_with:1, rel_captured:1, rel_spouse_of:1,
+  rel_appointed:1, rel_led:1, rel_sent_delegation_to:1, rel_ally_of:1, rel_pledged_allegiance_to:1, rel_absent_from:1,
+  rel_witnessed:1, rel_protected:1, rel_preceded:1, rel_succeeded:1, rel_party_to_treaty_with:1, rel_governed:1, rel_manumitted:1, rel_sheltered:1, rel_died_during:1};
+var BYOBJ = {rel_sheltered:1, rel_killed:1, rel_manumitted:1, rel_adopted_by:1};
+function disagreements(sec){
+  var g1 = {}, g2 = {};
+  C.forEach(function(c){
+    if (S[c[5]][0] !== sec || c[3] < 0) return;
+    var p = P[c[1]][0];
+    if (!MULTI[p]){var k = c[2] + "|" + c[1]; (g1[k] = g1[k] || []).push(c);}
+    if (BYOBJ[p]){var k2 = c[1] + "|" + c[3]; (g2[k2] = g2[k2] || []).push(c);}
+  });
+  var out = [];
+  function take(g, field, kind){
+    Object.keys(g).forEach(function(k){
+      var v = g[k], d = {}; v.forEach(function(c){d[c[field]] = 1;});
+      if (Object.keys(d).length > 1) out.push({kind: kind, claims: v});
+    });
+  }
+  take(g1, 3, "same subject and predicate, different objects");
+  take(g2, 2, "same predicate and object, different subjects");
+  return out;
+}
+$("disBtn").addEventListener("click", function(){
+  var sec = secSel.value, box = $("dis");
+  if (!sec){
+    var hits = [];
+    seenSecs().forEach(function(s){var n = disagreements(s).length; if (n) hits.push([s, n]);});
+    box.innerHTML = '<div class="dis"><h3>Sections with possible disagreements (' + hits.length + ')</h3><p class="meta">Pick one to see the claims side by side.</p><div class="row" style="gap:4px">' +
+      hits.map(function(h){return '<button data-sec="' + h[0] + '">' + h[0] + ' (' + h[1] + ')</button>';}).join("") + '</div></div>';
+    return;
+  }
+  var ds = disagreements(sec);
+  box.innerHTML = ds.length ? ds.map(function(d, i){
+    return '<div class="dis"><h3>' + esc(N[d.claims[0][2]] === N[d.claims[1][2]] ? N[d.claims[0][2]] + " — " + P[d.claims[0][1]][1] : P[d.claims[0][1]][1] + " — " + N[d.claims[0][3]]) +
+      '</h3><div class="meta">' + d.kind + '</div>' + d.claims.map(function(c){return '<div class="claim"><div class="body">' + claimHTML(c) + '</div></div>';}).join("") +
+      '<button data-dis="' + i + '">Add these ' + d.claims.length + ' with a question</button></div>';
+  }).join("") : '<div class="dis meta">No disagreements found in ' + esc(sec) + '. The text may still differ in ways this simple check cannot see.</div>';
+  box._ds = ds;
+});
+function seenSecs(){return Object.keys(seen).sort();}
+$("dis").addEventListener("click", function(e){
+  var s = e.target.getAttribute("data-sec");
+  if (s){secSel.value = s; renderResults(); $("disBtn").click(); return;}
+  var i = e.target.getAttribute("data-dis");
+  if (i !== null && $("dis")._ds){
+    var d = $("dis")._ds[+i];
+    d.claims.forEach(function(c){if (!inSheet(c[0])) sheet.items.push(["c", c[0]]);});
+    sheet.items.push(["q", "These reports do not agree. What does each one say, and why might the author keep both?"]);
+    changed();
+  }
+});
+
+/* --- sheet --- */
+var sheet = {v:1, title:"", items:[]};
+function inSheet(id){return sheet.items.some(function(it){return it[0] === "c" && it[1] === id;});}
+function addItem(it){if (it[0] === "c" && inSheet(it[1])) return; sheet.items.push(it); changed();}
+function changed(){renderSheet(); renderResults(); persist();}
+function persist(){$("share").value = JSON.stringify(sheet); try{localStorage.setItem(LSCUR, $("share").value);}catch(e){}}
+function renderSheet(){
+  $("title").value = sheet.title;
+  var box = $("items");
+  if (!sheet.items.length){box.innerHTML = '<div class="empty">Empty sheet. Add claims from the left, then questions.</div>'; return;}
+  box.innerHTML = sheet.items.map(function(it, i){
+    var body;
+    if (it[0] === "c"){var c = byId[it[1]]; body = c ? claimHTML(c) : '<p class="meta">Unknown claim ' + esc(it[1]) + '</p>';}
+    else body = '<div class="kind">' + (it[0] === "q" ? "Question" : "Teacher's note") + '</div><textarea data-ed="' + i + '" aria-label="' +
+      (it[0] === "q" ? "Question" : "Teacher's note") + '" placeholder="' + (it[0] === "q" ? "Ask something the claims can answer, or invite reflection…" : "Your own words; printed as a teacher's note") + '">' + esc(it[1]) + '</textarea>';
+    return '<div class="item ' + it[0] + '"><div class="body">' + body + '</div><div class="ctl">' +
+      '<button data-mv="' + i + ',-1" aria-label="Move up"' + (i ? '' : ' disabled') + '>▲</button>' +
+      '<button data-mv="' + i + ',1" aria-label="Move down"' + (i < sheet.items.length - 1 ? '' : ' disabled') + '>▼</button>' +
+      '<button data-rm="' + i + '" aria-label="Remove">✕</button></div></div>';
+  }).join("");
+}
+$("items").addEventListener("click", function(e){
+  var mv = e.target.getAttribute("data-mv"), rm = e.target.getAttribute("data-rm");
+  if (mv){var a = mv.split(","), i = +a[0], j = i + (+a[1]); var t = sheet.items[i]; sheet.items[i] = sheet.items[j]; sheet.items[j] = t; changed();}
+  if (rm !== null){sheet.items.splice(+rm, 1); changed();}
+});
+$("items").addEventListener("input", function(e){var i = e.target.getAttribute("data-ed"); if (i !== null){sheet.items[+i][1] = e.target.value; persist();}});
+$("title").addEventListener("input", function(){sheet.title = $("title").value; persist();});
+$("addQ").onclick = function(){sheet.items.push(["q", ""]); changed(); var t = $("items").querySelectorAll("textarea"); if (t.length) t[t.length-1].focus();};
+$("addN").onclick = function(){sheet.items.push(["n", ""]); changed(); var t = $("items").querySelectorAll("textarea"); if (t.length) t[t.length-1].focus();};
+
+function validate(o){
+  if (!o || !Array.isArray(o.items)) throw new Error("not a sheet");
+  var miss = 0, items = [];
+  o.items.forEach(function(it){
+    if (!Array.isArray(it) || typeof it[1] !== "string") return;
+    if (it[0] === "c"){ if (byId[it[1]]) items.push(["c", it[1]]); else miss++; }
+    else if (it[0] === "q" || it[0] === "n") items.push([it[0], it[1].slice(0, 2000)]);
+  });
+  return {sheet: {v:1, title: String(o.title || "Untitled sheet").slice(0, 200), items: items}, missing: miss};
+}
+function setSheet(o, note){var r = validate(o); sheet = r.sheet; changed(); msg((note || "Loaded") + (r.missing ? " — " + r.missing + " claim(s) not in this build were skipped" : ""));}
+function msg(t){$("msg").textContent = t; clearTimeout(msg.t); msg.t = setTimeout(function(){$("msg").textContent = "";}, 4000);}
+
+function store(){try{return JSON.parse(localStorage.getItem(LS) || "{}") || {};}catch(e){return {};}}
+function refreshSaved(){
+  var s = store(), sel = $("saved");
+  sel.innerHTML = '<option value="">Saved sheets…</option>' + Object.keys(s).sort().map(function(k){return '<option>' + esc(k) + '</option>';}).join("");
+}
+$("save").onclick = function(){
+  var s = store(), k = sheet.title.trim() || "Untitled sheet"; s[k] = sheet;
+  try{localStorage.setItem(LS, JSON.stringify(s)); refreshSaved(); $("saved").value = k; msg("Saved in this browser");}
+  catch(e){msg("Could not save here; copy the share string instead");}
+};
+$("load").onclick = function(){var k = $("saved").value, s = store(); if (k && s[k]) setSheet(s[k], "Opened");};
+$("del").onclick = function(){
+  var k = $("saved").value, s = store(); if (!k || !s[k]) return;
+  delete s[k]; try{localStorage.setItem(LS, JSON.stringify(s));}catch(e){} refreshSaved(); msg("Deleted " + k);
+};
+$("example").onclick = function(){setSheet(D.example, "Example loaded");};
+$("clear").onclick = function(){sheet = {v:1, title:"Untitled sheet", items:[]}; changed();};
+$("import").onclick = function(){try{setSheet(JSON.parse($("share").value));}catch(e){msg("That string is not a sheet");}};
+$("copy").onclick = function(){
+  var t = $("share"); t.select();
+  try{ if (navigator.clipboard) navigator.clipboard.writeText(t.value).then(function(){msg("Copied");}, function(){msg("Select and copy the text");}); else {document.execCommand("copy"); msg("Copied");} }
+  catch(e){msg("Select and copy the text");}
+};
+
+/* --- print / projector view --- */
+var cur = -1;
+function renderPaper(){
+  var html = '<h1>' + esc(sheet.title || "Majlis sheet") + '</h1><div class="sub">A reading sheet from Ibn Hishām\'s Sīra. Every statement below is a cited claim; questions and notes are the teacher\'s.</div><ol>';
+  sheet.items.forEach(function(it, i){
+    var cls = it[0] + (i === cur ? " cur" : "");
+    if (it[0] === "c"){var c = byId[it[1]]; if (!c) return;
+      html += '<li class="' + cls + '"><div class="g">' + esc(c[4]) + '</div><div class="cite">' + esc(cite(c)) + ' · ' + esc(S[c[5]][0]) + '</div></li>';}
+    else if (it[1].trim()) html += '<li class="' + cls + '"><div class="kind">' + (it[0] === "q" ? "Question" : "Teacher's note (not from the source)") + '</div><div class="g">' + esc(it[1]) + '</div></li>';
+  });
+  html += '</ol><div class="foot">Claims are AI-extracted, proposed and unreviewed; check the cited page before relying on one. Built with al-Marṣad.</div>';
+  $("paper").innerHTML = html;
+  var el = $("paper").querySelector("li.cur"); if (el && el.scrollIntoView) el.scrollIntoView({block:"center", behavior:"smooth"});
+}
+function present(on){document.body.classList.toggle("present", on); cur = on ? 0 : -1; renderPaper();}
+$("present").onclick = function(){present(true);};
+$("exit").onclick = function(){present(false);};
+$("prev").onclick = function(){cur = Math.max(0, cur - 1); renderPaper();};
+$("next").onclick = function(){cur = Math.min($("paper").querySelectorAll("li").length - 1, cur + 1); renderPaper();};
+document.addEventListener("keydown", function(e){
+  if (!document.body.classList.contains("present")) return;
+  if (e.key === "Escape") present(false);
+  else if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " "){e.preventDefault(); $("next").click();}
+  else if (e.key === "ArrowLeft" || e.key === "ArrowUp"){e.preventDefault(); $("prev").click();}
+});
+$("print").onclick = function(){cur = -1; renderPaper(); window.print();};
+window.addEventListener("beforeprint", function(){if (!document.body.classList.contains("present")){cur = -1; renderPaper();}});
+
+/* --- start --- */
+refreshSaved();
+var start = null; try{start = localStorage.getItem(LSCUR);}catch(e){}
+try{ if (start){ var r = validate(JSON.parse(start)); if (r.sheet.items.length) {sheet = r.sheet;} else start = null; } }catch(e){start = null;}
+if (!start) sheet = validate(D.example).sheet;
+renderSheet(); persist();
+secSel.value = "S0698"; renderResults();
+})();
+</script>
+</body>
+</html>

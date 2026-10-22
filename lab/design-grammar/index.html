@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aniconic Design Grammar</title>
+<meta name="description" content="Specimen of al-Marṣad's aniconic night-world design grammar: each mark with its rule, licence and limits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#070a15; --panel:rgba(11,15,29,.88); --panel-solid:#0c1020;
+  --ink:#ebe6d6; --muted:#9ba1b6; --faint:#6b7189; --line:rgba(235,230,214,.13);
+  --light:#ffd486; --light-dim:rgba(255,212,134,.16); --person:#dce7ff;
+  --stone:#7b7f8e; --stone-fill:#1a1d28; --absence:rgba(155,161,182,.55);
+  --chain:rgba(220,231,255,.42); --constellation:rgba(220,231,255,.22);
+  --dispute:#e8a090; --ok:#95d5ac; --focus:#fff;
+  --f-display:"Marcellus","Palatino Linotype",Palatino,Georgia,serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-arabic:"Amiri","Noto Naskh Arabic","Geeza Pro",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --t-breath:6s; --t-transform:2.4s;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night);color:var(--ink);font:16px/1.6 var(--f-body)}
+body{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,212,134,.05),transparent 70%),var(--night)}
+.wrap{max-width:1120px;margin:0 auto;padding:48px 16px 80px}
+header{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:36px}
+h1{font:400 clamp(30px,5vw,46px)/1.15 var(--f-display);margin:0 0 8px;letter-spacing:.01em}
+h1 .ar{font-family:var(--f-arabic);color:var(--light);font-size:.8em;margin-inline-start:.4em}
+h2{font:400 22px/1.3 var(--f-display);margin:52px 0 6px}
+.lede{color:var(--muted);max-width:68ch;margin:0}
+.meta{font:12px/1.5 var(--f-mono);color:var(--faint);margin-top:14px}
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.principles li{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--panel);font-size:14px;color:var(--muted)}
+.principles b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:18px}
+.card{border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.stage{height:180px;background:var(--night);border-bottom:1px solid var(--line);display:block;width:100%}
+.body{padding:14px 16px 16px;font-size:14px}
+.body h3{margin:0 0 2px;font:500 16px/1.3 var(--f-body)}
+.body h3 .ar{font-family:var(--f-arabic);font-weight:400;color:var(--muted);margin-inline-start:6px;font-size:17px}
+.body p{margin:6px 0;color:var(--muted)}
+dl{margin:8px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+dt{font:11px/1.7 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--faint)}
+dd{margin:0;color:var(--ink)}
+dd.no{color:var(--dispute)}
+code{font:12px var(--f-mono);color:var(--person)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:16px}
+.sw{border:1px solid var(--line);border-radius:10px;overflow:hidden;font:12px/1.4 var(--f-mono);background:var(--panel)}
+.sw i{display:block;height:46px}
+.sw span{display:block;padding:8px 10px;color:var(--muted)}
+.sw b{color:var(--ink);font-weight:400}
+.forbid{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px}
+.forbid li{border:1px solid rgba(232,160,144,.28);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--muted)}
+.forbid li::before{content:"✕";color:var(--dispute);margin-inline-end:8px}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+th,td{text-align:start;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:11px var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:400}
+td.ar{font:20px/1.8 var(--f-arabic);direction:rtl;white-space:nowrap}
+.tablewrap{overflow-x:auto}
+.note{font-size:13px;color:var(--faint);margin-top:10px}
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;font-size:13px;color:var(--faint)}
+.nw{white-space:nowrap}
+/* motion */
+.breath{animation:breath var(--t-breath) ease-in-out infinite;transform-origin:center}
+@keyframes breath{0%,100%{opacity:.94}50%{opacity:1}}
+.halo{animation:halo var(--t-breath) ease-in-out infinite}
+@keyframes halo{0%,100%{opacity:.82}50%{opacity:1}}
+.tw{animation:tw 4.5s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.25}50%{opacity:.5}}
+.st-stone{animation:stoneOut 8s ease-in-out infinite}
+.st-light{animation:lightIn 8s ease-in-out infinite}
+@keyframes stoneOut{0%,35%{opacity:1}65%,90%{opacity:0}100%{opacity:1}}
+@keyframes lightIn{0%,35%{opacity:0}65%,90%{opacity:1}100%{opacity:0}}
+.rise{stroke-dasharray:200;animation:rise 5s ease-out infinite}
+@keyframes rise{0%{stroke-dashoffset:200}60%,100%{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  .breath,.halo,.tw,.rise{animation:none}
+  .st-stone{animation:none;opacity:.35}.st-light{animation:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>The aniconic design grammar <span class="ar" lang="ar" dir="rtl">المرصد</span></h1>
+  <p class="lede">Every mark in al-Marṣad's night world, what it means, what licenses it, and what it may never say. No person is ever drawn as a figure: people are light, name, relation and sound of narration about them. The Prophet <span class="nw">ﷺ</span> is the light at the centre, never a node.</p>
+  <p class="meta">Specimen for GRAMMAR.md v0.1 · draft for the scholars' board · 17 Oct 2026 · the stars image is our own metaphor, never a hadith</p>
+</header>
+
+<ul class="principles" aria-label="Principles">
+  <li><b>No pixel without provenance</b>Every data mark opens its source. Decoration never varies with data.</li>
+  <li><b>Aniconism is absolute</b>No face, body, silhouette, hand or avatar, for anyone, in any medium.</li>
+  <li><b>AI never asserts</b>A mark licensed only by a model output is never drawn.</li>
+  <li><b>Computed ≠ significant</b>Counts are coverage of the record, never rank. Brightness is generation only.</li>
+  <li><b>Uncertainty is drawn</b>Certainty rings, dispute rings and absence, never silent filling.</li>
+</ul>
+
+<h2>The vocabulary</h2>
+<p class="lede">Each card shows the mark at 1× with its rule. Motion follows the reduced-motion setting of your device.</p>
+<div class="grid">
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="The central light: a soft golden radiance with no shape or outline">
+  <defs><radialGradient id="g-light"><stop offset="0" stop-color="#ffd486"/><stop offset=".18" stop-color="#ffd486" stop-opacity=".9"/><stop offset=".45" stop-color="#ffd486" stop-opacity=".18"/><stop offset="1" stop-color="#ffd486" stop-opacity="0"/></radialGradient></defs>
+  <circle class="halo" cx="160" cy="90" r="80" fill="url(#g-light)"/>
+  <circle class="breath" cx="160" cy="90" r="14" fill="#ffd486"/>
+</svg>
+<div class="body"><h3>The light <span class="ar" lang="ar" dir="rtl">النور</span></h3>
+<p>The Prophet ﷺ: the source of the light the others receive. Shown beside his name, never as a shape.</p>
+<dl><dt>Encodes</dt><dd>recorded presence at a place and time</dd>
+<dt>Licence</dt><dd>a located, dated claim per station; otherwise it waits at an absence mark</dd>
+<dt>Never</dt><dd class="no">a node, count, rank, tooltip score, figure, footprint or voice</dd>
+<dt>Spec</dt><dd><code>--light</code> 28 px core, 160 px halo, breath 6 s ±6 %</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Four person lights of decreasing brightness, labelled by generation">
+  <defs><radialGradient id="g-p"><stop offset="0" stop-color="#dce7ff"/><stop offset="1" stop-color="#dce7ff" stop-opacity="0"/></radialGradient></defs>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" fill="#9ba1b6" text-anchor="middle">
+  <circle cx="50" cy="80" r="18" fill="url(#g-p)" opacity=".55"/><circle cx="50" cy="80" r="3" fill="#dce7ff"/><text x="50" y="130">gen 1</text><text x="50" y="144">Companions</text>
+  <circle cx="125" cy="80" r="13" fill="url(#g-p)" opacity=".4"/><circle cx="125" cy="80" r="3" fill="#dce7ff" opacity=".72"/><text x="125" y="130">gen 2</text><text x="125" y="144">Successors</text>
+  <circle cx="200" cy="80" r="10" fill="url(#g-p)" opacity=".3"/><circle cx="200" cy="80" r="3" fill="#dce7ff" opacity=".52"/><text x="200" y="130">gen 3</text>
+  <circle cx="270" cy="80" r="3" fill="#dce7ff" opacity=".36"/><text x="270" y="130">gen 4+</text><text x="270" y="144">later</text></g>
+</svg>
+<div class="body"><h3>The lights <span class="ar" lang="ar" dir="rtl">الأنوار</span></h3>
+<p>People who accepted Islam. Brightness is generation (T4), never worth. Same colour and size for women and men.</p>
+<dl><dt>Encodes</dt><dd>presence in the record; generation; scholar-accepted companionship</dd>
+<dt>Licence</dt><dd>a sourced assertion naming the person; companionship accepted by a scholar</dd>
+<dt>Never</dt><dd class="no">virtue, rank, Paradise, size by computed degree (outside a labelled coverage view)</dd>
+<dt>Spec</dt><dd><code>--person</code> 6 px core; opacity 1 / .72 / .52 / .36</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="A dark stone that, at a recorded acceptance of Islam, becomes a light">
+  <line x1="40" y1="150" x2="280" y2="150" stroke="rgba(235,230,214,.13)"/>
+  <line x1="160" y1="144" x2="160" y2="156" stroke="#9ba1b6"/>
+  <text x="160" y="170" fill="#6b7189" font-family="IBM Plex Mono,monospace" font-size="10" text-anchor="middle">recorded acceptance · date · source</text>
+  <g class="st-stone"><polygon points="152,82 160,77 168,80 171,90 166,99 155,100 149,92" fill="#1a1d28" stroke="#7b7f8e"/></g>
+  <g class="st-light"><circle cx="160" cy="89" r="22" fill="url(#g-p)" opacity=".55"/><circle cx="160" cy="89" r="3" fill="#dce7ff"/></g>
+</svg>
+<div class="body"><h3>Stones <span class="ar" lang="ar" dir="rtl">الحجارة</span></h3>
+<p>Recorded opposition, at this time, according to these sources (X1). Turns to light only at a recorded, sourced acceptance of Islam.</p>
+<dl><dt>Encodes</dt><dd>sourced <code>rel_opposed</code> / <code>rel_fought_against</code> within its time span</dd>
+<dt>Licence</dt><dd>opposition claim; for the turn, a dated acceptance claim (relation type still to be added)</dd>
+<dt>Never</dt><dd class="no">a verdict on final state, tribe, "evil", red, a figure; children are never stones</dd>
+<dt>Spec</dt><dd>8×7 px heptagon, <code>--stone-fill</code>, 1 px <code>--stone</code>, no halo; turn 2.4 s</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Absence: dashed empty outlines for an unplaced place and an unnamed person">
+  <circle cx="110" cy="85" r="16" fill="none" stroke="rgba(155,161,182,.55)" stroke-dasharray="3 3"/>
+  <circle cx="210" cy="85" r="6" fill="none" stroke="rgba(155,161,182,.55)" stroke-dasharray="2 2"/>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" fill="#9ba1b6" text-anchor="middle"><text x="110" y="130">place unlocated</text><text x="210" y="130">"a man of the Anṣār"</text></g>
+</svg>
+<div class="body"><h3>Absence <span class="ar" lang="ar" dir="rtl">الغياب</span></h3>
+<p>What the record does not give: honest, empty, and documented. Never filled by guess, model or reconstruction.</p>
+<dl><dt>Encodes</dt><dd><code>lc_unlocated</code>, undated, unnamed, <code>cs_stub</code>, <code>mrs:CoverageGap</code></dd>
+<dt>Licence</dt><dd>a source that mentions the thing without placing or naming it, or a coverage record</dd>
+<dt>Never</dt><dd class="no">interpolated positions, dates or straight-line routes</dd>
+<dt>Spec</dt><dd>1 px dashed <code>--absence</code>, dash 3/3, empty</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Certainty rings: certain, probable, approximate, disputed, under review">
+  <g font-family="IBM Plex Mono,monospace" font-size="9" fill="#9ba1b6" text-anchor="middle">
+  <circle cx="40" cy="80" r="4" fill="#dce7ff"/><text x="40" y="125">certain</text>
+  <circle cx="100" cy="80" r="4" fill="#dce7ff"/><circle cx="100" cy="80" r="9" fill="none" stroke="#dce7ff" stroke-opacity=".4"/><text x="100" y="125">probable</text>
+  <circle cx="160" cy="80" r="4" fill="#dce7ff"/><circle cx="160" cy="80" r="9" fill="none" stroke="#dce7ff" stroke-opacity=".6" stroke-dasharray="1 2.4"/><text x="160" y="125">approximate</text>
+  <circle cx="220" cy="80" r="4" fill="#dce7ff"/><circle cx="220" cy="80" r="8" fill="none" stroke="#dce7ff" stroke-opacity=".4"/><path d="M220 68 A12 12 0 1 1 214 69.6" fill="none" stroke="#e8a090"/><text x="220" y="125">disputed</text>
+  <circle cx="280" cy="80" r="4" fill="#dce7ff" opacity=".6"/><circle cx="280" cy="80" r="9" fill="none" stroke="#9ba1b6" stroke-dasharray="3 3"/><text x="280" y="125">under review</text></g>
+</svg>
+<div class="body"><h3>Certainty rings <span class="ar" lang="ar" dir="rtl">حلقات اليقين</span></h3>
+<p>The reviewed certainty of the claim behind a mark. Rejected and superseded claims are not drawn.</p>
+<dl><dt>Encodes</dt><dd><code>lc_*</code>, <code>as_proposed</code>, <code>as_under_review</code>, <code>mrs:Dispute</code></dd>
+<dt>Licence</dt><dd>the claim's own status; disputes list every position with its source</dd>
+<dt>Never</dt><dd class="no">hadith grade, narrator reliability, a scholar's view of a person</dd>
+<dt>Spec</dt><dd>rings at core +4 / +8 px; dispute outer ring <code>--dispute</code> with notch</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="An isnad chain of lights rising from the reader toward the central light, one link dashed for unverified contact">
+  <circle cx="160" cy="18" r="34" fill="url(#g-light)" opacity=".8"/>
+  <path class="rise" d="M160 170 L160 136 L160 104" stroke="rgba(220,231,255,.42)" fill="none"/>
+  <line x1="160" y1="104" x2="160" y2="72" stroke="rgba(220,231,255,.42)" stroke-dasharray="3 3"/>
+  <line x1="160" y1="72" x2="160" y2="38" stroke="rgba(220,231,255,.42)"/>
+  <g fill="#dce7ff"><circle cx="160" cy="136" r="3" opacity=".36"/><circle cx="160" cy="104" r="3" opacity=".52"/><circle cx="160" cy="72" r="3" opacity=".72"/><circle cx="160" cy="40" r="3"/></g>
+  <g font-family="IBM Plex Mono,monospace" font-size="9" fill="#9ba1b6"><text x="172" y="139">compiler</text><text x="172" y="107">narrator</text><text x="172" y="88">contact unverified</text><text x="172" y="75">Successor</text><text x="172" y="43">Companion</text><text x="60" y="170">reader ↑ source · marfūʿ</text></g>
+</svg>
+<div class="body"><h3>Chains <span class="ar" lang="ar" dir="rtl">الإسناد</span></h3>
+<p>The recorded chain of a specific report, rising link by link. Marfūʿ chains end in the light's halo, not at a node.</p>
+<dl><dt>Encodes</dt><dd><code>TransmissionChain</code>, <code>TransmissionLink</code>, <code>ContactCheck</code>, ascription label</dd>
+<dt>Licence</dt><dd>the chain as the collection gives it</dd>
+<dt>Never</dt><dd class="no">a grade we computed; line weight by "strength"</dd>
+<dt>Spec</dt><dd><code>--chain</code> 1 px; dashed if unverified; gap = absence mark; 600 ms / link</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="A constellation: faint lines among lights recorded at the same event, remaining as memory">
+  <g stroke="rgba(220,231,255,.22)"><line x1="80" y1="60" x2="130" y2="100"/><line x1="130" y1="100" x2="190" y2="70"/><line x1="190" y1="70" x2="240" y2="110"/><line x1="130" y1="100" x2="160" y2="140"/></g>
+  <g fill="#dce7ff"><circle cx="80" cy="60" r="3"/><circle cx="130" cy="100" r="3"/><circle cx="190" cy="70" r="3"/><circle cx="240" cy="110" r="3"/><circle cx="160" cy="140" r="3" opacity=".72"/></g>
+  <text x="250" y="40" fill="#9ba1b6" font-family="Amiri,serif" font-size="16" text-anchor="middle">بدر</text>
+  <text x="250" y="54" fill="#6b7189" font-family="IBM Plex Mono,monospace" font-size="9" text-anchor="middle">Badr · 2 AH</text>
+</svg>
+<div class="body"><h3>Constellations <span class="ar" lang="ar" dir="rtl">الكوكبات</span></h3>
+<p>Recorded co-participation in a recorded event, appearing once the story has passed through it, and remaining as memory.</p>
+<dl><dt>Encodes</dt><dd><code>mrs:Participation</code> at both ends of each line</dd>
+<dt>Licence</dt><dd>reviewed participant list; 50 Stories list allowed with an "unreviewed list" note (E3)</dd>
+<dt>Never</dt><dd class="no">computed clusters, factions, similarity (research views only, labelled)</dd>
+<dt>Spec</dt><dd><code>--constellation</code> 1 px; label Arabic + Latin</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Calligraphy: a name with its honorific set beside a light">
+  <circle cx="272" cy="90" r="22" fill="url(#g-p)" opacity=".55"/><circle cx="272" cy="90" r="3" fill="#dce7ff"/>
+  <text x="248" y="96" fill="#ebe6d6" font-family="Amiri,serif" font-size="22" text-anchor="end">أبو بكر الصديق <tspan font-size="18" fill="#9ba1b6">رضي الله عنه</tspan></text>
+  <text x="248" y="124" fill="#6b7189" font-family="IBM Plex Mono,monospace" font-size="9" text-anchor="end">Abū Bakr al-Ṣiddīq</text><text x="248" y="138" fill="#6b7189" font-family="IBM Plex Mono,monospace" font-size="9" text-anchor="end">name beside the light, never inside</text>
+</svg>
+<div class="body"><h3>Calligraphy <span class="ar" lang="ar" dir="rtl">الخط</span></h3>
+<p>Names beside the light, in the hilye spirit: words describe, nothing depicts.</p>
+<dl><dt>Encodes</dt><dd>name, kunya, nasab, laqab, honorific, each sourced</dd>
+<dt>Licence</dt><dd>a source for each name form; commissioned panels credited</dd>
+<dt>Never</dt><dd class="no">letters arranged into a figure; generated calligraphy; guessed vocalisation</dd>
+<dt>Spec</dt><dd><code>--f-arabic</code> 1.15–1.25× Latin, line-height 1.8, no letter-spacing</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Time and season: a lunar month arc with a computed moon phase for a recorded date">
+  <path d="M30 140 Q160 30 290 140" fill="none" stroke="rgba(235,230,214,.13)"/>
+  <g fill="#6b7189"><circle cx="60" cy="112" r="2"/><circle cx="110" cy="80" r="2"/><circle cx="210" cy="80" r="2"/><circle cx="260" cy="112" r="2"/></g>
+  <circle cx="160" cy="66" r="12" fill="#ebe6d6" opacity=".85"/><circle cx="166" cy="62" r="11" fill="#070a15"/>
+  <g font-family="IBM Plex Mono,monospace" font-size="9" fill="#9ba1b6" text-anchor="middle"><text x="160" y="98">computed from the recorded date</text><text x="160" y="160">Rabīʿ al-Awwal · AH primary, CE approximate</text></g>
+</svg>
+<div class="body"><h3>Time and season <span class="ar" lang="ar" dir="rtl">الزمان</span></h3>
+<p>The sky turns with the lunar calendar (T2). Moon phase only for a recorded date, labelled as computed.</p>
+<dl><dt>Encodes</dt><dd>recorded dates and spans; seasons only where a source states them</dd>
+<dt>Licence</dt><dd>a dated claim; undated events sit in a span with an absence edge</dd>
+<dt>Never</dt><dd class="no">a precise hour or day not in the sources</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Weather: a faint haze of rain drawn only where a source describes it">
+  <g stroke="rgba(220,231,255,.18)" stroke-linecap="round">
+  <line x1="60" y1="40" x2="56" y2="56"/><line x1="100" y1="60" x2="96" y2="76"/><line x1="140" y1="35" x2="136" y2="51"/><line x1="180" y1="70" x2="176" y2="86"/><line x1="220" y1="45" x2="216" y2="61"/><line x1="260" y1="65" x2="256" y2="81"/><line x1="80" y1="95" x2="76" y2="111"/><line x1="200" y1="105" x2="196" y2="121"/><line x1="240" y1="100" x2="236" y2="116"/><line x1="120" y1="110" x2="116" y2="126"/></g>
+  <text x="160" y="160" fill="#9ba1b6" font-family="IBM Plex Mono,monospace" font-size="9" text-anchor="middle">rain before Badr · passage quoted in panel</text>
+</svg>
+<div class="body"><h3>Weather <span class="ar" lang="ar" dir="rtl">الجو</span></h3>
+<p>Atmosphere, never theatre. With no source, the sky is clear and neutral.</p>
+<dl><dt>Encodes</dt><dd>weather a source describes</dd>
+<dt>Licence</dt><dd>an accepted passage, quoted in the panel</dd>
+<dt>Never</dt><dd class="no">divine favour or anger as an effect; angels or miracles as images (text only)</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Sound: a waveform of ambience with a muted note that no voice is given to the Prophet or the Companions">
+  <g stroke="rgba(220,231,255,.4)" stroke-linecap="round">
+  <line x1="60" y1="84" x2="60" y2="96"/><line x1="72" y1="80" x2="72" y2="100"/><line x1="84" y1="86" x2="84" y2="94"/><line x1="96" y1="76" x2="96" y2="104"/><line x1="108" y1="83" x2="108" y2="97"/><line x1="120" y1="78" x2="120" y2="102"/><line x1="132" y1="86" x2="132" y2="94"/><line x1="144" y1="81" x2="144" y2="99"/><line x1="156" y1="87" x2="156" y2="93"/><line x1="168" y1="79" x2="168" y2="101"/><line x1="180" y1="85" x2="180" y2="95"/><line x1="192" y1="82" x2="192" y2="98"/><line x1="204" y1="86" x2="204" y2="94"/><line x1="216" y1="80" x2="216" y2="100"/><line x1="228" y1="85" x2="228" y2="95"/><line x1="240" y1="83" x2="240" y2="97"/><line x1="252" y1="87" x2="252" y2="93"/></g>
+  <text x="160" y="140" fill="#9ba1b6" font-family="IBM Plex Mono,monospace" font-size="9" text-anchor="middle">night wind, recorded in the Ḥijāz · credited</text>
+</svg>
+<div class="body"><h3>Sound <span class="ar" lang="ar" dir="rtl">الصوت</span></h3>
+<p>Voice and ambience. No instruments (the duff is the board's question). See SOUND.md for policies A, B, C.</p>
+<dl><dt>Encodes</dt><dd>place, recitation, narration about people</dd>
+<dt>Licence</dt><dd>credited recording; sourced passage</dd>
+<dt>Never</dt><dd class="no">the Prophet ﷺ voiced; Companions in the first person; battle sound</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" viewBox="0 0 320 180" role="img" aria-label="Decoration: faint background stars that carry no data">
+  <g fill="#6b7189"><circle class="tw" cx="40" cy="30" r="1"/><circle cx="90" cy="70" r=".8" opacity=".4"/><circle class="tw" cx="150" cy="40" r="1"/><circle cx="210" cy="120" r=".8" opacity=".35"/><circle class="tw" cx="270" cy="50" r="1"/><circle cx="60" cy="140" r=".8" opacity=".4"/><circle class="tw" cx="240" cy="160" r="1"/><circle cx="180" cy="80" r=".8" opacity=".3"/><circle cx="120" cy="130" r=".8" opacity=".35"/></g>
+  <line x1="0" y1="150" x2="320" y2="150" stroke="rgba(235,230,214,.08)"/>
+</svg>
+<div class="body"><h3>Decoration</h3>
+<p>Background stars and horizon. Never interactive, never varies with data, never in the light or person hues.</p>
+<dl><dt>Encodes</dt><dd>nothing</dd><dt>Spec</dt><dd><code>--faint</code> &lt; .5 opacity; the only marks allowed to twinkle</dd></dl></div>
+</article>
+</div>
+
+<h2>Colour tokens</h2>
+<div class="swatches">
+  <div class="sw"><i style="background:#070a15;box-shadow:inset 0 0 0 1px var(--line)"></i><span><b>--night</b><br>#070a15 · ground</span></div>
+  <div class="sw"><i style="background:#ffd486"></i><span><b>--light</b><br>#ffd486 · reserved</span></div>
+  <div class="sw"><i style="background:#dce7ff"></i><span><b>--person</b><br>#dce7ff · all people</span></div>
+  <div class="sw"><i style="background:#1a1d28;box-shadow:inset 0 0 0 1px #7b7f8e"></i><span><b>--stone</b><br>#1a1d28 / #7b7f8e</span></div>
+  <div class="sw"><i style="background:repeating-linear-gradient(90deg,rgba(155,161,182,.55) 0 6px,transparent 6px 12px)"></i><span><b>--absence</b><br>dashed only</span></div>
+  <div class="sw"><i style="background:#e8a090"></i><span><b>--dispute</b><br>never a person</span></div>
+  <div class="sw"><i style="background:#ebe6d6"></i><span><b>--ink</b><br>#ebe6d6 · text</span></div>
+  <div class="sw"><i style="background:#9ba1b6"></i><span><b>--muted</b><br>#9ba1b6</span></div>
+</div>
+
+<h2>Honorifics (H1)</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Who</th><th>Arabic</th><th>When</th></tr></thead>
+<tbody>
+<tr><td>The Prophet</td><td class="ar" lang="ar">ﷺ</td><td>always, every mention, including alt and screen-reader text</td></tr>
+<tr><td>A Companion</td><td class="ar" lang="ar">رضي الله عنه / عنها</td><td>once a scholar accepts the companionship claim</td></tr>
+<tr><td>Mothers of the Believers</td><td class="ar" lang="ar">رضي الله عنهن</td><td>always</td></tr>
+<tr><td>Other prophets</td><td class="ar" lang="ar">عليه السلام</td><td>always; text only, never a mark in the sky</td></tr>
+<tr><td>Later scholars, narrators</td><td class="ar" lang="ar">رحمه الله</td><td>deceased only</td></tr>
+</tbody></table></div>
+<p class="note">Honorific stays on the name's line (no wrap), 0.85 em, same colour. Abbreviate the name before ever dropping the honorific.</p>
+
+<h2>Forbidden</h2>
+<ul class="forbid">
+  <li>Any figure, face, silhouette, shadow, hand, avatar or generated image of the Prophet ﷺ, his family, the Companions, the prophets or angels</li>
+  <li>First-person camera or body in XR for any of them</li>
+  <li>A voice for the Prophet ﷺ; Companions voiced in the first person</li>
+  <li>The central light as a node, count or rank</li>
+  <li>The stars metaphor quoted as hadith</li>
+  <li>Size, glow or colour encoding virtue, rank or Paradise</li>
+  <li>Gendered colours or hidden marks for women</li>
+  <li>Interpolated places, dates or straight-line routes</li>
+  <li>Battle spectacle: blood, weapons, impacts, kill counts</li>
+  <li>Musical instruments (duff only if the board allows)</li>
+  <li>Any mark licensed only by a model output</li>
+  <li>Points, badges or "unlocking" tied to sacred persons</li>
+</ul>
+
+<footer>al-Marṣad · lab/design-grammar · draft standard for scholarly review. Everything on this page is a specimen of rules; no data from the record is shown. Background stars are decoration.</footer>
+</div>
+</body>
+</html>

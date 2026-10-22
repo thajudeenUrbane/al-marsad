@@ -1,0 +1,2190 @@
+{
+  "act": 4,
+  "title": "The ones who went ahead",
+  "subtitle": "Before the Prophet ﷺ left Makkah, his Companions went north in small groups: families torn apart, a house left empty, a man tricked back in chains, a fortune handed over at the edge of town, and the Anṣār opening their doors at Qubāʾ and in Madinah.",
+  "span": "Muḥarram–Ṣafar, year 1 (622 CE)",
+  "units": [
+    {
+      "id": "a04-u01",
+      "title": "Brothers and a home",
+      "kicker": "After the pledge of war at al-ʿAqaba",
+      "when": {
+        "label": "Shortly after the second pledge of al-ʿAqaba, before the Hijra of the Prophet ﷺ",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 5,
+        "pitch": 35,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the Muslims of Makkah",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "makkah",
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq places the order to emigrate after God had permitted fighting and after the Anṣār had pledged to protect the Prophet ﷺ and those who followed him and took refuge with them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0659"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ then told his Companions in Makkah, the Muhājirūn of his own tribe and the other Muslims with him, to go out to Madinah and join their brothers among the Anṣār.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0659"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq gives the reason in the Prophet's ﷺ words, in substance: God has made for you brothers, and a land in which you will be safe.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0659"
+            }
+          ]
+        },
+        {
+          "text": "They left in small groups, one band after another (arsālan), not as a single caravan.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0659"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ himself stayed behind in Makkah, waiting for his Lord to give him permission to leave and emigrate.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0659"
+            }
+          ]
+        },
+        {
+          "text": "The two towns lie roughly 340 km apart in a straight line between the gazetteer points; the travelled road through the coastal plain and the hills is longer.",
+          "grade": "reconstruction",
+          "basis": "computed distance between gazetteer points (makkah, madina)"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Pull out to see both towns",
+          "camera": {
+            "target": [
+              39.7,
+              22.95
+            ],
+            "dist": 420,
+            "pitch": 55,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Makkah sits in a ring of bare granite hills; Madinah lies on a volcanic plain far to the north. Every emigrant in this act crossed the ground between them on foot or by camel.",
+            "grade": "reconstruction",
+            "basis": "terrain data and gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "When the Companions were told to go, did the Prophet ﷺ leave with them?",
+        "options": [
+          {
+            "text": "No: he stayed in Makkah awaiting his Lord's permission",
+            "ok": true,
+            "why": "Ibn Isḥāq says he remained in Makkah waiting to be permitted to leave.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0659"
+              }
+            ]
+          },
+          {
+            "text": "Yes: he led the first group himself",
+            "ok": false,
+            "why": "The source says the reverse: they went ahead in groups and he waited.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0659"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The Hijra did not begin with the Prophet ﷺ but with dozens of ordinary believers sent ahead of him; he was among the last to go.",
+      "sections": [
+        "S0659"
+      ]
+    },
+    {
+      "id": "a04-u02",
+      "title": "Abū Salama, the first",
+      "kicker": "The first of Quraysh to go",
+      "when": {
+        "label": "About a year before the pledge of al-ʿAqaba, by Ibn Isḥāq's reckoning",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "makkah",
+        "dist": 3,
+        "pitch": 30,
+        "heading": 340
+      },
+      "lights": [
+        {
+          "name": "Abū Salama b. ʿAbd al-Asad",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "quba"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq names the first of the Prophet's ﷺ Companions from Quraysh to emigrate to Madinah: Abū Salama b. ʿAbd al-Asad of Banū Makhzūm, whose own name was ʿAbd Allāh.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "He had earlier gone to Abyssinia and returned to Makkah; when Quraysh harmed him and he heard that some of the Anṣār had accepted Islam, he left for Madinah as an emigrant.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq dates his departure to a year before the pledge of the people of al-ʿAqaba, so he went ahead even before the general order to emigrate.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq tells the rest of his family's story through Umm Salama herself, by a chain running from his father Isḥāq b. Yasār to Salama b. ʿAbd Allāh b. ʿUmar b. Abī Salama, who had it from Umm Salama, called in the chain his grandmother.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Salama b. ʿAbd al-Asad",
+          "who": "A Makhzūmī Companion, returned from Abyssinia",
+          "here": "The first Qurashī emigrant to Madinah"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look east toward al-ʿAqaba",
+          "camera": {
+            "target": "aqaba",
+            "dist": 6,
+            "pitch": 30,
+            "heading": 90
+          },
+          "reveal": {
+            "text": "Ibn Isḥāq measures Abū Salama's departure from the pledge made in this valley: he left a year before the people of al-ʿAqaba gave their oath.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0660"
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "The Hijra had a forerunner: a man who had already been a refugee once and went north before anyone was told to.",
+      "sections": [
+        "S0660"
+      ]
+    },
+    {
+      "id": "a04-u03",
+      "title": "Pulled apart at the halter",
+      "kicker": "Umm Salama's account, I",
+      "when": {
+        "label": "The day Abū Salama set out",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 1.5,
+        "pitch": 40,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "Umm Salama",
+          "role": "person"
+        },
+        {
+          "name": "Abū Salama",
+          "role": "person"
+        },
+        {
+          "name": "Salama, their small son",
+          "role": "person"
+        },
+        {
+          "name": "men of Banū al-Mughīra",
+          "role": "group-stone"
+        },
+        {
+          "name": "Banū ʿAbd al-Asad",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Umm Salama is reported to have said that Abū Salama saddled his camel, set her on it with their son Salama in her lap, and led it out on foot.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "Men of Banū al-Mughīra, her own clan, stood up to stop him: he could go where he liked himself, they said in substance, but not take their kinswoman around the country.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "By her account they tore the camel's halter from his hand and took her from him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "Abū Salama's clan, Banū ʿAbd al-Asad, were angered in turn and said they would not leave their boy with her once she had been taken from their man.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "She says the two clans pulled the child between them until they dislocated his arm; Banū ʿAbd al-Asad carried him off and Banū al-Mughīra kept her.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "Abū Salama went on to Madinah alone. In her words as reported, she was separated from her husband and from her son.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Umm Salama (Hind bint Abī Umayya)",
+          "who": "Abū Salama's wife, later a wife of the Prophet ﷺ",
+          "here": "Narrator of her own separation"
+        },
+        {
+          "name": "Salama b. Abī Salama",
+          "who": "Their small son",
+          "here": "Fought over by both clans"
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Who kept Umm Salama in Makkah, and who took her son?",
+        "options": [
+          {
+            "text": "Her clan, Banū al-Mughīra, kept her; her husband's clan, Banū ʿAbd al-Asad, took the boy",
+            "ok": true,
+            "why": "That is how she tells it in Ibn Isḥāq's narration.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0660"
+              }
+            ]
+          },
+          {
+            "text": "Abū Jahl kept her and the boy went with his father",
+            "ok": false,
+            "why": "The source names the two clans, and the father left alone.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0660"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Emigration in Makkah was not only a quarrel between belief and unbelief; it ran straight through families and the clan loyalties that held them together.",
+      "sections": [
+        "S0660"
+      ]
+    },
+    {
+      "id": "a04-u04",
+      "title": "A year at al-Abṭaḥ",
+      "kicker": "Umm Salama's account, II",
+      "when": {
+        "label": "About a year after the separation, by her own estimate",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~abtah",
+        "note": "the broad watercourse of Makkah; not on the gazetteer"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "makkah",
+        "dist": 2.5,
+        "pitch": 25,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "Umm Salama",
+          "role": "person"
+        },
+        {
+          "name": "a kinsman of Banū al-Mughīra",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "She is reported to have said that every morning she went out and sat at al-Abṭaḥ, weeping, until evening.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "This went on, in her words, for a year or close to it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "Then a man of Banū al-Mughīra, one of her cousins, passed, saw her state and took pity on her.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "He asked his clan, in substance, why they would not let this poor woman go, when they had parted her from her husband and her child.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "They told her she could join her husband if she wished, and Banū ʿAbd al-Asad then gave her son back to her.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "She saddled her camel, put the boy in her lap and set out for Madinah. She says that not one of God's creatures was with her, and that she meant to rely on whoever she met along the way.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Follow the valley floor",
+          "camera": {
+            "target": "makkah",
+            "dist": 6,
+            "pitch": 50,
+            "heading": 10
+          },
+          "reveal": {
+            "text": "Makkah's main watercourse runs down between the hills; its gravelly bed is the kind of open ground that carries the name al-Abṭaḥ. The exact spot where she sat is not recorded.",
+            "grade": "reconstruction",
+            "basis": "terrain data; place not located on the gazetteer"
+          }
+        }
+      ],
+      "matters": "The emigration had a price paid in time: one woman's year of waiting, ended not by force but by one relative's pity.",
+      "sections": [
+        "S0660"
+      ]
+    },
+    {
+      "id": "a04-u05",
+      "title": "ʿUthmān b. Ṭalḥa takes the halter",
+      "kicker": "Umm Salama's account, III",
+      "when": {
+        "label": "Her journey north, about a year after Abū Salama",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~tanim",
+        "note": "al-Tanʿīm, north of Makkah; not on the gazetteer"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": [
+          39.6,
+          22.9
+        ],
+        "dist": 380,
+        "pitch": 50,
+        "heading": 350
+      },
+      "lights": [
+        {
+          "name": "Umm Salama",
+          "role": "person"
+        },
+        {
+          "name": "her son Salama",
+          "role": "person"
+        },
+        {
+          "name": "ʿUthmān b. Ṭalḥa",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "~tanim",
+        "quba"
+      ],
+      "statements": [
+        {
+          "text": "At al-Tanʿīm she met ʿUthmān b. Ṭalḥa b. Abī Ṭalḥa of Banū ʿAbd al-Dār, who asked where she was going; she said to her husband in Madinah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "When he asked whether anyone was with her, she answered, as she tells it, that no one was, except God and this little son of hers.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "He took the camel's halter and led her. At each halt, she says, he made the camel kneel and stepped away; once she was down he unloaded it, tied it to a tree, and went to lie under another tree some way off.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "When it was time to move on he saddled the camel, stepped back and told her to mount, and only took the halter again once she was settled.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "When he caught sight of the village of Banū ʿAmr b. ʿAwf at Qubāʾ, he told her that her husband was there and she should enter with God's blessing; then he turned back toward Makkah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "She is reported to have said she never travelled with an Arab man she thought nobler, and that she knew of no household in Islam that suffered what Abū Salama's family suffered.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0660"
+            }
+          ]
+        },
+        {
+          "text": "ʿUthmān b. Ṭalḥa was not yet a Muslim on this journey; the biographical works report that he accepted Islam years later, before the conquest of Makkah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr, entry on ʿUthmān b. Ṭalḥa",
+              "note": "Ibn Hishām's section does not state his religion at the time",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿUthmān b. Ṭalḥa",
+          "who": "Of Banū ʿAbd al-Dār, the clan that kept the Kaʿba's door",
+          "here": "Escorted Umm Salama to Qubāʾ and went straight back"
+        }
+      ],
+      "discover": [
+        {
+          "label": "The end of the road",
+          "camera": {
+            "target": "quba",
+            "dist": 3,
+            "pitch": 30,
+            "heading": 180
+          },
+          "reveal": {
+            "text": "Qubāʾ lies on the southern edge of the Madinah oasis, so a traveller from Makkah reaches it first; the village of Banū ʿAmr b. ʿAwf was the first settlement the pair would see.",
+            "grade": "reconstruction",
+            "basis": "gazetteer points and terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Umm Salama's highest praise in this story goes to a man who did not share her faith. What does the way she describes his conduct suggest about what she valued?",
+        "options": [
+          {
+            "text": "His restraint and care at every halt, as she details them",
+            "ok": true,
+            "why": "She dwells on how he kept his distance and saw to the camel, then calls him the noblest companion she ever had.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0660"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The first account of the road north is a story of honour across the line of faith: a Qurashī who owed her nothing walked her some 340 km and turned home.",
+      "sections": [
+        "S0660"
+      ]
+    },
+    {
+      "id": "a04-u06",
+      "title": "A whole clan goes",
+      "kicker": "ʿĀmir and Laylā; the sons of Jaḥsh",
+      "when": {
+        "label": "The first weeks of the emigration",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "makkah",
+        "dist": 8,
+        "pitch": 30,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "ʿĀmir b. Rabīʿa",
+          "role": "person"
+        },
+        {
+          "name": "Laylā bint Abī Ḥathma",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Jaḥsh",
+          "role": "person"
+        },
+        {
+          "name": "Abū Aḥmad b. Jaḥsh",
+          "role": "person"
+        },
+        {
+          "name": "Banū Ghanm b. Dūdān",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "makkah",
+        "quba"
+      ],
+      "statements": [
+        {
+          "text": "The first to arrive after Abū Salama, Ibn Isḥāq says, was ʿĀmir b. Rabīʿa, an ally of Banū ʿAdī b. Kaʿb, with his wife Laylā bint Abī Ḥathma.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "Then ʿAbd Allāh b. Jaḥsh, an ally of Banū Umayya, set out with his household and his brother ʿAbd, known as Abū Aḥmad.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "Abū Aḥmad was blind, yet Ibn Isḥāq says he went all over Makkah, high and low, without a guide; he was a poet, married to al-Farʿa bint Abī Sufyān, and his mother was Umayma bint ʿAbd al-Muṭṭalib.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "Their kin, Banū Ghanm b. Dūdān, were a Muslim clan who emigrated entire, men and women together; Ibn Isḥāq lists more than twenty of their men by name.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0662"
+            }
+          ]
+        },
+        {
+          "text": "Among their women he names Zaynab bint Jaḥsh, Ḥamna bint Jaḥsh, Umm Ḥabīb bint Jaḥsh and Umm Qays bint Miḥṣan.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0663"
+            }
+          ]
+        },
+        {
+          "text": "In verses Ibn Isḥāq attributes to Abū Aḥmad, his wife urges him, if he must go, to head for any land but Yathrib, and he answers that Yathrib is their direction today.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0664"
+            }
+          ],
+          "note": "Ibn Hishām remarks that the words about keeping away from Yathrib come from a transmitter other than Ibn Isḥāq, so this line of the poem is not in Ibn Isḥāq's own version."
+        },
+        {
+          "text": "In the same poem Abū Aḥmad speaks of the close kin they left behind, some of them weeping, and of kinsmen who had taken up arms against them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0664"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Aḥmad b. Jaḥsh",
+          "who": "Blind poet, the Prophet's ﷺ cousin through his mother",
+          "here": "Left with his whole clan"
+        },
+        {
+          "name": "Zaynab bint Jaḥsh",
+          "who": "His sister, later a wife of the Prophet ﷺ",
+          "here": "Among the women who emigrated"
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What was unusual about Abū Aḥmad b. Jaḥsh, as Ibn Isḥāq describes him?",
+        "options": [
+          {
+            "text": "He was blind but went about all of Makkah without a guide",
+            "ok": true,
+            "why": "Ibn Isḥāq notes both his blindness and his independence.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0661"
+              }
+            ]
+          },
+          {
+            "text": "He was the first man to reach Qubāʾ",
+            "ok": false,
+            "why": "Abū Salama came first, then ʿĀmir b. Rabīʿa.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0661"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Some went alone; Banū Ghanm went as a clan, emptying a quarter of Makkah, and even a blind man made the journey.",
+      "sections": [
+        "S0661",
+        "S0662",
+        "S0663",
+        "S0664"
+      ]
+    },
+    {
+      "id": "a04-u07",
+      "title": "The house with banging doors",
+      "kicker": "Makkah after they left",
+      "when": {
+        "label": "After Banū Jaḥsh had gone",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~radm",
+        "note": "the house of Banū Jaḥsh, later the house of Abān b. ʿUthmān at al-Radm; not on the gazetteer"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "kaaba",
+        "dist": 1.2,
+        "pitch": 45,
+        "heading": 160
+      },
+      "lights": [
+        {
+          "name": "ʿUtba b. Rabīʿa",
+          "role": "stone"
+        },
+        {
+          "name": "al-ʿAbbās b. ʿAbd al-Muṭṭalib",
+          "role": "person"
+        },
+        {
+          "name": "Abū Jahl",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "With the family gone, the house of Banū Jaḥsh in Makkah was locked up and left empty.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "ʿUtba b. Rabīʿa, al-ʿAbbās b. ʿAbd al-Muṭṭalib and Abū Jahl passed it on their way up to upper Makkah, and ʿUtba saw its doors swinging in the wind with no one living inside.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "ʿUtba sighed deeply and recited a line to the effect that every house, however long it stays safe, will one day be overtaken by disaster; Ibn Hishām identifies it as a verse of the poet Abū Duʾād al-Iyādī.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "ʿUtba remarked that the house of Banū Jaḥsh had become empty of its people. Abū Jahl answered scornfully that there was nothing to weep over in so insignificant a family.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "Abū Jahl then laid the blame on the Prophet ﷺ, calling him 'this nephew of mine' and accusing him of splitting their community and cutting the ties between them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq adds that in his own day the building was the house of Abān b. ʿUthmān, at al-Radm.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look up the valley",
+          "camera": {
+            "target": "makkah",
+            "dist": 4,
+            "pitch": 30,
+            "heading": 20
+          },
+          "reveal": {
+            "text": "The three men were climbing toward upper Makkah, which lies up the valley from the Kaʿba; the exact line of their street is not known.",
+            "grade": "reconstruction",
+            "basis": "terrain data; route not recorded"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Standing at the empty house, whom did Abū Jahl blame for it?",
+        "options": [
+          {
+            "text": "The Prophet ﷺ, whom he called his nephew",
+            "ok": true,
+            "why": "He said this was the work of 'this nephew of mine', who had split their community.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0661"
+              }
+            ]
+          },
+          {
+            "text": "The Anṣār of Yathrib",
+            "ok": false,
+            "why": "In this report he does not mention the Anṣār at all.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0661"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "One empty house shows the emigration from the other side: Makkah's leaders watching their city thin out, one in sorrow and one in contempt.",
+      "sections": [
+        "S0661"
+      ]
+    },
+    {
+      "id": "a04-u08",
+      "title": "Three meet at al-Tanāḍib, two arrive",
+      "kicker": "ʿUmar's own account",
+      "when": {
+        "label": "During the emigration, before the Prophet ﷺ left Makkah",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~tanadib",
+        "note": "al-Tanāḍib by the pool of Banū Ghifār, above Sarif; not on the gazetteer"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": [
+          39.7,
+          21.6
+        ],
+        "dist": 40,
+        "pitch": 35,
+        "heading": 15
+      },
+      "lights": [
+        {
+          "name": "ʿUmar b. al-Khaṭṭāb",
+          "role": "person"
+        },
+        {
+          "name": "ʿAyyāsh b. Abī Rabīʿa",
+          "role": "person"
+        },
+        {
+          "name": "Hishām b. al-ʿĀṣ",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "~sarif",
+        "~tanadib",
+        "quba"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq gives ʿUmar's own account, through Nāfiʿ from ʿAbd Allāh b. ʿUmar: he, ʿAyyāsh b. Abī Rabīʿa and Hishām b. al-ʿĀṣ b. Wāʾil al-Sahmī agreed to meet at al-Tanāḍib, by the pool of Banū Ghifār above Sarif.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0665"
+            }
+          ]
+        },
+        {
+          "text": "Their rule was that whoever was not there by morning had been held back, and the other two should go on without him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0665"
+            }
+          ]
+        },
+        {
+          "text": "By morning ʿUmar and ʿAyyāsh were there; Hishām had been held back, and ʿUmar says he was put under pressure and gave way.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0665"
+            }
+          ]
+        },
+        {
+          "text": "The two reached Madinah and lodged with Banū ʿAmr b. ʿAwf at Qubāʾ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "A well-known later story has ʿUmar emigrating openly and daring Quraysh to follow him. It is not part of Ibn Isḥāq's narration, which instead has him leaving by a quiet arrangement.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn ʿAsākir, Tārīkh Madīnat Dimashq, report attributed to ʿAlī",
+              "note": "Later compilation; the chain is criticised",
+              "verify": true
+            }
+          ],
+          "note": "Ibn Isḥāq's account from ʿUmar himself describes a secret rendezvous; the public-challenge story comes from later works with a chain scholars have criticised."
+        },
+        {
+          "text": "Sarif lies a short way north of Makkah on the route toward Madinah; its exact site and that of al-Tanāḍib are not on the gazetteer.",
+          "grade": "reconstruction",
+          "basis": "unlocated places; general direction only"
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did the three agree would happen if one of them missed the morning meeting?",
+        "options": [
+          {
+            "text": "He would be presumed held back, and the others would go on",
+            "ok": true,
+            "why": "That is the agreement ʿUmar describes.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0665"
+              }
+            ]
+          },
+          {
+            "text": "The others would go back to Makkah to look for him",
+            "ok": false,
+            "why": "They agreed to continue without him.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0665"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Even ʿUmar, in his own telling, left by careful arrangement and planned for the possibility that a friend would be stopped.",
+      "sections": [
+        "S0665",
+        "S0666"
+      ]
+    },
+    {
+      "id": "a04-u09",
+      "title": "A mother's oath",
+      "kicker": "Two brothers reach Qubāʾ",
+      "when": {
+        "label": "Soon after ʿUmar and ʿAyyāsh arrived, while the Prophet ﷺ was still in Makkah",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "quba"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "quba",
+        "dist": 2,
+        "pitch": 35,
+        "heading": 210
+      },
+      "lights": [
+        {
+          "name": "ʿUmar b. al-Khaṭṭāb",
+          "role": "person"
+        },
+        {
+          "name": "ʿAyyāsh b. Abī Rabīʿa",
+          "role": "person"
+        },
+        {
+          "name": "Abū Jahl and al-Ḥārith b. Hishām",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "makkah",
+        "quba"
+      ],
+      "statements": [
+        {
+          "text": "Abū Jahl b. Hishām and al-Ḥārith b. Hishām, who were ʿAyyāsh's cousins and his half-brothers through their mother, rode all the way to Madinah to find him while the Prophet ﷺ was still in Makkah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "They told him his mother had vowed that no comb would touch her head and she would not take shade from the sun until she saw him; ʿUmar says ʿAyyāsh was moved.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "ʿUmar warned him that they only wanted to turn him from his religion, and argued that if lice troubled his mother she would comb her hair, and if the Makkan heat grew hard she would seek shade.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "ʿAyyāsh replied that he would fulfil his mother's oath and also collect property he had in Makkah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "ʿUmar offered him half his own wealth, saying he was among the richest men of Quraysh, if only he would not go; ʿAyyāsh refused.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "So ʿUmar gave him his own she-camel, a fast and tractable animal, and told him to stay on her back and escape on her if anything about the men made him uneasy.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "When ʿAyyāsh insisted on going back, what did ʿUmar do?",
+        "options": [
+          {
+            "text": "Gave him his own swift she-camel so he could escape if needed",
+            "ok": true,
+            "why": "ʿUmar says he handed over his camel with that advice.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0666"
+              }
+            ]
+          },
+          {
+            "text": "Went back to Makkah with him",
+            "ok": false,
+            "why": "ʿUmar stayed; ʿAyyāsh rode off with the two brothers.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0666"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The pull of family love was used as a weapon; ʿUmar's answer was to offer half his fortune and, failing that, his best camel.",
+      "sections": [
+        "S0666"
+      ]
+    },
+    {
+      "id": "a04-u10",
+      "title": "Bound on the road home",
+      "kicker": "The trap is sprung",
+      "when": {
+        "label": "On the road back to Makkah",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": [
+          39.6,
+          22.9
+        ],
+        "dist": 300,
+        "pitch": 45,
+        "heading": 180
+      },
+      "lights": [
+        {
+          "name": "ʿAyyāsh b. Abī Rabīʿa",
+          "role": "person"
+        },
+        {
+          "name": "Abū Jahl",
+          "role": "stone"
+        },
+        {
+          "name": "al-Ḥārith b. Hishām",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "quba",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "ʿAyyāsh rode out with the two brothers on ʿUmar's camel.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "Part of the way along, Abū Jahl complained that his own camel had become hard going and asked ʿAyyāsh to let him take turns on the she-camel; ʿAyyāsh agreed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "All three made their mounts kneel so the riders could change; once they were on the ground, the brothers seized ʿAyyāsh and tied him up.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "They took him into Makkah, and ʿUmar's account says they pressured him until he gave way.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        },
+        {
+          "text": "Some of ʿAyyāsh's own family told Ibn Isḥāq that the brothers brought him in by daylight, bound, and called on the people of Makkah to deal with their own fools the way they had dealt with theirs.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0666"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Measure the road they made him ride",
+          "camera": {
+            "target": [
+              39.7,
+              22.95
+            ],
+            "dist": 420,
+            "pitch": 60,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "From Qubāʾ back to Makkah is about 340 km in a straight line between the gazetteer points; ʿAyyāsh had already made the journey once in the other direction.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points (quba, makkah)"
+          }
+        }
+      ],
+      "matters": "ʿUmar's warning came true: the camel meant for escape became the moment of capture.",
+      "sections": [
+        "S0666"
+      ]
+    },
+    {
+      "id": "a04-u11",
+      "title": "A letter in ʿUmar's hand",
+      "kicker": "After the Prophet ﷺ reached Madinah",
+      "when": {
+        "label": "After the Prophet's ﷺ arrival in Madinah (looking ahead)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~dhu_tuwa",
+        "note": "Dhū Ṭuwā, a valley at Makkah; not on the gazetteer"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 4,
+        "pitch": 30,
+        "heading": 260
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿUmar b. al-Khaṭṭāb",
+          "role": "person"
+        },
+        {
+          "name": "Hishām b. al-ʿĀṣ",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "madina",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "ʿUmar says the Muslims used to hold that God would accept no ransom, no compensation and no repentance from those who had given way under pressure: people who had known God and then gone back because of suffering.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0667"
+            }
+          ]
+        },
+        {
+          "text": "He adds that those who had given way said the same about themselves.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0667"
+            }
+          ]
+        },
+        {
+          "text": "When the Prophet ﷺ reached Madinah, ʿUmar says, God revealed concerning them, and concerning what both sides had been saying, the verses of Sūrat al-Zumar beginning: say, My servants who have wronged themselves, do not despair of God's mercy.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0667"
+            },
+            {
+              "type": "quran",
+              "ref": "39:53-55"
+            }
+          ]
+        },
+        {
+          "text": "ʿUmar wrote the verses out in his own hand on a sheet and sent it to Hishām b. al-ʿĀṣ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0667"
+            }
+          ]
+        },
+        {
+          "text": "Hishām is reported to have said that he read it at Dhū Ṭuwā, walking up and down the valley with it, unable to grasp it, until he prayed: O God, make me understand it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0667"
+            }
+          ]
+        },
+        {
+          "text": "Then, he said, God put it into his heart that the verses had been revealed about people like him and what they had said of themselves; he went back to his camel, mounted and joined the Prophet ﷺ in Madinah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0667"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "39:53-55",
+          "gist": "God addresses His servants who have gone too far against themselves: do not lose hope in His mercy, for He forgives all sins; turn back to Him and submit before punishment comes, and follow the best of what has been sent down.",
+          "context": "Ibn Isḥāq, through Nāfiʿ from Ibn ʿUmar from ʿUmar, links these verses to the emigrants who had been coerced into giving way and to the belief that they could not repent. The verses are Qurʾān (established); this occasion is supported by this single report.",
+          "grade": "supported"
+        }
+      ],
+      "people": [
+        {
+          "name": "Hishām b. al-ʿĀṣ b. Wāʾil al-Sahmī",
+          "who": "The third man of the Tanāḍib plan",
+          "here": "Read ʿUmar's letter and set out"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Hishām could not understand the verses until he asked God to help him. According to his account, what did he finally take them to mean?",
+        "options": [
+          {
+            "text": "That they were revealed about people like him and what they had said about themselves",
+            "ok": true,
+            "why": "That is the understanding he describes before mounting his camel.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0667"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "A sheet of verses copied by a friend reached a man who believed he was beyond forgiveness, and set him back on the road.",
+      "sections": [
+        "S0667"
+      ]
+    },
+    {
+      "id": "a04-u12",
+      "title": "The sword called Dhū al-Marwa",
+      "kicker": "A rescue by night",
+      "when": {
+        "label": "After the Prophet ﷺ was in Madinah (looking ahead)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 1.5,
+        "pitch": 55,
+        "heading": 120
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "al-Walīd b. al-Walīd",
+          "role": "person"
+        },
+        {
+          "name": "ʿAyyāsh b. Abī Rabīʿa",
+          "role": "person"
+        },
+        {
+          "name": "Hishām b. al-ʿĀṣ",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "madina",
+        "makkah",
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Hishām, citing an informant he trusted but does not name, reports that the Prophet ﷺ asked in Madinah who would bring him ʿAyyāsh b. Abī Rabīʿa and Hishām b. al-ʿĀṣ, and al-Walīd b. al-Walīd b. al-Mughīra volunteered.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0668"
+            }
+          ],
+          "note": "Ibn Hishām's informant is unnamed. The report also has Hishām still a captive, while Ibn Isḥāq's account (S0667) has him riding to Madinah after reading ʿUmar's letter."
+        },
+        {
+          "text": "In this report al-Walīd entered Makkah in secret, met a woman carrying food, and learned she was taking it to 'these two prisoners'; he followed her and found where they were.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0668"
+            }
+          ],
+          "note": "Unnamed informant in Ibn Hishām."
+        },
+        {
+          "text": "They were held in a house with no roof. At nightfall he climbed the wall, set a stone under their fetters and struck them through with his sword, which, it was said, was afterwards called Dhū al-Marwa, 'the one of the stone'.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0668"
+            }
+          ],
+          "note": "Unnamed informant; the sword's name is introduced with 'it used to be said'."
+        },
+        {
+          "text": "He put them on his camel and drove it on foot; he stumbled and cut his finger, and recited a line to the effect that it was only a finger that had bled, and what it suffered was in God's path. Then he brought them to the Prophet ﷺ in Madinah.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0668"
+            }
+          ],
+          "note": "Unnamed informant in Ibn Hishām."
+        },
+        {
+          "text": "Authenticated ḥadīth record that the Prophet ﷺ prayed in his prayer for the rescue of al-Walīd b. al-Walīd, Salama b. Hishām and ʿAyyāsh b. Abī Rabīʿa among the weak believers held in Makkah.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī, Kitāb al-Adhān (the Prophet's supplication in prayer for the oppressed in Makkah)",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim, Kitāb al-Masājid (qunūt)",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "al-Walīd b. al-Walīd b. al-Mughīra",
+          "who": "A Makhzūmī, brother of Khālid b. al-Walīd",
+          "here": "Volunteered to free the captives"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Compare the two endings",
+          "reveal": {
+            "text": "Ibn Isḥāq ends Hishām's story with a letter and a lone ride north; Ibn Hishām's added report ends it with a night rescue. The sources do not reconcile the two.",
+            "grade": "disputed",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0667"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0668"
+              }
+            ],
+            "note": "Two incompatible endings for Hishām b. al-ʿĀṣ in the same work."
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "How did al-Walīd find where the two men were held, according to Ibn Hishām's report?",
+        "options": [
+          {
+            "text": "He followed a woman taking food to them",
+            "ok": true,
+            "why": "She told him she was taking it to the two prisoners.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0668"
+              }
+            ]
+          },
+          {
+            "text": "ʿUmar's letter told him the house",
+            "ok": false,
+            "why": "The letter was sent to Hishām and contained verses, not directions.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0667"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Those trapped in Makkah were not forgotten in Madinah: they were prayed for, written to, and in one report rescued by night.",
+      "sections": [
+        "S0667",
+        "S0668"
+      ]
+    },
+    {
+      "id": "a04-u13",
+      "title": "Ṣuhayb's bargain",
+      "kicker": "Wealth for passage",
+      "when": {
+        "label": "When Ṣuhayb set out",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "makkah",
+        "dist": 3,
+        "pitch": 35,
+        "heading": 330
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Ṣuhayb b. Sinān",
+          "role": "person"
+        },
+        {
+          "name": "the unbelievers of Quraysh",
+          "role": "group-stone"
+        }
+      ],
+      "route": [
+        "makkah",
+        "~sunh"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Hishām was told of a saying of Abū ʿUthmān al-Nahdī, who himself said only that it had reached him, that the unbelievers of Quraysh confronted Ṣuhayb when he wanted to emigrate.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0670"
+            }
+          ],
+          "note": "A report at second hand ('it was mentioned to me … it reached me'); the chain to the event is incomplete."
+        },
+        {
+          "text": "They said, in substance, that he had come to them a poor nobody, grown rich among them, and now meant to leave with both himself and his money, and that they would not allow it.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0670"
+            }
+          ],
+          "note": "Same incomplete chain via Abū ʿUthmān al-Nahdī."
+        },
+        {
+          "text": "Ṣuhayb asked whether they would let him go if he gave them his wealth; they said yes, and he gave it to them.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0670"
+            }
+          ],
+          "note": "Same incomplete chain via Abū ʿUthmān al-Nahdī."
+        },
+        {
+          "text": "When the Prophet ﷺ heard of it he is reported to have said twice: Ṣuhayb has profited.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0670"
+            }
+          ],
+          "note": "Same incomplete chain via Abū ʿUthmān al-Nahdī."
+        },
+        {
+          "text": "On arrival Ṣuhayb lodged, with Ṭalḥa b. ʿUbayd Allāh, at the house of Khubayb b. Isāf of Banū al-Ḥārith b. al-Khazraj at al-Sunḥ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0670"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "2:207",
+          "gist": "Among people is one who sells himself seeking God's good pleasure, and God is kind to His servants.",
+          "context": "Ibn Hishām does not connect any verse to Ṣuhayb. Some exegetical reports name Ṣuhayb as the occasion of this verse; others apply it to other Companions or to believers generally. Disputed; source: al-Ṭabarī's commentary on 2:207 and the occasions-of-revelation literature (to be verified).",
+          "grade": "disputed"
+        }
+      ],
+      "people": [
+        {
+          "name": "Ṣuhayb b. Sinān",
+          "who": "A Companion who had prospered in Makkah as an outsider",
+          "here": "Gave up his wealth to be allowed to leave"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Quraysh's complaint was that Ṣuhayb had made his money among them. Why might the report have the Prophet ﷺ call the deal a profit rather than a loss?",
+        "options": [
+          {
+            "text": "Because what Ṣuhayb kept, his freedom to go and his faith, was worth more than what he handed over",
+            "ok": true,
+            "why": "This is an interpretation; the report gives only the words 'Ṣuhayb has profited', repeated.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0670"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Not everyone was stopped by force: some were charged a price, and at least one paid everything he had.",
+      "sections": [
+        "S0670"
+      ]
+    },
+    {
+      "id": "a04-u14",
+      "title": "Qubāʾ fills up",
+      "kicker": "The households of Banū ʿAmr b. ʿAwf",
+      "when": {
+        "label": "Through the months of the emigration",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "quba"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "quba",
+        "dist": 4,
+        "pitch": 40,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "Mubashshir b. ʿAbd al-Mundhir",
+          "role": "person"
+        },
+        {
+          "name": "Rifāʿa b. ʿAbd al-Mundhir",
+          "role": "person"
+        },
+        {
+          "name": "Kulthūm b. Hidm",
+          "role": "person"
+        },
+        {
+          "name": "the emigrants at Qubāʾ",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "makkah",
+        "quba"
+      ],
+      "statements": [
+        {
+          "text": "The first arrivals, Abū Salama, ʿĀmir b. Rabīʿa, ʿAbd Allāh b. Jaḥsh and his brother Abū Aḥmad, all lodged with Mubashshir b. ʿAbd al-Mundhir b. Zanbar among Banū ʿAmr b. ʿAwf at Qubāʾ; after them the emigrants kept coming in groups.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0661"
+            }
+          ]
+        },
+        {
+          "text": "ʿUmar and the kin and allies who came with him, including his brother Zayd b. al-Khaṭṭāb, Saʿīd b. Zayd and Khunays b. Ḥudhāfa, his daughter Ḥafṣa's husband, stayed at Qubāʾ with Rifāʿa b. ʿAbd al-Mundhir b. Zanbar, Mubashshir's brother.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0669"
+            }
+          ]
+        },
+        {
+          "text": "The four sons of al-Bukayr and their allies of Banū Saʿd b. Layth stayed with Rifāʿa as well, and ʿAyyāsh had lodged there with ʿUmar before he was lured away.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0669"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq notes that after Khunays b. Ḥudhāfa's death the Prophet ﷺ married Ḥafṣa.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0669"
+            }
+          ]
+        },
+        {
+          "text": "Ḥamza b. ʿAbd al-Muṭṭalib, Zayd b. Ḥāritha, Abū Marthad and his son Marthad, and Anasa and Abū Kabsha, freedmen of the Prophet ﷺ, are said to have lodged with Kulthūm b. Hidm at Qubāʾ.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0671"
+            }
+          ],
+          "note": "Ibn Isḥāq gives alternatives: with Saʿd b. Khaythama instead, or Ḥamza with Asʿad b. Zurāra, and ends 'all of that is said'."
+        },
+        {
+          "text": "ʿUbayda b. al-Ḥārith, his brothers al-Ṭufayl and al-Ḥuṣayn, Misṭaḥ b. Uthātha and others lodged with ʿAbd Allāh b. Salama of Banū al-ʿAjlān at Qubāʾ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0672"
+            }
+          ]
+        },
+        {
+          "text": "Qubāʾ is the first settlement on the southern approach to the Madinah oasis, so arrivals from Makkah came to it before the rest of the town.",
+          "grade": "reconstruction",
+          "basis": "gazetteer points and terrain data"
+        }
+      ],
+      "people": [
+        {
+          "name": "Mubashshir b. ʿAbd al-Mundhir",
+          "who": "Of Banū ʿAmr b. ʿAwf at Qubāʾ",
+          "here": "Host of the very first emigrants"
+        },
+        {
+          "name": "Kulthūm b. Hidm",
+          "who": "Of Banū ʿAmr b. ʿAwf at Qubāʾ",
+          "here": "Named as Ḥamza's host in one version"
+        }
+      ],
+      "discover": [
+        {
+          "label": "From Qubāʾ to the heart of Madinah",
+          "camera": {
+            "target": "madina",
+            "dist": 8,
+            "pitch": 45,
+            "heading": 20
+          },
+          "reveal": {
+            "text": "The gazetteer points for Qubāʾ and al-Madīna are about 4.5 km apart: a village on the edge of the same oasis rather than a separate town.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points (quba, madina)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Which pair of brothers at Qubāʾ hosted both the first emigrants and ʿUmar's party?",
+        "options": [
+          {
+            "text": "Mubashshir and Rifāʿa, sons of ʿAbd al-Mundhir",
+            "ok": true,
+            "why": "Mubashshir hosted the first four; Rifāʿa hosted ʿUmar's group and the sons of al-Bukayr.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0661"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0669"
+              }
+            ]
+          },
+          {
+            "text": "Saʿd b. Muʿādh and Saʿd b. al-Rabīʿ",
+            "ok": false,
+            "why": "Both hosted emigrants, but in Madinah's other quarters, not at Qubāʾ.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0673"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0675"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "By the time the Prophet ﷺ came, Qubāʾ was already full of Makkans living in Anṣārī homes; he would arrive among his own people.",
+      "sections": [
+        "S0661",
+        "S0669",
+        "S0671",
+        "S0672"
+      ]
+    },
+    {
+      "id": "a04-u15",
+      "title": "Open doors across the oasis",
+      "kicker": "Hosts in al-Sunḥ, al-ʿUṣba and Madinah",
+      "when": {
+        "label": "Through the months of the emigration",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "madina",
+        "dist": 6,
+        "pitch": 50,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "Saʿd b. al-Rabīʿ",
+          "role": "person"
+        },
+        {
+          "name": "Saʿd b. Muʿādh",
+          "role": "person"
+        },
+        {
+          "name": "Saʿd b. Khaythama",
+          "role": "person"
+        },
+        {
+          "name": "the Anṣār",
+          "role": "group"
+        },
+        {
+          "name": "the Muhājirūn",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "quba",
+        "~usba",
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "Ṭalḥa b. ʿUbayd Allāh is said in one version to have lodged not at al-Sunḥ but with Asʿad b. Zurāra of Banū al-Najjār.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0670"
+            }
+          ],
+          "note": "Ibn Isḥāq first names Khubayb b. Isāf as host, then gives this alternative with 'it is said'."
+        },
+        {
+          "text": "ʿAbd al-Raḥmān b. ʿAwf and a group of emigrant men stayed with Saʿd b. al-Rabīʿ in the quarter of Banū al-Ḥārith b. al-Khazraj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0673"
+            }
+          ]
+        },
+        {
+          "text": "al-Zubayr b. al-ʿAwwām and Abū Sabra b. Abī Ruhm stayed with al-Mundhir b. Muḥammad b. ʿUqba at al-ʿUṣba, the quarter of Banū Jaḥjabā.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0674"
+            }
+          ]
+        },
+        {
+          "text": "Muṣʿab b. ʿUmayr stayed with Saʿd b. Muʿādh, and ʿUtba b. Ghazwān with ʿAbbād b. Bishr, both in the quarter of Banū ʿAbd al-Ashhal.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0675"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0676"
+            }
+          ]
+        },
+        {
+          "text": "ʿUthmān b. ʿAffān stayed with Aws b. Thābit, brother of the poet Ḥassān b. Thābit, among Banū al-Najjār; Ibn Isḥāq says this is why Ḥassān loved ʿUthmān and mourned him when he was killed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0677"
+            }
+          ]
+        },
+        {
+          "text": "It used to be said that the unmarried emigrants stayed with Saʿd b. Khaythama, who was himself unmarried, which is how his house came to be remembered as the house of the bachelors.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0677"
+            }
+          ],
+          "note": "Ibn Isḥāq introduces it with 'it used to be said' and closes 'God knows best which of that it was'."
+        },
+        {
+          "text": "Sālim, known as the mawlā of Abū Ḥudhayfa, is explained by Ibn Hishām as freed without patronage by Thubayta bint Yaʿār of the Aws, after which Abū Ḥudhayfa adopted him; another version makes Thubayta Abū Ḥudhayfa's wife.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0676"
+            }
+          ],
+          "note": "Ibn Hishām gives two accounts of how Sālim came to Abū Ḥudhayfa."
+        }
+      ],
+      "people": [
+        {
+          "name": "Saʿd b. al-Rabīʿ",
+          "who": "Of Banū al-Ḥārith b. al-Khazraj",
+          "here": "Hosted ʿAbd al-Raḥmān b. ʿAwf and others"
+        },
+        {
+          "name": "Saʿd b. Muʿādh",
+          "who": "Leader of Banū ʿAbd al-Ashhal",
+          "here": "Hosted Muṣʿab b. ʿUmayr"
+        },
+        {
+          "name": "Aws b. Thābit",
+          "who": "Brother of Ḥassān b. Thābit",
+          "here": "Hosted ʿUthmān b. ʿAffān"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Pull back over the whole oasis",
+          "camera": {
+            "target": "madina",
+            "dist": 20,
+            "pitch": 55,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The hosts lived in different clan quarters scattered across the oasis, from Qubāʾ in the south to the settlements around the centre; the lava fields hem the oasis on its eastern and western sides.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        },
+        {
+          "label": "Find al-ʿUṣba",
+          "camera": {
+            "target": "madina",
+            "dist": 5,
+            "pitch": 40,
+            "heading": 90
+          },
+          "reveal": {
+            "text": "al-ʿUṣba, the quarter of Banū Jaḥjabā, is not on the gazetteer, so it is shown only as an unlocated name.",
+            "grade": "reconstruction",
+            "basis": "unlocated place"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Why, according to Ibn Isḥāq, did Ḥassān b. Thābit love ʿUthmān?",
+        "options": [
+          {
+            "text": "Because ʿUthmān had lodged with Ḥassān's brother Aws b. Thābit",
+            "ok": true,
+            "why": "Ibn Isḥāq gives that hospitality as the reason.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0677"
+              }
+            ]
+          },
+          {
+            "text": "Because ʿUthmān had escorted Ḥassān's family from Makkah",
+            "ok": false,
+            "why": "Nothing like this is in the source; Ḥassān's family were Anṣār of Madinah.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0677"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The emigrants did not camp; they were taken into homes across every quarter of the oasis, ties of hospitality that were remembered for a generation.",
+      "sections": [
+        "S0670",
+        "S0673",
+        "S0674",
+        "S0675",
+        "S0676",
+        "S0677"
+      ]
+    }
+  ]
+}

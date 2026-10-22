@@ -1,0 +1,462 @@
+{
+  "act": 9,
+  "title": "Arrival at Qubāʾ",
+  "subtitle": "The watchers on the lava field, the shout from a fortress, the cloak, the lodgings, and the first mosque",
+  "span": "Rabīʿ al-Awwal, year 1 (September 622 CE, approx.)",
+  "units": [
+    {
+      "id": "a09-u01",
+      "title": "Waiting on the ḥarra",
+      "kicker": "Every morning, after the dawn prayer",
+      "when": {"label": "The days before the arrival, Rabīʿ al-Awwal, year 1", "grade": "supported"},
+      "place": {"key": "quba", "note": "The outskirts of the lava field (ḥarra) above Qubāʾ; the exact spot is not named"},
+      "sky": "dawn",
+      "camera": {"target": "quba", "dist": 3, "pitch": 30, "heading": 200},
+      "lights": [
+        {"name": "the Muslims of Qubāʾ (the Anṣār)", "role": "group"}
+      ],
+      "route": ["quba"],
+      "statements": [
+        {"text": "When the Muslims of Yathrib heard that the Messenger of Allah ﷺ had left Makkah, they began to expect his arrival day by day.", "grade": "established", "sources": [{"type": "ibn-hisham", "sec": "S0697"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Ibn Isḥāq's informants say that once they had prayed the dawn prayer, they went out to the outer edge of their ḥarra, the field of black lava rock, to wait for him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "The account reaches Ibn Isḥāq through Muḥammad b. Jaʿfar b. al-Zubayr and ʿUrwa b. al-Zubayr from ʿAbd al-Raḥmān b. ʿUwaymir b. Sāʿida, who says he had it from men of his own people who were Companions of the Prophet ﷺ.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "A second, independent version of the same waiting is told by ʿUrwa b. al-Zubayr in al-Bukhārī's Ṣaḥīḥ: they went out every morning to the ḥarra and waited.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Neither account names how many people went out each morning; they are spoken of only as 'we' and 'the Muslims'.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "The oasis of Yathrib is ringed by fields of dark basalt; Qubāʾ lies on the southern side, toward the road from the south by which a traveller from Makkah would come.", "grade": "reconstruction", "basis": "regional geology and gazetteer points for Qubāʾ and al-Madīna"}
+      ],
+      "people": [
+        {"name": "ʿAbd al-Raḥmān b. ʿUwaymir b. Sāʿida", "who": "A man of the Anṣār", "here": "Passes on what the men of his people who waited told him"}
+      ],
+      "discover": [
+        {"label": "Look south over the lava field", "camera": {"target": "quba", "dist": 10, "pitch": 22, "heading": 190}, "reveal": {"text": "From the edge of the ḥarra the ground falls away southward, the direction from which the travellers were expected.", "grade": "reconstruction", "basis": "terrain data"}}
+      ],
+      "matters": "The arrival is remembered first from the side of those waiting, not those travelling. The story is told by the hosts.",
+      "sections": ["S0697"]
+    },
+    {
+      "id": "a09-u02",
+      "title": "Driven in by the heat",
+      "kicker": "Each day, as the shade ran out",
+      "when": {"label": "The days before the arrival", "grade": "supported"},
+      "place": {"key": "quba"},
+      "sky": "midday",
+      "camera": {"target": "quba", "dist": 2, "pitch": 45, "heading": 120},
+      "lights": [
+        {"name": "the Muslims of Qubāʾ (the Anṣār)", "role": "group"}
+      ],
+      "statements": [
+        {"text": "The waiting men say they did not leave until the sun had overcome the shade, and when they could find no shade they went back indoors. 'Those were hot days,' they add.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "ʿUrwa's version in al-Bukhārī says the same in other words: they waited until the heat of the midday turned them back.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "On the day he came they sat as they always sat, and when no shade was left they went into their houses. The Messenger of Allah ﷺ arrived just after they had gone in.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "In ʿUrwa's version they had already turned back after a long wait and reached their homes when the travellers were seen.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Ibn Isḥāq times the arrival at Qubāʾ to the point when the late-morning heat had grown strong and the sun was almost at its height.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0696"}]},
+        {"text": "In September, daytime temperatures at al-Madīna today commonly reach about 40 °C, and dark basalt holds and gives back the heat.", "grade": "reconstruction", "basis": "modern climate normals for al-Madīna in September; physical properties of basalt"}
+      ],
+      "discover": [
+        {"label": "Watch the shade shrink", "camera": {"target": "quba", "dist": 1.2, "pitch": 70, "heading": 180}, "reveal": {"text": "Near noon at this latitude in late September the sun stands high in the southern sky, and the shadow of a palm shrinks to a small patch close to its trunk.", "grade": "reconstruction", "basis": "solar geometry for latitude 24.4° N in late September"}}
+      ],
+      "matters": "The arrival happened at exactly the hour when the watchers had given up for the day. The sources keep that small irony without comment.",
+      "sections": ["S0697", "S0696"]
+    },
+    {
+      "id": "a09-u03",
+      "title": "A shout from the fortress",
+      "kicker": "The first to see them",
+      "when": {"label": "Monday, Rabīʿ al-Awwal, year 1", "grade": "established"},
+      "place": {"key": "quba", "note": "One of the fortified towers (uṭum) of Yathrib; which one is not named"},
+      "sky": "midday",
+      "camera": {"target": "quba", "dist": 2.5, "pitch": 25, "heading": 210},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Abū Bakr", "role": "person"},
+        {"name": "a Jewish man on a fortress", "role": "person"},
+        {"name": "the Muslims of Qubāʾ (the Anṣār)", "role": "group"}
+      ],
+      "statements": [
+        {"text": "The first to see the Messenger of Allah ﷺ was a Jewish man who had watched the Muslims waiting each day and knew whom they were waiting for.", "grade": "established", "sources": [{"type": "ibn-hisham", "sec": "S0697"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "In al-Bukhārī's version he had climbed one of their fortified towers for some business of his own when he caught sight of them, in white clothing, shimmering in the mirage.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "In Ibn Isḥāq's version he cried at the top of his voice: 'O Banū Qayla, here is your good fortune, it has come!' Banū Qayla was a name for the Aws and the Khazraj, after an ancestress.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "Al-Bukhārī's wording has him call to 'the company of the Arabs' that the fortune they had been waiting for had come. The two versions agree on the sense and differ on the words.", "grade": "disputed", "note": "The wording of the shout differs between Ibn Isḥāq ('O Banū Qayla') and ʿUrwa's report in al-Bukhārī ('O company of the Arabs').", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}, {"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "The Muslims went out to him. Al-Bukhārī adds that they took up their weapons and met him on the open ground of the ḥarra.", "grade": "established", "sources": [{"type": "ibn-hisham", "sec": "S0697"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "He then turned to the right with them and came down among Banū ʿAmr b. ʿAwf, the clan of Qubāʾ.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "The man's name is not given in either account.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]}
+      ],
+      "discover": [
+        {"label": "See the mirage", "camera": {"target": "quba", "dist": 6, "pitch": 12, "heading": 200}, "reveal": {"text": "Over hot flat ground near midday, air layers bend the light so that distant figures seem to float and waver: the effect the report calls the mirage.", "grade": "reconstruction", "basis": "atmospheric optics over heated ground"}}
+      ],
+      "question": {"kind": "predict", "q": "The Muslims had gone indoors. Who, according to both accounts, saw the travellers first?", "options": [
+        {"text": "A Jewish man on a fortified tower who knew the Muslims were waiting", "ok": true, "why": "Both Ibn Isḥāq and ʿUrwa's report in al-Bukhārī say a Jewish man saw them first and called out.", "sources": [{"type": "ibn-hisham", "sec": "S0697"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "A lookout posted by the Anṣār", "ok": false, "why": "Neither account mentions a lookout; the watchers had gone home.", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "ʿAlī b. Abī Ṭālib, arriving ahead of them", "ok": false, "why": "ʿAlī was still in Makkah returning the deposits and came later.", "sources": [{"type": "ibn-hisham", "sec": "S0700"}]}
+      ]},
+      "matters": "The news of the Prophet's ﷺ arrival was first shouted by someone outside the faith who had simply been watching his neighbours wait.",
+      "sections": ["S0697"]
+    },
+    {
+      "id": "a09-u04",
+      "title": "Which Monday?",
+      "kicker": "The date of the arrival",
+      "when": {"label": "Monday, 12 Rabīʿ al-Awwal, year 1 (per Ibn Isḥāq)", "grade": "disputed"},
+      "place": {"key": "quba"},
+      "sky": "day",
+      "camera": {"target": "quba", "dist": 40, "pitch": 40, "heading": 0},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq says the guide brought them to Qubāʾ, to Banū ʿAmr b. ʿAwf, on a Monday, when twelve nights of Rabīʿ al-Awwal had passed.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0696"}]},
+        {"text": "That the arrival was on a Monday in Rabīʿ al-Awwal is also in ʿUrwa's report in al-Bukhārī, which does not give the day of the month.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}, {"type": "ibn-hisham", "sec": "S0696"}]},
+        {"text": "Other early reports give other days: Mūsā b. ʿUqba, from al-Zuhrī, is reported to have put it at the new moon of Rabīʿ al-Awwal, and other dates within the first two weeks of the month are also recorded.", "grade": "disputed", "note": "The day of the month differs between sources: Ibn Isḥāq gives the 12th; Mūsā b. ʿUqba (as quoted by later scholars) the 1st; other dates are also cited. Later commentators such as Ibn Ḥajar list the differences.", "sources": [{"type": "other", "ref": "Ibn Ḥajar, Fatḥ al-Bārī, commentary on the chapter of the Prophet's arrival at al-Madīna", "note": "Lists the differing dates for the arrival", "verify": true}]},
+        {"text": "The sources agree on the weekday more than on the day of the month, so the Monday is firmer than the date.", "grade": "disputed", "note": "An inference from the differing reports; the date itself remains disputed.", "sources": [{"type": "ibn-hisham", "sec": "S0696"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Converted with the standard tabular calendar, 12 Rabīʿ al-Awwal of year 1 falls in late September 622 CE. Whether the Arabs were then adding extra months is uncertain, so any Gregorian date is approximate.", "grade": "reconstruction", "basis": "tabular Islamic calendar conversion; uncertainty over pre-Islamic intercalation"},
+        {"text": "The Hijra calendar itself was fixed later, under ʿUmar, with its year beginning at Muḥarram rather than at the month of the arrival.", "grade": "supported", "sources": [{"type": "other", "ref": "al-Ṭabarī, Taʾrīkh al-rusul wa-l-mulūk, events of year 16 or 17, on the beginning of the dating", "note": "Reports on ʿUmar fixing the era", "verify": true}]}
+      ],
+      "discover": [
+        {"label": "Pull back to see the whole oasis", "camera": {"target": "madina", "dist": 30, "pitch": 50, "heading": 0}, "reveal": {"text": "Qubāʾ sits at the southern end of the oasis; the later centre of al-Madīna lies a few kilometres to the north.", "grade": "reconstruction", "basis": "gazetteer points for Qubāʾ and al-Madīna"}}
+      ],
+      "question": {"kind": "recall", "q": "Which part of the arrival date do Ibn Isḥāq and al-Bukhārī's report share?", "options": [
+        {"text": "The weekday, Monday, and the month, Rabīʿ al-Awwal", "ok": true, "why": "Both give a Monday in Rabīʿ al-Awwal; only Ibn Isḥāq gives the 12th.", "sources": [{"type": "ibn-hisham", "sec": "S0696"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "The 12th of the month", "ok": false, "why": "The 12th is Ibn Isḥāq's; ʿUrwa's report does not name the day of the month, and other reports give other days.", "sources": [{"type": "ibn-hisham", "sec": "S0696"}]},
+        {"text": "A Friday", "ok": false, "why": "Friday is the day he left Qubāʾ in Ibn Isḥāq's account, not the day he arrived.", "sources": [{"type": "ibn-hisham", "sec": "S0703"}]}
+      ]},
+      "matters": "A famous date can rest on one source. Seeing which part is shared and which is single is part of reading the sīra honestly.",
+      "sections": ["S0696", "S0703"]
+    },
+    {
+      "id": "a09-u05",
+      "title": "In the shade of a palm",
+      "kicker": "The first meeting",
+      "when": {"label": "Monday, Rabīʿ al-Awwal, year 1", "grade": "supported"},
+      "place": {"key": "quba"},
+      "sky": "midday",
+      "camera": {"target": "quba", "dist": 0.9, "pitch": 35, "heading": 260},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Abū Bakr", "role": "person"},
+        {"name": "the Muslims of Qubāʾ (the Anṣār)", "role": "group"}
+      ],
+      "statements": [
+        {"text": "The Anṣār came out and found the Messenger of Allah ﷺ sitting in the shade of a palm tree, with Abū Bakr beside him.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "Ibn Isḥāq's informants describe Abū Bakr as being of about the same age as the Prophet ﷺ.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "Most of those who came out had never seen the Messenger of Allah ﷺ before.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "In al-Bukhārī's version, Abū Bakr stood up to receive the people while the Messenger of Allah ﷺ sat in silence.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "The crowd pressed around both men, not knowing which of the two was the Prophet ﷺ.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]}
+      ],
+      "discover": [
+        {"label": "Look at the palm groves of Qubāʾ", "camera": {"target": "quba", "dist": 3, "pitch": 30, "heading": 330}, "reveal": {"text": "Qubāʾ lies on lower, well-watered ground below the lava field, where palm gardens still grow today.", "grade": "reconstruction", "basis": "terrain data and present land cover"}}
+      ],
+      "matters": "The people who had staked their lives on him at ʿAqaba and after did not, for the most part, know his face.",
+      "sections": ["S0697"]
+    },
+    {
+      "id": "a09-u06",
+      "title": "The cloak",
+      "kicker": "How they knew him",
+      "when": {"label": "Monday, Rabīʿ al-Awwal, year 1", "grade": "established"},
+      "place": {"key": "quba"},
+      "sky": "midday",
+      "camera": {"target": "quba", "dist": 0.8, "pitch": 40, "heading": 90},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Abū Bakr", "role": "person"},
+        {"name": "the Muslims of Qubāʾ (the Anṣār)", "role": "group"}
+      ],
+      "statements": [
+        {"text": "Those of the Anṣār who had not seen the Messenger of Allah ﷺ began greeting Abū Bakr.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "This went on until the shade moved off the Prophet ﷺ and the sun fell on him.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}, {"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "Abū Bakr then rose and shaded him with his cloak (ridāʾ).", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}, {"type": "ibn-hisham", "sec": "S0697"}]},
+        {"text": "'We knew him then,' say Ibn Isḥāq's informants; al-Bukhārī's report says the people recognised the Messenger of Allah ﷺ at that moment.", "grade": "established", "sources": [{"type": "ibn-hisham", "sec": "S0697"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "A report from Anas b. Mālik in al-Bukhārī describes the two differently: Abū Bakr as an older man people knew, the Prophet ﷺ as a younger man they did not, and when asked who his companion was Abū Bakr answered, 'This man guides me on the way.'", "grade": "disputed", "note": "Anas's description of Abū Bakr as the older, known man sits uneasily with Ibn Isḥāq's informants, who call the two of similar age; Abū Bakr was in fact some two years younger. Commentators explain 'older' by his grey hair.", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3911", "grade": "ṣaḥīḥ", "verify": true}, {"type": "ibn-hisham", "sec": "S0697"}]}
+      ],
+      "question": {"kind": "reflect", "q": "Abū Bakr is greeted as the leader, and he answers not with words but by standing to shade the Prophet ﷺ. What does the way the hosts tell this suggest they remembered about him?", "options": [
+        {"text": "That a gesture of service, not a claim, showed them who was who", "why": "Both versions make the shading, not any announcement, the moment of recognition.", "sources": [{"type": "ibn-hisham", "sec": "S0697"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "That they were embarrassed at their mistake", "why": "Possible, but the sources do not say how they felt; they only report that they recognised him.", "sources": [{"type": "ibn-hisham", "sec": "S0697"}]}
+      ]},
+      "matters": "The companion of the cave stands aside at the very first meeting. The sources leave the gesture without explanation.",
+      "sections": ["S0697"]
+    },
+    {
+      "id": "a09-u07",
+      "title": "Two houses in Qubāʾ",
+      "kicker": "Where did he lodge?",
+      "when": {"label": "From the arrival, Rabīʿ al-Awwal, year 1", "grade": "disputed"},
+      "place": {"key": "quba", "note": "The houses of Kulthūm b. Hidm and Saʿd b. Khaythama are not located"},
+      "sky": "day",
+      "camera": {"target": "quba", "dist": 1.5, "pitch": 40, "heading": 30},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Kulthūm b. Hidm", "role": "person"},
+        {"name": "Saʿd b. Khaythama", "role": "person"},
+        {"name": "the emigrants who had come before", "role": "group"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq says, with the hedge 'so they mention', that the Messenger of Allah ﷺ lodged with Kulthūm b. Hidm of Banū ʿAmr b. ʿAwf, of the subclan of Banū ʿUbayd.", "grade": "disputed", "note": "Ibn Isḥāq hedges ('fīmā yadhkurūn') and gives a second report: that he lodged with Saʿd b. Khaythama.", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "It is also said ('yuqāl') that he lodged with Saʿd b. Khaythama.", "grade": "disputed", "note": "The alternative report to Kulthūm b. Hidm, introduced with 'it is said'.", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "Those who say Kulthūm explain the other report: when the Prophet ﷺ left Kulthūm's house he would sit to receive people in the house of Saʿd b. Khaythama.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "Saʿd was unmarried, with no family, and his house was where the unmarried men among the emigrants stayed. It was called 'the house of the bachelors'.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "Ibn Isḥāq ends: 'God knows which of these it was; we have heard both.'", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "The emigrants from Makkah who had come ahead of the Prophet ﷺ were therefore already settled in Qubāʾ, some of them in Saʿd's house.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]}
+      ],
+      "people": [
+        {"name": "Kulthūm b. Hidm", "who": "An elder of Banū ʿAmr b. ʿAwf at Qubāʾ", "here": "Host of the Prophet ﷺ in one report"},
+        {"name": "Saʿd b. Khaythama", "who": "A man of the Aws at Qubāʾ, unmarried", "here": "His house sheltered the single emigrants; host in the other report"}
+      ],
+      "discover": [
+        {"label": "Look for the two houses", "camera": {"target": "quba", "dist": 1, "pitch": 55, "heading": 0}, "reveal": {"text": "No source gives the position of either house, so neither is marked on the map.", "grade": "reconstruction", "basis": "absence of a gazetteer point for either house"}}
+      ],
+      "question": {"kind": "recall", "q": "Ibn Isḥāq gives two reports of where the Prophet ﷺ lodged. How does he link them?", "options": [
+        {"text": "He lodged with Kulthūm but sat to meet people in Saʿd's house, so both names were remembered", "ok": true, "why": "This is the explanation given by those who say Kulthūm; Ibn Isḥāq still leaves the question open.", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "He stayed first with Saʿd, then moved to Kulthūm", "ok": false, "why": "The sources do not describe a move between the two houses.", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "Ibn Isḥāq rejects the Saʿd report as false", "ok": false, "why": "He says 'God knows which it was; we have heard both.'", "sources": [{"type": "ibn-hisham", "sec": "S0698"}]}
+      ]},
+      "matters": "Ibn Isḥāq gives both reports and says he does not know which is right, instead of choosing one.",
+      "sections": ["S0698"]
+    },
+    {
+      "id": "a09-u08",
+      "title": "Abū Bakr at al-Sunḥ",
+      "kicker": "A separate lodging",
+      "when": {"label": "From the arrival, Rabīʿ al-Awwal, year 1", "grade": "supported"},
+      "place": {"key": "~sunh", "note": "Al-Sunḥ, a district of Banū al-Ḥārith b. al-Khazraj; not located here"},
+      "sky": "day",
+      "camera": {"target": "madina", "dist": 8, "pitch": 35, "heading": 150},
+      "lights": [
+        {"name": "Abū Bakr", "role": "person"},
+        {"name": "Khubayb b. Isāf", "role": "person"},
+        {"name": "Khārija b. Zayd b. Abī Zuhayr", "role": "person"}
+      ],
+      "route": ["quba", "~sunh"],
+      "statements": [
+        {"text": "Abū Bakr did not lodge in the same house as the Prophet ﷺ. Ibn Isḥāq places him at al-Sunḥ.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0699"}]},
+        {"text": "His host there was Khubayb b. Isāf, one of Banū al-Ḥārith b. al-Khazraj.", "grade": "disputed", "note": "A second report ('one who says') names Khārija b. Zayd instead.", "sources": [{"type": "ibn-hisham", "sec": "S0699"}]},
+        {"text": "Someone else says his lodging was with Khārija b. Zayd b. Abī Zuhayr, of the same clan.", "grade": "disputed", "note": "The alternative to Khubayb b. Isāf; Ibn Isḥāq does not decide between them.", "sources": [{"type": "ibn-hisham", "sec": "S0699"}]},
+        {"text": "Both named hosts of Abū Bakr belong to Banū al-Ḥārith b. al-Khazraj, while the Prophet ﷺ stayed among Banū ʿAmr b. ʿAwf, a clan of the Aws: the two travellers were received by both tribes.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0698"}, {"type": "ibn-hisham", "sec": "S0699"}]},
+        {"text": "Al-Sunḥ stayed Abū Bakr's home: years later, ʿĀʾisha reports, he was there when the Prophet ﷺ died, and came in from al-Sunḥ.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3667", "grade": "ṣaḥīḥ", "verify": true}]}
+      ],
+      "people": [
+        {"name": "Khubayb b. Isāf", "who": "Of Banū al-Ḥārith b. al-Khazraj", "here": "Abū Bakr's host in one report"},
+        {"name": "Khārija b. Zayd b. Abī Zuhayr", "who": "Of Banū al-Ḥārith b. al-Khazraj", "here": "Abū Bakr's host in the other report"}
+      ],
+      "discover": [
+        {"label": "Where is al-Sunḥ?", "camera": {"target": "madina", "dist": 12, "pitch": 45, "heading": 180}, "reveal": {"text": "Ibn Isḥāq names al-Sunḥ but gives no position; it is drawn dashed and left off the map rather than guessed.", "grade": "reconstruction", "basis": "no gazetteer point for al-Sunḥ"}}
+      ],
+      "matters": "The two companions of the cave were placed in different households from the first day.",
+      "sections": ["S0699", "S0698"]
+    },
+    {
+      "id": "a09-u09",
+      "title": "ʿAlī returns the deposits",
+      "kicker": "Three nights behind",
+      "when": {"label": "Days after the arrival, Rabīʿ al-Awwal, year 1", "grade": "supported"},
+      "place": {"key": "quba"},
+      "sky": "day",
+      "camera": {"target": [39.70, 22.95], "dist": 400, "pitch": 50, "heading": 330},
+      "lights": [
+        {"name": "ʿAlī b. Abī Ṭālib", "role": "person"},
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Kulthūm b. Hidm", "role": "person"}
+      ],
+      "route": ["makkah", "quba"],
+      "statements": [
+        {"text": "ʿAlī b. Abī Ṭālib stayed in Makkah for three nights and their days after the Prophet ﷺ left.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0700"}]},
+        {"text": "In that time he handed back, on the Prophet's ﷺ behalf, the deposits that people had left with him for safe keeping.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0700"}]},
+        {"text": "When he had finished, he set out after the Prophet ﷺ and joined him at Qubāʾ.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0700"}]},
+        {"text": "ʿAlī lodged with him in the house of Kulthūm b. Hidm, which supports the first of the two lodging reports.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0700"}, {"type": "ibn-hisham", "sec": "S0698"}]},
+        {"text": "Ibn Isḥāq notes that ʿAlī's own stay at Qubāʾ was only one night or two.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "Ibn Isḥāq does not describe ʿAlī's route, his companions or how he travelled.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0700"}]}
+      ],
+      "discover": [
+        {"label": "Trace the road ʿAlī followed", "camera": {"target": [39.70, 22.95], "dist": 450, "pitch": 55, "heading": 320}, "reveal": {"text": "Makkah and Qubāʾ are about 340 km apart in a straight line; the road is longer.", "grade": "reconstruction", "basis": "computed distance between gazetteer points"}}
+      ],
+      "matters": "The deposits of people who had driven him out were returned before the last of his household left Makkah.",
+      "sections": ["S0700", "S0701", "S0698"]
+    },
+    {
+      "id": "a09-u10",
+      "title": "A knock in the night",
+      "kicker": "ʿAlī's account of Sahl b. Ḥunayf",
+      "when": {"label": "ʿAlī's night or two at Qubāʾ", "grade": "supported"},
+      "place": {"key": "quba"},
+      "sky": "night",
+      "camera": {"target": "quba", "dist": 0.8, "pitch": 30, "heading": 300},
+      "lights": [
+        {"name": "ʿAlī b. Abī Ṭālib", "role": "person"},
+        {"name": "a Muslim woman of Qubāʾ without a husband", "role": "person"},
+        {"name": "Sahl b. Ḥunayf", "role": "person"}
+      ],
+      "statements": [
+        {"text": "ʿAlī used to tell that there was at Qubāʾ a Muslim woman with no husband, and that he saw a man come to her door in the depth of the night and knock; she came out and took something he gave her.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "By his own account ʿAlī became suspicious and asked her who this man was who knocked every night, since she was a Muslim woman without a husband.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "She told him it was Sahl b. Ḥunayf b. Wāhib, who knew she had no one to provide for her.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "Each evening Sahl went to the idols of his own people, broke them, and brought her the pieces, telling her to use them as firewood.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "ʿAlī kept retelling this about Sahl until Sahl died with him in Iraq.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "Ibn Isḥāq had the story from Sahl's grandson, Hind b. Saʿd b. Sahl b. Ḥunayf, as part of ʿAlī's own account.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]}
+      ],
+      "people": [
+        {"name": "Sahl b. Ḥunayf", "who": "A man of the Aws at Qubāʾ; later a companion of ʿAlī", "here": "Broke his people's idols and brought the wood to a woman with no one to provide for her"}
+      ],
+      "question": {"kind": "recall", "q": "What was Sahl b. Ḥunayf bringing to the woman's door at night?", "options": [
+        {"text": "The wood of his people's broken idols, for her fire", "ok": true, "why": "She told ʿAlī that Sahl broke his people's idols each evening and brought them to her as firewood.", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "Dates from his garden", "ok": false, "why": "The account names idols broken into firewood, not food.", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]},
+        {"text": "Messages from the Prophet ﷺ", "ok": false, "why": "Nothing in ʿAlī's account connects the visits to messages.", "sources": [{"type": "ibn-hisham", "sec": "S0701"}]}
+      ]},
+      "matters": "Sahl's visits did two things at once: he got rid of his people's idols, and he gave fuel to a woman with no one to provide for her.",
+      "sections": ["S0701"]
+    },
+    {
+      "id": "a09-u11",
+      "title": "A mosque at Qubāʾ",
+      "kicker": "The first mosque he founded",
+      "when": {"label": "During the stay at Qubāʾ, Rabīʿ al-Awwal, year 1", "grade": "established"},
+      "place": {"key": "quba_mosque", "note": "The present mosque is identified by tradition with the original site"},
+      "sky": "day",
+      "camera": {"target": "quba_mosque", "dist": 1, "pitch": 40, "heading": 20},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Banū ʿAmr b. ʿAwf", "role": "group"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq says that while he stayed among Banū ʿAmr b. ʿAwf the Messenger of Allah ﷺ founded his mosque there.", "grade": "established", "sources": [{"type": "ibn-hisham", "sec": "S0702"}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "ʿUrwa's report in al-Bukhārī says that during that stay the mosque 'founded on piety' was founded, and the Prophet ﷺ prayed in it.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Neither Ibn Isḥāq nor ʿUrwa describes how the mosque was built or what it was made of.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0702"}]},
+        {"text": "In later years, ʿAbdullāh b. ʿUmar reports, the Prophet ﷺ used to go to Qubāʾ every Saturday, riding or walking, and pray there.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 1193", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "The present Masjid Qubāʾ stands on the site that tradition identifies with this first mosque, about 3 km south of the Prophet's Mosque.", "grade": "reconstruction", "basis": "computed distance between gazetteer points for Masjid Qubāʾ and the Prophet's Mosque"}
+      ],
+      "discover": [
+        {"label": "Look north toward the later mosque", "camera": {"target": "quba_mosque", "dist": 5, "pitch": 25, "heading": 350}, "reveal": {"text": "The Prophet's Mosque, built after he moved on from Qubāʾ, lies almost due north of this site.", "grade": "reconstruction", "basis": "bearing between gazetteer points"}}
+      ],
+      "matters": "The first community mosque was built in a farming village on the edge of the oasis, before he had reached the centre of the town.",
+      "sections": ["S0702"]
+    },
+    {
+      "id": "a09-u12",
+      "title": "Founded on piety from the first day",
+      "kicker": "Qurʾān 9:108: which mosque?",
+      "when": {"label": "Verse revealed later, around the expedition of Tabūk (year 9)", "grade": "disputed"},
+      "place": {"key": "quba_mosque"},
+      "sky": "day",
+      "camera": {"target": "quba_mosque", "dist": 6, "pitch": 40, "heading": 15},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"}
+      ],
+      "statements": [
+        {"text": "Qurʾān 9:108 praises 'a mosque founded on piety from the first day' as more worthy for the Prophet ﷺ to stand in, and says that in it are men who love to purify themselves.", "grade": "established", "sources": [{"type": "quran", "ref": "9:108"}]},
+        {"text": "The verse answers the 'mosque of harm' of the verse before it, which most commentators place around the expedition of Tabūk, years after the arrival.", "grade": "disputed", "note": "The occasion and dating come from exegetical reports, not from the verse itself.", "sources": [{"type": "quran", "ref": "9:107"}, {"type": "other", "ref": "al-Ṭabarī, Jāmiʿ al-bayān, on 9:107–108", "note": "Collects the reports on the occasion of revelation", "verify": true}]},
+        {"text": "ʿUrwa's report in al-Bukhārī calls the mosque at Qubāʾ 'the mosque founded on piety', which identifies it with the verse.", "grade": "disputed", "note": "Exegetes differ: some take 9:108 to mean the mosque at Qubāʾ, others the Prophet's Mosque in al-Madīna.", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "In Ṣaḥīḥ Muslim, Abū Saʿīd al-Khudrī reports that when he asked the Prophet ﷺ which mosque was founded on piety, he answered, 'This mosque of yours', meaning the mosque in al-Madīna.", "grade": "disputed", "note": "A sound report pointing to the Prophet's Mosque, against those that point to Qubāʾ.", "sources": [{"type": "hadith", "ref": "Muslim 1398", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "The phrase 'men who love to purify themselves' is linked in a report in Abū Dāwūd and al-Tirmidhī to the people of Qubāʾ and their washing with water; its chain has been questioned.", "grade": "disputed", "note": "Supports the Qubāʾ reading, but the chain is weaker than the report in Muslim.", "sources": [{"type": "hadith", "ref": "Abū Dāwūd, Kitāb al-Ṭahāra, on washing with water (Abū Hurayra)", "grade": "chain questioned", "verify": true}]},
+        {"text": "Many scholars, among them Ibn Ḥajar, combine the two: both mosques were founded on piety, and the ḥadīth in Muslim answers a question about which is meant first.", "grade": "disputed", "note": "A harmonisation proposed by later scholars; not all accept it.", "sources": [{"type": "other", "ref": "Ibn Ḥajar, Fatḥ al-Bārī, on the mosque founded on piety", "note": "Discusses and reconciles the two identifications", "verify": true}]}
+      ],
+      "quran": [
+        {"ref": "9:108", "gist": "The Prophet ﷺ should not stand in the mosque built to cause harm; a mosque founded on piety from its first day is more fitting, and in it are people who love purity, and God loves those who purify themselves.", "context": "Linked to Qubāʾ by ʿUrwa's report in al-Bukhārī and by many exegetes; others, with a report in Muslim, refer it to the Prophet's Mosque. Disputed.", "grade": "disputed"}
+      ],
+      "discover": [
+        {"label": "See both mosques", "camera": {"target": "madina", "dist": 10, "pitch": 45, "heading": 0}, "reveal": {"text": "The two candidates for 'the mosque founded on piety' are about 3 km apart, at the southern edge and the centre of the oasis.", "grade": "reconstruction", "basis": "computed distance between gazetteer points"}}
+      ],
+      "question": {"kind": "reflect", "q": "Two sound reports point to different mosques for the same verse. What does keeping both tell you about how the scholars read the Qurʾān?", "options": [
+        {"text": "They let a verse carry more than one well-grounded application rather than discarding a sound report", "why": "Both identifications rest on sound reports; the reconciliation keeps both.", "sources": [{"type": "hadith", "ref": "Muslim 1398", "grade": "ṣaḥīḥ", "verify": true}, {"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "They thought one report must simply be wrong", "why": "Some scholars did prefer one side; others did not accept that choice.", "sources": [{"type": "other", "ref": "al-Ṭabarī, Jāmiʿ al-bayān, on 9:108", "note": "Records both views", "verify": true}]}
+      ]},
+      "matters": "One verse, two mosques, sound reports for each. The disagreement is old, and the scholars recorded it openly.",
+      "sections": ["S0702"]
+    },
+    {
+      "id": "a09-u13",
+      "title": "Four days or fourteen nights",
+      "kicker": "How long at Qubāʾ?",
+      "when": {"label": "From Monday to a Friday, Rabīʿ al-Awwal, year 1", "grade": "disputed"},
+      "place": {"key": "quba"},
+      "sky": "day",
+      "camera": {"target": "quba", "dist": 8, "pitch": 35, "heading": 20},
+      "lights": [
+        {"name": "The Prophet Muḥammad ﷺ", "role": "prophet"},
+        {"name": "Banū ʿAmr b. ʿAwf", "role": "group"}
+      ],
+      "route": ["quba", "jumua_mosque", "madina"],
+      "statements": [
+        {"text": "Ibn Isḥāq: he stayed at Qubāʾ among Banū ʿAmr b. ʿAwf on Monday, Tuesday, Wednesday and Thursday, and left on the Friday.", "grade": "disputed", "note": "Ibn Isḥāq gives four days; ʿUrwa in al-Bukhārī says ten-odd nights; Anas in al-Bukhārī says fourteen nights; Banū ʿAmr b. ʿAwf said longer.", "sources": [{"type": "ibn-hisham", "sec": "S0702"}, {"type": "ibn-hisham", "sec": "S0703"}]},
+        {"text": "Ibn Isḥāq himself adds that Banū ʿAmr b. ʿAwf claimed he stayed with them longer than that, and ends, 'God knows which it was.'", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0703"}]},
+        {"text": "ʿUrwa's report in al-Bukhārī says he stayed among Banū ʿAmr b. ʿAwf for 'ten and some' nights.", "grade": "disputed", "note": "Differs from Ibn Isḥāq's four days.", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3906", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Anas b. Mālik, in al-Bukhārī, says he stayed among them fourteen nights before sending for Banū al-Najjār.", "grade": "disputed", "note": "Fourteen nights per Anas against four days per Ibn Isḥāq.", "sources": [{"type": "hadith", "ref": "al-Bukhārī, Kitāb al-Ṣalāt, Anas on the building of the mosque (no. 428)", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Later scholars generally give more weight to the reports in al-Bukhārī; some reconcile them by counting the days of arrival and departure differently.", "grade": "disputed", "note": "Weighing and reconciling are later scholarly judgements.", "sources": [{"type": "other", "ref": "Ibn Ḥajar, Fatḥ al-Bārī, on the length of the stay at Qubāʾ", "note": "Compares the reports", "verify": true}]},
+        {"text": "Ibn Isḥāq says he moved on from Qubāʾ on a Friday, and the time for the Friday prayer came while he was among Banū Sālim b. ʿAwf, on the way.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0703"}]}
+      ],
+      "discover": [
+        {"label": "Follow the road north", "camera": {"target": "jumua_mosque", "dist": 4, "pitch": 35, "heading": 0}, "reveal": {"text": "The mosque traditionally linked with the first Friday prayer lies about 2 km north-west of the present Masjid Qubāʾ, on the way toward the centre of al-Madīna.", "grade": "reconstruction", "basis": "computed distance between gazetteer points"}}
+      ],
+      "question": {"kind": "recall", "q": "Which source gives the shortest stay at Qubāʾ?", "options": [
+        {"text": "Ibn Isḥāq: Monday to Thursday", "ok": true, "why": "Ibn Isḥāq names four days and a Friday departure; the reports in al-Bukhārī give ten-odd or fourteen nights.", "sources": [{"type": "ibn-hisham", "sec": "S0702"}]},
+        {"text": "Anas b. Mālik: fourteen nights", "ok": false, "why": "Anas's figure is the longest stated.", "sources": [{"type": "hadith", "ref": "al-Bukhārī, Kitāb al-Ṣalāt, Anas on the building of the mosque (no. 428)", "grade": "ṣaḥīḥ", "verify": true}]},
+        {"text": "Banū ʿAmr b. ʿAwf", "ok": false, "why": "They claimed a longer stay than Ibn Isḥāq's.", "sources": [{"type": "ibn-hisham", "sec": "S0703"}]}
+      ]},
+      "matters": "The hosts remembered the stay as longer than Ibn Isḥāq's count, and he recorded their claim alongside his own.",
+      "sections": ["S0702", "S0703"]
+    },
+    {
+      "id": "a09-u14",
+      "title": "A man in a palm tree",
+      "kicker": "ʿAbdullāh b. Salām hears the news",
+      "when": {"label": "The day news of the arrival reached him", "grade": "supported"},
+      "place": {"key": "madina", "note": "His palm garden is not located"},
+      "sky": "day",
+      "camera": {"target": "madina", "dist": 3, "pitch": 30, "heading": 180},
+      "lights": [
+        {"name": "ʿAbdullāh b. Salām", "role": "person"},
+        {"name": "Khālida bint al-Ḥārith", "role": "person"}
+      ],
+      "statements": [
+        {"text": "ʿAbdullāh b. Salām was a learned rabbi of Yathrib. By his own account, when he first heard of the Prophet ﷺ he recognised his description, his name and the time he and his people had been expecting, and kept this to himself.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0741"}]},
+        {"text": "When the Prophet ﷺ came down at Qubāʾ, a man came with the news while ʿAbdullāh was at the top of one of his palms, working, and his aunt Khālida bint al-Ḥārith sat below.", "grade": "disputed", "note": "Ibn Isḥāq has it only from 'some of his family', unnamed.", "sources": [{"type": "ibn-hisham", "sec": "S0741"}]},
+        {"text": "He cried 'Allāhu akbar.' His aunt rebuked him: had he heard that Mūsā b. ʿImrān himself was coming, he could not have done more.", "grade": "disputed", "note": "Same unnamed family source.", "sources": [{"type": "ibn-hisham", "sec": "S0741"}]},
+        {"text": "He answered that this was indeed the brother of Mūsā, on his religion, sent with what he was sent with. She asked whether he was the prophet they had been told would be sent close to the Hour, and when he said yes, she said, 'Then that is that.'", "grade": "disputed", "note": "Same unnamed family source.", "sources": [{"type": "ibn-hisham", "sec": "S0741"}]},
+        {"text": "He went out to the Prophet ﷺ, became Muslim, and then went back and told his household, and they became Muslim.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0741"}]},
+        {"text": "Al-Bukhārī preserves a different account of his conversion: he came to the Prophet ﷺ with three questions that only a prophet would know, and became Muslim after the answers.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī 3329", "grade": "ṣaḥīḥ", "verify": true}]}
+      ],
+      "people": [
+        {"name": "ʿAbdullāh b. Salām", "who": "A learned rabbi of Yathrib", "here": "Heard of the arrival at Qubāʾ from the top of a palm"},
+        {"name": "Khālida bint al-Ḥārith", "who": "His aunt", "here": "Sat below the palm when the news came"}
+      ],
+      "question": {"kind": "recall", "q": "What did ʿAbdullāh b. Salām's aunt compare his excitement to?", "options": [
+        {"text": "The excitement he would show if Mūsā b. ʿImrān himself were arriving", "ok": true, "why": "She said he could not have done more had he heard Mūsā was coming.", "sources": [{"type": "ibn-hisham", "sec": "S0741"}]},
+        {"text": "The joy of a harvest", "ok": false, "why": "The report gives no such comparison.", "sources": [{"type": "ibn-hisham", "sec": "S0741"}]}
+      ]},
+      "matters": "The news from Qubāʾ reached Yathrib's scholars on the same day, and they did not all receive it the same way.",
+      "sections": ["S0741"]
+    },
+    {
+      "id": "a09-u15",
+      "title": "Two brothers at dusk",
+      "kicker": "Ṣafiyya bint Ḥuyayy remembers",
+      "when": {"label": "One day during the stay at Qubāʾ", "grade": "disputed"},
+      "place": {"key": "quba"},
+      "sky": "dusk",
+      "camera": {"target": "quba", "dist": 5, "pitch": 30, "heading": 60},
+      "lights": [
+        {"name": "Ṣafiyya bint Ḥuyayy", "role": "person"},
+        {"name": "Ḥuyayy b. Akhṭab", "role": "stone"},
+        {"name": "Abū Yāsir b. Akhṭab", "role": "stone"}
+      ],
+      "statements": [
+        {"text": "Ibn Isḥāq heard this from ʿAbd Allāh b. Abī Bakr b. Ḥazm, who says only that he 'was told' it from Ṣafiyya bint Ḥuyayy; the link between them is unnamed.", "grade": "supported", "sources": [{"type": "ibn-hisham", "sec": "S0744"}]},
+        {"text": "Ṣafiyya said she was the dearest of the children to her father Ḥuyayy b. Akhṭab and her uncle Abū Yāsir; whenever she met them with another child, they would pick her up instead.", "grade": "disputed", "note": "Reported through an unnamed intermediary ('I was told').", "sources": [{"type": "ibn-hisham", "sec": "S0744"}]},
+        {"text": "When the Prophet ﷺ came down at Qubāʾ, her father and uncle went to him early, while it was still dark, and did not come back until sunset.", "grade": "disputed", "note": "Reported through an unnamed intermediary.", "sources": [{"type": "ibn-hisham", "sec": "S0744"}]},
+        {"text": "She says they came back worn out and walking slowly, and when she ran to them as she always did, neither of them turned to her.", "grade": "disputed", "note": "Reported through an unnamed intermediary.", "sources": [{"type": "ibn-hisham", "sec": "S0744"}]},
+        {"text": "She heard Abū Yāsir ask her father, 'Is it he?' He said, 'Yes, by God.' 'You recognise him and are sure?' 'Yes.' 'And what do you feel toward him?' 'Enmity, by God, as long as I live.'", "grade": "disputed", "note": "Reported through an unnamed intermediary.", "sources": [{"type": "ibn-hisham", "sec": "S0744"}]},
+        {"text": "Ṣafiyya was later married to the Prophet ﷺ, after the conquest of Khaybar; she tells this as a memory of her childhood.", "grade": "established", "sources": [{"type": "hadith", "ref": "al-Bukhārī, Kitāb al-Maghāzī, the expedition of Khaybar (Anas on Ṣafiyya)", "grade": "ṣaḥīḥ", "verify": true}, {"type": "ibn-hisham", "sec": "S0744"}]}
+      ],
+      "people": [
+        {"name": "Ṣafiyya bint Ḥuyayy", "who": "Daughter of Ḥuyayy b. Akhṭab of Banū al-Naḍīr; later a wife of the Prophet ﷺ", "here": "Remembers her father and uncle returning from Qubāʾ"},
+        {"name": "Ḥuyayy b. Akhṭab", "who": "A leader of Banū al-Naḍīr", "here": "Went to see the Prophet ﷺ at Qubāʾ"}
+      ],
+      "discover": [
+        {"label": "Watch the light go", "camera": {"target": "quba", "dist": 8, "pitch": 18, "heading": 270}, "reveal": {"text": "In late September the sun sets at about 6 pm local solar time; from dark before dawn to sunset is about thirteen hours.", "grade": "reconstruction", "basis": "solar geometry for latitude 24.4° N in late September"}}
+      ],
+      "question": {"kind": "reflect", "q": "Two Jewish scholars hear the same news on the same days: ʿAbdullāh b. Salām and Ḥuyayy b. Akhṭab. What do the reports say set their responses apart?", "options": [
+        {"text": "The reports state what each did and said, and leave the reasons to the reader", "why": "Ibn Isḥāq gives ʿAbdullāh's words and Ḥuyayy's answer to his brother; neither report explains the motives behind them.", "sources": [{"type": "ibn-hisham", "sec": "S0741"}, {"type": "ibn-hisham", "sec": "S0744"}]},
+        {"text": "Both recognised him, by their own words in these reports", "why": "ʿAbdullāh says he recognised the description; Ḥuyayy answers 'Yes' when asked if he recognises him.", "sources": [{"type": "ibn-hisham", "sec": "S0741"}, {"type": "ibn-hisham", "sec": "S0744"}]}
+      ]},
+      "matters": "Ibn Isḥāq sets the house of Ḥuyayy beside the palm of ʿAbdullāh b. Salām: the same arrival, received with joy in one place and enmity in another.",
+      "sections": ["S0744", "S0741"]
+    }
+  ]
+}
