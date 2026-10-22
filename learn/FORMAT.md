@@ -172,8 +172,10 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
 - `texts.apart_heading` and `texts.apart_lead` head the set-apart people; at Discover the
   lead is `texts.apart_lead_discover`, which says that only records with a work and page
   are shown there.
-- `title`, `lead` and `lead_study` are `{key, en, ar}`. `ar` is null where there is no Arabic
-  text yet. `lead` is Discover-safe; `lead_study` is for Study and Research.
+- `title`, `lead` and `lead_study` are `{key, en, ar}`, from `learn/i18n/en.json` and
+  `ar.json`. `ar` is null where there is no Arabic text. `lead` is Discover-safe in both
+  languages; `lead_study` is for Study and Research. The Arabic titles and leads are the
+  Sky Atlas's; the Arabic `lead_study` texts are interface drafts awaiting L3 review.
 
 ## journeys/{slug}/journey.json, the head
 
@@ -322,7 +324,10 @@ On the Prophet's ﷺ step `focus` is null and `light` is true. Hints carry no fa
 - `name` is the display name (popular form, the honorific sign after the Prophet's ﷺ name);
   `scholarly` is the label as recorded. `links` is how many records about it the graph holds.
 - `dates`: `[{native, calendar, earliest, latest, precision, basis, relative?, disputed?, "text": {"en", "ar"}}]`.
-  `text` is Gregorian first, with digits 0–9 and, in `ar`, Arabic Gregorian month names.
+  `text` is Gregorian first, with digits 0–9 (never U+0660–0669 or U+06F0–06F9), as
+  `display.format_extent` writes it: in `ar`, a part worked out from the recorded bounds
+  has Arabic Gregorian month names, and a part that is the date as recorded stays as it
+  was written (so a date recorded as "622 CE" reads "622 CE" in `ar` too).
 - `geo` (places): `{"lon", "lat", "confidence", "basis", "recorded_by"}` for a single WKT
   point (WKT order: lon, then lat), `{"many": n}` when several different points are
   recorded (none is chosen), `{"unlocated": true, "basis"}`; no `geo` without a geometry state.
@@ -375,6 +380,18 @@ resolves without JavaScript.
   `geo` with its provenance, so a point can be drawn without the graph. A learn journey
   needs its own route (for example `#j-{slug}~{pid}`) beside `#x-{slug}`.
 - Apply the Discover rule at every public depth, and the depth policy for the others.
+
+## Claim proposals (not part of the export)
+
+`learn/proposals/*.json` holds claims proposed to the review board, format
+`marsad-claim-proposals` v1: `{format, version, about, status: "proposed", approved_by: [],
+journey, graph: {file, fingerprint}, proposals: [{n, subject, predicate, object, basis}],
+effects: [{with: [n], steps, text}], joined_graph}`. `subject` and `object` are `named` rules
+(`kinds`, then `words`, `phrase`, `not_words`), each naming exactly one event on the graph
+the file names; `predicate` is an `mrs:` relation; `basis` states the open question;
+`effects` are the simulated results on a scratch copy of that graph (its `fingerprint`).
+No learn module reads these files: software never adds a proposed claim to the graph, and
+nothing proposed reaches a page or the export. People record the board's answer.
 
 ## The Atlas facade
 

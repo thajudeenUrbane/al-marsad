@@ -51,8 +51,6 @@ PY_FILES = sorted(LEARN.glob("*.py"))
 KEY = re.compile(r"^[a-z_]+(\.[a-z0-9_]+)+$")
 SMALL = 30_000        # the small step and part budget of the split builds (design §14)
 AI_LABEL = EN["learn.source.ai_document"].replace("{source}", "")
-AR_MISSING = ("learn/i18n/ar.json is missing (implementation plan step 8, design §12): the Arabic titles, "
-              "leads and learn keys are not checked against AR_REVIEW_STEMS yet")
 
 
 def quiet(fn, *args, **kw):
@@ -857,10 +855,8 @@ class BuiltPages(PageChecks, unittest.TestCase):
 
     def test_arabic_titles_leads_and_discover_keys_have_no_review_stems(self):
         """Design §8 enforcement 2 and §12: the ar text of every exported title and lead, and
-        of every learn key a Discover render reads, has no Arabic review stem. Until
-        learn/i18n/ar.json exists this is skipped, not passed."""
-        if not (LEARN / "i18n" / "ar.json").is_file():
-            self.skipTest(AR_MISSING)
+        of every learn key a Discover render reads, has no Arabic review stem."""
+        self.assertTrue((LEARN / "i18n" / "ar.json").is_file(), "learn/i18n/ar.json is missing (design §12)")
         learn_ar = J.load_i18n()["ar"]
         self.assertTrue(learn_ar, "learn/i18n/ar.json is empty or unreadable")
         for e in self.exp["index"]["journeys"]:

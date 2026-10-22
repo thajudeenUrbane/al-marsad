@@ -36,6 +36,8 @@ from model import Site  # noqa: E402
 GRAPH = ROOT / "build" / "graph.ttl"
 EN = json.loads((LEARN / "i18n" / "en.json").read_text(encoding="utf-8"))
 SITE_EN = json.loads((SITE / "i18n" / "en.json").read_text(encoding="utf-8"))
+AR = json.loads((LEARN / "i18n" / "ar.json").read_text(encoding="utf-8"))
+ARABIC_INDIC_DIGIT = re.compile("[٠-٩۰-۹]")
 CLI = LEARN / "journey_export.py"
 SMALL_BUDGET = "30000"     # the largest single stop on the page graph is about 24,000 bytes
 REF = re.compile(r"^(person|group|place|event|story|node)/[^/]+$")
@@ -835,6 +837,7 @@ class Shape(unittest.TestCase):
             for k in ("title", "lead"):
                 self.assertEqual(set(e[k]), {"key", "en", "ar"})
                 self.assertEqual(e[k]["en"], EN[e[k]["key"]])
+                self.assertEqual(e[k]["ar"], AR[e[k]["key"]])
 
     def test_reasons_order_notes_and_set_apart_texts_are_in_the_strings(self):
         kinds, _ = step_templates(self, self.files)
@@ -947,6 +950,48 @@ class OnThePageGraph(unittest.TestCase):
                          "Ibn Hishām, al-Sīra al-Nabawiyya, vol. 1, p. 485")
         self.assertEqual(X.short_citation("50 Stories (rev 7), Part 1, story 9"), "50 Stories, Part 1, story 9")
         self.assertEqual(X.short_citation("Work A (ed. B), vol. 2, pp. 652–653; lines 1"), "Work A, vol. 2, pp. 652–653")
+
+    def test_title_and_lead_carry_en_and_ar_and_ar_has_parity_and_no_review_stems(self):
+        """design §10 and §12: the index and each head carry title, lead and lead_study as
+        {key, en, ar}, the texts of learn/i18n/en.json and ar.json; the ar text has the
+        en text's {placeholders} and no Arabic review stem; strings.json holds the same."""
+        slot = re.compile(r"\{([a-z_]+)\}")
+        strings = self.files["strings.json"]
+        for e in self.files["index.json"]["journeys"]:
+            head = self.files[e["file"]]
+            for role in J.TEXT_ROLES:
+                with self.subTest(e["slug"], role=role):
+                    self.assertEqual(head[role], e[role])
+                    if e[role] is None:
+                        self.assertEqual(role, "lead_study")
+                        continue
+                    key = e[role]["key"]
+                    self.assertEqual(e[role], {"key": key, "en": EN[key], "ar": AR[key]})
+                    self.assertTrue(e[role]["ar"])
+                    self.assertEqual(J.ar_review_stems(e[role]["ar"]), [])
+                    self.assertEqual(sorted(slot.findall(e[role]["ar"])), sorted(slot.findall(e[role]["en"])))
+                    self.assertEqual((strings["en"][key], strings["ar"][key]), (EN[key], AR[key]))
+
+    def test_arabic_dates_use_digits_0_to_9_and_gregorian_first_on_the_page_graph(self):
+        """design §12 and L2: every exported date text, en and ar, writes its digits 0-9
+        (no U+0660-0669, no U+06F0-06F9), and where it gives a year, the first year it
+        gives is a Gregorian year inside the recorded extent."""
+        seen = 0
+        for path, doc in sorted(self.files.items()):
+            if "/part-" not in path:
+                continue
+            for ref, ent in sorted(doc["entities"].items()):
+                for d in ent.get("dates") or ():
+                    seen += 1
+                    for lang in ("en", "ar"):
+                        text = d["text"][lang]
+                        with self.subTest(path, ref=ref, lang=lang):
+                            self.assertIsNone(ARABIC_INDIC_DIGIT.search(text), text)
+                            year = re.search(r"\d{3,4}", text)
+                            if year and d["earliest"] and d["latest"]:
+                                self.assertLessEqual(int(d["earliest"][:4]), int(year.group()), text)
+                                self.assertLessEqual(int(year.group()), int(d["latest"][:4]), text)
+        self.assertGreater(seen, 0)
 
     def test_discover_flags_and_items_on_the_real_graph(self):
         for path, doc in self.files.items():

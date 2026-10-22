@@ -146,8 +146,14 @@ def review_words(text: str) -> list[str]:
     return [w for w in REVIEW_WORDS if w in toks]
 
 
+AR_MARKS = re.compile("[ؐ-ًؚ-ٰٟـۖ-ۭ]")   # harakat, tatweel, Quranic marks
+
+
 def ar_review_stems(text: str) -> list[str]:
-    return [s for s in AR_REVIEW_STEMS if s in (text or "")]
+    """The AR_REVIEW_STEMS in the text, read without harakat or tatweel, so that a vowelled
+    or stretched spelling of a stem still counts (design §8)."""
+    bare = AR_MARKS.sub("", unicodedata.normalize("NFC", text or ""))
+    return [s for s in AR_REVIEW_STEMS if s in bare]
 
 
 # --------------------------------------------------------------------------- the rule file

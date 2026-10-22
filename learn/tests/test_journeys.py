@@ -42,6 +42,8 @@ V1_REASON_KINDS = {"named", "part_of", "has_part", "date_after", "date_before", 
                    "dated_before_this", "dated_related_this", "event_claim", "part"}
 V2_KEYS = ("lead_study", "hold_study", "story_mode", "lists", "kind")
 EN = json.loads((LEARN / "i18n" / "en.json").read_text(encoding="utf-8"))
+AR_PATH = LEARN / "i18n" / "ar.json"
+ARABIC_INDIC_DIGIT = re.compile("[٠-٩۰-۹]")
 
 
 def names(steps):
@@ -190,19 +192,45 @@ class RuleFiles(unittest.TestCase):
         self.assertEqual(J.ar_review_stems("مسودة"), ["مسود"])
 
     def test_arabic_titles_and_leads_are_discover_safe(self):
-        """design §12: learn/i18n/ar.json holds every journey's title and lead, free of the
-        Arabic review stems. Skipped, not passed, while the file is missing."""
-        path = LEARN / "i18n" / "ar.json"
-        if not path.is_file():
-            self.skipTest("learn/i18n/ar.json is missing (implementation plan step 8, design §12): "
-                          "the Arabic titles and leads are not checked yet")
-        ar = json.loads(path.read_text(encoding="utf-8"))
+        """design §12: learn/i18n/ar.json holds every journey's title, lead and lead_study,
+        free of the Arabic review stems (lead_study too: it is an interface draft, and the
+        Arabic Study pages are not built yet)."""
+        ar = json.loads(AR_PATH.read_text(encoding="utf-8"))
         for spec_path in SPECS:
             spec = json.loads(spec_path.read_text(encoding="utf-8"))
-            for role in ("title", "lead"):
+            for role in J.TEXT_ROLES:
+                if role not in spec:
+                    continue
                 with self.subTest(spec_path.name, role=role):
                     self.assertTrue(ar.get(spec[role]), "no Arabic text")
                     self.assertEqual(J.ar_review_stems(ar[spec[role]]), [])
+
+    def test_arabic_strings_have_parity_with_english(self):
+        """design §12: ar.json is a flat key -> text object, like en.json. In this slice it
+        holds exactly the title, lead and lead_study keys the shipped journeys name; every
+        key is also an en key, with the same {placeholders}; texts are NFC and write their
+        digits 0-9 (L2)."""
+        ar = json.loads(AR_PATH.read_text(encoding="utf-8"))
+        self.assertIsInstance(ar, dict)
+        named = {json.loads(p.read_text(encoding="utf-8"))[r] for p in SPECS for r in J.TEXT_ROLES
+                 if r in json.loads(p.read_text(encoding="utf-8"))}
+        self.assertEqual(set(ar), named)
+        slot = re.compile(r"\{([a-z_]+)\}")
+        for key, text in sorted(ar.items()):
+            with self.subTest(key):
+                self.assertIsInstance(text, str)
+                self.assertIn(key, EN)
+                self.assertEqual(sorted(slot.findall(text)), sorted(slot.findall(EN[key])))
+                self.assertEqual(unicodedata.normalize("NFC", text), text)
+                self.assertIsNone(ARABIC_INDIC_DIGIT.search(text))
+                self.assertRegex(text, r"[ء-ي]")
+        self.assertEqual(J.load_i18n()["ar"], ar)
+
+    def test_arabic_review_stems_are_found_with_harakat_and_tatweel(self):
+        self.assertEqual(J.ar_review_stems("مُرَاجَعَة"), ["مراجع"])
+        self.assertEqual(J.ar_review_stems("مســودة"), ["مسود"])
+        self.assertEqual(J.ar_review_stems("مَقبُول"), ["مقبول"])
+        self.assertEqual(J.ar_review_stems("الهجرة خطوةً خطوة"), [])
 
     def test_v1_files_stay_valid_without_v2_keys(self):
         for spec in (events_spec(["Rihla"]), people_spec(order="name"), stories_spec()):
