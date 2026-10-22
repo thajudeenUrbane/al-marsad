@@ -23,6 +23,8 @@ Keep each row to one line. Status words: `claimed`, `building`, `in review (PR #
 | Plain-language questions: adversarial tests first (rule A2), then rule-based translation in the Atlas | `sky-atlas-new` | same | `ask/` tests, `atlas/` | claimed | 2026-10-22 |
 | Preview refresh (Observatory, Lifelines), scholar pilot pack, Khadīja fix check, identity questions for scholars | `fixes/pilot-and-corrections` | [session_01EbeK4zbgeZZ2BG7bPF3LPF](https://claude.ai/code/session_01EbeK4zbgeZZ2BG7bPF3LPF) | `review/`, `docs/handover/` | building | 2026-10-22 |
 | Work board and the CLAUDE.md rule | `coordination`, `claude/workboard-rule` | same | `WORKBOARD.md`, `CLAUDE.md` | in review (PR #29) | 2026-10-22 |
+| Merge proposals for every person (908 rows) + merge-review screen in the **review pages** (editor accepts/rejects; `import_decisions.py` writes the decision into `merge-proposals.csv`). Overlaps the Sky Atlas merge-review row above: same proposals, different screen; user to choose | `sira-merge-proposals` | [session_016qVqtfhyhh4S1yN49wjcyi](https://claude.ai/code/session_016qVqtfhyhh4S1yN49wjcyi) | `ontology/tools/propose_merges.py`, `ontology/corpus/merge-proposals.csv`, `review/` | in review (PR #30) | 2026-10-22 |
+| Slice 11b: the reader site, search, thread, Observatory and Ask with the joined graph (thread split per person, paged indexes, the Prophet's ﷺ page in parts, redirects, Connect "same clan", background layer) | `slice-11b-site` | [session_016qVqtfhyhh4S1yN49wjcyi](https://claude.ai/code/session_016qVqtfhyhh4S1yN49wjcyi) | `site/`, `ontology/shacl_check.py` (page hold-back), `ask/`, `site/observatory/` | building | 2026-10-22 |
 
 ## Built, not merged (check before building anything like these)
 
