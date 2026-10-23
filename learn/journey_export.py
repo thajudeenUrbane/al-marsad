@@ -285,14 +285,19 @@ _LOCATOR = re.compile(r"(?:vol\. \d+, )?pp?\. \d+(?:[–-]\d+)?|Part \d+, story 
 _PARENS = re.compile(r"\s*\([^()]*\)")
 
 
+def _strip_remarks(cite: str) -> str:
+    """The citation up to its first ";", with parenthesised remarks (nested ones too) left out."""
+    text = cite
+    while _PARENS.search(text):
+        text = _PARENS.sub("", text)
+    return text.split(";", 1)[0]
+
+
 def short_citation(cite: str) -> str:
     """Discover's short form: the work and its first locator ("vol. N, p. N", "pp. N–N" or
     "Part N, story N"), with parenthesised remarks left out and everything after the first
     ";" cut. A citation without such a locator keeps its words up to the first ";"."""
-    text = cite
-    while _PARENS.search(text):
-        text = _PARENS.sub("", text)
-    text = re.sub(r"[()]", "", text.split(";", 1)[0]).strip()
+    text = re.sub(r"[()]", "", _strip_remarks(cite)).strip()
     m = _LOCATOR.search(text)
     if not m:
         return text
@@ -301,11 +306,9 @@ def short_citation(cite: str) -> str:
 
 
 def short_matches(cite: str) -> bool:
-    """True when the citation has a locator that the short form keeps."""
-    text = cite
-    while _PARENS.search(text):
-        text = _PARENS.sub("", text)
-    return bool(_LOCATOR.search(text.split(";", 1)[0]))
+    """True when the citation has a locator that the short form keeps (a test lists the
+    citations that have none)."""
+    return bool(_LOCATOR.search(_strip_remarks(cite)))
 
 
 def source_line(claim: dict, depth: str, passages: dict, t) -> str | None:
@@ -1028,7 +1031,7 @@ class Resolver:
         urls = stop_urls(slug, spec["door"], plan, keys)
 
         stops = []
-        for st, rec in zip(j.steps, steps):
+        for rec in steps[:len(j.steps)]:
             stops.append({"key": rec["key"], "ref": rec["ref"], "n": rec["n"], "group": rec["group"],
                           "urls": urls[rec["key"]]})
         if t == "people":
@@ -1208,12 +1211,12 @@ def journey_pages(slug: str, door: str, plan: dict) -> list[dict]:
 def default_extra_pages(n_questions: int) -> list[dict]:
     """The learn index and the practice pages a reader build makes (render_learn pages
     QUESTIONS_PER_PAGE questions each)."""
-    from render_learn import QUESTIONS_PER_PAGE
-    n = max(1, -(-n_questions // QUESTIONS_PER_PAGE))
+    from render_learn import practice_page_count, practice_path
+    n = practice_page_count(n_questions)
     out = [{"path": "learn/", "file": "learn/index.html", "kind": "index", "depth": "discover", "page": 1, "pages": 1,
             "first": None, "last": None}]
     for k in range(1, n + 1):
-        path = "learn/practice/" if k == 1 else f"learn/practice/{k}/"
+        path = practice_path(k)
         out.append({"path": path, "file": f"{path}index.html", "kind": "practice", "depth": "study", "page": k,
                     "pages": n, "first": None, "last": None})
     return out
@@ -1327,7 +1330,7 @@ def resolve_docs(site: Site, journeys: list, *, plans: dict | None = None, strin
 
 def resolve_all(site: Site, folder=None, *, journeys: list | None = None, journeys_dir=None, lists_root=None,
                 strings: dict | None = None, bank: list | None = None, plans: dict | None = None,
-                extra_pages: list | None = None, part_budget: int = PART_BUDGET, step_budget: int | None = None,
+                part_budget: int = PART_BUDGET, step_budget: int | None = None,
                 graph_file=None, facade: bool = False, renderer=None) -> dict:
     """Every journey, resolved and split; written to `folder` (index.json, strings.json,
     pages.json, and journeys/{slug}/ with journey.json, part-{k}.json and research-{k}.json)
@@ -1335,8 +1338,8 @@ def resolve_all(site: Site, folder=None, *, journeys: list | None = None, journe
     stops each reader page holds; without it the reader's own split is computed
     (render_learn.reader_plans, at `step_budget` bytes of step HTML per page), so the stop
     URLs name the pages build_learn writes (`renderer`, a render_learn.LearnRenderer, is
-    the one that measures them; by default a fresh one). `extra_pages` (the learn index and practice
-    pages) come from the reader build, else from the question count. `strings` has the
+    the one that measures them; by default a fresh one). The learn index and practice pages
+    in pages.json follow from the question count (default_extra_pages). `strings` has the
     shape resolve() takes. Public mode 'accepted' is a RuleError (design §8).
     Returns {"index", "journeys": {slug: unsplit doc}, "files": {path: bytes}, "digest",
     "facade", "plans"}."""
@@ -1367,7 +1370,7 @@ def resolve_all(site: Site, folder=None, *, journeys: list | None = None, journe
             out[f"{jfolder}/research-{research['part']}.json"] = blob(research)
         pages += journey_pages(j.slug, j.spec["door"], plans[j.slug])
         entries.append(index_entry(head, plans[j.slug], f"{jfolder}/journey.json"))
-    pages += extra_pages if extra_pages is not None else default_extra_pages(len(bank))
+    pages += default_extra_pages(len(bank))
     pages.sort(key=lambda p: p["path"])
     lists = next((d["lists"] for d in docs.values() if d.get("lists")), None)
     jl = r.jl()

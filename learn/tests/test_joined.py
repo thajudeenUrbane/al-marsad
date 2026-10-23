@@ -55,6 +55,8 @@ class JoinedGraph(PageChecks, unittest.TestCase):
         cls.seconds = time.monotonic() - start
         cls.exp = export_of(cls.out)
         cls.data = cls.out / "learn" / "data"
+        # check_budget walks the whole joined site (about 17,000 pages): run it once
+        cls.budget = check_budget.check(cls.out)
         cls.report()
 
     @classmethod
@@ -64,7 +66,7 @@ class JoinedGraph(PageChecks, unittest.TestCase):
     @classmethod
     def report(cls):
         g = cls.exp["index"]["graph"]
-        results, _ = check_budget.check(cls.out)
+        results, _ = cls.budget
         learn = sorted((r for r in results if r[1].startswith("learn/")), key=lambda r: (-r[0], r[1]))
         say()
         say(f"joined graph {g['file']}: fingerprint {g['fingerprint']}, {g['triples']} triples; "
@@ -90,14 +92,14 @@ class JoinedGraph(PageChecks, unittest.TestCase):
         budget: that is the site's work for slice 11b, not learn's, so it is printed here,
         never asserted (PageChecks asserts the whole site on the page graph)."""
         self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
-        results, problems = check_budget.check(self.out)
+        results, problems = self.budget
         self.assertEqual([p for p in problems if p.startswith("learn/")], [])
         outside = sorted({p.split("/", 1)[0] for p in problems})
         say(f"  reader tier on the joined graph: {len(problems)} of {len(results)} pages over check_budget's "
             f"limits, none under learn/ (folders: {', '.join(outside) or 'none'})")
 
     def test_every_learn_page_is_within_the_page_budget(self):
-        results, problems = check_budget.check(self.out)
+        results, problems = self.budget
         learn = [r for r in results if r[1].startswith("learn/")]
         self.assertEqual(len(learn), len(self.exp["pages"]))
         for total, rel, *_ in learn:

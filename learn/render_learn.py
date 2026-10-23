@@ -49,6 +49,16 @@ SITE_DIR = HERE.parent / "site"
 NAV = (("people", "person"), ("events", "event"), ("places", "place"), ("groups", "group"),
        ("stories", "story"), ("glossary", "glossary"))
 QUESTIONS_PER_PAGE = 40
+
+
+def practice_path(n: int) -> str:
+    """The folder of practice page n (1-based), relative to the site root."""
+    return "learn/practice/" if n == 1 else f"learn/practice/{n}/"
+
+
+def practice_page_count(n_questions: int) -> int:
+    """How many practice pages a bank of n questions fills (one page when it is empty)."""
+    return max(1, -(-n_questions // QUESTIONS_PER_PAGE))
 DEPTHS = X.DEPTHS
 DEPTH_RANK = {d: i for i, d in enumerate(DEPTHS)}
 STEP_HTML_BUDGET = 220_000              # bytes of step HTML per reader page (design §13)
@@ -1454,7 +1464,7 @@ class LearnRenderer:
         chunks = [questions[i:i + QUESTIONS_PER_PAGE] for i in range(0, len(questions), QUESTIONS_PER_PAGE)] or [[]]
         pages = {}
         for n, chunk in enumerate(chunks, 1):
-            path = "practice/index.html" if n == 1 else f"practice/{n}/index.html"
+            path = practice_path(n).removeprefix("learn/") + "index.html"
             base = "../../" if n == 1 else "../../../"
             pages[path] = self.practice_page(base, chunk, n, len(chunks), len(questions), counts)
         return pages
@@ -1482,7 +1492,7 @@ class LearnRenderer:
             if pages > 1:
                 links = []
                 for n in range(1, pages + 1):
-                    href = f"{base}learn/practice/" if n == 1 else f"{base}learn/practice/{n}/"
+                    href = f"{base}{practice_path(n)}"
                     cur = ' aria-current="page"' if n == page else ""
                     links.append(f'<li><a href="{href}"{cur}>{n}</a></li>')
                 body += (f'<nav class="pager" aria-label="{attr(self.t("learn.practice.pages"))}"><ul>'
