@@ -1155,12 +1155,16 @@ class LearnRenderer:
 
     # ------------------------------------------------------------------ the page around the steps
     def depth_nav(self, ctx: Ctx) -> str:
-        """Links to the three depths, each to the page holding this page's first stop."""
+        """Links to the three depths, each to the page holding this page's first stop. From
+        page 1 the link has no stop fragment: every depth's page 1 starts with the journey's
+        first stop, so the reader lands at that page's header (its banners, rule and depth
+        links). From a later page it ends in the stop's anchor."""
         first = ctx.keys[0]
         lis = []
         for d in DEPTHS:
             cur = ' aria-current="page"' if d == ctx.depth else ""
-            href = attr(ctx.base + ctx.book.stops[first]["urls"][d])
+            url = ctx.book.stops[first]["urls"][d]
+            href = attr(ctx.base + (url.split("#", 1)[0] if ctx.k == 1 else url))
             lis.append(f'<li><a href="{href}"{cur}>{html.escape(self.t(DEPTH_LABEL[d]))}</a></li>')
         return (f'<nav class="journey-depths" aria-label="{attr(self.t("learn.depths.label"))}"><ul>'
                 + "".join(lis) + "</ul></nav>")
@@ -1184,13 +1188,15 @@ class LearnRenderer:
                 + "\n</ol></nav>")
 
     def pager_html(self, ctx: Ctx) -> str:
+        """The pages of a split depth under a visible label; learn.css marks the current
+        page (aria-current) and gives every link a tap target of at least 2.75rem."""
         links = []
         for k in range(1, ctx.pages + 1):
             href = attr(ctx.base + X.page_url(ctx.book.doc["slug"], ctx.book.doc["door"], ctx.depth, k))
             cur = ' aria-current="page"' if k == ctx.k else ""
             links.append(f'<li><a href="{href}"{cur}>{k}</a></li>')
-        return (f'<nav class="pager journey-pager" aria-label="{attr(self.t("learn.pager.label"))}"><ul>'
-                + "".join(links) + "</ul></nav>")
+        return (f'<nav class="pager journey-pager" aria-labelledby="pager-label"><p class="pager-label" id="pager-label">'
+                f'{html.escape(self.t("learn.pager.label"))}</p><ul>' + "".join(links) + "</ul></nav>")
 
     def rule_box(self, ctx: Ctx) -> str:
         """The rule in plain words, from the export alone: the rule as written (select), graph

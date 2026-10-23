@@ -217,6 +217,7 @@ Effects on the facade output, all in this PR, needing one Atlas rebuild:
 1. The leads become Discover-safe.
 2. On the joined graph, `not_words` cuts Badr's anchors from 9 to 4.
 3. On the joined graph, `group_by: side` moves the 79 people recorded as fighting against the Prophet ﷺ at Badr after the others.
+4. On the joined graph, Badr's steps go from 439 to 438 (+1 set apart in both): one person whose only placing record is at one of the expedition anchors that `not_words` cuts leaves the tour. Nobody is added. The Atlas rebuild should also update the Badr count in `atlas/README.md` ("the people of Badr: 439").
 
 While the list file is unreviewed, Badr's order is otherwise the v1 order (§6.3). On the page graph, Badr's steps and order are unchanged.
 
@@ -542,8 +543,8 @@ Each depth is its own static page, because CSS-hidden text is still public.
 - `learn/<slug>/` is the door depth, page 1. Hijrah and Badr open at Study; first-believers opens at Discover.
 - `learn/<slug>/<depth>/` holds the other two depths.
 - Pages k ≥ 2 live at `.../p<k>/`.
-- Every page has `nav.journey-depths`: three links with `aria-current`. Each link points to the page at that depth holding this page's first stop, plus `#s-<pid>`, so the split may differ from one depth to another.
-- A split journey also has a pager and a contents list.
+- Every page has `nav.journey-depths`: three links with `aria-current`. Each link points to the page at that depth holding this page's first stop, so the split may differ from one depth to another. From a page k ≥ 2 the link adds `#s-<pid>`. From page 1 it has no fragment: every depth's page 1 starts with the journey's first stop, so the reader lands at the page's header, with its banners, rule and depth links in view.
+- A split journey also has a pager and a contents list. The pager has a visible label (`learn.pager.label`), marks the current page, and each of its links is at least 2.75rem each way.
 - `<article data-depth data-total data-steps>`.
 
 **Discover (public)**
@@ -553,7 +554,7 @@ Each depth is its own static page, because CSS-hidden text is still public.
   - the facts line: When and Where as entity fields, Gregorian first, shown as the reader's public entity pages show them (open decision);
   - the computed reasons only (`named`, or `part` with the AI-document label; the `part` sentence is `learn.why.part`, "It is a story in the part {word} of {work}.", with the work wrapped in `learn.source.ai_document`);
   - up to 3 narration `li.sentence` items, each with its `.source`;
-  - if the step has no eligible claim, the line `learn.discover.no_work`: "No record behind this stop gives a work and page. Its {n} records are at Study." (with a link);
+  - if the step has no eligible claim, the line `learn.discover.no_work`: "No record behind this step gives a work and page. Its {n} records are at Study." (with a link);
   - otherwise `learn.narr.more`;
   - 1 prompt;
   - next.
@@ -1027,3 +1028,10 @@ The build follows this design except where noted here; §8 ("Built in stage C"),
    - *Model names.* `test_journeys.RuleFiles.test_no_model_name_is_written_in_the_learn_sources` scans learn/ and these notes for vendor and model-family names and model IDs; it needs no graph.
    - *Test time.* The page graph's reader site is built once per test process and copied into each build (the determinism test runs build_learn under both hash seeds on two copies of it), `page_keys` is cached per parsed page, `check_budget` runs once per site check, the export's hash-seed test runs the CLI once per budget against this process's result, and `check_nojs.cjs` visits four pages at a time. The learn tests take about 140 s here (about 205 s before); the browser check on site/dist about 7 s (13 s).
    - *Measured after these fixes:* page counts unchanged; the heaviest learn page is 257,108 B with its assets on the page graph (the not_words sentence's 24 B more) and 268,510 B on the joined graph; export digest and facade unchanged (5974256887e2, 18b41847880a).
+7. **Review fixes, third round.**
+   - *Depth links from page 1 (§8).* They carry no `#s-<pid>`. Every depth's page 1 starts with the journey's first stop, so the reader lands at the page's header with the draft and AI-document notes, the rule and the depth links in view. Before, Study from Badr's Discover page landed about 4,800 px down at 390 px, past all of them. From a page k ≥ 2 the link keeps `#s-<pid>`. test_build checks both, and check_nojs.cjs also wants scroll position 0 after a click from page 1.
+   - *The journey pager (§8).* Its label, `learn.pager.label` ("Pages of this journey"), is now visible text. It marks the current page (bold, a border), and each link is at least 2.75rem each way: 44 px, where before they were 7–10 × 20 px, under WCAG 2.5.8's 24 px. check_nojs.cjs measures the links on every split depth. The label is on `DISCOVER_ALLOWED_KEYS`, with the title and breadcrumb of a page k ≥ 2 (`learn.title.page`, `learn.crumb.page`), which a split Discover (Badr on the joined graph) already read; a fixture build with a page per stop pins all three there.
+   - *"Step", not "stop".* `learn.discover.no_work.*` and `learn.prompt.person_contrary` now say "step", like every other learner string. "Stop" stays the export's word and shows only in Research's content-hash label (`test_learner_text_says_step_not_stop`).
+   - *Atlas effects (§3.8).* The list now names a fourth effect: on the joined graph Badr goes from 439 to 438 steps.
+   - *Tests.* `test_every_discover_sentence_has_a_source_line` now uses each stop's claims to decide whether a source must carry the AI-document label. Before, it compared the rendered text with itself, so a lost label passed. `test_side_and_set_apart_markers` adds a person placed only by a `q_later` record and checks `set_apart` and that narration item's `markers`.
+   - *Measured after these fixes:* page counts are unchanged. The heaviest learn page is 257,506 B with its assets on the page graph (the stylesheet is 413 B larger and the page-1 HTML 15 B smaller). The export digest is 7f7e0dec160a (from the three strings) and the facade is unchanged (18b41847880a).

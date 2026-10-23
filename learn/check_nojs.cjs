@@ -16,7 +16,9 @@
  *    with one current, the pager and (page 1) the contents of a split depth, the anchor of
  *    its first stop; progress controls hidden, no form control. Links lead from the index
  *    to a journey, a step's entity page and back; a depth link lands on the page holding
- *    the stop; a contents link and learn/{slug}/#s-{key} reach a stop on another page.
+ *    the stop (from page 1 at the top of that page, from page 2 on the stop); a contents
+ *    link and learn/{slug}/#s-{key} reach a stop on another page; the pager has a visible
+ *    label, marks the current page and its links are at least 24 px each way.
  *    No request leaves the local server.
  * 2. JavaScript on: a step marked done survives a reload and is shared by every depth
  *    and page of its journey and by the index card; clearing clears it.
@@ -217,16 +219,23 @@ async function checkRoot(browser, root) {
     if (!/\/learn\/$/.test(page.url())) fail("breadcrumb back to Learn failed");
     await page.close();
   }
-  // a depth link lands on the page of that depth holding this page's first stop
-  await eachPage(journeys.filter((x) => x.page === 1), async (e) => {
+  // a depth link lands on the page of that depth holding this page's first stop: from page 1
+  // at the top of that depth's page 1 (no #s-, so its banners and depth links are in view),
+  // from a later page on the stop itself (#s-<first>)
+  await eachPage(journeys.filter((x) => x.page <= 2), async (e) => {
     const page = await off.newPage();
     await page.goto(url(e));
     const other = page.locator('nav.journey-depths a:not([aria-current])').first();
     await other.click();
     await page.waitForLoadState("load");
-    const hash = new URL(page.url()).hash;
-    if (hash !== `#s-${e.first}` || (await page.locator(`[id="s-${e.first}"]`).count()) !== 1) {
-      fail(`/${e.path}: a depth link did not land on its first stop (${page.url()})`);
+    const at = new URL(page.url());
+    if (at.hash !== (e.page === 1 ? "" : `#s-${e.first}`) || (await page.locator(`[id="s-${e.first}"]`).count()) !== 1) {
+      fail(`/${e.path}: a depth link did not land on the page holding its first stop (${page.url()})`);
+    } else if (e.page === 1) {
+      const depth = await page.locator("article[data-depth]").getAttribute("data-depth");
+      const top = journeys.find((x) => x.journey === e.journey && x.depth === depth && x.page === 1);
+      const y = await page.evaluate(() => window.scrollY);
+      if (!top || at.pathname !== `/${top.path}` || y !== 0) fail(`/${e.path}: a depth link did not open the top of ${depth} page 1 (${page.url()}, scrollY ${y})`);
     }
     await page.close();
     return null;
@@ -246,6 +255,16 @@ async function checkRoot(browser, root) {
       if ((await page.locator(`li [id="s-${later.first}"], li[id="s-${later.first}"]`).count()) < 1) fail(`${page.url()}: stop not on its page`);
       const pager = page.locator('nav.journey-pager a[aria-current="page"]');
       if ((await pager.count()) !== 1 || plain(await pager.innerText()) !== "2") fail(`${page.url()}: the pager does not mark page 2`);
+      // the pager has a visible label, its current page looks current, every link is a 24 px target (WCAG 2.5.8)
+      if (!(await page.locator("nav.journey-pager .pager-label").isVisible())) fail(`${page.url()}: the pager has no visible label`);
+      const links = await page.locator("nav.journey-pager a").evaluateAll((as) => as.map((a) => {
+        const r = a.getBoundingClientRect();
+        return { cur: a.getAttribute("aria-current") === "page", w: r.width, h: r.height, bold: Number(getComputedStyle(a).fontWeight) >= 700 };
+      }));
+      for (const l of links) {
+        if (l.w < 24 || l.h < 24) fail(`${page.url()}: a pager link is ${Math.round(l.w)}x${Math.round(l.h)} px, under 24 px`);
+        if (l.bold !== l.cur) fail(`${page.url()}: the pager does not set the current page apart`);
+      }
     }
     splitChecked++;
     await page.close();

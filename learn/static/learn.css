@@ -37,6 +37,9 @@
 .journey-contents li { break-inside: avoid; margin-block: 0.1rem; }
 .journey-contents li:target { outline: 3px solid var(--focus); outline-offset: 2px; }
 .journey-pager { margin-block: 1.5rem; }
+.pager-label { margin-block: 0 0.4rem; font-weight: 600; }
+.journey-pager a { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-inline-size: 2.75rem; min-block-size: 2.75rem; padding-inline: 0.5rem; border: 1px solid var(--line); border-radius: 0.35rem; text-decoration: none; }
+.journey-pager a[aria-current="page"] { font-weight: 700; border-color: currentColor; }
 
 /* layers on a step: sentences from the record, their sources, prompts and next directions */
 .narration { margin-block: 0.5rem; }

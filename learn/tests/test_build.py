@@ -58,9 +58,9 @@ AI_LABEL = EN["learn.source.ai_document"].replace("{source}", "")
 DISCOVER_ALLOWED_KEYS = {
     "claim.source", "common.not_recorded", "fact.story_number", "site.name", "title.sep",
     "learn.ai_source_note", "learn.apart.heading", "learn.apart.lead_discover", "learn.contents.heading",
-    "learn.depths.label", "learn.door.discover", "learn.facts.when", "learn.facts.where", "learn.group.against",
+    "learn.depths.label", "learn.pager.label", "learn.door.discover", "learn.facts.when", "learn.facts.where", "learn.group.against",
     "learn.group.against_lead", "learn.nav", "learn.quote", "learn.source.ai_document", "learn.step_no",
-    "learn.steps.heading", "learn.title.depth", "learn.why.named", "learn.why.part",
+    "learn.steps.heading", "learn.title.depth", "learn.title.page", "learn.crumb.page", "learn.why.named", "learn.why.part",
     "learn.order.prophet_first_then_name", "learn.order.name", "learn.order.recorded_discover", "learn.order.story",
     "learn.order.e3", "learn.order.e3_sources", "learn.order.e3_links", "learn.order.e3_no_last"}
 DISCOVER_ALLOWED_PREFIXES = ("footer.", "nav.", "type.", "learn.depth.", "learn.discover.no_work.", "learn.follow.",
@@ -180,6 +180,13 @@ class StaticChecks(unittest.TestCase):
                     if words:
                         bad.append((path.name, node.lineno, words))
         self.assertEqual(bad, [])
+
+    def test_learner_text_says_step_not_stop(self):
+        """The pages call a journey's items steps ("The steps", "Why this step"); "stop" is the
+        export's word (stops[], a stop key) and shows only in the Research label of the
+        export's content hash."""
+        data_labels = {"learn.research.content_sha"}
+        self.assertEqual(sorted(k for k, v in EN.items() if k not in data_labels and re.search(r"\bstops?\b", v, re.I)), [])
 
     def test_css_uses_logical_properties_only(self):
         css = re.sub(r"/\*.*?\*/", "", (LEARN / "static" / "learn.css").read_text(encoding="utf-8"), flags=re.S)
@@ -523,9 +530,13 @@ class PageChecks:
             first = (page_keys(root)[0] + page_keys(root)[1])[0]
             here = Path(e["path"])
             for a, depth in zip(links, X.DEPTHS):
-                target, frag = a.attrs["href"].split("#", 1)
-                self.assertEqual(frag, f"s-{first}")
+                target, _, frag = a.attrs["href"].partition("#")
+                # page 1 lands at the other depth's header (its page 1); a later page on the stop
+                self.assertEqual(frag, "" if e["page"] == 1 else f"s-{first}", e["path"])
                 path = os.path.normpath(here / target).replace(os.sep, "/") + "/"
+                if e["page"] == 1:
+                    doc = self.exp["journeys"][e["journey"]]["head"]
+                    self.assertEqual(path, X.page_url(e["journey"], doc["door"], depth, 1), e["path"])
                 held = tree(read_page(self.out / path / "index.html"))
                 self.assertIn(first, sum(page_keys(held), []), f"{e['path']} -> {a.attrs['href']}")
                 self.assertEqual(held.find("article")[0].attrs["data-depth"], depth)
@@ -538,7 +549,13 @@ class PageChecks:
             if e["pages"] == 1:
                 self.assertEqual((pager, contents), ([], []), e["path"])
                 continue
-            self.assertEqual(len(pager[0].find("a")), e["pages"])
+            links = pager[0].find("a")
+            self.assertEqual(len(links), e["pages"])
+            # a visible label names the pager, and the current page is the one marked
+            label = pager[0].find("p", "pager-label")
+            self.assertEqual([norm(x.text()) for x in label], [EN["learn.pager.label"]], e["path"])
+            self.assertEqual(pager[0].attrs.get("aria-labelledby"), label[0].attrs["id"])
+            self.assertEqual([a.text() for a in links if a.attrs.get("aria-current") == "page"], [str(e["page"])])
             self.assertEqual(len(contents), 1 if e["page"] == 1 else 0, e["path"])
             if e["page"] == 1:
                 s, a = page_keys(root)
@@ -648,16 +665,36 @@ class PageChecks:
                             self.assertNotIn(agent["label"], text)
 
     def test_every_discover_sentence_has_a_source_line(self):
+        """Every li.sentence on a Discover page sits in a stop and shows a source of that
+        stop's eligible claims. Whether a source carries the AI-document label is decided by
+        those claims (ai_document), not by the rendered text: a 50 Stories source that lost
+        its label fails here."""
+        label = norm(AI_LABEL)
         for e, src in journey_pages(self.out, self.exp, depth="discover"):
             doc = self.exp["journeys"][e["journey"]]
-            ai = {norm(X.source_line(c, "discover", doc["passages"], X.translators()["en"]))
-                  for c in doc["claims"].values() if c["discover"] and c.get("ai_document")}
-            for li in tree(src).find("li", "sentence"):
-                sources = [norm(n.text()) for n in li.find(cls="source")]
-                self.assertTrue(sources, e["path"])
-                for s in sources:
-                    if s in ai:
-                        self.assertTrue(s.endswith(norm(AI_LABEL)), s)
+            root = tree(src)
+            seen = 0
+            for li in root.find("li", "step") + root.find("li", "apart"):
+                key = li.attrs.get("data-step") or next(
+                    n.attrs["id"][2:] for n in li.find("span") if n.attrs.get("id", "").startswith("s-"))
+                ai_of: dict[str, set] = {}       # a short citation of this stop -> the ai_document flags of its claims
+                for item in doc["by_key"][key]["narration"]:
+                    for c in item["c"]:
+                        rec = doc["claims"][c]
+                        short = (doc["passages"].get(rec.get("passage") or "") or {}).get("short")
+                        if rec["discover"] and short:
+                            ai_of.setdefault(norm(short), set()).add(bool(rec.get("ai_document")))
+                for sentence in li.find("li", "sentence"):
+                    seen += 1
+                    sources = [norm(n.text()) for n in sentence.find(cls="source")]
+                    self.assertTrue(sources, e["path"])
+                    for s in sources:
+                        bare = norm(s[:-len(label)]) if s.endswith(label) else s
+                        with self.subTest(page=e["path"], stop=key, source=s):
+                            self.assertIn(bare, ai_of, "not a source of this stop's claims")
+                            self.assertEqual(len(ai_of[bare]), 1)
+                            self.assertEqual(s.endswith(label), next(iter(ai_of[bare])))
+            self.assertEqual(seen, len(root.find("li", "sentence")), e["path"])
 
     def test_every_page_holding_a_titled_group_step_shows_its_heading_and_lead(self):
         """design §6.4 and §7: a page holding steps of a titled group (the against group)
@@ -1124,18 +1161,22 @@ class DiscoverGuard(unittest.TestCase):
         """The status fixture (notes, glosses, order notes, every status) and the side
         fixture read at Discover only keys on DISCOVER_ALLOWED_*."""
         from fixtures import site_of
-        cases = [(status_fixture()[0], [events_spec(["Fixtureplace"]), people_spec(order="prophet_first_then_name")]),
-                 (side_fixture()[0], [people_spec(order="prophet_first_then_name", group_by="side")])]
-        for fx, specs in cases:
+        cases = [(status_fixture()[0], [events_spec(["Fixtureplace"]), people_spec(order="prophet_first_then_name")], {}),
+                 (side_fixture()[0], [people_spec(order="prophet_first_then_name", group_by="side")], {}),
+                 # a page per stop, so Discover also reads its pager and contents keys
+                 (side_fixture()[0], [people_spec(order="prophet_first_then_name", group_by="side")], {"step_budget": 1})]
+        for fx, specs, kw in cases:
             site = site_of(fx)
             built = [J.build(site, J.validate(spec)) for spec in specs]
             r = render_learn.LearnRenderer(site, self.strings(), LEARN / "templates")
-            res = X.resolve_all(site, None, journeys=built, bank=[], renderer=r)
+            res = X.resolve_all(site, None, journeys=built, bank=[], renderer=r, **kw)
             for j in built:
                 r.journey_pages(j, res["journeys"], res["plans"][j.slug])
             r.at("discover").index_page(built, 0, res["index"]["journeys"])
             used = r.s.used_at["discover"]
             self.assertTrue(any(k.startswith("learn.narr.") for k in used))
+            if kw:
+                self.assertTrue({"learn.pager.label", "learn.contents.heading"} <= used)
             self.assertEqual(sorted(k for k in used if not discover_allowed(k)), [])
 
     def test_a_forbidden_key_in_a_template_stops_a_discover_render(self):

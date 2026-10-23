@@ -414,11 +414,25 @@ class Narration(unittest.TestCase):
 
     def test_side_and_set_apart_markers(self):
         fx, i = side_fixture()
+        # placed at the battle only by a cited record the rule sets apart (q_later)
+        later = fx.person("fxSlater", "Person Later")
+        mark = fx.claim(later, "rel_participated_in", i["battle"], qualifiers=["q_later"], cite="Fixture work, vol. 2, p. 7")
         site = site_of(fx)
         j = people(site, group_by="side")
         res = export(site, [j])
         head, parts, _ = unpack(res, j.slug)
         steps = {s["key"]: s for s in all_steps(parts)}
+        # the set-apart stop and the "Marked in the source:" item of its narration
+        self.assertEqual([(a["key"], [b["qualifier"] for b in a["because"]]) for a in head["set_apart"]],
+                         [(pid(later), ["q:q_later"])])
+        apart = steps[pid(later)]
+        marked = [it for it in apart["narration"] if it.get("markers")]
+        self.assertEqual(len(marked), 1)
+        self.assertEqual(marked[0]["markers"], [{"t": "learn.narr.marker", "marker": "q:q_later"}])
+        self.assertEqual((marked[0]["c"], marked[0]["d"]), ([f"assertion/{pid(mark)}"], "discover"))
+        part = next(p for p in parts if pid(later) in {s["key"] for s in p["steps"]})
+        self.assertIn("q:q_later", part["terms"])
+        self.assertEqual(sum(1 for s in all_steps(parts) for it in s["narration"] if it.get("markers")), 1)
         against = steps[pid(i["against"])]
         side = [it for it in against["narration"] if it["t"] == "learn.narr.rel_fought_against"]
         self.assertEqual(len(side), 1)
