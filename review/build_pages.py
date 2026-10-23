@@ -43,7 +43,7 @@ STRINGS = json.loads((REVIEW / "i18n" / "en.json").read_text(encoding="utf-8"))
 URL_LICENSING = "https://github.com/thajudeenUrbane/al-marsad/blob/main/LICENSING.md"
 URL_CC_BY_SA = "https://creativecommons.org/licenses/by-sa/4.0/"
 URL_AGPL = "https://www.gnu.org/licenses/agpl-3.0.html"
-KINDS = ("story", "person", "file", "identity")
+KINDS = ("story", "person", "file", "identity", "merge")
 ENTITY_KINDS = ("person", "place", "event", "group")
 SEP = " · "
 
@@ -225,6 +225,44 @@ def identity_card(u: dict, n: int, total: int, seq: int) -> str:
                source=src)
 
 
+MERGE_QUESTION = {"person": "merge.question.person", "event": "merge.question.event", "title": "merge.question.title",
+                  "other": "merge.question.other"}
+MERGE_BATCH = {"person": "batch.title.merge.person", "event": "batch.title.merge.event", "title": "batch.title.merge.title"}
+MERGE_SIDE = {"keep": "merge.keep", "merge": "merge.merge"}
+
+
+def merge_side(e: dict, role: str) -> str:
+    out = [f'<div class="merge-side"><p class="label">{t(MERGE_SIDE[role])}</p>',
+           f'<p class="merge-name">{esc(e["name"])}' + (" " + ar(e["name_ar"]) if e.get("name_ar") else "") + "</p>"]
+    facts = [t("card.id", value=e["id"])]
+    if e.get("files"):
+        facts.append(t("identity.files", value=", ".join(e["files"])))
+    out.append('<p class="facts">' + SEP.join(f"<span>{f}</span>" for f in facts) + "</p>")
+    if e.get("note"):
+        out.append(f'<p class="hint">{esc(e["note"])}</p>')
+    if e.get("relations"):
+        out.append(f'<p class="label">{t("merge.relations")}</p><ul class="why">'
+                   + "".join(f"<li>{esc(r)}</li>" for r in e["relations"]) + "</ul>")
+        if e.get("more"):
+            out.append(f'<p class="muted">{tn("merge.more", e["more"])}</p>')
+    else:
+        out.append(f'<p class="muted">{t("merge.no_relations")}</p>')
+    out.append("</div>")
+    return "\n".join(out)
+
+
+def merge_card(u: dict, n: int, total: int, seq: int) -> str:
+    kind = u.get("entity") if u.get("entity") in ("person", "event", "title") else "other"
+    title = t("merge.title", keep=u["keep"]["name"], merge=u["merge"]["name"])
+    detail = f'<p class="question">{t(MERGE_QUESTION[kind])}</p><p class="hint">{t("merge.hint")}</p>'
+    facts = [t("merge.confidence", value=u["confidence"]), t("merge.proposal", value=u["proposal"])]
+    flags = f'<p class="label">{t("merge.evidence")}</p><p class="basis">{esc(u["evidence"])}</p>'
+    src = merge_side(u["keep"], "keep") + "\n" + merge_side(u["merge"], "merge")
+    return tpl("card", n=n, target=esc(u["id"]), kind="merge", cite="0", seq=seq,
+               number=t("card.number", n=n, total=total), claim=title, detail=detail,
+               facts=SEP.join(f"<span>{f}</span>" for f in facts), flags=flags, source=src)
+
+
 # ---------------------------------------------------------------------------
 # pages
 # ---------------------------------------------------------------------------
@@ -236,6 +274,8 @@ def batch_title(b: dict, html_out: bool = True) -> str:
         s = t("batch.title.story", n=b["story_number"], title=title)
     elif kind == "identity":
         s = t("batch.title.identity")
+    elif kind == "merge":
+        s = t(MERGE_BATCH.get(b.get("entity"), MERGE_BATCH["person"]), confidence=b.get("confidence", ""))
     elif kind in ("person", "file"):
         s = t(f"batch.title.{kind}", title=title)
     else:
@@ -265,6 +305,8 @@ def in_scope(unit: dict, grants) -> bool:
         return True
     if unit["kind"] == "identity":
         facets = {"sources": set(unit.get("files") or []), "topic": "identity", "period": None}
+    elif unit["kind"] == "merge":
+        facets = {"sources": set(unit["keep"]["files"]) | set(unit["merge"]["files"]), "topic": "identity", "period": None}
     else:
         facets = {"sources": {unit["file"].rsplit(".ttl", 1)[0]}, "topic": unit["topic"],
                   "period": tuple(unit["period"]) if unit.get("period") else None}
@@ -273,7 +315,7 @@ def in_scope(unit: dict, grants) -> bool:
 
 def batches_of(queue: dict, grants) -> list[dict]:
     out = []
-    for b in list(queue.get("claims") or []) + list(queue.get("identity") or []):
+    for b in list(queue.get("claims") or []) + list(queue.get("identity") or []) + list(queue.get("merges") or []):
         units = [u for u in b["units"] if in_scope(u, grants)]
         if units:
             out.append(dict(b, units=units))
@@ -301,6 +343,8 @@ def build(queue: dict, out: Path, scope_text: str | None = None, grants=None) ->
             seq += 1
             if u.get("kind") == "identity":
                 cards.append(identity_card(u, n, total, seq))
+            elif u.get("kind") == "merge":
+                cards.append(merge_card(u, n, total, seq))
             else:
                 cards.append(claim_card(u, n, total, seq, passages, story_passage))
         story = ""
@@ -315,7 +359,7 @@ def build(queue: dict, out: Path, scope_text: str | None = None, grants=None) ->
         if i + 1 < len(batches):
             pager.append(f'<li><a rel="next" href="{page_file(batches[i + 1]["batch"])}">'
                          f'{t("pager.next", title=Raw(batch_title(batches[i + 1])))}</a></li>')
-        unit_count = tn("count.questions", total) if b["kind"] == "identity" else tn("count.claims", total)
+        unit_count = tn("count.questions", total) if b["kind"] in ("identity", "merge") else tn("count.claims", total)
         body = tpl("batch", h1=batch_title(b), lead=t("batch.lead", count=unit_count), reviewer=reviewer,
                    story=story, cards="\n".join(cards), decide=decide, send=send, pager="\n".join(pager), keys=keys)
         name = page_file(b["batch"])
@@ -326,7 +370,7 @@ def build(queue: dict, out: Path, scope_text: str | None = None, grants=None) ->
     sections = []
     for kind in KINDS:
         items = [tpl("batch_item", batch=esc(b["batch"]), total=len(b["units"]), href=page_file(b["batch"]),
-                     title=batch_title(b), count=(tn("count.questions", len(b["units"])) if kind == "identity"
+                     title=batch_title(b), count=(tn("count.questions", len(b["units"])) if kind in ("identity", "merge")
                                                   else tn("count.claims", len(b["units"]))))
                  for b in batches if b["kind"] == kind]
         if items:
@@ -334,8 +378,8 @@ def build(queue: dict, out: Path, scope_text: str | None = None, grants=None) ->
                                 items="\n".join(items)))
     if not sections:
         sections.append(f'<p class="muted">{t("index.empty")}</p>')
-    n_claims = sum(len(b["units"]) for b in batches if b["kind"] != "identity")
-    n_questions = sum(len(b["units"]) for b in batches if b["kind"] == "identity")
+    n_claims = sum(len(b["units"]) for b in batches if b["kind"] not in ("identity", "merge"))
+    n_questions = sum(len(b["units"]) for b in batches if b["kind"] in ("identity", "merge"))
     in_batches = Raw(tn("count.batches", len(batches)))
     if n_questions:
         lead = t("index.lead", claims=Raw(tn("count.claims", n_claims)), questions=Raw(tn("count.questions", n_questions)),

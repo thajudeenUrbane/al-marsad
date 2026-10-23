@@ -1,0 +1,18 @@
+{
+  "about": "Membership lists the Sky Atlas uses to order people (maintainer-answers-3, E3): the Prophet ﷺ first, then the four, then the rest of the ten, then by recorded links. Members are named by their display name in the graph, never by ID; the build stops if a name matches no person or more than one. Status: proposed. These lists have not been reviewed by the scholars' board yet, and the page says so.",
+  "status": "proposed",
+  "lists": [
+    {
+      "key": "rashidun",
+      "members": ["Abu Bakr as-Siddiq", "Umar b. al-Khattab", "Uthman b. Affan", "Ali b. Abi Talib"],
+      "order": "succession",
+      "source": "The order of succession to the caliphate (al-khulafāʾ al-rāshidūn), as the graph's own succession events record it (Abu Bakr's pledge of allegiance as caliph; Umar's, Uthman's and Ali's succession as caliph)."
+    },
+    {
+      "key": "ten",
+      "members": ["Abu Bakr as-Siddiq", "Umar b. al-Khattab", "Uthman b. Affan", "Ali b. Abi Talib", "Talha b. Ubaydullah", "az-Zubayr b. al-Awwam", "Abd ar-Rahman b. Awf", "Sa'd b. Abi Waqqas", "Sa'id b. Zayd", "Abu Ubayda b. al-Jarrah"],
+      "order": "as listed in the report",
+      "source": "al-ʿashara al-mubashsharūn: the report of ʿAbd al-Raḥmān b. ʿAwf in Jāmiʿ al-Tirmidhī, Kitāb al-Manāqib (no. 3747), and of Saʿīd b. Zayd in Sunan Abī Dāwūd, Kitāb al-Sunna (no. 4649). Numbers to be checked against print by a reviewer."
+    }
+  ]
+}

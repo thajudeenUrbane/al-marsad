@@ -19,3 +19,6 @@ build/
 site/dist/
 review/roster.csv
 ingest/cache/
+
+# Lab downloads (terrain tiles)
+lab/*/cache/

@@ -471,7 +471,9 @@ def describe_facets(facets: dict) -> str:
 # ---------------------------------------------------------------------------
 ROSTER_COLUMNS = ["reviewer_id", "name", "role", "scope", "granted_on", "granted_by", "revoked_on"]
 ROLES = ["reader", "contributor", "researcher", "reviewer", "scholar", "editor", "translator", "board"]  # docs/06 §3.1
-DECIDING_ROLES = {"claim": {"reviewer", "scholar"}, "identity": {"reviewer", "scholar", "editor"}}
+DECIDING_ROLES = {"claim": {"reviewer", "scholar"}, "identity": {"reviewer", "scholar", "editor"},
+                  "merge": {"editor", "scholar"}}  # merge proposals: an editor decides, scholars the hard cases (F3)
+MERGE_OUTCOMES = {"accept": "accept", "reject": "reject", "needs_discussion": "scholar"}  # page choice -> CSV decision
 
 
 @dataclass

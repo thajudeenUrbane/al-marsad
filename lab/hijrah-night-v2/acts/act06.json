@@ -1,0 +1,2158 @@
+{
+  "act": 6,
+  "title": "The night of leaving",
+  "subtitle": "A bed that is not slept in, a door watched until dawn, a noon visit, and a back opening in Abū Bakr's wall",
+  "span": "the last nights of Ṣafar, year 1",
+  "units": [
+    {
+      "id": "a06-u01",
+      "title": "Do not sleep in your bed tonight",
+      "kicker": "The day of the plot, toward evening",
+      "when": {
+        "label": "The day Quraysh agreed their plan, end of Ṣafar, year 1 (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~prophet_house",
+        "note": "The Prophet's house in Makkah; its exact site is not fixed in the sources used here"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "makkah",
+        "dist": 2,
+        "pitch": 40,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        }
+      ],
+      "route": [
+        "dar_nadwa",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq places the next step immediately after the council in Dār al-Nadwa: Jibrīl came to the Prophet ﷺ and told him not to spend that night on the bed where he usually slept.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "The warning concerns one night and one bed. The source gives no further words from Jibrīl in this report.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq says that among what Allah revealed about that day and what Quraysh had gathered to do was the verse: \"When those who disbelieved plotted against you, to confine you, kill you or drive you out…\" (al-Anfāl 8:30).",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "8:30"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0681"
+            }
+          ]
+        },
+        {
+          "text": "He links a second passage to the same day: the taunt that the Prophet ﷺ was only a poet whose death they could wait for, answered with \"Wait, then; I am waiting with you\" (al-Ṭūr 52:30–31).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0681"
+            },
+            {
+              "type": "quran",
+              "ref": "52:30-31"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq then states that at that point Allah gave His Prophet ﷺ permission to emigrate.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0681"
+            }
+          ]
+        },
+        {
+          "text": "Dār al-Nadwa stood beside the Kaʿba; the Prophet's house lay elsewhere in the same small valley town, a walk of minutes rather than hours.",
+          "grade": "reconstruction",
+          "basis": "scale of the Makkah valley from the gazetteer points; the house site itself is unlocated"
+        }
+      ],
+      "quran": [
+        {
+          "ref": "8:30",
+          "gist": "Allah reminds the Prophet of the time the disbelievers schemed to imprison, kill or expel him, and says that while they plot, Allah plans, and He is the best of planners.",
+          "context": "Ibn Isḥāq names this verse as revealed about that very day and the plan agreed in Dār al-Nadwa (S0681). The verse itself is established; its link to this day is Ibn Isḥāq's.",
+          "grade": "supported"
+        }
+      ],
+      "discover": [
+        {
+          "label": "From the council house to the town",
+          "camera": {
+            "target": "dar_nadwa",
+            "dist": 1,
+            "pitch": 55,
+            "heading": 160
+          },
+          "reveal": {
+            "text": "The council met beside the Kaʿba, at the heart of the valley. Everything in this act happens within walking distance of this spot.",
+            "grade": "reconstruction",
+            "basis": "gazetteer point for Dār al-Nadwa (approximate) and the valley's extent"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "According to Ibn Isḥāq, what did Jibrīl tell the Prophet ﷺ to do that night?",
+        "options": [
+          {
+            "text": "Not to sleep on the bed he usually slept on",
+            "ok": true,
+            "why": "That is the whole of the instruction as Ibn Isḥāq gives it.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          },
+          {
+            "text": "To leave Makkah before sunset",
+            "ok": false,
+            "why": "The source does not say this; it speaks only of the bed that night.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          },
+          {
+            "text": "To pray all night at the Kaʿba",
+            "ok": false,
+            "why": "Nothing like this is in the report.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The act opens with a small, practical instruction rather than a dramatic sign: the danger is real and specific, and the response is precise.",
+      "sections": [
+        "S0680",
+        "S0681"
+      ]
+    },
+    {
+      "id": "a06-u02",
+      "title": "Watchers at the door",
+      "kicker": "The dark of the night (ʿatama)",
+      "when": {
+        "label": "That night, after full dark",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~prophet_house"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 1.2,
+        "pitch": 50,
+        "heading": 120
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the men of Quraysh at the door",
+          "role": "group-stone"
+        },
+        {
+          "name": "Abū Jahl b. Hishām",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "When the dark of the night (ʿatama) came, the men gathered at his door, watching for the moment he would fall asleep so that they could leap on him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ saw where they had placed themselves. The source says his instructions to ʿAlī came after he saw them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "A second report, from Muḥammad b. Kaʿb al-Quraẓī through Yazīd b. Ziyād, says Abū Jahl b. Hishām was among them.",
+          "grade": "disputed",
+          "note": "Muḥammad b. Kaʿb al-Quraẓī was a later Follower, not an eyewitness, and does not name his source (a mursal report).",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "In that report Abū Jahl, standing at the door, mocked the message to the others: Muḥammad claims that if you follow him you will be kings of Arabs and non-Arabs, raised after death to gardens like those of the Jordan; and if not, there will be slaughter for you, then a fire after death.",
+          "grade": "disputed",
+          "note": "Same mursal report of Muḥammad b. Kaʿb al-Quraẓī; the words are given as Abū Jahl's but no eyewitness is named.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "ʿAtama is the first stretch of night after the last twilight has gone; in late summer Makkah this is roughly an hour and a half after sunset.",
+          "grade": "reconstruction",
+          "basis": "astronomical twilight at Makkah's latitude in late summer; season from the usual date conversion of the Hijra"
+        }
+      ],
+      "discover": [
+        {
+          "label": "How many watchers?",
+          "reveal": {
+            "text": "The report at this point gives no number and no list beyond Abū Jahl. Counts and names found in later retellings are not in this source.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "The watchers' plan depended on one thing: knowing when he slept. Everything that follows answers that single point of their plan.",
+      "sections": [
+        "S0680"
+      ]
+    },
+    {
+      "id": "a06-u03",
+      "title": "The green Ḥaḍramī cloak",
+      "kicker": "Inside the house, the same night",
+      "when": {
+        "label": "That night",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~prophet_house"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 0.8,
+        "pitch": 65,
+        "heading": 40
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿAlī b. Abī Ṭālib",
+          "role": "person"
+        },
+        {
+          "name": "the men of Quraysh at the door",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ told ʿAlī b. Abī Ṭālib to sleep on his bed and to wrap himself in his green Ḥaḍramī cloak (burd).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "He gave ʿAlī an assurance with the order: nothing that he disliked would reach him from them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq adds that this was the cloak the Prophet ﷺ himself slept in when he slept, which is why it would be recognised from the door.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "The source calls the cloak Ḥaḍramī, after Ḥaḍramawt in southern Arabia, and green; it gives no other description.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "A report from Ibn ʿAbbās in the Musnad of Aḥmad also describes ʿAlī wearing the Prophet's garment and lying in his place that night while the polytheists took him for the Prophet ﷺ.",
+          "grade": "disputed",
+          "note": "Chain graded ḥasan by some and weak by others; independent of Ibn Isḥāq's wording. To be checked by a scholar.",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "Aḥmad, al-Musnad, Musnad Ibn ʿAbbās (report on the night of the Hijra)",
+              "grade": "disputed",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAlī b. Abī Ṭālib",
+          "who": "The Prophet's young cousin, raised in his household",
+          "here": "Lies in the bed under the green cloak"
+        }
+      ],
+      "discover": [
+        {
+          "label": "What can be seen from a doorway at night?",
+          "reveal": {
+            "text": "The source later has them peering in and naming the sleeper from the cloak: 'that is Muḥammad asleep, with his cloak on him'. It never says they saw a face.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "ʿAlī is asked to lie where armed men expect to find someone else. What in the source is he given to hold on to?",
+        "options": [
+          {
+            "text": "A promise that nothing he dislikes will reach him from them",
+            "ok": true,
+            "why": "This is the assurance Ibn Isḥāq records with the order.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          },
+          {
+            "text": "A plan for escaping if they broke in",
+            "ok": false,
+            "why": "The source mentions no such plan.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The cloak is the hinge of the night: the watchers trust what they recognise, and what they recognise is a garment.",
+      "sections": [
+        "S0680"
+      ]
+    },
+    {
+      "id": "a06-u04",
+      "title": "The trusts left in his keeping",
+      "kicker": "Why ʿAlī stays behind",
+      "when": {
+        "label": "Told before the Prophet ﷺ left; carried out over the following three days",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "kaaba",
+        "dist": 1.5,
+        "pitch": 45,
+        "heading": 330
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿAlī b. Abī Ṭālib",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq writes, with the hedge 'as it reached me', that the Prophet ﷺ told ʿAlī of his departure and ordered him to stay behind in Makkah to return the deposits people had left with him.",
+          "grade": "disputed",
+          "note": "Ibn Isḥāq hedges this with 'fīmā balaghanī' (as it reached me) and names no chain.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0684"
+            }
+          ]
+        },
+        {
+          "text": "He explains why there were deposits at all: anyone in Makkah who had something he feared for left it with the Prophet ﷺ, because they knew his truthfulness and trustworthiness.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0684"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq also says, as it reached him, that no one knew of the departure when it happened except ʿAlī, Abū Bakr and Abū Bakr's family.",
+          "grade": "disputed",
+          "note": "Again hedged 'fīmā balaghanī' (as it reached me) with no chain.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0684"
+            }
+          ]
+        },
+        {
+          "text": "ʿAlī stayed in Makkah three nights and their days until he had returned the deposits on the Prophet's behalf. Then he followed and joined the Prophet ﷺ, lodging with him at the house of Kulthūm b. Hidm, of Banū ʿAmr b. ʿAwf.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0700"
+            }
+          ]
+        },
+        {
+          "text": "The deposits belonged to Makkans, the same community whose leaders had just agreed to kill him; the source draws no comment from this.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0684"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Where ʿAlī will catch up",
+          "camera": {
+            "target": "quba",
+            "dist": 300,
+            "pitch": 30,
+            "heading": 356
+          },
+          "reveal": {
+            "text": "ʿAlī sets out only after three days of returning what was owed, and at Qubāʾ he lodges with Kulthūm b. Hidm.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0700"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "The people who left valuables with the Prophet ﷺ were Makkans. What does Ibn Isḥāq say happened to those valuables when he left?",
+        "options": [
+          {
+            "text": "ʿAlī stayed three days and returned them to their owners",
+            "ok": true,
+            "why": "S0684 gives the order; S0700 says he stayed three nights and days until he had returned them.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0684"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0700"
+              }
+            ]
+          },
+          {
+            "text": "They were taken to Madinah for safe keeping",
+            "ok": false,
+            "why": "The source says the opposite: ʿAlī stayed to hand them back.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0700"
+              }
+            ]
+          },
+          {
+            "text": "Abū Bakr took them with his own money",
+            "ok": false,
+            "why": "Abū Bakr took his own wealth (S0692); the deposits were ʿAlī's task.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0692"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "On the night of a murder plot, the account pauses to make sure other people's property goes back to them. Trustworthiness is not suspended by enmity.",
+      "sections": [
+        "S0684",
+        "S0698",
+        "S0700"
+      ]
+    },
+    {
+      "id": "a06-u05",
+      "title": "A handful of dust",
+      "kicker": "Going out through the door",
+      "when": {
+        "label": "That night",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~prophet_house"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 1,
+        "pitch": 35,
+        "heading": 250
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the men of Quraysh at the door",
+          "role": "group-stone"
+        },
+        {
+          "name": "Abū Jahl b. Hishām",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "In Muḥammad b. Kaʿb's report the Prophet ﷺ came out to them, took a handful of dust in his hand and answered Abū Jahl's mockery: yes, I say that, and you are one of them.",
+          "grade": "disputed",
+          "note": "Mursal report of Muḥammad b. Kaʿb al-Quraẓī (not an eyewitness); widely repeated in the sīra but without a connected chain here.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "The report says Allah took away their sight from him so that they did not see him.",
+          "grade": "disputed",
+          "note": "Same mursal report.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "He scattered the dust over their heads while reciting the opening of Sūrat Yā Sīn, from its first verse to \"…and We have covered them, so they do not see\" (36:9).",
+          "grade": "disputed",
+          "note": "The link of these verses to this moment rests on the same mursal report.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            },
+            {
+              "type": "quran",
+              "ref": "36:1-9"
+            }
+          ]
+        },
+        {
+          "text": "When he finished the verses, not one of them was left without dust on his head. Then he went on to where he intended to go.",
+          "grade": "disputed",
+          "note": "Same mursal report; the source does not name the destination at this point.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "36:9",
+          "gist": "Allah describes deniers as having a barrier set before them and behind them, and a covering over them, so that they cannot see.",
+          "context": "Ibn Isḥāq's report from Muḥammad b. Kaʿb has the Prophet ﷺ reciting 36:1–9 as he scattered the dust (S0680). The verses are established; this occasion for reciting them is disputed (mursal).",
+          "grade": "disputed"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Where did he go?",
+          "reveal": {
+            "text": "This report stops at 'he went where he intended'. A separate passage has him come to Abū Bakr and leave by an opening at the back of Abū Bakr's house.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0685"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Which verses does the report connect with the dust?",
+        "options": [
+          {
+            "text": "The opening of Yā Sīn, 36:1–9",
+            "ok": true,
+            "why": "The source quotes from 'Yā Sīn, by the wise Qurʾān' to 'so they do not see'.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          },
+          {
+            "text": "Āyat al-Kursī, 2:255",
+            "ok": false,
+            "why": "Not mentioned in the source.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          },
+          {
+            "text": "al-Anfāl 8:30",
+            "ok": false,
+            "why": "Ibn Isḥāq links 8:30 to the plot that day, not to the dust.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0681"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The early account frames the escape with Qurʾān about sight withheld; the learner should know both the verses' certainty and the report's thinner chain.",
+      "sections": [
+        "S0680"
+      ]
+    },
+    {
+      "id": "a06-u06",
+      "title": "\"What are you waiting for?\"",
+      "kicker": "Later in the night, at the same door",
+      "when": {
+        "label": "That night",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "~prophet_house"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 0.9,
+        "pitch": 60,
+        "heading": 300
+      },
+      "lights": [
+        {
+          "name": "the men of Quraysh at the door",
+          "role": "group-stone"
+        },
+        {
+          "name": "a passer-by not of their group",
+          "role": "stone"
+        },
+        {
+          "name": "ʿAlī b. Abī Ṭālib",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Someone who had not been with them came up and asked what they were waiting for. They said: Muḥammad.",
+          "grade": "disputed",
+          "note": "Mursal report of Muḥammad b. Kaʿb al-Quraẓī.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "He cursed them and said that Muḥammad had already come out past them, put dust on every one of their heads and gone about his business. \"Do you not see what is on you?\"",
+          "grade": "disputed",
+          "note": "Same mursal report.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "Each of them put his hand to his head and found dust there.",
+          "grade": "disputed",
+          "note": "Same mursal report.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "Then they began peering in, saw ʿAlī on the bed wrapped in the Prophet's cloak, and said: by God, that is Muḥammad asleep, with his cloak on him.",
+          "grade": "disputed",
+          "note": "Same mursal report.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "The passer-by is not named in the source.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "The watchers have been told he is gone, and they have dust on their heads. What do they do next, in the report?",
+        "options": [
+          {
+            "text": "They look in, see the figure in the cloak, and keep waiting",
+            "ok": true,
+            "why": "They decide the sleeper is Muḥammad and stay until morning.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          },
+          {
+            "text": "They break in at once",
+            "ok": false,
+            "why": "The report has them stay where they were until morning.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          },
+          {
+            "text": "They ride out to search the roads",
+            "ok": false,
+            "why": "Not in this report; the search comes after they find ʿAlī.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0686"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Told the truth, the watchers trust the cloak over the news. The plan fails not by force but by what they chose to believe.",
+      "sections": [
+        "S0680"
+      ]
+    },
+    {
+      "id": "a06-u07",
+      "title": "Dawn: ʿAlī rises from the bed",
+      "kicker": "Morning after the night of leaving",
+      "when": {
+        "label": "The following morning",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~prophet_house"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "makkah",
+        "dist": 1.5,
+        "pitch": 30,
+        "heading": 90
+      },
+      "lights": [
+        {
+          "name": "ʿAlī b. Abī Ṭālib",
+          "role": "person"
+        },
+        {
+          "name": "the men of Quraysh at the door",
+          "role": "group-stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "They did not leave their places until morning came.",
+          "grade": "disputed",
+          "note": "Mursal report of Muḥammad b. Kaʿb al-Quraẓī.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "Then ʿAlī got up from the bed, and they said: by God, the man who spoke to us told us the truth.",
+          "grade": "disputed",
+          "note": "Same mursal report.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "The report records no harm done to ʿAlī that morning, which matches the assurance he was given the night before.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq says that when Quraysh found him gone they set a reward of a hundred she-camels for whoever brought him back.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "At first light the eastern ridges above Makkah show before the valley floor is lit; the sun reaches the bottom of the valley well after sunrise.",
+          "grade": "reconstruction",
+          "basis": "terrain data: Makkah lies in a narrow valley between ridges"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look east, toward the first light",
+          "camera": {
+            "target": "makkah",
+            "dist": 6,
+            "pitch": 15,
+            "heading": 90
+          },
+          "reveal": {
+            "text": "Dawn comes over the hills east of the valley, toward Minā.",
+            "grade": "reconstruction",
+            "basis": "terrain data and the Minā gazetteer point east of Makkah"
+          }
+        }
+      ],
+      "matters": "By morning the watchers have spent the whole night guarding an empty plan. Whatever head start the travellers had, it was measured in hours of darkness.",
+      "sections": [
+        "S0680",
+        "S0686"
+      ]
+    },
+    {
+      "id": "a06-u08",
+      "title": "Two clocks for one departure",
+      "kicker": "How the sources line up",
+      "when": {
+        "label": "The day permission was given and the night that followed",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 8,
+        "pitch": 45,
+        "heading": 0
+      },
+      "lights": [],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq tells the night of the bed first (S0680), then ʿĀʾisha's account of a noon visit to Abū Bakr's house 'on the day permission was given' (S0683), then the leaving through Abū Bakr's back opening (S0685).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha's report in al-Bukhārī has the visit at the height of noon, and then says simply that they reached a cave in Mount Thawr and stayed three nights; it says nothing of watchers or a bed.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq does not say in so many words whether the noon visit came before or after the night at the door. Many later writers place the noon visit first, the night departure from the house that same night, and the meeting with Abū Bakr after it.",
+          "grade": "disputed",
+          "note": "The order is a harmonisation by later authors; the early texts place the episodes side by side without fixing their order to the hour.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "A report of al-Ḥasan al-Baṣrī, given by Ibn Hishām from 'some people of knowledge', says the two reached the cave by night.",
+          "grade": "disputed",
+          "note": "al-Ḥasan was not an eyewitness and Ibn Hishām's informant is unnamed.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "This journey follows Ibn Isḥāq's order of telling: night at the door, dawn, then ʿĀʾisha's noon, then leaving. Read it as sources set side by side, not a fixed timetable.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0680"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "One valley, two clocks",
+          "camera": {
+            "target": "kaaba",
+            "dist": 3,
+            "pitch": 60,
+            "heading": 180
+          },
+          "reveal": {
+            "text": "At noon the sun stands almost overhead in late summer; at night the valley is dark except for lamps. The sources set one scene in each.",
+            "grade": "reconstruction",
+            "basis": "season and climate of Makkah in late summer (modern climate normals)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Which source puts the visit to Abū Bakr at midday?",
+        "options": [
+          {
+            "text": "ʿĀʾisha, in both Ibn Isḥāq and al-Bukhārī",
+            "ok": true,
+            "why": "Both versions of her account say noon, at an hour he did not usually come.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0683"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ"
+              }
+            ]
+          },
+          {
+            "text": "Muḥammad b. Kaʿb al-Quraẓī",
+            "ok": false,
+            "why": "His report is about the night at the door, not the visit.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0680"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Knowing where sources disagree is part of knowing the story. The events are well attested; their exact clock is not.",
+      "sections": [
+        "S0680",
+        "S0683",
+        "S0685"
+      ]
+    },
+    {
+      "id": "a06-u09",
+      "title": "At an hour he never came",
+      "kicker": "The heat of noon (al-hājira)",
+      "when": {
+        "label": "The day permission to emigrate was given",
+        "grade": "established"
+      },
+      "place": {
+        "key": "~abu_bakr_house",
+        "note": "Abū Bakr's house in Makkah; site not fixed in the sources used here"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "makkah",
+        "dist": 1.2,
+        "pitch": 55,
+        "heading": 210
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀʾisha",
+          "role": "person"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "ʿĀʾisha said the Prophet ﷺ never failed to come to Abū Bakr's house at one of the two ends of the day, morning or late afternoon.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            }
+          ]
+        },
+        {
+          "text": "On the day he was permitted to emigrate, he came at the noon heat, an hour at which he did not come.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī's version someone in the house announced him coming with his head covered.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "Seeing him, Abū Bakr said that the Prophet ﷺ had not come at this hour except for something that had happened.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "When he came in, Abū Bakr moved back from his couch and the Prophet ﷺ sat. Only ʿĀʾisha and her sister Asmāʾ were with Abū Bakr.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            }
+          ]
+        },
+        {
+          "text": "At noon in late summer Makkah is at its hottest, often near 40 °C, with the sun almost overhead.",
+          "grade": "reconstruction",
+          "basis": "modern climate normals for Makkah; season from the usual date conversion of the Hijra"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿĀʾisha",
+          "who": "Abū Bakr's daughter, later a wife of the Prophet ﷺ",
+          "here": "The narrator of this scene, present in the house"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "who": "Abū Bakr's elder daughter",
+          "here": "The only other person in the room"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Why the head covering?",
+          "reveal": {
+            "text": "The ḥadīth records the covered head and the unusual hour but gives no reason for either. Any motive is commentary, not report.",
+            "grade": "established",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ"
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "A break in a daily habit is itself the message. Abū Bakr reads it before a word is spoken.",
+      "sections": [
+        "S0683"
+      ]
+    },
+    {
+      "id": "a06-u10",
+      "title": "\"The companionship\"",
+      "kicker": "Inside Abū Bakr's house, noon",
+      "when": {
+        "label": "The same noon",
+        "grade": "established"
+      },
+      "place": {
+        "key": "~abu_bakr_house"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "makkah",
+        "dist": 0.8,
+        "pitch": 70,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀʾisha",
+          "role": "person"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ asked Abū Bakr to send out whoever was with him. Abū Bakr answered that they were only his two daughters (Ibn Isḥāq), or 'they are your family' (al-Bukhārī), and asked what had happened.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ said that Allah had permitted him to leave and emigrate.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr said: the companionship, Messenger of Allah? He answered: the companionship.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "In Ibn Isḥāq's version ʿĀʾisha says she had never known before that day that anyone could weep for joy, until she saw Abū Bakr weeping then.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            }
+          ]
+        },
+        {
+          "text": "Earlier, when Abū Bakr had asked leave to emigrate, the Prophet ﷺ had told him not to hurry, perhaps Allah would give him a companion; Ibn Isḥāq says Abū Bakr hoped he meant himself.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0682"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "One word, asked and answered",
+          "reveal": {
+            "text": "The exchange is a single word each way, al-ṣuḥba, in both Ibn Isḥāq and al-Bukhārī. The Qurʾān later calls Abū Bakr 'his companion' (ṣāḥibihi) in the cave.",
+            "grade": "established",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ"
+              },
+              {
+                "type": "quran",
+                "ref": "9:40"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Abū Bakr hears that permission has come. What is the first thing he asks for?",
+        "options": [
+          {
+            "text": "To be his companion on the journey",
+            "ok": true,
+            "why": "'The companionship?' 'The companionship.'",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0683"
+              }
+            ]
+          },
+          {
+            "text": "To know the route",
+            "ok": false,
+            "why": "The route is not discussed in this scene.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0683"
+              }
+            ]
+          },
+          {
+            "text": "To bring his family",
+            "ok": false,
+            "why": "He asks only to accompany the Prophet ﷺ.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0683"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "A long wait ends in one word. The tears ʿĀʾisha remembered are the only feeling the early account records here, and it records it from an eyewitness.",
+      "sections": [
+        "S0682",
+        "S0683"
+      ]
+    },
+    {
+      "id": "a06-u11",
+      "title": "Two mounts, fed for this day",
+      "kicker": "Still at noon",
+      "when": {
+        "label": "The same noon",
+        "grade": "established"
+      },
+      "place": {
+        "key": "~abu_bakr_house"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "makkah",
+        "dist": 1,
+        "pitch": 45,
+        "heading": 150
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀʾisha",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Abū Bakr, a man of means, had bought two riding camels and kept them in his house, feeding them in readiness.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0682"
+            }
+          ]
+        },
+        {
+          "text": "al-Bukhārī's version says he fed them on the leaves of the samur tree for four months.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "He told the Prophet ﷺ: these two mounts I had prepared for this.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī the Prophet ﷺ accepted one of them only 'for the price'.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha says they made the two ready quickly and put provisions for them in a leather bag.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "al-Bukhārī places Asmāʾ tying the bag with a piece of her waistband here, at the house; Ibn Isḥāq places her waistband at the cave on the day they set off from it.",
+          "grade": "disputed",
+          "note": "The two accounts place the waistband episode at different moments.",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "On what terms did the Prophet ﷺ take a camel from Abū Bakr, according to al-Bukhārī?",
+        "options": [
+          {
+            "text": "He paid for it",
+            "ok": true,
+            "why": "He accepted it 'for the price'.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ"
+              }
+            ]
+          },
+          {
+            "text": "As a gift",
+            "ok": false,
+            "why": "The ḥadīth says he took it for its price.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Preparation was months old; the decision took a moment. Even between the closest companions, the camel is paid for.",
+      "sections": [
+        "S0682",
+        "S0683"
+      ]
+    },
+    {
+      "id": "a06-u12",
+      "title": "A guide from Banū al-Dīl",
+      "kicker": "Hiring the guide",
+      "when": {
+        "label": "Before leaving Makkah",
+        "grade": "established"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 10,
+        "pitch": 30,
+        "heading": 340
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Urayqiṭ, the guide",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The two hired a man of Banū al-Dīl b. Bakr to guide them on the road. Ibn Isḥāq's text names him ʿAbd Allāh b. Arqaṭ; he is better known as ʿAbd Allāh b. Urayqiṭ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr, account of the Hijra",
+              "note": "Form of the name Urayqiṭ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq says his mother was from Banū Sahm b. ʿAmr and that he was a polytheist.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            }
+          ]
+        },
+        {
+          "text": "al-Bukhārī calls him a highly skilled guide, an ally of the family of al-ʿĀṣ b. Wāʾil al-Sahmī, who followed the religion of the unbelievers of Quraysh, and says they trusted him.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "They handed him their two mounts, and he kept them, grazing them, for the appointed meeting.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0683"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī the meeting was set at the cave of Thawr after three nights, and he came with the mounts on the morning of the third.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "Hiring a guide for wages is cited from this event in al-Bukhārī's book on hire, as hiring a polytheist when needed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī, Kitāb al-Ijāra, chapter on hiring polytheists when needed",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAbd Allāh b. Urayqiṭ (b. Arqaṭ)",
+          "who": "Of Banū al-Dīl b. Bakr; a polytheist at the time",
+          "here": "Hired guide; keeps the two camels until the meeting"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Two sources, one detail",
+          "reveal": {
+            "text": "Ibn Isḥāq says his mother was of Banū Sahm; al-Bukhārī says he was an ally of a Sahmī family. Independently, both tie him to Sahm of Quraysh.",
+            "grade": "established",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0683"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "The two most wanted men in Makkah gave their camels and their route to a man who did not share their faith. What does the ḥadīth give as the basis?",
+        "options": [
+          {
+            "text": "They trusted him, and he was a skilled guide",
+            "ok": true,
+            "why": "al-Bukhārī says 'they trusted him' and calls him a skilled guide.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ"
+              }
+            ]
+          },
+          {
+            "text": "He had secretly become Muslim",
+            "ok": false,
+            "why": "Both sources say he was a polytheist at the time.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0683"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Trust here is judged by character and skill, not by creed; and the trust was kept.",
+      "sections": [
+        "S0683"
+      ]
+    },
+    {
+      "id": "a06-u13",
+      "title": "Through the back of the house",
+      "kicker": "Leaving Abū Bakr's house",
+      "when": {
+        "label": "The night of leaving",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "~abu_bakr_house"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 4,
+        "pitch": 35,
+        "heading": 154
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "makkah",
+        "thawr"
+      ],
+      "statements": [
+        {
+          "text": "When the Prophet ﷺ had resolved to go out, he came to Abū Bakr, and the two left by a small opening (khawkha) in the back of Abū Bakr's house.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "Then they made for a cave in Thawr, which Ibn Isḥāq describes as a mountain in the lower part of Makkah.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq does not give the hour of leaving the house; al-Ḥasan al-Baṣrī's report says they reached the cave by night.",
+          "grade": "disputed",
+          "note": "The hour rests on al-Ḥasan's report via an unnamed informant of Ibn Hishām.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        },
+        {
+          "text": "Thawr lies about 5.7 km south-south-east of the Kaʿba, in the opposite direction from Madinah, which is about 340 km almost due north.",
+          "grade": "reconstruction",
+          "basis": "computed distances and bearings between the Makkah, Thawr and Madinah gazetteer points (straight line)"
+        },
+        {
+          "text": "The ground rises steeply toward Thawr; the cave is high on the mountain, a hard climb on foot.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look south: Thawr",
+          "camera": {
+            "target": "thawr",
+            "dist": 6,
+            "pitch": 25,
+            "heading": 154
+          },
+          "reveal": {
+            "text": "The route the two take first points away from Madinah, into the mountains south of the town.",
+            "grade": "reconstruction",
+            "basis": "computed bearing Makkah to Thawr about 154°"
+          }
+        },
+        {
+          "label": "Look north: Madinah",
+          "camera": {
+            "target": "makkah",
+            "dist": 200,
+            "pitch": 20,
+            "heading": 356
+          },
+          "reveal": {
+            "text": "Madinah lies about 340 km to the north, bearing about 356°, the direction anyone hunting them would expect.",
+            "grade": "reconstruction",
+            "basis": "computed bearing and distance between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Madinah is to the north. Which way do the two go first?",
+        "options": [
+          {
+            "text": "South, to a cave in Thawr",
+            "ok": true,
+            "why": "Ibn Isḥāq: they went to a cave in Thawr, a mountain in the lower part of Makkah.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0685"
+              }
+            ]
+          },
+          {
+            "text": "North, straight up the road to Madinah",
+            "ok": false,
+            "why": "The sources take them to Thawr first, for three nights.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0686"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Two exits avoid the expected ones: a back opening instead of a front door, and a mountain to the south instead of the road north.",
+      "sections": [
+        "S0685"
+      ]
+    },
+    {
+      "id": "a06-u14",
+      "title": "Stones under a cloth",
+      "kicker": "Abū Bakr's house, after the departure",
+      "when": {
+        "label": "After Abū Bakr had gone",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~abu_bakr_house"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 0.8,
+        "pitch": 70,
+        "heading": 270
+      },
+      "lights": [
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        },
+        {
+          "name": "Abū Quḥāfa",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Asmāʾ said that when Abū Bakr went out with the Prophet ﷺ he carried all his wealth with him, five or six thousand dirhams.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0692"
+            }
+          ]
+        },
+        {
+          "text": "Her grandfather Abū Quḥāfa, who had lost his sight, came in and said he thought Abū Bakr had hurt them by taking his money as well as himself.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0692"
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ told him no, Abū Bakr had left them much good. She put stones in the wall niche where her father used to keep his money, laid a cloth over them, and guided the old man's hand onto it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0692"
+            }
+          ]
+        },
+        {
+          "text": "Abū Quḥāfa said there was no harm: if he had left them this, he had done well, and it was enough for them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0692"
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ added: by God, he had left us nothing, but I wanted to set the old man's mind at rest.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0692"
+            }
+          ]
+        },
+        {
+          "text": "The chain is a family one: Yaḥyā b. ʿAbbād from his father ʿAbbād b. ʿAbd Allāh b. al-Zubayr, from his grandmother Asmāʾ herself.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0692"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Quḥāfa",
+          "who": "Abū Bakr's father, who had lost his sight",
+          "here": "Fears the family has been left with nothing"
+        },
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "who": "Abū Bakr's daughter",
+          "here": "Calms him with stones under a cloth"
+        }
+      ],
+      "discover": [
+        {
+          "label": "What 5–6,000 dirhams meant",
+          "reveal": {
+            "text": "The source gives the sum but no comparison. What is clear from it is that Abū Bakr took all of it and left the house without cash.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0692"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did Abū Quḥāfa's hand actually touch?",
+        "options": [
+          {
+            "text": "Stones under a cloth in the niche",
+            "ok": true,
+            "why": "Asmāʾ says she placed stones in the niche and covered them with a cloth.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0692"
+              }
+            ]
+          },
+          {
+            "text": "Coins Abū Bakr had left behind",
+            "ok": false,
+            "why": "She says he left them nothing.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0692"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The Hijra cost a household its savings. A daughter's quick kindness to a blind grandfather is preserved by her own family line.",
+      "sections": [
+        "S0692"
+      ]
+    },
+    {
+      "id": "a06-u15",
+      "title": "A blow at Abū Bakr's door",
+      "kicker": "Quraysh come looking",
+      "when": {
+        "label": "After the departure",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "~abu_bakr_house"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 1,
+        "pitch": 40,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        },
+        {
+          "name": "a party of Quraysh",
+          "role": "group-stone"
+        },
+        {
+          "name": "Abū Jahl b. Hishām",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq reports, saying only 'I was told' from Asmāʾ, that after the two had gone a group of Quraysh came and stood at Abū Bakr's door, Abū Jahl among them.",
+          "grade": "disputed",
+          "note": "Ibn Isḥāq does not name his informant ('ḥuddithtu', I was told).",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ went out to them. They asked where her father was; she said she did not know.",
+          "grade": "disputed",
+          "note": "Same unnamed chain.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "Abū Jahl raised his hand and slapped her cheek so hard that her earring flew off. She calls him coarse and vile.",
+          "grade": "disputed",
+          "note": "Same unnamed chain.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "Then they went away. Asmāʾ says the family stayed three nights not knowing which way the Prophet ﷺ had gone.",
+          "grade": "disputed",
+          "note": "Same unnamed chain; it sits uneasily with Ibn Isḥāq's statement that she herself took food to the cave each evening.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0685"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "The same family, two reports",
+          "reveal": {
+            "text": "S0685 has Asmāʾ bringing food to the cave each evening; S0689 has the family not knowing where he went. The tension is in the sources and is left open here.",
+            "grade": "disputed",
+            "note": "Two reports in Ibn Isḥāq not easily reconciled.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0685"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0689"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Asmāʾ answers 'I do not know' and takes the blow. What does the report say she gave away?",
+        "options": [
+          {
+            "text": "Nothing; the men left without an answer",
+            "ok": true,
+            "why": "The report says only that she said she did not know, and then they went away.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0689"
+              }
+            ]
+          },
+          {
+            "text": "The direction of Thawr",
+            "ok": false,
+            "why": "Nothing in the report says so.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0689"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The hunt begins at the doors of those left behind. The ones who stay carry part of the danger of the journey.",
+      "sections": [
+        "S0689",
+        "S0690"
+      ]
+    }
+  ]
+}

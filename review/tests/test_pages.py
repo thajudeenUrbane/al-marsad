@@ -48,7 +48,7 @@ class ReviewPages(unittest.TestCase):
         cls.tree = c.Tree(ROOT / "ontology")
         cls.queue = build_queue.build(cls.tree, {"needs-review", "probable"}, 50)
         cls.pages = built(cls.tmp / "a", cls.queue)
-        cls.batches = cls.queue["claims"] + cls.queue["identity"]
+        cls.batches = cls.queue["claims"] + cls.queue["identity"] + cls.queue["merges"]
         cls.units = [u for b in cls.batches for u in b["units"]]
 
     @classmethod
@@ -68,6 +68,19 @@ class ReviewPages(unittest.TestCase):
         index = self.pages["index.html"]
         for b in self.batches:
             self.assertIn(f'href="{bp.page_file(b["batch"])}"', index)
+
+    def test_merge_cards_show_both_entries_and_the_evidence(self):
+        self.assertTrue(self.queue["merges"], "the test queue has merge proposals")
+        b = self.queue["merges"][0]
+        text = self.pages[bp.page_file(b["batch"])]
+        for u in b["units"]:
+            self.assertIn(f'data-target="{u["id"]}" data-kind="merge"', text)
+            self.assertIn(html.escape(u["evidence"]), text)
+            for side in (u["keep"], u["merge"]):
+                self.assertIn(html.escape(side["name"], quote=False), text)
+                if side.get("name_ar"):
+                    self.assertIn(f'<span lang="ar" dir="rtl">{html.escape(side["name_ar"])}</span>', text)
+        self.assertIn('id="sec-merge"', self.pages["index.html"])
 
     def test_citation_flag_and_kind_follow_the_queue(self):
         flag = {u["id"]: ("1" if u.get("citation_required_to_accept") else "0", u["kind"]) for u in self.units}
@@ -142,7 +155,8 @@ class ReviewPages(unittest.TestCase):
         self.assertTrue(targets)
         for t in targets:
             u = files[t]
-            self.assertIn(stem, [u["file"].rsplit(".ttl", 1)[0]] if u["kind"] == "claim" else u["files"])
+            files_of = (u["keep"]["files"] + u["merge"]["files"]) if u["kind"] == "merge" else u.get("files")
+            self.assertIn(stem, [u["file"].rsplit(".ttl", 1)[0]] if u["kind"] == "claim" else files_of)
 
     def test_build_is_deterministic(self):
         again = built(self.tmp / "b", self.queue)

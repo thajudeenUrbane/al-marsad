@@ -1,0 +1,808 @@
+<title>Hijrah Night</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: the world fills the screen; one reading panel (right on desktop, bottom sheet on phones);
+   the route ribbon is the only other fixed element. Single night look by choice. */
+:root {
+  --night: #070a15;
+  --panel: rgba(11, 15, 29, 0.88);
+  --panel-solid: #0c1020;
+  --ink: #ebe6d6;
+  --muted: #9ba1b6;
+  --faint: #6b7189;
+  --line: rgba(235, 230, 214, 0.13);
+  --light: #ffd486;
+  --light-dim: rgba(255, 212, 134, 0.16);
+  --person: #dce7ff;
+  --stone: #7b7f8e;
+  --ok: #95d5ac;
+  --no: #e8a090;
+  --f-display: "Marcellus", "Palatino Linotype", Palatino, Georgia, serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-arabic: "Amiri", "Noto Naskh Arabic", "Geeza Pro", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+[hidden] { display: none !important; }
+body { background: var(--night); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; overflow: hidden; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--light); outline-offset: 2px; }
+#world { position: fixed; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#world.dragging { cursor: grabbing; }
+#labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.lbl { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 12px; letter-spacing: 0.01em; color: var(--ink);
+  text-shadow: 0 0 6px #000, 0 0 2px #000; will-change: transform; }
+.lbl.place { font-family: var(--f-display); font-size: 14px; color: var(--muted); }
+.lbl.place .ar { font-family: var(--f-arabic); font-size: 15px; margin-inline-start: 6px; }
+.lbl.prophet { color: var(--light); font-size: 13px; }
+.lbl.stone { color: var(--stone); font-size: 11px; }
+.lbl.host { color: var(--person); }
+.lbl.host small { color: var(--muted); }
+.lbl.chain { color: #b9c4ea; font-size: 11px; }
+.lbl.star { color: #f3f0e6; font-size: 11px; }
+.lbl.note { color: var(--muted); font-style: italic; font-size: 12px; }
+
+header.top { position: fixed; top: 0; left: 0; right: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px); padding-bottom: 8px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  pointer-events: none; }
+header.top > * { pointer-events: auto; }
+.brand { display: flex; flex-direction: column; margin-inline-end: auto; }
+.brand b { font-family: var(--f-display); font-weight: 400; font-size: 22px; letter-spacing: 0.02em; text-shadow: 0 0 10px #000; }
+.brand span { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; text-shadow: 0 0 6px #000; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); overflow: hidden; }
+.seg button { border: 0; background: none; padding: 6px 12px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { color: var(--night); background: var(--light); }
+.chip { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer; color: var(--ink); }
+.chip[aria-pressed="true"] { border-color: var(--light); color: var(--light); }
+
+#panel { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); top: calc(env(safe-area-inset-top, 0px) + 72px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); width: min(420px, 40vw); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 14px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; flex-direction: column; min-width: 0; }
+#panel .scroll { overflow-y: auto; padding: 18px 20px 8px; flex: 1; min-height: 0; overscroll-behavior: contain; }
+#panel .nav { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--line); align-items: center; }
+#panel .nav .grow { flex: 1; }
+.btn { border: 1px solid var(--line); background: transparent; border-radius: 10px; padding: 9px 14px; cursor: pointer; font-size: 14px; }
+.btn.primary { background: var(--light); color: var(--night); border-color: var(--light); font-weight: 600; }
+.btn:disabled { opacity: 0.35; cursor: default; }
+.eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+h1.ch { font-family: var(--f-display); font-weight: 400; font-size: 28px; line-height: 1.15; margin: 4px 0 6px; text-wrap: balance; }
+.where { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+.where i { color: var(--faint); }
+h2.sub { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 20px 0 8px; display: flex; gap: 8px; align-items: baseline; }
+h2.sub small { text-transform: none; letter-spacing: 0; color: var(--faint); font-weight: 400; }
+ul.claims { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+ul.claims li { border-inline-start: 2px solid var(--line); padding: 6px 0 6px 12px; }
+ul.claims li.hl { border-color: var(--light); }
+ul.claims .g { display: block; }
+.cite { font-family: var(--f-mono); font-size: 11.5px; color: var(--faint); background: none; border: 0; padding: 0; cursor: pointer; text-align: start; }
+.cite:hover { color: var(--muted); }
+.detail { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); margin-top: 4px; display: grid; gap: 2px; overflow-wrap: anywhere; }
+.people { display: flex; flex-wrap: wrap; gap: 6px; }
+.pp { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 4px 10px 4px 8px; border-radius: 999px; border: 1px solid var(--line); }
+.pp i { width: 8px; height: 8px; border-radius: 50%; background: var(--person); box-shadow: 0 0 8px var(--person); }
+.pp.prophet i { background: var(--light); box-shadow: 0 0 10px var(--light); }
+.pp.prophet { color: var(--light); }
+.pp.stone i { background: #2a2c34; box-shadow: inset 0 0 0 1px var(--stone); }
+.pp.stone { color: var(--muted); }
+.chainbox { display: grid; gap: 0; margin: 6px 0 4px; }
+.chainbox div { position: relative; padding: 3px 0 3px 18px; font-size: 13px; }
+.chainbox div::before { content: ""; position: absolute; left: 4px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: #b9c4ea; }
+.chainbox div:not(:last-child)::after { content: ""; position: absolute; left: 7px; top: 50%; bottom: -50%; width: 1px; background: rgba(185,196,234,.4); }
+.chainbox .from { color: var(--faint); font-size: 11px; padding-left: 18px; }
+.quiz { margin: 16px 0 6px; padding: 14px; border: 1px solid var(--light-dim); border-radius: 12px; background: rgba(255,212,134,0.04); }
+.quiz p.q { margin: 0 0 10px; font-weight: 500; }
+.quiz .opts { display: grid; gap: 6px; }
+.opt { display: flex; gap: 10px; align-items: flex-start; text-align: start; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: none; cursor: pointer; }
+.opt[aria-pressed="true"] { border-color: var(--light); }
+.opt.ok { border-color: var(--ok); }
+.opt.no { border-color: var(--no); }
+.opt .why { display: block; color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+.opt .mark { font-family: var(--f-mono); font-size: 12px; min-width: 18px; color: var(--faint); }
+.opt.ok .mark { color: var(--ok); }
+.opt.no .mark { color: var(--no); }
+.quiz .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.quiz .res { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.veil { filter: blur(5px); opacity: 0.5; pointer-events: none; user-select: none; }
+.ask { margin: 18px 0 8px; padding-inline-start: 12px; border-inline-start: 2px solid var(--light); font-family: var(--f-display); font-size: 17px; line-height: 1.35; }
+.ask small { display: block; font-family: var(--f-body); font-size: 11px; color: var(--faint); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+.prov { font-size: 12px; color: var(--faint); margin: 18px 0 4px; }
+.hostlist { display: grid; gap: 8px; }
+.hostlist div { font-size: 13px; }
+.hostlist b { font-weight: 500; color: var(--person); }
+.hostlist span { color: var(--muted); }
+.study, .research { display: none; }
+body[data-depth="study"] .study, body[data-depth="research"] .study, body[data-depth="research"] .research { display: revert; }
+details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.ordering { display: grid; gap: 6px; }
+.ordering button { text-align: start; }
+.ordering .slot { font-family: var(--f-mono); color: var(--faint); margin-inline-end: 8px; }
+
+#ribbon { position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  right: calc(min(420px, 40vw) + max(16px, env(safe-area-inset-right, 0px)) + 16px);
+  display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+#ribbon .cap { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; text-shadow: 0 0 6px #000; }
+#ribbon ol { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 0; overflow-x: auto; pointer-events: auto; scrollbar-width: none; }
+#ribbon li { display: flex; align-items: center; flex: none; }
+#ribbon li + li::before { content: ""; width: 18px; height: 1px; background: var(--line); }
+#ribbon button { display: flex; align-items: center; gap: 6px; border: 0; background: var(--panel); border-radius: 999px; padding: 4px 10px 4px 6px; font-size: 12px; cursor: pointer; color: var(--muted); }
+#ribbon button i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--muted); }
+#ribbon button.placed i { background: var(--muted); }
+#ribbon button.unplaced { cursor: help; font-style: italic; }
+#ribbon button.unplaced i { border-style: dashed; }
+#ribbon button.here { color: var(--light); }
+#ribbon button.here i { border-color: var(--light); background: var(--light); box-shadow: 0 0 8px var(--light); }
+
+#intro, #about { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(5, 7, 14, 0.72);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); z-index: 5; }
+.card { max-width: 560px; background: var(--panel-solid); border: 1px solid var(--line); border-radius: 16px; padding: 26px 26px 22px; max-height: 86vh; overflow-y: auto; }
+.card h2 { font-family: var(--f-display); font-weight: 400; font-size: 34px; margin: 0 0 4px; line-height: 1.1; }
+.card .ar { font-family: var(--f-arabic); font-size: 22px; color: var(--light); }
+.card p { color: #cfcabb; margin: 10px 0; max-width: 62ch; }
+.card ul { color: #cfcabb; padding-inline-start: 18px; }
+.card li { margin: 4px 0; }
+.card .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.card .fine { font-size: 12px; color: var(--faint); }
+#toast { position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 76px); transform: translateX(-50%); background: var(--panel-solid);
+  border: 1px solid var(--light-dim); color: var(--light); border-radius: 999px; padding: 7px 14px; font-size: 13px; opacity: 0; transition: opacity .4s; pointer-events: none; }
+#toast.on { opacity: 1; }
+#loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+
+@media (max-width: 760px) {
+  header.top { gap: 8px; }
+  .brand b { font-size: 19px; }
+  #panel { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); width: auto; top: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); height: 50%; }
+  #panel.min { height: 132px; }
+  #ribbon { left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px));
+    bottom: auto; top: var(--header-h, 120px); }
+  #ribbon .cap { display: none; }
+  .chip { padding: 5px 10px; }
+  .seg button { padding: 5px 10px; }
+  h1.ch { font-size: 24px; }
+  .lbl { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+</style>
+
+<canvas id="world" aria-label="A night view of the Ḥijāz terrain between Makkah and Madinah. The reading panel describes everything shown."></canvas>
+<div id="labels" aria-hidden="true"></div>
+<div id="loading">Raising the terrain…</div>
+
+<header class="top">
+  <div class="brand"><b>Hijrah Night</b><span>al-Marṣad lab · prototype 1</span></div>
+  <div class="seg" role="group" aria-label="Depth">
+    <button type="button" data-depth="discover" aria-pressed="true">Discover</button>
+    <button type="button" data-depth="study" aria-pressed="false">Study</button>
+    <button type="button" data-depth="research" aria-pressed="false">Research</button>
+  </div>
+  <button type="button" class="chip" id="skyBtn" aria-pressed="false">Your sky · <span id="skyCount">0</span></button>
+  <button type="button" class="chip" id="soundBtn" aria-pressed="false">Sound off</button>
+  <button type="button" class="chip" id="aboutBtn">How this works</button>
+</header>
+
+<aside id="panel" aria-live="polite">
+  <div class="scroll" id="pane"></div>
+  <div class="nav">
+    <button type="button" class="btn" id="prev">Back</button>
+    <button type="button" class="btn" id="look">Look around</button>
+    <span class="grow"></span>
+    <button type="button" class="btn primary" id="next">Next</button>
+  </div>
+</aside>
+
+<nav id="ribbon" aria-label="Places on the route">
+  <div class="cap">The route as Ibn Hishām lists it. Dashed stops are named in the text but have no reviewed location yet, so nothing is drawn for them.</div>
+  <ol id="stops"></ol>
+</nav>
+<div id="toast" role="status"></div>
+
+<div id="intro">
+  <div class="card">
+    <div class="ar">الهجرة</div>
+    <h2>Hijrah Night</h2>
+    <p>Walk the Hijrah over the real land of the Ḥijāz, from Makkah to Madinah, at night. The Prophet ﷺ is shown only as a light. Everyone else is a smaller light, and nobody is drawn as a figure.</p>
+    <p>Every line you read about the past comes from Ibn Hishām's <i>Sīra</i>, with its volume and page. Sometimes you will be asked to guess before you read, because trying to remember first is how memory works. When the text disagrees with itself, you will see both reports.</p>
+    <p class="fine">A lab prototype. Claims were extracted from the Arabic text by AI and have not yet been reviewed by scholars. Drag to look around, scroll or pinch to zoom, and double-click the land to move there.</p>
+    <div class="row"><button type="button" class="btn primary" id="begin">Begin the journey</button><button type="button" class="btn" id="introAbout">How this works</button></div>
+  </div>
+</div>
+
+<div id="about" hidden>
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="aboutH">
+    <h2 id="aboutH">How this works</h2>
+    <ul>
+      <li><b>Every statement about the past is a claim</b>: an English gloss of one claim extracted from the Arabic of Ibn Hishām's <i>Sīra</i> (OpenITI text, Cairo edition of 1955, provisional), with the volume, page and OpenITI milestone it rests on. Tap a citation to see the claim itself.</li>
+      <li><b>Written by the editor</b>: chapter titles, which sections each chapter draws on, where the camera looks, and the questions. None of these assert anything.</li>
+      <li><b>Answers come from claims.</b> When you are wrong, the reason shown is another claim, for example that the text records ʿUmar emigrating earlier.</li>
+      <li><b>Places</b> are drawn only where a gazetteer gives a point: al-Thurayya (CC BY 4.0) and Wikidata (CC0). No path is drawn between stops, because the text gives their order, not the road.</li>
+      <li><b>People</b> are lights. The Prophet ﷺ is the warm light, never a figure. Those named at the council are drawn as grey stones, neither stars nor light; whether and when each later accepted Islam is not drawn until recorded claims and the scholars decide.</li>
+      <li><b>Your sky</b> is kept only in this browser. Each person you meet becomes a star; each chapter becomes a constellation. Star positions are decorative, not astronomical.</li>
+      <li><b>Depths</b>: Discover shows the story; Study adds chains of narration, family links and the sections used; Research adds claim IDs and character spans.</li>
+    </ul>
+    <p class="fine">Terrain: AWS Terrain Tiles (Mapzen), from SRTM, GMTED and ETOPO1, at about 1 km per cell, heights × 3. Built by lab/hijrah-night/build.py from committed files: <span id="aboutCounts"></span>.</p>
+    <div class="row"><button type="button" class="btn primary" id="aboutClose">Close</button></div>
+  </div>
+</div>
+
+<script id="data" type="application/json">/*DATA*/null</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script>
+(() => {
+"use strict";
+const D = JSON.parse(document.getElementById("data").textContent);
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("hijrah-night:" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("hijrah-night:" + k, JSON.stringify(v)); } catch (e) {} }
+};
+
+/* ---------- geography ---------- */
+const dem = D.dem, W = dem.west, E = dem.east, N = dem.north, S = dem.south;
+const KX = 111.32 * Math.cos(((N + S) / 2) * Math.PI / 180), KZ = 110.95;
+const WK = (E - W) * KX, HK = (N - S) * KZ, EX = 3;
+let H = null;
+function elev(lon, lat) {
+  const fx = (lon - W) / (E - W) * (dem.w - 1), fy = (N - lat) / (N - S) * (dem.h - 1);
+  const x0 = Math.max(0, Math.min(dem.w - 2, Math.floor(fx))), y0 = Math.max(0, Math.min(dem.h - 2, Math.floor(fy)));
+  const tx = fx - x0, ty = fy - y0, w = dem.w;
+  const a = H[y0 * w + x0], b = H[y0 * w + x0 + 1], c = H[(y0 + 1) * w + x0], d = H[(y0 + 1) * w + x0 + 1];
+  return a * (1 - tx) * (1 - ty) + b * tx * (1 - ty) + c * (1 - tx) * ty + d * tx * ty;
+}
+const ey = m => m > 0 ? m / 1000 * EX : -0.35;
+function P(lon, lat, lift = 0) { return new THREE.Vector3((lon - W) * KX - WK / 2, ey(elev(lon, lat)) + lift, (N - lat) * KZ - HK / 2); }
+function toLL(v) { return [(v.x + WK / 2) / KX + W, N - (v.z + HK / 2) / KZ]; }
+function ground(v, lift = 0) { const [lo, la] = toLL(v); return P(lo, la, lift); }
+
+async function loadDem() {
+  const bin = Uint8Array.from(atob(dem.b64), c => c.charCodeAt(0));
+  let buf;
+  if ("DecompressionStream" in window) {
+    buf = await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer();
+  } else throw new Error("This browser cannot unpack the terrain (DecompressionStream is missing).");
+  const u = new Uint16Array(buf), f = new Float32Array(u.length);
+  for (let i = 0; i < u.length; i++) f[i] = u[i] - dem.offset;
+  H = f;
+}
+
+/* ---------- three ---------- */
+const canvas = $("#world");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene();
+const NIGHT = new THREE.Color("#070a15");
+scene.background = NIGHT;
+scene.fog = new THREE.FogExp2(0x0a0e1e, 0.0021);
+const camera = new THREE.PerspectiveCamera(50, 1, 0.03, 9000);
+
+scene.add(new THREE.HemisphereLight(0x2e3d6c, 0x050508, 0.52));
+const moon = new THREE.DirectionalLight(0x8ea3e6, 0.78);
+moon.position.set(-300, 220, 90);
+scene.add(moon);
+
+function glowTex(inner, outer) {
+  const c = document.createElement("canvas"); c.width = c.height = 128;
+  const g = c.getContext("2d"), r = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  r.addColorStop(0, inner); r.addColorStop(0.18, inner); r.addColorStop(0.45, outer); r.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = r; g.fillRect(0, 0, 128, 128);
+  const t = new THREE.CanvasTexture(c); return t;
+}
+const TEX = {
+  light: glowTex("rgba(255,244,214,1)", "rgba(255,196,110,0.32)"),
+  person: glowTex("rgba(240,246,255,1)", "rgba(170,195,255,0.22)"),
+  chain: glowTex("rgba(210,220,255,0.95)", "rgba(150,170,240,0.15)"),
+  ring: (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const g = c.getContext("2d");
+    g.strokeStyle = "rgba(235,230,214,0.75)"; g.lineWidth = 3; g.beginPath(); g.arc(32, 32, 24, 0, 7); g.stroke();
+    const t = new THREE.CanvasTexture(c); return t; })()
+};
+function sprite(tex, color = 0xffffff, opacity = 1) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color, transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
+  return s;
+}
+
+function buildTerrain() {
+  const g = new THREE.PlaneGeometry(WK, HK, dem.w - 1, dem.h - 1);
+  g.rotateX(-Math.PI / 2);
+  const pos = g.attributes.position, col = new Float32Array(pos.count * 3);
+  const sand = new THREE.Color("#7d6c58"), rock = new THREE.Color("#5e5249"), high = new THREE.Color("#3a3538"), wadi = new THREE.Color("#8f7d64"), c = new THREE.Color();
+  for (let i = 0; i < pos.count; i++) {
+    const m = H[i]; pos.setY(i, ey(m));
+    if (m < 250) c.copy(wadi).lerp(sand, m / 250);
+    else if (m < 900) c.copy(sand).lerp(rock, (m - 250) / 650);
+    else c.copy(rock).lerp(high, Math.min(1, (m - 900) / 900));
+    col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+  }
+  g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  g.computeVertexNormals();
+  const nrm = g.attributes.normal;
+  for (let i = 0; i < pos.count; i++) { const k = 0.55 + 0.45 * Math.pow(nrm.getY(i), 3); col[i * 3] *= k; col[i * 3 + 1] *= k; col[i * 3 + 2] *= k; }
+  const terrain = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ vertexColors: true }));
+  scene.add(terrain);
+  const sea = new THREE.Mesh(new THREE.PlaneGeometry(WK * 4, HK * 3), new THREE.MeshPhongMaterial({ color: 0x0a1630, specular: 0x5b6fa8, shininess: 70 }));
+  sea.rotateX(-Math.PI / 2); sea.position.y = 0.0;
+  scene.add(sea);
+  return terrain;
+}
+
+const starsGeo = new THREE.BufferGeometry();
+{
+  const n = 2600, a = new Float32Array(n * 3); let s = 7;
+  const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < n; i++) {
+    const u = rnd(), v = rnd() * 0.92 + 0.08, th = u * Math.PI * 2, ph = Math.acos(1 - v);
+    a[i * 3] = Math.sin(ph) * Math.cos(th) * 3000; a[i * 3 + 1] = Math.cos(ph) * 3000; a[i * 3 + 2] = Math.sin(ph) * Math.sin(th) * 3000;
+  }
+  starsGeo.setAttribute("position", new THREE.BufferAttribute(a, 3));
+}
+const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({ color: 0xc9d2f0, size: 1.4, sizeAttenuation: false, fog: false, transparent: true, opacity: 0.75 }));
+scene.add(stars);
+
+/* ---------- labels ---------- */
+const labelsEl = $("#labels"); let labels = [];
+function addLabel(pos3, html, cls = "", obj = null) {
+  const el = document.createElement("div"); el.className = "lbl " + cls; el.innerHTML = html; labelsEl.appendChild(el);
+  const L = { pos: pos3, el, obj, group: "chapter" }; labels.push(L); return L;
+}
+const v3 = new THREE.Vector3();
+const PRI = { prophet: 0, place: 1, host: 2, "": 3, star: 3, chain: 4, stone: 5, note: 6 };
+function updateLabels() {
+  const w = innerWidth, h = innerHeight, placed = [], todo = [];
+  for (const L of labels) {
+    if ((L.obj && !L.obj.visible) || L.el.style.visibility === "hidden") { L.el.style.display = "none"; continue; }
+    v3.copy(L.obj ? L.obj.position : L.pos).project(camera);
+    if (v3.z > 1 || v3.x < -1.1 || v3.x > 1.1 || v3.y < -1.1 || v3.y > 1.1) { L.el.style.display = "none"; continue; }
+    if (L.kind === undefined) { L.kind = ["prophet", "place", "host", "star", "chain", "stone", "note"].find(k => L.el.classList.contains(k)) || ""; }
+    todo.push([L, (v3.x + 1) / 2 * w, (1 - v3.y) / 2 * h]);
+  }
+  todo.sort((a, b) => PRI[a[0].kind] - PRI[b[0].kind]);
+  for (const [L, x, y] of todo) {
+    L.el.style.display = "";
+    if (!L.w) { L.w = L.el.offsetWidth; L.h = L.el.offsetHeight; }
+    const side = L.kind === "chain" || L.kind === "star", below = L.kind === "prophet";
+    const x0 = side ? x + 8 : x - L.w / 2, y0 = side ? y - L.h / 2 : below ? y + L.h * 0.7 : y - L.h * 1.5;
+    const box = [x0 - 3, y0 - 1, x0 + L.w + 3, y0 + L.h + 1];
+    if (placed.some(b => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1])) { L.el.style.display = "none"; continue; }
+    placed.push(box);
+    L.el.style.transform = `translate(${x0.toFixed(1)}px, ${y0.toFixed(1)}px)`;
+  }
+}
+
+/* ---------- camera ---------- */
+const cam = { target: new THREE.Vector3(), dist: 300, pitch: 0.9, heading: 0 };
+let tween = null, skyMode = false, skyLook = { heading: 0, pitch: 0.55 };
+function poseOf(p) {
+  const t = typeof p[0] === "string" ? D.places[p[0]] : { lon: p[0], lat: p[1] };
+  const rest = typeof p[0] === "string" ? p.slice(1) : p.slice(2);
+  return { target: P(t.lon, t.lat), dist: rest[0], pitch: rest[1] * Math.PI / 180, heading: rest[2] * Math.PI / 180 };
+}
+function flyTo(goal, ms = 2600) {
+  if (RM) { Object.assign(cam, { target: goal.target.clone(), dist: goal.dist, pitch: goal.pitch, heading: goal.heading }); tween = null; return; }
+  let dh = goal.heading - cam.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh));
+  tween = { t0: performance.now(), ms, from: { target: cam.target.clone(), dist: cam.dist, pitch: cam.pitch, heading: cam.heading }, to: goal, dh };
+}
+function stepCamera(now) {
+  if (tween) {
+    let k = Math.min(1, (now - tween.t0) / tween.ms); const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    const f = tween.from, t = tween.to;
+    cam.target.lerpVectors(f.target, t.target, e);
+    const arc = Math.sin(Math.PI * e) * Math.min(1.2, f.target.distanceTo(t.target) / Math.max(f.dist, t.dist)) * 0.9;
+    cam.dist = Math.exp(Math.log(f.dist) + (Math.log(t.dist) - Math.log(f.dist)) * e) * (1 + arc);
+    cam.pitch = f.pitch + (t.pitch - f.pitch) * e; cam.heading = f.heading + tween.dh * e;
+    if (k >= 1) tween = null;
+  }
+  if (skyMode) {
+    const base = ground(cam.target, 0.4);
+    camera.position.copy(base);
+    const d = new THREE.Vector3(Math.sin(skyLook.heading) * Math.cos(skyLook.pitch), Math.sin(skyLook.pitch), Math.cos(skyLook.heading) * Math.cos(skyLook.pitch));
+    camera.lookAt(base.clone().add(d));
+  } else {
+    const cp = Math.cos(cam.pitch);
+    camera.position.set(cam.target.x + Math.sin(cam.heading) * cp * cam.dist, cam.target.y + Math.sin(cam.pitch) * cam.dist, cam.target.z + Math.cos(cam.heading) * cp * cam.dist);
+    const gy = ey(elev(...toLL(camera.position))) + 0.25;
+    if (camera.position.y < gy) camera.position.y = gy;
+    camera.lookAt(cam.target);
+  }
+  stars.position.copy(camera.position);
+}
+
+/* pointer controls */
+const ptrs = new Map(); let pinch0 = 0, dist0 = 0, panMode = false;
+canvas.addEventListener("pointerdown", e => { canvas.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY }); canvas.classList.add("dragging"); tween = null; panMode = e.shiftKey || e.button === 2;
+  if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch0 = Math.hypot(a.x - b.x, a.y - b.y); dist0 = cam.dist; } });
+canvas.addEventListener("pointermove", e => {
+  const p = ptrs.get(e.pointerId); if (!p) return;
+  const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+  if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch0) cam.dist = clampD(dist0 * pinch0 / d); return; }
+  if (skyMode) { skyLook.heading -= dx * 0.004; skyLook.pitch = Math.max(0.05, Math.min(1.5, skyLook.pitch + dy * 0.004)); return; }
+  if (panMode) {
+    const s = cam.dist * 0.0018, ch = Math.cos(cam.heading), sh = Math.sin(cam.heading);
+    cam.target.x -= (dx * ch + dy * sh) * s; cam.target.z -= (-dx * sh + dy * ch) * s; cam.target.copy(ground(cam.target));
+  } else { cam.heading -= dx * 0.005; cam.pitch = Math.max(0.06, Math.min(1.5, cam.pitch + dy * 0.004)); }
+});
+const endPtr = e => { ptrs.delete(e.pointerId); if (!ptrs.size) canvas.classList.remove("dragging"); pinch0 = 0; };
+canvas.addEventListener("pointerup", endPtr); canvas.addEventListener("pointercancel", endPtr);
+canvas.addEventListener("contextmenu", e => e.preventDefault());
+const clampD = d => Math.max(0.8, Math.min(900, d));
+canvas.addEventListener("wheel", e => { e.preventDefault(); tween = null; cam.dist = clampD(cam.dist * Math.exp(e.deltaY * 0.0012)); }, { passive: false });
+const ray = new THREE.Raycaster(); let terrainMesh;
+canvas.addEventListener("dblclick", e => {
+  if (skyMode) return;
+  ray.setFromCamera({ x: e.clientX / innerWidth * 2 - 1, y: -(e.clientY / innerHeight) * 2 + 1 }, camera);
+  const hit = ray.intersectObject(terrainMesh)[0]; if (hit) flyTo({ target: hit.point, dist: Math.max(2, cam.dist * 0.45), pitch: cam.pitch, heading: cam.heading }, 1400);
+});
+
+/* ---------- actors ---------- */
+const chapterGroup = new THREE.Group(); scene.add(chapterGroup);
+const prophet = new THREE.Group();
+const pGlow = sprite(TEX.light, 0xffffff, 1); prophet.add(pGlow);
+const pLamp = new THREE.PointLight(0xffc77a, 1.5, 22, 1.6); pLamp.position.y = 0.6; prophet.add(pLamp);
+scene.add(prophet);
+const prophetLabel = addLabel(null, "The Prophet Muḥammad ﷺ", "prophet", prophet); prophetLabel.group = "fixed";
+
+function addPlaces() {
+for (const [key, pl] of Object.entries(D.places)) {
+  const r = sprite(TEX.ring, 0xffffff, 0.55); r.position.copy(P(pl.lon, pl.lat, 0.15)); r.userData.ring = true; scene.add(r);
+  const L = addLabel(r.position, esc(pl.name) + `<span class="ar">${esc(pl.ar)}</span>`, "place", r); L.group = "fixed";
+}
+}
+
+function clearChapter() {
+  chapterGroup.clear();
+  labels = labels.filter(L => { if (L.group === "chapter") { L.el.remove(); return false; } return true; });
+}
+function ringAround(center, n, r, start = 0) {
+  const out = [];
+  for (let i = 0; i < n; i++) { const a = start + i / Math.max(1, n) * Math.PI * 2; out.push(ground(new THREE.Vector3(center.x + Math.cos(a) * r, 0, center.z + Math.sin(a) * r), 0.35)); }
+  return out;
+}
+function personLight(pos, name, k = 1, opacity = 1) {
+  const s = sprite(TEX.person, 0xffffff, opacity); s.position.copy(pos); s.userData.k = k; chapterGroup.add(s);
+  if (name) addLabel(pos, esc(name));
+  return s;
+}
+function stone(pos, name) {
+  const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshLambertMaterial({ color: 0x24262e, emissive: 0x111218 }));
+  m.position.copy(pos); m.userData.stone = 1; chapterGroup.add(m);
+  addLabel(pos, esc(name), "stone");
+}
+
+let routeTimer = null;
+function drawChapter(ch, idx) {
+  clearChapter(); clearInterval(routeTimer); routeTimer = null;
+  const goal = poseOf(ch.pose); const d = ch.pose[typeof ch.pose[0] === "string" ? 1 : 2];
+  flyTo(goal);
+  const anchorKey = ch.light && ch.light !== "route" ? ch.light : null;
+  prophet.visible = !!ch.light;
+  if (anchorKey) { const pl = D.places[anchorKey]; prophet.position.copy(P(pl.lon, pl.lat, 0.5)); }
+  const center = anchorKey ? prophet.position : goal.target;
+  const others = ch.people.filter(p => p.role !== "prophet");
+  const hostNames = new Set(ch.hosts.map(h => h.host));
+  if (ch.hosts.length && ch.id === "ahead") {
+    const q = D.places["Quba'"]; const qc = P(q.lon, q.lat);
+    const hs = ch.hosts; const pts = ringAround(qc, hs.length, d * 0.13, 0.4);
+    hs.forEach((h, i) => {
+      const label = h.host ? `${esc(h.host)} <small>· ${h.guests.length} lodged here</small>` : `<small>${h.guests.length} with no host recorded</small>`;
+      if (h.host) { personLight(pts[i], null, 1.25); addLabel(pts[i], label, "host"); } else addLabel(pts[i], label, "note");
+      ringAround(pts[i], h.guests.length, d * 0.022 + h.guests.length * d * 0.0016).forEach(p => personLight(p, null, 0.7, 0.9));
+    });
+  } else if (ch.id === "quba") {
+    const ah = D.chapters.find(c => c.id === "ahead");
+    const pts = ringAround(center, ah.hosts.length, d * 0.42, 0.4);
+    ah.hosts.forEach((h, i) => ringAround(pts[i], h.guests.length, d * 0.05).forEach(p => personLight(p, null, 0.55, 0.55)));
+    addLabel(ground(pts[1], 0.3), "the emigrants who arrived earlier", "note");
+    const near = others.filter(p => !hostNames.has(p.name));
+    ringAround(center, near.length, d * 0.08, 2).forEach((p, i) => personLight(p, near[i].name));
+    ringAround(center, ch.hosts.length, d * 0.2, 0.2).forEach((p, i) => { personLight(p, null, 1.1); addLabel(p, esc(ch.hosts[i].host) + " <small>· host</small>", "host"); });
+  } else if (ch.id !== "road") {
+    ringAround(center, others.length, d * 0.1 + others.length * d * 0.004, 2.2).forEach((p, i) => personLight(p, others[i].name));
+  }
+  if (ch.council.length) ringAround(center, ch.council.length, d * 0.18, 0.3).forEach((p, i) => stone(p, ch.council[i]));
+  if (ch.where) addLabel(ground(goal.target, 0.5), esc(ch.where), "note");
+  // chains of narration rise from the scene towards the book (Study and deeper)
+  if (depth !== "discover") ch.chains.forEach((c, j) => {
+    const base = ground(new THREE.Vector3(center.x + (j + 1) * d * 0.16, 0, center.z - d * 0.1), 0.3);
+    const names = c.names.slice().reverse(), step = d * 0.06;
+    const pts = names.map((n, i) => base.clone().add(new THREE.Vector3(0, (i + 1) * step, 0)));
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([base, ...pts]), new THREE.LineBasicMaterial({ color: 0x9fb0ea, transparent: true, opacity: 0.45, fog: false }));
+    chapterGroup.add(line);
+    pts.forEach((p, i) => { const s = sprite(TEX.chain, 0xffffff, 0.9); s.position.copy(p); s.userData.k = 0.6; chapterGroup.add(s); addLabel(p, esc(names[i]), "chain"); });
+    addLabel(pts[pts.length - 1].clone().add(new THREE.Vector3(0, step, 0)), `<i>↑ to the book · ${esc(c.sec)}</i>`, "chain");
+  });
+  if (ch.light === "route") playRoute(d);
+  ribbonHere(ch);
+}
+
+function playRoute(d) {
+  const placed = D.route.filter(r => r.placed);
+  const seq = D.route.slice(1, -1); // Thawr … Qubāʾ
+  let i = 0;
+  const show = () => {
+    const r = seq[i]; ribbonHere(null, r.key);
+    if (r.placed) { const pl = D.places[r.key]; prophet.visible = true; prophet.position.copy(P(pl.lon, pl.lat, 0.5)); toast(`${pl.name}`); }
+    else { prophet.visible = false; toast(`${r.name}: named in the text, not yet placed`); }
+    i++;
+    if (i >= seq.length) { clearInterval(routeTimer); routeTimer = null; }
+  };
+  show(); routeTimer = setInterval(show, RM ? 1800 : 2300);
+}
+
+/* ---------- ribbon ---------- */
+const stopsEl = $("#stops");
+D.route.forEach(r => {
+  const li = document.createElement("li"), b = document.createElement("button");
+  b.type = "button"; b.className = r.placed ? "placed" : "unplaced"; b.dataset.key = r.key;
+  b.innerHTML = `<i></i>${esc(r.name)}`;
+  b.title = r.placed ? D.places[r.key].src : "Named by Ibn Hishām (section 696). No reviewed location yet, so nothing is drawn.";
+  b.addEventListener("click", () => { if (!r.placed) { toast(`${r.name}: no reviewed location yet`); return; } const pl = D.places[r.key]; skyOff(); flyTo({ target: P(pl.lon, pl.lat), dist: 12, pitch: 0.6, heading: cam.heading }, 1800); });
+  li.appendChild(b); stopsEl.appendChild(li);
+});
+function ribbonHere(ch, key) {
+  const k = key || (ch && ch.light && ch.light !== "route" ? ch.light : null);
+  stopsEl.querySelectorAll("button").forEach(b => b.classList.toggle("here", b.dataset.key === k));
+  const cur = stopsEl.querySelector(".here"); if (cur) cur.scrollIntoView({ block: "nearest", inline: "center", behavior: RM ? "auto" : "smooth" });
+}
+
+/* ---------- learner state ---------- */
+const PROPHET = "The Prophet Muḥammad ﷺ";
+let met = store.get("met", {}); delete met[PROPHET];         // name -> chapter id
+let answers = store.get("answers", {}); // chapter:kind -> {ok, at}
+function meet(ch) {
+  const names = [...ch.people.filter(p => p.role !== "prophet").map(p => p.name), ...ch.hosts.flatMap(h => [h.host, ...h.guests]).filter(Boolean)];
+  let n = 0; for (const nm of names) if (nm !== PROPHET && !met[nm]) { met[nm] = ch.id; n++; }
+  store.set("met", met); $("#skyCount").textContent = Object.keys(met).length;
+  if (n) toast(`${n} new ${n === 1 ? "star" : "stars"} in your sky`);
+}
+
+/* ---------- panel ---------- */
+let depth = "discover", cur = store.get("chapter", 0), revealed = {};
+const pane = $("#pane");
+function claimLi(c, hl) {
+  return `<li${hl ? ' class="hl"' : ""}><span class="g">${esc(c.g)}</span>
+    <button type="button" class="cite" data-claim="${esc(c.id)}" aria-expanded="false">Ibn Hishām, ${esc(c.cite.split(";")[0])} · §${esc(c.sec.slice(1).replace(/^0+/, ""))}</button>
+    <div class="detail" hidden>
+      <span>${esc(c.s)} — ${esc(c.pl)}${c.o ? " — " + esc(c.o) : ""}</span>
+      <span>${esc(c.cite)}</span>
+      <span class="research">${esc(c.id)} · ${esc(c.p)} · ${esc(c.psg)} · span ${c.span[0]}–${c.span[1]}</span>
+      <span>Status: proposed (AI-extracted, not yet reviewed)</span>
+    </div></li>`;
+}
+function quizHtml(kind, qz, ch) {
+  const key = ch.id + ":" + kind, done = answers[key];
+  const multi = qz.options.filter(o => o.ok).length > 1;
+  return `<div class="quiz" data-kind="${kind}">
+    <div class="eyebrow">${kind === "predict" ? "Guess first" : kind === "dispute" ? "Where the reports differ" : "Remember"}</div>
+    <p class="q">${esc(qz.q)}</p>
+    <div class="opts">${qz.options.map((o, i) => `<button type="button" class="opt" data-i="${i}" aria-pressed="false"><span class="mark">${multi ? "□" : "○"}</span><span>${esc(o.name)}<span class="why" hidden></span></span></button>`).join("")}</div>
+    <div class="row"><button type="button" class="btn primary" data-act="check">${kind === "predict" ? "Show me" : "Check"}</button>${kind === "predict" ? '<button type="button" class="btn" data-act="skip">Skip</button>' : ""}</div>
+    <div class="res" hidden></div>
+    ${done ? `<div class="res">Last time: ${done.ok ? "all right" : "partly right"}${done.due ? " · revisit after " + new Date(done.due).toLocaleDateString() : ""}</div>` : ""}
+  </div>`;
+}
+function orderHtml(o, ch) {
+  const shuffled = o.stops.map((s, i) => ({ s, i })).sort((a, b) => ((a.i * 7 + 3) % o.stops.length) - ((b.i * 7 + 3) % o.stops.length));
+  return `<div class="quiz" data-kind="order"><div class="eyebrow">Remember</div><p class="q">${esc(o.q)}</p>
+    <p class="where">Tap the places in order. The places themselves are claims of section 696.</p>
+    <div class="ordering">${shuffled.map(x => `<button type="button" class="opt" data-i="${x.i}"><span class="slot">·</span>${esc(x.s.o)}</button>`).join("")}</div>
+    <div class="row"><button type="button" class="btn" data-act="reset">Start again</button></div><div class="res" hidden></div></div>`;
+}
+function render() {
+  const ch = D.chapters[cur]; store.set("chapter", cur);
+  const veiled = ch.predict && !revealed[ch.id];
+  const sec = ch.sections.map(s => `<div><span class="cite">${esc(s.key)} · ${esc(s.cite)}</span><br>${esc(s.label)} <span class="where"><i>(section heading written by AI)</i></span></div>`).join("");
+  const place = ch.light && ch.light !== "route" ? D.places[ch.light].name : ch.light === "route" ? "From Thawr to Qubāʾ" : "Not placed";
+  pane.innerHTML = `
+    <div class="eyebrow">Chapter ${cur + 1} of ${D.chapters.length}</div>
+    <h1 class="ch">${esc(ch.title)}</h1>
+    <p class="where">${esc(place)}${ch.where ? ` · <i>${esc(ch.where)}</i>` : ""}</p>
+    ${ch.predict && !revealed[ch.id] ? quizHtml("predict", ch.predict, ch) : ""}
+    <div class="${veiled ? "veil" : ""}" id="body">
+      ${ch.people.length || ch.council.length ? `<h2 class="sub">In this chapter</h2><div class="people">
+        ${ch.people.filter(p => !ch.hosts.some(h => h.host === p.name)).map(p => `<span class="pp ${p.role}"><i></i>${esc(p.name)}</span>`).join("")}
+        ${ch.council.map(n => `<span class="pp stone"><i></i>${esc(n)}</span>`).join("")}</div>
+        ${ch.council.length ? '<p class="where">Grey stones: named as present. No side is drawn for anyone here until recorded claims and the scholars decide it.</p>' : ""}` : ""}
+      ${ch.hosts.length ? `<h2 class="sub">Who gave lodging <small>${ch.id === "ahead" ? "at Qubāʾ and al-Sunḥ" : ""}</small></h2><div class="hostlist">${ch.hosts.map(h => `<div><b>${esc(h.host || "No host recorded")}</b> <span>· ${h.guests.map(esc).join(", ")}</span></div>`).join("")}</div>` : ""}
+      <h2 class="sub">Recorded in the text <small>${ch.story.length} claims</small></h2>
+      <ul class="claims">${ch.story.map(c => claimLi(c)).join("")}</ul>
+      ${ch.chains.length ? `<div class="study"><h2 class="sub">Chains of narration</h2>${ch.chains.map(c => `<div class="chainbox"><div class="from">${esc(c.sec)} · the book's narrator first, the eyewitness last</div>${c.names.map(n => `<div>${esc(n)}</div>`).join("")}</div>`).join("")}</div>` : ""}
+      ${ch.family.length ? `<details class="study"><summary>Family links named in these sections (${ch.family.length})</summary><ul class="claims">${ch.family.map(c => claimLi(c)).join("")}</ul></details>` : ""}
+      ${ch.dispute ? quizHtml("dispute", ch.dispute, ch) : ""}
+      ${ch.check ? quizHtml("check", ch.check, ch) : ""}
+      ${ch.order ? orderHtml(ch.order, ch) : ""}
+      ${ch.ask ? `<p class="ask"><small>Think</small>${esc(ch.ask)}</p>` : ""}
+      <div class="study"><h2 class="sub">Sections used</h2><div class="detail">${sec}</div></div>
+      <p class="prov">From Ibn Hishām's <i>al-Sīra al-Nabawiyya</i>. Each line is an English gloss of a claim extracted by AI from the Arabic; none has been reviewed by a scholar yet.</p>
+    </div>`;
+  $("#prev").disabled = cur === 0;
+  $("#next").textContent = cur === D.chapters.length - 1 ? "Finish" : "Next";
+  pane.scrollTop = 0;
+  wireQuizzes(ch);
+}
+pane.addEventListener("click", e => {
+  const b = e.target.closest(".cite[data-claim]"); if (!b) return;
+  const d = b.nextElementSibling; d.hidden = !d.hidden; b.setAttribute("aria-expanded", String(!d.hidden));
+});
+function wireQuizzes(ch) {
+  pane.querySelectorAll(".quiz").forEach(box => {
+    const kind = box.dataset.kind;
+    if (kind === "order") return wireOrder(box, ch);
+    const qz = ch[kind], multi = qz.options.filter(o => o.ok).length > 1, pick = new Set();
+    box.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if (box.dataset.done) return;
+      const i = +b.dataset.i;
+      if (!multi) { pick.clear(); box.querySelectorAll(".opt").forEach(x => { x.setAttribute("aria-pressed", "false"); x.querySelector(".mark").textContent = "○"; }); }
+      if (pick.has(i)) pick.delete(i); else pick.add(i);
+      b.setAttribute("aria-pressed", String(pick.has(i))); b.querySelector(".mark").textContent = pick.has(i) ? (multi ? "■" : "●") : (multi ? "□" : "○");
+    }));
+    const finish = (skipped) => {
+      box.dataset.done = "1";
+      let right = 0;
+      qz.options.forEach((o, i) => {
+        const b = box.querySelector(`.opt[data-i="${i}"]`), why = b.querySelector(".why");
+        b.classList.add(o.ok ? "ok" : "no"); b.querySelector(".mark").textContent = o.ok ? "✓" : "×";
+        why.hidden = false; why.textContent = `${o.why.g} (Ibn Hishām, ${o.why.cite.split(";")[0]})`;
+        if (o.ok === pick.has(i)) right++;
+      });
+      const all = right === qz.options.length, res = box.querySelector(".res");
+      res.hidden = false;
+      res.textContent = skipped ? "Here is what the text records." : kind === "dispute"
+        ? "Ibn Hishām gives more than one report here, and both are kept. A reader who knows that the sources differ knows more than one who learns a single answer."
+        : all ? "All right. Each answer above shows the claim it rests on." : "Partly right. Each answer above shows the claim it rests on; this question will come back later.";
+      if (!skipped) { answers[ch.id + ":" + kind] = { ok: all, at: Date.now(), due: Date.now() + (all ? 3 : 1) * 864e5 }; store.set("answers", answers); }
+      if (kind === "predict") { revealed[ch.id] = true; $("#body").classList.remove("veil"); }
+    };
+    box.querySelector('[data-act="check"]').addEventListener("click", () => { if (!box.dataset.done) finish(false); });
+    const sk = box.querySelector('[data-act="skip"]'); if (sk) sk.addEventListener("click", () => { if (!box.dataset.done) finish(true); });
+  });
+}
+function wireOrder(box, ch) {
+  const seq = [], btns = [...box.querySelectorAll(".opt")], res = box.querySelector(".res");
+  btns.forEach(b => b.addEventListener("click", () => {
+    if (seq.includes(+b.dataset.i) || box.dataset.done) return;
+    seq.push(+b.dataset.i); b.querySelector(".slot").textContent = seq.length; b.setAttribute("aria-pressed", "true");
+    if (seq.length === btns.length) {
+      box.dataset.done = "1"; let right = 0;
+      seq.forEach((v, k) => { const bb = btns.find(x => +x.dataset.i === v); const ok = v === k; if (ok) right++; bb.classList.add(ok ? "ok" : "no"); });
+      res.hidden = false;
+      res.textContent = `${right} of ${btns.length} in the right place. Ibn Hishām's order: ${ch.order.stops.map(s => s.o).join(" → ")}.`;
+      answers[ch.id + ":order"] = { ok: right === btns.length, at: Date.now(), due: Date.now() + (right === btns.length ? 3 : 1) * 864e5 }; store.set("answers", answers);
+    }
+  }));
+  box.querySelector('[data-act="reset"]').addEventListener("click", () => { seq.length = 0; delete box.dataset.done; res.hidden = true; btns.forEach(b => { b.classList.remove("ok", "no"); b.querySelector(".slot").textContent = "·"; b.setAttribute("aria-pressed", "false"); }); });
+}
+
+function go(i) {
+  skyOff(); cur = Math.max(0, Math.min(D.chapters.length - 1, i));
+  const ch = D.chapters[cur]; render(); drawChapter(ch, cur); meet(ch);
+}
+$("#prev").addEventListener("click", () => go(cur - 1));
+$("#next").addEventListener("click", () => { if (skyMode) go(cur); else if (cur === D.chapters.length - 1) skyOn(); else go(cur + 1); });
+$("#look").addEventListener("click", () => { const p = $("#panel"); p.classList.toggle("min"); $("#look").textContent = p.classList.contains("min") ? "Read" : "Look around"; });
+document.addEventListener("keydown", e => {
+  if (e.target.closest("input,textarea")) return;
+  if (e.key === "ArrowRight" && !$("#intro").offsetParent) go(cur + 1);
+  if (e.key === "ArrowLeft" && !$("#intro").offsetParent) go(cur - 1);
+  if (e.key === "Escape") { $("#about").hidden = true; }
+});
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+  depth = b.dataset.depth; document.body.dataset.depth = depth;
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  if (!skyMode) drawChapter(D.chapters[cur], cur);
+}));
+
+/* ---------- your sky ---------- */
+const skyGroup = new THREE.Group(); skyGroup.visible = false; scene.add(skyGroup);
+let skyLabels = [];
+function hash(s) { let h = 2166136261; for (const c of s) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; }
+function skyOn() {
+  skyMode = true; $("#skyBtn").setAttribute("aria-pressed", "true"); tween = null;
+  prophet.visible = false; chapterGroup.visible = false;
+  labels.forEach(L => { if (L.group !== "sky") L.el.style.visibility = "hidden"; });
+  skyGroup.clear(); skyLabels.forEach(L => L.el.remove()); labels = labels.filter(L => L.group !== "sky"); skyLabels = [];
+  const byCh = {}; Object.entries(met).forEach(([n, c]) => (byCh[c] = byCh[c] || []).push(n));
+  const centre = new THREE.Vector3(0, 0, 0);
+  const lightAbove = sprite(TEX.light, 0xffffff, 1); lightAbove.userData.sky = 46; skyGroup.add(lightAbove);
+  lightAbove.position.set(0, 400, 0);
+  D.chapters.forEach((ch, ci) => {
+    const names = byCh[ch.id]; if (!names) return;
+    const az = ci / D.chapters.length * Math.PI * 2, pts = [];
+    names.forEach((n, k) => {
+      const a = az + (hash(n) - 0.5) * 0.55, el = 0.35 + hash(n + "e") * 0.6;
+      const p = new THREE.Vector3(Math.sin(a) * Math.cos(el) * 420, Math.sin(el) * 420, Math.cos(a) * Math.cos(el) * 420);
+      const s = sprite(TEX.person, 0xffffff, 0.95); s.position.copy(p); s.userData.sky = 7 + hash(n + "s") * 5; skyGroup.add(s); pts.push(p);
+      if (names.length <= 6 || k % 3 === 0) { const L = addLabel(p, esc(n), "star", null); L.group = "sky"; L.rel = true; skyLabels.push(L); }
+    });
+    // constellation lines: a minimum spanning tree, so a chapter reads as one figure, not a tangle
+    const segs = [], inT = [0];
+    while (inT.length < pts.length) {
+      let best = null;
+      for (const i of inT) for (let j = 0; j < pts.length; j++) if (!inT.includes(j)) { const dd = pts[i].distanceTo(pts[j]); if (!best || dd < best[2]) best = [i, j, dd]; }
+      segs.push(pts[best[0]], pts[best[1]]); inT.push(best[1]);
+    }
+    if (segs.length) skyGroup.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(segs), new THREE.LineBasicMaterial({ color: 0x8796c8, transparent: true, opacity: 0.4, fog: false })));
+    const low = pts.reduce((a, b) => (b.y < a.y ? b : a)); const mid = low.clone().add(new THREE.Vector3(0, -26, 0)); const L = addLabel(mid, `<i>${esc(ch.title)}</i>`, "star"); L.group = "sky"; L.rel = true; skyLabels.push(L);
+  });
+  skyGroup.visible = true;
+  const due = Object.entries(answers).filter(([, a]) => !a.ok || a.due < Date.now());
+  pane.innerHTML = `<div class="eyebrow">Your sky</div><h1 class="ch">${Object.keys(met).length} people met</h1>
+    <p class="where">Each person you met in the text is a star, and each chapter is a constellation. The warm light above is the Prophet ﷺ, at the centre and never one of the stars. Positions are decorative. Drag to look across the sky.</p>
+    <h2 class="sub">To revisit</h2>
+    ${due.length ? `<div class="hostlist">${due.map(([k]) => { const [cid] = k.split(":"); const i = D.chapters.findIndex(c => c.id === cid); return `<div><button type="button" class="btn" data-go="${i}">${esc(D.chapters[i].title)}</button></div>`; }).join("")}</div>` : '<p class="where">Nothing yet. Questions you miss come back the next day; questions you get right come back in three days.</p>'}
+    <h2 class="sub">People met, by chapter</h2>
+    <div class="hostlist">${D.chapters.filter(c => byCh[c.id]).map(c => `<div><b>${esc(c.title)}</b> <span>· ${byCh[c.id].map(esc).join(", ")}</span></div>`).join("")}</div>
+    <p class="prov">Stored only in this browser.</p>`;
+  pane.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => go(+b.dataset.go)));
+  $("#next").textContent = "Back to the journey";
+}
+function skyOff() {
+  if (!skyMode) return;
+  skyMode = false; $("#skyBtn").setAttribute("aria-pressed", "false");
+  skyGroup.visible = false; chapterGroup.visible = true; skyLabels.forEach(L => L.el.remove()); labels = labels.filter(L => L.group !== "sky"); skyLabels = [];
+  labels.forEach(L => L.el.style.visibility = "");
+  prophet.visible = !!D.chapters[cur].light;
+}
+$("#skyBtn").addEventListener("click", () => { if (skyMode) go(cur); else skyOn(); });
+
+/* ---------- sound: wind only, no instruments ---------- */
+let audio = null;
+$("#soundBtn").addEventListener("click", () => {
+  const b = $("#soundBtn");
+  if (!audio) {
+    const ac = new (window.AudioContext || window.webkitAudioContext)();
+    const buf = ac.createBuffer(1, ac.sampleRate * 4, ac.sampleRate), d = buf.getChannelData(0);
+    let last = 0; for (let i = 0; i < d.length; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.5; }
+    const src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+    const bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 420; bp.Q.value = 0.6;
+    const lfo = ac.createOscillator(), lg = ac.createGain(); lfo.frequency.value = 0.07; lg.gain.value = 260; lfo.connect(lg).connect(bp.frequency); lfo.start();
+    const g = ac.createGain(); g.gain.value = 0; src.connect(bp).connect(g).connect(ac.destination); src.start();
+    audio = { ac, g };
+  }
+  const on = b.getAttribute("aria-pressed") !== "true";
+  audio.ac.resume(); audio.g.gain.setTargetAtTime(on ? 0.5 : 0, audio.ac.currentTime, 0.6);
+  b.setAttribute("aria-pressed", String(on)); b.textContent = on ? "Sound on" : "Sound off";
+});
+
+/* ---------- misc ---------- */
+let toastT; function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("on"), 2600); }
+$("#aboutBtn").addEventListener("click", () => { $("#about").hidden = false; $("#aboutClose").focus(); });
+$("#introAbout").addEventListener("click", () => { $("#about").hidden = false; });
+$("#aboutClose").addEventListener("click", () => { $("#about").hidden = true; });
+$("#aboutCounts").textContent = `${D.counts.claims} claims from ${D.counts.sections} sections, in ${D.counts.chapters} chapters`;
+$("#begin").addEventListener("click", () => { $("#intro").hidden = true; go(cur); });
+
+function resize() { document.documentElement.style.setProperty("--header-h", $("header.top").getBoundingClientRect().bottom + "px"); renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); }
+addEventListener("resize", resize);
+
+function frame(now) {
+  stepCamera(now);
+  const camD = skyMode ? 1 : cam.dist;
+  const breathe = RM ? 1 : 1 + Math.sin(now / 1400) * 0.06;
+  pGlow.scale.setScalar(Math.max(0.5, camD * 0.075) * breathe);
+  pLamp.distance = Math.max(4, Math.min(60, camD * 0.5));
+  chapterGroup.children.forEach(o => {
+    if (o.userData.k) o.scale.setScalar(camD * 0.032 * o.userData.k);
+    if (o.userData.stone) o.scale.setScalar(camD * 0.0075);
+  });
+  scene.children.forEach(o => { if (o.userData && o.userData.ring) o.scale.setScalar(Math.max(0.4, camD * 0.03)); });
+  skyGroup.position.copy(camera.position);
+  skyGroup.children.forEach(o => { if (o.userData.sky) o.scale.setScalar(o.userData.sky); });
+  skyLabels.forEach(L => { if (L.rel) { L.pos0 = L.pos0 || L.pos.clone(); L.pos = L.pos0.clone().add(camera.position); } });
+  renderer.render(scene, camera);
+  updateLabels();
+  requestAnimationFrame(frame);
+}
+
+loadDem().then(() => {
+  terrainMesh = buildTerrain(); addPlaces();
+  Object.assign(cam, poseOf([39.5, 22.95, 520, 64, 0]));
+  resize(); $("#loading").remove(); $("#skyCount").textContent = Object.keys(met).length;
+  requestAnimationFrame(frame);
+}).catch(err => { $("#loading").textContent = err.message; });
+})();
+</script>

@@ -33,12 +33,18 @@ holds a different number of people in it (ingest/claims/ibn-hisham-full-counts.j
 the mismatch is listed under "count_checks" for an editor: a missed name, a duplicate or
 a person in the wrong list. They are questions, not claims, so they carry no decision.
 
+Merge proposals: the undecided rows of ontology/corpus/merge-proposals.csv (ontology/tools/
+propose_merges.py, maintainer F3) as "same entry?" questions, one batch per kind and confidence,
+each side with its names, files and the relations the Ibn Hishām layers record for it. An editor
+decides them (scholars too); import_decisions.py writes the decision into the CSV.
+
 The output is deterministic (no timestamps). Format: docs/handover/slice-3a.md.
 """
 
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import sys
 from pathlib import Path
@@ -194,9 +200,89 @@ def identity_batches(tree: c.Tree, levels: set, size: int) -> tuple[list, list]:
     return batches, excluded
 
 
+MERGE_ORDER = [("event", "probable"), ("event", "possible"), ("person", "probable"), ("person", "possible"),
+               ("event", "scholar"), ("person", "scholar"), ("title", "scholar")]
+CLAIM_FILES = [c.ROOT / "ingest" / "claims" / "ibn-hisham-full.jsonl", c.ROOT / "ingest" / "claims" / "ibn-hisham.jsonl"]
+CONTEXT_MAX = 8
+MERGE_BATCH = 25  # a merge card shows two entries and their relations: smaller batches keep a page under budget
+
+
+def merge_context(tree: c.Tree) -> dict:
+    """canonical id -> what the records say about an entry, for an editor deciding whether two are one:
+    its relations in the Ibn Hishām layers, as plain words ("father of ʿUtba"), at most CONTEXT_MAX of them."""
+    by_name = {}
+    for row in tree.identity:
+        by_name.setdefault((row["kind"], row["preferred_name_en"]), []).append(row["canonical_id"])
+
+    def rid(x):
+        if not isinstance(x, dict) or "name" not in x:
+            return None
+        if x.get("id"):
+            return x["id"]
+        ids = by_name.get((x.get("kind"), x["name"]), [])
+        return ids[0] if len(ids) == 1 else None
+
+    rels = {}
+    for f in CLAIM_FILES:
+        if not f.exists():
+            continue
+        for line in f.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            cl = json.loads(line)
+            s, o = rid(cl["subject"]), rid(cl["object"])
+            p = cl["predicate"].replace("rel_", "").replace("_", " ")
+            if s and "name" in cl["object"]:
+                rels.setdefault(s, []).append(f"{p} {cl['object']['name']}")
+            if o and "name" in cl["subject"]:
+                rels.setdefault(o, []).append(f"{cl['subject']['name']} {p} this entry")
+    out = {}
+    for k, v in rels.items():
+        seen = list(dict.fromkeys(v))
+        out[k] = {"relations": seen[:CONTEXT_MAX], "more": max(0, len(seen) - CONTEXT_MAX)}
+    return out
+
+
+def merge_batches(tree: c.Tree, size: int) -> list:
+    """Undecided rows of ontology/corpus/merge-proposals.csv (ontology/tools/propose_merges.py, maintainer F3)
+    as "same entry?" questions for an editor, one batch per kind and confidence."""
+    path = tree.ontology / "corpus" / "merge-proposals.csv"
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8", newline="") as fh:
+        rows = [r for r in csv.DictReader(fh) if not r.get("decision")]
+    rows_by_id = {r["canonical_id"]: r for r in tree.identity}
+    ctx = merge_context(tree)
+
+    def side(cid, name):
+        row = rows_by_id.get(cid) or {}
+        x = ctx.get(cid, {"relations": [], "more": 0})
+        return {"id": cid, "name": name, "name_ar": row.get("name_ar") or None,
+                "files": [f for f in row.get("source_files", "").split(";") if f],
+                "note": None if (row.get("note") or "").startswith("minted in") else (row.get("note") or None),
+                "relations": x["relations"], "more": x["more"]}
+
+    groups = {}
+    for r in rows:
+        groups.setdefault((r["kind"], r["confidence"]), []).append(r)
+    batches = []
+    for key in MERGE_ORDER + sorted(set(groups) - set(MERGE_ORDER)):
+        if key not in groups:
+            continue
+        kind, conf = key
+        units = [{"id": f"{r['keep_id']}|{r['merge_id']}", "kind": "merge", "entity": kind,
+                  "proposal": r["proposal"], "confidence": conf, "evidence": r["evidence"],
+                  "keep": side(r["keep_id"], r["keep_name"]), "merge": side(r["merge_id"], r["merge_name"])}
+                 for r in sorted(groups[key], key=lambda r: (c.fold(r["keep_name"]), r["proposal"]))]
+        batches += split({"batch": f"merge-{kind}-{conf}", "kind": "merge", "entity": kind, "confidence": conf,
+                          "title": f"{kind} {conf}"}, units, min(size, MERGE_BATCH))
+    return batches
+
+
 def build(tree: c.Tree, levels: set, size: int) -> dict:
     claims, passages = claim_batches(tree, size)
     identity, excluded = identity_batches(tree, levels, size)
+    merges = merge_batches(tree, size)
     t = tree.default_tradition()
     counts = count_checks()
     count = {k: sum(1 for b in claims if b["kind"] == k) for k in ("story", "person", "file")}
@@ -214,9 +300,11 @@ def build(tree: c.Tree, levels: set, size: int) -> dict:
             "identity_excluded": len(excluded),
             "identity_confidence": sorted(levels),
             "count_checks": len(counts),
+            "merge_units": sum(len(b["units"]) for b in merges),
         },
         "claims": claims,
         "identity": identity,
+        "merges": merges,
         "identity_excluded": excluded,
         "count_checks": counts,
         "passages": dict(sorted(passages.items())),
@@ -247,6 +335,8 @@ def main(argv=None) -> int:
           f"({b['story']} story, {b['person']} person, {b['file']} file)")
     print(f"identity: {s['identity_units']} question(s); {s['identity_excluded']} row(s) left out "
           f"(slice-1a ID bookkeeping, or new from the full-book pass)")
+    if s["merge_units"]:
+        print(f"merges: {s['merge_units']} undecided merge proposal(s), for an editor (scholars: the hard cases)")
     if s["count_checks"]:
         print(f"count checks: {s['count_checks']} list(s) whose count differs from the total the text gives (for an editor)")
     if args.list_excluded:

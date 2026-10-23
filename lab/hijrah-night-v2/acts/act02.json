@@ -1,0 +1,2651 @@
+{
+  "act": 2,
+  "title": "Seeking a home",
+  "subtitle": "Season after season the Prophet ﷺ asks the tribes for protection; a handful of men from Yathrib say yes, and a teacher goes north with them.",
+  "span": "c. 619–621 CE",
+  "units": [
+    {
+      "id": "a02-u01",
+      "title": "A city that has closed its doors",
+      "kicker": "The pilgrimage seasons",
+      "when": {
+        "label": "After his return to Makkah; the seasons of c. 619–620 CE",
+        "grade": "disputed",
+        "note": "Ibn Isḥāq gives the sequence (the account follows his return to Makkah) but no year; the CE dates are the usual later reckoning."
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 14,
+        "pitch": 32,
+        "heading": 95
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Quraysh",
+          "role": "assembly"
+        }
+      ],
+      "route": [
+        "makkah",
+        "mina"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq reports that when the Messenger of Allah ﷺ came back to Makkah, his people were more set than ever against him and his religion, apart from a few weak and oppressed people who had believed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "From then on he presented himself to the Arab tribes at the seasons whenever they came round, calling them to Allah and telling them he was a prophet sent by Him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "He asked two things of them: to believe him, and to protect him (yamnaʿūhu) until Allah made clear what He had sent him with.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq adds that whenever he heard of an Arab of name and standing arriving in Makkah, he went to meet him, called him to Allah and set before him what he had.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0596"
+            }
+          ]
+        },
+        {
+          "text": "The seasons gathered the Arabs of the peninsula in and around Makkah: the encampments of the tribes are what he went to, one after another.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0596"
+            }
+          ]
+        },
+        {
+          "text": "The valley of Minā lies about 7 km east of the Kaʿba, up the valley road between rocky hills.",
+          "grade": "reconstruction",
+          "basis": "computed distance between gazetteer points (kaaba, mina); terrain data"
+        }
+      ],
+      "people": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "who": "The Messenger of Allah, of Banū Hāshim of Quraysh",
+          "here": "Goes to the tribes at each season seeking belief and protection"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Follow the valley to Minā",
+          "camera": {
+            "target": "mina",
+            "dist": 6,
+            "pitch": 30,
+            "heading": 100
+          },
+          "reveal": {
+            "text": "From the Kaʿba to the centre of Minā is about 7 km in a straight line; the pilgrims' camps filled this valley during the season.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points; terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What two things did the Prophet ﷺ ask of the tribes, according to Ibn Isḥāq?",
+        "options": [
+          {
+            "text": "To believe him and to protect him until he had conveyed his message",
+            "ok": true,
+            "why": "Ibn Isḥāq: he asked them to believe him and protect him until Allah made clear what He had sent him with.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0592"
+              }
+            ]
+          },
+          {
+            "text": "To give him wealth and fighting men to march on Makkah",
+            "ok": false,
+            "why": "The sources describe a request for belief and protection, not for an army or money.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0592"
+              }
+            ]
+          },
+          {
+            "text": "To make him their king",
+            "ok": false,
+            "why": "Nothing in the reports describes such a request; when Banū ʿĀmir raised the question of rule, he refused to promise it.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0595"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Makkah has stopped being a place where the message can grow; the question of this act is who, outside Quraysh, will give it a home.",
+      "sections": [
+        "S0592",
+        "S0596"
+      ]
+    },
+    {
+      "id": "a02-u02",
+      "title": "The man walking behind him",
+      "kicker": "At Minā, among the tribes' camps",
+      "when": {
+        "label": "A pilgrimage season, c. 619–620 CE",
+        "grade": "disputed",
+        "note": "The report gives no year."
+      },
+      "place": {
+        "key": "mina"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "mina",
+        "dist": 2.5,
+        "pitch": 38,
+        "heading": 250
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Lahab",
+          "role": "stone"
+        },
+        {
+          "name": "Rabīʿa b. ʿAbbād al-Dīlī",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "mina"
+      ],
+      "statements": [
+        {
+          "text": "Rabīʿa b. ʿAbbād al-Dīlī recalled being a young man at Minā with his father while the Messenger of Allah ﷺ stood at the camps of the Arab tribes, addressing each: 'O Banū so-and-so'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "In Rabīʿa's account he told them he was Allah's messenger to them, commanding them to worship Allah alone, to cast off the rival gods they worshipped, to believe him and to protect him until he had made clear what Allah sent him with.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "Behind him walked a man Rabīʿa describes as squint-eyed and bright-faced, with two braids, wearing a cloak from ʿAdan.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "Each time the Prophet ﷺ finished, that man told the tribe that he only wanted them to strip al-Lāt and al-ʿUzzā from their necks, and their jinn allies of Banū Mālik b. Uqaysh, for an innovation and error, and that they should neither obey nor listen to him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "When Rabīʿa asked who the man was, his father told him it was the Prophet's own uncle, ʿAbd al-ʿUzzā b. ʿAbd al-Muṭṭalib, Abū Lahab.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq gives this report by two routes, one through Ḥusayn b. ʿAbd Allāh b. ʿUbayd Allāh b. ʿAbbās, who heard Rabīʿa tell it to his father.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Lahab (ʿAbd al-ʿUzzā b. ʿAbd al-Muṭṭalib)",
+          "who": "The Prophet's paternal uncle, of Banū Hāshim",
+          "here": "Follows him from camp to camp, contradicting him"
+        },
+        {
+          "name": "Rabīʿa b. ʿAbbād al-Dīlī",
+          "who": "Of Banū al-Dīl of Kināna; a young man at the time",
+          "here": "Eyewitness of the scene, with his father"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look back toward the Kaʿba",
+          "camera": {
+            "target": "kaaba",
+            "dist": 9,
+            "pitch": 22,
+            "heading": 280
+          },
+          "reveal": {
+            "text": "The Kaʿba lies about 7 km west of the middle of Minā, hidden by the hills from the valley floor.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points; terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Who was the man who followed the Prophet ﷺ telling the tribes not to listen?",
+        "options": [
+          {
+            "text": "His uncle Abū Lahab",
+            "ok": true,
+            "why": "Rabīʿa's father identified him as ʿAbd al-ʿUzzā b. ʿAbd al-Muṭṭalib, Abū Lahab.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0592"
+              }
+            ]
+          },
+          {
+            "text": "Abū Jahl of Banū Makhzūm",
+            "ok": false,
+            "why": "This report names Abū Lahab, not Abū Jahl.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0592"
+              }
+            ]
+          },
+          {
+            "text": "A stranger from the tribe of Kinda",
+            "ok": false,
+            "why": "The man was his own uncle, of Banū Hāshim.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0592"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The opposition is not only in Makkah: it walks a step behind him, and it is his own family.",
+      "sections": [
+        "S0592"
+      ]
+    },
+    {
+      "id": "a02-u03",
+      "title": "Kinda, Kalb, Ḥanīfa: three refusals",
+      "kicker": "Camp after camp",
+      "when": {
+        "label": "The seasons, c. 619–620 CE",
+        "grade": "disputed",
+        "note": "The reports name no year or order."
+      },
+      "place": {
+        "key": "~tribal encampments at the season",
+        "note": "The reports say 'in their encampments' without naming where."
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "mina",
+        "dist": 9,
+        "pitch": 26,
+        "heading": 60
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Kinda",
+          "role": "assembly"
+        },
+        {
+          "name": "Banū ʿAbd Allāh of Kalb",
+          "role": "assembly"
+        },
+        {
+          "name": "Banū Ḥanīfa",
+          "role": "assembly"
+        }
+      ],
+      "route": [
+        "mina"
+      ],
+      "statements": [
+        {
+          "text": "Al-Zuhrī reported that the Prophet ﷺ went to Kinda in their encampments, among whom was a chief called Mulayḥ; he called them to Allah and offered himself to them, and they refused.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            }
+          ]
+        },
+        {
+          "text": "He went to a branch of Kalb called Banū ʿAbd Allāh, and told them that Allah had made their forefather's name a fine one, a name meaning 'servant of Allah'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0593"
+            }
+          ]
+        },
+        {
+          "text": "Banū ʿAbd Allāh did not accept what he offered.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0593"
+            }
+          ]
+        },
+        {
+          "text": "He went to Banū Ḥanīfa in their encampments; the report says no Arab tribe answered him more harshly than they did.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0594"
+            }
+          ],
+          "note": "Ibn Isḥāq has it from 'some of our companions' from ʿAbd Allāh b. Kaʿb b. Mālik: the intermediary is unnamed."
+        },
+        {
+          "text": "Each refusal comes through a different informant of Ibn Isḥāq (al-Zuhrī; Muḥammad b. ʿAbd al-Raḥmān b. ʿAbd Allāh b. Ḥuṣayn; an unnamed source from ʿAbd Allāh b. Kaʿb), so this is a collection of remembered visits, not one day's itinerary.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0592"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0593"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0594"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Mulayḥ",
+          "who": "A chief of Kinda",
+          "here": "His tribe refuses the offer"
+        },
+        {
+          "name": "Banū ʿAbd Allāh",
+          "who": "A branch of the large tribe of Kalb",
+          "here": "Addressed through the meaning of their ancestor's name; they decline"
+        },
+        {
+          "name": "Banū Ḥanīfa",
+          "who": "A tribe of al-Yamāma in central Arabia",
+          "here": "Give the harshest reply of all the Arabs"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Widen to the whole valley",
+          "camera": {
+            "target": "mina",
+            "dist": 25,
+            "pitch": 40,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The sources place the tribes 'in their encampments' without saying where each camped; the map marks no tribal camp because none is located.",
+            "grade": "reconstruction",
+            "basis": "absence of located points in the gazetteer"
+          }
+        }
+      ],
+      "matters": "Rejection here is ordinary and repeated; the sources keep the names of those who said no, not only of those who said yes.",
+      "sections": [
+        "S0592",
+        "S0593",
+        "S0594"
+      ]
+    },
+    {
+      "id": "a02-u04",
+      "title": "Banū ʿĀmir ask who rules after him",
+      "kicker": "An offer with a condition",
+      "when": {
+        "label": "A pilgrimage season, c. 619–620 CE",
+        "grade": "disputed",
+        "note": "No year is given in the report."
+      },
+      "place": {
+        "key": "~encampment of Banū ʿĀmir b. Ṣaʿṣaʿa"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "mina",
+        "dist": 4,
+        "pitch": 30,
+        "heading": 180
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Bayḥara b. Firās",
+          "role": "stone"
+        },
+        {
+          "name": "Banū ʿĀmir b. Ṣaʿṣaʿa",
+          "role": "assembly"
+        }
+      ],
+      "route": [
+        "mina"
+      ],
+      "statements": [
+        {
+          "text": "Al-Zuhrī reported that the Prophet ﷺ came to Banū ʿĀmir b. Ṣaʿṣaʿa, called them to Allah and offered himself to them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0595"
+            }
+          ]
+        },
+        {
+          "text": "One of them, Bayḥara b. Firās, of the line of Qushayr b. Kaʿb, said that if he took this young man of Quraysh he could devour the Arabs with him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0595"
+            }
+          ]
+        },
+        {
+          "text": "Bayḥara then asked: if they pledged to him and Allah gave him victory over his opponents, would the rule be theirs after him?",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0595"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ answered that the matter belongs to Allah, who places it where He wills.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0595"
+            }
+          ]
+        },
+        {
+          "text": "Bayḥara replied that they would not offer their throats to the Arabs for him only for the rule to go to others once he had won, and Banū ʿĀmir refused.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0595"
+            }
+          ]
+        },
+        {
+          "text": "When the pilgrims dispersed, Banū ʿĀmir went home to an old man of theirs too aged to travel to the seasons, to whom they told each year's news.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0595"
+            }
+          ]
+        },
+        {
+          "text": "Told that a young man of Banū ʿAbd al-Muṭṭalib claiming prophethood had asked them to protect him and take him to their land, the old man put his hands on his head, asked whether the chance could ever be recovered, and swore that no descendant of Ismāʿīl had ever falsely claimed this: it was the truth, and their judgement had failed them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0595"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Bayḥara b. Firās",
+          "who": "Of Banū ʿĀmir b. Ṣaʿṣaʿa; Ibn Hishām traces him to Qushayr b. Kaʿb",
+          "here": "Wants a promise of rule in return for support"
+        },
+        {
+          "name": "An unnamed elder of Banū ʿĀmir",
+          "who": "Too old to attend the seasons",
+          "here": "Hears the news afterwards and condemns the refusal"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look east, toward the tribe's home country",
+          "camera": {
+            "target": "makkah",
+            "dist": 300,
+            "pitch": 30,
+            "heading": 70
+          },
+          "reveal": {
+            "text": "Banū ʿĀmir carried the news home to an elder who could no longer travel: the season's events reached the whole peninsula this way, even where no point on our map marks it.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0595"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Bayḥara asks for the rule after him as the price of support. How does the Prophet ﷺ answer?",
+        "options": [
+          {
+            "text": "He says the matter belongs to Allah, who places it where He wills",
+            "ok": true,
+            "why": "This is his reply as al-Zuhrī reports it; Banū ʿĀmir then refuse.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0595"
+              }
+            ]
+          },
+          {
+            "text": "He promises them the succession",
+            "ok": false,
+            "why": "He made no such promise, and that is why Bayḥara turned him down.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0595"
+              }
+            ]
+          },
+          {
+            "text": "He offers them a share of Makkah's trade",
+            "ok": false,
+            "why": "No such offer appears in the report.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0595"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Support offered as a bargain for power is refused; the protection he seeks cannot be bought with a promise of rule.",
+      "sections": [
+        "S0595"
+      ]
+    },
+    {
+      "id": "a02-u05",
+      "title": "Suwayd, 'the Perfect', and the wisdom of Luqmān",
+      "kicker": "A poet of Yathrib in Makkah",
+      "when": {
+        "label": "Before the battle of Buʿāth",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 3,
+        "pitch": 35,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Suwayd b. al-Ṣāmit",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "madina",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "Suwayd b. al-Ṣāmit, of Banū ʿAmr b. ʿAwf of the Aws, came to Makkah on pilgrimage or ʿumra; Ibn Isḥāq has the story from ʿĀṣim b. ʿUmar b. Qatāda, from elders of his people.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            }
+          ]
+        },
+        {
+          "text": "His people called him al-Kāmil, 'the Perfect', for his toughness, his poetry, his honour and his lineage; Ibn Isḥāq quotes verses of his on the false friend who is sweet to your face and wounds you behind your back.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            }
+          ]
+        },
+        {
+          "text": "When the Prophet ﷺ heard of him, he went to him and called him to Islam; Suwayd answered that perhaps what the Prophet had was like what he himself had: the 'scroll of Luqmān', meaning the wisdom of Luqmān.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ asked him to recite it, called it good speech, and said that what he had was better: a Qurʾān Allah had sent down to him, guidance and light. He then recited the Qurʾān to him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            }
+          ]
+        },
+        {
+          "text": "Suwayd did not turn away from it, said it was fine speech, and went home to Yathrib.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            }
+          ]
+        },
+        {
+          "text": "Soon after, the Khazraj killed him, before the day of Buʿāth; men of his people used to say they believed he had died a Muslim.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Suwayd b. al-Ṣāmit",
+          "who": "Poet and notable of Banū ʿAmr b. ʿAwf (Aws), called al-Kāmil",
+          "here": "Hears the Qurʾān, speaks well of it, and is killed at home soon after"
+        },
+        {
+          "name": "ʿĀṣim b. ʿUmar b. Qatāda",
+          "who": "Anṣārī historian of Banū Ẓafar, a main informant of Ibn Isḥāq",
+          "here": "Transmits the elders' account"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Fly the road home to Yathrib",
+          "camera": {
+            "target": [
+              39.7,
+              23.0
+            ],
+            "dist": 380,
+            "pitch": 45,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Yathrib lies about 340 km almost due north of Makkah in a straight line; the road is longer.",
+            "grade": "reconstruction",
+            "basis": "computed distance and bearing between gazetteer points (makkah, madina)"
+          }
+        }
+      ],
+      "matters": "The first man of Yathrib in this story is a poet who knows the value of words; the message reaches the city first as speech compared with speech.",
+      "sections": [
+        "S0597"
+      ]
+    },
+    {
+      "id": "a02-u06",
+      "title": "A handful of dust in Iyās's face",
+      "kicker": "Envoys seeking an alliance",
+      "when": {
+        "label": "Shortly before the battle of Buʿāth",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "makkah",
+        "note": "The dust is 'from al-Baṭḥāʾ', the valley bed of Makkah."
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 2,
+        "pitch": 40,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Iyās b. Muʿādh",
+          "role": "person"
+        },
+        {
+          "name": "Abū al-Ḥaysar Anas b. Rāfiʿ",
+          "role": "stone"
+        },
+        {
+          "name": "young men of Banū ʿAbd al-Ashhal",
+          "role": "assembly"
+        }
+      ],
+      "route": [
+        "madina",
+        "makkah"
+      ],
+      "statements": [
+        {
+          "text": "Maḥmūd b. Labīd reported that Abū al-Ḥaysar Anas b. Rāfiʿ came to Makkah with young men of Banū ʿAbd al-Ashhal (of the Aws), among them Iyās b. Muʿādh, seeking an alliance with Quraysh against their own rivals, the Khazraj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ heard of them, came and sat with them, and asked whether they wanted something better than what they had come for; he told them he was Allah's messenger, described Islam, and recited the Qurʾān to them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        },
+        {
+          "text": "Iyās, described as a young lad, told his companions that this was better than what they had come for.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        },
+        {
+          "text": "Abū al-Ḥaysar took a handful of the dust of al-Baṭḥāʾ, threw it in Iyās's face and told him they had come for something else; Iyās fell silent, the Prophet ﷺ rose and left them, and they went home.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        },
+        {
+          "text": "The battle of Buʿāth between the Aws and the Khazraj followed, and Iyās died not long after.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        },
+        {
+          "text": "Men of his people who were with him at his death told Maḥmūd b. Labīd that they heard him declaring Allah's oneness and greatness, praising and glorifying Him until he died, and they did not doubt that he died a Muslim.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Iyās b. Muʿādh",
+          "who": "A youth of Banū ʿAbd al-Ashhal (Aws)",
+          "here": "Says the Prophet's message is better than the alliance they came for"
+        },
+        {
+          "name": "Abū al-Ḥaysar Anas b. Rāfiʿ",
+          "who": "Leader of the Ashhalī delegation",
+          "here": "Silences Iyās with a handful of dust"
+        },
+        {
+          "name": "Maḥmūd b. Labīd",
+          "who": "Of Banū ʿAbd al-Ashhal; transmitter of the report",
+          "here": "Gathers the account of Iyās's death from those present"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look down at the valley bed",
+          "camera": {
+            "target": "kaaba",
+            "dist": 1.2,
+            "pitch": 55,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Al-Baṭḥāʾ is the gravel bed of the Makkan valley around the sanctuary, a dry wash between bare hills.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Why had Abū al-Ḥaysar's group come to Makkah?",
+        "options": [
+          {
+            "text": "To seek an alliance with Quraysh against the Khazraj",
+            "ok": true,
+            "why": "Maḥmūd b. Labīd says they came seeking alliance with Quraysh against their people of the Khazraj.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0598"
+              }
+            ]
+          },
+          {
+            "text": "To hear the Prophet ﷺ and invite him to Yathrib",
+            "ok": false,
+            "why": "They came for something else; their leader said so when he silenced Iyās.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0598"
+              }
+            ]
+          },
+          {
+            "text": "To trade at the market of ʿUkāẓ",
+            "ok": false,
+            "why": "The report names alliance-seeking as their purpose.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0598"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Yathrib's feud sent its men south looking for allies in war; one boy among them heard of something he judged better.",
+      "sections": [
+        "S0598"
+      ]
+    },
+    {
+      "id": "a02-u07",
+      "title": "Yathrib: two tribes, old wars, and a prophet expected",
+      "kicker": "The city in the north",
+      "when": {
+        "label": "The years before c. 620 CE",
+        "grade": "disputed",
+        "note": "Ibn Isḥāq gives no date for Buʿāth; the date in CE is a later estimate."
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "madina",
+        "dist": 22,
+        "pitch": 40,
+        "heading": 340
+      },
+      "lights": [
+        {
+          "name": "the Aws",
+          "role": "assembly"
+        },
+        {
+          "name": "the Khazraj",
+          "role": "assembly"
+        },
+        {
+          "name": "the Jews of Yathrib",
+          "role": "assembly"
+        }
+      ],
+      "route": [
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "Yathrib was home to two Arab tribes, the Aws and the Khazraj; the reports in this act already show them at odds, with the Khazraj killing Suwayd and an Awsī party seeking allies against the Khazraj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        },
+        {
+          "text": "Their quarrel came to a head in the battle of Buʿāth, which Ibn Isḥāq places after Suwayd's killing and after the Ashhalī envoys returned home.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0597"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0598"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha said that the day of Buʿāth was a day Allah set in place beforehand for His Messenger ﷺ: when he came to Madina, their unity was broken and their leaders killed or wounded, and this prepared them to enter Islam.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3777",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Jews lived alongside them in their land, people of scripture and learning, while the Aws and Khazraj were polytheists who worshipped idols and had overpowered the Jews there.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports, from ʿĀṣim b. ʿUmar b. Qatāda and elders of his people, that whenever trouble arose the Jews told them that a prophet was about to be sent, his time had drawn near, and they would follow him and kill them as ʿĀd and Iram were killed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "Yathrib sits on a broad plain ringed by black lava fields (ḥarra) and watered by wells and seasonal valleys, unlike Makkah's narrow, dry valley.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "quran": [
+        {
+          "ref": "2:89",
+          "gist": "When a scripture came to them from Allah confirming what they had, those who used to pray for victory over the unbelievers rejected what they had recognised.",
+          "context": "Ibn Isḥāq, in his later account of the verses revealed about the Jews of Madina, reports from ʿĀṣim b. ʿUmar b. Qatāda and the elders of his people that this verse concerned the Jews who had threatened the Aws and Khazraj with a coming prophet (supported; section to be confirmed by the scholar check).",
+          "grade": "supported"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿĀʾisha bint Abī Bakr",
+          "who": "Wife of the Prophet ﷺ",
+          "here": "Explains Buʿāth in hindsight as Allah's preparation"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look south from Yathrib toward Qubāʾ",
+          "camera": {
+            "target": "quba",
+            "dist": 8,
+            "pitch": 30,
+            "heading": 200
+          },
+          "reveal": {
+            "text": "Qubāʾ lies about 4.5 km south-west of the centre of Madina; Uḥud rises about 3.6 km to the north.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points (madina, quba, uhud)"
+          }
+        }
+      ],
+      "matters": "The city that will become the Prophet's home is one exhausted by its own war, and one where talk of a coming prophet was already in the air.",
+      "sections": [
+        "S0597",
+        "S0598",
+        "S0599"
+      ]
+    },
+    {
+      "id": "a02-u08",
+      "title": "Six men at al-ʿAqaba",
+      "kicker": "The season of c. 620 CE",
+      "when": {
+        "label": "The pilgrimage season, c. 620 CE (the eleventh year of the mission by the usual reckoning)",
+        "grade": "disputed",
+        "note": "Ibn Isḥāq gives no year; the dating is the later standard reckoning."
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 1.5,
+        "pitch": 34,
+        "heading": 80
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "six men of the Khazraj",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "makkah",
+        "aqaba"
+      ],
+      "statements": [
+        {
+          "text": "In this season the Prophet ﷺ went out and offered himself to the Arab tribes as he did every season, and at al-ʿAqaba he met a small party of the Khazraj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "He asked who they were; they said men of the Khazraj. He asked whether they were allies of the Jews; they said yes. He asked whether they would sit so that he could speak with them, and they sat.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "He called them to Allah, set Islam before them and recited the Qurʾān to them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "They told one another that this was the prophet the Jews had threatened them with, and that the Jews must not reach him before they did.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "They believed him and accepted Islam, and told him that they had left behind a people divided by more enmity and evil than any other; perhaps Allah would unite them through him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "They said they would go home, call their people to his cause and present this religion to them, and if Allah united them on it no man would be stronger than he. Then they left for their land as believers.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0599"
+            }
+          ]
+        },
+        {
+          "text": "The ʿAqaba of Minā lies about 4.8 km east of the Kaʿba, at the western entry to the valley of Minā; the exact spot of the meeting is not established.",
+          "grade": "reconstruction",
+          "basis": "computed distance between gazetteer points; gazetteer certainty 'approximate'"
+        }
+      ],
+      "people": [
+        {
+          "name": "Six men of the Khazraj",
+          "who": "From Banū al-Najjār, Banū Zurayq and Banū Salima",
+          "here": "Accept Islam and promise to call their people"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Measure the walk from the sanctuary",
+          "camera": {
+            "target": "aqaba",
+            "dist": 8,
+            "pitch": 28,
+            "heading": 270
+          },
+          "reveal": {
+            "text": "About 4.8 km separate the Kaʿba from the marked ʿAqaba point, and about 2.3 km more lead on to the centre of Minā.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points (kaaba, aqaba, mina)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "The men from Yathrib had heard their Jewish neighbours speak of a coming prophet. What did that lead them to say to each other?",
+        "options": [
+          {
+            "text": "That this was the prophet the Jews had threatened them with, and the Jews must not reach him first",
+            "ok": true,
+            "why": "Ibn Isḥāq reports these words between them.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0599"
+              }
+            ]
+          },
+          {
+            "text": "That they should ask the Jews first before giving any answer",
+            "ok": false,
+            "why": "They answered at once and accepted Islam.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0599"
+              }
+            ]
+          },
+          {
+            "text": "That they must report him to Quraysh",
+            "ok": false,
+            "why": "Nothing like this appears; they returned home as believers.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0599"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "After years of refusals, the first yes comes from a divided people who see in him a way to be united.",
+      "sections": [
+        "S0599"
+      ]
+    },
+    {
+      "id": "a02-u09",
+      "title": "Who the six were",
+      "kicker": "Names and clans",
+      "when": {
+        "label": "The pilgrimage season, c. 620 CE",
+        "grade": "disputed",
+        "note": "No year in the source."
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 0.9,
+        "pitch": 50,
+        "heading": 140
+      },
+      "lights": [
+        {
+          "name": "Asʿad b. Zurāra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAwf b. al-Ḥārith",
+          "role": "person"
+        },
+        {
+          "name": "Rāfiʿ b. Mālik",
+          "role": "person"
+        },
+        {
+          "name": "Quṭba b. ʿĀmir",
+          "role": "person"
+        },
+        {
+          "name": "ʿUqba b. ʿĀmir",
+          "role": "person"
+        },
+        {
+          "name": "Jābir b. ʿAbd Allāh b. Riʾāb",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "aqaba",
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq names the six 'as was mentioned to me': all six were of the Khazraj.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0600"
+            }
+          ],
+          "note": "Ibn Isḥāq introduces the list with the hedge 'as was mentioned to me' (fīmā dhukira lī)."
+        },
+        {
+          "text": "Two were of Banū Mālik b. al-Najjār: Asʿad b. Zurāra, known as Abū Umāma, and ʿAwf b. al-Ḥārith, called Ibn ʿAfrāʾ after his mother.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0600"
+            }
+          ],
+          "note": "Part of the hedged list of the six."
+        },
+        {
+          "text": "One was of Banū Zurayq: Rāfiʿ b. Mālik b. al-ʿAjlān.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0600"
+            }
+          ],
+          "note": "Part of the hedged list of the six."
+        },
+        {
+          "text": "Three were of Banū Salima: Quṭba b. ʿĀmir b. Ḥadīda of Banū Sawād, ʿUqba b. ʿĀmir b. Nābī of Banū Ḥarām, and Jābir b. ʿAbd Allāh b. Riʾāb of Banū ʿUbayd.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0600"
+            }
+          ],
+          "note": "Part of the hedged list of the six; Ibn Hishām also corrects a link in Quṭba's genealogy."
+        },
+        {
+          "text": "Back in Madina they spoke of the Messenger of Allah ﷺ to their people and called them to Islam until it spread among them, and no house of the Anṣār remained without some mention of him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0600"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Asʿad b. Zurāra (Abū Umāma)",
+          "who": "Of Banū Mālik b. al-Najjār (Khazraj)",
+          "here": "Among the first six; later Muṣʿab's host"
+        },
+        {
+          "name": "ʿAwf b. al-Ḥārith (Ibn ʿAfrāʾ)",
+          "who": "Of Banū Mālik b. al-Najjār; ʿAfrāʾ was his mother",
+          "here": "Among the first six"
+        },
+        {
+          "name": "Rāfiʿ b. Mālik b. al-ʿAjlān",
+          "who": "Of Banū Zurayq (Khazraj)",
+          "here": "Among the first six"
+        },
+        {
+          "name": "Quṭba b. ʿĀmir b. Ḥadīda",
+          "who": "Of Banū Sawād of Banū Salima (Khazraj)",
+          "here": "Among the first six"
+        },
+        {
+          "name": "ʿUqba b. ʿĀmir b. Nābī",
+          "who": "Of Banū Ḥarām of Banū Salima (Khazraj)",
+          "here": "Among the first six"
+        },
+        {
+          "name": "Jābir b. ʿAbd Allāh b. Riʾāb",
+          "who": "Of Banū ʿUbayd of Banū Salima (Khazraj); not the better-known Jābir b. ʿAbd Allāh b. ʿAmr",
+          "here": "Among the first six"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Follow them home",
+          "camera": {
+            "target": "madina",
+            "dist": 12,
+            "pitch": 35,
+            "heading": 180
+          },
+          "reveal": {
+            "text": "The six carried the message about 340 km north; by Ibn Isḥāq's account it was then talked of in every house of the Anṣār.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0600"
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "The names matter: three different clans of the Khazraj, so the message entered Yathrib through several doors at once.",
+      "sections": [
+        "S0600"
+      ]
+    },
+    {
+      "id": "a02-u10",
+      "title": "The following year: twelve men",
+      "kicker": "The First ʿAqaba",
+      "when": {
+        "label": "The next pilgrimage season, c. 621 CE",
+        "grade": "disputed",
+        "note": "The source says 'the following year'; the CE year is the usual later reckoning."
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 1.2,
+        "pitch": 30,
+        "heading": 300
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "twelve men of the Anṣār",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "madina",
+        "aqaba"
+      ],
+      "statements": [
+        {
+          "text": "The following year twelve men of the Anṣār came to the season and met the Prophet ﷺ at al-ʿAqaba; this was the First ʿAqaba.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0601"
+            }
+          ]
+        },
+        {
+          "text": "Of Banū al-Najjār came Asʿad b. Zurāra and the two sons of ʿAfrāʾ, ʿAwf and Muʿādh; of Banū Zurayq, Rāfiʿ b. Mālik and Dhakwān b. ʿAbd Qays, whom Ibn Hishām calls both an emigrant and a helper.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0602"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0603"
+            }
+          ]
+        },
+        {
+          "text": "Of the Qawāqil of Banū ʿAwf came ʿUbāda b. al-Ṣāmit and Abū ʿAbd al-Raḥmān Yazīd b. Thaʿlaba, an ally from the tribe of Balī; of Banū Sālim, al-ʿAbbās b. ʿUbāda b. Naḍla.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0604"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0606"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām explains the name Qawāqil: when a man sought their protection they gave him an arrow and told him to walk with it (qawqil) wherever he liked in Yathrib.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0605"
+            }
+          ]
+        },
+        {
+          "text": "Of Banū Salima came ʿUqba b. ʿĀmir and Quṭba b. ʿĀmir, both of the first six.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0607"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0608"
+            }
+          ]
+        },
+        {
+          "text": "Two came from the Aws: Abū al-Haytham b. al-Tayyihān (Mālik) of Banū ʿAbd al-Ashhal, and ʿUwaym b. Sāʿida of Banū ʿAmr b. ʿAwf. Ten were of the Khazraj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0609"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0610"
+            }
+          ]
+        },
+        {
+          "text": "Five of the six from the year before appear among the twelve; Jābir b. ʿAbd Allāh b. Riʾāb is not in this list.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0600"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0602"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0603"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0607"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0608"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Muʿādh b. al-Ḥārith (Ibn ʿAfrāʾ)",
+          "who": "Brother of ʿAwf, of Banū al-Najjār",
+          "here": "New among the twelve"
+        },
+        {
+          "name": "Dhakwān b. ʿAbd Qays",
+          "who": "Of Banū Zurayq (Khazraj)",
+          "here": "New among the twelve"
+        },
+        {
+          "name": "ʿUbāda b. al-Ṣāmit",
+          "who": "Of the Qawāqil of Banū ʿAwf b. al-Khazraj",
+          "here": "Later the main narrator of the pledge's terms"
+        },
+        {
+          "name": "Yazīd b. Thaʿlaba (Abū ʿAbd al-Raḥmān)",
+          "who": "Of Balī, an ally of the Qawāqil",
+          "here": "New among the twelve"
+        },
+        {
+          "name": "al-ʿAbbās b. ʿUbāda b. Naḍla",
+          "who": "Of Banū Sālim b. ʿAwf (Khazraj)",
+          "here": "New among the twelve"
+        },
+        {
+          "name": "Abū al-Haytham b. al-Tayyihān",
+          "who": "Named Mālik; of Banū ʿAbd al-Ashhal (Aws)",
+          "here": "One of the two Awsī men"
+        },
+        {
+          "name": "ʿUwaym b. Sāʿida",
+          "who": "Of Banū ʿAmr b. ʿAwf (Aws)",
+          "here": "One of the two Awsī men"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Count the clans",
+          "camera": {
+            "target": "aqaba",
+            "dist": 3,
+            "pitch": 45,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The twelve came from at least seven named clans, and for the first time the Aws were represented alongside the Khazraj.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0602"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0609"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0610"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "How many of the twelve came from the Aws?",
+        "options": [
+          {
+            "text": "Two: Abū al-Haytham b. al-Tayyihān and ʿUwaym b. Sāʿida",
+            "ok": true,
+            "why": "Ibn Isḥāq lists these two from the Aws; the other ten were Khazraj.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0609"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0610"
+              }
+            ]
+          },
+          {
+            "text": "None",
+            "ok": false,
+            "why": "Two Awsī men are named.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0609"
+              }
+            ]
+          },
+          {
+            "text": "Six",
+            "ok": false,
+            "why": "Six was the number of the first Khazraj party the year before.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0600"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "A year's work in Yathrib doubled the number and crossed the line between the two warring tribes.",
+      "sections": [
+        "S0600",
+        "S0601",
+        "S0602",
+        "S0603",
+        "S0604",
+        "S0605",
+        "S0606",
+        "S0607",
+        "S0608",
+        "S0609",
+        "S0610"
+      ]
+    },
+    {
+      "id": "a02-u11",
+      "title": "The terms ʿUbāda remembered",
+      "kicker": "The night of the First ʿAqaba",
+      "when": {
+        "label": "The night of the First ʿAqaba, c. 621 CE",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 0.8,
+        "pitch": 60,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿUbāda b. al-Ṣāmit",
+          "role": "person"
+        },
+        {
+          "name": "the twelve",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "aqaba"
+      ],
+      "statements": [
+        {
+          "text": "ʿUbāda b. al-Ṣāmit said he was among those present at the First ʿAqaba, twelve men, and that they pledged to the Prophet ﷺ on the terms of the 'pledge of women', before fighting had been made obligatory.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0601"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0611"
+            }
+          ]
+        },
+        {
+          "text": "They pledged not to associate anything with Allah, not to steal, not to commit adultery, not to kill their children, not to bring forward a slander they had invented, and not to disobey him in what is right.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0611"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 18",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "If they kept to it, Paradise was theirs; if they fell into any of it, their case was with Allah, who would punish or forgive as He willed.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0611"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 18",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "In the version of al-Zuhrī from Abū Idrīs al-Khawlānī, ʿUbāda adds a distinction: whoever was punished for it in this world, that was an expiation; whoever's sin stayed hidden until the Day of Resurrection, his case was with Allah.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0611"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 18",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq gives ʿUbāda's account by two separate chains: through al-Ṣunābiḥī and through Abū Idrīs al-Khawlānī; the second specifies that it was the night of the First ʿAqaba.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0611"
+            }
+          ]
+        },
+        {
+          "text": "Its terms bind each man to conduct and obedience in what is right; they contain no undertaking to fight, since fighting had not yet been prescribed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0601"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0611"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "60:12",
+          "gist": "Allah instructs the Prophet ﷺ to accept the pledge of believing women who promise not to associate partners with Allah, steal, commit adultery, kill their children, bring forward invented slander, or disobey him in what is right, and to seek forgiveness for them.",
+          "context": "Ibn Isḥāq calls the First ʿAqaba pledge the 'pledge of women' (bayʿat al-nisāʾ), and ʿUbāda's list of terms matches this verse point for point (supported, S0601, S0611).",
+          "grade": "supported"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿUbāda b. al-Ṣāmit",
+          "who": "Of the Qawāqil (Khazraj); one of the twelve",
+          "here": "Narrates the terms of the pledge"
+        },
+        {
+          "name": "Abū Idrīs al-Khawlānī (ʿĀʾidh Allāh b. ʿAbd Allāh)",
+          "who": "Syrian Successor",
+          "here": "Transmits ʿUbāda's account to al-Zuhrī"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look up: a pilgrimage night",
+          "camera": {
+            "target": "aqaba",
+            "dist": 2,
+            "pitch": 12,
+            "heading": 250
+          },
+          "reveal": {
+            "text": "The pilgrimage days fall in the second third of a lunar month, so the moon over Minā on these nights is past half and waxing toward full, setting in the small hours.",
+            "grade": "reconstruction",
+            "basis": "lunar phase for days 10–13 of a lunar month"
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "The first pledge is about personal conduct, not fighting or protection. Why might that be the right first step for people coming out of a long war?",
+        "options": [
+          {
+            "text": "Its terms bind each man individually, whatever his clan",
+            "ok": true,
+            "why": "The terms in ʿUbāda's report are personal obligations, and the pledge came 'before fighting was made obligatory'.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0611"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Before Yathrib offers protection, twelve of its men commit themselves to a moral covenant; the community is built on conduct before it is built on defence.",
+      "sections": [
+        "S0601",
+        "S0611"
+      ]
+    },
+    {
+      "id": "a02-u12",
+      "title": "Muṣʿab, 'the reciter' of Madina",
+      "kicker": "A teacher sent north",
+      "when": {
+        "label": "After the First ʿAqaba, c. 621 CE",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "madina",
+        "dist": 5,
+        "pitch": 32,
+        "heading": 220
+      },
+      "lights": [
+        {
+          "name": "Muṣʿab b. ʿUmayr",
+          "role": "person"
+        },
+        {
+          "name": "Asʿad b. Zurāra",
+          "role": "person"
+        },
+        {
+          "name": "the Muslims of Yathrib",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "aqaba",
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "When the twelve left, the Prophet ﷺ sent with them Muṣʿab b. ʿUmayr b. Hāshim of Banū ʿAbd al-Dār of Quraysh, to teach them the Qurʾān, teach them Islam and instruct them in the religion.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0612"
+            }
+          ]
+        },
+        {
+          "text": "In Madina he was called al-Muqriʾ, 'the reciter', and the Companion al-Barāʾ b. ʿĀzib recalled that Muṣʿab was among the first to come to them and teach people the Qurʾān.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0612"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3925",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "He lodged with Asʿad b. Zurāra, Abū Umāma, of Banū al-Najjār.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0612"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀṣim b. ʿUmar b. Qatāda reported that Muṣʿab led them in prayer, because men of the Aws and the Khazraj disliked being led in prayer by one another.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0612"
+            }
+          ]
+        },
+        {
+          "text": "A separate report has Kaʿb b. Mālik, after he went blind, praying for Asʿad b. Zurāra whenever he heard the call to Friday prayer, because Asʿad was the first to gather them for it in Madina.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0613"
+            },
+            {
+              "type": "hadith",
+              "ref": "Abū Dāwūd 1069",
+              "grade": "ḥasan",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Kaʿb placed that first gathering at Hazm al-Nabīt in the lava field of Banū Bayāḍa, at a spot called Naqīʿ al-Khaḍimāt, and said they were forty men.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0613"
+            }
+          ]
+        },
+        {
+          "text": "The two reports name different leaders (Muṣʿab leading prayer, Asʿad first gathering them for Friday); Ibn Isḥāq places them side by side without reconciling them.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0612"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0613"
+            }
+          ],
+          "note": "Two reports with different emphasis: ʿĀṣim b. ʿUmar on Muṣʿab, Kaʿb b. Mālik via his son on Asʿad."
+        }
+      ],
+      "people": [
+        {
+          "name": "Muṣʿab b. ʿUmayr",
+          "who": "Of Banū ʿAbd al-Dār of Quraysh, an early Makkan Muslim",
+          "here": "Sent to teach Yathrib; known as al-Muqriʾ"
+        },
+        {
+          "name": "Kaʿb b. Mālik",
+          "who": "Of Banū Salima (Khazraj); poet, blind in old age",
+          "here": "Remembers Asʿad at every Friday call"
+        },
+        {
+          "name": "ʿAbd al-Raḥmān b. Kaʿb b. Mālik",
+          "who": "Kaʿb's son, who guided him after he lost his sight",
+          "here": "Asks his father why he prays for Asʿad"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Find Naqīʿ al-Khaḍimāt",
+          "camera": {
+            "target": "~naqi_al_khadimat",
+            "dist": 6,
+            "pitch": 40,
+            "heading": 180
+          },
+          "reveal": {
+            "text": "The source names the place (Hazm al-Nabīt, in the ḥarra of Banū Bayāḍa) but it is not located in our gazetteer, so it is shown dashed and not on the map.",
+            "grade": "reconstruction",
+            "basis": "absence of a located point in the gazetteer"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Why, according to ʿĀṣim b. ʿUmar, did a Makkan lead the prayer in Yathrib rather than a local man?",
+        "options": [
+          {
+            "text": "The Aws and the Khazraj each disliked being led by a man of the other",
+            "ok": true,
+            "why": "ʿĀṣim gives exactly this reason.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0612"
+              }
+            ]
+          },
+          {
+            "text": "No one in Yathrib knew how to pray",
+            "ok": false,
+            "why": "The source gives the tribal rivalry as the reason.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0612"
+              }
+            ]
+          },
+          {
+            "text": "The Prophet ﷺ had forbidden the Anṣār to lead prayer",
+            "ok": false,
+            "why": "No such instruction appears in the reports.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0612"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "An outsider from Quraysh could stand in front of both Aws and Khazraj; the old rivalry shaped even who led the prayer.",
+      "sections": [
+        "S0612",
+        "S0613"
+      ]
+    },
+    {
+      "id": "a02-u13",
+      "title": "Usayd plants his spear",
+      "kicker": "A garden of Banū Ẓafar, by the well of Maraq",
+      "when": {
+        "label": "Madina, c. 621–622 CE",
+        "grade": "disputed",
+        "note": "The report gives no date; it falls between the First and Second ʿAqaba."
+      },
+      "place": {
+        "key": "~bir_maraq",
+        "note": "A garden of Banū Ẓafar at a well called Biʾr Maraq; not located."
+      },
+      "sky": "day",
+      "camera": {
+        "target": "madina",
+        "dist": 3,
+        "pitch": 45,
+        "heading": 120
+      },
+      "lights": [
+        {
+          "name": "Muṣʿab b. ʿUmayr",
+          "role": "person"
+        },
+        {
+          "name": "Asʿad b. Zurāra",
+          "role": "person"
+        },
+        {
+          "name": "Usayd b. Ḥuḍayr",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "madina",
+        "~bir_maraq"
+      ],
+      "statements": [
+        {
+          "text": "Asʿad b. Zurāra took Muṣʿab toward the quarters of Banū ʿAbd al-Ashhal and Banū Ẓafar (both of the Aws) and sat with him in a walled garden of Banū Ẓafar at a well called Biʾr Maraq, where men who had become Muslims gathered to them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Saʿd b. Muʿādh and Usayd b. Ḥuḍayr were then the chiefs of Banū ʿAbd al-Ashhal, and both still held the religion of their people.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Saʿd told Usayd to go and drive off the two men who had come to lead their weak ones astray; he would do it himself, he said, but Asʿad b. Zurāra was his maternal cousin.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Usayd took his spear, stood over them speaking abusively and told them to keep away. Muṣʿab asked him to sit and listen: if he liked it he could accept it, and if he disliked it they would stop. Usayd said that was fair, planted his spear and sat.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Muṣʿab spoke to him of Islam and recited the Qurʾān; Asʿad and Muṣʿab later said, as it is reported of them, that they saw Islam in his face, from its brightness and ease, before he spoke.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ],
+          "note": "Ibn Isḥāq marks this with the hedge 'as is mentioned of them' (fīmā yudhkar ʿanhumā)."
+        },
+        {
+          "text": "He asked what one does to enter this religion; they told him to wash, purify his clothes, bear witness to the truth and pray. He did so and prayed two rakʿas.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Usayd then told them there was a man behind him whom none of his people would hold back from following, Saʿd b. Muʿādh, and that he would send him to them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Usayd b. Ḥuḍayr",
+          "who": "A chief of Banū ʿAbd al-Ashhal (Aws)",
+          "here": "Comes to drive Muṣʿab away and becomes Muslim"
+        },
+        {
+          "name": "Saʿd b. Muʿādh",
+          "who": "Chief of Banū ʿAbd al-Ashhal; maternal cousin of Asʿad b. Zurāra",
+          "here": "Sends Usayd in his place"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Find the garden by the well",
+          "camera": {
+            "target": "~bir_maraq",
+            "dist": 4,
+            "pitch": 40,
+            "heading": 90
+          },
+          "reveal": {
+            "text": "Biʾr Maraq and the garden of Banū Ẓafar are named in the source but not located in our gazetteer, so they are shown dashed.",
+            "grade": "reconstruction",
+            "basis": "absence of a located point in the gazetteer"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Usayd arrives angry, spear in hand. What does Muṣʿab ask of him?",
+        "options": [
+          {
+            "text": "To sit and listen, and accept only if he liked what he heard",
+            "ok": true,
+            "why": "Muṣʿab offered exactly this, and Usayd called it fair.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0614"
+              }
+            ]
+          },
+          {
+            "text": "To leave and come back with Saʿd",
+            "ok": false,
+            "why": "Usayd himself later offered to send Saʿd, after accepting Islam.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0614"
+              }
+            ]
+          },
+          {
+            "text": "To lay down his spear before he would speak",
+            "ok": false,
+            "why": "Usayd planted his spear by his own choice after agreeing to listen.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0614"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Muṣʿab's method is stated plainly in the source: ask for a hearing, not for agreement.",
+      "sections": [
+        "S0614"
+      ]
+    },
+    {
+      "id": "a02-u14",
+      "title": "Saʿd b. Muʿādh and the house of ʿAbd al-Ashhal",
+      "kicker": "By evening, a whole clan",
+      "when": {
+        "label": "The same day",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~dar_bani_abd_al_ashhal",
+        "note": "The quarter of Banū ʿAbd al-Ashhal in Yathrib; not located."
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "madina",
+        "dist": 6,
+        "pitch": 30,
+        "heading": 70
+      },
+      "lights": [
+        {
+          "name": "Saʿd b. Muʿādh",
+          "role": "person"
+        },
+        {
+          "name": "Usayd b. Ḥuḍayr",
+          "role": "person"
+        },
+        {
+          "name": "Muṣʿab b. ʿUmayr",
+          "role": "person"
+        },
+        {
+          "name": "Asʿad b. Zurāra",
+          "role": "person"
+        },
+        {
+          "name": "Banū ʿAbd al-Ashhal",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "~bir_maraq",
+        "~dar_bani_abd_al_ashhal"
+      ],
+      "statements": [
+        {
+          "text": "Seeing Usayd return, Saʿd swore that he came back with a different face from the one he had left with; Usayd said he had seen no harm in the two men.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Usayd added that he had been told Banū Ḥāritha had gone out to kill Asʿad b. Zurāra, knowing he was Saʿd's cousin, so as to break Saʿd's protection.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Saʿd took the spear and hurried out, but found the two men calm, and understood that Usayd had only wanted him to hear them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "He reproached Asʿad, saying only their kinship let him come into their quarters with what they disliked; Muṣʿab made him the same offer as Usayd, Saʿd said it was fair, planted the spear and listened, and he too washed, testified and prayed two rakʿas.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Returning with Usayd to his people's gathering, Saʿd asked how they regarded him; they called him their chief, best in judgement and most fortunate in leadership. He told them that speaking to any of their men or women was forbidden to him until they believed in Allah and His Messenger ﷺ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "By the narrators' account, by that evening there was not a man or woman in the quarter of Banū ʿAbd al-Ashhal who was not Muslim.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Saʿd b. Muʿādh b. al-Nuʿmān",
+          "who": "Chief of Banū ʿAbd al-Ashhal (Aws)",
+          "here": "Becomes Muslim and brings his whole clan with him"
+        },
+        {
+          "name": "Banū Ḥāritha",
+          "who": "A clan of the Aws",
+          "here": "Named in Usayd's warning, which turns out to be a device to bring Saʿd to listen"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Pull back over the oasis",
+          "camera": {
+            "target": "madina",
+            "dist": 30,
+            "pitch": 50,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The sources describe Yathrib clan by clan: the 'houses' (dūr) of each clan and their walled gardens (ḥawāʾiṭ), and they count the spread of Islam house by house.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0600"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0614"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "How did Usayd get Saʿd to come and hear Muṣʿab?",
+        "options": [
+          {
+            "text": "He told him Banū Ḥāritha had gone out to kill his cousin Asʿad",
+            "ok": true,
+            "why": "Saʿd rushed out because of that report, and on finding the two calm he understood Usayd's intent.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0614"
+              }
+            ]
+          },
+          {
+            "text": "He openly told Saʿd he had become Muslim and invited him",
+            "ok": false,
+            "why": "He told Saʿd only that he saw no harm in them, and gave the warning about Banū Ḥāritha.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0614"
+              }
+            ]
+          },
+          {
+            "text": "He brought Muṣʿab to Saʿd's house",
+            "ok": false,
+            "why": "Saʿd went out to the garden himself.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0614"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "In a world of clan loyalty, the conversion of one chief carried a whole quarter of the city in a single afternoon.",
+      "sections": [
+        "S0614"
+      ]
+    },
+    {
+      "id": "a02-u15",
+      "title": "Muṣʿab returns; an appointment at al-ʿAqaba",
+      "kicker": "Toward the next season",
+      "when": {
+        "label": "The pilgrimage season of c. 622 CE",
+        "grade": "disputed",
+        "note": "Ibn Isḥāq gives the season but not the year; the CE year is the usual later reckoning."
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "night",
+      "camera": {
+        "target": [
+          39.7,
+          23.0
+        ],
+        "dist": 450,
+        "pitch": 40,
+        "heading": 180
+      },
+      "lights": [
+        {
+          "name": "Muṣʿab b. ʿUmayr",
+          "role": "person"
+        },
+        {
+          "name": "the Muslims of the Anṣār",
+          "role": "group"
+        },
+        {
+          "name": "Abū Qays b. al-Aslat",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "madina",
+        "makkah",
+        "aqaba"
+      ],
+      "statements": [
+        {
+          "text": "Asʿad and Muṣʿab went back to Asʿad's house, and Muṣʿab stayed there calling people to Islam until there was no house among the Anṣār without Muslim men and women in it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "The exceptions were the houses of Banū Umayya b. Zayd, Khaṭma, Wāʾil and Wāqif, known as Aws Allāh, a branch of the Aws.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Among them was Abū Qays b. al-Aslat, named Ṣayfī, their poet and leader, whom they heard and obeyed; he held them back from Islam until after the Hijra and after Badr, Uḥud and the Trench.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq quotes verses of Abū Qays in which he says that, but for their Lord, they would have been Jews or Christians, but they were made ḥanīf in religion.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0614"
+            }
+          ]
+        },
+        {
+          "text": "Then Muṣʿab returned to Makkah, and the Muslims of the Anṣār set out for the season together with the pilgrims of their people who were still polytheists.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0615"
+            }
+          ]
+        },
+        {
+          "text": "Arriving in Makkah, they arranged to meet the Messenger of Allah ﷺ at al-ʿAqaba in the middle of the days of tashrīq.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0615"
+            }
+          ]
+        },
+        {
+          "text": "The days of tashrīq are the 11th to 13th of the pilgrimage month, so the night of the appointment fell when the moon was large and waxing, setting after midnight.",
+          "grade": "reconstruction",
+          "basis": "lunar phase for days 11–13 of a lunar month"
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Qays b. al-Aslat (Ṣayfī)",
+          "who": "Poet and leader of Aws Allāh",
+          "here": "Keeps his clans away from Islam for years"
+        },
+        {
+          "name": "Muṣʿab b. ʿUmayr",
+          "who": "The Prophet's envoy and teacher in Yathrib",
+          "here": "Returns to Makkah ahead of the season"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Follow the pilgrims south",
+          "camera": {
+            "target": "aqaba",
+            "dist": 60,
+            "pitch": 35,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The Muslim Anṣār travelled in a mixed caravan with pilgrims of their own people who were not Muslims, so the coming meeting had to be arranged discreetly at al-ʿAqaba.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0615"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Muṣʿab's year in Yathrib is over. Where and when do the Muslims of the Anṣār arrange to meet the Prophet ﷺ?",
+        "options": [
+          {
+            "text": "At al-ʿAqaba, in the middle of the days of tashrīq",
+            "ok": true,
+            "why": "Ibn Isḥāq says they made this appointment on arriving in Makkah.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0615"
+              }
+            ]
+          },
+          {
+            "text": "At the Kaʿba, openly, on the day of sacrifice",
+            "ok": false,
+            "why": "The source names al-ʿAqaba and the middle days of tashrīq.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0615"
+              }
+            ]
+          },
+          {
+            "text": "In Yathrib, after the season",
+            "ok": false,
+            "why": "The meeting was set for the season itself, at al-ʿAqaba.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0615"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Two years after six men said yes, Yathrib has Muslims in almost every house; the next season will turn belief into a pledge of protection.",
+      "sections": [
+        "S0614",
+        "S0615"
+      ]
+    }
+  ]
+}
