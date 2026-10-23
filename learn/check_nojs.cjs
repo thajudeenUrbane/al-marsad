@@ -7,7 +7,8 @@
  * Each root (a built site, for example a split build made with --step-budget) is checked:
  * 0. pages.json lists exactly the learn index.html files of the root.
  * 1. JavaScript off: every page loads and is complete: one h1, skip link, nav, licence
- *    footer, site.css. Per article[data-depth] (design §8, enforcement 4):
+ *    footer, site.css, and no sideways scroll at 390 px. Per article[data-depth] (design §8,
+ *    enforcement 4):
  *      discover          no .status, no draft banner, and every li.sentence (narration
  *                        and set-apart lines) has a .source;
  *      study, research   the draft banner and "Status:" in every li.claim.
@@ -20,7 +21,7 @@
  * 2. JavaScript on: a step marked done survives a reload and is shared by every depth
  *    and page of its journey and by the index card; clearing clears it.
  * 3. JavaScript on but storage refused (as in some private windows): no error, no
- *    controls, the pages as in 1.
+ *    controls, no sideways scroll, the pages as in 1.
  * Needs the `playwright` npm package and a Chromium it can launch. Exit 1 on any failure.
  */
 const http = require("http");
@@ -64,6 +65,11 @@ function htmlFiles(dir, rel = "") {
   return out;
 }
 
+async function noSideways(page, p) {
+  const [sw, cw] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
+  if (sw > cw) fail(`${p}: scrolls sideways at ${cw} px (scrollWidth ${sw})`);
+}
+
 async function frame(page, p) {
   if ((await page.locator("h1").count()) !== 1) fail(`${p}: not exactly one h1`);
   if ((await page.locator('a[href="#main"]').count()) !== 1) fail(`${p}: no skip link`);
@@ -71,6 +77,7 @@ async function frame(page, p) {
   if ((await page.locator("footer a").count()) < 4) fail(`${p}: licence footer links missing`);
   const font = await page.locator("body").evaluate((el) => getComputedStyle(el).fontFamily);
   if (!/system-ui/.test(font)) fail(`${p}: site.css not applied (${font})`);
+  await noSideways(page, p);
 }
 
 async function journeyPage(page, p, entry) {
@@ -285,10 +292,11 @@ async function checkRoot(browser, root) {
     await page.goto(origin + p);
     if (errors.length) fail(`${p}: script errors with storage refused: ${errors.join("; ")}`);
     if ((await page.locator("[data-step-check]").count()) !== 0) fail(`${p}: done boxes shown without storage`);
+    await noSideways(page, p);
     if (e.kind === "journey" && (await page.locator("li.step, li.apart").count()) < 1) fail(`${p}: stops missing`);
     await page.close();
   }
-  console.log("  no errors, no controls, pages complete");
+  console.log("  no errors, no controls, no sideways scroll, pages complete");
   await blocked.close();
   if (external.length) fail("requests left the local server: " + external.join(", "));
   server.close();

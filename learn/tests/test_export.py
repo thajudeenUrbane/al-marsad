@@ -872,6 +872,39 @@ class FacadeLock(unittest.TestCase):
             self.assertNotEqual(J.sha12(X.facade_inputs(tmp)), J.sha12(base))
 
 
+class StoryModeInTheExport(unittest.TestCase):
+    """The computed story_mode survives the production path (load_specs, build, resolve_all,
+    which reads the load_specs copy again): a board decision bound to an old rule_sha is
+    exported stale, one on the current rule_sha open (design §3.6, FORMAT.md)."""
+
+    def exported(self, approved_on) -> tuple[dict, dict, dict]:
+        site = site_of(facade_graph())
+        spec = stories_spec(["Makkan"])
+        sha = J.rule_sha(spec) if approved_on is None else approved_on
+        spec["story_mode"] = {"open": True, "approved_by": [{"who": "review_board", "date": "2026-11-09", "spec": sha}]}
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / f"{spec['slug']}.json").write_text(json.dumps(spec), encoding="utf-8")
+            copy_ = J.load_specs(Path(tmp))[0]
+            res = X.resolve_all(site, None, journeys_dir=tmp, bank=[])
+        files = {p: json.loads(b) for p, b in res["files"].items()}
+        head = files[f"journeys/{spec['slug']}/journey.json"]
+        entry = [e for e in files["index.json"]["journeys"] if e["slug"] == spec["slug"]][0]
+        self.assertEqual(J.story_mode(copy_), J.story_mode(spec), "story_mode() differs on a load_specs copy")
+        return J.story_mode(spec), head["story_mode"], entry["story_mode"]
+
+    def test_a_stale_board_decision_is_exported_stale(self):
+        raw, head, entry = self.exported("0123456789ab")
+        self.assertEqual((raw["open"], raw["stale"]), (False, True))
+        self.assertEqual((head["open"], head["stale"]), (False, True))
+        self.assertEqual(entry, {"open": False, "stale": True})
+
+    def test_a_board_decision_on_the_current_rule_is_exported_open(self):
+        raw, head, entry = self.exported(None)
+        self.assertEqual((raw["open"], raw["stale"]), (True, False))
+        self.assertEqual((head["open"], head["stale"]), (True, False))
+        self.assertEqual(entry, {"open": True, "stale": False})
+
+
 # --------------------------------------------------------------------------- the real graph
 @unittest.skipUnless(GRAPH.exists(), "build/graph.ttl missing: run ontology/build_graph.py")
 class OnThePageGraph(unittest.TestCase):

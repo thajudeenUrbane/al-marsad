@@ -19,8 +19,12 @@ stage can recompute every value:
                                 ordered steps, each step's entity fields, and every
                                 claim about a step or behind a reason, as sorted rows
                                 (the stage-A gate, kept as content_v1_gate)
-    content_sha(dist)           the E1 gate since stage C: the Hijrah content_sha (design
-                                §9) in the built export, data/journeys/{HIJRAH}/journey.json
+    content_sha(dist)           the Hijrah content_sha (design §9) in the built export,
+                                data/journeys/{HIJRAH}/journey.json
+    e1_gate(want, ...)          the E1 check, gated on an input, the graph fingerprint: on
+                                the golden graph the content_sha, the stage-A content facts
+                                and the held page must all match, so a learn change that
+                                alters any of them fails; on another graph it skips
 
     .venv/bin/python learn/tests/golden.py [site/dist]   prints the current values
 
@@ -139,6 +143,17 @@ def fingerprint(g) -> str:
 def content_sha(dist: Path) -> str:
     head = Path(dist) / "learn" / "data" / "journeys" / HIJRAH / "journey.json"
     return json.loads(head.read_text(encoding="utf-8"))["content_sha"]
+
+
+def e1_gate(want: dict, fingerprint: str, content_sha_: str, page_sha256: str, content_v1: dict) -> tuple[bool, list]:
+    """(False, [why]) when the graph is not the one the golden values were recorded on: the
+    test skips with "re-verify E1". Otherwise (True, [each value that differs]); the gate is
+    the fingerprint, an input, never content_sha, which the learn code under test computes."""
+    if fingerprint != want["graph"]["fingerprint"]:
+        return False, [f"re-verify E1: the graph changed since the golden values were recorded "
+                       f"(fingerprint {fingerprint}, golden {want['graph']['fingerprint']})"]
+    got = {"content_sha": content_sha_, "content_v1_gate": content_v1, "page_sha256": page_sha256}
+    return True, [f"{k}: {got[k]} is not the golden {want[k]}" for k in sorted(got) if got[k] != want[k]]
 
 
 def current(dist: Path, graph: Path = ROOT / "build" / "graph.ttl") -> dict:

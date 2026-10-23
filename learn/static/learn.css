@@ -52,6 +52,7 @@
 .claim-note, .claim-gloss, .claim-agents { font-size: 0.9rem; margin-block: 0.15rem; }
 .gloss-label { font-weight: 600; }
 .claim-id { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--muted); }
+.claim-id, .claim-ref { overflow-wrap: anywhere; }   /* long claim IDs wrap at 390 px, no sideways scroll */
 .claim-id:target, .claim:has(.claim-id:target) { outline: 3px solid var(--focus); outline-offset: 2px; }
 .accepted-share { color: var(--muted); }
 .journey-research { border: 1px solid var(--line); border-radius: 0.35rem; padding-block: 0.25rem; padding-inline: 0.9rem; margin-block: 1.5rem; }

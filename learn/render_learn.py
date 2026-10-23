@@ -601,7 +601,7 @@ class LearnRenderer:
                 f'{span}{body}\n</li>')
 
     def group_head(self, g: dict, n: int) -> str:
-        """The heading and lead of an exported group ({key, t, lead, from, to}) that starts at step n."""
+        """The heading and lead of an exported group ({key, t, lead, from, to}), before step n."""
         lead = f'<p class="group-lead">{esc(self.t(g["lead"]))}</p>' if g["lead"] else ""
         return (f'</ol>\n<h3 class="group-heading" id="group-{attr(g["key"])}">{esc(self.t(g["t"]))}</h3>{lead}\n'
                 f'<ol class="journey-steps" start="{n}">')
@@ -705,11 +705,17 @@ class LearnRenderer:
         return head + self.deep_step(ctx, key)
 
     def group_head_for(self, ctx: Ctx, key: str) -> str:
+        """The heading and lead of a titled group where it starts, and again at the top of
+        every later page that starts inside it, so that no page shows its steps without them."""
         n = ctx.book.steps[key]["n"]
         for g in ctx.book.doc["groups"]:
-            if g["t"] and g["from"] == n:
+            if g["t"] and (g["from"] == n or (key == ctx.keys[0] and g["from"] < n <= g["to"])):
                 return self.group_head(g, n)
         return ""
+
+    def titled_group(self, ctx: Ctx, step: dict) -> dict | None:
+        """The exported group of a step when it has a heading (the against group), else None."""
+        return next((g for g in ctx.book.doc["groups"] if g["t"] and g["key"] == step.get("group")), None)
 
     def positions(self, ctx: Ctx) -> dict:
         """IRI -> (step number, href) for every step of the journey, from this page."""
@@ -912,8 +918,13 @@ class LearnRenderer:
     def discover_lines(self, ctx: Ctx, key: str, step: dict, cap: int | None, also: frozenset = frozenset()) -> list[str]:
         """Narration sentences whose claims give a work and page, each with its short source
         line, then the absence line or the count of records left for Study: the records the
-        step shows neither here nor in its prompt's answer (`also`)."""
+        step shows neither here nor in its prompt's answer (`also`). In a titled group the
+        sentences of the step's side claims come first, so the record behind the group's
+        heading is shown within the cap."""
         items = [i for i in step["narration"] if i["d"] == "discover"]
+        if self.titled_group(ctx, step):
+            side = {c for s in step["side"] for c in s["claims"]}
+            items.sort(key=lambda i: not side & set(i["c"]))     # stable: otherwise the export's order
         if cap is not None:
             items = items[:cap]
         shown: set[str] = set(also)

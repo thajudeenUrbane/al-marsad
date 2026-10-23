@@ -189,7 +189,8 @@ class StaticChecks(unittest.TestCase):
 
 class GoldenRecipe(unittest.TestCase):
     """golden.held_page takes out exactly the additions a held Study page may carry
-    (design §3.7 and §8), so the E1 hash recorded on the v1 page still applies to it."""
+    (design §3.7 and §8), so the E1 hash recorded on the v1 page still applies to it, and
+    golden.e1_gate gates the E1 check on the graph, never on what learn computes."""
 
     V1 = ('<article class="journey door-study" data-journey="x">\n<header class="journey-head">\n<h1>T</h1>\n'
           '</header>\n<nav class="breadcrumb"><ol><li><a href="../../">H</a></li></ol></nav>\n'
@@ -209,6 +210,22 @@ class GoldenRecipe(unittest.TestCase):
         v2 = self.held()
         self.assertNotEqual(golden.page_sha(v2), golden.page_sha(self.V1))
         self.assertEqual(golden.page_sha(golden.held_page(v2)), golden.page_sha(self.V1))
+
+    def test_the_e1_check_is_gated_on_the_graph_not_on_what_learn_computes(self):
+        """golden.e1_gate: on the golden graph a changed content_sha, content facts or page is
+        a failure, never a skip; only another graph fingerprint skips."""
+        want = json.loads(golden.E1_FILE.read_text(encoding="utf-8"))
+        fp, sha, page, facts = want["graph"]["fingerprint"], want["content_sha"], want["page_sha256"], want["content_v1_gate"]
+        self.assertEqual(golden.e1_gate(want, fp, sha, page, facts), (True, []))
+        for name, args in (("content_sha", ("0" * 12, page, facts)), ("page_sha256", (sha, "0" * 64, facts)),
+                           ("content_v1_gate", (sha, page, dict(facts, claims=facts["claims"] - 1)))):
+            with self.subTest(name):
+                checked, problems = golden.e1_gate(want, fp, *args)
+                self.assertTrue(checked)
+                self.assertEqual([p.split(":")[0] for p in problems], [name])
+        checked, problems = golden.e1_gate(want, "f" * 12, "0" * 12, "0" * 64, {})
+        self.assertFalse(checked)
+        self.assertTrue(problems[0].startswith("re-verify E1"))
 
     def test_a_page_without_them_is_unchanged(self):
         self.assertEqual(golden.held_page(self.V1), self.V1)
@@ -599,6 +616,48 @@ class PageChecks:
                     if s in ai:
                         self.assertTrue(s.endswith(norm(AI_LABEL)), s)
 
+    def test_every_page_holding_a_titled_group_step_shows_its_heading_and_lead(self):
+        """design §6.4 and §7: a page holding steps of a titled group (the against group)
+        shows the group's heading and lead before the first of them, at every depth, also
+        on a page that starts inside the group."""
+        for e, src in journey_pages(self.out, self.exp):
+            doc = self.exp["journeys"][e["journey"]]
+            numbers = [int(n) for n in re.findall(r'<li class="step" id="step-(\d+)"', src)]
+            for g in doc["head"]["groups"]:
+                inside = [n for n in numbers if g["t"] and g["from"] <= n <= g["to"]]
+                if not inside:
+                    continue
+                block = f'<h3 class="group-heading" id="group-{g["key"]}">{render_learn.esc(EN[g["t"]])}</h3>'
+                if g["lead"]:
+                    block += f'<p class="group-lead">{render_learn.esc(EN[g["lead"]])}</p>'
+                with self.subTest(page=e["path"], group=g["key"]):
+                    self.assertIn(block, src)
+                    self.assertLess(src.index(block), src.index(f'<li class="step" id="step-{inside[0]}"'))
+
+    def test_discover_shows_the_record_behind_a_titled_group(self):
+        """G1/G8 and design §6.4: at Discover every step of a titled group (the against
+        group) shows in its narration the sentence of one of its own side claims, with that
+        claim's short source, so the heading it stands under has its source on the page."""
+        t = X.translators()["en"]
+        for e, src in journey_pages(self.out, self.exp, depth="discover"):
+            doc = self.exp["journeys"][e["journey"]]
+            titled = {g["key"] for g in doc["head"]["groups"] if g["t"]}
+            for li in tree(src).find("li", "step"):
+                step = doc["by_key"][li.attrs["data-step"]]
+                if step["group"] not in titled:
+                    continue
+                wanted = []
+                for side in step["side"]:
+                    words = [norm(w) for w in re.split(r"\{[^}]*\}", EN[X.NARR_SIDE[side["pk"]]]) if norm(w)]
+                    sources = {norm(X.source_line(doc["claims"][c], "discover", doc["passages"], t))
+                               for c in side["claims"] if doc["claims"][c]["discover"]}
+                    wanted.append((words, sources))
+                shown = [(norm(s.text()), {norm(n.text()) for n in s.find(cls="source")})
+                         for ul in li.find("ul", "narration") for s in ul.find("li", "sentence")]
+                with self.subTest(page=e["path"], step=step["n"]):
+                    self.assertTrue(any(got & sources and all(w in text for w in words)
+                                        for text, got in shown for words, sources in wanted))
+
     def test_stops_without_a_cited_claim_show_the_no_work_line(self):
         for e, src in journey_pages(self.out, self.exp, depth="discover"):
             doc = self.exp["journeys"][e["journey"]]
@@ -794,9 +853,11 @@ class BuiltPages(PageChecks, unittest.TestCase):
 
     def test_hijrah_root_page_is_still_the_e1_study_page(self):
         """The E1 class page (design §3.7): same URL, the Study depth, the v1 steps with their
-        claims and statuses, today's lead_study, none of the layers; and, while the Hijrah
-        content_sha is the one recorded with the golden hash, the v1 page byte for byte
-        (golden.held_page takes out the permitted additions)."""
+        claims and statuses, today's lead_study, none of the layers; and, while the page
+        graph is the one the golden values were recorded on (its fingerprint, an input), the
+        Hijrah content_sha, the stage-A content facts and the v1 page byte for byte
+        (golden.held_page takes out the permitted additions). A learn change that alters
+        any of them fails; only another graph skips (golden.e1_gate)."""
         want = json.loads(golden.E1_FILE.read_text(encoding="utf-8"))
         page = (self.learn / golden.HIJRAH / "index.html").read_text(encoding="utf-8")
         root = tree(page)
@@ -811,9 +872,14 @@ class BuiltPages(PageChecks, unittest.TestCase):
         for n in root.walk():
             self.assertFalse(n.classes & {"step-prompts", "step-next", "accepted-share", "narration", "claim-id",
                                           "journey-contents", "journey-pager"}, n.classes)
-        if golden.content_sha(self.out) != want["content_sha"]:
-            self.skipTest("re-verify E1: the Hijrah content changed since the golden hash was recorded")
-        self.assertEqual(golden.page_sha(golden.held_page(page)), want["page_sha256"])
+        site, built = self.engine()
+        hijrah = [j for j in built if j.slug == golden.HIJRAH][0]
+        checked, problems = golden.e1_gate(want, self.exp["index"]["graph"]["fingerprint"], golden.content_sha(self.out),
+                                           golden.page_sha(golden.held_page(page)), golden.content_facts(site, hijrah))
+        if not checked:
+            self.skipTest(problems[0])
+        self.assertEqual(problems, [], "the E1 page or what it shows changed on the golden graph: a learn change, or a "
+                                       "graph change in blank nodes only (re-verify E1 and record new golden values)")
 
     def test_study_pages_keep_the_v1_order(self):
         """While the page graph is the one the v1 order was recorded on, every journey's Study
@@ -833,11 +899,18 @@ class BuiltPages(PageChecks, unittest.TestCase):
                 self.assertEqual((len(apart), golden.sha12(apart)), (facts["apart"], facts["apart_sha"]))
 
     @classmethod
+    def engine(cls) -> tuple:
+        """(Site, built journeys) on the page graph, made once for the class."""
+        if getattr(cls, "_engine", None) is None:
+            site = Site(GRAPH)
+            cls._engine = (site, J.build_all(site, J.load_specs(LEARN / "journeys")))
+        return cls._engine
+
+    @classmethod
     def discover_keys(cls) -> set:
         """Every key a fresh Discover render reads: every journey page and the index."""
         if getattr(cls, "_discover_keys", None) is None:
-            site = Site(GRAPH)
-            built = J.build_all(site, J.load_specs(LEARN / "journeys"))
+            site, built = cls.engine()
             r = render_learn.default_renderer(site)
             res = X.resolve_all(site, None, journeys=built, renderer=r)
             for j in built:
@@ -1361,6 +1434,69 @@ class SideGroupsAtEveryDepth(unittest.TestCase):
             for k in ("learn.group.against", "learn.group.against_lead", "learn.rule.group_side"):
                 self.assertNotIn(render_learn.esc(EN[k]), src, k)
             self.assertEqual(src.count('<ol class="journey-steps"'), 1)
+
+
+def side_graph():
+    """fixtures.side_fixture plus three cited records for Person Against (led, took part,
+    absent from), on another page than its side claim, that rank before the side claim:
+    in the export's order its side sentence is past Discover's three-sentence cap."""
+    fx, i = side_fixture()
+    for pred in ("rel_led", "rel_participated_in", "rel_absent_from"):
+        fx.claim(i["against"], pred, i["battle"], cite="Fixture work, vol. 3, p. 9")
+    return fx, i
+
+
+class SideGroupsOnSplitPages(PageChecks, unittest.TestCase):
+    """side_graph grouped by side with a 1-byte step budget, so every stop has a page of its
+    own and the against group (steps 10 and 11) spans two pages at every depth. Every page
+    invariant holds; each page holding an against-group step shows the group's heading and
+    lead, not only the page where it starts; and at Discover the record behind the heading
+    is shown within the cap (design §6.4, G1/G8)."""
+
+    @classmethod
+    def setUpClass(cls):
+        fx, cls.i = side_graph()
+        cls.tmp = tempfile.TemporaryDirectory()
+        root = Path(cls.tmp.name)
+        graph = fx.write(root / "graph.ttl")
+        jdir = root / "journeys"
+        jdir.mkdir()
+        spec = people_spec(order="prophet_first_then_name", group_by="side")
+        (jdir / f"{spec['slug']}.json").write_text(json.dumps(spec), encoding="utf-8")
+        cls.slug = spec["slug"]
+        cls.out = root / "dist"
+        cls.summary = build_into(cls.out, graph, jdir, step_budget=1)
+        cls.exp = export_of(cls.out)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_each_page_of_the_against_group_has_its_heading_and_lead(self):
+        heading, lead = (render_learn.esc(EN[k]) for k in ("learn.group.against", "learn.group.against_lead"))
+        g = [g for g in self.exp["journeys"][self.slug]["head"]["groups"] if g["key"] == "against"][0]
+        self.assertEqual((g["from"], g["to"]), (10, 11))
+        for depth in X.DEPTHS:
+            pages = journey_pages(self.out, self.exp, self.slug, depth)
+            with self.subTest(depth):
+                self.assertEqual(len(pages), 11)
+                for e, src in pages:
+                    numbers = {int(n) for n in re.findall(r'<li class="step" id="step-(\d+)"', src)}
+                    inside = bool(numbers & {10, 11})
+                    self.assertEqual((src.count(heading), src.count(lead)), (int(inside), int(inside)), e["path"])
+
+    def test_the_side_record_leads_an_against_step_at_discover(self):
+        step = self.exp["journeys"][self.slug]["by_key"][self.i["against"].rsplit("/", 1)[-1]]
+        cap = render_learn.NARRATION["discover"]
+        side = {c for s in step["side"] for c in s["claims"]}
+        items = [x for x in step["narration"] if x["d"] == "discover"]
+        self.assertGreaterEqual([n for n, x in enumerate(items) if side & set(x["c"])][0], cap)   # past the cap
+        src = journey_pages(self.out, self.exp, self.slug, "discover")[step["n"] - 1][1]
+        li = [x for x in tree(src).find("li", "step") if x.attrs["data-step"] == step["key"]][0]
+        sentences = li.find("ul", "narration")[0].find("li", "sentence")
+        self.assertEqual(len(sentences), cap)
+        self.assertIn("among those who fought against", norm(sentences[0].text()))
+        self.assertIn("Fixture work, vol. 2, p. 7", norm(sentences[0].text()))
 
 
 if __name__ == "__main__":

@@ -415,8 +415,11 @@ def _state(spec: dict, sha: str) -> str:
 
 
 def _story_mode(spec: dict, sha: str) -> dict:
+    """The computed {open, stale, approved_by}. It gives the same answer on its own output
+    (a load_specs copy, which the export reads again): a computed stale means the file
+    declared it open. A journey file never carries "stale" (validate refuses it)."""
     sm = spec.get("story_mode") or {}
-    declared = sm.get("open") is True
+    declared = sm.get("open") is True or sm.get("stale") is True
     opened = declared and any(isinstance(a, dict) and a.get("who") == "review_board" and a.get("spec") == sha
                               for a in sm.get("approved_by") or [])
     return {"open": opened, "stale": declared and not opened, "approved_by": copy.deepcopy(sm.get("approved_by") or [])}

@@ -205,7 +205,10 @@ Study" (`learn.narr.more`). A stop with no eligible claim gets `learn.discover.n
 - `groups` cut the stops into runs by number (`from` and `to` are stop numbers, inclusive).
   `against` holds the people recorded as fighting against the Prophet ﷺ at the anchors, in
   a cited record, and not as fighting alongside him there. It is the record's side at that
-  event only, never a statement about faith, and never "last".
+  event only, never a statement about faith, and never "last". A reader that shows a group
+  with a heading (`t`) shows the heading and `lead` on every page holding its stops, and at
+  a public depth shows each such stop's own `side` sentence, with its source, within the
+  narration cap: the heading is a claim about the person and needs its source on the page.
 - `rule_text` lists the order sentences of the rule box with the depth each starts at
   (`d`). Keys with review language start at Study. An item with `"only": "discover"` is
   shown at Discover alone: the Discover form of an order sentence whose Study form refers
