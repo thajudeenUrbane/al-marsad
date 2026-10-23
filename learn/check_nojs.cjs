@@ -22,7 +22,9 @@
  *    and page of its journey and by the index card; clearing clears it.
  * 3. JavaScript on but storage refused (as in some private windows): no error, no
  *    controls, no sideways scroll, the pages as in 1.
- * Needs the `playwright` npm package and a Chromium it can launch. Exit 1 on any failure.
+ * Pages are visited a few at a time (POOL), each in its own tab; the log lines keep the
+ * order of pages.json. Needs the `playwright` npm package and a Chromium it can launch.
+ * Exit 1 on any failure.
  */
 const http = require("http");
 const fs = require("fs");
@@ -37,10 +39,25 @@ const EN = JSON.parse(fs.readFileSync(path.join(__dirname, "i18n", "en.json"), "
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript",
   ".json": "application/json", ".ttl": "text/turtle; charset=utf-8" };
 
+const POOL = 4;             // tabs open at once: each check is many small round trips to the browser
 const failures = [];
 const fail = (msg) => { failures.push(msg); console.log("  FAIL " + msg); };
 const plain = (s) => s.replace(/\s+/g, " ").trim();
 const DRAFT = plain(EN["learn.draft_banner"]);
+
+// fn(item) for every item, POOL at a time; the log lines fn returns are printed in item order
+async function eachPage(items, fn) {
+  const logs = new Array(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < items.length) {
+      const i = next++;
+      logs[i] = await fn(items[i]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(POOL, items.length) }, worker));
+  for (const line of logs) if (line) console.log(line);
+}
 
 function serve(root) {
   const server = http.createServer((req, res) => {
@@ -152,33 +169,35 @@ async function checkRoot(browser, root) {
   console.log("JavaScript off");
   const off = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 900 } });
   watch(off);
-  for (const e of pages) {
+  await eachPage(pages, async (e) => {
     const p = "/" + e.path;
     const page = await off.newPage();
     const resp = await page.goto(origin + p, { waitUntil: "load" });
-    if (resp.status() !== 200) { fail(`${p}: HTTP ${resp.status()}`); await page.close(); continue; }
+    if (resp.status() !== 200) { fail(`${p}: HTTP ${resp.status()}`); await page.close(); return null; }
     await frame(page, p);
     const text = plain(await page.locator("main").innerText());
+    let line = null;
     if (e.kind === "journey") {
       const r = await journeyPage(page, p, e);
-      if (r) console.log(`${p} -> ${r.depth} page ${e.page}/${e.pages}: ${r.n} steps, ${r.nc} claims, ${r.ns} sentences`);
+      if (r) line = `${p} -> ${r.depth} page ${e.page}/${e.pages}: ${r.n} steps, ${r.nc} claims, ${r.ns} sentences`;
     } else if (e.kind === "index") {
       if ((await page.locator(".status").count()) !== 0 || text.includes(EN["learn.draft_banner"])) fail(`${p}: review status on the index`);
       for (const slug of slugs) {
         if ((await page.locator(`[data-journey-card="${slug}"] .depth-links a`).count()) !== 3) fail(`${p}: ${slug} has not three depth links`);
       }
-      console.log(`${p} -> index, ${slugs.length} journeys`);
+      line = `${p} -> index, ${slugs.length} journeys`;
     } else {
       const n = await page.locator("li.question").count();
       if (n === 0 && !text.includes(EN["learn.practice.empty"])) fail(`${p}: empty bank not explained`);
-      console.log(`${p} -> practice, ${n} questions`);
+      line = `${p} -> practice, ${n} questions`;
     }
     if (shots) {
       fs.mkdirSync(shots, { recursive: true });
       await page.screenshot({ path: path.join(shots, "nojs" + p.replace(/[^a-z0-9]+/gi, "_") + ".png"), fullPage: true });
     }
     await page.close();
-  }
+    return line;
+  });
 
   // follow links without JavaScript: index -> journey -> entity page -> back to the index
   {
@@ -199,7 +218,7 @@ async function checkRoot(browser, root) {
     await page.close();
   }
   // a depth link lands on the page of that depth holding this page's first stop
-  for (const e of journeys.filter((x) => x.page === 1)) {
+  await eachPage(journeys.filter((x) => x.page === 1), async (e) => {
     const page = await off.newPage();
     await page.goto(url(e));
     const other = page.locator('nav.journey-depths a:not([aria-current])').first();
@@ -210,7 +229,8 @@ async function checkRoot(browser, root) {
       fail(`/${e.path}: a depth link did not land on its first stop (${page.url()})`);
     }
     await page.close();
-  }
+    return null;
+  });
   // a split depth: a contents link and learn/{slug}/...#s-{key} reach a stop on another page
   let splitChecked = 0;
   for (const e of journeys.filter((x) => x.pages > 1 && x.page === 1)) {
@@ -284,7 +304,7 @@ async function checkRoot(browser, root) {
   await blocked.addInitScript(() => {
     Object.defineProperty(window, "localStorage", { get() { throw new Error("storage refused"); } });
   });
-  for (const e of pages.filter((x) => x.kind !== "practice")) {
+  await eachPage(pages.filter((x) => x.kind !== "practice"), async (e) => {
     const p = "/" + e.path;
     const page = await blocked.newPage();
     const errors = [];
@@ -295,7 +315,8 @@ async function checkRoot(browser, root) {
     await noSideways(page, p);
     if (e.kind === "journey" && (await page.locator("li.step, li.apart").count()) < 1) fail(`${p}: stops missing`);
     await page.close();
-  }
+    return null;
+  });
   console.log("  no errors, no controls, no sideways scroll, pages complete");
   await blocked.close();
   if (external.length) fail("requests left the local server: " + external.join(", "));

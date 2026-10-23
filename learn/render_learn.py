@@ -63,23 +63,30 @@ EXCLUDED = {"marker": "learn.research.excluded.marker", "after_prophet": "learn.
 
 # Keys a Discover render may never use (design §8, enforcement 1): status, review language,
 # coverage state, legends, claim summaries, the accepted share, list state, research
-# data, glosses, checkpoint wording, prose drafts and teacher lessons.
+# data, glosses, checkpoint wording, prose drafts and teacher lessons; and the text that
+# rests on claims with no work-and-page source shown: notes, order notes, the side and
+# link rows, and every reason but the computed ones (DISCOVER_REASONS).
 DISCOVER_FORBIDDEN_PREFIXES = ("status.", "coverage.", "learn.state.", "learn.legend.", "learn.claims.",
                                "learn.named.summary.", "learn.accepted_share.", "learn.order.e3_lists",
                                "learn.order.e3_pending", "learn.research.", "learn.gloss.", "learn.check.",
-                               "learn.prose.", "learn.teacher.")
+                               "learn.prose.", "learn.teacher.", "learn.note.", "learn.order_note.",
+                               "learn.side.", "learn.links.", "learn.why.")
 DISCOVER_FORBIDDEN_KEYS = ("learn.draft_banner", "learn.approved_banner", "learn.ai_note",
                            "learn.rule.separate_records", "story.banner", "claim.recorded_by")
+DISCOVER_REASONS = ("learn.why.named", "learn.why.part")    # the computed reasons Discover shows (§8)
 SEP = ' <span class="sep" aria-hidden="true">&middot;</span> '
 _EMPTY_OL = re.compile(r'<ol class="journey-steps"(?: start="\d+")?>\s*</ol>\n?')
 
 
 class ReviewLanguageAtDiscover(J.RuleError):
     """A Discover render asked for an i18n key that carries review status or review
-    language (DISCOVER_FORBIDDEN_*). Raised at build time, so no such page is written."""
+    language, or text resting on claims Discover shows no source for (DISCOVER_FORBIDDEN_*).
+    Raised at build time, so no such page is written."""
 
 
 def forbidden_at_discover(key: str) -> bool:
+    if key in DISCOVER_REASONS:
+        return False
     return key in DISCOVER_FORBIDDEN_KEYS or key.startswith(DISCOVER_FORBIDDEN_PREFIXES)
 
 
@@ -108,8 +115,9 @@ class Strings:
 
     def raw(self, key: str) -> str:
         if self.depth == "discover" and forbidden_at_discover(key):
-            raise ReviewLanguageAtDiscover(f"{key!r} carries review status or review language and may not "
-                                           "be used on a Discover page (design §8)")
+            raise ReviewLanguageAtDiscover(f"{key!r} carries review status or review language, or text resting on "
+                                           "claims shown without a source, and may not be used on a Discover page "
+                                           "(design §8)")
         self.used.add(key)
         self.used_at.setdefault(self.depth, set()).add(key)
         if key in self.learn:
@@ -414,10 +422,10 @@ class LearnRenderer:
                                 records=self.t("learn.rule.people_records") if sel["participation"]["records"] else "",
                                 claims=self.join_or([self.t("learn.quote", value=self.term_label(c))
                                                      for c in sel["participation"]["claims"]])))
+            if ev["named"].get("not_words"):      # the events chosen by name, before the links add more
+                paras.append(self.rule_not_words(ev["named"]))
             if ev["max_links"]:
                 paras.append(self.rule_follow(ev, "learn.rule.people_follow"))
-            if ev["named"].get("not_words"):
-                paras.append(self.rule_not_words(ev["named"]))
             if sel["also_show"]:
                 paras.append(self.t("learn.rule.also_show", kinds=self.join_or(
                     [self.t("learn.quote", value=self.term_label(c)) for c in sel["also_show"]])))
@@ -1224,10 +1232,10 @@ class LearnRenderer:
             paras.append(self.s.th("learn.rule.people", words=words(ev["named"]),
                                    kinds=html.escape(self.kinds_text(ev["named"]["kinds"])), records=records,
                                    claims=self.join_html([term_q(c) for c in sel["participation"]["claims"]], "or")))
+            if ev["named"].get("not_words"):      # the events chosen by name, before the links add more
+                paras.append(self.s.th("learn.rule.not_words", words=words(ev["named"], "not_words")))
             if ev["max_links"]:
                 paras.append(follow(ev, "learn.rule.people_follow"))
-            if ev["named"].get("not_words"):
-                paras.append(self.s.th("learn.rule.not_words", words=words(ev["named"], "not_words")))
             if sel["also_show"]:
                 paras.append(self.s.th("learn.rule.also_show", kinds=self.join_html([term_q(c) for c in sel["also_show"]], "or")))
             if sel["set_apart"]:

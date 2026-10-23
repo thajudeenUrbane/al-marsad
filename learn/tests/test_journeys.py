@@ -44,6 +44,21 @@ V2_KEYS = ("lead_study", "hold_study", "story_mode", "lists", "kind")
 EN = json.loads((LEARN / "i18n" / "en.json").read_text(encoding="utf-8"))
 AR_PATH = LEARN / "i18n" / "ar.json"
 ARABIC_INDIC_DIGIT = re.compile("[٠-٩۰-۹]")
+# Vendor and model-family names, model IDs among them (brief: no model names or IDs in a
+# repository file). Each name has one letter in brackets, so this file, which is scanned
+# too, does not match itself.
+MODEL_NAME = re.compile(r"\b(?:cl[a]ude|anth[r]opic|open[a]i|chat[g]pt|gem[i]ni|ll[a]ma|mis[t]ral|op[u]s|son[n]et|"
+                        r"hai[k]u)\b|\bg[p]t-?\d", re.I)
+SOURCE_SUFFIXES = (".py", ".json", ".html", ".css", ".js", ".cjs", ".md", ".lock")
+
+
+def learn_sources() -> list[Path]:
+    """Every text file in learn/, and the slice-6-7 and learn-v2 handover notes."""
+    files = [p for p in sorted(LEARN.rglob("*")) if p.is_file() and p.suffix in SOURCE_SUFFIXES]
+    notes = sorted((ROOT / "docs" / "handover").glob("slice-6-7*.md")) + \
+        sorted((ROOT / "docs" / "handover").glob("learn-v2*.md"))
+    assert any(p.name.startswith("learn-v2") for p in notes), "the learn-v2 notes are missing"
+    return files + notes
 
 
 def names(steps):
@@ -131,6 +146,18 @@ def cwd(path):
 
 
 class RuleFiles(unittest.TestCase):
+    def test_no_model_name_is_written_in_the_learn_sources(self):
+        """No vendor or model name, nor a model ID, in learn/ (this file included) or the
+        learn-v2 notes; needs no graph, so it runs everywhere."""
+        files = learn_sources()
+        self.assertIn(Path(__file__).resolve(), [p.resolve() for p in files])
+        for path in files:
+            found = MODEL_NAME.search(path.read_text(encoding="utf-8"))
+            self.assertIsNone(found, f"{path}: {found and found.group(0)!r}")
+        for probe in ("written with Cl" "aude", "an op" "enai key", "g" "pt-4o", "Son" "net 4", "a hai" "ku model"):
+            self.assertIsNotNone(MODEL_NAME.search(probe), probe)
+        self.assertIsNone(MODEL_NAME.search("the opusculum, a sonnetwise gloss"))
+
     def test_the_three_shipped_journeys_are_valid_drafts(self):
         self.assertEqual(len(SPECS), 3)
         for path in SPECS:
@@ -160,6 +187,8 @@ class RuleFiles(unittest.TestCase):
         s = copy.deepcopy(good); s["door"] = "elsewhere"; bad.append(("unknown door", s))
         s = copy.deepcopy(good); s["slug"] = "practice"; bad.append(("a slug that is a learn folder", s))
         s = copy.deepcopy(good); s["slug"] = "data"; bad.append(("the export's folder", s))
+        s = copy.deepcopy(good); s["slug"] += "\n"; bad.append(("a slug ending in a newline", s))
+        s = copy.deepcopy(good); s["title"] += "\n"; bad.append(("a key ending in a newline", s))
         for why, spec in bad:
             with self.subTest(why):
                 with self.assertRaises(J.RuleError):
@@ -323,7 +352,7 @@ class RuleFiles(unittest.TestCase):
                     self.assertIn("waits for round 4 Q2", str(cm.exception))
 
     def test_words_that_can_never_match_are_refused(self):
-        for word in ("Abu-Bakr", "Ka'b", "ﷺ", "", " Badr", "Badr ", "al Badr", "9th"):
+        for word in ("Abu-Bakr", "Ka'b", "ﷺ", "", " Badr", "Badr ", "al Badr", "9th", "raid\n", "Hijra\n", "\nBadr"):
             for key in ("words", "phrase", "not_words"):
                 s = events_spec(["Rihla"])
                 s["select"]["named"][key] = [word]
@@ -1245,15 +1274,7 @@ class ShippedJourneys(unittest.TestCase):
 
     def test_no_entity_id_is_written_in_the_learn_sources(self):
         payloads = {e.pid for e in self.site.entities.values()}
-        for path in sorted(LEARN.rglob("*")):
-            if path.is_file() and path.suffix in (".py", ".json", ".html", ".css", ".js", ".cjs", ".md"):
-                text = path.read_text(encoding="utf-8")
-                leaked = sorted(p for p in payloads if p in text)
-                self.assertEqual(leaked, [], path)
-        notes = sorted((ROOT / "docs" / "handover").glob("slice-6-7*.md")) + \
-            sorted((ROOT / "docs" / "handover").glob("learn-v2*.md"))
-        self.assertTrue(any(p.name.startswith("learn-v2") for p in notes))
-        for path in notes:
+        for path in learn_sources():
             text = path.read_text(encoding="utf-8")
             self.assertEqual(sorted(p for p in payloads if p in text), [], path)
 

@@ -6,7 +6,6 @@ Run:  .venv/bin/python -m unittest discover -s learn/tests -v
 """
 import contextlib
 import copy
-import filecmp
 import hashlib
 import importlib.util
 import io
@@ -1065,28 +1064,30 @@ class OnThePageGraph(unittest.TestCase):
         self.assertEqual(again["digest"], self.res["digest"])
 
     def test_export_is_byte_stable_across_hash_seeds(self):
+        """The CLI, run under another hash seed than this process, writes exactly what
+        resolve_all gives here, with the default part budget and with a small one (several
+        parts). test_build's determinism test compares two seeds at a small budget as well."""
+        seed = "2" if os.environ.get("PYTHONHASHSEED") == "1" else "1"
+        small = X.resolve_all(self.site, None, graph_file=GRAPH, part_budget=int(SMALL_BUDGET))
         with tempfile.TemporaryDirectory() as tmp:
-            outs = {}
-            for budget in (None, SMALL_BUDGET):
-                for seed in ("1", "2"):
-                    out = Path(tmp) / f"{seed}-{budget}"
-                    cmd = [sys.executable, str(CLI), "--graph", str(GRAPH), "--out", str(out)]
-                    if budget:
-                        cmd += ["--part-budget", budget]
-                    subprocess.run(cmd, check=True, capture_output=True, env={**os.environ, "PYTHONHASHSEED": seed},
-                                   cwd=ROOT)
-                    outs[(seed, budget)] = out
+            for budget, res in ((None, self.res), (SMALL_BUDGET, small)):
+                out = Path(tmp) / f"out-{budget}"
+                cmd = [sys.executable, str(CLI), "--graph", str(GRAPH), "--out", str(out)]
+                if budget:
+                    cmd += ["--part-budget", budget]
+                subprocess.run(cmd, check=True, capture_output=True, env={**os.environ, "PYTHONHASHSEED": seed},
+                               cwd=ROOT)
+                cli = {p.relative_to(out).as_posix(): p.read_bytes()
+                       for p in out.rglob("*") if p.is_file() and p.name != X.EXPORT_MARKER}
                 with self.subTest(budget=budget):
-                    self.assertEqual(differs(filecmp.dircmp(outs[("1", budget)], outs[("2", budget)])), [])
-            small = sorted(p.name for p in (outs[("1", SMALL_BUDGET)] / "journeys" / "people-of-badr").glob("part-*.json"))
-            self.assertGreater(len(small), 2)
-            for p in (outs[("1", SMALL_BUDGET)]).rglob("*.json"):
-                if p.name.startswith(("part-", "research-")):
-                    self.assertLessEqual(p.stat().st_size, int(SMALL_BUDGET), p)
-            # the CLI writes exactly what resolve_all gives
-            cli = {p.relative_to(outs[("1", None)]).as_posix(): p.read_bytes()
-                   for p in outs[("1", None)].rglob("*") if p.is_file() and p.name != X.EXPORT_MARKER}
-            self.assertEqual(cli, self.res["files"])
+                    self.assertEqual(sorted(cli), sorted(res["files"]))
+                    for k in cli:
+                        self.assertEqual(cli[k], res["files"][k], k)
+        parts = [k for k in small["files"] if k.startswith("journeys/people-of-badr/part-")]
+        self.assertGreater(len(parts), 2)
+        for k, raw in small["files"].items():
+            if k.rsplit("/", 1)[-1].startswith(("part-", "research-")):
+                self.assertLessEqual(len(raw), int(SMALL_BUDGET), k)
 
     def test_the_export_writes_nothing_into_the_repository_and_no_id_into_its_files(self):
         def snapshot():
@@ -1127,13 +1128,6 @@ class OnThePageGraph(unittest.TestCase):
                            anchors=[back[n] for n in rec["anchors"]],
                            why=[[[k, back.get(o) if o != -1 else None, t] for k, o, t in rs] for rs in rec["why"]])
             self.assertEqual(mine, as_iris, j.slug)
-
-
-def differs(cmp) -> list:
-    bad = list(cmp.diff_files) + list(cmp.left_only) + list(cmp.right_only)
-    for sub in cmp.subdirs.values():
-        bad += differs(sub)
-    return bad
 
 
 class FormatDoc(unittest.TestCase):

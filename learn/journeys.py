@@ -180,7 +180,7 @@ def refuse_reserved(obj, where: str):
 
 
 def _words(v, where: str, what: str = "words") -> list[str]:
-    if not isinstance(v, list) or not v or not all(isinstance(w, str) and WORD.match(w) for w in v):
+    if not isinstance(v, list) or not v or not all(isinstance(w, str) and WORD.fullmatch(w) for w in v):
         raise RuleError(f"{where}: '{what}' must be a non-empty list of plain words (a letter, then letters "
                         "or digits), since a name is matched word by word")
     return v
@@ -277,12 +277,12 @@ def validate(spec: dict, stem: str | None = None) -> dict:
         _kind(spec["kind"], "journey")
     _keys(spec, TOP_REQUIRED | TOP_OPTIONAL, TOP_REQUIRED, "journey")
     slug = spec["slug"]
-    if not isinstance(slug, str) or not SLUG.match(slug) or slug in RESERVED_SLUGS:
+    if not isinstance(slug, str) or not SLUG.fullmatch(slug) or slug in RESERVED_SLUGS:
         raise RuleError(f"slug {slug!r} must be lower-case words joined by hyphens, and not {RESERVED_SLUGS}")
     if stem is not None and stem != slug:
         raise RuleError(f"{slug}: the file must be named {slug}.json")
     for k in TEXT_ROLES:
-        if k in spec and (not isinstance(spec[k], str) or not KEY.match(spec[k])):
+        if k in spec and (not isinstance(spec[k], str) or not KEY.fullmatch(spec[k])):
             raise RuleError(f"{slug}: {k} must be an i18n key")
     if spec["door"] not in DOORS:
         raise RuleError(f"{slug}: door must be one of {DOORS}")

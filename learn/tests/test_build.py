@@ -51,6 +51,27 @@ PY_FILES = sorted(LEARN.glob("*.py"))
 KEY = re.compile(r"^[a-z_]+(\.[a-z0-9_]+)+$")
 SMALL = 30_000        # the small step and part budget of the split builds (design §14)
 AI_LABEL = EN["learn.source.ai_document"].replace("{source}", "")
+# The keys a Discover render may read (design §8 "Shows"): the shared frame, titles and
+# leads, the rule in plain words, the facts line, the computed reasons, narration with its
+# sources, the no-work and more lines, prompts, next directions, group and set-apart
+# headings, and the index. A new key at Discover is a decision: add it here on purpose.
+DISCOVER_ALLOWED_KEYS = {
+    "claim.source", "common.not_recorded", "fact.story_number", "site.name", "title.sep",
+    "learn.ai_source_note", "learn.apart.heading", "learn.apart.lead_discover", "learn.contents.heading",
+    "learn.depths.label", "learn.door.discover", "learn.facts.when", "learn.facts.where", "learn.group.against",
+    "learn.group.against_lead", "learn.nav", "learn.quote", "learn.source.ai_document", "learn.step_no",
+    "learn.steps.heading", "learn.title.depth", "learn.why.named", "learn.why.part",
+    "learn.order.prophet_first_then_name", "learn.order.name", "learn.order.recorded_discover", "learn.order.story",
+    "learn.order.e3", "learn.order.e3_sources", "learn.order.e3_links", "learn.order.e3_no_last"}
+DISCOVER_ALLOWED_PREFIXES = ("footer.", "nav.", "type.", "learn.depth.", "learn.discover.no_work.", "learn.follow.",
+                             "learn.index.", "learn.kinds.", "learn.list.", "learn.narr.", "learn.next.",
+                             "learn.progress.", "learn.prompt.", "learn.rule.", "learn.scale.")
+DISCOVER_TITLE = re.compile(r"journey\.[a-z0-9_]+\.(?:title|lead)")
+
+
+def discover_allowed(key: str) -> bool:
+    return (key in DISCOVER_ALLOWED_KEYS or key.startswith(DISCOVER_ALLOWED_PREFIXES)
+            or bool(DISCOVER_TITLE.fullmatch(key))) and not render_learn.forbidden_at_discover(key)
 
 
 def quiet(fn, *args, **kw):
@@ -319,8 +340,23 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+_READER: dict[Path, tempfile.TemporaryDirectory] = {}
+
+
+def reader_site(graph: Path = GRAPH) -> Path:
+    """The reader-tier site of the page graph, built once per test process (learn only adds
+    learn/ to it; a fixture graph builds its own site in build_into)."""
+    if graph not in _READER:
+        _READER[graph] = tempfile.TemporaryDirectory(prefix="learn-reader-")
+        quiet(site_build.build, graph, Path(_READER[graph].name), True)
+    return Path(_READER[graph].name)
+
+
 def build_into(out: Path, graph: Path = GRAPH, journeys_dir: Path | None = None, **kw) -> dict:
-    quiet(site_build.build, graph, out, True)
+    if graph == GRAPH:
+        shutil.copytree(reader_site(graph), out, dirs_exist_ok=True)
+    else:
+        quiet(site_build.build, graph, out, True)
     return quiet(build_learn.build, graph, out, True, journeys_dir, **kw)
 
 
@@ -356,14 +392,21 @@ def journey_pages(out: Path, exp: dict, slug: str | None = None, depth: str | No
     return [(e, read_page(out / e["file"])) for e in rows]
 
 
+_KEYS: dict[int, tuple] = {}
+
+
 def page_keys(root: Node) -> tuple[list, list]:
-    """The step keys (li.step data-step) and set-apart keys (li.apart anchors) on a page, in order."""
-    steps = [n.attrs["data-step"] for n in root.find("li", "step")]
-    apart = []
-    for li in root.find("li", "apart"):
-        spans = [n.attrs["id"][2:] for n in li.find("span") if n.attrs.get("id", "").startswith("s-")]
-        apart += spans[:1]
-    return steps, apart
+    """The step keys (li.step data-step) and set-apart keys (li.apart anchors) on a page, in
+    order (cached per parsed page, which the cache keeps alive, so its id stays its own)."""
+    if id(root) not in _KEYS:
+        steps = [n.attrs["data-step"] for n in root.find("li", "step")]
+        apart = []
+        for li in root.find("li", "apart"):
+            spans = [n.attrs["id"][2:] for n in li.find("span") if n.attrs.get("id", "").startswith("s-")]
+            apart += spans[:1]
+        _KEYS[id(root)] = (root, tuple(steps), tuple(apart))
+    _, steps, apart = _KEYS[id(root)]
+    return list(steps), list(apart)
 
 
 def graph_data(doc: dict) -> set:
@@ -691,8 +734,9 @@ class PageChecks:
 
     def test_the_site_checks_pass_with_the_learn_pages_in_place(self):
         self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
-        self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
-        results, problems = check_budget.check(self.out)
+        results, problems = check_budget.check(self.out)      # what check_budget.main runs, once
+        self.assertTrue(results)
+        self.assertEqual(problems, [])
         learn = [r for r in results if r[1].startswith("learn/")]
         self.assertEqual(len(learn), len(self.exp["pages"]))
         self.assertTrue(all(total <= 300_000 for total, *_ in learn))
@@ -927,6 +971,7 @@ class BuiltPages(PageChecks, unittest.TestCase):
         self.assertTrue({"learn.narr.took_part", "learn.discover.no_work.other", "learn.prompt.note"} <= used)
         for key in sorted(used):
             self.assertFalse(render_learn.forbidden_at_discover(key), key)
+            self.assertTrue(discover_allowed(key), f"{key} is not on DISCOVER_ALLOWED_*")
             self.assertEqual(J.review_words({**SITE_EN, **EN}[key]), [], key)
             if key in SITE_AR and key not in EN:
                 self.assertEqual(J.ar_review_stems(SITE_AR[key]), [], key)
@@ -982,16 +1027,16 @@ class BuiltPages(PageChecks, unittest.TestCase):
             self.assertEqual(cli[k], built[k], k)
 
     def test_build_is_deterministic_across_processes(self):
-        """Two builds under hash seeds 1 and 2 are byte-identical, with the default budgets and
-        with --step-budget 30000 --part-budget 30000 (split pages, cross-page links, contents
-        and several parts), data/ and every page included (design §14)."""
+        """Two learn builds under hash seeds 1 and 2 are byte-identical, with the default budgets
+        and with --step-budget 30000 --part-budget 30000 (split pages, cross-page links, contents
+        and several parts), data/ and every page included (design §14). Each runs on a copy of
+        the same reader site: the site's own build is the site's tests' to check."""
         with tempfile.TemporaryDirectory() as tmp:
             outs = {}
             for seed in ("1", "2"):
                 env = {**os.environ, "PYTHONHASHSEED": seed}
                 site = Path(tmp) / f"site-{seed}"
-                subprocess.run([sys.executable, str(SITE / "build.py"), "--graph", str(GRAPH), "--out", str(site)],
-                               check=True, capture_output=True, env=env)
+                shutil.copytree(reader_site(), site)
                 for name, extra in (("default", []), ("small", ["--step-budget", str(SMALL), "--part-budget", str(SMALL)])):
                     subprocess.run([sys.executable, str(LEARN / "build_learn.py"), "--graph", str(GRAPH), "--site", str(site),
                                     *extra], check=True, capture_output=True, env=env)
@@ -1058,13 +1103,40 @@ class DiscoverGuard(unittest.TestCase):
         keys = list(render_learn.DISCOVER_FORBIDDEN_KEYS) + [p + "x" for p in render_learn.DISCOVER_FORBIDDEN_PREFIXES]
         keys += ["status.label", "coverage.label", "learn.claims.show.one", "learn.accepted_share.line",
                  "learn.order.e3_pending", "learn.gloss.label", "learn.check.not_both", "learn.research.heading"]
-        for key in keys:
+        # text resting on claims Discover does not show with a source (design §8 "Never shown")
+        claim_based = ["learn.order_note.recorded", "learn.order_note.unrecorded", "learn.order_note.part",
+                       "learn.note.text", "learn.note.ai_document", "learn.side.heading", "learn.links.heading",
+                       "learn.why.heading", "learn.why.plain_link"]
+        claim_based += [k for k in family_keys() if k.startswith("learn.why.") and k not in render_learn.DISCOVER_REASONS]
+        self.assertIn("learn.why.part_of", claim_based)
+        for key in keys + claim_based:
             with self.subTest(key), self.assertRaises(render_learn.ReviewLanguageAtDiscover):
                 s.at("discover").t(key)
-        for key in render_learn.DISCOVER_FORBIDDEN_KEYS:
+        for key in list(render_learn.DISCOVER_FORBIDDEN_KEYS) + claim_based:
             s.at("study").raw(key)          # Study and Research may show them
         self.assertNotIn("discover", s.used_at)
+        for key in render_learn.DISCOVER_REASONS:          # the computed reasons stay
+            s.at("discover").raw(key)
+        self.assertEqual(s.used_at["discover"], set(render_learn.DISCOVER_REASONS))
         self.assertTrue(issubclass(render_learn.ReviewLanguageAtDiscover, J.RuleError))
+
+    def test_fixture_discover_renders_read_only_allowed_keys(self):
+        """The status fixture (notes, glosses, order notes, every status) and the side
+        fixture read at Discover only keys on DISCOVER_ALLOWED_*."""
+        from fixtures import site_of
+        cases = [(status_fixture()[0], [events_spec(["Fixtureplace"]), people_spec(order="prophet_first_then_name")]),
+                 (side_fixture()[0], [people_spec(order="prophet_first_then_name", group_by="side")])]
+        for fx, specs in cases:
+            site = site_of(fx)
+            built = [J.build(site, J.validate(spec)) for spec in specs]
+            r = render_learn.LearnRenderer(site, self.strings(), LEARN / "templates")
+            res = X.resolve_all(site, None, journeys=built, bank=[], renderer=r)
+            for j in built:
+                r.journey_pages(j, res["journeys"], res["plans"][j.slug])
+            r.at("discover").index_page(built, 0, res["index"]["journeys"])
+            used = r.s.used_at["discover"]
+            self.assertTrue(any(k.startswith("learn.narr.") for k in used))
+            self.assertEqual(sorted(k for k in used if not discover_allowed(k)), [])
 
     def test_a_forbidden_key_in_a_template_stops_a_discover_render(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -1096,6 +1168,8 @@ class DiscoverGuard(unittest.TestCase):
         fresh, after = discover_keys(False), discover_keys(True)
         self.assertEqual(fresh, after)
         self.assertFalse(any(render_learn.forbidden_at_discover(k) for k in after))
+        self.assertTrue({"learn.group.against", "learn.group.against_lead"} <= after)
+        self.assertEqual(sorted(k for k in after if not discover_allowed(k)), [])
 
 
 class StatusesAtEachDepth(unittest.TestCase):
@@ -1370,6 +1444,74 @@ class PracticeWithAcceptedClaims(unittest.TestCase):
             self.assertTrue((self.out / href[1] / href[2] / "index.html").is_file())
         self.assertEqual(quiet(check_html.main, [str(self.out)]), 0)
         self.assertEqual(quiet(check_budget.main, [str(self.out)]), 0)
+
+
+class NotWordsInTheRuleBox(unittest.TestCase):
+    """not_words filter the events chosen by name; the links may still add an event whose
+    name holds one (a raid recorded as part of the battle), as design §3.3 has it. So the
+    rule box says the words leave events out of those chosen by name, and says it before
+    the sentence on the links, at every depth, for a people and an events journey."""
+
+    @classmethod
+    def setUpClass(cls):
+        from fixtures import site_of
+        fx = Fx()
+        fx.prophet()
+        cls.battle = fx.event("fxBattle", "Battle of Fixtureplace")
+        cls.raid = fx.event("fxRaid", "Raid of Fixtureplace")
+        fx.claim(cls.raid, "rel_part_of", cls.battle, cite="Fixture work, vol. 1, p. 3")
+        cls.a, cls.b = fx.person("fxA", "Person A"), fx.person("fxB", "Person B")
+        fx.participation(cls.battle, cls.a)
+        fx.participation(cls.raid, cls.b)
+        cls.site = site_of(fx)
+        cls.specs = {"people": J.validate(people_spec(order="prophet_first_then_name", not_words=["raid"])),
+                     "events": J.validate(events_spec(["Fixtureplace"], follow=("parts",), max_links=1,
+                                                      not_words=["raid"]))}
+        cls.tmp = tempfile.TemporaryDirectory()
+        root = Path(cls.tmp.name)
+        graph = fx.write(root / "graph.ttl")
+        jdir = root / "journeys"
+        jdir.mkdir()
+        for spec in cls.specs.values():
+            (jdir / f"{spec['slug']}.json").write_text(json.dumps(spec), encoding="utf-8")
+        cls.out = root / "dist"
+        build_into(cls.out, graph, jdir)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def rule(self, slug: str, depth: str) -> str:
+        rel = "" if depth == "study" else f"{depth}/"       # both fixture journeys open at Study
+        src = (self.out / "learn" / slug / rel / "index.html").read_text(encoding="utf-8")
+        return norm(src.split('id="h-rule"', 1)[1].split("</section>", 1)[0])
+
+    def test_the_words_filter_the_named_events_and_the_links_may_add_one(self):
+        links = J.Links(self.site)
+        hop, _ = J.select_events(self.site, links, self.specs["people"]["select"]["events"])
+        self.assertEqual(hop, {self.battle: 0, self.raid: 1})      # the raid is reached as a part
+        people = J.build(self.site, self.specs["people"])
+        self.assertEqual(sorted(s.iri for s in people.steps), sorted([self.a, self.b]))
+        events = J.build(self.site, self.specs["events"])
+        self.assertEqual({s.iri: [r.kind for r in s.reasons] for s in events.steps},
+                         {self.battle: ["named"], self.raid: ["part_of"]})
+
+    def test_the_rule_box_scopes_the_words_to_the_events_chosen_by_name(self):
+        text = EN["learn.rule.not_words"]
+        self.assertTrue(text.endswith(" are left out of those chosen by name."), text)
+        self.assertEqual(J.review_words(text), [])
+        head, tail = (render_learn.esc(x) for x in text.split("{words}"))
+        follow = {"fixture-people": EN["learn.rule.people_follow.one"], "fixture-events": EN["learn.rule.events_follow.one"]}
+        r = render_learn.default_renderer(self.site)
+        for slug, sentence in follow.items():
+            links = render_learn.esc(sentence.split("{links}")[0])
+            v1 = norm(r.rule_html(J.build(self.site, self.specs[slug.split("-")[1]])))     # the held-page form
+            for depth, rule in [(d, self.rule(slug, d)) for d in X.DEPTHS] + [("held", v1)]:
+                with self.subTest(slug, depth=depth):
+                    at = rule.index(head)
+                    self.assertIn("raid", rule[at:rule.index(tail, at)])
+                    self.assertNotIn(links, rule[:at])
+                    self.assertIn(links, rule[rule.index(tail, at):])
 
 
 class SideGroupsAtEveryDepth(unittest.TestCase):

@@ -147,8 +147,9 @@ class OnThePageGraph(unittest.TestCase):
     def test_simulated_effect_matches_the_record(self):
         """design §15: 1-2 alone list Arrival in Madinah before Departure from Makkah; 1-4 put
         the route in order while the council stays unordered; 1-5 move the council before the
-        Hijra event. The step numbers the effect texts give are checked while the graph
-        fingerprint is the one the file names (otherwise re-simulate and update the texts)."""
+        Hijra event. The step numbers the effects give are checked while the graph
+        fingerprint is the one the file names (otherwise re-simulate and update the texts);
+        on any graph the proposals add their two subjects and the order relations hold."""
         by = {p["n"]: p for p in self.doc["proposals"]}
         arrival, hijra = self.one(by[1]["subject"]), self.one(by[1]["object"])
         pledge, departure = self.one(by[3]["subject"]), self.one(by[3]["object"])
@@ -159,23 +160,33 @@ class OnThePageGraph(unittest.TestCase):
         self.assertNotIn(pledge, base)
         effects = {tuple(e["with"]): e for e in self.doc["effects"]}
 
+        def added(order: list) -> None:
+            """The proposals keep every step and add the two events they make parts (on the
+            file's graph those two alone; elsewhere also what the walk reaches from them)."""
+            self.assertEqual(len(order), len(set(order)))
+            self.assertEqual(set(base) - set(order), set())
+            self.assertLessEqual({arrival, pledge}, set(order) - set(base))
+            if self.same_graph:
+                self.assertEqual(set(order) - set(base), {arrival, pledge})
+
         j = self.simulate([1, 2])
         order = [s.entity.iri for s in j.steps]
-        self.assertEqual(len(order), len(base) + 2)
-        self.assertEqual(len(order), effects[(1, 2)]["steps"])
+        added(order)
         self.assertLess(order.index(arrival), order.index(departure))
         if self.same_graph:
+            self.assertEqual(len(order), effects[(1, 2)]["steps"])
             self.assertEqual((order.index(arrival) + 1, order.index(departure) + 1), (3, 5))
 
         j = self.simulate([1, 2, 3, 4])
         order = [s.entity.iri for s in j.steps]
         notes = {s.entity.iri: s.order_note for s in j.steps}
-        self.assertEqual(len(order), effects[(1, 2, 3, 4)]["steps"])
+        added(order)
         route = [hijra, pledge, departure, thawr, quba, arrival]
         self.assertEqual([order.index(i) for i in route], sorted(order.index(i) for i in route))
         self.assertEqual(notes[council], "unrecorded")
         self.assertFalse(j.order_conflict)
         if self.same_graph:
+            self.assertEqual(len(order), effects[(1, 2, 3, 4)]["steps"])
             tail = [s.entity for s in j.steps[-2:]]
             self.assertEqual(sorted(e.kind for e in tail), ["event", "story"])
             self.assertEqual(order.index(council) + 1, 9)
@@ -183,11 +194,12 @@ class OnThePageGraph(unittest.TestCase):
 
         j = self.simulate([1, 2, 3, 4, 5])
         order = [s.entity.iri for s in j.steps]
-        self.assertEqual(len(order), effects[(1, 2, 3, 4, 5)]["steps"])
+        added(order)
         self.assertLess(order.index(council), order.index(hijra))
         self.assertLess(order.index(council), order.index(departure))
         self.assertFalse(j.order_conflict)
         if self.same_graph:
+            self.assertEqual(len(order), effects[(1, 2, 3, 4, 5)]["steps"])
             self.assertEqual((order.index(council) + 1, order.index(hijra) + 1), (3, 4))
             self.assertEqual(j.steps[1].entity.kind, "story")
 
