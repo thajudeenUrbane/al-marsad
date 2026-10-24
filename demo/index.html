@@ -106,6 +106,7 @@ dl.facts dt{
 }
 dl.facts dd{margin:0;color:var(--ink);font-size:.88rem}
 dl.facts dd.empty{color:var(--rubric);font-family:"IBM Plex Mono",monospace;font-size:.82rem}
+dl.facts .sub{display:block;margin-top:.15rem;color:var(--ink-dim);font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;font-size:.76rem}
 
 .act{
   display:block;width:100%;text-align:left;margin-top:.7rem;
@@ -260,7 +261,7 @@ DATA.event.forEach(e => {
 DATA.report.forEach(r => {
   nodes.push({ id: r.id, kind: "report", label: r.label, ring: 4,
                genre: r.genre, ascription: r.ascription, citation: r.citation,
-               sourceNative: r.sourceNative, sourceStart: r.sourceStart });
+               sourceNative: r.sourceNative });
 });
 
 nodes.forEach(n => byId[n.id] = n);
@@ -438,7 +439,10 @@ function draw() {
   if (glow > 0.02) {
     el("circle", { cx: ox, cy: oy, r: 190, fill: "url(#nur)", opacity: glow });
     el("circle", { cx: ox, cy: oy, r: 4.5, fill: "#FFF8E7", opacity: glow });
+    /* an Arabic run: lang and dir as everywhere else (dir is the HTML
+       convention; direction is the one SVG itself honours) */
     const nm = el("text", { x: ox, y: oy - 15, "text-anchor": "middle",
+                            lang: "ar", dir: "rtl", direction: "rtl",
                             "font-family": "IBM Plex Sans Arabic, sans-serif",
                             "font-size": 15, fill: "#FFF3D8", opacity: glow });
     nm.textContent = "ﷺ";
@@ -547,12 +551,45 @@ function draw() {
 /* ── panel ──────────────────────────────────────────────── */
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+/* Arabic-script text (words, Arabic-Indic digits, ﷺ) is escaped and wrapped in
+   a span marked lang="ar" dir="rtl", with the Arabic face, so the font, the
+   punctuation order and screen readers treat it as Arabic. For text between
+   tags only: never put the result inside an attribute value. */
+const AR_WORD = "[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]+";
+const AR_RUN  = new RegExp(AR_WORD + "(?:[\\s\\u200C\\u200D]+" + AR_WORD + ")*", "g");
+const ar = s => esc(s).replace(AR_RUN, m => `<span class="ar" lang="ar" dir="rtl">${m}</span>`);
+
+/* One row of a facts list. `html` is already escaped; F escapes its value
+   and marks any Arabic in it. `sub` is the small grey line under a value. */
+const row = (k, html, cls) => `<div><dt>${esc(k)}</dt><dd class="${cls || ""}">${html}</dd></div>`;
+const F = (k, v, cls) => v ? row(k, ar(v), cls) : "";
+const sub = t => `<span class="sub">${t}</span>`;
+
+/* The report's own facts, for the node panel and the evidence ladder alike.
+   Two things the data file holds for this report are NOT shown as findings:
+   its class of ascription (marfūʿ, mawqūf …), and the date recorded for the
+   work that contains it. A class of ascription is a scholar's ruling, so it
+   is left for one. The date has not been reviewed, so it is shown only as
+   recorded, and no distance from the event is computed from it. The data is
+   not changed: it is the page that frames it. */
+const reportFacts = r =>
+  F("genre", r.genre) +
+  row("ascription", "for a scholar to decide" +
+      (r.ascription ? sub("A class is recorded in the data. It is not shown until a scholar has reviewed it.") : ""), "empty") +
+  F("found at", r.citation) +
+  (r.sourceNative
+    ? row("source date, as recorded", ar(r.sourceNative + " AH") + sub("As recorded in the data; not reviewed by a scholar.")) +
+      row("attestation gap", "not computed" + sub("It waits on a reviewed source date."), "empty")
+    : "");
+
 function intro() {
   selected = null;
+  const word = n => ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"][n] || n;
+  const nDisputes = DATA.disputes.length, nSettled = DATA.adjudicated.length;
   panel.innerHTML = `
     <div class="kicker">The demonstration</div>
     <h2>One event, all the way down.</h2>
-    <p class="intro">Fifteen entities. One report. One chain. Three disputes. Everything you see is derived from the ontology file by SPARQL — nothing is written into this page by hand.</p>
+    <p class="intro">Fifteen entities. One report. One chain. Everything you see is derived from the ontology file by SPARQL — nothing is written into this page by hand.</p>
     <p>Select anything. Then ask it how we know.</p>
     <div class="legend">
       <span><i style="background:#F2E4C6"></i> ṣaḥābī</span>
@@ -561,7 +598,8 @@ function intro() {
       <span><i style="background:#5A6B73"></i> later</span>
     </div>
     <div class="note"><b>Brightness is transmission distance.</b> It is not merit, rank or standing. A hollow circle is a <i>stub</i> — a name met in a chain and nothing more, which is what most of any real corpus looks like.</div>
-    <div class="note"><b>The Prophet ﷺ is not a node.</b> He is the origin from which the scene is lit. No figure is drawn, here or anywhere in this system.</div>
+    <div class="note"><b>The Prophet <span class="ar" lang="ar" dir="rtl">ﷺ</span> is not a node.</b> He is the origin from which the scene is lit. No figure is drawn, here or anywhere in this system.</div>
+    ${nDisputes ? `<div class="note"><b>Disputes are not drawn here.</b> The data file models ${word(nDisputes)} ${nDisputes === 1 ? "question" : "questions"} as disputes, ${nSettled ? word(nSettled) + " of them adjudicated" : "none of them adjudicated"}. This page does not show their positions: what counts as a dispute, and who holds which view, is for a scholar to say.</div>` : ""}
     <div class="note"><b>Drag to the middle — Generations.</b> The same eight people restack by <i>ṭabaqa</i> into layers by generational distance from the origin. <b>What this small sample cannot honestly show:</b> the Companions are estimated at well over 100,000 — almost certainly the largest layer in the whole network, not a small one — and scholars disagree by more than an order of magnitude on how many of them are documented as narrators (al-Ḥākim said ~4,000; Abū Zurʿah al-Rāzī said over 100,000). Among documented narrators, activity is extremely skewed — seven Companions alone (the <i>mukthirūn</i>) account for a disproportionate share of everything transmitted — and companions were densely tied to each other by kinship, shared battles and shared teachers, not just downward to later generations. A real rendering of this would be a dense, skewed, laterally-connected graph, not a clean narrowing tree.</div>
     <div class="note"><b>Drag to the end — Geographic.</b> The same entities rearrange again, onto the map. Watch how many fall into “no location recorded” — that is the true state of this data, not a rendering fault.</div>`;
 }
@@ -572,7 +610,6 @@ function select(id) {
   if (!n) return;
 
   let facts = "";
-  const F = (k, v, cls) => v ? `<div><dt>${esc(k)}</dt><dd class="${cls || ""}">${esc(v)}</dd></div>` : "";
 
   if (n.kind === "person") {
     facts = F("ṭabaqa", n.tabaqa || "not classified") + F("role", n.role) +
@@ -581,7 +618,7 @@ function select(id) {
     facts = F("type", n.type) + F("location confidence", n.confidence) +
             F("basis of identification", n.basis) +
             (n.names && n.names.length > 1
-              ? `<div><dt>name phases</dt><dd>${n.names.map(esc).join(" · ")}<br><span style="color:var(--ink-dim);font-size:.76rem">one place, two names, two periods</span></dd></div>`
+              ? `<div><dt>name phases</dt><dd>${n.names.map(ar).join(" · ")}<br><span style="color:var(--ink-dim);font-size:.76rem">one place, two names, two periods</span></dd></div>`
               : F("name", (n.names || [])[0]));
     if (n.confidence === "unlocated")
       facts += `<div><dt>coordinates</dt><dd class="empty">none — not securely identified</dd></div>`;
@@ -595,16 +632,12 @@ function select(id) {
         ).join("<br>") +
         `<br><span style="color:var(--ink-dim);font-size:.76rem">no absolute date is asserted — the sources give a sequence, so the model stores a sequence</span></dd></div>`;
   } else if (n.kind === "report") {
-    const gapStart = n.sourceStart ? new Date(n.sourceStart).getFullYear() : null;
-    facts = F("genre", n.genre) + F("ascription", n.ascription) +
-            F("source composed", n.sourceNative + " AH" + (gapStart ? " (c. " + gapStart + " CE)" : "")) +
-            F("found at", n.citation);
-    if (gapStart) facts += `<div><dt>attestation gap</dt><dd>c. ${gapStart - 622} years between the event and this written source</dd></div>`;
+    facts = reportFacts(n);
   }
 
   panel.innerHTML = `
     <div class="kicker">${esc(n.kind)}</div>
-    <h2>${esc(n.label)}</h2>
+    <h2>${ar(n.label)}</h2>
     <dl class="facts">${facts}</dl>
     <button class="act" onclick="ladder()">How do we know this? →</button>
     <button class="act back" onclick="intro()">← back to overview</button>`;
@@ -629,16 +662,9 @@ function ladder(step) {
       </dl>
       <div class="note"><b>This has not become knowledge.</b> A machine proposed it. Under this specification it may be stored, queried and audited — but it must be rendered as visibly unverified, and it cannot count toward any confidence score, until a qualified person accepts it and their name is attached permanently.</div>`;
   } else if (step === 2) {
-    const gapStart = r.sourceStart ? new Date(r.sourceStart).getFullYear() : null;
     body = `
-      <dl class="facts">
-        <div><dt>genre</dt><dd>${esc(r.genre)}</dd></div>
-        <div><dt>ascription</dt><dd>${esc(r.ascription)}</dd></div>
-        <div><dt>found at</dt><dd>${esc(r.citation)}</dd></div>
-        <div><dt>source composed</dt><dd>${esc(r.sourceNative)} AH${gapStart ? " · c. " + gapStart + " CE" : ""}</dd></div>
-        ${gapStart ? `<div><dt>attestation gap</dt><dd>c. ${gapStart - 622} years</dd></div>` : ""}
-      </dl>
-      <div class="note"><b>The gap is shown, not buried.</b> A claim about year 1 first written down two centuries later is a different kind of claim from one written down within living memory. A model that stores only the fact cannot tell you which this is.</div>`;
+      <dl class="facts">${reportFacts(r)}</dl>
+      <div class="note"><b>The model keeps two dates apart.</b> When an event happened and when the work that records it was composed are different facts, and a model that stores only the event cannot say how near its source stands. The source date shown here has not been reviewed by a scholar, so this page computes no gap and draws no conclusion from it.</div>`;
   } else if (step === 3) {
     const rows = DATA.links.map(l => `
       <div class="row">
