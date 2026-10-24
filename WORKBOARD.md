@@ -17,10 +17,7 @@ Keep each row to one line. Status words: `claimed`, `building`, `in review (PR #
 
 | Work | Branch | Session | Touches | Status | Updated |
 |---|---|---|---|---|---|
-| Sky Atlas onto main: merge main in, checks, one PR | `sky-atlas-new` | [session_01FqdCKi3xBmAaxFfcPL4rgu](https://claude.ai/code/session_01FqdCKi3xBmAaxFfcPL4rgu) | `atlas/`, `scripts/check_all.sh`, `README.md`, `LICENSING.md`, `pages/README.md` | in review (PR #31) | 2026-10-22 |
-| Sky Atlas: merge-review screen. Built; paused because it overlaps PR #30: the Atlas keeps decisions in the browser as a working list (`MERGE_SHARED = false`); maintainer to choose which screen records them | `sky-atlas-round3` | same | `atlas/` (reads `ontology/corpus/merge-proposals.csv`) | paused | 2026-10-22 |
-| Sky Atlas: shared class notes on every record | `sky-atlas-round3` | same | `atlas/` | building | 2026-10-22 |
-| Plain-language questions: 89 adversarial questions + refusal patterns (`ask/golden/adversarial.jsonl`, `ask/rules.json`, `ask/translate.py`, `ask/static/ask.js`, `ask/index.py`); Ask tab in the Atlas. Note for slice 11b: the Atlas page now embeds `ask/`, so an `ask/` change needs `atlas/build.py` rerun | `sky-atlas-round3` | same | `ask/`, `atlas/` | building | 2026-10-22 |
+| Sky Atlas round 3: Ask adversarial set + refusal patterns (`ask/`), Ask tab, Merges tab as a study aid (review pages record decisions), class notes | `sky-atlas-round3` | [session_01FqdCKi3xBmAaxFfcPL4rgu](https://claude.ai/code/session_01FqdCKi3xBmAaxFfcPL4rgu) | `ask/`, `atlas/` | in review (PR #35) | 2026-10-24 |
 | Preview refresh (Observatory, Lifelines), scholar pilot pack, Khadīja fix check, identity questions for scholars | `fixes/pilot-and-corrections` | [session_01EbeK4zbgeZZ2BG7bPF3LPF](https://claude.ai/code/session_01EbeK4zbgeZZ2BG7bPF3LPF) | `review/`, `docs/handover/` | in review (PR #33) | 2026-10-22 |
 | Slice 11b: the reader site on the joined graph (thread file per person, a page per letter for long lists, long records in parts, sharded search, redirects for retired IDs). Not in it: F13 "same clan" (belongs to the Atlas trace / Ask path), F11 background layer (needs period data) | `slice-11b-site` | [session_016qVqtfhyhh4S1yN49wjcyi](https://claude.ai/code/session_016qVqtfhyhh4S1yN49wjcyi) | `site/` (not `learn/`, not `ask/`), `ontology/shacl_check.py` | paused: WIP pushed (13dfc2f); budget passes; site tests and the other views on the joined graph still to fix | 2026-10-22 |
 | **Hub session** (coordinates al-Marsad work; route new tasks here) | none | [session_01MMFsjHHmzvhvLhM5s4NpnH](https://claude.ai/code/session_01MMFsjHHmzvhvLhM5s4NpnH) | none | active | 2026-10-22 |
@@ -34,7 +31,6 @@ Keep each row to one line. Status words: `claimed`, `building`, `in review (PR #
 
 | Work | Branch | Session | Notes | Updated |
 |---|---|---|---|---|
-| Sky Atlas: the whole joined graph as one guided sky, eight views, tours, history, threads, compare, quests, Arabic | `sky-atlas-new` | [session_01FqdCKi3xBmAaxFfcPL4rgu](https://claude.ai/code/session_01FqdCKi3xBmAaxFfcPL4rgu) | `atlas/`; published as an Artifact, link in `pages/README.md` on that branch | 2026-10-17 |
 | Expeditions: five expeditions (Abyssinia, al-ʿAqaba, Hijrah, Badr, Uḥud) with terrain, computed sky, investigations, spaced review, review desk, halaqa room, WhatsApp packs | `expeditions` | [session_01CWyx8Z6Cd9Q5dJF4Ndramm](https://claude.ai/code/session_01CWyx8Z6Cd9Q5dJF4Ndramm) | `expeditions/` | 2026-10-17 |
 | Badr Lab: prototype expedition (terrain, computed sky, the 314 investigation) | `lab-badr` | [session_01CWyx8Z6Cd9Q5dJF4Ndramm](https://claude.ai/code/session_01CWyx8Z6Cd9Q5dJF4Ndramm) | `lab/badr/`; also inside `expeditions` | 2026-10-17 |
 | Lab: Hijrah Night (150 evidence-graded stages), Beyond the Graph strategy, partner and donor drafts, panel dock | `lab-hijrah-night` | [session_016x4WaWfmAmJ69fpCEdmNib](https://claude.ai/code/session_016x4WaWfmAmJ69fpCEdmNib) | `lab/` | 2026-10-20 |
@@ -45,6 +41,7 @@ Keep each row to one line. Status words: `claimed`, `building`, `in review (PR #
 
 | Work | PR | Merged |
 |---|---|---|
+| Sky Atlas: the whole joined graph as one guided sky (onto main) | #31 | 2026-10-22 |
 | Merge proposals for every person (908) + merge-review cards in the review pages | #30 | 2026-10-22 |
 | Work board (`coordination` branch) and the CLAUDE.md rule | #29 | 2026-10-22 |
 | CI speed: full-book file out of review test copies, one-pass identity audit, skip review steps on unrelated PRs | #27 | 2026-10-21 |
