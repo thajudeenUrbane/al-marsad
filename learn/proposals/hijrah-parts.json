@@ -1,0 +1,64 @@
+{
+  "format": "marsad-claim-proposals",
+  "version": 1,
+  "about": "learn-v2 decision 7: claims proposed to the review board so that the Hijrah journey (learn/journeys/hijrah-step-by-step.json) can count Arrival in Madinah and the Second Pledge of al-Aqaba as parts of the Hijra event, and order the route. These are proposals only. Software never adds them to the graph; until the board accepts them they stay here. Each subject and object is a named rule of the journey rule language (learn/FORMAT.md: kinds, then words, phrase and not_words, matched over the word sequence of every rdfs:label), and each rule must name exactly one event on the page graph. The board sees 1 to 5 together, because the order only reads right with all of them.",
+  "status": "proposed",
+  "approved_by": [],
+  "journey": "hijrah-step-by-step",
+  "graph": {"file": "build/graph.ttl", "fingerprint": "808a048b0c16"},
+  "proposals": [
+    {
+      "n": 1,
+      "subject": {"kinds": ["event"], "phrase": ["arrival", "in", "madinah"]},
+      "predicate": "mrs:rel_part_of",
+      "object": {"kinds": ["event"], "phrase": ["hijra", "departure", "from", "makkah"]},
+      "basis": "Open question for the board: does the record count Arrival in Madinah and early community-building as a part of The Hijra: departure from Makkah, via Ghar Thawr? On the page graph two events are linked to that event as parts (Departure from Makkah and Sheltering at Ghar Thawr, by a modelling decision with no source passage). Nothing links the arrival in Madinah to it, so the Hijrah journey does not reach it."
+    },
+    {
+      "n": 2,
+      "subject": {"kinds": ["event"], "phrase": ["second", "pledge", "of", "al", "aqaba"]},
+      "predicate": "mrs:rel_part_of",
+      "object": {"kinds": ["event"], "phrase": ["hijra", "departure", "from", "makkah"]},
+      "basis": "Open question for the board: does the record count The Second Pledge of al-Aqaba as a part of the same Hijra event? Nothing links it to that event on the page graph, so the Hijrah journey does not reach it."
+    },
+    {
+      "n": 3,
+      "subject": {"kinds": ["event"], "phrase": ["second", "pledge", "of", "al", "aqaba"]},
+      "predicate": "mrs:rel_preceded",
+      "object": {"kinds": ["event"], "phrase": ["departure", "from", "makkah"], "not_words": ["hijra"]},
+      "basis": "Open question for the board: does the record place The Second Pledge of al-Aqaba before Departure from Makkah? Without an order claim, proposals 1 and 2 alone list both the pledge and the arrival in Madinah before the departure."
+    },
+    {
+      "n": 4,
+      "subject": {"kinds": ["event"], "phrase": ["arrival", "in", "madinah"]},
+      "predicate": "mrs:rel_followed",
+      "object": {"kinds": ["event"], "phrase": ["arrival", "at", "quba"]},
+      "basis": "Open question for the board: does the record place Arrival in Madinah and early community-building after Arrival at Quba'? Without it the arrival in Madinah has no recorded place in the route."
+    },
+    {
+      "n": 5,
+      "subject": {"kinds": ["event"], "phrase": ["council", "of", "quraysh"]},
+      "predicate": "mrs:rel_preceded",
+      "object": {"kinds": ["event"], "phrase": ["hijra", "departure", "from", "makkah"]},
+      "basis": "Open question for the board: does the record place the council of Quraysh at Dar al-Nadwa before The Hijra: departure from Makkah, via Ghar Thawr? The council's own label says 'before the Hijra', but no order claim records it, so the journey lists the council under 'the record gives no order'."
+    }
+  ],
+  "effects": [
+    {
+      "with": [1, 2],
+      "steps": 9,
+      "text": "Simulated on a scratch copy of the page graph (the fingerprint above) with the unchanged engine: the Hijrah journey gains the two events (7 steps become 9), but lists Arrival in Madinah (step 3) before Departure from Makkah (step 5), because nothing orders them."
+    },
+    {
+      "with": [1, 2, 3, 4],
+      "steps": 9,
+      "text": "The route events come in order: the beginning of the Hijra migrations, the Hijra, the Second Pledge, the departure, Thawr, Quba', Arrival in Madinah. The story The Hijrah and the Cave of Thawr and the Dar al-Nadwa council stay at steps 8 and 9, under 'the record gives no order'."
+    },
+    {
+      "with": [1, 2, 3, 4, 5],
+      "steps": 9,
+      "text": "The council comes before the Hijra event (steps 3 and 4), and the story moves to step 2. Both still carry 'the record gives no order' with respect to the step before them."
+    }
+  ],
+  "joined_graph": "On the joined graph (build/graph-all.ttl) the same rules each name one event too. That graph also holds a second Hijra event, The Hijra of the Prophet to Madinah, which the Hijrah journey lists under 'the record gives no order', so the board also chooses which event is the whole, or whether the two are merged."
+}

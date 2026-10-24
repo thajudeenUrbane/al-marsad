@@ -1,5 +1,9 @@
 /* Progress on learning paths, kept on this device only (localStorage).
  * The pages are complete without this script: it only adds "done" boxes and a count.
+ * A journey's progress is one list of stop keys per journey, so it is shared by every
+ * page and every depth (Discover, Study, Research) of that journey: the count is taken
+ * over the journey's stops, which each page lists in its article's data-steps and
+ * data-total, not over the steps that page happens to hold.
  * It holds no interface text: every word comes from the page (data-template
  * attributes and <template> elements filled from learn/i18n/en.json at build time).
  * If the browser refuses storage (private mode, blocked site data), the script does
@@ -56,6 +60,9 @@
     var tpl = document.getElementById("learn-step-done");
     var steps = root.querySelectorAll("[data-step]");
     if (!slug || !box || !count || !tpl || !tpl.content || !steps.length) return;
+    var keys = (root.getAttribute("data-steps") || "").split(" ").filter(Boolean);
+    var total = parseInt(root.getAttribute("data-total") || "", 10);
+    if (!(total > 0)) total = keys.length || steps.length;
     var all = load(s);
     var done = doneList(all, slug);
 
@@ -68,7 +75,8 @@
         var cb = steps[i].querySelector("[data-step-check]");
         if (cb) cb.checked = on;
       }
-      count.textContent = fill(count.getAttribute("data-template") || "", n, steps.length);
+      if (keys.length) n = done.filter(function (k) { return keys.indexOf(k) >= 0; }).length;
+      count.textContent = fill(count.getAttribute("data-template") || "", n, total);
     }
 
     function store() {
