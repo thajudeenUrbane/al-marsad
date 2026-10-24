@@ -9,5 +9,6 @@
     "type": "stories",
     "part": {"words": ["Makkan"]}
   },
-  "order": "story"
+  "order": "story",
+  "story_mode": {"open": false, "approved_by": []}
 }

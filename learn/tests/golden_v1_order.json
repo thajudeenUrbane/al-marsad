@@ -1,0 +1,33 @@
+{
+ "about": "The v1 step order of the three journeys on the page graph (build/graph.ttl), recorded on the v1 engine before learn-v2 changed it. Hashes and counts only, no entity ID. Recipe: golden.order_facts(): sha12 (design §3.5 canonical form) of the list of step pids in order, of the set-apart pids in order and of the anchor pids in order. While the graph fingerprint matches, the v2 Study order of every journey must give the same hashes (Badr's order is unchanged on the page graph while its list file is unreviewed, §3.8).",
+ "graph": {
+  "file": "build/graph.ttl",
+  "fingerprint": "808a048b0c16"
+ },
+ "journeys": {
+  "first-believers": {
+   "anchors": 0,
+   "anchors_sha": "4f53cda18c2b",
+   "apart": 0,
+   "apart_sha": "4f53cda18c2b",
+   "steps": 13,
+   "steps_sha": "8fdf4bb34040"
+  },
+  "hijrah-step-by-step": {
+   "anchors": 0,
+   "anchors_sha": "4f53cda18c2b",
+   "apart": 0,
+   "apart_sha": "4f53cda18c2b",
+   "steps": 7,
+   "steps_sha": "b7ba9361f94e"
+  },
+  "people-of-badr": {
+   "anchors": 3,
+   "anchors_sha": "670fd94a3d3e",
+   "apart": 2,
+   "apart_sha": "d3d1ef91f715",
+   "steps": 92,
+   "steps_sha": "528e43e01868"
+  }
+ }
+}
