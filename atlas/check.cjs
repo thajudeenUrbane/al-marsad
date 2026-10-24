@@ -191,13 +191,14 @@ async function features(page, tag, shot) {
   await page.click("#atlas-ask-out a[href^='#ask/person/']"); await wait(900);
   ok(await page.isVisible("#record"), `${tag}: a name in an answer opens its record`);
   ok(!(await page.evaluate(() => location.hash)).startsWith("#ask/"), `${tag}: answer links never change the address`);
-  // the merge review and class notes (this file has no shared store, so both stay in this browser)
+  // the merge review (a study aid; decisions are recorded through the review pages) and class notes
   await A((k) => window.__atlas.openDrawer(k), "merges"); await wait(300);
-  ok((await page.$$("#drawer-body .merge")).length > 50, `${tag}: the merge review lists slice 11a's proposals`);
+  ok((await page.$$("#drawer-body .merge")).length >= 40, `${tag}: the Merges tab lists the merge proposals, a page at a time`);
+  await page.selectOption("#merge-show", "open"); await wait(300);
   await page.selectOption("#drawer-body .merge-edit select >> nth=0", "scholar");
   await page.click("#drawer-body .merge-edit button >> nth=0"); await wait(300);
-  ok(/working list: ask a scholar/.test(await text("#drawer-body .merge-state >> nth=0")), `${tag}: a merge decision is kept as a working list`);
-  ok(/,scholar,/.test(await A(() => window.__atlas.mergesCsv())), `${tag}: decisions copy out in the proposals file's format`);
+  ok(/working list: ask a scholar.*Not a recorded decision/.test(await text("#drawer-body .merge-mine >> nth=0")), `${tag}: a working-list entry never reads as recorded`);
+  ok(/,scholar,,/.test(await A(() => window.__atlas.mergesCsv())), `${tag}: the working list copies out with who decided left blank`);
   await shot("20-merges");
   await page.click("#close-atlas"); await wait(200);
   const badr = await A(() => window.__atlas.search("Battle of Badr")[0]);

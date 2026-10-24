@@ -335,7 +335,7 @@ async function start() {
   refreshText();
   shareStart();
   window.__atlas = { S, t, focus, startTour, setView, setLang, setDepth, trace, search, TOURS: () => TOURS, n: () => n, openDrawer, renderDrawer,
-    R: () => R, endTour, goStop, applyPreset, compare, back, home, setBlend, viewToken, applyViewState, openPair, playHistory, setPeriod, QUESTS: () => QUESTS, toggleStar, byId, ask, SHARE, decide, addNote, mergesCsv };
+    R: () => R, endTour, goStop, applyPreset, compare, back, home, setBlend, viewToken, applyViewState, openPair, playHistory, setPeriod, QUESTS: () => QUESTS, toggleStar, byId, ask, SHARE, addNote, mergesCsv };
   document.documentElement.dataset.ready = "1";
 }
 if (!("DecompressionStream" in window)) { $("loading").replaceChildren(h("p", null, t("error.unpack"))); }

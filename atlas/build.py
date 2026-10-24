@@ -229,9 +229,9 @@ DECISIONS = ("accept", "reject", "scholar")
 
 
 def load_merges(ids: list[str], log) -> list[dict]:
-    """Slice 11a's merge proposals (ontology/tools/propose_merges.py), for the review
-    screen: both entries as marks, the evidence and confidence as the tool wrote them,
-    and any decision already committed to the file. Nothing is merged here."""
+    """The merge proposals (ontology/tools/propose_merges.py), for the Merges tab: both
+    entries as marks, the evidence and confidence as the tool wrote them, and the decision
+    the review pages recorded into the file, if any. Nothing is merged here."""
     at = {x: i for i, x in enumerate(ids)}
     out, skipped = [], 0
     with MERGES.open(encoding="utf-8") as f:
@@ -247,6 +247,8 @@ def load_merges(ids: list[str], log) -> list[dict]:
                 if row["decision"] not in DECISIONS:
                     raise SystemExit(f"{MERGES.name}: {row['proposal']} has decision {row['decision']!r}")
                 m.update({"dec": row["decision"], "by": row["decided_by"], "on": row["decided_on"]})
+                if row.get("decision_note"):
+                    m["dn"] = row["decision_note"]
             out.append(m)
     if skipped:
         log(f"merge proposals: {skipped} name an entry that is not a mark here, left out")
