@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>al-Marṣad · المرصد</title>
+<link rel="stylesheet" href="exhibition.css">
+<script src="numbers.js"></script>
+</head>
+<body>
+<!--
+  The halls. Every figure is a span whose data-n (a number) or data-t (a text) names its key in
+  numbers.js, which exhibition/build.py writes from the data. Do not type a number into this page.
+  Honorifics: the Prophet ﷺ always, with the words at the first mention in each hall;
+  رضي الله عنه / عنها at the first mention of a Companion or a Mother of the Believers;
+  رحمه الله for the later scholars and narrators named here.
+-->
+<main id="walk">
+
+<!-- 1 · Opening -->
+<section class="hall opening" id="hall-1" data-title="Opening" data-ar="الافتتاح" aria-label="Hall 1: Opening">
+  <p class="basmala" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</p>
+  <h1 class="title">al-Marṣad <span class="sep" aria-hidden="true">·</span> <span lang="ar" dir="rtl">المرصد</span></h1>
+  <p class="lede">A map of the Sīra of the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span> <span class="words" aria-hidden="true">(peace and blessings be upon him)</span>: it shows where each report comes from, and leaves every ruling to scholars.</p>
+  <p class="presenter">Presented by <span class="fill" data-presenter="name"></span><span class="role" data-presenter="role"></span></p>
+  <p class="convention">On honorifics: on these screens we write <span class="nw" lang="ar" dir="rtl">رضي الله عنه</span> or <span class="nw" lang="ar" dir="rtl">رضي الله عنها</span> at the first mention of a Companion. In the data itself, a Companion’s honorific waits until a scholar has accepted the claim of companionship. We would value your guidance on this convention.</p>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>This screen, already up when he sits down. Browser zoom 125 to 150% on a TV.</p>
+    <h3>Say</h3>
+    <p>Bismillāh. Who you are, in one sentence. That al-Marṣad is built by one maintainer with AI help, that nothing in it has been reviewed by a scholar yet, and that this is why you have come to him. That you will end with three requests.</p>
+    <h3>If asked</h3>
+    <dl>
+      <dt>Why the note on honorifics?</dt>
+      <dd>On data screens the software cannot yet know who is a Companion: that is a scholar’s determination. So the data waits for a scholar to accept the companionship claim, while these screens follow the custom. Ask for his guidance.</dd>
+    </dl>
+  </aside>
+</section>
+
+<!-- 2 · Why -->
+<section class="hall" id="hall-2" data-title="Why al-Marṣad" data-ar="لماذا المرصد؟" aria-label="Hall 2: Why al-Marṣad">
+  <header class="hall-head">
+    <h2>Why al-Marṣad</h2>
+    <p class="h-ar" lang="ar" dir="rtl">لماذا المرصد؟</p>
+  </header>
+  <div class="why">
+    <p class="lede">The Sīra of the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span> <span class="words" aria-hidden="true">(peace and blessings be upon him)</span> is reported across many books, by many narrators.</p>
+    <p class="lede">A reader cannot easily see where each statement comes from, how it was carried, or where reports differ.</p>
+    <p class="lede strong">al-Marṣad shows where each statement comes from, and leaves every ruling to scholars.</p>
+  </div>
+  <div class="three">
+    <div>
+      <h3>Where it comes from</h3>
+      <p>A statement from the Sīra of <span class="nw">Ibn Hishām <span class="hon" lang="ar" dir="rtl" role="img" aria-label="may Allah have mercy on him">رحمه الله</span></span> carries its volume and page, and its line in the digital text.</p>
+    </div>
+    <div>
+      <h3>How it was carried</h3>
+      <p>Where the text gives a chain of narrators, it is recorded link by link: <span data-n="atlas.chains"></span> chains so far.</p>
+    </div>
+    <div>
+      <h3>Where reports differ</h3>
+      <p>Each report is kept with its own source. The software never chooses between them.</p>
+    </div>
+  </div>
+  <div class="nots">
+    <h3>What al-Marṣad will not do</h3>
+    <ul>
+      <li>Depict the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span>, his family, the Companions, or any person.</li>
+      <li>Give a ruling or a fatwa.</li>
+      <li>Let software grade the authenticity of a report.</li>
+      <li>Show a contested matter as settled.</li>
+      <li>Close itself off: everything stays open to check, copy and correct.</li>
+    </ul>
+  </div>
+  <p class="foot">How it is made: one maintainer compiled the statements with AI help. The 50 Stories were written by AI and are not a source, so each claim taken from them needs a real source. Every statement stays “proposed” until a scholar accepts it.</p>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>This screen only. Read the three lines slowly; let the five “will not” lines stand.</p>
+    <h3>Say</h3>
+    <p>The problem in one breath: many books, many narrators, and the reader cannot see the ground under a statement. al-Marṣad shows the ground and stops there: the ruling is the scholar’s.</p>
+    <p>Say the AI part plainly here, in the first minutes: AI helped draw the statements from the text and wrote the short English glosses. Nothing is accepted until a scholar accepts it.</p>
+    <h3>If asked</h3>
+    <dl>
+      <dt>Is AI writing the history?</dt>
+      <dd>No. AI drafts and the software proposes; every statement is marked “proposed”. A scholar accepts, rejects or sends it for discussion. Software never accepts a claim on its own. Say the one exception too: an AI wrote the 50 Stories, and the pilot pack is drawn from them (hall 6).</dd>
+      <dt>Which sources?</dt>
+      <dd>Today one book: Ibn Hishām’s Sīra, Cairo 1955 edition, with page numbers still provisional (not yet checked against print). The digital text is OpenITI’s. Which source comes next is for the scholars to choose.</dd>
+      <dt>Is this not what the takhrīj tools already do?</dt>
+      <dd>They do much of it for ḥadīth, and well. al-Marṣad is narrower and different: the Sīra as one connected record of people, events, places and reports, open for scholars to rule on, one statement at a time.</dd>
+    </dl>
+  </aside>
+</section>
+
+<!-- 3 · The sky of the Sīra -->
+<section class="hall live-hall" id="hall-3" data-title="The sky of the Sīra" data-ar="سماء السيرة" aria-label="Hall 3: The sky of the Sīra">
+  <header class="hall-head">
+    <h2>The sky of the Sīra</h2>
+    <p class="h-ar" lang="ar" dir="rtl">سماء السيرة</p>
+  </header>
+  <figure class="live" data-live="atlas" data-src="/atlas/index.html">
+    <div class="frame">
+      <img class="still" alt="The Sky Atlas: the central light, and the people of the record as stars around it." data-src="stills/atlas-sky.jpg" hidden>
+      <iframe title="The Sky Atlas, live" tabindex="-1"></iframe>
+      <p class="frame-note" hidden>Showing a still picture. Press S for the live view.</p>
+    </div>
+    <figcaption>
+      <div class="steps" role="group" aria-label="Show in the Atlas">
+        <button type="button" data-hash="#v.sky" data-still="stills/atlas-sky.jpg">The central light</button>
+        <button type="button" data-hash="#v.sky~f.laOMIYgqaQ5Iw6DmtiCNkY" data-still="stills/atlas-khadija.jpg">One record: <span class="nw">Khadīja bint Khuwaylid <span class="hon" lang="ar" dir="rtl" role="img" aria-label="may Allah be pleased with her">رضي الله عنها</span></span></button>
+        <button type="button" data-hash="#v.sky~tour.ecliptic.0" data-still="stills/atlas-ecliptic.jpg">The Sīra in the order of the text</button>
+        <button type="button" class="expand">Open full screen</button>
+      </div>
+      <p class="caption">In this sky, we show the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span> <span class="words" aria-hidden="true">(peace and blessings be upon him)</span> as the <span class="light-word"><span class="light-dot" aria-hidden="true"></span>light at the centre</span>, and each person in the record as a star. A star’s brightness shows only the generation the record gives; it never ranks anyone.</p>
+      <p class="numbers"><span data-n="atlas.marks"></span> marks: <span data-n="atlas.person_records"></span> name records (not yet de-duplicated), <span data-n="atlas.events"></span> events, <span data-n="atlas.places"></span> places, <span data-n="atlas.stories"></span> stories and <span data-n="atlas.groups"></span> groups. Every statement is marked proposed.</p>
+    </figcaption>
+  </figure>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>Three steps, in order, with the buttons under the view. Let the sky breathe before you speak. On “One record”, open one statement and its source in the side panel (the volume and page, and the line in the text): “The Messenger of <span class="nw">God <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span> married Khadīja bint Khuwaylid” is a good one. On “the order of the text”, let two stops play.</p>
+    <h3>Say</h3>
+    <p>The <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span> is the light at the centre, never a figure. The people are the people of the record, as Ibn Hishām’s book names them. The order and the brightness carry no judgement of anyone.</p>
+    <p>Say “name records”: one person can still appear under several names until a scholar answers the identity questions.</p>
+    <h3>Don’t click</h3>
+    <p>The Ask and Merges tabs (new, and not part of this walk). Map, Globe and Time (few places and dates are filled in yet). A search for “Abū Bakr” (it shows duplicates). The Arabic interface (a draft). “The turning” and the dark-mark legend (their wording is under review). In Khadīja’s record, the lines on her earlier marriages and “the wife or husband of” (machine wording; most glosses there still lack the honorific).</p>
+    <h3>If asked</h3>
+    <dl>
+      <dt>Why are some people drawn dark?</dt>
+      <dd>The Atlas draws a person dark when a statement records the person as fighting against or opposing the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span>. Who classifies opponents and conversions, and how to show Abū Ṭālib, the munāfiqūn and the Jewish clans of Madinah, is one of the questions we bring to him today.</dd>
+      <dt>Why this order?</dt>
+      <dd>The Atlas puts the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span> first, then the four caliphs, then the other six of the ten promised Paradise, then the rest by recorded links, that is, by how often the sources mention them: coverage, never rank. People recorded as opposing him come last.</dd>
+      <dt>A report label in the side panel?</dt>
+      <dd>Some reports carry a software description of whom the words are ascribed to. It is a description, not a grading, and whether to show it at all is open. The scholar’s term is his to give.</dd>
+      <dt>Is this the whole Sīra?</dt>
+      <dd>It is Ibn Hishām’s Sīra only, as one book tells it.</dd>
+    </dl>
+    <p class="fallback">If the view stays dark for more than a few seconds, press S for the still, and carry on.</p>
+  </aside>
+</section>
+
+<!-- 4 · Badr -->
+<section class="hall live-hall" id="hall-4" data-title="Badr" data-ar="بدر" aria-label="Hall 4: Badr">
+  <header class="hall-head">
+    <h2>Badr</h2>
+    <p class="h-ar" lang="ar" dir="rtl">بدر</p>
+  </header>
+  <figure class="live" data-live="expeditions" data-src="/expeditions/dist/index.html">
+    <div class="frame">
+      <img class="still" alt="The eve of Badr: the valley under the night sky as computed for the date." data-src="stills/badr-eve.jpg" hidden>
+      <iframe title="The Badr expedition, live" tabindex="-1"></iframe>
+      <p class="frame-note" hidden>Showing a still picture. Press S for the live view.</p>
+    </div>
+    <figcaption>
+      <div class="steps" role="group" aria-label="Show in the expedition">
+        <button type="button" data-hash="#x-badr-0" data-still="stills/badr-eve.jpg">The eve of Badr</button>
+        <button type="button" data-hash="#x-badr-2" data-still="stills/badr-friday.jpg">Which Friday?</button>
+        <button type="button" data-hash="#halaqa-badr-0" data-still="stills/badr-halaqa.jpg">The halaqa room</button>
+        <button type="button" class="expand">Open full screen</button>
+      </div>
+      <p class="caption">In this expedition, we show the night sky over Badr as astronomy computes it, beside the date the text gives. Where the two disagree, we ask a scholar; we do not correct the text.</p>
+      <p class="numbers">The text: “<span data-t="badr.date_en"></span>” (<span data-t="badr.page"></span>). Under our crescent rule, none of the <span data-n="badr.candidates"></span> candidate days is a Friday. The rule is a simple stand-in for sighting the crescent, and we would ask a scholar to replace it. <span class="nw">313 in the well-known report,</span> <span class="nw">314 in the list of</span> <span class="nw">Ibn Isḥāq <span class="hon" lang="ar" dir="rtl" role="img" aria-label="may Allah have mercy on him">رحمه الله</span>.</span></p>
+    </figcaption>
+  </figure>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>“The eve of Badr”: the valley under the computed sky. Drag the time slider across the candidate evenings. Then “Which Friday?”: press “Check against the moon” and let the table stand. Then “The halaqa room”: click once inside the room, then step with the arrow keys or PageDown. To move on, press Esc, then PageDown (or use the bar at the bottom).</p>
+    <h3>Say</h3>
+    <p>The same record, now on the ground. The sky is computed, not painted. The text says Badr was on a Friday, the seventeenth of Ramaḍān; our simple rule for the first crescent gives no Friday. We do not correct the text: we bring the question to a scholar, and we would ask him to replace our rule with a proper one.</p>
+    <p>The halaqa room is the same material set out for a teacher and a circle of students.</p>
+    <h3>Don’t click</h3>
+    <p>“Who was there” (its wording is still under review). The review desk and the plain version are fine but not needed.</p>
+    <h3>If asked</h3>
+    <dl>
+      <dt>313 or 314?</dt>
+      <dd>313 is the number in the well-known report; Ibn Isḥāq’s list in Ibn Hishām gives 314. The expedition shows both and does not choose.</dd>
+      <dt>Do you change the date?</dt>
+      <dd>Never. A computed date sits beside the received date and never replaces it. The tabular calendar gives <span data-t="badr.tabular"></span>; the crescent rule, over the <span data-n="badr.candidates"></span> possible months, gives <span data-t="badr.candidate_weekdays"></span>. Both are our assumptions, not the text.</dd>
+      <dt>Who decides what the halaqa shows?</dt>
+      <dd>The teacher. The room only lays out what the record says, with its source.</dd>
+    </dl>
+    <p class="fallback">If the 3D view does not start, press S for the still.</p>
+  </aside>
+</section>
+
+<!-- 5 · Where a report comes from -->
+<section class="hall" id="hall-5" data-title="Where a report comes from" data-ar="من أين جاء الخبر؟" aria-label="Hall 5: Where a report comes from">
+  <header class="hall-head">
+    <h2>Where a report comes from</h2>
+    <p class="h-ar" lang="ar" dir="rtl">من أين جاء الخبر؟</p>
+  </header>
+  <p class="bridge">The date of Badr appears earlier in the book too, this time with a chain. Here is that one statement, end to end.</p>
+  <ol class="ladder">
+    <li>
+      <h3>The statement</h3>
+      <p class="quote" lang="ar" dir="rtl" data-t="hall4.object_ar"></p>
+      <p class="gloss"><span data-t="hall4.gloss"></span> <span class="label" data-t="hall4.gloss_label"></span></p>
+    </li>
+    <li>
+      <h3>The source and page</h3>
+      <p data-t="hall4.citation"></p>
+    </li>
+    <li>
+      <h3>The chain, as the text gives it</h3>
+      <p class="chain-ar" lang="ar" dir="rtl" data-t="hall4.chain"></p>
+      <p class="chain"><span class="nw">Abū Jaʿfar Muḥammad b. ʿAlī b. Ḥusayn <span class="hon" lang="ar" dir="rtl" role="img" aria-label="may Allah have mercy on him">رحمه الله</span></span> <span class="arrow" aria-hidden="true">→</span> told by hearing (<span data-t="hall4.mode"></span>) <span class="arrow" aria-hidden="true">→</span> <span class="nw">Ibn Isḥāq <span class="hon" lang="ar" dir="rtl" role="img" aria-label="may Allah have mercy on him">رحمه الله</span></span> <span class="arrow" aria-hidden="true">→</span> in the recension of <span class="nw">Ibn Hishām <span class="hon" lang="ar" dir="rtl" role="img" aria-label="may Allah have mercy on him">رحمه الله</span></span></p>
+    </li>
+    <li>
+      <h3>Its status</h3>
+      <p><span class="status" data-t="hall4.status"></span>. Whether the chain is connected, and what the report is worth, is for a scholar to determine. The software records the chain as the text gives it, and does not grade.</p>
+    </li>
+    <li class="who">
+      <h3>Who may rule</h3>
+      <p>Only a scholar can accept it, reject it, or send it for discussion, and every decision is recorded. <strong>Software never accepts a claim on its own.</strong></p>
+    </li>
+  </ol>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>This screen only, top to bottom: the statement, the book and page, the chain, the status, and who may rule.</p>
+    <h3>Say</h3>
+    <p>The expedition quoted the date from the account of Badr itself (<span data-t="badr.page"></span>). Earlier in the book, Ibn Isḥāq gives the same date with a chain: he heard it from Abū Jaʿfar. This is one statement out of <span data-n="atlas.statements"></span>, and every one has this ladder under it, with the rungs that are not yet filled left empty.</p>
+    <p>The English line is a machine gloss, labelled as such: it is not a translation and nobody has reviewed it.</p>
+    <h3>If asked</h3>
+    <dl>
+      <dt>Is this report mursal?</dt>
+      <dd>That is his determination, not ours. Abū Jaʿfar is a Successor; the record keeps the chain as the text gives it and leaves its grading to a scholar. If the Atlas shows a software label on this report, it is a description of the ascription, not a grading, and we would value his view on whether to show it at all.</dd>
+      <dt>Why no Arabic text of the whole report on screen?</dt>
+      <dd>The digital text is licensed for sharing with conditions (CC BY-NC-SA). We keep pointers and short phrases, and we have written to OpenITI about permission and partnership.</dd>
+      <dt>Why “provisional” beside the edition?</dt>
+      <dd>The page numbers come from the digital text and have not yet been checked against the printed Cairo edition.</dd>
+    </dl>
+  </aside>
+</section>
+
+<!-- 6 · What is built, what waits -->
+<section class="hall" id="hall-6" data-title="What is built, what waits" data-ar="ما بُني وما ينتظر" aria-label="Hall 6: What is built, what waits">
+  <header class="hall-head">
+    <h2>What is built, what waits</h2>
+    <p class="h-ar" lang="ar" dir="rtl">ما بُني وما ينتظر</p>
+  </header>
+  <p class="hero"><span class="big" data-n="atlas.reviewed"></span> statements reviewed by a scholar so far.</p>
+  <div class="two">
+    <div>
+      <h3>Built</h3>
+      <ul>
+        <li><span data-n="atlas.marks"></span> marks in the sky: <span data-n="atlas.person_records"></span> name records, <span data-n="atlas.events"></span> events, <span data-n="atlas.places"></span> places, <span data-n="atlas.stories"></span> stories, <span data-n="atlas.groups"></span> groups.</li>
+        <li><span data-n="atlas.statements"></span> statements, every one proposed. <span data-n="atlas.father_of"></span> of them are lines of descent.</li>
+        <li><span data-n="atlas.chains"></span> chains of narration recorded link by link.</li>
+        <li>Expeditions: Badr, Uḥud, the Hijra, ʿAqaba and Abyssinia, each with a halaqa room.</li>
+        <li>A review queue: <span data-n="review.queue_statements"></span> statements in <span data-n="review.queue_batches"></span> batches.</li>
+        <li>A pilot pack, ready to send: <span data-n="review.pilot_statements"></span> statements from the 50 Stories, each needing a real source before it can be accepted, and the first <span data-n="review.pilot_identity"></span> identity questions.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Waits</h3>
+      <ul>
+        <li><span data-n="review.identity_questions"></span> identity questions (“is this the same person?”) and <span data-n="review.merge_proposals"></span> proposed merges of name records.</li>
+        <li><span data-n="atlas.dated_events"></span> of <span data-n="atlas.events"></span> events have a date; <span data-n="atlas.located_places"></span> of <span data-n="atlas.places"></span> places have a location.</li>
+        <li>A review board, and the tradition it declares.</li>
+        <li>A scholar’s first decision.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>This screen only. Start with the zero.</p>
+    <h3>Say</h3>
+    <p>Everything you have seen is proposed. Not one statement has been reviewed by a scholar: that is the honest state, and it is the reason for today. The pilot pack is ready; it needs one scholar. Say where it comes from: the 50 Stories, which an AI wrote, so each statement needs a real source with its page before it can be accepted.</p>
+    <h3>If asked</h3>
+    <dl>
+      <dt>What is in the pilot pack?</dt>
+      <dd><span data-n="review.pilot_statements"></span> statements in <span data-n="review.pilot_story_batches"></span> short batches, from the 50 Stories. An AI wrote those stories and nobody knows yet whether they are accurate, so each statement needs a real source with its page before it can be accepted. Then <span data-n="review.pilot_identity"></span> “same person?” questions. The reviewer uses a phone or a laptop and sends one small file back.</dd>
+      <dt>Why so few dates and places?</dt>
+      <dd>Dates and places are filled only where the text gives them and the extraction caught them. That is why we keep Map and Time off today.</dd>
+      <dt>Lines of descent?</dt>
+      <dd>“So-and-so, son of so-and-so”: the names carry the lineage, and each link is a statement waiting like the rest.</dd>
+    </dl>
+  </aside>
+</section>
+
+<!-- 7 · What we hope for -->
+<section class="hall" id="hall-7" data-title="What we hope for" data-ar="ما نرجوه" aria-label="Hall 7: What we hope for">
+  <header class="hall-head">
+    <h2>What we hope for</h2>
+    <p class="h-ar" lang="ar" dir="rtl">ما نرجوه</p>
+  </header>
+  <ol class="asks">
+    <li>
+      <h3>A first review</h3>
+      <p>That one scholar reviews the pilot pack, <span data-n="review.pilot_statements"></span> statements from the 50 Stories and the first <span data-n="review.pilot_identity"></span> identity questions, by a date you choose. We suggest Sunday 1 November.</p>
+    </li>
+    <li>
+      <h3>Your guidance on direction</h3>
+      <ul>
+        <li>On public pages that carry no review language, should each statement still show its source line?</li>
+        <li>Who classifies opponents and conversions, and how should the hard cases be shown: Abū Ṭālib, the munāfiqūn such as ʿAbd Allāh b. Ubayy, the Jewish clans of Madinah, people whose Islam is disputed, and anyone with no recorded date of accepting Islam?</li>
+        <li>Which tradition the first review board declares. Our draft: <span data-t="review.tradition_default"></span>.</li>
+        <li>The convention for the honorifics of the Companions.</li>
+      </ul>
+    </li>
+    <li>
+      <h3>Your advice on a home</h3>
+      <p>On a custodian for al-Marṣad, and on funding.</p>
+    </li>
+  </ol>
+  <p class="credit">Publicly, decisions are credited to the review board, not to a reviewer by name, unless the reviewer agrees to be named later.</p>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>This screen. Begin it by minute 20 at the latest.</p>
+    <h3>Say</h3>
+    <p>Three requests, the first one small and dated. Then the credit rule, in these words. Then stop, and listen.</p>
+    <p>Agree one next step with a date before you leave, even if it is only the name of one scholar to ask.</p>
+    <h3>If asked</h3>
+    <dl>
+      <dt>How long does the pilot take?</dt>
+      <dd>It is short: a phone or a laptop, one of three answers for each statement (accept, reject, needs discussion), and the work is saved as it goes. Say what you know of the time it took in rehearsal; do not promise a figure you have not measured.</dd>
+      <dt>Who has the final say?</dt>
+      <dd>A declared review board. It does not exist yet; forming it, and the tradition it declares, is part of what we ask his guidance on.</dd>
+      <dt>What does it cost, and who holds the money?</dt>
+      <dd>Bring the figures you are ready to stand behind, or say you will follow up in writing.</dd>
+      <dt>Will reviewers be named?</dt>
+      <dd>Not unless they agree. The board is credited.</dd>
+    </dl>
+  </aside>
+</section>
+
+<!-- 8 · Close -->
+<section class="hall closing" id="hall-8" data-title="Close" data-ar="الختام" aria-label="Hall 8: Close">
+  <p class="thanks">Thank you.</p>
+  <p class="jazakum" lang="ar" dir="rtl">جزاكم الله خيراً</p>
+  <p class="contact"><span class="fill" data-presenter="name"></span><span class="sep-line" data-presenter="contact"></span></p>
+  <p class="foot">A one-page summary is printed for you.</p>
+  <aside class="notes" hidden>
+    <h3>Show</h3>
+    <p>This screen, and hand over the printed one-page summary (leave-behind.html, printed on A4).</p>
+    <h3>Say</h3>
+    <p>Thanks, and the next step you agreed, with its date. Jazākum Allāhu khayran.</p>
+  </aside>
+</section>
+
+</main>
+
+<nav class="bar" aria-label="Halls">
+  <button type="button" class="prev" aria-label="Previous hall">←</button>
+  <span class="where"><span class="n"></span> <span class="t"></span></span>
+  <button type="button" class="next" aria-label="Next hall">→</button>
+  <span class="keys">P notes · T timer · F full screen</span>
+  <button type="button" class="open-notes">Notes window</button>
+</nav>
+
+<div id="timer" role="timer" aria-live="off" hidden><span class="clock">00:00</span> <span class="plan"></span></div>
+
+<aside id="sheet" aria-label="Presenter notes" hidden>
+  <header><h2 class="sheet-title"></h2><span class="sheet-next"></span></header>
+  <div class="sheet-body"></div>
+</aside>
+
+<script src="exhibition.js"></script>
+</body>
+</html>

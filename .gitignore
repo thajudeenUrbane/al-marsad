@@ -22,3 +22,6 @@ ingest/cache/
 
 # Lab downloads (terrain tiles)
 lab/*/cache/
+
+# The exhibition presenter's name and contact (copy presenter.example.json)
+exhibition/presenter.local.json

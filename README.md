@@ -4,7 +4,8 @@
 
 > **Working name.** *al-Marṣad* (المرصد) is the Arabic word for an astronomical observatory — the institution that produced Maragha, Samarkand and Istanbul. It is proposed here as both a name and a category. Naming is subject to scholarly review (see [docs/00-vision.md](docs/00-vision.md#naming)).
 
-**Status:** Phase 0 architecture, plus a first real (unverified) corpus slice and three working demos.
+**Status, 24 October 2026.** Built and running: the Sky Atlas of Ibn Hishām's Sīra, the expedition rooms (Badr, Uḥud, the Hijra, ʿAqaba and Abyssinia), the review queue, and a pilot pack for a first scholar. Every statement is still proposed: not one has been reviewed by a scholar yet. **Start at [`exhibition/`](exhibition/README.md):** `python3 exhibition/serve.py` walks through all of it in eight halls, offline, on one laptop.
+
 **Date of this corpus:** September 2026.
 **Repository:** [github.com/thajudeenUrbane/al-marsad](https://github.com/thajudeenUrbane/al-marsad)
 

@@ -36,6 +36,15 @@
         "stories-50/serve.py"
       ],
       "port": 8751
+    },
+    {
+      "name": "exhibition",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "exhibition/serve.py",
+        "--no-browser"
+      ],
+      "port": 8770
     }
   ]
 }

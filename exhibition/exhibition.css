@@ -1,0 +1,175 @@
+/* al-Marṣad exhibition. The night palette of the design grammar; gold (--light) only for the
+   central light, and on these screens only in the legend dot of hall 3. Offline: system fonts only. */
+:root {
+  --night: #070a15;
+  --panel: rgba(11, 15, 29, 0.88);
+  --ink: #ebe6d6;
+  --muted: #9ba1b6;
+  --faint: #6b7189;
+  --line: rgba(235, 230, 214, 0.13);
+  --light: #ffd486;
+  --light-dim: rgba(255, 212, 134, 0.16);
+  --dispute: #e8a090;
+  --focus: #fff;
+  --ar: "DecoType Naskh", "Geeza Pro", serif;
+  --display: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fade: 900ms;
+  --gutter: max(4vw, calc((100vw - 66rem) / 2));
+  color-scheme: dark;
+  font-size: clamp(16px, min(1.45vw, 2.6vh), 34px);
+}
+@media (prefers-reduced-motion: reduce) { :root { --fade: 150ms; } }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--night); color: var(--ink); }
+body { font-family: var(--body); line-height: 1.5; overflow: hidden; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button { font: inherit; color: inherit; }
+
+/* Arabic: naskh, never letter-spaced, a little larger than the Latin around it. */
+[lang="ar"] { font-family: var(--ar); letter-spacing: 0; font-size: 1.2em; line-height: 1.8; }
+[lang="ar"] [lang="ar"] { font-size: 1em; }
+span[lang="ar"] { line-height: 1; }
+
+/* Honorifics: the name and its honorific never part at a line end; same colour as the name; never animated. */
+.nw { white-space: nowrap; }
+.hon { font-family: var(--ar); font-size: 0.85em; line-height: 1; unicode-bidi: isolate; animation: none; transition: none; }
+.hon[lang="ar"] { font-size: 1em; }
+.words { white-space: normal; }
+
+/* The halls: one on screen at a time, a slow fade between them. */
+.hall {
+  position: fixed; inset: 0; z-index: 1;
+  display: flex; flex-direction: column; justify-content: flex-start; justify-content: safe center; gap: 1.1rem;
+  padding: 2.6rem var(--gutter) 3.2rem;
+  overflow-y: auto;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--fade) ease, visibility 0s linear var(--fade);
+}
+.hall.on { opacity: 1; visibility: visible; transition: opacity var(--fade) ease, visibility 0s; }
+.hall:focus { outline: none; }
+.hall p, .hall ul, .hall ol, .hall h1, .hall h2, .hall h3 { margin: 0; }
+
+.hall-head { display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.35rem; }
+.hall-head h2 { font-family: var(--display); font-weight: normal; font-size: 2.1rem; line-height: 1.25; }
+.hall-head .h-ar { font-size: 2.3rem; line-height: 1.4; }
+h3 { font-family: var(--display); font-weight: normal; font-size: 1.05rem; line-height: 1.3; }
+
+/* 1 · Opening and 8 · Close */
+.opening, .closing { align-items: center; text-align: center; gap: 0.9rem; }
+.basmala { font-size: 2.6rem; line-height: 1.6; }
+.title { font-family: var(--display); font-weight: normal; font-size: 3.6rem; line-height: 1.2; }
+.title [lang="ar"] { font-size: 1.05em; }
+.title .sep { color: var(--faint); }
+.opening .lede { font-size: 1.2rem; max-width: 44rem; }
+.presenter, .contact { color: var(--muted); font-size: 0.95rem; min-height: 1.5em; margin-top: 0.6rem; }
+.fill:empty { display: inline-block; min-width: 13em; border-bottom: 1px solid var(--line); vertical-align: -0.2em; height: 1.2em; }
+.role:not(:empty)::before { content: ", "; }
+.sep-line:not(:empty)::before { content: " · "; }
+.convention { max-width: 50rem; font-size: 0.66rem; color: var(--faint); margin-top: 2.2rem; }
+.thanks { font-family: var(--display); font-size: 3.2rem; line-height: 1.2; }
+.jazakum { font-size: 2.8rem; line-height: 1.6; }
+.closing .foot { margin-top: 1.4rem; }
+
+/* 2 · Why */
+.why { display: grid; gap: 0.35rem; }
+.why .lede { font-size: 1.12rem; max-width: 58rem; }
+.why .strong { font-family: var(--display); font-size: 1.35rem; }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+.three p { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+.nots ul { padding-left: 1.1em; columns: 2; column-gap: 2.4rem; font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+.nots li { break-inside: avoid; }
+.foot { font-size: 0.72rem; color: var(--faint); }
+
+/* 3, 4 · Live views: the frame on the left, the steps and caption beside it. */
+.live-hall { justify-content: flex-start; }
+.live { margin: 0; flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: 1.3rem; }
+.frame { position: relative; min-height: 14rem; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #03050c; }
+.frame iframe, .frame .still { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.frame .still { object-fit: cover; z-index: 1; }
+.live.still-on iframe { visibility: hidden; }
+.frame-note { position: absolute; z-index: 2; right: 0.6rem; bottom: 0.35rem; font-size: 0.58rem; color: var(--muted); background: var(--panel); padding: 0.05rem 0.5rem; border-radius: 4px; }
+.live figcaption { display: flex; flex-direction: column; gap: 0.8rem; min-height: 0; overflow-y: auto; }
+.steps { display: flex; flex-direction: column; gap: 0.45rem; }
+.steps button { text-align: start; font-size: 0.8rem; line-height: 1.4; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 0.4rem 0.75rem; cursor: pointer; }
+.steps button:hover { border-color: rgba(235, 230, 214, 0.35); }
+.steps button[aria-pressed="true"] { border-color: rgba(235, 230, 214, 0.6); background: rgba(235, 230, 214, 0.08); }
+.steps .expand { color: var(--muted); font-size: 0.72rem; border-style: dashed; }
+.caption { font-size: 0.88rem; }
+.numbers { font-size: 0.74rem; color: var(--muted); }
+.light-dot { display: inline-block; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--light); box-shadow: 0 0 0.6em var(--light-dim), 0 0 0.25em var(--light); margin-inline-end: 0.3em; vertical-align: 0.05em; }
+.unexpand { display: none; }
+
+/* A live view opened full screen: the whole window, above the bar; notes and timer stay on top. */
+body.expanded .hall.on { z-index: 40; overflow: hidden; }
+.live.expanded .frame { position: fixed; inset: 0; z-index: 45; border: 0; border-radius: 0; }
+.live.expanded .unexpand { display: block; position: absolute; z-index: 3; bottom: 0.7rem; left: 50%; transform: translateX(-50%); font-size: 0.65rem; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.9rem; cursor: pointer; }
+
+/* 5 · Where a report comes from: one statement as a ladder. */
+.bridge { color: var(--muted); font-size: 0.92rem; }
+.ladder { list-style: none; padding: 0 0 0 1.4rem; border-left: 1px solid var(--line); display: grid; gap: 0.75rem; }
+.ladder li { position: relative; }
+.ladder li::before { content: ""; position: absolute; left: calc(-1.4rem - 4px); top: 0.35em; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.ladder h3 { font-family: var(--body); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.1rem; }
+.ladder p { font-size: 0.88rem; }
+.ladder .quote { font-size: 1.55rem; line-height: 1.6; }
+.ladder .chain-ar { font-size: 1.3rem; line-height: 1.6; }
+.ladder .gloss { color: var(--muted); font-size: 0.8rem; }
+.ladder .gloss .label { color: var(--faint); font-size: 0.9em; }
+.ladder .arrow { color: var(--faint); }
+.status { border: 1px solid var(--line); border-radius: 999px; padding: 0 0.5em; }
+.who strong { font-weight: 600; }
+
+/* 6 · What is built, what waits */
+.hero { font-family: var(--display); font-size: 1.55rem; }
+.hero .big { font-size: 3.4rem; line-height: 1; margin-inline-end: 0.2em; vertical-align: -0.12em; }
+.two { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.4rem; }
+.two ul { padding-left: 1.1em; font-size: 0.86rem; display: grid; gap: 0.35rem; margin-top: 0.3rem; }
+li::marker { color: var(--faint); }
+
+/* 7 · What we hope for */
+.asks { padding-left: 1.5em; display: grid; gap: 0.95rem; font-size: 0.95rem; }
+.asks > li::marker { font-family: var(--display); color: var(--muted); }
+.asks p { margin-top: 0.15rem; }
+.asks ul { padding-left: 1.1em; display: grid; gap: 0.3rem; font-size: 0.84rem; margin-top: 0.25rem; }
+.credit { font-size: 0.84rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 0.7rem; }
+
+/* The bar along the bottom: faint until a hand reaches for it. */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; align-items: center; gap: 0.7rem; padding: 0.3rem 1rem; font-size: 0.6rem; color: var(--faint); opacity: 0.5; transition: opacity 200ms; }
+.bar:hover, .bar:focus-within { opacity: 1; }
+.bar button { background: none; border: 1px solid transparent; border-radius: 4px; padding: 0.1rem 0.5rem; cursor: pointer; }
+.bar button:hover { color: var(--ink); border-color: var(--line); }
+.bar .keys { margin-inline-start: auto; }
+
+#timer { position: fixed; top: 0.55rem; right: 0.9rem; z-index: 70; font-size: 0.7rem; color: var(--muted); font-variant-numeric: tabular-nums; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 0.15rem 0.6rem; }
+#timer .plan { color: var(--faint); margin-inline-start: 0.4em; }
+#timer.late { color: var(--dispute); border-color: rgba(232, 160, 144, 0.5); }
+
+/* Presenter notes: a sheet over the bottom of the hall (P), or a second window (?notes). */
+#sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; max-height: 48vh; overflow-y: auto; background: var(--panel); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-top: 1px solid var(--line); padding: 0.7rem var(--gutter) 1.3rem; font-size: 0.7rem; }
+#sheet header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+#sheet h2 { font-family: var(--display); font-weight: normal; font-size: 1rem; margin: 0 0 0.3rem; }
+.sheet-next { color: var(--faint); }
+.sheet-body { columns: 2 24rem; column-gap: 2.2rem; }
+.sheet-body h3 { font-family: var(--body); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin: 0.55rem 0 0.15rem; break-after: avoid; }
+.sheet-body p, .sheet-body dd { margin: 0 0 0.35rem; }
+.sheet-body dl { margin: 0; }
+.sheet-body dt { font-weight: 600; margin-top: 0.3rem; break-after: avoid; }
+.sheet-body dd { color: var(--muted); }
+.sheet-body .fallback { color: var(--dispute); }
+
+html.notes-window { font-size: 18px; }
+.notes-window body { overflow-y: auto; }
+.notes-window .hall { display: none; }
+.notes-window #sheet { position: static; max-height: none; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border: 0; padding: 1.2rem 1.4rem 4rem; font-size: 0.95rem; }
+.notes-window #sheet h2 { font-size: 1.4rem; }
+.notes-window .bar { opacity: 1; background: var(--panel); font-size: 0.8rem; }
+
+@media (max-width: 760px), (max-aspect-ratio: 1/1) {
+  .three, .two { grid-template-columns: 1fr; gap: 1rem; }
+  .nots ul { columns: 1; }
+  .live { grid-template-columns: 1fr; grid-template-rows: minmax(14rem, 1fr) auto; }
+  .hall-head { flex-wrap: wrap; gap: 0.2rem 1rem; }
+  .bar .keys { display: none; }
+}

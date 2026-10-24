@@ -62,6 +62,32 @@ PARTICIPATION = {"rel_participated_in", "rel_present_at"}
 SOURCE = "Ibn Hishām, al-Sīra al-Nabawiyya"
 EDITION = "Cairo 1955 edition (provisional, page numbers not checked in print)"
 
+PBUH = "ﷺ"
+_PROPHET = re.compile(r"\bProphet\b")
+_PROPHET_TAIL = re.compile(r"(?:\s+Muḥammad(?!\w))?(?:[’']s)?")        # "Muḥammad" and/or the possessive, after "Prophet"
+_HONOURED = re.compile(r"\s*(?:ﷺ|صلى الله عليه وسلم|\(peace and blessings be upon him\))")
+
+
+def honour(text: str) -> str:
+    """Write ﷺ after every mention of the Prophet in an English claim sentence (grammar section 7: every mention).
+
+    The claim sentences are the `gloss` fields of the extraction corpus, which writes a bare "the Prophet". The corpus is
+    read-only here, so the fix is made at generation, on the copy that goes into dist: "the Prophet" becomes "the Prophet ﷺ",
+    "the Prophet's" becomes "the Prophet's ﷺ", and "the Prophet Muḥammad" takes the sign after the name. A mention that
+    already carries ﷺ (or the words "peace and blessings be upon him") is left alone, so a second pass changes nothing.
+    Nobody else gets an honorific: a Companion's waits until a scholar accepts the companionship claim."""
+    out, last = [], 0
+    for m in _PROPHET.finditer(text):
+        if m.start() < last:
+            continue
+        end = _PROPHET_TAIL.match(text, m.end()).end()
+        out.append(text[last:end])
+        if not _HONOURED.match(text, end):
+            out.append(" " + PBUH)
+        last = end
+    out.append(text[last:])
+    return "".join(out)
+
 
 # ---------------------------------------------------------------- the graph
 
@@ -97,7 +123,7 @@ class Graph:
 
     def cite(self, c: dict) -> dict:
         p = self.pby[c["passage"]]
-        return {"id": c["id"], "gloss": c.get("gloss", ""), "section": int(p["key"][1:]),
+        return {"id": c["id"], "gloss": honour(c.get("gloss", "")), "section": int(p["key"][1:]),
                 "page": self.page(p["start"]), "voice": voice_code(self.voice.get(c["id"]))}
 
 
@@ -198,7 +224,7 @@ def count_lists(g: Graph, keys):
             v = "ishq" if "ibn_ishaq" in r["voices"] else "hish" if "ibn_hisham" in r["voices"] else "none"
             ci = g.cite(r["c"])
             rows.append({"name": n, "voice": v, "share": r["share"], "section": ci["section"], "page": ci["page"],
-                         "gloss": r["c"]["gloss"] if r["share"] else "", "claim": r["c"]["id"]})
+                         "gloss": honour(r["c"]["gloss"]) if r["share"] else "", "claim": r["c"]["id"]})
         rows.sort(key=lambda r: r["section"])
         stated = next(x for x in COUNTS["checks"] if x["key"] == ck["key"])
         out[ck["key"]] = {"key": ck["key"], "what": ck["en"], "stated": ck["n"], "found": len(rows),
@@ -210,6 +236,8 @@ def count_lists(g: Graph, keys):
 def count_case(g, case):
     lists = count_lists(g, set(case["keys"]))
     out = {"type": "count", "title": case["title"], "lists": [lists[k] for k in case["keys"]]}
+    if case.get("note"):          # one line of framing from the definitions, with the provenance class it is shown under
+        out["note"], out["note_class"] = case["note"], case.get("note_class", "schematic")
     groups = case.get("groups")
     if groups:
         # the grand list is the last key; tag each of its names with the clan lists that hold it
@@ -415,7 +443,7 @@ def review_batch(g, x, cases, people, exposure):
             flags.append("in a list whose count does not match")
         ci = g.cite(c)
         items.append({"id": i, "predicate": c["predicate"].replace("rel_", "").replace("_", " "), "subject": sn, "object": on,
-                      "gloss": c.get("gloss", ""), "section": ci["section"], "page": ci["page"], "voice": ci["voice"],
+                      "gloss": honour(c.get("gloss", "")), "section": ci["section"], "page": ci["page"], "voice": ci["voice"],
                       "flags": flags, "seen_in": exposure.get(i, 0)})
     items.sort(key=lambda r: (-r["seen_in"], -len(r["flags"]), r["section"]))
     return {"slug": x["slug"], "title": x["title"], "format_note": "Decisions export as marsad-review-decisions version 1 (docs/handover/slice-3a.md), for review/import_decisions.py.",
@@ -515,6 +543,8 @@ def text_page(d, all_data):
         out.append(f'</table></div><p class="m">{e(s["rule"])} {e(s["method"])}.</p>')
     for c in d["cases"]:
         out.append(f"<h2>Case: {e(c['title'])}</h2>")
+        if c.get("note"):
+            out.append(f'<p>{tag(c["note_class"])}{e(c["note"])}</p>')
         if c["type"] == "count":
             for L in c["lists"]:
                 v = L["voices"]
@@ -542,7 +572,8 @@ def text_page(d, all_data):
                 + (tag("located") if "lat" in s else ('<span class="m">a region</span>' if s["region"] else '<span class="m">named, not located</span>'))
                 + ("claim " if "claim" in s else "") + "</td></tr>" for s in c["stages"]) + "</table></div>")
     p = d["people"]
-    out.append(f'<h2>Who the text places here</h2><p>{tag("attested")}{p["with"]} named with the Prophet ﷺ, {p["against"]} against him, {p["unrecorded"]} with no side recorded.</p>')
+    # &lrm; after ﷺ: the sign is a right-to-left letter (bidi class AL) and would pull the number after it in front of it
+    out.append(f'<h2>Who the text places here</h2><p>{tag("attested")}{p["with"]} named with the Prophet ﷺ&lrm;, {p["against"]} on the other side, {p["unrecorded"]} with no side recorded.</p>')
     if d["connections"]:
         names = {x["slug"]: x["short"] for x in all_data}
         out.append(f'<h2>Connections</h2><p>{tag("computed")}Joined from attested claims: people this text places at this event and at another expedition\'s event.</p><ul>')
@@ -580,7 +611,7 @@ def channel_pack(d):
     for c in d["cases"]:
         if c["type"] == "count":
             L = c["lists"][-1]
-            msgs.append(f"A puzzle: the text gives a total of {L['stated']} for this list ({L['what']}). Before tomorrow, guess: does the list of names hold more, fewer or exactly {L['stated']}?")
+            msgs.append(f"A puzzle: the text gives a total of {L['stated']} for this list ({L['what']}). " + (f"{c['note']} " if c.get("note") else "") + f"Before tomorrow, guess: does the list of names hold more, fewer or exactly {L['stated']}?")
             msgs.append(f"Answer: the reading of the list found {L['found']} names. " + ("They agree. Agreement is evidence too." if L["found"] == L["stated"] else "They differ. Scholars keep three things apart: what happened, the text, and our reading of the text."))
         elif c["type"] == "route":
             msgs.append(f"The text names {c['named']} places on the road from Makkah to Qubāʾ. Only {c['located']} can be placed on a map today. Guess which.")
@@ -589,7 +620,7 @@ def channel_pack(d):
             msgs.append(f"The text gives the weekday: {c['weekday_text']}. " + (f"One computed lunation agrees ({hit[0]['day']})." if hit else "None of the three computed lunations falls on that weekday under a simple crescent rule: a question for the scholars."))
     p = d["people"]
     total = p["with"] + p["against"] + p["unrecorded"]
-    msgs.append(f"The text names {total} people at this event" + (f": {p['with']} with the Prophet ﷺ and {p['against']} against him." if p["against"] else "."))
+    msgs.append(f"The text names {total} people at this event" + (f": {p['with']} with the Prophet ﷺ and {p['against']} on the other side." if p["against"] else "."))
     q = d["questions"][:3]
     msgs.append("Three questions, from memory:\n" + "\n".join(f"{i + 1}. {x['q']}" for i, x in enumerate(q)))
     msgs = msgs[:7]

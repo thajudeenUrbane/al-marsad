@@ -11,7 +11,7 @@ Day 3
 Computed, not reported: on the modern calendar's reckoning (Tuesday 13 March 624) the moon was 96% lit. The date conversion itself is uncertain, so scholars keep the reported date and the converted one apart.
 
 Day 4
-A puzzle: the text gives a total of 314 for this list (All Muslims present at Badr, or given a share). Before tomorrow, guess: does the list of names hold more, fewer or exactly 314?
+A puzzle: the text gives a total of 314 for this list (All Muslims present at Badr, or given a share). 313 in the well-known report, 314 in Ibn Isḥāq's list. Before tomorrow, guess: does the list of names hold more, fewer or exactly 314?
 
 Day 5
 Answer: the reading of the list found 321 names. They differ. Scholars keep three things apart: what happened, the text, and our reading of the text.
@@ -20,4 +20,4 @@ Day 6
 The text gives the weekday: Friday. None of the three computed lunations falls on that weekday under a simple crescent rule: a question for the scholars.
 
 Day 7
-The text names 496 people at this event: 314 with the Prophet ﷺ and 131 against him.
+The text names 496 people at this event: 314 with the Prophet ﷺ and 131 on the other side.

@@ -71,7 +71,7 @@
         <div>
           <p class="kicker">al-Marṣad · expeditions into evidence</p>
           <h1>Stand in the place. Then ask how we know.</h1>
-          <p class="lead">Five moments from Ibn Isḥāq's account of the Prophet's life ﷺ, as Ibn Hishām edited it. Each opens on the real ground under the sky astronomy computes, then hands you a real question in the text to investigate. No one is ever drawn: only places, ground, sky and names.</p>
+          <p class="lead">Five moments from Ibn Isḥāq's account of the Prophet's ﷺ life, as Ibn Hishām edited it. Each opens on the real ground under the sky astronomy computes, then hands you a real question in the text to investigate. No one is ever drawn: only places, ground, sky and names.</p>
           <p class="notice"><b>A working preview.</b> Nothing here is scholar-reviewed. Names and links are claims an AI pass proposed from the text. Press <b>Provenance lens</b> at the top to see where everything comes from.</p>
         </div>
         <div><canvas id="skyline" aria-label="The five expeditions in the order the text tells them, and a light for every name you have opened"></canvas>
@@ -225,6 +225,7 @@
     const allMatch = c.lists.every(l => l.found === l.stated);
     const listsText = c.lists.map(l => `${esc(l.what)}: <b>${l.stated}</b> <span class="muted">(${esc(l.total_page)})</span>`).join("<br>");
     body.innerHTML = `<div class="stack">
+      ${c.note ? prov(c.note_class || "schematic", esc(c.note), "p", 'class="muted"') : ""}
       ${groups ? `<div class="panel"><h3 style="margin-top:0">1 · Do the totals agree with each other?</h3>
         <p data-prov="attested">${c.lists.slice(0, -1).map(l => `<b>${l.stated}</b> ${esc(groups[c.lists.indexOf(l)])}`).join(", ")}. Then a grand total: <b>${L.stated}</b>.</p>
         ${guide("Before anything else: add them. Does the author's own arithmetic hold?")}
@@ -346,11 +347,12 @@
   function people(X, body) {
     const P = X.people, total = P.with + P.against + P.unrecorded;
     const pct = n => (n / Math.max(1, total) * 100).toFixed(1) + "%";
+    // &lrm; after ﷺ: the sign is a right-to-left letter (bidi class AL) and would pull the number after it in front of it
     body.innerHTML = `<div class="panel">
-      <p data-prov="attested">The text places <b>${total}</b> named people at this event: <b>${P.with}</b> with the Prophet ﷺ, <b>${P.against}</b> against him, and <b>${P.unrecorded}</b> with no side recorded.</p>
+      <p data-prov="attested">The text places <b>${total}</b> named people at this event: <b>${P.with}</b> with the Prophet ﷺ&lrm;, <b>${P.against}</b> on the other side, and <b>${P.unrecorded}</b> with no side recorded.</p>
       <div class="bar" aria-hidden="true"><span style="width:${pct(P.with)};background:var(--p-attested)"></span><span style="width:${pct(P.unrecorded)};background:var(--quiet)"></span><span style="width:${pct(P.against)};background:var(--dark-mark)"></span></div>
       <p class="muted">No one is drawn. Opponents are listed last, as dark marks, never as lights. A side is shown only where a claim records it; nobody's side is guessed. Honorifics wait until a scholar accepts the claim they rest on.</p>
-      <div class="row" role="group" aria-label="Filter people" style="margin-block:8px">${["all", "with", "not recorded", "against"].map(f => `<button class="pf" data-f="${f}" aria-pressed="${f === "all"}">${{ all: "Everyone", with: "With the Prophet ﷺ", "not recorded": "No side recorded", against: "Against" }[f]}</button>`).join("")}</div>
+      <div class="row" role="group" aria-label="Filter people" style="margin-block:8px">${["all", "with", "not recorded", "against"].map(f => `<button class="pf" data-f="${f}" aria-pressed="${f === "all"}">${{ all: "Everyone", with: "With the Prophet ﷺ", "not recorded": "No side recorded", against: "On the other side" }[f]}</button>`).join("")}</div>
       <ul class="people" id="plist"></ul></div>`;
     const list = f => {
       $$(".pf", body).forEach(b => b.setAttribute("aria-pressed", b.dataset.f === f));

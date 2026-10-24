@@ -225,6 +225,9 @@ else
 fi
 step "learn: tests"                                "$PY" -m unittest discover -s learn/tests
 step "ask: tests"                                  "$PY" -m unittest discover -s ask/tests
+# The review queue file is written by "review: build the review pages" above.
+step "exhibition: figures match the data"         "$PY" exhibition/build.py --queue review/dist/queue.json --check
+step "exhibition: the walk and the printed page"  browser_check exhibition/check.cjs
 step "ci: actions pinned to commit SHAs"           actions_pinned
 
 # --- summary ------------------------------------------------------------------

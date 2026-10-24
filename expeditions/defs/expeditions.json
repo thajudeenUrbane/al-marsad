@@ -1,5 +1,5 @@
 {
-  "about": "Hand-written definitions of the expeditions. Everything here is either a pointer into the graph (event names as the claims write them, count-check keys), a gazetteer point with its source, a short name or date phrase copied from the text (allowed by the licence note in ontology/corpus/ibn-hisham-full.ttl), or a question. No fact is asserted here that the graph or the text does not carry. English renderings of Arabic phrases are AI drafts, unreviewed (maintainer answer S5).",
+  "about": "Hand-written definitions of the expeditions. Everything here is either a pointer into the graph (event names as the claims write them, count-check keys), a gazetteer point with its source, a short name or date phrase copied from the text (allowed by the licence note in ontology/corpus/ibn-hisham-full.ttl), or a question. No fact is asserted here that the graph or the text does not carry, with one exception: the 313 in the note on the Badr count is the well-known report (scholar audit B3), which the corpus does not carry; a scholar should confirm it and its wording. The other notes only say what a number counts. English renderings of Arabic phrases are AI drafts, unreviewed (maintainer answer S5).",
   "places": {
     "makkah":   {"name": "Makkah", "lat": 21.39132, "lon": 39.83612, "source": "al-Thurayya MAKKA_398E213N_S (CC BY 4.0)", "status": "proposed"},
     "madinah":  {"name": "Madinah", "lat": 24.47782, "lon": 39.60908, "source": "al-Thurayya MADINA_396E244N_S (CC BY 4.0)", "status": "proposed"},
@@ -24,7 +24,7 @@
       "events": ["The emigration to Abyssinia", "The migration to Abyssinia and the Negus's protection"],
       "date": null,
       "no_date_note": "The text gives no date for the emigration, so no sky is drawn. Drawing one would need a date the text does not give.",
-      "cases": [{"type": "count", "keys": ["abyssinia_men"], "title": "Eighty-three men"}],
+      "cases": [{"type": "count", "keys": ["abyssinia_men"], "title": "Eighty-three men", "note": "Three different counts: the total the text states for this list, the names the extraction found in it, and the name records at this event with no side recorded (counted separately, under who was there).", "note_class": "schematic"}],
       "notice": [
         "The text gives no date here. What would you need before you could draw the sky of that crossing?",
         "Makkah to this point is a long way. Which parts of that distance are known, and which are only computed?"
@@ -53,7 +53,7 @@
         }
       },
       "cases": [
-        {"type": "count", "keys": ["aqaba_second"], "title": "Seventy-three men and two women"},
+        {"type": "count", "keys": ["aqaba_second"], "title": "Seventy-three men and two women", "note": "Three different counts: the total the text states for this list, the names the extraction found in it, and the name records at this event with no side recorded (counted separately, under who was there).", "note_class": "schematic"},
         {"type": "moment", "title": "A third of the night"}
       ],
       "notice": [
@@ -133,7 +133,7 @@
         "event_for_claims": "Battle of Badr"
       },
       "cases": [
-        {"type": "count", "keys": ["badr_emigrants", "badr_aws", "badr_khazraj", "badr_all"], "groups": {"badr_emigrants": "Emigrants", "badr_aws": "Aws", "badr_khazraj": "Khazraj"}, "title": "The 314"},
+        {"type": "count", "keys": ["badr_emigrants", "badr_aws", "badr_khazraj", "badr_all"], "groups": {"badr_emigrants": "Emigrants", "badr_aws": "Aws", "badr_khazraj": "Khazraj"}, "title": "The 314", "note": "313 in the well-known report, 314 in Ibn Isḥāq's list.", "note_class": "attested"},
         {"type": "date", "title": "Which Friday?"}
       ],
       "notice": [
