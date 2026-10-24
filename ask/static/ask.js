@@ -1062,6 +1062,7 @@
       if (Array.from(raw).length > LIMITS.question_max) { out.outcome = "too_long"; return out; }
       if (rx(RULES.dsl_direct).test(raw.toLowerCase())) { out.direct = 1; return runQuery(raw, out); }
       var q = stripTrailing(textKey(raw));
+      if (!q) { out.outcome = "empty"; return out; }
       var cls = classifyRefusal(q);
       if (cls) { out.outcome = "refusal"; out.refusal = cls; return out; }
       q = stripFillers(q);

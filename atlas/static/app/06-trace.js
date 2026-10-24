@@ -1,4 +1,4 @@
-/* Sky Atlas, part 6 of 8 — tracing threads between two records, and search. */
+/* Sky Atlas, part 6 of 10 — tracing threads between two records, and search. */
 
 // fewest steps (a family step counts two); never through the Prophet ﷺ, who is linked to
 // almost everyone, and unless asked never through names known only from lineages

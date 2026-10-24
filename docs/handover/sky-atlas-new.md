@@ -36,3 +36,14 @@ Decisions to confirm: chain distance counts the 11 recorded chains and every `na
 Checks: `atlas/check.cjs` now walks every feature at desktop and 390 × 844 (all pass, no page error, no external request); the page script is split into `static/app/01-core.js` … `08-main.js`, joined by the build.
 
 **Published.** As an Artifact (private until shared); the link is in `pages/README.md`.
+
+## Round 3 (22 October 2026): Ask, the merge review, class notes
+
+Chosen by the maintainer from the session's suggestions, with the Atlas onto `main` (PR #31) and the work board.
+
+- **Adversarial questions first (rule A2).** `ask/golden/adversarial.jsonl`: 89 questions written to make the Ask engine do what it must not. They cover refusals in other words, a refusal hidden inside an answerable question, instructions aimed at the translator, hostile typed-in queries, names not in the graph, limits, and fair questions that must still be answered. `ask/tests/test_adversarial.py` runs them, and the parity test runs them through the browser port too. Nothing was answered that should not have been, but 22 were turned away as "not understood" instead of refused with their reason; new refusal patterns in `ask/rules.json` cover them. A question of punctuation only is now empty. The set is in-house: docs/07 §9 still asks for one written by people trying to break the engine, with published results.
+- **Ask in the Atlas.** A tab in the drawer runs the same engine over the joined graph; no model. Answers light their names on the sky and open records. English questions only for now (the Arabic interface says so).
+- **Merges.** It overlapped the review pages' screen (PR #30, now merged). The maintainer chose on 22 October: the review pages record decisions (through the roster and `review/import_decisions.py`); the Atlas's Merges tab is a study aid. It shows the 908 proposals with their evidence, Compare on the sky, and each decision the file records. Your own working list stays in this browser, is never shown as recorded, and copies out with `decided_by` blank.
+- **Class notes** on every record: shared where the page is published with a shared store (editors write, all read), otherwise kept in the browser.
+
+Checks: `atlas/check.cjs` walks Ask, the merge review and notes at both sizes; `atlas/tests` (12) checks that the page carries `ask/static/ask.js` unchanged and calls no model; `ask/tests` (all, with parity).

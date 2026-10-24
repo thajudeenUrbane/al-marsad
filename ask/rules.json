@@ -40,26 +40,39 @@
     {"class": "fabrication", "patterns": [
       " (?:write|compose|generate|create|make up|invent|fabricate|draft|produce|forge) (?:me |us )?(?:a |an |some |the |one |new |short |fake |original )*(?:hadith|hadiths|ahadith|narration|narrations|saying|sayings|report|reports|quote|quotes|quotation|verse|verses|ayah|ayat|surah|dua|supplication|sermon|khutbah|chain|isnad)(?: |$)",
       " (?:write|compose|generate|create|make up|invent|fabricate|forge) .*(?:hadith|narration|isnad|saying of the prophet|quote from the prophet|words of the prophet)",
-      " (?:write|compose|generate|create|make up|invent|draft) (?:me |us )?(?:a |an |some |the |new |short )*(?:story|stories|tale|tales|poem|poems|biography|account|narrative) (?:about|of|on|for) "
+      " (?:write|compose|generate|create|make up|invent|draft) (?:me |us )?(?:a |an |some |the |new |short )*(?:story|stories|tale|tales|poem|poems|biography|account|narrative) (?:about|of|on|for) ",
+      " (?:quote|recite|continue|complete|finish) (?:me |us )?(?:the |a |an |some )?(?:prophet|hadith|hadiths|ahadith|verse|verses|ayah|ayat|surah|quran|qur'an|narration|narrations|dua|sermon|khutbah|words|saying|sayings)(?: |:|$)",
+      " give (?:me |us )?(?:a |an |some |the )?(?:hadith|hadiths|ahadith|narration|narrations|quote|quotes|saying|sayings|dua) (?:about|on|for|that|of|from) ",
+      " (?:write|compose|draft|generate|create|make up|invent|script) (?:me |us )?(?:a |an |some |the )*(?:speech|speeches|letter|letters|dialogue|dialogues|conversation|conversations|script|scripts|monologue|diary|words|sermon|khutbah) "
     ]},
     {"class": "depiction", "unless": " (?:map|maps|route|routes|graph|network|chart|timeline|diagram|family tree|table) ", "patterns": [
       " (?:image|images|picture|pictures|pic|pics|photo|photos|photograph|photographs|portrait|portraits|drawing|drawings|painting|paintings|sketch|sketches|illustration|illustrations|depiction|depictions|statue|statues|avatar|likeness|cartoon|cartoons|animation|3d model|selfie) ",
       " (?:draw|paint|sketch|illustrate|depict|animate|render|visualise|visualize) ",
       " (?:look|looked|looks) like ",
       " (?:his|her|their) (?:face|faces|appearance|features|complexion) ",
-      " (?:face|appearance|complexion) of "
+      " (?:face|appearance|complexion) of ",
+      " (?:describe|description of) (?:the )?[a-z' -]*(?:face|faces|appearance|features|complexion|looks|body|beard|hair|eyes|height)(?: |$)",
+      "'s (?:face|appearance|features|complexion|beard|hair|eyes|height|skin)(?: |$)",
+      " how (?:tall|short|handsome|beautiful|heavy) (?:was|is|were|are) ",
+      " (?:height|complexion|skin colour|skin color|eye colour|eye color|hair colour|hair color|beard) of "
     ]},
     {"class": "grading", "patterns": [
       " (?:authentic|authenticity|sahih|saheeh|da'?if|daeef|weak|fabricated|forged|mawdu'?|hasan|graded|grading|grade|reliable|unreliable|trustworthy|sound) (?:hadith|hadiths|narration|narrations|report|reports|chain|chains|isnad|tradition|traditions)",
       " (?:hadith|hadiths|narration|narrations|report|reports|isnad|tradition|traditions) .*(?:authentic|sahih|saheeh|da'?if|weak|fabricated|forged|mawdu'?|hasan|reliable|trustworthy|sound|true|real|correct|graded|grade)(?: |$)",
       " (?:is|are|was|were) (?:the |this |that |these |those )?(?:hadith|hadiths|narration|narrations|report|reports|story|stories|chain|isnad) (?:of [a-z' -]+ )?(?:authentic|true|real|reliable|sahih|correct|weak|fabricated|forged|sound)",
-      " (?:grade|authenticate|verify the hadith|check the authenticity of|how strong is|how authentic is) "
+      " (?:grade|authenticate|verify the hadith|check the authenticity of|how strong is|how authentic is) ",
+      " (?:weakest|strongest|most authentic|least authentic|most reliable|least reliable|soundest) (?:hadith|hadiths|narration|narrations|report|reports|chain|chains|isnad|narrator|narrators)(?: |$)",
+      " how (?:reliable|unreliable|trustworthy|truthful|strong|weak) (?:is|was|were|are) ",
+      " (?:was|is|were|are) [a-z' -]+ (?:reliable|unreliable|trustworthy|untrustworthy|truthful|a liar|liars|a reliable narrator|a weak narrator|thiqa|thiqah)(?: |$)"
     ]},
     {"class": "interpretation", "patterns": [
       " (?:meaning|meanings|interpretation|interpretations|tafsir|tafseer|exegesis|explanation|explain|interpret|lesson|lessons|moral|wisdom) (?:of |behind |in |from )?(?:this |that |the |a )?(?:verse|verses|ayah|ayat|aya|surah|sura|surat|quran|qur'an|koran|hadith|hadiths|scripture|revelation|revelations)",
       " (?:verse|verses|ayah|ayat|aya|surah|sura|surat|quran|qur'an|koran|scripture) .*(?:mean|means|meant|meaning|teach|teaches|interpret|interpreted|signify|signifies|symbolise|symbolize)(?: |$)",
       " what (?:does|did|is) (?:allah|god) (?:mean|meant|saying|say) ",
-      " what (?:is|was|are|were) the (?:lesson|lessons|moral|morals|wisdom) (?:of|from|behind|in) "
+      " what (?:is|was|are|were) the (?:lesson|lessons|moral|morals|wisdom) (?:of|from|behind|in) ",
+      " why did (?:allah|god) ",
+      " what (?:can|should|do|does|did) (?:we|i|one|muslims|you|people) learn (?:from|of) ",
+      " (?:teach|teaches|taught) us "
     ]},
     {"class": "ruling", "patterns": [
       " (?:fatwa|fatwas|fatawa|fatwah|ruling|rulings|hukm|ahkam) ",
@@ -68,7 +81,10 @@
       " (?:allowed|permissible|permitted|forbidden|lawful|unlawful|prohibited|obligatory|mandatory|sinful) (?:in islam|for muslims|for a muslim|for me|for us|for women|for men) ",
       " (?:can|may|should|must|shall|could) (?:i|we|a muslim|muslims|women|men|a woman|a man|one) (?:eat|drink|pray|marry|wear|listen|celebrate|fast|touch|shake hands|shave|dye|pluck|smoke|gamble|divorce|tattoo|pierce|sing|dance|combine|delay|miss|break|pay|take interest|charge interest|buy|sell|trim|grow|cut|keep a dog|keep dogs|own|bet|lend|borrow|invest|work|vote|perform|recite) ",
       " what (?:does|do|did) (?:islam|the quran|the qur'an|the sunnah|sharia|shariah|the sharia|the shariah|the scholars|scholars|the madhhab|the madhhabs) (?:say|says|teach|teaches|rule|hold) ",
-      " (?:islamic|religious) (?:view|position|stance|perspective|opinion) (?:on|about|of) "
+      " (?:islamic|religious) (?:view|position|stance|perspective|opinion) (?:on|about|of) ",
+      " (?:is|are) [a-z' -]+ (?:allowed|permissible|permitted|impermissible|forbidden|lawful|unlawful|prohibited|halal|haram|obligatory|sinful)(?: |$)",
+      " (?:am i|are we|is a muslim|are muslims|are women|are men) (?:allowed|permitted|obliged|required|forbidden) ",
+      " what does islam say about "
     ]},
     {"class": "judgement", "patterns": [
       " (?:was|is|were|are) .*(?:a |an )?(?:hypocrite|hypocrites|munafiq|munafiqun|munafiqin|kafir|kuffar|disbeliever|disbelievers|apostate|apostates|sinner|sinners|heretic|heretics|evil|wicked|cursed|accursed|damned|traitor|traitors|bad person|good person|bad muslim|good muslim|true believer|real muslim|righteous person)(?: |$)",
@@ -78,7 +94,8 @@
       " who (?:was|is|were|are) (?:right|wrong|to blame|at fault|guilty|in the right|in the wrong)(?: |$)",
       " (?:was|is|were|are) [a-z' -]*(?:right|wrong) (?:at|in|about) (?:siffin|jamal|the fitna|fitna|the battle of the camel|the camel|karbala)",
       " (?:who|which) [a-z' -]*(?:to blame|at fault|guilty) ",
-      " (?:curse|cursing|condemn|condemning|insult|insulting) "
+      " (?:curse|cursing|condemn|condemning|insult|insulting) ",
+      " (?:went|go|goes|going|enter|entered|entering|sent) (?:to |into )?(?:paradise|heaven|hell|jannah|jahannam|the fire|hellfire)(?: |$)"
     ]},
     {"class": "ranking", "patterns": [
       " (?:greatest|best|holiest|noblest|most important|most significant|most pious|most virtuous|most righteous|most beloved|most influential|most central|most connected|most knowledgeable|most famous|most powerful|most honoured|most honored|most excellent|most superior|most loved|most senior|most prominent|most notable|most respected|top|highest ranked|highest-ranked|superior|supreme) (?:\\d+ |ten |five |three |two )?(?:companion|companions|sahabi|sahaba|sahabah|person|people|man|men|woman|women|wife|wives|caliph|caliphs|muslim|muslims|believer|believers|scholar|scholars|narrator|narrators|leader|leaders|general|generals|fighter|fighters|warrior|warriors|member|members|figure|figures|follower|followers|human|humans|one|ones|individual|individuals|of them|of all)(?: |$)",
@@ -88,13 +105,25 @@
       " rank (?:the|these|them|all|companions|people|caliphs) ",
       " (?:better|greater|holier|nobler|superior|more important|more pious|more virtuous|more righteous|more beloved|more significant|more knowledgeable|more central|more influential|more excellent|more senior|more worthy) (?:than|or) ",
       " (?:the )?most (?:battles|events|stories|connections|links|ties|relatives|wives|children|narrations|hadith|hadiths|reports|claims|records|followers|students|appearances|mentions|virtues)(?: |$)",
-      " (?:centrality|betweenness|pagerank|page rank|degree centrality|influence score|importance score|importance ranking) "
+      " (?:centrality|betweenness|pagerank|page rank|degree centrality|influence score|importance score|importance ranking) ",
+      " who (?:is|was|were|are) (?:the )?(?:worst|lowest|weakest|least [a-z]+)(?: |$)",
+      " (?:worst|lowest|least important|least significant|least pious|least virtuous) (?:companion|companions|sahabi|sahaba|sahabah|person|people|man|men|woman|women|wife|wives|caliph|caliphs|muslim|muslims|believer|believers|narrator|narrators|leader|leaders|one|ones|of them|of all)(?: |$)",
+      " (?:love|loved|loves|like|liked|likes|prefer|preferred|prefers) (?:him |her |them )?(?:the )?most(?: |$)",
+      " (?:favourite|favorite) (?:wife|wives|companion|companions|child|children|son|daughter|person|people)(?: |$)",
+      " (?:rate|score) [a-z' -]+ (?:out of|on a scale)"
     ]},
     {"class": "speculation", "patterns": [
       " (?:probably|likely|possibly|presumably|perhaps|maybe) ",
       " (?:might|may|could|would|must) have ",
       " (?:imagine|guess|speculate|speculation|hypothetical|hypothetically|suppose|supposing|what if|fill in|fill the gap|fill the gaps|make up|invent) ",
-      " what would "
+      " what would ",
+      " what do you think ",
+      " (?:in your|in my) (?:opinion|view)",
+      " your (?:opinion|view|views|thoughts|take|guess) ",
+      " how did [a-z' -]+ feel(?: |$)",
+      " what (?:did|was|were) [a-z' -]+ (?:feel|feeling|thinking|think) ",
+      " [a-z]+ felt (?:in|when|at|after|during|about) ",
+      " hypothetically"
     ]}
   ],
 

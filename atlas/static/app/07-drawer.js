@@ -1,5 +1,5 @@
-/* Sky Atlas, part 7 of 8 — the Atlas drawer: Guide, Show, Index, Logbook, Text view and
-   Key, and the logbook's milestones. */
+/* Sky Atlas, part 7 of 10 — the Atlas drawer: Guide, Ask (part 8), Show, Index, Merges
+   (part 9), Logbook, Text view and Key, and the logbook's milestones. */
 let TAB = "guide";
 function openDrawer(tab) {
   if (tab) TAB = tab;
@@ -11,7 +11,7 @@ function closeDrawer() { $("drawer").hidden = true; $("open-atlas").setAttribute
 function renderDrawer() {
   document.querySelectorAll(".tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === TAB)));
   const body = $("drawer-body");
-  body.replaceChildren(...({ guide: drawerGuide, show: drawerShow, index: drawerIndex, log: drawerLog, text: drawerText, key: drawerKey })[TAB]().filter(Boolean));
+  body.replaceChildren(...({ guide: drawerGuide, ask: drawerAsk, show: drawerShow, index: drawerIndex, merges: drawerMerges, log: drawerLog, text: drawerText, key: drawerKey })[TAB]().filter(Boolean));
   body.scrollTop = 0;
 }
 const title = (s) => h("p", { class: "section-title" }, s);
@@ -178,7 +178,8 @@ function drawerLog() {
   const out = [title(t("log.title")), h("p", { class: "muted" }, t("log.note")),
     h("div", { class: "stats" }, h("div", null, h("b", null, fmt(seen)), h("span", null, t("log.people", { n: fmt(META.counts.kinds.person) }))),
       h("div", null, h("b", null, fmt(ev)), h("span", null, t("log.events", { n: fmt(META.counts.kinds.event) }))),
-      h("div", null, h("b", null, fmt(pl)), h("span", null, t("log.places", { n: fmt(META.counts.kinds.place) }))))];
+      h("div", null, h("b", null, fmt(pl)), h("span", null, t("log.places", { n: fmt(META.counts.kinds.place) }))),
+      LOG.asked ? h("div", null, h("b", null, fmt(LOG.asked)), h("span", null, t("log.asked"))) : null)];
   // the star chart
   out.push(title(t("star.title")), h("p", { class: "muted" }, t("star.note")));
   const stars = STARS.map(byId).filter((i) => i >= 0);

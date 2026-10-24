@@ -206,7 +206,7 @@
   "refusal.ruling.offer": "Please ask a qualified scholar. What the tool can do is show what the graph records about people, events and places, with the source and review status of each claim.",
   "refusal.interpretation.reason": "This tool does not interpret the Qur'an or hadith, or draw lessons from them.",
   "refusal.interpretation.offer": "That is the work of qualified scholars. The tool can show where and when the graph records an event, and who it records as present.",
-  "refusal.grading.reason": "This tool does not grade reports or hadith, and it does not say whether a report is authentic.",
+  "refusal.grading.reason": "This tool does not grade reports, hadith or narrators, and it does not say whether a report is authentic or a narrator reliable.",
   "refusal.grading.offer": "Grading is an act by named scholars. Where the graph records one, the report's page shows it with who made it. Each claim here shows only how far it has been reviewed.",
   "refusal.fabrication.reason": "This tool never writes hadith, reports, sayings or stories about the Prophet ﷺ or the Companions, under any framing.",
   "refusal.fabrication.offer": "Everything it shows comes from the graph's records, with their sources. Try asking who is recorded at an event, or which stories name a person.",

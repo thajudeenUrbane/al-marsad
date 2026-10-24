@@ -1,4 +1,4 @@
-/* Sky Atlas, part 2 of 8 — the eight views. Each gives every mark a position (or leaves
+/* Sky Atlas, part 2 of 10 — the eight views. Each gives every mark a position (or leaves
    it out), the labels its scale needs, and the lines drawn under it. A mark a view
    cannot place from recorded data goes on that view's labelled shelf, never onto the
    axis, the map, the dial or the chain. */

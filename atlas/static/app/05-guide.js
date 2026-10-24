@@ -1,4 +1,4 @@
-/* Sky Atlas, part 5 of 8 — guided tours, vantage points, why each stop was chosen,
+/* Sky Atlas, part 5 of 10 — guided tours, vantage points, why each stop was chosen,
    recall, reading aloud, and quests. A tour's order always comes from the record. */
 let TOURS = [];
 function buildTours() {
