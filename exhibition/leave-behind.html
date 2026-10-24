@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>al-Marṣad · a page to keep</title>
+<!-- One A4 page to hand over at the close. Every figure is a key filled from numbers.js, as on the
+     halls; the presenter's line comes from the git-ignored presenter.local.json. System fonts only. -->
+<style>
+  @page { size: A4; margin: 11mm 14mm; }
+  :root {
+    --ink: #1c1e26;
+    --muted: #4f5466;
+    --faint: #767b8c;
+    --line: #d6d1c3;
+    --paper: #fff;
+    --desk: #e7e4dc;
+    --ar: "DecoType Naskh", "Geeza Pro", serif;
+    --display: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--desk); }
+  body { margin: 0; color: var(--ink); font: 9pt/1.37 var(--body); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sheet { width: 210mm; min-height: 297mm; margin: 10mm auto; padding: 11mm 14mm; background: var(--paper); box-shadow: 0 1px 10px rgba(0, 0, 0, 0.18); }
+  @media print {
+    html { background: none; }
+    .sheet { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+    .no-print { display: none !important; }
+  }
+  .print { position: fixed; top: 12px; right: 12px; font: inherit; font-size: 11pt; padding: 0.45em 0.9em; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); cursor: pointer; }
+
+  [lang="ar"] { font-family: var(--ar); font-size: 1.15em; line-height: 1.6; letter-spacing: 0; }
+  span[lang="ar"] { line-height: 1; }
+  .nw { white-space: nowrap; }
+  .hon { font-family: var(--ar); font-size: 1.25em; line-height: 1; unicode-bidi: isolate; }
+  .words { white-space: normal; }
+
+  h1, h2 { font-family: var(--display); font-weight: normal; margin: 0; }
+  h2 { font-size: 12pt; border-bottom: 1px solid var(--line); padding-bottom: 0.8mm; margin: 3.4mm 0 1.4mm; display: flex; justify-content: space-between; align-items: baseline; }
+  h2 [lang="ar"] { font-size: 1em; color: var(--muted); }
+  p { margin: 0 0 1.4mm; }
+  ul, ol { margin: 0; padding-left: 1.2em; }
+  li { margin-bottom: 0.5mm; }
+  b { font-weight: 600; }
+
+  .basmala { text-align: center; font-size: 15pt; margin: 0; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; margin-top: 1mm; }
+  h1 { font-size: 20pt; }
+  h1 [lang="ar"] { font-size: 1em; }
+  .date { color: var(--muted); margin: 0; }
+  .lede { font-family: var(--display); font-size: 11pt; line-height: 1.35; margin: 1mm 0 0; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; }
+  .two h3 { font: 600 9.3pt/1.4 var(--body); margin: 0 0 0.8mm; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 7.8pt; }
+  .zero { font-size: 10.5pt; margin-bottom: 2mm; }
+  .zero .big { font-family: var(--display); font-size: 17pt; line-height: 1; }
+
+  .asks > li { margin-bottom: 1mm; }
+  .asks ul { margin-top: 0.6mm; }
+  .made { margin: 1.4mm 0 0; }
+  .credit { color: var(--muted); font-style: italic; margin: 1.2mm 0 0; }
+
+  .step { border: 1px solid var(--ink); border-radius: 2mm; padding: 2mm 3.5mm; margin-top: 3.4mm; display: grid; grid-template-columns: auto 1fr auto; gap: 5mm; align-items: baseline; }
+  .step h2 { border: 0; margin: 0; padding: 0; font-size: 11.5pt; }
+  .step p { margin: 0; }
+  .agreed { white-space: nowrap; }
+  .agreed .blank { display: inline-block; width: 42mm; border-bottom: 1px solid var(--ink); }
+
+  footer { margin-top: 3mm; display: flex; justify-content: space-between; align-items: baseline; gap: 6mm; }
+  .contact { color: var(--muted); margin: 0; }
+  .fill:empty { display: inline-block; min-width: 55mm; border-bottom: 1px solid var(--line); height: 1.1em; vertical-align: -0.2em; }
+  .role:not(:empty)::before { content: ", "; }
+  .sep-line:not(:empty)::before { content: " · "; }
+  .thanks { margin: 0; font-size: 13pt; }
+  .fine { color: var(--faint); font-size: 7.6pt; margin: 2mm 0 0; }
+</style>
+</head>
+<body>
+<button class="print no-print" type="button" id="print">Print on A4: one page</button>
+<main class="sheet">
+  <p class="basmala" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</p>
+  <div class="top">
+    <h1>al-Marṣad <span aria-hidden="true">·</span> <span lang="ar" dir="rtl">المرصد</span></h1>
+    <p class="date">24 October 2026</p>
+  </div>
+  <p class="lede">A map of the Sīra of the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span> <span class="words" aria-hidden="true">(peace and blessings be upon him)</span>: it shows where each report comes from, and leaves every ruling to scholars.</p>
+
+  <h2>What it is</h2>
+  <div class="two">
+    <div>
+      <h3>What it does</h3>
+      <ul>
+        <li><b>Where it comes from.</b> A statement from the Sīra of <span class="nw">Ibn Hishām <span class="hon" lang="ar" dir="rtl" role="img" aria-label="may Allah have mercy on him">رحمه الله</span></span> carries its volume and page, and its line in the digital text.</li>
+        <li><b>How it was carried.</b> Where the text gives a chain of narrators, it is recorded link by link.</li>
+        <li><b>Where reports differ.</b> Each report is kept with its own source. The software never chooses between them.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What it will not do</h3>
+      <ul>
+        <li>Depict the <span class="nw">Prophet <span class="hon" role="img" aria-label="peace and blessings be upon him">ﷺ</span></span>, his family, the Companions, or any person.</li>
+        <li>Give a ruling or a fatwa.</li>
+        <li>Let software grade the authenticity of a report.</li>
+        <li>Show a contested matter as settled.</li>
+        <li>Close itself off: everything stays open to check, copy and correct.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="made"><b>How it is made.</b> One maintainer compiled the statements with AI help. The 50 Stories were written by AI and are not a source, so each claim taken from them needs a real source. Every statement stays “proposed” until a scholar accepts it.</p>
+
+  <h2>What is built, what waits <span lang="ar" dir="rtl">ما بُني وما ينتظر</span></h2>
+  <p class="zero"><span class="big" data-n="atlas.reviewed"></span> statements reviewed by a scholar so far. All <span data-n="atlas.statements"></span> statements are proposed.</p>
+  <div class="two">
+    <div>
+      <h3>Built</h3>
+      <ul>
+        <li>A sky of <span data-n="atlas.marks"></span> marks: <span data-n="atlas.person_records"></span> name records, <span data-n="atlas.events"></span> events, <span data-n="atlas.places"></span> places, <span data-n="atlas.stories"></span> stories, <span data-n="atlas.groups"></span> groups.</li>
+        <li><span data-n="atlas.chains"></span> chains of narration recorded link by link.</li>
+        <li>Expeditions: Badr, Uḥud, the Hijra, ʿAqaba and Abyssinia, each with a halaqa room.</li>
+        <li>A review queue: <span data-n="review.queue_statements"></span> statements in <span data-n="review.queue_batches"></span> batches.</li>
+        <li>A pilot pack, ready to send: <span data-n="review.pilot_statements"></span> statements from the 50 Stories, each needing a real source before it can be accepted, and the first <span data-n="review.pilot_identity"></span> identity questions.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Waits</h3>
+      <ul>
+        <li><span data-n="review.identity_questions"></span> identity questions (“is this the same person?”) and <span data-n="review.merge_proposals"></span> proposed merges of name records.</li>
+        <li><span data-n="atlas.dated_events"></span> of <span data-n="atlas.events"></span> events have a date; <span data-n="atlas.located_places"></span> of <span data-n="atlas.places"></span> places have a location.</li>
+        <li>A review board, and the tradition it declares.</li>
+        <li>A scholar’s first decision.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>What we hope for <span lang="ar" dir="rtl">ما نرجوه</span></h2>
+  <ol class="asks">
+    <li><b>A first review.</b> That one scholar reviews the pilot pack, <span data-n="review.pilot_statements"></span> statements from the 50 Stories and the first <span data-n="review.pilot_identity"></span> identity questions, by a date you choose. We suggest Sunday 1 November.</li>
+    <li><b>Your guidance on direction.</b>
+      <ul>
+        <li>On public pages that carry no review language, should each statement still show its source line?</li>
+        <li>Who classifies opponents and conversions, and how should the hard cases be shown: Abū Ṭālib, the munāfiqūn such as ʿAbd Allāh b. Ubayy, the Jewish clans of Madinah, people whose Islam is disputed, and anyone with no recorded date of accepting Islam?</li>
+        <li>Which tradition the first review board declares. Our draft: <span data-t="review.tradition_default"></span>.</li>
+        <li>The convention for the honorifics of the Companions.</li>
+      </ul>
+    </li>
+    <li><b>Your advice on a home.</b> On a custodian for al-Marṣad, and on funding.</li>
+  </ol>
+  <p class="credit">Publicly, decisions are credited to the review board, not to a reviewer by name, unless the reviewer agrees to be named later.</p>
+
+  <section class="step" aria-label="The first step">
+    <h2>The first step</h2>
+    <p>One scholar reviews the pilot pack. We suggest Sunday 1 November 2026.</p>
+    <p class="agreed">Agreed date: <span class="blank"></span></p>
+  </section>
+
+  <footer>
+    <p class="contact">Presented by <span class="fill" data-presenter="name"></span><span class="role" data-presenter="role"></span><span class="sep-line" data-presenter="contact"></span></p>
+    <p class="thanks" lang="ar" dir="rtl">جزاكم الله خيراً</p>
+  </footer>
+  <p class="fine">Every decision is recorded, and software never accepts a claim on its own. The figures on this page are counted from the data.</p>
+</main>
+<script src="numbers.js"></script>
+<script>
+  (() => {
+    "use strict";
+    const N = window.EXHIBITION_NUMBERS || {};
+    const en = new Intl.NumberFormat("en-GB");
+    const get = key => key.split(".").reduce((o, k) => (o == null ? undefined : o[k]), N);
+    const $$ = s => [...document.querySelectorAll(s)];
+    // Text from the data, with each ﷺ set as the marked honorific, as on the halls.
+    function setText(el, text) {
+      el.textContent = "";
+      String(text).split("ﷺ").forEach((part, i) => {
+        if (i) {
+          const s = document.createElement("span");
+          s.className = "hon";
+          s.setAttribute("role", "img");
+          s.setAttribute("aria-label", "peace and blessings be upon him");
+          s.textContent = "ﷺ";
+          el.append(s);
+        }
+        el.append(part);
+      });
+    }
+    $$("[data-n]").forEach(el => {
+      const v = get(el.dataset.n);
+      if (v !== undefined) el.textContent = typeof v === "number" ? en.format(v) : String(v);
+    });
+    $$("[data-t]").forEach(el => {
+      const v = get(el.dataset.t);
+      if (v !== undefined) setText(el, v);
+    });
+    document.getElementById("print").addEventListener("click", () => window.print());
+    // The presenter's line; without the file it stays a blank line to write on.
+    const presenter = fetch("presenter.local.json", { cache: "no-store" })
+      .then(r => (r.ok ? r.json() : {}))
+      .catch(() => ({}))
+      .then(p => $$("[data-presenter]").forEach(el => {
+        const v = p && p[el.dataset.presenter];
+        if (typeof v === "string" && v.trim()) el.textContent = v.trim();
+      }));
+    Promise.all([presenter, document.fonts ? document.fonts.ready : null]).then(() => {
+      document.documentElement.dataset.ready = "1";
+    });
+  })();
+</script>
+</body>
+</html>
