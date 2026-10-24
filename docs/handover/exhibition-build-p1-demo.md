@@ -5,8 +5,7 @@ Branch `claude/exhibition-p1`, cut from `main`. One commit, not pushed. Touches 
 the data stays as the ontology holds it, and the page frames it.
 
 Sources: `docs/handover/exhibition-audit-scholar.md` (rows A1, A2, A3, B9 and list item 4) and
-`docs/handover/exhibition-build-brief.md` (P1). Those two files live in the exhibition worktree, not on
-this branch.
+`docs/handover/exhibition-build-brief.md` (P1). Those two files reached `main` with PR #38.
 
 ## At a glance
 
