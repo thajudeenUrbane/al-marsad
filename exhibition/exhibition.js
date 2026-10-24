@@ -14,6 +14,7 @@
   const ASK_HALL = 6, ASK_BY = 20 * 60; // the requests (hall 7) begin by minute 20
   const STILL_AFTER = 12000; // a live view that is not ready by then shows its still picture
   const ATLAS_LANG = "marsad-atlas-lang";
+  const X_MEMORY = "marsad-x:v1"; // expeditions/app/memory.js
   // In Arabic the Atlas lays its language note over the stage; these rows keep them apart.
   const ATLAS_PATCH = ".app{grid-template-rows:auto auto auto 1fr}#lang-note{grid-row:2}.app>p.band:not(#lang-note){grid-row:3}#stage{grid-row:4}";
 
@@ -169,6 +170,16 @@
       const iframe = $("iframe", fig), first = $(".steps [data-hash]", fig);
       if (fig.dataset.live === "atlas") {
         try { localStorage.setItem(ATLAS_LANG, JSON.stringify("en")); } catch (e) { /* the Atlas then follows the browser */ }
+      } else {
+        // The expedition remembers a prediction and then shows its answer at once; each walk asks afresh.
+        // Only this machine's exhibition address is touched, and only the Badr predictions.
+        try {
+          const mem = JSON.parse(localStorage.getItem(X_MEMORY) || "null");
+          if (mem && mem.picks) {
+            Object.keys(mem.picks).filter(k => k.startsWith("badr:")).forEach(k => delete mem.picks[k]);
+            localStorage.setItem(X_MEMORY, JSON.stringify(mem));
+          }
+        } catch (e) { /* then a rehearsal's prediction may show its answer at once */ }
       }
       iframe.addEventListener("load", () => framed(fig, iframe));
       press(fig, first);
@@ -207,6 +218,7 @@
       const win = iframe.contentWindow;
       if (win.location.hash === hash && win.__atlas && win.__atlas.applyViewState) win.__atlas.applyViewState(hash);
       else win.location.hash = hash;
+      win.scrollTo(0, 0); // each step opens at its top, wherever the last one was scrolled to
     } catch (e) {
       iframe.src = fig.dataset.src + hash;
     }
