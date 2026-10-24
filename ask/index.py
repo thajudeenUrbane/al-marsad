@@ -110,8 +110,9 @@ def _span(exts: list[dict], t) -> list[dict]:
     return out
 
 
-def build(graph: Path = GRAPH) -> dict:
-    site = Site(graph)
+def build(graph: Path = GRAPH, site: Site | None = None) -> dict:
+    """The index; pass a Site already loaded from the graph to skip reading it again."""
+    site = site or Site(graph)
     g = site.g
     t = _site_t()
 

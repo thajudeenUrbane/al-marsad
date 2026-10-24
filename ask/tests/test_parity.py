@@ -3,7 +3,7 @@
 ask/static/ask.js is run in Node (ask/tests/parity_runner.cjs) on the same index the
 page loads, for every golden question and several hundred more made from the graph's
 own names (every shape, spelling variants, time windows, typed-in queries, broken
-queries, refusals, odd input). For each, the answer object and the rendered HTML must
+queries, refusals, odd input, the adversarial set). For each, the answer object and the rendered HTML must
 be identical. The normaliser and the calendar bounds are compared too, on every entity
 name and a list of awkward strings. Skipped when node is not installed.
 """
@@ -15,6 +15,7 @@ import unittest
 from pathlib import Path
 
 from common import ASK, engine, golden, have_graph, i18n
+from test_adversarial import cases as adversarial
 
 NODE = shutil.which("node")
 RUNNER = ASK / "tests" / "parity_runner.cjs"
@@ -106,7 +107,7 @@ def make_questions(eng) -> list[str]:
     for a, b in zip(places, places[1:]):
         qs.append(f"Who was at both {a['l']} and {b['l']}?")
     pids = [e["r"].split("/", 1)[1] for e in E if e["k"] == "event"][:3]
-    qs += ODD + DSL + [f"participants(event #{p})" for p in pids]
+    qs += ODD + DSL + [c["question"] for c in adversarial()] + [f"participants(event #{p})" for p in pids]
     return qs
 
 

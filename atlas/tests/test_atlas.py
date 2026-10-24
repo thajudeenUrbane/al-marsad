@@ -118,6 +118,14 @@ class StandingRules(unittest.TestCase):
             for m in ls["members"]:
                 self.assertNotRegex(m, r"^[A-Za-z0-9]{20,24}$")
 
+    def test_the_page_asks_with_the_site_engine_and_no_model(self):
+        page = (ATLAS / "index.html").read_text(encoding="utf-8")
+        engine = (ROOT / "ask" / "static" / "ask.js").read_text(encoding="utf-8")
+        self.assertIn(engine, page, "the page carries ask/static/ask.js unchanged")
+        self.assertRegex(page, r'<script type="application/octet-stream" id="ask-data">[A-Za-z0-9+/=]{1000,}</script>')
+        src = (ATLAS / "static" / "app" / "08-ask.js").read_text(encoding="utf-8")
+        self.assertNotRegex(src, r"\bfetch\(|XMLHttpRequest|claude\.use|sample\(")
+
     def test_no_model_names_in_the_atlas(self):
         for f in [p for p in ATLAS.rglob("*") if p.is_file() and p.suffix in (".py", ".js", ".json", ".html", ".css", ".md", ".cjs") and p.name != "index.html"]:
             self.assertNotRegex(f.read_text(encoding="utf-8"), r"claude-(opus|sonnet|haiku|fable)", f.name)
