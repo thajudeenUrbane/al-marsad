@@ -15,8 +15,6 @@
   const STILL_AFTER = 12000; // a live view that is not ready by then shows its still picture
   const ATLAS_LANG = "marsad-atlas-lang";
   const X_MEMORY = "marsad-x:v1"; // expeditions/app/memory.js
-  // In Arabic the Atlas lays its language note over the stage; these rows keep them apart.
-  const ATLAS_PATCH = ".app{grid-template-rows:auto auto auto 1fr}#lang-note{grid-row:2}.app>p.band:not(#lang-note){grid-row:3}#stage{grid-row:4}";
 
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -193,9 +191,6 @@
     if (!doc || !doc.documentElement || win.location.href === "about:blank") return;
     win.addEventListener("keydown", e => fromFrame(e, win));
     if (fig.dataset.live !== "atlas") return ready(fig);
-    const st = doc.createElement("style");
-    st.textContent = ATLAS_PATCH;
-    doc.head.append(st);
     const done = () => doc.documentElement.dataset.ready === "1";
     if (done()) return ready(fig);
     const mo = new MutationObserver(() => { if (done()) { mo.disconnect(); ready(fig); } });
