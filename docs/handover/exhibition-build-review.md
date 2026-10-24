@@ -114,6 +114,10 @@ or the data was edited).
   help", and that does not hold for statements taken from stories an AI wrote. A possible line for hall 6 and the
   leave-behind (both have room): "A pilot pack, ready to send: 52 statements from the 50 Stories (written by AI;
   each needs a source and page) and the first 50 identity questions."
+  **Done by the builder (2026-10-24, after this review):** halls 2, 6 and 7, the walk script and the leave-behind
+  now say that the pilot pack's statements come from the 50 Stories, which an AI wrote, and that each needs a real
+  source before it can be accepted. "How it is made" now reads "one maintainer compiled the statements with AI
+  help"; it no longer says they were drawn from the text.
 - J2. "Who classifies opponents and conversions" (`index.html:128` notes, `:294` hall 7, `leave-behind.html:142`).
   "Conversions" is normal academic English, but the same item already says "accepting Islam"; one option is "Who
   decides who is shown as an opponent, and when someone accepted Islam". Listing the Jewish clans of Madinah next
@@ -150,7 +154,11 @@ or the data was edited).
    statement and away from these lines; that covers the walk only if the presenter keeps to it.
 2. Expeditions: the Badr 313 note is classed "attested" (C7), and the step "Who was there" (C8) should be
    renamed "Who the text places here" (the presenter is told not to click it).
-3. J1: whether the screens say where the pilot pack comes from.
+3. J1: whether the screens say where the pilot pack comes from. Done (see J1).
+
+Items 1 and 2 were left for after the meeting: neither is on the walk's path. The walk does not open "The 314", and
+"Who was there" is on the don't-click list. The 313 needs either a citation or a new provenance class (there is
+no class for a report outside the text), and that is the maintainer's call.
 
 ## Checks run after the edits
 
