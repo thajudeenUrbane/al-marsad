@@ -40,8 +40,13 @@ button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 
 .app {
-  height: 100%; display: grid; grid-template-rows: auto auto 1fr; position: relative;
+  height: 100%; display: grid; grid-template-rows: auto auto auto 1fr; position: relative;
 }
+/* The Arabic draft note is shown above the band, so every row is placed by hand: with
+   auto-placement the note pushed the stage into an extra row of zero height. */
+#lang-note { grid-row: 2; }
+.app > p.band:not(#lang-note) { grid-row: 3; }
+#stage { grid-row: 4; }
 
 /* ---------- the instrument bar */
 .bar {

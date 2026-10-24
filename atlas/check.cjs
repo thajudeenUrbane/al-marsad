@@ -94,6 +94,8 @@ async function run(size, tag) {
   await page.click("#lang"); await page.waitForTimeout(800);
   ok(await page.isVisible("#lang-note"), `${tag}: the Arabic draft note shows`);
   ok((await page.getAttribute("html", "dir")) === "rtl", `${tag}: Arabic switches the page to right to left`);
+  const stageH = await page.evaluate(() => document.getElementById("stage").getBoundingClientRect().height);
+  ok(stageH > 300, `${tag}: in Arabic the sky still fills the page (${Math.round(stageH)} px)`);
   await page.evaluate(() => { const a = window.__atlas; a.startTour(a.TOURS()[0], 4); });
   await page.waitForTimeout(1800);
   ok(/المحطة/.test(await page.textContent("#guide-progress")), `${tag}: the guide speaks Arabic`);
