@@ -1,6 +1,6 @@
 # Phase A — "Prove it": execution plan
 
-12 weeks, Mon 2 Nov 2026 to Sun 24 Jan 2027, plus a pre-phase week (W0, 19 Oct to 1 Nov) for round 3 E1. Source: lab/beyond-the-graph (roadmap A, directions N1–N7, experiments 1–10, team and cost) and docs/handover/maintainer-answers-3.md (W1, H4, X1, G1, E1–E5, P1, F3). Every story is in `backlog.csv` (72 stories, about 162 person-days). Slice briefs for builders are in `slice-briefs/`. Hiring briefs are kept outside the repository, with the maintainer.
+12 weeks, Mon 2 Nov 2026 to Sun 24 Jan 2027, plus a pre-phase week (W0, 19 Oct to 1 Nov) for round 3 E1. Source: lab/beyond-the-graph (roadmap A, directions N1–N7, experiments 1–10) and docs/handover/maintainer-answers-3.md (W1, H4, X1, G1, E1–E5, P1, F3). Every story is in `backlog.csv` (72 stories, about 162 person-days). Slice briefs for builders are in `slice-briefs/`. Hiring briefs are kept outside the repository, with the maintainer.
 
 ## Goal and Gate A
 Phase A answers one question with evidence: **does a guided night world of the Hijrah, built only from sourced claims, teach better than reading the same claims, on the phones learners actually have, in a format scholars approve?**
