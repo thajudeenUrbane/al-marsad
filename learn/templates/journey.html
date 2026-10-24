@@ -1,5 +1,6 @@
-<article class="journey door-$door" data-journey="$slug">
+<article class="journey door-$door" data-journey="$slug"$data>
 <header class="journey-head">
+$depthnav
 <p class="kicker">$kicker</p>
 <h1>$h1</h1>
 $banner
@@ -7,23 +8,26 @@ $banner
 $scale
 $progress
 </header>
+$contents
 <section class="journey-rule" aria-labelledby="h-rule">
 <h2 id="h-rule">[[learn.rule.heading]]</h2>
 $rule
 </section>
+$research
 <section class="journey-body" aria-labelledby="h-steps">
 <h2 id="h-steps">[[learn.steps.heading]]</h2>
-<p class="legend">$legend</p>
-<ol class="journey-steps">
+$legend
+<ol class="journey-steps"$start>
 $steps
 </ol>
 </section>
 $apart
+$pager
 <section class="journey-next" aria-labelledby="h-next">
 <h2 id="h-next">[[learn.next.heading]]</h2>
 <ul class="plain">
-<li><a href="../">[[learn.next.journeys]]</a></li>
-<li><a href="../practice/">[[learn.next.practice]]</a></li>
+<li><a href="${base}learn/">[[learn.next.journeys]]</a></li>
+<li><a href="${base}learn/practice/">[[learn.next.practice]]</a></li>
 </ul>
 </section>
 </article>

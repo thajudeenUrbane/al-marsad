@@ -1,0 +1,37 @@
+{
+  "format": "marsad-lists",
+  "version": 1,
+  "about": "Membership lists for the E3 people order (maintainer-answers-3, E3; learn-v2 design §6): the Prophet ﷺ first, then al-Khulafāʾ al-Rāshidūn, then the rest of the ten promised Paradise, then everyone else by how many records about them the graph holds (coverage, not rank). Members are names as the graph records them, copied from the Sky Atlas's atlas/data/lists.json, never IDs; a journey build stops if a name matches no person or more than one. The lists apply only when both the maintainer and the review board have approved the sha12 of the \"lists\" array (build_learn prints it) and every list has a work-and-page source. Until then a journey with order e3 lists the Prophet ﷺ first, then everyone A to Z. The rāshidūn source is empty until the board gives a work and page for the order of succession. Nobody is placed last for faith: no recorded term for it exists yet (round 4 question 2).",
+  "status": "proposed",
+  "approved_by": [],
+  "lists": [
+    {
+      "key": "rashidun",
+      "members": [
+        "Abu Bakr as-Siddiq",
+        "Umar b. al-Khattab",
+        "Uthman b. Affan",
+        "Ali b. Abi Talib"
+      ],
+      "order": "succession",
+      "source": null
+    },
+    {
+      "key": "ten",
+      "members": [
+        "Abu Bakr as-Siddiq",
+        "Umar b. al-Khattab",
+        "Uthman b. Affan",
+        "Ali b. Abi Talib",
+        "Talha b. Ubaydullah",
+        "az-Zubayr b. al-Awwam",
+        "Abd ar-Rahman b. Awf",
+        "Sa'd b. Abi Waqqas",
+        "Sa'id b. Zayd",
+        "Abu Ubayda b. al-Jarrah"
+      ],
+      "order": "as listed in the report",
+      "source": "al-ʿashara al-mubashsharūn: the report of ʿAbd al-Raḥmān b. ʿAwf in Jāmiʿ al-Tirmidhī, Kitāb al-Manāqib (no. 3747), and of Saʿīd b. Zayd in Sunan Abī Dāwūd, Kitāb al-Sunna (no. 4649). Numbers to be checked against print by a reviewer."
+    }
+  ]
+}

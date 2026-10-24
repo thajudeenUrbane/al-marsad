@@ -4,11 +4,12 @@
   "approved_by": [],
   "title": "journey.badr.title",
   "lead": "journey.badr.lead",
+  "lead_study": "journey.badr.lead_study",
   "door": "study",
   "select": {
     "type": "people",
     "events": {
-      "named": {"kinds": ["event", "story"], "words": ["Badr"]},
+      "named": {"kinds": ["event", "story"], "words": ["Badr"], "not_words": ["expedition", "raid"]},
       "follow": ["parts"],
       "max_links": 1
     },
@@ -17,7 +18,10 @@
       "claims": ["mrs:rel_participated_in", "mrs:rel_led", "mrs:rel_present_at", "mrs:rel_witnessed"]
     },
     "also_show": ["mrs:rel_absent_from"],
-    "set_apart": ["mrsv:q_accepted_islam_later"]
+    "set_apart": ["mrsv:q_accepted_islam_later"],
+    "group_by": "side"
   },
-  "order": "prophet_first_then_name"
+  "order": "e3",
+  "lists": "learn/lists/people.json",
+  "story_mode": {"open": false, "approved_by": []}
 }

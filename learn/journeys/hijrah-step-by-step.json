@@ -4,12 +4,15 @@
   "approved_by": [],
   "title": "journey.hijrah.title",
   "lead": "journey.hijrah.lead",
+  "lead_study": "journey.hijrah.lead_study",
   "door": "study",
+  "hold_study": true,
   "select": {
     "type": "events",
     "named": {"kinds": ["event", "story"], "words": ["Hijra", "Hijrah"]},
     "follow": ["parts", "date_anchors"],
     "max_links": 2
   },
-  "order": "recorded"
+  "order": "recorded",
+  "story_mode": {"open": false, "approved_by": []}
 }
