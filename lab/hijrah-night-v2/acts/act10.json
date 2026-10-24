@@ -1,0 +1,2586 @@
+{
+  "act": 10,
+  "title": "Into Madinah",
+  "subtitle": "A Friday prayer in a valley, a camel left to choose, a mosque of mud brick, and a city that had to become home",
+  "span": "Rabīʿ al-Awwal, year 1, and after",
+  "units": [
+    {
+      "id": "a10-u01",
+      "title": "The first Friday, in Wādī Rānūnāʾ",
+      "kicker": "Leaving Qubāʾ on a Friday",
+      "when": {
+        "label": "A Friday in Rabīʿ al-Awwal, year 1 of the Hijra (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "jumua_mosque",
+        "note": "The present-day Masjid al-Jumuʿa is identified with the spot by tradition; the point is approximate."
+      },
+      "sky": "midday",
+      "camera": {
+        "target": "jumua_mosque",
+        "dist": 2.5,
+        "pitch": 35,
+        "heading": 60
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Banū Sālim b. ʿAwf",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "quba_mosque",
+        "jumua_mosque"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says that God brought the Prophet ﷺ out from among Banū ʿAmr b. ʿAwf at Qubāʾ on a Friday.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0703"
+            }
+          ]
+        },
+        {
+          "text": "He adds that Banū ʿAmr b. ʿAwf claimed the Prophet ﷺ stayed with them longer than Ibn Isḥāq's count, and closes the matter with 'God knows best which it was'.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0703"
+            }
+          ],
+          "note": "Ibn Isḥāq himself records that the clan of Qubāʾ gave a longer stay than his own account; he does not decide between them."
+        },
+        {
+          "text": "The time of the Friday prayer came upon him among Banū Sālim b. ʿAwf, and he prayed it in the mosque in the bed of the valley, Wādī Rānūnāʾ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0703"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq counts this as the first Friday prayer the Prophet ﷺ led in Madinah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0703"
+            }
+          ]
+        },
+        {
+          "text": "Between the present-day mosque of Qubāʾ and the present-day Masjid al-Jumuʿa the straight-line distance is about 2.3 km, to the north-west.",
+          "grade": "reconstruction",
+          "basis": "computed distance and bearing between gazetteer points (both approximate)"
+        },
+        {
+          "text": "Rānūnāʾ is a wadi bed: low ground where seasonal water runs between the date gardens of the southern oasis.",
+          "grade": "reconstruction",
+          "basis": "terrain data; the name 'bed of the valley' in the source"
+        }
+      ],
+      "people": [
+        {
+          "name": "Banū Sālim b. ʿAwf",
+          "who": "A clan of the Khazraj living between Qubāʾ and the heart of the oasis",
+          "here": "The first Friday prayer in Madinah was held in their valley"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look back toward Qubāʾ",
+          "camera": {
+            "target": "quba_mosque",
+            "dist": 5,
+            "pitch": 30,
+            "heading": 150
+          },
+          "reveal": {
+            "text": "The day's ride from Qubāʾ to the Friday prayer was short: on today's map the two mosques lie about 2.3 km apart.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Where did the Prophet ﷺ lead his first Friday prayer in Madinah, according to Ibn Isḥāq?",
+        "options": [
+          {
+            "text": "Among Banū Sālim b. ʿAwf, in the bed of Wādī Rānūnāʾ",
+            "ok": true,
+            "why": "Ibn Isḥāq names the clan and the valley.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0703"
+              }
+            ]
+          },
+          {
+            "text": "At the site where the camel later knelt",
+            "ok": false,
+            "why": "The camel had not yet knelt; that came after the Friday prayer, further into the oasis.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0705"
+              }
+            ]
+          },
+          {
+            "text": "In Qubāʾ, before leaving",
+            "ok": false,
+            "why": "He had left Qubāʾ that Friday; the prayer caught up with him on the way.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0703"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: the first communal Friday in the new home was held on the road, in a clan's valley, not in a finished mosque. Worship came before the building.",
+      "sections": [
+        "S0703"
+      ]
+    },
+    {
+      "id": "a10-u02",
+      "title": "“Let her go, she is under command”",
+      "kicker": "Clan after clan takes the camel's rein",
+      "when": {
+        "label": "The same Friday, after the prayer",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "madina",
+        "dist": 6,
+        "pitch": 40,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Banū Sālim",
+          "role": "group"
+        },
+        {
+          "name": "Banū Bayāḍa",
+          "role": "group"
+        },
+        {
+          "name": "Banū Sāʿida",
+          "role": "group"
+        },
+        {
+          "name": "Banū al-Ḥārith b. al-Khazraj",
+          "role": "group"
+        },
+        {
+          "name": "Banū ʿAdī b. al-Najjār",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "jumua_mosque",
+        "~dar_bani_bayada",
+        "~dar_bani_saida",
+        "~dar_bani_al_harith",
+        "~dar_bani_adi_b_al_najjar",
+        "prophets_mosque"
+      ],
+      "statements": [
+        {
+          "text": "ʿItbān b. Mālik and ʿAbbās b. ʿUbāda b. Naḍla came with men of Banū Sālim and asked the Prophet ﷺ to stay with them, offering their numbers, their arms and their protection.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0704"
+            }
+          ]
+        },
+        {
+          "text": "He answered, speaking of his she-camel, 'Let her go her way, for she is under command', and they let her go.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0704"
+            }
+          ]
+        },
+        {
+          "text": "The same invitation and the same answer are repeated at the dwellings of Banū Bayāḍa (Ziyād b. Labīd and Farwa b. ʿAmr), of Banū Sāʿida (Saʿd b. ʿUbāda and al-Mundhir b. ʿAmr) and of Banū al-Ḥārith b. al-Khazraj (Saʿd b. al-Rabīʿ, Khārija b. Zayd and ʿAbd Allāh b. Rawāḥa).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0704"
+            }
+          ]
+        },
+        {
+          "text": "At Banū ʿAdī b. al-Najjār, Salīṭ b. Qays and Abū Salīṭ called him to 'your maternal uncles', because Salmā bint ʿAmr, the mother of ʿAbd al-Muṭṭalib, was one of their women.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0704"
+            }
+          ]
+        },
+        {
+          "text": "Five clans, five offers of protection, and the same reply each time: the source gives no clan the choice.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0704"
+            }
+          ]
+        },
+        {
+          "text": "Madinah was not one town but a spread of clan settlements, gardens and fortified houses across a basin ringed by lava fields.",
+          "grade": "reconstruction",
+          "basis": "terrain data; settlement pattern implied by the clan dwellings the source lists"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿItbān b. Mālik",
+          "who": "Of Banū Sālim b. ʿAwf",
+          "here": "First to ask him to stay"
+        },
+        {
+          "name": "Saʿd b. ʿUbāda",
+          "who": "Chief of Banū Sāʿida, a naqīb at the ʿAqaba pledge",
+          "here": "Stopped the camel at his clan's dwellings"
+        },
+        {
+          "name": "ʿAbd Allāh b. Rawāḥa",
+          "who": "Of Banū al-Ḥārith b. al-Khazraj",
+          "here": "Among those who invited him"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Pull back over the oasis",
+          "camera": {
+            "target": "madina",
+            "dist": 15,
+            "pitch": 55,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "From Masjid al-Jumuʿa to the site where the camel knelt is about 2 km in a straight line, to the north-north-east; the clan dwellings lay somewhere along that way, and their exact spots are not fixed.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points; the dwellings are unlocated"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Every clan offers numbers, weapons and protection. What do you expect him to say at the next one?",
+        "options": [
+          {
+            "text": "The same: 'Let her go, she is under command'",
+            "ok": true,
+            "why": "Ibn Isḥāq repeats the identical reply at every clan.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0704"
+              }
+            ]
+          },
+          {
+            "text": "He accepts the clan of his maternal kin",
+            "ok": false,
+            "why": "Even Banū ʿAdī b. al-Najjār, who appealed to kinship, received the same reply.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0704"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: leaving the choice to the camel meant no clan could claim to have won him over another. A city of rival clans received a guest none of them had chosen.",
+      "sections": [
+        "S0704"
+      ]
+    },
+    {
+      "id": "a10-u03",
+      "title": "The drying-ground of two orphans",
+      "kicker": "The camel kneels at Banū Mālik b. al-Najjār",
+      "when": {
+        "label": "Rabīʿ al-Awwal, year 1",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "prophets_mosque",
+        "note": "The present-day mosque stands on the site."
+      },
+      "sky": "day",
+      "camera": {
+        "target": "prophets_mosque",
+        "dist": 1.2,
+        "pitch": 45,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Ayyūb al-Anṣārī",
+          "role": "person"
+        },
+        {
+          "name": "Muʿādh b. ʿAfrāʾ",
+          "role": "person"
+        },
+        {
+          "name": "Sahl and Suhayl, the two orphans",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "At the dwellings of Banū Mālik b. al-Najjār the camel knelt at what became the door of the Prophet's mosque ﷺ. It was then a mirbad, a place for drying dates, belonging to two orphan boys, Sahl and Suhayl, sons of ʿAmr.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0705"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq describes the camel kneeling, rising and going a little way while the Prophet ﷺ left her rein slack, then turning back to the first spot, kneeling again and settling her neck on the ground. Only then did he dismount.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0705"
+            }
+          ]
+        },
+        {
+          "text": "Abū Ayyūb Khālid b. Zayd carried the saddle into his house, and the Prophet ﷺ lodged with him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0705"
+            }
+          ]
+        },
+        {
+          "text": "Asked who owned the drying-ground, Muʿādh b. ʿAfrāʾ said it belonged to Sahl and Suhayl, orphans in his care, and that he would satisfy them for it; and it was taken as a mosque.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0705"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī's version the orphans were in the care of Asʿad b. Zurāra; the Prophet ﷺ bargained with them, they offered it as a gift, and he declined and bought it.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0705"
+            }
+          ],
+          "note": "The sources differ on the guardian (Muʿādh b. ʿAfrāʾ in Ibn Isḥāq, Asʿad b. Zurāra in al-Bukhārī) and on how the price was settled; in Anas's report (al-Bukhārī 428) Banū al-Najjār say they seek its price only from God."
+        },
+        {
+          "text": "Anas reports that the plot held graves of polytheists, ruins and palm trees; the graves were dug up, the ruins levelled, and the palms cut down.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 428",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Sahl and Suhayl b. ʿAmr",
+          "who": "Two orphan boys of Banū Mālik b. al-Najjār",
+          "here": "Owners of the drying-ground"
+        },
+        {
+          "name": "Muʿādh b. ʿAfrāʾ",
+          "who": "Their guardian in Ibn Isḥāq's account",
+          "here": "Promised to satisfy them for the land"
+        },
+        {
+          "name": "Abū Ayyūb Khālid b. Zayd",
+          "who": "Of Banū al-Najjār",
+          "here": "Took the saddle into his house"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Find the drying-ground today",
+          "camera": {
+            "target": "prophets_mosque",
+            "dist": 0.8,
+            "pitch": 70,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The site of the camel's kneeling now lies within the Prophet's Mosque; the exact boundaries of the first plot are not marked on this map.",
+            "grade": "reconstruction",
+            "basis": "gazetteer point for the present-day mosque"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Who owned the ground where the camel knelt?",
+        "options": [
+          {
+            "text": "Two orphan boys, Sahl and Suhayl",
+            "ok": true,
+            "why": "Both Ibn Isḥāq and al-Bukhārī name the two orphans.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0705"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3906",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "Abū Ayyūb al-Anṣārī",
+            "ok": false,
+            "why": "Abū Ayyūb hosted him; the land belonged to the orphans.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0705"
+              }
+            ]
+          },
+          {
+            "text": "Saʿd b. ʿUbāda",
+            "ok": false,
+            "why": "Saʿd stopped the camel at Banū Sāʿida, earlier on the way.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0704"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: the centre of the new community was a date-drying yard of two orphans, paid for rather than simply taken.",
+      "sections": [
+        "S0705"
+      ]
+    },
+    {
+      "id": "a10-u04",
+      "title": "Downstairs at Abū Ayyūb's",
+      "kicker": "A guest in a two-storey house",
+      "when": {
+        "label": "From Rabīʿ al-Awwal, year 1, until the houses were built",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~dar_abi_ayyub",
+        "note": "Abū Ayyūb's house was near the mosque site; its exact spot is not fixed here."
+      },
+      "sky": "night",
+      "camera": {
+        "target": "prophets_mosque",
+        "dist": 1,
+        "pitch": 30,
+        "heading": 120
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Ayyūb al-Anṣārī",
+          "role": "person"
+        },
+        {
+          "name": "Umm Ayyūb",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Abū Ayyūb, through a chain Ibn Isḥāq names, says the Prophet ﷺ took the lower floor while he and Umm Ayyūb lived above.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0712"
+            }
+          ]
+        },
+        {
+          "text": "Abū Ayyūb said he hated to be above him and asked him to move up; the Prophet ﷺ answered that the lower floor was easier for them and for those who came to see him.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0712"
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 2053",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "When a water jar broke upstairs, Abū Ayyūb and Umm Ayyūb mopped the water with the only blanket they had, for fear a drop would fall on him below.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0712"
+            }
+          ]
+        },
+        {
+          "text": "They sent his supper down, and when food came back they ate from where his hand had been, seeking blessing.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0712"
+            }
+          ]
+        },
+        {
+          "text": "One night a dish with onion or garlic came back untouched. He explained that he found its smell, and he was a man who spoke in private with the angel, but told them to eat it.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0712"
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 2053",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "He stayed in Abū Ayyūb's house until his mosque and dwellings were built, then moved into them. Ibn Isḥāq puts that stay in Madinah before the houses were ready from Rabīʿ al-Awwal into Ṣafar of the following year.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0712"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0715"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Ayyūb Khālid b. Zayd",
+          "who": "Of Banū al-Najjār",
+          "here": "Host for many months; narrator of this account"
+        },
+        {
+          "name": "Umm Ayyūb",
+          "who": "His wife",
+          "here": "Shared the care of the guest below"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Who told this story?",
+          "reveal": {
+            "text": "The chain runs Yazīd b. Abī Ḥabīb, from Marthad b. ʿAbd Allāh al-Yazanī, from Abū Ruhm al-Samāʿī, from Abū Ayyūb himself.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0712"
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "Reflection: the guest chose the floor that was easier for visitors; the hosts gave their only blanket. Hospitality is told here in small, domestic things.",
+      "sections": [
+        "S0712",
+        "S0715"
+      ]
+    },
+    {
+      "id": "a10-u05",
+      "title": "Building with their own hands",
+      "kicker": "The mosque and the houses rise",
+      "when": {
+        "label": "Year 1 of the Hijra",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "prophets_mosque"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "prophets_mosque",
+        "dist": 1.5,
+        "pitch": 50,
+        "heading": 300
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the Muhājirūn and the Anṣār",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ ordered the mosque built and worked on it himself, to make the Muslims keen to work; Muhājirūn and Anṣār laboured at it steadily.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0706"
+            }
+          ]
+        },
+        {
+          "text": "One of the Muslims said in verse that if they sat while the Prophet ﷺ worked, theirs would be a misguided deed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0706"
+            }
+          ]
+        },
+        {
+          "text": "As they built they chanted: 'There is no life but the life of the Hereafter; O God, have mercy on the Anṣār and the Muhājira.' Ibn Isḥāq says the Prophet ﷺ answered with the same words, naming the Muhājirūn and the Anṣār.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0706"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 428",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām remarks that this line is speech, not true rajaz metre.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0706"
+            }
+          ]
+        },
+        {
+          "text": "In Anas's report the cut palm trunks were set in a row toward the qibla, with stone for the door-jambs, and the Prophet ﷺ chanted with them as they carried stones.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 428",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām adds a rajaz couplet that ʿAlī b. Abī Ṭālib is said to have chanted, on those who build mosques and those who shy from the dust, but scholars of poetry he asked could not say whether ʿAlī composed it.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0708"
+            }
+          ],
+          "note": "Ibn Hishām's informants said only that it reached them as ʿAlī's chant; authorship is uncertain."
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look north to Uḥud",
+          "camera": {
+            "target": "uhud",
+            "dist": 8,
+            "pitch": 25,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Jabal Uḥud stands about 4.8 km almost due north of the mosque site, the largest landmark on the oasis skyline.",
+            "grade": "reconstruction",
+            "basis": "computed distance and bearing between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Why, according to Ibn Isḥāq, did the Prophet ﷺ work on the building himself?",
+        "options": [
+          {
+            "text": "To make the Muslims keen to work on it",
+            "ok": true,
+            "why": "Ibn Isḥāq gives exactly this reason.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0706"
+              }
+            ]
+          },
+          {
+            "text": "Because there were not enough workers",
+            "ok": false,
+            "why": "The source says Muhājirūn and Anṣār laboured steadily; it gives a different reason.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0706"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: the first shared project of the two groups was a building of mud and palm trunks, with the leader carrying loads alongside them.",
+      "sections": [
+        "S0706",
+        "S0708"
+      ]
+    },
+    {
+      "id": "a10-u06",
+      "title": "ʿAmmār and the bricks",
+      "kicker": "A saying remembered for decades",
+      "when": {
+        "label": "During the building, year 1",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "prophets_mosque"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "prophets_mosque",
+        "dist": 0.9,
+        "pitch": 40,
+        "heading": 90
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿAmmār b. Yāsir",
+          "role": "person"
+        },
+        {
+          "name": "Umm Salama",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "ʿAmmār b. Yāsir came in loaded with mud bricks and said, 'They are killing me; they load on me what they do not carry themselves.'",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0707"
+            }
+          ]
+        },
+        {
+          "text": "Umm Salama said she saw the Prophet ﷺ shake out ʿAmmār's curly hair with his hand, saying, 'Woe, son of Sumayya! They are not the ones who will kill you; the rebel party (al-fiʾa al-bāghiya) will kill you.'",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0707"
+            }
+          ]
+        },
+        {
+          "text": "The words 'the rebel party will kill ʿAmmār' are transmitted in the ṣaḥīḥ collections, from Umm Salama in Muslim and from Abū Saʿīd al-Khudrī in al-Bukhārī's chapter on building the mosque.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "Muslim 2916",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 447",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq reports that ʿAmmār took up the building chant; a Companion thought he was aiming it at him and threatened him with a stick. Ibn Isḥāq named the man, but Ibn Hishām left the name out.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0709"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0710"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ grew angry and said that ʿAmmār called them to Paradise while they called him to the Fire, and that ʿAmmār was to him like the skin between his eyes and nose.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0710"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām cites al-Shaʿbī that the first person to build a mosque was ʿAmmār b. Yāsir.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0711"
+            }
+          ],
+          "note": "A single opinion of al-Shaʿbī transmitted by Ibn Hishām outside Ibn Isḥāq's text; other reports credit the mosque at Qubāʾ or earlier prayer places, so 'first' is contested."
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAmmār b. Yāsir",
+          "who": "Early Muslim, son of Sumayya, ally of Banū Makhzūm",
+          "here": "Carried bricks; the subject of the saying"
+        },
+        {
+          "name": "Umm Salama",
+          "who": "Wife of the Prophet ﷺ",
+          "here": "Narrator of the scene in Ibn Isḥāq"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Why this saying was remembered",
+          "reveal": {
+            "text": "ʿAmmār was later killed at Ṣiffīn (37 AH), fighting on ʿAlī's side, and the saying became central to how the Muslims judged that conflict.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "other",
+                "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr, biography of ʿAmmār b. Yāsir",
+                "note": "Death at Ṣiffīn and the citing of the saying there",
+                "verify": true
+              },
+              {
+                "type": "other",
+                "ref": "al-Ṭabarī, Taʾrīkh al-rusul wa-l-mulūk, events of the year 37",
+                "verify": true
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "In Umm Salama's account, what did the Prophet ﷺ say about who would kill ʿAmmār?",
+        "options": [
+          {
+            "text": "Not those loading the bricks, but the rebel party",
+            "ok": true,
+            "why": "This is the wording Ibn Isḥāq gives from Umm Salama, and the core is in Muslim.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0707"
+              },
+              {
+                "type": "hadith",
+                "ref": "Muslim 2916",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "That nobody would harm him",
+            "ok": false,
+            "why": "The saying speaks of his being killed by the rebel party.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0707"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: a joke about heavy bricks on a building site became a saying that later generations read in the light of civil war.",
+      "sections": [
+        "S0707",
+        "S0709",
+        "S0710",
+        "S0711"
+      ]
+    },
+    {
+      "id": "a10-u07",
+      "title": "Locked houses in Makkah",
+      "kicker": "The emigrants catch up; what they left behind",
+      "when": {
+        "label": "Year 1 of the Hijra and after",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": [
+          39.7,
+          22.9
+        ],
+        "dist": 400,
+        "pitch": 30,
+        "heading": 180
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿAbd Allāh b. Jaḥsh",
+          "role": "person"
+        },
+        {
+          "name": "Abū Sufyān b. Ḥarb",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "makkah",
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "The emigrants followed the Prophet ﷺ until none remained in Makkah except someone seduced from the faith or held captive.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0713"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq names the households that left with all their families and property: Banū Maẓʿūn of Jumaḥ, Banū Jaḥsh b. Riʾāb, allies of Banū Umayya, and Banū al-Bukayr, allies of Banū ʿAdī. Their houses in Makkah were locked, with no one living in them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0713"
+            }
+          ]
+        },
+        {
+          "text": "Abū Sufyān b. Ḥarb seized the empty house of Banū Jaḥsh and sold it to ʿAmr b. ʿAlqama of Banū ʿĀmir b. Luʾayy.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0714"
+            }
+          ]
+        },
+        {
+          "text": "When ʿAbd Allāh b. Jaḥsh told the Prophet ﷺ, he asked whether he would not be content for God to give him a better house in Paradise; ʿAbd Allāh said yes, and was told 'that is yours'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0714"
+            }
+          ]
+        },
+        {
+          "text": "After the conquest of Makkah, Abū Aḥmad raised the house again. People told him the Prophet ﷺ disliked that they take back property lost for God's sake, and he stopped; he addressed a poem of reproach to Abū Sufyān instead.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0714"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "59:8",
+          "gist": "A share of what God grants is for the poor emigrants who were driven from their homes and property, seeking God's favour and supporting God and His Messenger; they are the truthful.",
+          "context": "The verse speaks of emigrants expelled from homes and goods, which is the situation Ibn Isḥāq describes for the locked houses; the link is thematic, made here, not stated in the source for this episode.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAbd Allāh b. Jaḥsh",
+          "who": "Emigrant, of a family allied to Banū Umayya",
+          "here": "Lost his family house to Abū Sufyān"
+        },
+        {
+          "name": "Abū Aḥmad b. Jaḥsh",
+          "who": "His brother, a blind poet",
+          "here": "Raised the matter after the conquest"
+        }
+      ],
+      "discover": [
+        {
+          "label": "The distance left behind",
+          "camera": {
+            "target": "makkah",
+            "dist": 30,
+            "pitch": 30,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Makkah lies about 340 km south of Madinah in a straight line.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Years later, Makkah is conquered. Will the Prophet ﷺ restore the Jaḥsh house to its family?",
+        "options": [
+          {
+            "text": "No; he disliked their taking back what they had lost for God",
+            "ok": true,
+            "why": "People told Abū Aḥmad so, and he stopped asking.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0714"
+              }
+            ]
+          },
+          {
+            "text": "Yes, it is returned at once",
+            "ok": false,
+            "why": "Ibn Isḥāq says the Prophet ﷺ was slow to answer and the family let it go.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0714"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: the Hijra had a price that stayed paid, even after victory made it possible to reclaim it.",
+      "sections": [
+        "S0713",
+        "S0714"
+      ]
+    },
+    {
+      "id": "a10-u08",
+      "title": "The first sermon",
+      "kicker": "Even half a date",
+      "when": {
+        "label": "Early in the Madinan period",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "prophets_mosque"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "prophets_mosque",
+        "dist": 1,
+        "pitch": 25,
+        "heading": 180
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the believers of Madinah",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq gives the first sermon of the Prophet ﷺ only as 'what reached me from Abū Salama b. ʿAbd al-Raḥmān', adding 'we seek refuge with God from saying of him what he did not say'.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0716"
+            }
+          ],
+          "note": "Ibn Isḥāq's own hedge: it reached him (balaghanī) from a Successor, with no connected chain to the Prophet ﷺ."
+        },
+        {
+          "text": "In it, after praising God, he tells the people to send ahead good for themselves: each will be struck down and leave his flock without a shepherd, and his Lord will ask him, with no interpreter and no veil between them, what he sent ahead.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0716"
+            }
+          ],
+          "note": "Same hedged report from Abū Salama."
+        },
+        {
+          "text": "The sermon ends: whoever can shield his face from the Fire even with half a date should do so, and whoever cannot, with a good word, for a good deed is repaid tenfold up to seven hundredfold.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0716"
+            }
+          ],
+          "note": "The setting as the 'first sermon' rests on the hedged report; the core teaching itself is authenticated separately (next statement)."
+        },
+        {
+          "text": "The teaching 'guard yourselves from the Fire even with half a date, and if you find nothing, then with a good word' is transmitted in al-Bukhārī from ʿAdī b. Ḥātim.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī, Kitāb al-Zakāt, bāb ittaqū al-nār wa-law bi-shiqq tamra (and Kitāb al-Riqāq)",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq then gives a second sermon: the best speech is the Book of God; love what God loves; love God with all your hearts; do not tire of God's words; and love one another by the spirit of God.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0717"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Notice the hedge",
+          "reveal": {
+            "text": "Ibn Isḥāq inserts a protective formula inside the very sentence that introduces the sermon, signalling that he is passing on a report, not vouching for its wording.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0716"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "How sure is Ibn Isḥāq about the wording of the first sermon?",
+        "options": [
+          {
+            "text": "Not sure: it 'reached him' from Abū Salama, and he adds a prayer against misquoting the Prophet ﷺ",
+            "ok": true,
+            "why": "Both the hedge and the formula are in his text.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0716"
+              }
+            ]
+          },
+          {
+            "text": "Certain: he gives an eyewitness chain",
+            "ok": false,
+            "why": "No eyewitness chain is given for this sermon.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0716"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: whatever its exact wording, the first message remembered for the new city was about the Day of Judgment and small charity, not about power.",
+      "sections": [
+        "S0716",
+        "S0717"
+      ]
+    },
+    {
+      "id": "a10-u09",
+      "title": "A written compact for Yathrib",
+      "kicker": "One community, many clans",
+      "when": {
+        "label": "Early Madinan period; exact date debated",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "madina",
+        "dist": 10,
+        "pitch": 45,
+        "heading": 340
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the believers of Quraysh and Yathrib",
+          "role": "group"
+        },
+        {
+          "name": "the Jewish clans of Madinah",
+          "role": "assembly"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says the Prophet ﷺ wrote a document between the Muhājirūn and the Anṣār in which he made a pact with the Jews, confirming them in their religion and property, with conditions on both sides.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0717"
+            }
+          ]
+        },
+        {
+          "text": "The document calls the believers of Quraysh and Yathrib, and those who joined them and strove with them, 'one community (umma) apart from other people'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0717"
+            }
+          ]
+        },
+        {
+          "text": "Each group, the Muhājirūn and each Anṣārī clan by name, keeps its customary way of paying blood-money and ransoming its captives, 'with fairness among the believers'; and the believers are not to leave a debt-burdened man unhelped.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0717"
+            }
+          ]
+        },
+        {
+          "text": "It states that the Jews of Banū ʿAwf are a community with the believers, 'to the Jews their religion and to the Muslims theirs', and extends the same to the Jews of the other named clans.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0717"
+            }
+          ]
+        },
+        {
+          "text": "It declares the interior of Yathrib sacred for the people of the document, and refers any dispute among them to God and to Muḥammad ﷺ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0717"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq gives the text without a chain, and scholars differ on whether it is one document or several joined together, and on when it was written.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0717"
+            }
+          ],
+          "note": "No isnād in Ibn Isḥāq; its unity and date (before or after Badr) are debated in classical and modern scholarship."
+        }
+      ],
+      "discover": [
+        {
+          "label": "See the oasis as one place",
+          "camera": {
+            "target": "madina",
+            "dist": 25,
+            "pitch": 60,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "From high above, Qubāʾ in the south and Uḥud in the north fall inside one view of roughly 8 km: the space the compact tried to make a single protected interior.",
+            "grade": "reconstruction",
+            "basis": "computed distances between gazetteer points"
+          }
+        }
+      ],
+      "matters": "Reflection: alongside the mosque, a written agreement: the new community was organised by worship and by law at the same time.",
+      "sections": [
+        "S0717"
+      ]
+    },
+    {
+      "id": "a10-u10",
+      "title": "Brothers in pairs",
+      "kicker": "The muʾākhāt between Muhājirūn and Anṣār",
+      "when": {
+        "label": "Year 1 of the Hijra",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "prophets_mosque",
+        "dist": 3,
+        "pitch": 35,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the Muhājirūn and the Anṣār",
+          "role": "group"
+        },
+        {
+          "name": "ʿAbd al-Raḥmān b. ʿAwf",
+          "role": "person"
+        },
+        {
+          "name": "Saʿd b. al-Rabīʿ",
+          "role": "person"
+        },
+        {
+          "name": "Bilāl",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says the Prophet ﷺ made his Companions from the Muhājirūn and Anṣār brothers, and reports with the hedge 'as it reached us' that he said 'Be brothers in God, two by two', then took ʿAlī's hand and said 'This is my brother'.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0719"
+            }
+          ],
+          "note": "Ibn Isḥāq hedges the wording ('fīmā balaghanā') and adds a formula against misquoting."
+        },
+        {
+          "text": "His list pairs, among others, Abū Bakr with Khārija b. Zuhayr, ʿUmar with ʿItbān b. Mālik, Abū ʿUbayda with Saʿd b. Muʿādh, ʿAbd al-Raḥmān b. ʿAwf with Saʿd b. al-Rabīʿ, Muṣʿab b. ʿUmayr with Abū Ayyūb, and Salmān al-Fārisī with Abū al-Dardāʾ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0719"
+            }
+          ]
+        },
+        {
+          "text": "Some pairings come with alternatives ('it is said'): al-Zubayr with Salāma b. Salāma or with ʿAbd Allāh b. Masʿūd; ʿAmmār with Ḥudhayfa b. al-Yamān or with Thābit b. Qays. Ibn Hishām notes that Jaʿfar, listed with Muʿādh b. Jabal, was then in Abyssinia.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0719"
+            }
+          ],
+          "note": "The list itself records variant pairings, and Ibn Hishām flags Jaʿfar's absence."
+        },
+        {
+          "text": "Saʿd b. al-Rabīʿ offered ʿAbd al-Raḥmān b. ʿAwf half his wealth; ʿAbd al-Raḥmān asked instead to be shown the market, and traded.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 2048",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn ʿAbbās reports that at first a Muhājir inherited from his Anṣārī brother rather than from kin, until a verse of al-Nisāʾ (4:33) ended this.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 4580",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Years later, when ʿUmar organised the army registers in Syria, Bilāl asked to be registered with Abū Ruwayḥa, 'I will never leave him', because of the brotherhood the Prophet ﷺ had made between them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0720"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "8:72",
+          "gist": "Those who believed, emigrated and strove, and those who gave them shelter and help, are allies of one another.",
+          "context": "The verse names the two groups the brotherhood joined; the link is thematic. Grade of the verse itself: established.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "Saʿd b. al-Rabīʿ",
+          "who": "Of Banū al-Ḥārith b. al-Khazraj",
+          "here": "Offered his brother half his wealth"
+        },
+        {
+          "name": "ʿAbd al-Raḥmān b. ʿAwf",
+          "who": "Makkan merchant, an early Muslim",
+          "here": "Asked for the market instead"
+        },
+        {
+          "name": "Abū Ruwayḥa ʿAbd Allāh b. ʿAbd al-Raḥmān al-Khathʿamī",
+          "who": "Bilāl's brother by the pairing",
+          "here": "Bilāl's register was joined to his"
+        }
+      ],
+      "discover": [
+        {
+          "label": "A brotherhood that outlived the founders",
+          "reveal": {
+            "text": "Ibn Isḥāq says that, because of Bilāl's choice, the register of the Abyssinians was joined to Khathʿam in Syria, and remained so 'to this day'.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0720"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did ʿAbd al-Raḥmān b. ʿAwf ask of Saʿd b. al-Rabīʿ?",
+        "options": [
+          {
+            "text": "To be shown the market",
+            "ok": true,
+            "why": "He declined the half share and asked for the market.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 2048",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "Half of his wealth",
+            "ok": false,
+            "why": "That was Saʿd's offer, which ʿAbd al-Raḥmān declined.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 2048",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: refugees and hosts were bound person to person, not only group to group; and the bond was remembered a generation later in a distant army.",
+      "sections": [
+        "S0719",
+        "S0720"
+      ]
+    },
+    {
+      "id": "a10-u11",
+      "title": "The death of Asʿad b. Zurāra",
+      "kicker": "The first naqīb is lost while the mosque is still rising",
+      "when": {
+        "label": "The months of building, year 1",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "prophets_mosque",
+        "dist": 2,
+        "pitch": 30,
+        "heading": 250
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Umāma Asʿad b. Zurāra",
+          "role": "person"
+        },
+        {
+          "name": "Banū al-Najjār",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Abū Umāma Asʿad b. Zurāra died in those months while the mosque was being built, taken by an illness of the throat (dhubḥa) or of the breath (shahqa).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0721"
+            }
+          ]
+        },
+        {
+          "text": "Through a descendant of Asʿad, Ibn Isḥāq reports that the Prophet ﷺ called it a grievous death, because the Jews and the hypocrites among the Arabs would say 'had he been a prophet, his companion would not have died'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0722"
+            }
+          ]
+        },
+        {
+          "text": "In the same report the Prophet ﷺ adds that he has no power, for himself or for his companion, over anything from God.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0722"
+            }
+          ]
+        },
+        {
+          "text": "Asʿad had been the naqīb of Banū al-Najjār. They came asking the Prophet ﷺ to appoint one of them in his place.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0723"
+            }
+          ]
+        },
+        {
+          "text": "He answered: 'You are my maternal uncles; I am with you in what you have, and I am your naqīb', disliking to favour some of them over others.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0723"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq notes that Banū al-Najjār counted it among their honours over their people that the Prophet ﷺ was their naqīb.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0723"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū Umāma Asʿad b. Zurāra",
+          "who": "Of Banū al-Najjār; among the first of Yathrib to accept Islam, a naqīb at the second ʿAqaba",
+          "here": "Died while the mosque was being built"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Who carried this report?",
+          "reveal": {
+            "text": "The saying about his death comes through ʿAbd Allāh b. Abī Bakr, from Yaḥyā b. ʿAbd Allāh, a great-grandson of Asʿad; the naqīb episode comes through ʿĀṣim b. ʿUmar b. Qatāda.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0722"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0723"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Banū al-Najjār ask for a new naqīb from among themselves. What will he do?",
+        "options": [
+          {
+            "text": "Take the role himself, so no one of them is preferred",
+            "ok": true,
+            "why": "He named himself their naqīb, disliking to single out some over others.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0723"
+              }
+            ]
+          },
+          {
+            "text": "Appoint Abū Ayyūb, his host",
+            "ok": false,
+            "why": "No such appointment is reported; he took the role himself.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0723"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: the new community's first loss was also a test of its claims, and the answer given was that a prophet does not control death.",
+      "sections": [
+        "S0721",
+        "S0722",
+        "S0723"
+      ]
+    },
+    {
+      "id": "a10-u12",
+      "title": "The fever of Madinah",
+      "kicker": "Homesick verses, and a prayer",
+      "when": {
+        "label": "The first months in Madinah",
+        "grade": "established"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "madina",
+        "dist": 5,
+        "pitch": 30,
+        "heading": 160
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿĀʾisha",
+          "role": "person"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "Bilāl",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "ʿĀʾisha said that when the Prophet ﷺ came to Madinah it was the most fever-ridden land of God, and his Companions suffered illness from it, while God spared him.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0860"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3926",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr, ʿĀmir b. Fuhayra and Bilāl shared one house and all fell ill. ʿĀʾisha, visiting before the veil was imposed, asked her father how he felt; he answered with a verse: every man wakes among his family, and death is nearer than his sandal-strap.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0860"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 1889",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "ʿĀmir b. Fuhayra answered her with verses about tasting death before it came. ʿĀʾisha said neither man knew what he was saying.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0860"
+            }
+          ]
+        },
+        {
+          "text": "When the fever left Bilāl he lay in the courtyard and sang of whether he would ever again spend a night at Fakhkh among idhkhir grass, drink at the waters of Majanna, or see Shāma and Ṭafīl, which Ibn Hishām explains are two mountains of Makkah.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0860"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 1889",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha told the Prophet ﷺ, and he prayed: 'O God, make Madinah beloved to us as You made Makkah beloved, or more; bless us in its mudd and its ṣāʿ; and move its fever to Mahyaʿa', which Ibn Hishām says is al-Juḥfa.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0861"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 1889",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq also reports, from al-Zuhrī via ʿAbd Allāh b. ʿAmr, that the sick Companions prayed sitting; the Prophet ﷺ told them a seated prayer earns half of a standing one, and they forced themselves to stand despite their weakness.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0862"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "who": "Freedman of Abū Bakr who tended the flock near Thawr",
+          "here": "Fell ill in the same house"
+        },
+        {
+          "name": "Bilāl",
+          "who": "Freedman of Abū Bakr, later the muezzin",
+          "here": "Sang of Makkah's places in his fever"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Where was the fever sent?",
+          "camera": {
+            "target": "juhfa",
+            "dist": 60,
+            "pitch": 30,
+            "heading": 20
+          },
+          "reveal": {
+            "text": "Al-Juḥfa, identified by Ibn Hishām with Mahyaʿa, lies about 214 km south-south-west of Madinah toward the coast.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points"
+          }
+        },
+        {
+          "label": "Bilāl's places",
+          "camera": {
+            "target": "makkah",
+            "dist": 40,
+            "pitch": 25,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Fakhkh, Majanna, Shāma and Ṭafīl are named places in and around Makkah; their positions are not fixed on this map.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0860"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did the Prophet ﷺ ask for Madinah when he heard of the fever?",
+        "options": [
+          {
+            "text": "That it be made as beloved as Makkah, or more, blessed in its measures, and its fever moved to al-Juḥfa",
+            "ok": true,
+            "why": "This is the prayer ʿĀʾisha reports.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0861"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 1889",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "That the Companions return to Makkah",
+            "ok": false,
+            "why": "The prayer is for Madinah to become beloved, not for a return.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0861"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: the sources keep the homesickness of the emigrants in plain view, and the remedy asked for was love for the new place, not forgetting the old.",
+      "sections": [
+        "S0860",
+        "S0861",
+        "S0862"
+      ]
+    },
+    {
+      "id": "a10-u13",
+      "title": "“The full moon has risen over us”",
+      "kicker": "A famous welcome song, and what the sources can bear",
+      "when": {
+        "label": "Arrival in Madinah, year 1 (or, on another view, the return from Tabūk, year 9)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "~thaniyyat_al_wada",
+        "note": "A pass on the edge of Madinah; which side of the city it lay on is part of the debate."
+      },
+      "sky": "day",
+      "camera": {
+        "target": "madina",
+        "dist": 8,
+        "pitch": 30,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the people of Madinah",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Al-Barāʾ b. ʿĀzib said he never saw the people of Madinah rejoice at anything as they rejoiced at the coming of the Messenger of Allah ﷺ, to the point that young servant girls were saying 'The Messenger of Allah has come'.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3925",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The song beginning 'ṭalaʿa al-badru ʿalaynā, min thaniyyāt al-wadāʿ' ('the full moon has risen over us from the passes of farewell') is not in Ibn Isḥāq's account of the arrival, nor in the ṣaḥīḥ collections.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0703"
+            },
+            {
+              "type": "other",
+              "ref": "al-Bayhaqī, Dalāʾil al-Nubuwwa, chapter on the arrival in Madinah",
+              "verify": true
+            }
+          ],
+          "note": "Absence from Ibn Isḥāq and the ṣaḥīḥ works is noted; the song is known from later compilations."
+        },
+        {
+          "text": "Its best-known source is a report in al-Bayhaqī's Dalāʾil al-Nubuwwa through Ibn ʿĀʾisha, a third-century scholar, without a connected chain back to the event; Ibn Ḥajar describes the chain as broken (muʿḍal).",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Bayhaqī, Dalāʾil al-Nubuwwa",
+              "verify": true
+            },
+            {
+              "type": "other",
+              "ref": "Ibn Ḥajar, Fatḥ al-Bārī",
+              "note": "Comment on the chain of the welcome song",
+              "verify": true
+            }
+          ],
+          "note": "Weak, disconnected chain; the attribution to the Hijra arrival cannot be confirmed."
+        },
+        {
+          "text": "Ibn al-Qayyim argued that the song belongs to the return from Tabūk, because the Thaniyyat al-Wadāʿ pass lay on the Syria side of Madinah, not on the road from Makkah; others kept it at the Hijra.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn al-Qayyim, Zād al-Maʿād",
+              "verify": true
+            }
+          ],
+          "note": "Scholars differ on the occasion: arrival in year 1 versus return from Tabūk in year 9."
+        },
+        {
+          "text": "Qubāʾ and the road from Makkah approach Madinah from the south, while Uḥud and the routes to Syria lie to the north.",
+          "grade": "reconstruction",
+          "basis": "gazetteer points and terrain data"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Compare the two approaches",
+          "camera": {
+            "target": "uhud",
+            "dist": 12,
+            "pitch": 40,
+            "heading": 180
+          },
+          "reveal": {
+            "text": "From the north, looking south, Uḥud is in the foreground and the mosque site about 4.8 km beyond; Qubāʾ lies further south still, on the side from which the Hijra party came.",
+            "grade": "reconstruction",
+            "basis": "computed distances and bearings between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "The song is sung everywhere at the Hijra. What do you expect its source to look like?",
+        "options": [
+          {
+            "text": "A late report with a broken chain, and its occasion debated",
+            "ok": true,
+            "why": "It rests on al-Bayhaqī's disconnected report, and Ibn al-Qayyim placed it at Tabūk.",
+            "sources": [
+              {
+                "type": "other",
+                "ref": "al-Bayhaqī, Dalāʾil al-Nubuwwa",
+                "verify": true
+              },
+              {
+                "type": "other",
+                "ref": "Ibn al-Qayyim, Zād al-Maʿād",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "A ṣaḥīḥ ḥadīth in al-Bukhārī",
+            "ok": false,
+            "why": "Al-Bukhārī has the general joy of the people (al-Barāʾ), but not this song.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3925",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: the joy of the welcome is firmly attested; the much-loved song that now carries that joy is a later, weaker witness. Both can be held honestly.",
+      "sections": [
+        "S0703"
+      ]
+    },
+    {
+      "id": "a10-u14",
+      "title": "Emigrants and Helpers in the Qurʾān",
+      "kicker": "How revelation named the two groups",
+      "when": {
+        "label": "Madinan revelation",
+        "grade": "established"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "madina",
+        "dist": 20,
+        "pitch": 40,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the Muhājirūn and the Anṣār",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Qurʾān describes the Anṣār as those who settled in the home and in faith before the emigrants, love those who emigrated to them, find no envy in their hearts for what the emigrants are given, and prefer others over themselves even when in need.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "59:9"
+            }
+          ]
+        },
+        {
+          "text": "It names the first forerunners among the Muhājirūn and the Anṣār, and those who followed them in excellence, as those with whom God is pleased and who are pleased with Him.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "9:100"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq says that by the time the houses were built, every household of the Anṣār had accepted Islam except Khaṭma, Wāqif, Wāʾil and Umayya, branches of the Aws known as Aws Allāh, who kept to their old religion for a time.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0715"
+            }
+          ]
+        },
+        {
+          "text": "The name al-Anṣār, 'the Helpers', is the Qurʾān's own term, used alongside al-Muhājirūn in 9:100.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "9:100"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "59:8-9",
+          "gist": "The poor emigrants, driven from homes and property, seek God's favour; and those already settled in the city and in faith love them, hold no grudge, and give them preference even in hardship.",
+          "context": "Read here as the Qurʾān's own portrait of the two groups whose bond this act follows. Established as text; its link to the brotherhood is thematic.",
+          "grade": "established"
+        },
+        {
+          "ref": "9:100",
+          "gist": "God is pleased with the earliest of the emigrants and helpers and those who followed them well, and has prepared gardens for them.",
+          "context": "The verse groups both communities together as forerunners. Established as text.",
+          "grade": "established"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look over the oasis at dusk",
+          "camera": {
+            "target": "madina",
+            "dist": 30,
+            "pitch": 55,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The oasis sits in a basin with lava fields to east and west and Uḥud to the north: a small, enclosed space for two peoples to share.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "59:9 praises those who prefer others 'even when they themselves are in need'. Which episode in this act shows that most clearly to you?",
+        "options": [
+          {
+            "text": "Saʿd b. al-Rabīʿ offering half his wealth",
+            "why": "Reported in al-Bukhārī.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 2048",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "Abū Ayyūb and Umm Ayyūb mopping water with their only blanket",
+            "why": "Reported by Abū Ayyūb in Ibn Isḥāq.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0712"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: scripture gave the two groups lasting names and praised each for what it gave up or gave away.",
+      "sections": [
+        "S0715"
+      ]
+    },
+    {
+      "id": "a10-u15",
+      "title": "Counting time from the Hijra",
+      "kicker": "Year 1, decided years later",
+      "when": {
+        "label": "Under the caliph ʿUmar, about year 16 or 17",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "day",
+      "camera": {
+        "target": [
+          39.6,
+          23.5
+        ],
+        "dist": 300,
+        "pitch": 30,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "ʿUmar b. al-Khaṭṭāb",
+          "role": "person"
+        },
+        {
+          "name": "the Companions in Madinah",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Sahl b. Saʿd reports that the Companions did not count years from the Prophet's mission ﷺ nor from his death, but from his arrival in Madinah.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3934",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Al-Ṭabarī places the decision to date by the Hijra in the caliphate of ʿUmar, in the year 16 (some say 17).",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Ṭabarī, Taʾrīkh al-rusul wa-l-mulūk, year 16",
+              "verify": true
+            }
+          ],
+          "note": "The reports differ between year 16 and 17."
+        },
+        {
+          "text": "Reports also differ on why the year was made to begin in Muḥarram rather than in Rabīʿ al-Awwal, the month of arrival; one account has it as the month when pilgrims returned home.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Ḥajar, Fatḥ al-Bārī, commentary on al-Bukhārī 3934",
+              "verify": true
+            }
+          ],
+          "note": "Varying reports on who proposed Muḥarram and why."
+        },
+        {
+          "text": "Ibn Isḥāq's own dating already runs from the arrival: he says the Prophet ﷺ stayed in Madinah 'from Rabīʿ al-Awwal to Ṣafar of the following year' while his houses were built.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0715"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "From Makkah to Madinah, the line that became a calendar",
+          "camera": {
+            "target": [
+              39.7,
+              22.9
+            ],
+            "dist": 450,
+            "pitch": 30,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The roughly 340 km between the two cities, in a straight line, is the journey the Islamic calendar counts from.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "From which event did the Companions choose to count the years?",
+        "options": [
+          {
+            "text": "The Prophet's arrival in Madinah ﷺ",
+            "ok": true,
+            "why": "Sahl b. Saʿd says so explicitly.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3934",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "The first revelation",
+            "ok": false,
+            "why": "Sahl says they did not count from the mission.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3934",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "His death",
+            "ok": false,
+            "why": "Sahl says they did not count from his death either.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3934",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection: of all possible beginnings, the community dated itself from a move, not a birth, a battle or a death.",
+      "sections": [
+        "S0715"
+      ]
+    },
+    {
+      "id": "a10-u16",
+      "title": "Whoever's hijra is to God",
+      "kicker": "Closing: what the Hijra began",
+      "when": {
+        "label": "Sayings from the Madinan years; the end of hijra after the Conquest, year 8",
+        "grade": "established"
+      },
+      "place": {
+        "key": "prophets_mosque"
+      },
+      "sky": "night",
+      "camera": {
+        "target": [
+          39.7,
+          22.9
+        ],
+        "dist": 480,
+        "pitch": 35,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        }
+      ],
+      "route": [
+        "makkah",
+        "thawr",
+        "quba",
+        "jumua_mosque",
+        "prophets_mosque"
+      ],
+      "statements": [
+        {
+          "text": "ʿUmar reports the Prophet ﷺ saying: actions are only by intentions, and each person has what he intended; whoever's hijra is to God and His Messenger, his hijra is to God and His Messenger, and whoever's hijra is for worldly gain or to marry a woman, his hijra is to what he emigrated for.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 1",
+              "grade": "ṣaḥīḥ"
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 1907",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "A later report says the ḥadīth was prompted by a man who emigrated to marry a woman called Umm Qays; Ibn Ḥajar notes that nothing in that report shows it was the occasion of the saying.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Ṭabarānī, al-Muʿjam al-Kabīr, from Ibn Masʿūd",
+              "verify": true
+            },
+            {
+              "type": "other",
+              "ref": "Ibn Ḥajar, Fatḥ al-Bārī, on ḥadīth 1",
+              "verify": true
+            }
+          ],
+          "note": "The 'emigrant of Umm Qays' story is attested, but its link as the occasion of the ḥadīth is not established."
+        },
+        {
+          "text": "Ibn ʿAbbās reports the Prophet ﷺ saying on the day of the Conquest: 'No hijra after the Conquest, but jihad and intention; and when you are called to go out, go out.'",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 2783",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "Muslim 1353",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha explained that believers used to flee with their religion to God and His Messenger for fear of being tried, but once God had made Islam prevail, a person could worship his Lord wherever he wished.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3900",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Another report, 'hijra will not end until repentance ends', is graded differently by scholars, who reconcile the two by distinguishing the obligatory hijra from Makkah, which ended, from leaving sin or a land where faith cannot be practised, which does not.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "Abū Dāwūd 2479",
+              "grade": "disputed",
+              "verify": true
+            }
+          ],
+          "note": "The chain of this report is criticised by some and accepted by others; the reconciliation is a scholarly interpretation."
+        }
+      ],
+      "discover": [
+        {
+          "label": "See the whole journey",
+          "camera": {
+            "target": [
+              39.6,
+              22.9
+            ],
+            "dist": 500,
+            "pitch": 40,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Makkah, Thawr, the coastal stages, Qubāʾ, the valley of the first Friday and the mosque site: the stations of this journey seen at once.",
+            "grade": "reconstruction",
+            "basis": "gazetteer points"
+          }
+        },
+        {
+          "label": "Return to where the camel knelt",
+          "camera": {
+            "target": "prophets_mosque",
+            "dist": 1,
+            "pitch": 60,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "The drying-ground of two orphans became the Prophet's mosque, which today stands on the site.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0705"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "If the hijra from Makkah ended with the Conquest, what in the ḥadīth of intentions still applies to you?",
+        "options": [
+          {
+            "text": "Every move and every action is judged by its intention",
+            "why": "The ḥadīth begins with intentions in general before giving hijra as its example.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 1",
+                "grade": "ṣaḥīḥ"
+              }
+            ]
+          },
+          {
+            "text": "'Jihad and intention' remain after the Conquest",
+            "why": "The words of Ibn ʿAbbās's report.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 2783",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Reflection, not fact: the Hijra was a journey of a few hundred kilometres, but the sources treat it as the founding of a community: a mosque, a brotherhood, a compact and a calendar. Its lasting lesson, in the Prophet's own words as transmitted, is that what counts is what one moves toward, and why.",
+      "sections": [
+        "S0705"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2426 @@
+{
+  "act": 8,
+  "title": "The road north",
+  "subtitle": "From Thawr along the coast to Qubāʾ: the guide's stations, a pursuer turned believer, and the shade of a noon rock",
+  "span": "early Rabīʿ al-Awwal, year 1",
+  "units": [
+    {
+      "id": "a08-u01",
+      "title": "\"I will not ride a camel that is not mine\"",
+      "kicker": "The price of the camel",
+      "when": {
+        "label": "At the setting out from Thawr (Ibn Isḥāq)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "thawr",
+        "dist": 1.2,
+        "pitch": 40,
+        "heading": 300
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says Abū Bakr brought the two riding camels close to the Prophet ﷺ, offered him the better of the two, and said: ride, may my father and my mother be your ransom.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ answered Abū Bakr's offer: I do not ride a camel that is not mine.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr said it was his, and the Prophet ﷺ said no, and asked what price he had paid for it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr named the price, the Prophet ﷺ said he took it at that, and Abū Bakr said: it is yours, O Messenger of Allah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha's ḥadīth in al-Bukhārī records the same insistence in two words: \"with the price\" (bi-l-thaman).",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "The two accounts place the exchange differently: Ibn Isḥāq sets it at the camels beside the cave, while ʿĀʾisha's ḥadīth sets it in Abū Bakr's house in Makkah, before the night of leaving.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ],
+          "note": "Timing and setting differ between Ibn Isḥāq (S0688) and ʿĀʾisha's account in al-Bukhārī; both agree that the Prophet ﷺ paid."
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Abū Bakr offers the better camel as a gift. What does the Prophet ﷺ do?",
+        "options": [
+          {
+            "text": "He accepts it as a gift from his companion",
+            "ok": false,
+            "why": "Both sources say he refused to ride a camel that was not his.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0688"
+              }
+            ]
+          },
+          {
+            "text": "He insists on paying the price Abū Bakr paid for it",
+            "ok": true,
+            "why": "He asked the price and took the camel at that price.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0688"
+              },
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3905",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "He chooses to walk beside the camels",
+            "ok": false,
+            "why": "Nothing in the sources; the two rode off together.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0688"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "On a road that cost everything, he would not owe even his closest friend the price of a camel; the Hijra was to be his own act.",
+      "sections": [
+        "S0688"
+      ]
+    },
+    {
+      "id": "a08-u02",
+      "title": "Four travellers, three camels",
+      "kicker": "The party is formed",
+      "when": {
+        "label": "Early Rabīʿ al-Awwal, year 1 of the Hijra (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "thawr"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "thawr",
+        "dist": 4,
+        "pitch": 35,
+        "heading": 315
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "thawr"
+      ],
+      "statements": [
+        {
+          "text": "Abū Bakr took his freedman ʿĀmir b. Fuhayra up behind him on his camel, so that ʿĀmir could serve them on the road.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0688"
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ bint Abī Bakr later counted them: they were four, the Messenger of Allah ﷺ, Abū Bakr, ʿĀmir b. Fuhayra and ʿAbd Allāh b. Arqaṭ their guide.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0691"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq says the guide came with the two men's camels and a camel of his own, so four riders shared three mounts.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0686"
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha's ḥadīth says ʿĀmir b. Fuhayra and the guide set off with the two, and the guide took them by the coastal road.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "ʿĀʾisha's account in al-Bukhārī says the hired guide was a man of Banū al-Dīl who still followed the religion of Quraysh, yet the two men trusted him with their camels and a meeting at Thawr after three nights.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām names the guide ʿAbd Allāh b. Arqaṭ and adds that he is also called ʿAbd Allāh b. Urayqiṭ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0691"
+            }
+          ]
+        },
+        {
+          "text": "Ghār Thawr sits high on a rocky mountain south of Makkah; the way down to the camels is over broken granite slopes.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look back toward Makkah",
+          "camera": {
+            "target": "makkah",
+            "dist": 12,
+            "pitch": 22,
+            "heading": 335
+          },
+          "reveal": {
+            "text": "The centre of Makkah lies about 5.7 km north-north-west of Ghār Thawr in a straight line.",
+            "grade": "reconstruction",
+            "basis": "computed between places.csv points (straight line, great-circle)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Who rode behind Abū Bakr on his camel?",
+        "options": [
+          {
+            "text": "ʿĀmir b. Fuhayra, his freedman",
+            "ok": true,
+            "why": "Ibn Isḥāq: Abū Bakr took ʿĀmir up behind him to serve them on the way.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0688"
+              }
+            ]
+          },
+          {
+            "text": "ʿAbd Allāh b. Abī Bakr, his son",
+            "ok": false,
+            "why": "ʿAbd Allāh stayed among Quraysh in Makkah to gather news; he is not one of the four.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0686"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0691"
+              }
+            ]
+          },
+          {
+            "text": "The guide ʿAbd Allāh b. Arqaṭ",
+            "ok": false,
+            "why": "The guide had a camel of his own.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0686"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "A freed slave, a merchant, a hired pagan guide and the Messenger of Allah: the smallest of caravans carried the whole future.",
+      "sections": [
+        "S0686",
+        "S0688",
+        "S0691"
+      ]
+    },
+    {
+      "id": "a08-u03",
+      "title": "Below Makkah, then the coast",
+      "kicker": "Stations 1–2 of Ibn Isḥāq's list",
+      "when": {
+        "label": "Early Rabīʿ al-Awwal, year 1 of the Hijra (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~asfal-makkah",
+        "note": "\"Lower Makkah\": the low, seaward side of the valley; not located"
+      },
+      "sky": "night",
+      "camera": {
+        "target": [
+          39.45,
+          21.55
+        ],
+        "dist": 120,
+        "pitch": 35,
+        "heading": 320
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "thawr",
+        "~asfal-makkah",
+        "~al-sahil"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq: when the guide set out with them he took them first by lower Makkah (asfal Makka).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Then he went on with them along the coast (al-sāḥil).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Both early accounts agree that the route ran by the coast: Ibn Isḥāq's \"on the coast\" and ʿĀʾisha's \"the coastal road\" (ṭarīq al-sawāḥil).",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3905",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "al-Barāʾ's report from Abū Bakr says they travelled through that night and into the next day.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "West of Makkah the hills fall away to the Tihāma, a hot, flat coastal plain of sand and gravel beside the Red Sea.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        },
+        {
+          "text": "In early spring the nights on the Tihāma are mild and the days grow hot well before noon.",
+          "grade": "reconstruction",
+          "basis": "climate norms for the Ḥijāz coast"
+        }
+      ],
+      "discover": [
+        {
+          "label": "See the coastal plain",
+          "camera": {
+            "target": [
+              39.3,
+              21.8
+            ],
+            "dist": 200,
+            "pitch": 30,
+            "heading": 330
+          },
+          "reveal": {
+            "text": "From above, the coastal plain is a long strip between the Ḥijāz escarpment and the sea, running north toward Yathrib.",
+            "grade": "reconstruction",
+            "basis": "terrain data"
+          }
+        }
+      ],
+      "matters": "The first move was away from the road Quraysh would watch; the list begins by going down and out to the sea's edge.",
+      "sections": [
+        "S0696"
+      ]
+    },
+    {
+      "id": "a08-u04",
+      "title": "Shade at noon",
+      "kicker": "al-Barāʾ's ḥadīth: the noon rest",
+      "when": {
+        "label": "Midday after the first night's travel",
+        "grade": "established"
+      },
+      "place": {
+        "key": "~noon-rock",
+        "note": "The sources do not name the place"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": [
+          39.5,
+          21.65
+        ],
+        "dist": 40,
+        "pitch": 25,
+        "heading": 320
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "al-Barāʾ b. ʿĀzib heard Abū Bakr tell the story when Abū Bakr came to buy a saddle from his father ʿĀzib, who asked how they had fared on the night of the journey.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr said they travelled until the heat of noon, when the road was empty and no one was crossing it.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "A long rock appeared with shade the sun had not reached, and they stopped there.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr smoothed a place with his hands, spread a fur over it, and asked the Prophet ﷺ to sleep while he watched over him.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Then Abū Bakr went out to look around them, to see if anyone was coming.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Under a spring noon sun on the open plain, ground temperatures climb high and travel in the full heat is punishing for camels and riders.",
+          "grade": "reconstruction",
+          "basis": "climate norms for the Ḥijāz coast"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Abū Bakr spreads a fur and keeps watch while the Prophet ﷺ sleeps. What does this small act tell you about companionship on the road?",
+        "options": []
+      },
+      "matters": "The Hijra's rhythm was set by the sun: move by night and morning, hide in shade at noon. Abū Bakr's care is told in his own words.",
+      "sections": []
+    },
+    {
+      "id": "a08-u05",
+      "title": "The shepherd's milk",
+      "kicker": "al-Barāʾ's ḥadīth, continued",
+      "when": {
+        "label": "Midday, the same rest",
+        "grade": "established"
+      },
+      "place": {
+        "key": "~noon-rock"
+      },
+      "sky": "midday",
+      "camera": {
+        "target": [
+          39.5,
+          21.65
+        ],
+        "dist": 6,
+        "pitch": 35,
+        "heading": 300
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "a shepherd with his flock",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "A shepherd came driving his sheep toward the same rock, wanting the shade they had found.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr asked him whose servant he was and whether his sheep had milk; he said yes and milked a little into a wooden bowl.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Abū Bakr carried a leather water skin for the Prophet ﷺ to drink from and to wash with; he poured water over the milk until the bottom of the bowl was cool.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "He found the Prophet ﷺ already awake, offered him the milk, and said: he drank until I was content.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ asked whether the time to move had come, and they set off after the sun had passed its height.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "The versions differ on how the shepherd named his master: in one he names a man of Quraysh whom Abū Bakr knew; in another he answers only \"a man of the people of Madinah or Makkah\".",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3652",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ],
+          "note": "Narrator variants across the chains of al-Barāʾ's ḥadīth; the substance of the meeting is the same."
+        }
+      ],
+      "discover": [
+        {
+          "label": "Watch the sun pass noon",
+          "camera": {
+            "target": [
+              39.5,
+              21.65
+            ],
+            "dist": 20,
+            "pitch": 15,
+            "heading": 270
+          },
+          "reveal": {
+            "text": "When the sun passes its height the shadows swing to the east and the worst heat slowly eases toward the afternoon.",
+            "grade": "reconstruction",
+            "basis": "solar geometry"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "When did they leave the rock?",
+        "options": [
+          {
+            "text": "After the sun had passed noon",
+            "ok": true,
+            "why": "Abū Bakr: we set off after the sun had declined from its height.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3615",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "At once, before he slept",
+            "ok": false,
+            "why": "The Prophet ﷺ slept first, then drank the milk.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3615",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "Only after nightfall",
+            "ok": false,
+            "why": "The ḥadīth says after the sun declined, not after dark.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3615",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "A cup of cooled milk in the desert noon is remembered for centuries because of who held it out, and for whom.",
+      "sections": []
+    },
+    {
+      "id": "a08-u06",
+      "title": "A hundred camels for a man",
+      "kicker": "Surāqa hears of three riders",
+      "when": {
+        "label": "During the journey; the day is not fixed",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~banu-mudlij",
+        "note": "The gathering of Banū Mudlij, Surāqa's people; not located"
+      },
+      "sky": "day",
+      "camera": {
+        "target": [
+          39.35,
+          22.0
+        ],
+        "dist": 60,
+        "pitch": 30,
+        "heading": 330
+      },
+      "lights": [
+        {
+          "name": "Surāqa b. Mālik b. Juʿshum",
+          "role": "stone"
+        },
+        {
+          "name": "Banū Mudlij in their gathering",
+          "role": "assembly"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Surāqa b. Mālik b. Juʿshum tells the story himself: Quraysh set a hundred she-camels for whoever brought the Prophet ﷺ back to them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī, Surāqa says the messengers of Quraysh offered the blood-price of each of the two men to whoever killed or captured either.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "While he sat in the gathering of his people, a man came and said he had just seen three riders pass and thought they were Muḥammad and his companions; in al-Bukhārī he says he saw figures on the coast.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Surāqa signalled to him with his eyes to keep quiet and said: those are only Banū so-and-so, looking for a stray camel.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        },
+        {
+          "text": "He waited a little, went home, had his horse led down into the valley bed and his weapons carried out from behind his house, so no one would see.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        },
+        {
+          "text": "He cast his divining arrows to ask if he should go, and out came the one he hated: \"it will not harm him\".",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām corrects the lineage of the narrator: ʿAbd al-Raḥmān b. al-Ḥārith b. Mālik b. Juʿshum, Surāqa's nephew.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0695"
+            }
+          ]
+        }
+      ],
+      "matters": "The reward turned every herdsman on the coast into a possible enemy. Surāqa wanted the prize for himself, and that greed sent him alone.",
+      "sections": [
+        "S0693",
+        "S0695"
+      ]
+    },
+    {
+      "id": "a08-u07",
+      "title": "The horse sinks",
+      "kicker": "Surāqa reaches them",
+      "when": {
+        "label": "During the journey; the day is not fixed",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~surāqa-encounter",
+        "note": "On the coastal route; the sources do not name the spot"
+      },
+      "sky": "day",
+      "camera": {
+        "target": [
+          39.35,
+          22.0
+        ],
+        "dist": 3,
+        "pitch": 20,
+        "heading": 330
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        },
+        {
+          "name": "Surāqa b. Mālik b. Juʿshum",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Twice his horse stumbled under him as it galloped and threw him; twice he cast the arrows and got the same answer, and still he rode on.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī he says he came close enough to hear the Prophet ﷺ reciting; the Prophet did not look round, while Abū Bakr looked round often.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "al-Barāʾ's report: Abū Bakr said, the pursuer has reached us, and the Prophet ﷺ answered: do not grieve, Allah is with us.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "When the riders came into view his horse stumbled again; its forelegs sank into the ground and he fell, and when it pulled them free something like smoke followed them, rising like a whirlwind.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī, Surāqa says the forelegs sank to the knees; in al-Barāʾ's report the Prophet ﷺ prayed against him and the horse sank to its belly in hard ground.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Surāqa says he knew then that the man was protected from him and that his cause would prevail, and he called out: I am Surāqa b. Juʿshum, wait so I can speak to you; nothing you dislike will come from me.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "9:40",
+          "gist": "Allah helped His Messenger when he was driven out, one of two in the cave, and he told his companion not to grieve, for Allah was with them; Allah sent down His calm upon him.",
+          "context": "The verse speaks of the cave. al-Barāʾ's ḥadīth in al-Bukhārī has the same words, do not grieve, Allah is with us, spoken again on the road when Surāqa caught up (established).",
+          "grade": "established"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Surāqa: who is he?",
+          "reveal": {
+            "text": "Surāqa was of Banū Mudlij, the people of his gathering in al-Bukhārī's account.",
+            "grade": "established",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3906",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "The pursuit is told by the pursuer himself, which is why every detail survives: the stumbles, the arrows, the smoke, the calm recitation he heard.",
+      "sections": [
+        "S0693"
+      ]
+    },
+    {
+      "id": "a08-u08",
+      "title": "A token for later",
+      "kicker": "The writing and the promise",
+      "when": {
+        "label": "On the road; then al-Jiʿrāna, year 8",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~surāqa-encounter"
+      },
+      "sky": "day",
+      "camera": {
+        "target": [
+          39.35,
+          22.0
+        ],
+        "dist": 2,
+        "pitch": 35,
+        "heading": 150
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "Surāqa b. Mālik b. Juʿshum",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ told Abū Bakr to ask what he wanted; Surāqa asked for a writing to be a sign between them, and he said: write for him, Abū Bakr.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ]
+        },
+        {
+          "text": "Surāqa says it was written on a bone, or a piece of parchment, or a potsherd, and thrown to him; he put it in his quiver and went back.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0694"
+            }
+          ]
+        },
+        {
+          "text": "In al-Bukhārī Surāqa says it was ʿĀmir b. Fuhayra who wrote him a promise of safety, on a piece of leather.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0693"
+            }
+          ],
+          "note": "Ibn Isḥāq has the Prophet ﷺ tell Abū Bakr to write; al-Bukhārī names ʿĀmir b. Fuhayra as the writer. Ibn Isḥāq's Surāqa is himself unsure of the material."
+        },
+        {
+          "text": "He told them of the reward and what people meant to do with them and offered them provisions; they took nothing and asked only: keep our news hidden.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "al-Barāʾ's report: he asked them to pray for him, promising to turn the searchers away, and afterwards told everyone he met that he had already searched there; Abū Bakr says he kept faith with them.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3615",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "A later report says the Prophet ﷺ asked him how he would feel wearing the bracelets of Kisrā, and that ʿUmar later put Kisrā's bracelets on him; it is not in Ibn Isḥāq or the ṣaḥīḥ collections.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Bayhaqī, Dalāʾil al-Nubuwwa; Ibn ʿAbd al-Barr, al-Istīʿāb (entry Surāqa b. Mālik)",
+              "note": "Transmitted with a chain that skips the generation of the Companions (mursal)",
+              "verify": true
+            }
+          ],
+          "note": "Late, with a broken (mursal) chain; widely retold but graded weak by many."
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What did the travellers take from Surāqa when he offered them provisions?",
+        "options": [
+          {
+            "text": "Nothing; they asked only that he keep their news hidden",
+            "ok": true,
+            "why": "Surāqa in al-Bukhārī: they took nothing and asked only that he conceal them.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3906",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "A spare horse for the Prophet ﷺ",
+            "ok": false,
+            "why": "No source says so.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3906",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          },
+          {
+            "text": "Water and dates for the road",
+            "ok": false,
+            "why": "They took nothing.",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 3906",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The hunter left carrying a promise of safety from the hunted. He kept it hidden for eight years.",
+      "sections": [
+        "S0693",
+        "S0694"
+      ]
+    },
+    {
+      "id": "a08-u09",
+      "title": "\"A day of keeping faith\"",
+      "kicker": "Flash-forward: al-Jiʿrāna, year 8",
+      "when": {
+        "label": "After the conquest of Makkah, Ḥunayn and al-Ṭāʾif (year 8)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~jirana",
+        "note": "al-Jiʿrāna, north-east of Makkah; not in the gazetteer"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 60,
+        "pitch": 40,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Surāqa b. Mālik (now a Muslim)",
+          "role": "person"
+        },
+        {
+          "name": "horsemen of the Anṣār",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Surāqa kept silent about all that had happened until Makkah was conquered and the campaigns of Ḥunayn and al-Ṭāʾif were over.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0694"
+            }
+          ]
+        },
+        {
+          "text": "Then he set out with the writing and met the Prophet ﷺ at al-Jiʿrāna, pushing into a troop of Anṣār horsemen who prodded him with their spears and told him to keep back.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0694"
+            }
+          ]
+        },
+        {
+          "text": "He raised the writing and called: O Messenger of Allah, this is your writing for me; I am Surāqa b. Juʿshum.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0694"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ said: a day of keeping faith and of goodness; come close. Surāqa came close and accepted Islam.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0694"
+            }
+          ]
+        },
+        {
+          "text": "He asked whether he had a reward for letting stray camels drink from the troughs he had filled for his own, and was told: yes, in every creature with a thirsting liver there is reward.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0694"
+            }
+          ]
+        },
+        {
+          "text": "He went back to his people and sent his alms to the Messenger of Allah ﷺ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0694"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Surāqa's memory of that day",
+          "reveal": {
+            "text": "Years later he still recalled the Prophet's ﷺ leg in the stirrup, pale as the heart of a palm.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0694"
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "The token written on the road was honoured in full: a pursuer who had wanted a hundred camels came home with Islam.",
+      "sections": [
+        "S0694"
+      ]
+    },
+    {
+      "id": "a08-u10",
+      "title": "Across the road below ʿUsfān",
+      "kicker": "Station 3",
+      "when": {
+        "label": "Early Rabīʿ al-Awwal, year 1 of the Hijra (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "usfan"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "usfan",
+        "dist": 25,
+        "pitch": 35,
+        "heading": 330
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "thawr",
+        "~asfal-makkah",
+        "~al-sahil",
+        "usfan"
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq: the guide kept to the coast until he crossed the road (ʿāraḍa al-ṭarīq) below ʿUsfān.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "The wording says they met the road below ʿUsfān, not that they stopped at ʿUsfān itself.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "ʿUsfān lies about 69 km north-north-west of Ghār Thawr in a straight line; the riders' actual track by the coast was longer and is not known exactly.",
+          "grade": "reconstruction",
+          "basis": "computed between places.csv points (straight line, great-circle)"
+        },
+        {
+          "text": "ʿUsfān stands where the inland caravan road from Makkah reaches the coastal lowlands, with hills to the east and the plain opening to the west.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        },
+        {
+          "text": "Crossing a main road at night leaves fewer witnesses than travelling along it by day.",
+          "grade": "reconstruction",
+          "basis": "terrain data and light"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Measure Makkah to ʿUsfān",
+          "camera": {
+            "target": "usfan",
+            "dist": 120,
+            "pitch": 40,
+            "heading": 145
+          },
+          "reveal": {
+            "text": "From the centre of Makkah to ʿUsfān is about 63 km in a straight line, bearing about 324°.",
+            "grade": "reconstruction",
+            "basis": "computed between places.csv points (straight line, great-circle)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Ibn Isḥāq says the guide \"met the road below ʿUsfān\". What is the most careful reading?",
+        "options": [
+          {
+            "text": "They crossed or touched the main road below ʿUsfān and left it again",
+            "ok": true,
+            "why": "The text says he met the road below ʿUsfān, then took them by lower Amaj; it names no halt in the town.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "They rested in the town of ʿUsfān",
+            "ok": false,
+            "why": "No halt at ʿUsfān is mentioned.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "They turned back toward Makkah",
+            "ok": false,
+            "why": "The list goes on northward to Amaj and Qudayd.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Each station in the list is a choice by the guide; here the road is touched and left behind.",
+      "sections": [
+        "S0696"
+      ]
+    },
+    {
+      "id": "a08-u11",
+      "title": "Lower Amaj, past Qudayd",
+      "kicker": "Stations 4–5",
+      "when": {
+        "label": "Early Rabīʿ al-Awwal, year 1 of the Hijra (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~amaj",
+        "note": "Amaj is not in the gazetteer; shown unlocated"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "usfan",
+        "dist": 60,
+        "pitch": 30,
+        "heading": 335
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "usfan",
+        "~amaj",
+        "~qudayd"
+      ],
+      "statements": [
+        {
+          "text": "From the road below ʿUsfān the guide took them by lower Amaj (asfal Amaj).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Then he cut across with them (istajāza), until he met the road again after they had passed Qudayd.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "From that place he crossed over again and took them on to al-Kharrār.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq's verbs for this stretch are verbs of crossing and slipping past: he meets the road, cuts over, passes beyond, crosses again.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Neither Amaj nor Qudayd has a point in this map's gazetteer, so they are shown only as names on the dashed line.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Where is al-Juḥfa?",
+          "camera": {
+            "target": "juhfa",
+            "dist": 40,
+            "pitch": 35,
+            "heading": 330
+          },
+          "reveal": {
+            "text": "al-Juḥfa, not named in Ibn Isḥāq's list, lies about 88 km north-north-west of ʿUsfān in a straight line; it is shown only as a reference point.",
+            "grade": "reconstruction",
+            "basis": "computed between places.csv points (straight line, great-circle)"
+          }
+        }
+      ],
+      "matters": "The route hugged and avoided the main road by turns: close enough to keep direction, far enough to stay unseen.",
+      "sections": [
+        "S0696"
+      ]
+    },
+    {
+      "id": "a08-u12",
+      "title": "The two tents of Umm Maʿbad",
+      "kicker": "A halt remembered in verse",
+      "when": {
+        "label": "On the road; the day is not fixed",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~umm-mabad-tents",
+        "note": "Later sources put her tents near Qudayd; not located"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "usfan",
+        "dist": 80,
+        "pitch": 30,
+        "heading": 340
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        },
+        {
+          "name": "Umm Maʿbad",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Hishām identifies her: Umm Maʿbad bint Kaʿb, a woman of Banū Kaʿb of Khuzāʿa.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0691"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq's text tells no scene at her tents; it preserves only verses saying the two companions stopped at her two tents.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0691"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām notes that the phrases \"stopped at the two tents\" and \"they halted in goodness, then moved on at evening\" come from a source other than Ibn Isḥāq.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0691"
+            }
+          ]
+        },
+        {
+          "text": "Later collections tell that she had no food to offer, that the Prophet ﷺ stroked the udder of a worn-out ewe that gave no milk, and that it gave enough for all of them and more.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr; al-Ḥākim, al-Mustadrak; al-Bayhaqī, Dalāʾil al-Nubuwwa",
+              "note": "Several chains, each with weak links; scholars differ on whether together they hold",
+              "verify": true
+            }
+          ],
+          "note": "Not in Ibn Isḥāq or the ṣaḥīḥ collections; chains are weak and graded differently."
+        },
+        {
+          "text": "The same later reports give Umm Maʿbad's long description of the Prophet's ﷺ appearance and manner to her husband; it is much quoted, but its grade is disputed.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "al-Ḥākim, al-Mustadrak; al-Ṭabarānī, al-Muʿjam al-Kabīr; al-Bayhaqī, Dalāʾil al-Nubuwwa",
+              "note": "Chains contested; accepted by some later scholars on the strength of several routes, rejected by others",
+              "verify": true
+            }
+          ],
+          "note": "Later sources only; authenticity is debated."
+        },
+        {
+          "text": "Some later reports place her tents at Qudayd.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Saʿd, al-Ṭabaqāt al-Kabīr",
+              "note": "Location given in later reports; not in Ibn Isḥāq",
+              "verify": true
+            }
+          ],
+          "note": "Ibn Isḥāq names no place for the tents."
+        }
+      ],
+      "matters": "Here the evidence thins: Ibn Isḥāq gives a name and a few verses; the famous story and the famous portrait come later and must be read with care.",
+      "sections": [
+        "S0689",
+        "S0691"
+      ]
+    },
+    {
+      "id": "a08-u13",
+      "title": "A voice over Makkah",
+      "kicker": "Meanwhile in Makkah: three nights without news",
+      "when": {
+        "label": "Three nights after the departure",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 6,
+        "pitch": 30,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "Asmāʾ bint Abī Bakr",
+          "role": "person"
+        },
+        {
+          "name": "the people of Makkah",
+          "role": "assembly"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq reports from Asmāʾ bint Abī Bakr, through an unnamed informant, that for three nights the family did not know which way the Prophet ﷺ had gone.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ],
+          "note": "Ibn Isḥāq's chain here is unnamed (\"I was told from Asmāʾ\")."
+        },
+        {
+          "text": "Then, she said, a man of the jinn came in from lower Makkah singing Arab verses; people followed, hearing his voice but not seeing him, until he went out by upper Makkah.",
+          "grade": "disputed",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ],
+          "note": "Unnamed chain; part of the verses come, by Ibn Hishām's own note, from a source other than Ibn Isḥāq."
+        },
+        {
+          "text": "The verses ask Allah to reward the two companions who stopped at Umm Maʿbad's tents, and say that whoever became the companion of Muḥammad has prospered.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "A last verse tells Banū Kaʿb to rejoice in the place of their young woman, whose seat is a watch-post (marṣad) for the believers.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0689"
+            }
+          ]
+        },
+        {
+          "text": "Asmāʾ said: when we heard it we knew where the Messenger of Allah ﷺ had gone, and that he was heading for Madinah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0691"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "The word in the verse",
+          "reveal": {
+            "text": "The verse's word for the watch-post, marṣad, is the word this project, al-Marṣad, is named for.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0689"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "How did the family in Makkah learn that the Prophet ﷺ was heading for Madinah, according to Asmāʾ's report?",
+        "options": [
+          {
+            "text": "From verses sung by an unseen voice that named Umm Maʿbad's tents",
+            "ok": true,
+            "why": "Asmāʾ: when we heard his words we knew he was heading to Madinah.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0689"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0691"
+              }
+            ]
+          },
+          {
+            "text": "From a letter sent back by ʿĀmir b. Fuhayra",
+            "ok": false,
+            "why": "No source mentions a letter.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0691"
+              }
+            ]
+          },
+          {
+            "text": "From the guide when he returned",
+            "ok": false,
+            "why": "The guide is not said to have returned in this account.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The news that reached Makkah was not of where they were but of what had happened at a woman's tents: generosity was the trail they left.",
+      "sections": [
+        "S0689",
+        "S0691"
+      ]
+    },
+    {
+      "id": "a08-u14",
+      "title": "The guide's hidden track",
+      "kicker": "Stations 6–18: al-Kharrār to al-Fāja",
+      "when": {
+        "label": "Early Rabīʿ al-Awwal, year 1 of the Hijra (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~al-kharrar",
+        "note": "None of these stations is in the gazetteer"
+      },
+      "sky": "night",
+      "camera": {
+        "target": [
+          39.15,
+          22.9
+        ],
+        "dist": 250,
+        "pitch": 40,
+        "heading": 345
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "~qudayd",
+        "~al-kharrar",
+        "~thaniyyat-al-marra",
+        "~liqf",
+        "~madlajat-liqf",
+        "~madlajat-mahaj",
+        "~marjah-mahaj",
+        "~marjah-dhi-al-ghadwayn",
+        "~batn-dhi-kashr",
+        "~al-jadajid",
+        "~al-ajrad",
+        "~dhu-salam",
+        "~al-ababid",
+        "~al-faja"
+      ],
+      "statements": [
+        {
+          "text": "After Qudayd the guide took them by al-Kharrār, then the pass of Thaniyyat al-Marra, then Liqf; Ibn Hishām says it is also called Lift and quotes a line of Maʿqil b. Khuwaylid al-Hudhalī that names it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Then he crossed Madlajat Liqf, went down into the hollow of Madlajat Maḥāj (Ibn Hishām: also Majāj), then took Marjaḥ Maḥāj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Then he went down into the Marjaḥ of Dhū al-Ghaḍwayn (Ibn Hishām: also al-ʿAḍwayn), then the hollow of Dhū Kashr.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Then he took them by al-Jadājid, then al-Ajrad, then Dhū Salam, from the hollow of Aʿdāʾ, the Madlaja of Taʿhin.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Then by al-ʿAbābīd (Ibn Hishām: also al-ʿAbābīb, or al-ʿUthyāna), then across al-Fāja (Ibn Hishām: also al-Qāḥa).",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Many of these names are passes (thaniyya), night-crossings (madlaja) and valley hollows (baṭn), the vocabulary of a back-country track rather than a caravan road.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "None of these stations has a point in this map's gazetteer, so their exact line on the ground is not drawn.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Where al-Abwāʾ lies",
+          "camera": {
+            "target": "abwa",
+            "dist": 60,
+            "pitch": 35,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "al-Abwāʾ, not named in Ibn Isḥāq's list, lies about 69 km north of al-Juḥfa and about 71 km south of al-ʿArj in straight lines; it is a reference point only.",
+            "grade": "reconstruction",
+            "basis": "computed between places.csv points (straight line, great-circle)"
+          }
+        }
+      ],
+      "quran": [
+        {
+          "ref": "28:85",
+          "gist": "The One who laid the Qurʾān upon you will surely bring you back to a place of return.",
+          "context": "Ibn ʿAbbās explained the place of return as Makkah (al-Bukhārī, tafsīr of 28:85, verify). Some exegetes add that the verse came down at al-Juḥfa on the Hijra road: disputed, a late report with no sound chain; al-Juḥfa is not in Ibn Isḥāq's list.",
+          "grade": "disputed"
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Put these stations in Ibn Isḥāq's order: al-Ajrad, al-Kharrār, Madlajat Liqf, al-Fāja.",
+        "options": [
+          {
+            "text": "al-Kharrār → Madlajat Liqf → al-Ajrad → al-Fāja",
+            "ok": true,
+            "why": "Ibn Isḥāq: al-Kharrār, Thaniyyat al-Marra, Liqf, Madlajat Liqf … al-Jadājid, al-Ajrad, Dhū Salam, al-ʿAbābīd, al-Fāja.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "Madlajat Liqf → al-Kharrār → al-Fāja → al-Ajrad",
+            "ok": false,
+            "why": "al-Kharrār comes first, right after Qudayd.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "al-Kharrār → al-Ajrad → Madlajat Liqf → al-Fāja",
+            "ok": false,
+            "why": "Madlajat Liqf comes well before al-Ajrad.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "This list is the longest itinerary in the Sīra: a guide's memory of the land, preserved name by name even where the map can no longer follow.",
+      "sections": [
+        "S0696"
+      ]
+    },
+    {
+      "id": "a08-u15",
+      "title": "White clothes from Syria",
+      "kicker": "Meeting al-Zubayr's caravan",
+      "when": {
+        "label": "On the road, before reaching Madinah",
+        "grade": "established"
+      },
+      "place": {
+        "key": "~zubayr-meeting",
+        "note": "The sources do not name the place"
+      },
+      "sky": "day",
+      "camera": {
+        "target": [
+          39.2,
+          23.5
+        ],
+        "dist": 120,
+        "pitch": 30,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        },
+        {
+          "name": "al-Zubayr b. al-ʿAwwām and Muslim merchants",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "ʿUrwa b. al-Zubayr reports that on the road the Prophet ﷺ met al-Zubayr in a caravan of Muslim merchants returning from al-Shām.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "al-Zubayr clothed the Prophet ﷺ and Abū Bakr in white garments.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq's account of the route in Ibn Hishām does not mention this meeting.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "The ḥadīth names no place for the meeting.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3906",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Caravans between Makkah and al-Shām travelled the coastal lowlands of the Ḥijāz in both directions.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "After days of dust and heat, two travellers are given clean white clothes by Muslims coming the other way. What might this meeting have meant to them, as far as the sources let us say?",
+        "options": []
+      },
+      "matters": "On a road of hiding, a chance meeting with believers going the other way: the community they were heading for was already on the move.",
+      "sections": [
+        "S0696"
+      ]
+    },
+    {
+      "id": "a08-u16",
+      "title": "A borrowed camel at al-ʿArj",
+      "kicker": "Station 19: Aws b. Ḥajar al-Aslamī",
+      "when": {
+        "label": "Early Rabīʿ al-Awwal, year 1 of the Hijra (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "arj",
+        "note": "Gazetteer certainty: possible (homonym flagged)"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "arj",
+        "dist": 15,
+        "pitch": 35,
+        "heading": 30
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        },
+        {
+          "name": "Aws b. Ḥajar al-Aslamī",
+          "role": "person"
+        },
+        {
+          "name": "Masʿūd b. Hunayda",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "~al-faja",
+        "arj"
+      ],
+      "statements": [
+        {
+          "text": "In this text the next lines are given as Ibn Hishām's: the guide went down with them to al-ʿArj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "By then some of their mounts had slowed and fallen behind.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "A man of Aslam named Aws b. Ḥajar carried the Messenger of Allah ﷺ on a camel of his called Ibn al-Radāʾ, all the way to Madinah.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Aws sent his servant Masʿūd b. Hunayda with him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "al-ʿArj's gazetteer point lies about 221 km north of ʿUsfān and about 284 km north-north-west of Ghār Thawr in straight lines; its identification is only possible.",
+          "grade": "reconstruction",
+          "basis": "computed between places.csv points (straight line, great-circle)"
+        }
+      ],
+      "discover": [
+        {
+          "label": "From al-ʿArj to Qubāʾ",
+          "camera": {
+            "target": "quba",
+            "dist": 120,
+            "pitch": 35,
+            "heading": 210
+          },
+          "reveal": {
+            "text": "From al-ʿArj to Qubāʾ is about 76 km in a straight line, bearing about 30° (north-north-east).",
+            "grade": "reconstruction",
+            "basis": "computed between places.csv points (straight line, great-circle)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "At al-ʿArj some of their mounts had slowed. What happened?",
+        "options": [
+          {
+            "text": "A man of Aslam lent the Prophet ﷺ his camel and sent a servant with him",
+            "ok": true,
+            "why": "Aws b. Ḥajar carried him on his camel Ibn al-Radāʾ to Madinah, with his servant Masʿūd b. Hunayda.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "They waited at al-ʿArj for fresh camels from Madinah",
+            "ok": false,
+            "why": "No waiting is mentioned; the guide led them on from al-ʿArj.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "The Prophet ﷺ continued on foot",
+            "ok": false,
+            "why": "He was carried on Aws's camel.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Near the end the camels tired, and a stranger's camel finished the road. The name of that camel and that servant were kept.",
+      "sections": [
+        "S0696"
+      ]
+    },
+    {
+      "id": "a08-u17",
+      "title": "Down Baṭn Riʾm toward Qubāʾ",
+      "kicker": "Stations 20–22: the last pass",
+      "when": {
+        "label": "Monday, 12 Rabīʿ al-Awwal, year 1 (Ibn Isḥāq)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~batn-rim",
+        "note": "Not in the gazetteer"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "quba",
+        "dist": 40,
+        "pitch": 30,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū Bakr",
+          "role": "person"
+        },
+        {
+          "name": "ʿĀmir b. Fuhayra",
+          "role": "person"
+        },
+        {
+          "name": "ʿAbd Allāh b. Arqaṭ, the hired guide",
+          "role": "stone"
+        },
+        {
+          "name": "Aws b. Ḥajar al-Aslamī",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "arj",
+        "~thaniyyat-al-air",
+        "~batn-rim",
+        "quba"
+      ],
+      "statements": [
+        {
+          "text": "From al-ʿArj the guide took them up Thaniyyat al-ʿĀʾir, to the right of Rakūba; Ibn Hishām says it is also called Thaniyyat al-Ghāʾir.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Then he brought them down into Baṭn Riʾm, and from there to Qubāʾ, to Banū ʿAmr b. ʿAwf.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq dates the arrival to Monday, when twelve nights of Rabīʿ al-Awwal had passed, as the forenoon heat grew strong and the sun was nearly at its height.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0696"
+            }
+          ]
+        },
+        {
+          "text": "In straight lines, Ghār Thawr to ʿUsfān to al-ʿArj to Qubāʾ adds up to about 366 km, against about 342 km from Thawr to Qubāʾ direct; the true length of the winding route is not known.",
+          "grade": "reconstruction",
+          "basis": "computed between places.csv points (straight line, great-circle)"
+        },
+        {
+          "text": "Approaching Qubāʾ from the south-west, the route comes off dry hills into the oasis of Yathrib's southern edge, with palm groves and black lava fields (ḥarra) nearby.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "discover": [
+        {
+          "label": "The whole road at once",
+          "camera": {
+            "target": [
+              39.5,
+              22.9
+            ],
+            "dist": 450,
+            "pitch": 50,
+            "heading": 350
+          },
+          "reveal": {
+            "text": "Qubāʾ lies about 337 km north of the centre of Makkah in a straight line, bearing about 356°; Madinah's centre is about 4.5 km further.",
+            "grade": "reconstruction",
+            "basis": "computed between places.csv points (straight line, great-circle)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "Which is the last named stage before Qubāʾ in Ibn Isḥāq's list?",
+        "options": [
+          {
+            "text": "Baṭn Riʾm",
+            "ok": true,
+            "why": "He brought them down into Baṭn Riʾm, then to Qubāʾ.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "al-ʿArj",
+            "ok": false,
+            "why": "After al-ʿArj come Thaniyyat al-ʿĀʾir and Baṭn Riʾm.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          },
+          {
+            "text": "Dhū Salam",
+            "ok": false,
+            "why": "Dhū Salam is earlier, before al-ʿAbābīd and al-Fāja.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0696"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The list that began below Makkah ends at a clan's doorstep at the hottest hour: the road is over, the city begins.",
+      "sections": [
+        "S0696"
+      ]
+    }
+  ]
+}

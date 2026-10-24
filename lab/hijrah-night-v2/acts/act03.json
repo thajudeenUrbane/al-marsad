@@ -1,0 +1,2334 @@
+{
+  "act": 3,
+  "title": "The night pledge at ʿAqaba",
+  "subtitle": "Seventy-three men and two women slip out of their camps at Minā, bind themselves to protect the Prophet ﷺ, and face the morning that follows",
+  "span": "Dhū al-Ḥijja, 13th year of the mission (622 CE)",
+  "units": [
+    {
+      "id": "a03-u01",
+      "title": "A qibla of his own choosing",
+      "kicker": "On the road from Yathrib, then beside the Kaʿba",
+      "when": {
+        "label": "Before the pilgrimage, 13th year of the mission (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "kaaba",
+        "note": "The meeting took place in the sacred mosque; the road disagreement happened on the way from Yathrib"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "kaaba",
+        "dist": 1.2,
+        "pitch": 40,
+        "heading": 20
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "al-Barāʾ b. Maʿrūr",
+          "role": "person"
+        },
+        {
+          "name": "Kaʿb b. Mālik",
+          "role": "person"
+        },
+        {
+          "name": "al-ʿAbbās b. ʿAbd al-Muṭṭalib",
+          "role": "person"
+        }
+      ],
+      "route": [
+        "madina",
+        "makkah",
+        "kaaba"
+      ],
+      "statements": [
+        {
+          "text": "Kaʿb b. Mālik, one of those who pledged at ʿAqaba, told his son that the Muslims of Yathrib set out among the pilgrims of their still-polytheist people. They had already begun to pray and to learn the religion, and al-Barāʾ b. Maʿrūr, their chief and elder, travelled with them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0616"
+            }
+          ]
+        },
+        {
+          "text": "On the road al-Barāʾ announced that he would no longer keep the Kaʿba at his back and would pray toward it. His companions answered that, as far as they knew, the Prophet ﷺ prayed only toward al-Shām, and they would not differ from him; so at each prayer they faced al-Shām while he faced the Kaʿba.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0616"
+            }
+          ]
+        },
+        {
+          "text": "Troubled by the disagreement, al-Barāʾ asked Kaʿb to go with him in Makkah and put the question to the Prophet ﷺ. Neither of them had ever seen him; a Makkan told them to look for the man sitting with al-ʿAbbās b. ʿAbd al-Muṭṭalib, whom they knew as a trader who came to Yathrib.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0616"
+            }
+          ]
+        },
+        {
+          "text": "They found the two sitting in the sacred mosque. When al-ʿAbbās named his visitors, the Prophet ﷺ asked of Kaʿb, 'The poet?' Kaʿb said he never forgot those words.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0616"
+            }
+          ]
+        },
+        {
+          "text": "When al-Barāʾ explained what he had done, the Prophet ﷺ answered that he had already had a qibla, had he kept patiently to it. Al-Barāʾ returned to the Prophet's qibla and prayed toward al-Shām with the others.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0616"
+            }
+          ]
+        },
+        {
+          "text": "Al-Barāʾ's family claimed that he prayed toward the Kaʿba until his death; Kaʿb rejected this, saying 'we know better about him than they do'. Ibn Hishām quotes a later Anṣārī verse that praises him as the first to face the Kaʿba.",
+          "grade": "disputed",
+          "note": "Kaʿb's eyewitness account contradicts the family's claim; the verse quoted by Ibn Hishām follows the family's version.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0616"
+            }
+          ]
+        },
+        {
+          "text": "Al-Barāʾ died before the Prophet ﷺ arrived in Madina.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0646"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "2:144",
+          "gist": "Allah has seen the Prophet turning his face toward the heavens and now turns him to a qibla that pleases him: the Sacred Mosque, toward which the believers are to face wherever they are.",
+          "context": "Not cited by Ibn Isḥāq at this point. Linked because the change of qibla to the Kaʿba, which came after the Hijra, later confirmed the direction al-Barāʾ had been drawn to; his own act was corrected at the time. Verse: established.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "al-Barāʾ b. Maʿrūr",
+          "who": "Chief of Banū Salima of the Khazraj",
+          "here": "Prayed toward the Kaʿba on his own judgement, then sought the Prophet's ruling"
+        },
+        {
+          "name": "Kaʿb b. Mālik",
+          "who": "Poet of Banū Salima; the narrator of this whole night",
+          "here": "Went with al-Barāʾ to find the Prophet ﷺ"
+        },
+        {
+          "name": "al-ʿAbbās b. ʿAbd al-Muṭṭalib",
+          "who": "The Prophet's uncle, a merchant known in Yathrib",
+          "here": "The man through whom the strangers recognised the Prophet ﷺ"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Measure the road they had come",
+          "camera": {
+            "target": "madina",
+            "dist": 300,
+            "pitch": 55,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Yathrib lies about 340 km north of the Kaʿba in a straight line; the caravan road was longer.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Al-Barāʾ asks whether his prayer toward the Kaʿba was right. What does the Prophet ﷺ answer?",
+        "options": [
+          {
+            "text": "That he already had a qibla, had he been patient with it, and he returns to praying toward al-Shām",
+            "ok": true,
+            "why": "Kaʿb reports this answer and that al-Barāʾ then prayed with them toward al-Shām.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0616"
+              }
+            ]
+          },
+          {
+            "text": "That all Muslims should now face the Kaʿba",
+            "ok": false,
+            "why": "The change of qibla came later, after the Hijra; at this point the Prophet ﷺ returned al-Barāʾ to the existing qibla.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0616"
+              }
+            ]
+          },
+          {
+            "text": "That either direction is acceptable",
+            "ok": false,
+            "why": "Kaʿb says al-Barāʾ went back to the Prophet's qibla; no choice was given.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0616"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The pledge begins with a man who would rather ask than divide his companions. The first act of these new Muslims in Makkah is to bring a dispute to the Prophet ﷺ and accept his word.",
+      "sections": [
+        "S0616",
+        "S0646"
+      ]
+    },
+    {
+      "id": "a03-u02",
+      "title": "Winning over Abū Jābir",
+      "kicker": "The last day of the pilgrimage, before the appointed night",
+      "when": {
+        "label": "Days of tashrīq, Dhū al-Ḥijja (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "mina"
+      },
+      "sky": "dusk",
+      "camera": {
+        "target": "mina",
+        "dist": 3,
+        "pitch": 35,
+        "heading": 250
+      },
+      "lights": [
+        {
+          "name": "ʿAbd Allāh b. ʿAmr b. Ḥarām (Abū Jābir)",
+          "role": "person"
+        },
+        {
+          "name": "the Muslims of Yathrib",
+          "role": "group"
+        },
+        {
+          "name": "the polytheist pilgrims of Yathrib",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ had set the meeting at al-ʿAqaba for the middle of the days of tashrīq, the days spent at Minā after the pilgrimage rites.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            }
+          ]
+        },
+        {
+          "text": "The Muslims of Yathrib kept their purpose hidden from the polytheists of their own people who had come on pilgrimage with them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            }
+          ]
+        },
+        {
+          "text": "One exception was ʿAbd Allāh b. ʿAmr b. Ḥarām, Abū Jābir, one of their chiefs. They told him they did not want so noble a man to become fuel for the Fire, called him to Islam and told him of the appointment.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            }
+          ]
+        },
+        {
+          "text": "Abū Jābir accepted Islam, came with them to al-ʿAqaba that night and was made one of the naqībs.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0620"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq's roll records that Abū Jābir fought at Badr and was killed at Uḥud, and that his son Jābir b. ʿAbd Allāh was also present at ʿAqaba.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0651"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAbd Allāh b. ʿAmr b. Ḥarām (Abū Jābir)",
+          "who": "A chief of Banū Salima; father of Jābir b. ʿAbd Allāh",
+          "here": "Accepted Islam on the day of the pledge and became a naqīb"
+        },
+        {
+          "name": "Jābir b. ʿAbd Allāh",
+          "who": "His son",
+          "here": "Listed among those present at ʿAqaba"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Find the ʿAqaba from the valley",
+          "camera": {
+            "target": "aqaba",
+            "dist": 4,
+            "pitch": 30,
+            "heading": 270
+          },
+          "reveal": {
+            "text": "The centre of the valley of Minā is about 2.3 km from the point marking al-ʿAqaba; the true spot of the meeting is not established.",
+            "grade": "reconstruction",
+            "basis": "computed distance between gazetteer points; place certainty 'approximate'"
+          }
+        }
+      ],
+      "matters": "The group trusted one more person at the last moment, and he became one of the twelve leaders. A secret pledge still depended on choosing whom to tell.",
+      "sections": [
+        "S0617",
+        "S0620",
+        "S0651"
+      ]
+    },
+    {
+      "id": "a03-u03",
+      "title": "Slipping out like sandgrouse",
+      "kicker": "After a third of the night",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba",
+        "note": "A ravine (shiʿb) by al-ʿAqaba; the exact spot is not established"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 1.5,
+        "pitch": 25,
+        "heading": 90
+      },
+      "lights": [
+        {
+          "name": "the seventy-three men and two women",
+          "role": "group"
+        },
+        {
+          "name": "the sleeping camps of Minā",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "mina",
+        "aqaba"
+      ],
+      "statements": [
+        {
+          "text": "Kaʿb says they first slept that night among their people in their camps, so that nothing seemed unusual.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            }
+          ]
+        },
+        {
+          "text": "When a third of the night had passed they left their camps one by one for the appointment, moving 'as sandgrouse slip away', in hiding.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            }
+          ]
+        },
+        {
+          "text": "They gathered in the ravine beside al-ʿAqaba: seventy-three men, and with them two women, Nusayba bint Kaʿb (Umm ʿUmāra) of Banū Māzin b. al-Najjār and Asmāʾ bint ʿAmr (Umm Manīʿ) of Banū Salima.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0655"
+            }
+          ]
+        },
+        {
+          "text": "Kaʿb b. Mālik later said, in the account of his absence from Tabūk, that he had been present on the night of ʿAqaba when they pledged themselves to Islam, and that he would not trade it for having been at Badr.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 4418",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0617"
+            }
+          ]
+        },
+        {
+          "text": "These were nights 11–13 of a lunar month, so after the first third of the night a moon more than half full stood high in the sky, setting only in the small hours. If the sky was clear, there was enough light to walk by, and to be seen by.",
+          "grade": "reconstruction",
+          "basis": "lunar calendar (the Arab month began with the new crescent); typical weather of the Makkan region; exact sky conditions on the night are unknown"
+        },
+        {
+          "text": "The valley of Minā is enclosed by bare granite hills; side ravines branch off it, offering a hidden place close to the camps.",
+          "grade": "reconstruction",
+          "basis": "terrain data"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Look west toward Makkah",
+          "camera": {
+            "target": "kaaba",
+            "dist": 8,
+            "pitch": 20,
+            "heading": 272
+          },
+          "reveal": {
+            "text": "The point marking al-ʿAqaba is about 4.8 km east of the Kaʿba: close enough that Quraysh could hear of the meeting by morning.",
+            "grade": "reconstruction",
+            "basis": "computed distance and bearing between gazetteer points"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "How does Kaʿb say they avoided notice on the way to the meeting?",
+        "options": [
+          {
+            "text": "They went to sleep in their camps first, then slipped out singly after a third of the night",
+            "ok": true,
+            "why": "Kaʿb describes exactly this, comparing them to sandgrouse.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0617"
+              }
+            ]
+          },
+          {
+            "text": "They left Minā by daylight pretending to return to Makkah",
+            "ok": false,
+            "why": "The sources describe a night departure from their camps, not a daylight pretext.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0617"
+              }
+            ]
+          },
+          {
+            "text": "They told their polytheist companions they were going to pray at the Kaʿba",
+            "ok": false,
+            "why": "Kaʿb says they kept the matter hidden from them altogether.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0617"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Seventy-five people risked their standing with their own tribe, and with Quraysh, by leaving their tents in the dark. They kept the pledge secret because they knew what it would cost them if it became known.",
+      "sections": [
+        "S0617",
+        "S0655"
+      ]
+    },
+    {
+      "id": "a03-u04",
+      "title": "al-ʿAbbās speaks first",
+      "kicker": "The Prophet ﷺ arrives at the ravine",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 0.9,
+        "pitch": 30,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "al-ʿAbbās b. ʿAbd al-Muṭṭalib",
+          "role": "person"
+        },
+        {
+          "name": "the people of Yathrib",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ came to the ravine with his uncle al-ʿAbbās b. ʿAbd al-Muṭṭalib, who was still following the religion of his people. Kaʿb says al-ʿAbbās wanted to be present at his nephew's affair and to secure firm guarantees for him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0618"
+            }
+          ]
+        },
+        {
+          "text": "Al-ʿAbbās was the first to speak. He addressed them as 'people of the Khazraj', the name the Arabs then used for both tribes, Aws and Khazraj.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0618"
+            }
+          ]
+        },
+        {
+          "text": "He told them that Muḥammad's own clan had protected him from those of his people who opposed him, and that he lived in honour and safety in his town, yet he insisted on joining them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0618"
+            }
+          ]
+        },
+        {
+          "text": "If they believed they would keep their promise and defend him against his opponents, the burden was theirs to carry. If they thought they would hand him over and abandon him once he had come out to them, they should leave him now.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0618"
+            }
+          ]
+        },
+        {
+          "text": "They replied that they had heard him, and asked the Prophet ﷺ to speak and to take for himself and for his Lord whatever he wished.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0618"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "al-ʿAbbās b. ʿAbd al-Muṭṭalib",
+          "who": "The Prophet's uncle; not yet a Muslim at this time according to Ibn Isḥāq",
+          "here": "Tested the resolve of the Yathribīs before any pledge was given"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "Al-ʿAbbās, not yet a Muslim, opens the meeting by telling the people of Yathrib to walk away now if they might fail later. What does that tell you about how he saw the protection his nephew was leaving behind?",
+        "options": [
+          {
+            "text": "He treated it as a transfer of protection that had to be at least as strong as the clan's",
+            "ok": true,
+            "why": "His speech compares their promise with the honour and protection the Prophet ﷺ already had among his clan.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0618"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "In Arabia, protection belonged to the clan. Before anyone pledged, someone from the Prophet's own clan said plainly what the people of Yathrib were taking on.",
+      "sections": [
+        "S0618"
+      ]
+    },
+    {
+      "id": "a03-u05",
+      "title": "As you protect your own",
+      "kicker": "The Prophet ﷺ names his terms",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 0.8,
+        "pitch": 22,
+        "heading": 140
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "al-Barāʾ b. Maʿrūr",
+          "role": "person"
+        },
+        {
+          "name": "the people of Yathrib",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ spoke: he recited the Qurʾān, called them to Allah and encouraged them in Islam.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "Then he stated the pledge he asked of them: that they protect him from everything they protected their own women and children from.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "Al-Barāʾ b. Maʿrūr took his hand and swore by the One who had sent him with the truth that they would protect him as they protected their own families.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "Al-Barāʾ added: 'We are sons of war and people of arms, inherited from one elder to the next.' He offered the Prophet ﷺ the military strength of his tribe, not only shelter.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "This was a new kind of pledge. At the first ʿAqaba, a year earlier, the pledge had contained no duty to fight; Ibn Isḥāq calls it 'the pledge of the women'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0633"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "60:12",
+          "gist": "When believing women come to pledge, they promise not to associate anything with Allah, not to steal, commit adultery, kill their children, bring false claims, or disobey the Prophet in what is right; and he accepts their pledge and asks forgiveness for them.",
+          "context": "Ibn Isḥāq calls the first ʿAqaba pledge 'the pledge of the women' because it carried no duty of war, unlike this one (S0633). The verse gives the terms of that form of pledge. Verse: established; the link is Ibn Isḥāq's naming.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "al-Barāʾ b. Maʿrūr",
+          "who": "Chief of Banū Salima",
+          "here": "First to answer and, by Kaʿb's account, first to strike the Prophet's hand"
+        }
+      ],
+      "matters": "The terms moved from personal conduct to the defence of a person. The people of Yathrib now undertook to defend the Prophet ﷺ with their lives, as they would defend their own homes.",
+      "sections": [
+        "S0619",
+        "S0633"
+      ]
+    },
+    {
+      "id": "a03-u06",
+      "title": "Blood for blood",
+      "kicker": "Abū al-Haytham interrupts",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 1,
+        "pitch": 18,
+        "heading": 330
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Abū al-Haytham b. al-Tayyihān",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "While al-Barāʾ was still speaking, Abū al-Haytham b. al-Tayyihān cut in. He said that they had ties with other men, meaning the Jews of Yathrib, and that they were about to cut them.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "His question was: if they did this, and Allah then gave the Prophet ﷺ victory, might he return to his own people and leave them?",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ smiled and answered: 'Rather, blood is blood and al-hadm is al-hadm. I am of you and you are of me. I will fight whom you fight and make peace with whom you make peace.'",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām explains al-hadm as sanctity: 'my protection is your protection and my sanctity is your sanctity'.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Abū al-Haytham b. al-Tayyihān",
+          "who": "Of the Aws, ally of Banū ʿAbd al-Ashhal",
+          "here": "Asked the question the Yathribīs most needed answered: would they be abandoned after the victory?"
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Abū al-Haytham fears that, after victory, the Prophet ﷺ will go back to Quraysh. What does the Prophet ﷺ promise?",
+        "options": [
+          {
+            "text": "A permanent bond: 'I am of you and you are of me', sharing their wars and their peace",
+            "ok": true,
+            "why": "This is the Prophet's reply in Kaʿb's account.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0619"
+              }
+            ]
+          },
+          {
+            "text": "To stay in Yathrib only until Makkah was opened",
+            "ok": false,
+            "why": "No such limit appears; the answer binds his blood and protection to theirs.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0619"
+              }
+            ]
+          },
+          {
+            "text": "Gold and a share of Makkah's trade",
+            "ok": false,
+            "why": "The only reward named that night was Paradise.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0623"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The Yathribīs were giving up existing alliances, and they asked for a commitment in return. They got one: the Prophet ﷺ tied his blood and his peace to theirs.",
+      "sections": [
+        "S0619"
+      ]
+    },
+    {
+      "id": "a03-u07",
+      "title": "War against the red and the black",
+      "kicker": "al-ʿAbbās b. ʿUbāda's warning",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 1.2,
+        "pitch": 35,
+        "heading": 60
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "al-ʿAbbās b. ʿUbāda b. Naḍla",
+          "role": "person"
+        },
+        {
+          "name": "the people of Yathrib",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "When they gathered to pledge, al-ʿAbbās b. ʿUbāda of Banū Sālim b. ʿAwf asked them whether they understood what they were pledging. They were pledging war against 'the red and the black' of mankind, against anyone at all.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0623"
+            }
+          ]
+        },
+        {
+          "text": "He told them that if they would give the Prophet ﷺ up once their wealth was ruined and their nobles killed, they should do it now, because later it would be disgrace in this world and the next. If they would keep faith despite those losses, it was the best of this world and the next.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0623"
+            }
+          ]
+        },
+        {
+          "text": "They answered that they accepted him at the cost of their wealth and their nobles, and asked what they would receive if they were faithful. The Prophet ﷺ answered with one word: Paradise.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0623"
+            }
+          ]
+        },
+        {
+          "text": "They said, 'Stretch out your hand.' He stretched it out, and they pledged.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0623"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq's informants disagreed about his motive. ʿĀṣim b. ʿUmar b. Qatāda said he spoke to tie the pledge more tightly to their necks; ʿAbd Allāh b. Abī Bakr said he wanted to delay it so that ʿAbd Allāh b. Ubayy b. Salūl could attend and strengthen the matter. Ibn Isḥāq ends: 'Allah knows which it was.'",
+          "grade": "disputed",
+          "note": "Two early informants give opposite motives; Ibn Isḥāq does not decide between them.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0623"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām notes that Salūl was a woman of Khuzāʿa, the mother of Ubayy b. Mālik; the name 'Ibn Salūl' comes through a grandmother.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0624"
+            }
+          ]
+        },
+        {
+          "text": "Al-ʿAbbās b. ʿUbāda later went out to the Prophet ﷺ in Makkah and stayed with him there, so he was called 'an Anṣārī who was also a Muhājir'. He was killed at Uḥud.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0653"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "al-ʿAbbās b. ʿUbāda b. Naḍla",
+          "who": "Of Banū Sālim b. ʿAwf of the Khazraj",
+          "here": "Spelled out the cost of the pledge before hands were given"
+        },
+        {
+          "name": "ʿAbd Allāh b. Ubayy b. Salūl",
+          "who": "Leading man of the Khazraj, absent from the meeting",
+          "here": "One report says the warning was meant to buy time for him to come"
+        }
+      ],
+      "matters": "The pledge was made after its cost had been stated: wealth ruined and leaders killed. The only reward promised was Paradise.",
+      "sections": [
+        "S0623",
+        "S0624",
+        "S0653"
+      ]
+    },
+    {
+      "id": "a03-u08",
+      "title": "Hands struck in the dark",
+      "kicker": "The pledge of war",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 0.8,
+        "pitch": 15,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "ʿUbāda b. al-Ṣāmit",
+          "role": "person"
+        },
+        {
+          "name": "Nusayba bint Kaʿb",
+          "role": "person"
+        },
+        {
+          "name": "Asmāʾ bint ʿAmr (Umm Manīʿ)",
+          "role": "person"
+        },
+        {
+          "name": "the people of Yathrib",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "ʿUbāda b. al-Ṣāmit, a naqīb who had also been at the first ʿAqaba, described the pledge of war: to hear and obey in hardship and in ease, when willing and when reluctant, even when others were preferred over them, and not to contest authority with those who held it.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0633"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 7199",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "They also pledged to speak the truth wherever they were, fearing no one's blame where Allah was concerned.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0633"
+            },
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 7199",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq explains that the Prophet ﷺ took this pledge for himself, set conditions for his Lord, and promised them Paradise for keeping it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0633"
+            }
+          ]
+        },
+        {
+          "text": "Who struck the Prophet's hand first was remembered differently. Banū al-Najjār said Asʿad b. Zurāra, Banū ʿAbd al-Ashhal said Abū al-Haytham b. al-Tayyihān, and Kaʿb b. Mālik said al-Barāʾ b. Maʿrūr, after whom the rest pledged.",
+          "grade": "disputed",
+          "note": "Three clan traditions name three different men; Kaʿb's is the only eyewitness report given.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0625"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0646"
+            }
+          ]
+        },
+        {
+          "text": "The two women are said to have pledged as well, but not by handshake: Ibn Isḥāq says the Prophet ﷺ did not shake women's hands, but took their promise and, when they agreed, told them, 'Go, I have accepted your pledge.'",
+          "grade": "disputed",
+          "note": "Ibn Isḥāq introduces the women's pledge with the hedge 'they claim'; the manner of women's pledging is stated by him without hedge.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0655"
+            }
+          ]
+        },
+        {
+          "text": "ʿUbāda b. al-Ṣāmit is reported in the ḥadīth collections saying that he was one of the naqībs who pledged to the Messenger of Allah ﷺ.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "hadith",
+              "ref": "al-Bukhārī 3893",
+              "grade": "ṣaḥīḥ",
+              "verify": true
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0620"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿUbāda b. al-Ṣāmit",
+          "who": "Of the Qawāqil of Banū ʿAwf b. al-Khazraj; naqīb",
+          "here": "The witness who preserved the wording of the pledge of war"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Read the clause that outlived the night",
+          "reveal": {
+            "text": "The words 'not to contest authority with those who hold it' later became a standard clause in Muslim pledges of allegiance; al-Bukhārī places ʿUbāda's report in his book on governance.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "hadith",
+                "ref": "al-Bukhārī 7199",
+                "grade": "ṣaḥīḥ",
+                "verify": true
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "According to Kaʿb b. Mālik, who first struck the Prophet's hand?",
+        "options": [
+          {
+            "text": "al-Barāʾ b. Maʿrūr",
+            "ok": true,
+            "why": "Kaʿb, who was present, names al-Barāʾ; the clans of Asʿad and Abū al-Haytham each named their own man.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0625"
+              }
+            ]
+          },
+          {
+            "text": "Asʿad b. Zurāra",
+            "ok": false,
+            "why": "This is the claim of Banū al-Najjār, not Kaʿb's report.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0625"
+              }
+            ]
+          },
+          {
+            "text": "al-ʿAbbās b. ʿAbd al-Muṭṭalib",
+            "ok": false,
+            "why": "Al-ʿAbbās came to witness and secure terms, not to pledge; he was not yet a Muslim.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0618"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The pledge they made at night was about loyalty, obedience and honesty as well as war. These terms bound the community long after the fighting stopped.",
+      "sections": [
+        "S0633",
+        "S0625",
+        "S0646",
+        "S0655",
+        "S0620"
+      ]
+    },
+    {
+      "id": "a03-u09",
+      "title": "Twelve naqībs",
+      "kicker": "Nine of the Khazraj, three of the Aws",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 2,
+        "pitch": 60,
+        "heading": 180
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "Asʿad b. Zurāra",
+          "role": "person"
+        },
+        {
+          "name": "Saʿd b. ʿUbāda",
+          "role": "person"
+        },
+        {
+          "name": "Usayd b. Ḥuḍayr",
+          "role": "person"
+        },
+        {
+          "name": "the twelve naqībs",
+          "role": "group"
+        }
+      ],
+      "statements": [
+        {
+          "text": "The Prophet ﷺ asked them to bring forward twelve naqībs to be responsible for their own people. They chose nine from the Khazraj and three from the Aws.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0619"
+            }
+          ]
+        },
+        {
+          "text": "The Khazraj naqībs were Asʿad b. Zurāra, Saʿd b. al-Rabīʿ, ʿAbd Allāh b. Rawāḥa, Rāfiʿ b. Mālik b. al-ʿAjlān, al-Barāʾ b. Maʿrūr, ʿAbd Allāh b. ʿAmr b. Ḥarām, ʿUbāda b. al-Ṣāmit, Saʿd b. ʿUbāda and al-Mundhir b. ʿAmr.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0620"
+            }
+          ]
+        },
+        {
+          "text": "The Aws naqībs were Usayd b. Ḥuḍayr, Saʿd b. Khaythama and Rifāʿa b. ʿAbd al-Mundhir.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0621"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Hishām says scholars count Abū al-Haytham b. al-Tayyihān in place of Rifāʿa, and Kaʿb b. Mālik's poem on the naqībs names Abū al-Haytham, not Rifāʿa.",
+          "grade": "disputed",
+          "note": "Ibn Isḥāq's list has Rifāʿa; Ibn Hishām and Kaʿb's poem have Abū al-Haytham.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0622"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ told the naqībs that they were guarantors for their people as the disciples had been guarantors for ʿĪsā son of Maryam, and that he was guarantor for his own people, meaning the Muslims. They agreed.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0622"
+            }
+          ]
+        },
+        {
+          "text": "In his poem Kaʿb b. Mālik addresses Ubayy and Abū Sufyān, warning them that the naqībs will not break their oath, and calls the twelve 'stars' that bring no ill omen in the dark of night.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0622"
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "61:14",
+          "gist": "The believers are called to be helpers of Allah, as the disciples answered ʿĪsā son of Maryam when he asked who would be his helpers for Allah.",
+          "context": "Not cited by Ibn Isḥāq here. Linked because the Prophet ﷺ compared the naqībs to ʿĪsā's disciples (S0622), and the Qurʾān calls those disciples 'helpers' (anṣār), the name later given to the people of Yathrib. The verse is established; the link is thematic.",
+          "grade": "established"
+        }
+      ],
+      "people": [
+        {
+          "name": "Asʿad b. Zurāra (Abū Umāma)",
+          "who": "Of Banū al-Najjār",
+          "here": "Naqīb; died before Badr, while the Prophet's mosque was being built (S0638)"
+        },
+        {
+          "name": "Saʿd b. ʿUbāda",
+          "who": "Of Banū Sāʿida",
+          "here": "Naqīb; would be seized by Quraysh days later"
+        },
+        {
+          "name": "al-Mundhir b. ʿAmr",
+          "who": "Of Banū Sāʿida",
+          "here": "Naqīb; later killed at Biʾr Maʿūna as the Prophet's commander (S0655)"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Count the clans behind the twelve",
+          "reveal": {
+            "text": "The twelve came from many clans. From the Khazraj: al-Najjār, al-Ḥārith b. al-Khazraj, Zurayq, Salima, ʿAwf and Sāʿida. From the Aws: ʿAbd al-Ashhal and ʿAmr b. ʿAwf. Each clan had its own leader answerable for it.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0620"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0621"
+              }
+            ]
+          }
+        }
+      ],
+      "matters": "The pledge was turned into an organisation: named men, each answerable for his own clan. This made it possible for a whole town to keep the promise, not just the people present that night.",
+      "sections": [
+        "S0619",
+        "S0620",
+        "S0621",
+        "S0622",
+        "S0638",
+        "S0655"
+      ]
+    },
+    {
+      "id": "a03-u10",
+      "title": "Shall we fall on Minā tomorrow?",
+      "kicker": "A sword offered and refused",
+      "when": {
+        "label": "Night, middle of the days of tashrīq (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "mina",
+        "dist": 5,
+        "pitch": 30,
+        "heading": 80
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "al-ʿAbbās b. ʿUbāda b. Naḍla",
+          "role": "person"
+        },
+        {
+          "name": "the pilgrims camped at Minā",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "aqaba",
+        "mina"
+      ],
+      "statements": [
+        {
+          "text": "When the pledge was done, the Prophet ﷺ told them to disperse to their camps.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0627"
+            }
+          ]
+        },
+        {
+          "text": "Al-ʿAbbās b. ʿUbāda swore by the One who had sent him with the truth that, if he wished, they would fall on the people of Minā the next day with their swords.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0627"
+            }
+          ]
+        },
+        {
+          "text": "The Prophet ﷺ answered: 'We have not been commanded to do that. Go back to your camps.'",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0627"
+            }
+          ]
+        },
+        {
+          "text": "Kaʿb says they went back to their beds and slept until morning.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0627"
+            }
+          ]
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Seventy-three armed men have just sworn to protect him. One offers to attack the pilgrims of Minā at dawn. What does the Prophet ﷺ do?",
+        "options": [
+          {
+            "text": "Refuses because no such command has come, and sends them back to their camps",
+            "ok": true,
+            "why": "His reply was 'We have not been commanded to do that'.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0627"
+              }
+            ]
+          },
+          {
+            "text": "Accepts, but delays the attack until Quraysh strike first",
+            "ok": false,
+            "why": "No attack is planned or agreed in any form.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0627"
+              }
+            ]
+          },
+          {
+            "text": "Asks the naqībs to vote on it",
+            "ok": false,
+            "why": "He decided at once, and gave the reason: there was no command from Allah.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0627"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Having the strength to fight did not mean permission to use it. The Prophet ﷺ waited for a command from Allah instead of acting on the mood of the night.",
+      "sections": [
+        "S0627"
+      ]
+    },
+    {
+      "id": "a03-u11",
+      "title": "Morning visit from Quraysh",
+      "kicker": "The next day, among the Khazraj tents",
+      "when": {
+        "label": "The morning after the pledge (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "mina"
+      },
+      "sky": "dawn",
+      "camera": {
+        "target": "mina",
+        "dist": 2,
+        "pitch": 30,
+        "heading": 300
+      },
+      "lights": [
+        {
+          "name": "the notables of Quraysh",
+          "role": "group-stone"
+        },
+        {
+          "name": "Kaʿb b. Mālik",
+          "role": "person"
+        },
+        {
+          "name": "Abū Jābir",
+          "role": "person"
+        },
+        {
+          "name": "al-Ḥārith b. Hishām",
+          "role": "stone"
+        },
+        {
+          "name": "ʿAbd Allāh b. Ubayy",
+          "role": "stone"
+        }
+      ],
+      "statements": [
+        {
+          "text": "In the morning the notables of Quraysh came to the Khazraj camps. They said they had heard the Khazraj had come to take their man away and pledge to make war on them, and that no Arab tribe was one they would less like to fight.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0628"
+            }
+          ]
+        },
+        {
+          "text": "The polytheists of the Khazraj rose and swore that nothing of the kind had happened and they knew nothing of it. Kaʿb says they were telling the truth, since they did not know, while the Muslims looked at one another.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0628"
+            }
+          ]
+        },
+        {
+          "text": "As the Qurashīs rose to leave, Kaʿb wanted to seem part of the conversation, so he asked Abū Jābir why a chief like him could not get a pair of sandals like the new ones worn by a young Qurashī, al-Ḥārith b. Hishām al-Makhzūmī.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0628"
+            }
+          ]
+        },
+        {
+          "text": "Al-Ḥārith heard, pulled off the sandals and threw them at Kaʿb, saying he would wear them. Abū Jābir told Kaʿb to give them back because he had angered the young man. Kaʿb refused: it was a good omen, and if it came true he would one day take the man's spoils.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0628"
+            }
+          ]
+        },
+        {
+          "text": "Quraysh also went to ʿAbd Allāh b. Ubayy, who said such a serious thing could not be done by his people without his knowledge, and that he knew nothing of it. They left him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0628"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "al-Ḥārith b. Hishām",
+          "who": "A young man of Makhzūm, brother of Abū Jahl",
+          "here": "Threw his new sandals at Kaʿb"
+        },
+        {
+          "name": "ʿAbd Allāh b. Ubayy b. Salūl",
+          "who": "A leading man of the Khazraj",
+          "here": "Denied any knowledge of the pledge"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "The polytheists of the Khazraj swore an oath that turned out to be false, yet Kaʿb says they were 'telling the truth'. How can both be so?",
+        "options": [
+          {
+            "text": "They sincerely knew nothing; the secrecy of the night made their denial honest",
+            "ok": true,
+            "why": "Kaʿb says plainly that they did not know, because the Muslims had hidden the matter from them.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0628"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0617"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The secrecy kept the pledge safe for one more morning: the people who denied it were telling the truth as far as they knew. Even so, Quraysh had already heard the news within hours.",
+      "sections": [
+        "S0628",
+        "S0617"
+      ]
+    },
+    {
+      "id": "a03-u12",
+      "title": "Saʿd b. ʿUbāda seized",
+      "kicker": "The pursuit after the pilgrims leave Minā",
+      "when": {
+        "label": "The departure from Minā (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "~adhakhir",
+        "note": "Adhākhir, near Makkah; location not established in the gazetteer"
+      },
+      "sky": "day",
+      "camera": {
+        "target": "makkah",
+        "dist": 6,
+        "pitch": 40,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "Saʿd b. ʿUbāda",
+          "role": "person"
+        },
+        {
+          "name": "al-Mundhir b. ʿAmr",
+          "role": "person"
+        },
+        {
+          "name": "the pursuers of Quraysh",
+          "role": "group-stone"
+        },
+        {
+          "name": "Suhayl b. ʿAmr",
+          "role": "stone"
+        },
+        {
+          "name": "Abū al-Bakhtarī b. Hishām",
+          "role": "stone"
+        },
+        {
+          "name": "Jubayr b. Muṭʿim and al-Ḥārith b. Ḥarb",
+          "role": "stone"
+        }
+      ],
+      "route": [
+        "mina",
+        "~adhakhir",
+        "makkah",
+        "kaaba"
+      ],
+      "statements": [
+        {
+          "text": "When the pilgrims left Minā, Quraysh looked into the report, found it was true, and went after the Yathribīs. At Adhākhir they caught up with two naqībs, Saʿd b. ʿUbāda and al-Mundhir b. ʿAmr. Al-Mundhir got away.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0629"
+            }
+          ]
+        },
+        {
+          "text": "They tied Saʿd's hands to his neck with the strap of his saddle and brought him into Makkah, beating him and dragging him by his long hair.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0629"
+            }
+          ]
+        },
+        {
+          "text": "Saʿd said that a handsome, fair man came up and he hoped there might be some good in him, but the man punched him hard. This was Suhayl b. ʿAmr of Banū ʿĀmir b. Luʾayy.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0630"
+            }
+          ]
+        },
+        {
+          "text": "Another of the men felt pity for him and asked whether he had any bond of protection with anyone in Quraysh. Saʿd had protected the trade caravans of Jubayr b. Muṭʿim and al-Ḥārith b. Ḥarb in his own land. The man told him to call out their names, and Ibn Hishām names him as Abū al-Bakhtarī b. Hishām.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0630"
+            }
+          ]
+        },
+        {
+          "text": "The man found the two at the Kaʿba and told them that a man of the Khazraj was being beaten in al-Abṭaḥ, calling their names. They confirmed that Saʿd had protected their merchants, came and freed him, and he went on his way.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0630"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq calls the two lines of Ḍirār b. al-Khaṭṭāb, boasting of Saʿd's capture and regretting that al-Mundhir escaped, the first poem composed about the Hijra. Ḥassān b. Thābit answered him.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0630"
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "Saʿd b. ʿUbāda",
+          "who": "Chief of Banū Sāʿida; naqīb",
+          "here": "Captured, beaten, and freed through his old protection of Qurashī merchants"
+        },
+        {
+          "name": "Suhayl b. ʿAmr",
+          "who": "Of Banū ʿĀmir b. Luʾayy, a Qurashī notable",
+          "here": "Struck the bound captive"
+        },
+        {
+          "name": "Abū al-Bakhtarī b. Hishām",
+          "who": "A Qurashī",
+          "here": "Told Saʿd how to save himself"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Where was Adhākhir?",
+          "camera": {
+            "target": "makkah",
+            "dist": 20,
+            "pitch": 50,
+            "heading": 0
+          },
+          "reveal": {
+            "text": "Adhākhir is not located in this journey's gazetteer, so it is shown dashed and is not placed on the map.",
+            "grade": "reconstruction",
+            "basis": "gazetteer coverage (data/places.csv)"
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "What saved Saʿd b. ʿUbāda?",
+        "options": [
+          {
+            "text": "His earlier protection of the trade caravans of Jubayr b. Muṭʿim and al-Ḥārith b. Ḥarb",
+            "ok": true,
+            "why": "The two men acknowledged the bond and freed him.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0630"
+              }
+            ]
+          },
+          {
+            "text": "al-Mundhir b. ʿAmr returned with armed men",
+            "ok": false,
+            "why": "Al-Mundhir escaped; the sources do not say he came back.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0629"
+              }
+            ]
+          },
+          {
+            "text": "The Prophet ﷺ paid a ransom for him",
+            "ok": false,
+            "why": "No ransom is mentioned; the old bond of protection freed him.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0630"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Within days, one of the twelve paid for the pledge with a beating. What freed him was an ordinary trading obligation he had honoured years before.",
+      "sections": [
+        "S0629",
+        "S0630"
+      ]
+    },
+    {
+      "id": "a03-u13",
+      "title": "The roll call: seventy-three and two",
+      "kicker": "Ibn Isḥāq names every one",
+      "when": {
+        "label": "The night of the second ʿAqaba (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "aqaba"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "aqaba",
+        "dist": 3,
+        "pitch": 70,
+        "heading": 0
+      },
+      "lights": [
+        {
+          "name": "the men of the Aws",
+          "role": "group"
+        },
+        {
+          "name": "the men of the Khazraj",
+          "role": "group"
+        },
+        {
+          "name": "Nusayba bint Kaʿb (Umm ʿUmāra)",
+          "role": "person"
+        },
+        {
+          "name": "Asmāʾ bint ʿAmr (Umm Manīʿ)",
+          "role": "person"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq lists the people of the second ʿAqaba clan by clan, closing each group with its count, and gives the total as seventy-three men of the Aws and Khazraj and two women.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0655"
+            }
+          ]
+        },
+        {
+          "text": "He states that eleven of the men were of the Aws: three of Banū ʿAbd al-Ashhal, three of Banū Ḥāritha and five of Banū ʿAmr b. ʿAwf.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0635"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0636"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0637"
+            }
+          ]
+        },
+        {
+          "text": "Among those listed are Abū Ayyūb Khālid b. Zayd, who died campaigning in Byzantine land under Muʿāwiya; Abū Ṭalḥa Zayd b. Sahl; Muʿādh b. Jabal; and Muʿādh b. ʿAmr b. al-Jamūḥ.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0638"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0640"
+            },
+            {
+              "type": "ibn-hisham",
+              "sec": "S0651"
+            }
+          ]
+        },
+        {
+          "text": "Nusayba bint Kaʿb, Umm ʿUmāra, of Banū Māzin b. al-Najjār, later fought alongside the Prophet ﷺ, as did her sister. Her husband was Zayd b. ʿĀṣim and her sons were Ḥabīb and ʿAbd Allāh.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0656"
+            }
+          ]
+        },
+        {
+          "text": "Musaylima seized her son Ḥabīb. Ḥabīb affirmed that Muḥammad was the Messenger of Allah but replied 'I do not hear' when asked to affirm Musaylima, and Musaylima cut him apart limb by limb until he died. Nusayba went to al-Yamāma with the Muslims, fought in person until Musaylima was killed, and came back with twelve wounds.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0656"
+            }
+          ]
+        },
+        {
+          "text": "The second woman was Umm Manīʿ, Asmāʾ bint ʿAmr b. ʿAdī of Banū Salima.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0657"
+            }
+          ]
+        }
+      ],
+      "discover": [
+        {
+          "label": "Check Ibn Hishām's arithmetic",
+          "reveal": {
+            "text": "Adding the clan counts gives 73. Aws: 3 + 3 + 5 = 11. Khazraj: al-Najjār 11, al-Ḥārith 7, Bayāḍa 3, Zurayq 4, Salima (ʿUbayd b. ʿAdī 11, Kaʿb b. Sawād 1, Ghanm b. Sawād 5, Nābī 5, Ḥarām 7), ʿAwf 4, Sālim b. Ghanm 2, Sāʿida 2 = 62. 11 + 62 = 73, the total Ibn Isḥāq states.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0637"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0641"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0643"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0644"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0645"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0646"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0647"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0648"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0650"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0651"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0653"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0654"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0655"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "predict",
+        "q": "Ibn Isḥāq's total is 73 men. How many of them were from the Aws?",
+        "options": [
+          {
+            "text": "Eleven",
+            "ok": true,
+            "why": "He states the Aws total as eleven men; the Khazraj supplied the other sixty-two.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0637"
+              }
+            ]
+          },
+          {
+            "text": "Thirty-six, about half",
+            "ok": false,
+            "why": "The clan counts add to eleven for the Aws.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0635"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0636"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0637"
+              }
+            ]
+          },
+          {
+            "text": "Three, one per naqīb",
+            "ok": false,
+            "why": "The Aws had three naqībs but eleven men present.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0621"
+              },
+              {
+                "type": "ibn-hisham",
+                "sec": "S0637"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "Recording every name and checking every count made the pledge a matter of record. Many of the men listed here appear again at Badr, at Uḥud and at al-Yamāma.",
+      "sections": [
+        "S0635",
+        "S0636",
+        "S0637",
+        "S0638",
+        "S0640",
+        "S0641",
+        "S0643",
+        "S0644",
+        "S0645",
+        "S0646",
+        "S0647",
+        "S0648",
+        "S0650",
+        "S0651",
+        "S0653",
+        "S0654",
+        "S0655",
+        "S0656",
+        "S0657"
+      ]
+    },
+    {
+      "id": "a03-u14",
+      "title": "The idol in the pit",
+      "kicker": "Back in Yathrib: the young men of Banū Salima",
+      "when": {
+        "label": "After the return to Yathrib (622 CE)",
+        "grade": "supported"
+      },
+      "place": {
+        "key": "madina"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "madina",
+        "dist": 6,
+        "pitch": 35,
+        "heading": 200
+      },
+      "lights": [
+        {
+          "name": "ʿAmr b. al-Jamūḥ",
+          "role": "person"
+        },
+        {
+          "name": "Muʿādh b. Jabal",
+          "role": "person"
+        },
+        {
+          "name": "Muʿādh b. ʿAmr b. al-Jamūḥ",
+          "role": "person"
+        },
+        {
+          "name": "the young men of Banū Salima",
+          "role": "group"
+        }
+      ],
+      "route": [
+        "aqaba",
+        "madina"
+      ],
+      "statements": [
+        {
+          "text": "When they reached Yathrib, the pledgers practised Islam openly. Some of the old men of their clans still kept to polytheism, among them ʿAmr b. al-Jamūḥ, a chief of Banū Salima whose son Muʿādh had pledged at ʿAqaba.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0631"
+            }
+          ]
+        },
+        {
+          "text": "Like other nobles, ʿAmr kept a wooden idol called Manāt in his house, which he venerated and kept clean.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0631"
+            }
+          ]
+        },
+        {
+          "text": "Young Muslims of Banū Salima who had been at ʿAqaba, Muʿādh b. Jabal and ʿAmr's own son Muʿādh among them, crept in at night, carried the idol off and threw it head-first into a pit where people dumped filth.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0631"
+            }
+          ]
+        },
+        {
+          "text": "Every morning ʿAmr searched for it, washed it, perfumed it, and swore to disgrace whoever had done it. Every night they did it again.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0631"
+            }
+          ]
+        },
+        {
+          "text": "At last he hung his sword on it and told it to defend itself if it had any good in it. That night they took the sword, tied the idol to a dead dog and threw them into a well full of filth. In the morning ʿAmr could not find it.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0631"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq goes on to say that ʿAmr found the idol bound to the dog in the well, saw what it was worth, and accepted Islam.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "other",
+              "ref": "Ibn Hishām, al-Sīra al-Nabawiyya, continuation of the account of ʿAmr b. al-Jamūḥ",
+              "note": "This passage falls in a gap of the project's passages file (after S0631); to be checked against the printed edition.",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "people": [
+        {
+          "name": "ʿAmr b. al-Jamūḥ",
+          "who": "Chief of Banū Salima",
+          "here": "Saw his idol fail to defend itself, even with his sword hung on it"
+        },
+        {
+          "name": "Muʿādh b. ʿAmr b. al-Jamūḥ",
+          "who": "His son; present at ʿAqaba and at Badr",
+          "here": "One of the young men who took the idol at night"
+        },
+        {
+          "name": "Muʿādh b. Jabal",
+          "who": "Counted with Banū Salima; died at ʿAmwās in the plague year in Syria (S0651)",
+          "here": "One of the young men who carried off the idol at night"
+        }
+      ],
+      "question": {
+        "kind": "reflect",
+        "q": "The young men never argued with ʿAmr; they let the idol fail its own test. What does the sword hung on its neck show about how ʿAmr's conviction was changing?",
+        "options": [
+          {
+            "text": "He was giving the idol one last chance to prove it had power, which shows his trust in it was already shaken",
+            "ok": true,
+            "why": "He told it to defend itself 'if there is any good in you', which is a challenge, not worship.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0631"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "The pledge did not stay at ʿAqaba. In Yathrib it came into family homes, where young Muslims persuaded a father by showing him, not by arguing.",
+      "sections": [
+        "S0631",
+        "S0651"
+      ]
+    },
+    {
+      "id": "a03-u15",
+      "title": "Permission is given",
+      "kicker": "The first verses on fighting, as Ibn Isḥāq gives them",
+      "when": {
+        "label": "Around the pledge of war and the Hijra (622 CE)",
+        "grade": "disputed"
+      },
+      "place": {
+        "key": "makkah"
+      },
+      "sky": "night",
+      "camera": {
+        "target": "makkah",
+        "dist": 60,
+        "pitch": 45,
+        "heading": 340
+      },
+      "lights": [
+        {
+          "name": "The Prophet Muḥammad ﷺ",
+          "role": "prophet"
+        },
+        {
+          "name": "the persecuted believers",
+          "role": "group"
+        },
+        {
+          "name": "Quraysh",
+          "role": "assembly"
+        }
+      ],
+      "statements": [
+        {
+          "text": "Ibn Isḥāq says that before the pledge of ʿAqaba fighting had not been permitted to the Prophet ﷺ and bloodshed had not been made lawful for him. He had been ordered only to call people to Allah, endure harm and forgive the ignorant.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0658"
+            }
+          ]
+        },
+        {
+          "text": "Quraysh had persecuted his followers until some were turned from their religion, some were tortured in their hands, and others had fled to Abyssinia, to Madina and elsewhere.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0658"
+            }
+          ]
+        },
+        {
+          "text": "Allah gave permission to fight to those who were being fought, because they had been wronged.",
+          "grade": "established",
+          "sources": [
+            {
+              "type": "quran",
+              "ref": "22:39"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq names Qurʾān 22:39–41 as the first verses revealed on the permission to fight, as he had heard from ʿUrwa b. al-Zubayr and other scholars.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0658"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq explains the verses this way: fighting was permitted because the believers had been wronged, with no fault against anyone except that they worshipped Allah; and when they gained power, they would establish prayer, pay zakāt, enjoin right and forbid wrong.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0658"
+            }
+          ]
+        },
+        {
+          "text": "He adds that Allah then revealed 2:193, 'fight them until there is no fitna', and explains it as: until no believer is forced out of his religion and Allah alone is worshipped.",
+          "grade": "supported",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0658"
+            },
+            {
+              "type": "quran",
+              "ref": "2:193"
+            }
+          ]
+        },
+        {
+          "text": "Ibn Isḥāq connects the permission with the pledge of war at the second ʿAqaba. A report from Ibn ʿAbbās in the ḥadīth collections instead places the revelation of 22:39 at the time the Prophet ﷺ was driven out of Makkah.",
+          "grade": "disputed",
+          "note": "The exact moment of revelation differs: Ibn Isḥāq ties the permission to the second ʿAqaba (S0633, S0658), while the Ibn ʿAbbās report links 22:39 to the departure from Makkah. Both make it the first permission to fight.",
+          "sources": [
+            {
+              "type": "ibn-hisham",
+              "sec": "S0633"
+            },
+            {
+              "type": "hadith",
+              "ref": "Jāmiʿ al-Tirmidhī, Book of Tafsīr, Sūrat al-Ḥajj (report of Ibn ʿAbbās)",
+              "grade": "ḥasan",
+              "verify": true
+            }
+          ]
+        }
+      ],
+      "quran": [
+        {
+          "ref": "22:39-41",
+          "gist": "Those who are fought against are permitted to fight back because they have been wronged, and Allah is able to help them. They were driven from their homes only for saying 'Our Lord is Allah'. Were it not for Allah checking some people by means of others, places of worship where His name is remembered would be destroyed. Those given power in the land will establish prayer, give zakāt, enjoin right and forbid wrong.",
+          "context": "Ibn Isḥāq, citing ʿUrwa b. al-Zubayr and other scholars, names these as the first verses permitting fighting (S0658). Verse: established; its exact moment: disputed.",
+          "grade": "established"
+        },
+        {
+          "ref": "2:193",
+          "gist": "Fight them until there is no more persecution and religion is for Allah; if they stop, there is no hostility except against wrongdoers.",
+          "context": "Ibn Isḥāq says this was revealed after 22:39–41 and explains it as ending the forcing of believers out of their faith (S0658). Verse: established.",
+          "grade": "established"
+        }
+      ],
+      "discover": [
+        {
+          "label": "Who are 'those given power in the land'?",
+          "reveal": {
+            "text": "Ibn Isḥāq says the believers who, once established in the land, would pray, give zakāt, enjoin right and forbid wrong are the Prophet ﷺ and his Companions.",
+            "grade": "supported",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0658"
+              }
+            ]
+          }
+        }
+      ],
+      "question": {
+        "kind": "recall",
+        "q": "On what grounds, according to Ibn Isḥāq's reading of 22:39–41, was fighting permitted?",
+        "options": [
+          {
+            "text": "Because the believers had been wronged and driven from their homes only for worshipping Allah",
+            "ok": true,
+            "why": "This is his own explanation of the verses.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0658"
+              }
+            ]
+          },
+          {
+            "text": "To gain the trade routes of Quraysh",
+            "ok": false,
+            "why": "Ibn Isḥāq gives wrongdoing and persecution as the reason, not trade.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0658"
+              }
+            ]
+          },
+          {
+            "text": "Because the Khazraj demanded it at ʿAqaba",
+            "ok": false,
+            "why": "When al-ʿAbbās b. ʿUbāda proposed fighting, the Prophet ﷺ refused because no command had come.",
+            "sources": [
+              {
+                "type": "ibn-hisham",
+                "sec": "S0627"
+              }
+            ]
+          }
+        ]
+      },
+      "matters": "A community that had been told to endure for thirteen years was now permitted to defend itself, and the permission came with its purpose: to end persecution and protect worship. The pledge at ʿAqaba had prepared the people who would carry it out.",
+      "sections": [
+        "S0658",
+        "S0633"
+      ]
+    }
+  ]
+}

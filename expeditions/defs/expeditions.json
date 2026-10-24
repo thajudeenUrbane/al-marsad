@@ -1,0 +1,171 @@
+{
+  "about": "Hand-written definitions of the expeditions. Everything here is either a pointer into the graph (event names as the claims write them, count-check keys), a gazetteer point with its source, a short name or date phrase copied from the text (allowed by the licence note in ontology/corpus/ibn-hisham-full.ttl), or a question. No fact is asserted here that the graph or the text does not carry. English renderings of Arabic phrases are AI drafts, unreviewed (maintainer answer S5).",
+  "places": {
+    "makkah":   {"name": "Makkah", "lat": 21.39132, "lon": 39.83612, "source": "al-Thurayya MAKKA_398E213N_S (CC BY 4.0)", "status": "proposed"},
+    "madinah":  {"name": "Madinah", "lat": 24.47782, "lon": 39.60908, "source": "al-Thurayya MADINA_396E244N_S (CC BY 4.0)", "status": "proposed"},
+    "mina":     {"name": "Minā", "lat": 21.35325, "lon": 39.93206, "source": "al-Thurayya (CC BY 4.0), toponym منى", "status": "proposed"},
+    "bayah":    {"name": "al-ʿAqaba (traditional site)", "lat": 21.424722, "lon": 39.8675, "source": "Wikidata Q12242709 P625; the mosque marks the traditional site, the text says only \"the ravine by al-ʿAqaba\"", "status": "proposed"},
+    "thawr":    {"name": "Ghār Thawr", "lat": 21.3768, "lon": 39.85, "source": "Wikidata, linked in ontology/corpus/external-coordinates.csv (exact link, proposed)", "status": "proposed"},
+    "usfan":    {"name": "ʿUsfān", "lat": 21.88079, "lon": 39.46144, "source": "al-Thurayya (CC BY 4.0), toponym عسفان, matched by name", "status": "proposed"},
+    "arj":      {"name": "al-ʿArj", "lat": 23.85851, "lon": 39.20944, "source": "al-Thurayya (CC BY 4.0), toponym العرج, matched by name", "status": "proposed"},
+    "quba":     {"name": "Qubāʾ", "lat": 24.439167, "lon": 39.617222, "source": "Wikidata Q276569 (Qubāʾ Mosque) P625", "status": "proposed"},
+    "badr":     {"name": "Badr", "lat": 23.72676, "lon": 38.80098, "source": "al-Thurayya BADR_388E237N_S (CC BY 4.0)", "status": "proposed"},
+    "uhud":     {"name": "Uḥud", "lat": 24.510278, "lon": 39.613889, "source": "Wikidata Q1436040 (Jabal Uḥud) P625, linked in external-coordinates.csv", "status": "proposed"},
+    "aksum":    {"name": "Aksum", "lat": 14.116667, "lon": 38.733333, "source": "Wikidata Q5832 P625, a candidate in external-coordinates.csv for al-Ḥabasha; the text names the land, not this city", "status": "proposed"}
+  },
+  "expeditions": [
+    {
+      "slug": "abyssinia",
+      "title": "The crossing to Abyssinia",
+      "short": "Abyssinia",
+      "era": "before the Hijra",
+      "anchor": "aksum",
+      "labels": ["makkah"],
+      "events": ["The emigration to Abyssinia", "The migration to Abyssinia and the Negus's protection"],
+      "date": null,
+      "no_date_note": "The text gives no date for the emigration, so no sky is drawn. Drawing one would need a date the text does not give.",
+      "cases": [{"type": "count", "keys": ["abyssinia_men"], "title": "Eighty-three men"}],
+      "notice": [
+        "The text gives no date here. What would you need before you could draw the sky of that crossing?",
+        "Makkah to this point is a long way. Which parts of that distance are known, and which are only computed?"
+      ]
+    },
+    {
+      "slug": "aqaba",
+      "title": "The night at al-ʿAqaba",
+      "short": "al-ʿAqaba",
+      "era": "the year before the Hijra",
+      "anchor": "bayah",
+      "labels": ["makkah", "mina"],
+      "events": ["The Second Pledge of al-Aqaba"],
+      "date": {
+        "hijri": {"year": 0, "month": 12, "day": 12},
+        "weekday": null,
+        "scene": "night-after",
+        "text_ar": "من أوسط أيام التشريق",
+        "text_en": "on the middle one of the days of tashrīq",
+        "find": "وواعدنا رسول الله صلى الله ~~عليه وسلم بالعقبة من أوسط أيام التشريق",
+        "claim_note": "In the passage, not yet extracted as a dated claim.",
+        "moment": {
+          "find": "حتى إذا مضى ثلث الليل",
+          "text_en": "when a third of the night had passed, we slipped out of our camp",
+          "fraction_of_night": 0.3333
+        }
+      },
+      "cases": [
+        {"type": "count", "keys": ["aqaba_second"], "title": "Seventy-three men and two women"},
+        {"type": "moment", "title": "A third of the night"}
+      ],
+      "notice": [
+        "They slipped out of the camp in secret. Would the moon have helped them hide, or given them away? Guess, then slide the time.",
+        "Minā and Makkah are both in view. How far did they walk that night?"
+      ]
+    },
+    {
+      "slug": "hijrah",
+      "title": "From Thawr to Qubāʾ",
+      "short": "The Hijrah",
+      "era": "year 1",
+      "anchor": "quba",
+      "labels": ["madinah", "uhud"],
+      "events": ["The Hijra of the Prophet ﷺ to Madinah"],
+      "date": {
+        "hijri": {"year": 1, "month": 3, "day": 12},
+        "weekday": "Monday",
+        "scene": "forenoon",
+        "text_ar": "لاثنتي عشرة ليلة خلت من شهر ربيع الأول يوم الاثنين، حين اشتد الضحاء، وكادت الشمس تعتدل",
+        "text_en": "twelve nights gone of Rabīʿ al-Awwal, on a Monday, when the forenoon heat grew strong and the sun had nearly reached its height",
+        "find": "لاثنتي عشرة ليلة خلت من شهر ~~ربيع الأول يوم الاثنين",
+        "event_for_claims": "The Hijra of the Prophet ﷺ to Madinah"
+      },
+      "route": {
+        "start": "thawr",
+        "find": "فلما خرج بهما دليلهما عبد الله بن أرقط",
+        "stages": [
+          {"ar": "أسفل مكة", "en": "below Makkah", "place": "makkah", "note": "the town's point; its lower part is not located"},
+          {"ar": "الساحل", "en": "the coast", "region": true},
+          {"ar": "أسفل من عسفان", "en": "below ʿUsfān", "place": "usfan", "claim_place": "ʿUsfān"},
+          {"ar": "أسفل أمج", "en": "below Amaj", "claim_place": "Amaj"},
+          {"ar": "قديد", "en": "Qudayd", "claim_place": "Qudayd"},
+          {"ar": "الخرار", "en": "al-Kharrār"},
+          {"ar": "ثنية المرة", "en": "Thaniyyat al-Marra"},
+          {"ar": "لقف", "en": "Liqf", "variant": "Lift (Ibn Hishām)"},
+          {"ar": "مدلجة لقف", "en": "Madlajat Liqf"},
+          {"ar": "مدلجة محاج", "en": "Madlajat Maḥāj", "variant": "Majāj (Ibn Hishām)"},
+          {"ar": "مرجح محاج", "en": "Marjiḥ Maḥāj"},
+          {"ar": "مرجح من ذي الغضوين", "en": "Marjiḥ of Dhū al-Ghaḍwayn", "variant": "al-ʿAḍwayn (Ibn Hishām)", "claim_place": "Marjiḥ of Dhū al-Ghaḍwayn"},
+          {"ar": "بطن ذي كشر", "en": "Baṭn Dhī Kashr", "claim_place": "Dhū Kashr"},
+          {"ar": "الجداجد", "en": "al-Jadājid"},
+          {"ar": "الأجرد", "en": "al-Ajrad"},
+          {"ar": "ذا سلم من بطن أعداء مدلجة تعهن", "en": "Dhū Salam, in the valley of Aʿdāʾ, Madlajat Taʿhin", "claim_place": "Dhū Salam"},
+          {"ar": "العبابيد", "en": "al-ʿAbābīd", "variant": "al-ʿAbābīb or al-ʿUthyāna (Ibn Hishām)"},
+          {"ar": "الفاجة", "en": "al-Fājja", "variant": "al-Qāḥa (Ibn Hishām)"},
+          {"ar": "العرج", "en": "al-ʿArj", "place": "arj", "claim_place": "al-ʿArj (2)", "voice": "Ibn Hishām"},
+          {"ar": "ثنية العائر عن يمين ركوبة", "en": "Thaniyyat al-ʿĀʾir, to the right of Rakūba", "variant": "al-Ghāʾir (Ibn Hishām)"},
+          {"ar": "بطن رئم", "en": "Baṭn Riʾm"},
+          {"ar": "قباء", "en": "Qubāʾ", "place": "quba"}
+        ]
+      },
+      "cases": [
+        {"type": "route", "title": "Twenty-two names, few points"},
+        {"type": "date", "title": "Which Monday?"}
+      ],
+      "notice": [
+        "The text names every stage of the road. How many of them do you think anyone can still place on a map? Guess before you look.",
+        "They arrived in the forenoon heat. Slide the time: when is the sun nearly at its height here?"
+      ]
+    },
+    {
+      "slug": "badr",
+      "title": "The eve of Badr",
+      "short": "Badr",
+      "era": "year 2",
+      "anchor": "badr",
+      "labels": ["madinah", "makkah"],
+      "events": ["Battle of Badr"],
+      "date": {
+        "hijri": {"year": 2, "month": 9, "day": 17},
+        "weekday": "Friday",
+        "scene": "eve-to-noon",
+        "text_ar": "يوم الجمعة صبيحة سبع عشرة من شهر رمضان",
+        "text_en": "on Friday, the morning of the seventeenth of Ramaḍān",
+        "find": "فكانت وقعة بدر يوم الجمعة صبيحة سبع عشرة من شهر رمضان",
+        "event_for_claims": "Battle of Badr"
+      },
+      "cases": [
+        {"type": "count", "keys": ["badr_emigrants", "badr_aws", "badr_khazraj", "badr_all"], "groups": {"badr_emigrants": "Emigrants", "badr_aws": "Aws", "badr_khazraj": "Khazraj"}, "title": "The 314"},
+        {"type": "date", "title": "Which Friday?"}
+      ],
+      "notice": [
+        "Before you move the time: on the night before the seventeenth of a lunar month, when do you expect the moon to rise?",
+        "Madinah and Makkah both lie outside this valley. Which way would each side have come from?"
+      ]
+    },
+    {
+      "slug": "uhud",
+      "title": "The morning at Uḥud",
+      "short": "Uḥud",
+      "era": "year 3",
+      "anchor": "uhud",
+      "labels": ["madinah", "quba"],
+      "events": ["Battle of Uḥud", "The Battle of Uḥud"],
+      "date": {
+        "hijri": {"year": 3, "month": 10, "day": 15},
+        "weekday": "Saturday",
+        "scene": "eve-to-noon",
+        "text_ar": "يوم السبت للنصف من شوال",
+        "text_en": "on Saturday, the middle of Shawwāl",
+        "find": "وكان يوم أحد يوم السبت للنصف من شوال",
+        "event_for_claims": "Battle of Uḥud"
+      },
+      "cases": [
+        {"type": "count", "keys": ["uhud_martyrs", "uhud_slain"], "title": "When the list agrees"},
+        {"type": "date", "title": "Which Saturday?"}
+      ],
+      "notice": [
+        "The mountain stands just north of the town. How close is it, in a straight line? Guess, then look at the card.",
+        "At Badr the list and the total disagreed. Do you expect the same here?"
+      ]
+    }
+  ]
+}
