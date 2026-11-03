@@ -228,6 +228,8 @@ step "ask: tests"                                  "$PY" -m unittest discover -s
 # The review queue file is written by "review: build the review pages" above.
 step "exhibition: figures match the data"         "$PY" exhibition/build.py --queue review/dist/queue.json --check
 step "exhibition: the walk and the printed page"  browser_check exhibition/check.cjs
+# The renders are made on a Mac (blender/README.md); CI only checks they still match the data.
+step "blender: renders match the data"            "$PY" blender/check_fresh.py
 step "ci: actions pinned to commit SHAs"           actions_pinned
 
 # --- summary ------------------------------------------------------------------

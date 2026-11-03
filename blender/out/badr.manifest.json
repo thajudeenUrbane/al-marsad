@@ -1,0 +1,53 @@
+{
+  "about": "Blender renders of the eve of Badr, made by blender/badr_eve.py from expeditions/dist/data and checked by blender/check_fresh.py. The data is the source; these files are drawn from it.",
+  "command": "/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup --python-exit-code 1 -P blender/badr_eve.py",
+  "blender": "5.2.3 LTS",
+  "inputs_sha256": "b332de5388067133149035e83313246da4fd4d5262653de11f95faf13a7f3a01",
+  "frame": {
+    "candidate": "tabular",
+    "day": "Tuesday 13 March 624",
+    "ut": "19:04",
+    "local_solar_time": "21:39",
+    "moon_alt_az": [
+      23.26,
+      105.27
+    ],
+    "sun_alt_az": [
+      -47.42,
+      295.29
+    ]
+  },
+  "outputs": {
+    "badr-eve.jpg": {
+      "sha256": "d6b16af16085daf12a8db0a0ef2f12bba8b0a91cb411a7cb3dd1181c62d25ae9",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "shows": "The valley of Badr seen from the west, the Moon and stars as computed, labels, and a provenance stamp.",
+      "classes": {
+        "attested": "the date the text gives, quoted in the stamp",
+        "computed": "the Moon, the stars, the moonlight and shadows, the ground (present-day elevation, heights 2.5 times), the directions to Madinah and Makkah",
+        "located": "Badr, a proposed gazetteer point",
+        "schematic": "the labels, the stamp, and the Moon's size (2 times)"
+      }
+    },
+    "badr-relief.png": {
+      "sha256": "ba1a662f92fbb2a33df9ae479617d66443da3565b35abefa8e313d8f42585f6f",
+      "pixels": [
+        960,
+        960
+      ],
+      "shows": "Grey relief of the terrain square, 22.392 km a side, north up, the top-left pixel at the north-west corner; lit from azimuth 315, altitude 45, with sky light.",
+      "classes": {
+        "computed": "present-day elevation, heights 2.5 times; the light is a convention, not the sky of any date"
+      }
+    }
+  },
+  "credits": [
+    "Terrain Tiles on AWS Open Data (Mapzen), from SRTM and other public sources: present-day elevation",
+    "Places: al-Thurayya Project, althurayya.github.io (CC BY 4.0)",
+    "HYG v4.1 (CC BY-SA 4.0), magnitude 4.9 or brighter, moved to 624 CE",
+    "astronomy-engine 2.1.19 (MIT); stars from HYG v4.1 (CC BY-SA 4.0); times UT, shown as local solar time"
+  ]
+}
